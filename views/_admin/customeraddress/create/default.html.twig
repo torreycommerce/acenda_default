@@ -1,0 +1,25 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% set id = app.request.path|integer %}
+{% if id == 0 %}
+    {% do app.redirect('/customeraddress') %}
+{% endif %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Customers':'/customer','Customer Details':'/customer/' ~ id, 'Create Address':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.customeraddress is not empty %}
+    {% set customeraddressdata = app.request.post.customeraddress + {customer_id:id} %}
+    {% set result = api.post('/customeraddress', customeraddressdata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/customer/' ~ id) %}
+{% endif %}
+{% set create = true %}
+{% include "/_admin/customeraddress/_partials/form.html.twig" %}
+{% endblock %}

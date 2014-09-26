@@ -1,0 +1,6 @@
+{% set token = app.request.path %}
+{% if token == '' %}
+    {% include '/_admin/import/_partials/step1.html.twig' %}
+{% else %}
+    {% include '/_admin/import/_partials/step2.html.twig' %}
+{% endif %}

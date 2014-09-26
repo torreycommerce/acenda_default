@@ -1,0 +1,12 @@
+{{ form.begin('shippingmethod','','post',{data:shippingmethod}) }}
+{{ form.select('status', '', {'active':'active','disabled':'disabled'}, {required:true}) }}
+{{ form.text('name', '', {required:true}) }}
+{{ form.text('bottom_days_range', '', {required:true, 'parsley-type':'number'}) }}
+{{ form.text('top_days_range', '', {required:true,'parsley-type':'number'}) }}
+{{ form.text('carrier_method', '', {required:true}) }}
+{% if create %}
+{{ form.submit('Create') }}
+{% else %}
+{{ form.submit('Save') }}
+{% endif %}
+{{ form.end() }}

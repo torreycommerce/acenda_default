@@ -1,0 +1,53 @@
+
+<h1>Edit Product Review <small>{{product.name}}</small></h1>
+<div class="panel gray">
+    <div class="panel-heading">
+        <h4>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            </ul>
+        </h4>
+    </div>
+    
+    <div class="panel-body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="details">
+            {{form.begin('review','','POST',{data: review}) }}
+                <fieldset>
+                    <legend>Status</legend>
+                    <div class="col-lg-7">
+                         {{ form.hidden('customer_id',review.customer_id) }}
+                         {{ form.select('status', review.status, {'active':'Active','disabled':'Disabled','pending':'Pending'}) }}                        
+                    </div>
+                </fieldset>               
+          
+                <fieldset>
+                    <legend>Identity</legend>
+                    <div class="col-lg-7">
+                        {{ form.text('first_name','',{'required':true}) }}
+                        {{ form.email('email','',{'required':true}) }}
+                        {{ form.text('city','',{'required':true}) }}
+                        {{ form.text('state','',{'required':true}) }}                                                   
+                                  
+                    </div>
+                </fieldset>            
+                <fieldset>
+                    <legend>Review Text</legend>
+                    <div class="col-lg-7">
+
+                        {{ form.text('title','',{'required':true}) }}
+                        {{ form.textarea('comment','',{'required':true,'escape':false,'rows':6,'cols':40}) }}                    
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Ratings</legend>
+                    <div class="col-lg-7">
+                        {{ form.rating('score','','fa fa-star') }}                    
+                        {{ form.submit('Save') }}
+                    </div>
+                </fieldset>
+            {{ form.end() }}
+            </div>
+        </div>
+    </div>
+</div>

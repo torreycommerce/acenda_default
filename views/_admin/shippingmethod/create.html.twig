@@ -1,0 +1,21 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Shipping Methods':'/shippingmethod','Create new shipping method':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.shippingmethod is not empty %}
+    {% set shippingmethoddata = app.request.post.shippingmethod %}
+    {% set result = api.post('/shippingmethod', shippingmethoddata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/shippingmethod/') %}
+{% endif %}
+{% set create = true %}
+{% include "/_admin/shippingmethod/_partials/form.html.twig" %}
+{% endblock %}

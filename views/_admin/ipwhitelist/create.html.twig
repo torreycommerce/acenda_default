@@ -1,0 +1,21 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'IP Whitelist':'/ipwhitelist','Create new whitelisted IP':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.ipwhitelist is not empty %}
+    {% set ipwhitelistdata = app.request.post.ipwhitelist %}
+    {% set result = api.post('/ipwhitelist', ipwhitelistdata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/ipwhitelist/') %}
+{% endif %}
+{% set create = true %}
+{% include "/_admin/ipwhitelist/_partials/form.html.twig" %}
+{% endblock %}

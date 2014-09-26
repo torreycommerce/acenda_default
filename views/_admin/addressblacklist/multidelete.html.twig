@@ -1,0 +1,3 @@
+{% for id in app.request.post.multi %}
+    {% set result = api.delete('/addressblacklist/' ~ id) %}
+{% endfor %}

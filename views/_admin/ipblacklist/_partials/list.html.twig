@@ -1,0 +1,27 @@
+{% set model = 'ipblacklist' %}
+
+{% set title = 'IP Blacklist' %}
+{% set editUrl = '/ipblacklist/{id}' %}
+{% set newUrl = '/ipblacklist/create' %}
+
+{% set defaultSort    = 'id:1' %}
+{% set listColumns    = ['id','ip','date_modified'] %}
+{% set listFormatting = {'date_modified':'date'} %}
+{% set listActions    = {'delete':'/siteapi/ipblacklist/{id}','actions':{'delete':'multiDelete'}} %}
+
+{# Begin template - Do not edit below #}
+
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({(title):'/' ~ model}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "/_admin/_partials/list-page.html.twig" %}
+{% endblock %}

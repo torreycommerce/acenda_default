@@ -1,0 +1,30 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% import "/_admin/_macros/form-elements.html.twig" as form %}
+
+{% block title %}
+    Import
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Import':'/import', 'Select fields':''}) }}
+{% endblock %}
+
+{% block content %}
+    <h1>Import</h1>
+    <h2>Select fields to import for model</h2>
+
+    {{ form.begin('import', 'final') }}
+        <legend>Type in the field name that you want to use when importing this data, or leave it blank to skip importing a column.</legend>
+    {% set response = api.post('/import/headers/' ~ app.request.path).array %}
+    {% for field in response['headers'] if field != 'id' and field != 'date_created' and field != 'date_modified' %}
+    <p>
+    Field name in CSV: <b>{{ field }}</b><br>
+    Match existing models by this field: <input type="checkbox" name="import[{{field}}][match]"><br>
+    Field name in model: {{ form.text(field ~ '[name]', field, {input_only:true}) }}<br>
+    </p>
+    {% endfor %}
+    <input type="hidden" name="token" value="{{app.request.path}}">
+    {{ form.submit('Process import') }}
+    {{ form.end() }}
+{% endblock %}

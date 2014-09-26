@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-md-9 col-offset-3">
+        {% if fraud_results is empty %}
+        Fraud check has not been run or has failed for this order.
+        {% else %}
+        <table class="table">
+            <thead>
+                <tr><td>Name</td><td>Result</td></tr>
+            </thead>
+            <tbody>
+            {% for name,result in fraud_results %}
+            <tr><td>{{ name }}</td><td>{{ result }}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>

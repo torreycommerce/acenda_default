@@ -1,0 +1,42 @@
+{{ form.begin('registry', '', 'post', {data:registry}) }}
+Registry Info
+<hr/>
+{{ form.text('event name', registry.name,{required:true}) }}
+{{ form.select('privacy', '',{'public':'Public','private':'private'}) }}
+{{ form.date('event_date',registry.event_date,{required:true}) }}
+{% set address_select = {} %}
+{% for address in addresses %}
+    {% set address_select = address_select + {(address.id):(address.one_line)} %}
+{% endfor %}
+{{ form.select('address_id', registry.address_id, address_select,{'label':'Shipping Address'}) }}
+<hr/>
+Registrant Info
+<hr/>
+{{ form.text('first_name',registry.first_name,{required:true}) }}
+{{ form.text('last_name',registry.last_name,{required:true}) }}
+<hr/>
+Co-Registrant Info
+<hr/>
+{{ form.text('co_first_name',registry.co_first_name,{'label':'First Name'}) }}
+{{ form.text('co_last_name',registry.co_last_name,{'label':'Last Name'}) }}
+<hr/>
+<div class="row">
+    <div class="col-md-12">
+        <div id="items" class="panel">
+            <div class="panel-heading">
+                Items
+            </div>
+            <div class="panel-body">
+                {% include "/_admin/registry/_partials/items.html.twig" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% set items = api.get('/registryitem', {query:{registry_id:registry.id}}) %}
+{% if (registry.default != 1) %}
+    Settings
+    <hr/>
+    {{ form.checkbox('make_default', 0,{'label':'Make default registry'}) }}
+{% endif %}
+{{ form.actions() }}
+{{ form.end() }}

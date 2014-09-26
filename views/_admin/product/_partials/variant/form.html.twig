@@ -1,0 +1,94 @@
+{% set shipping_estimate = api.get('/variant',
+        {
+            'attributes':['inventory_shipping_estimate'],
+            'format':'attributes',
+            'cache':3000
+        }).inventory_shipping_estimate
+%}
+
+{{ form.begin('variant') }}
+    {{ form.disableEnterSubmit() }}
+    {{ form.text('name', variant.name) }}
+    {{ form.text('sku', variant.sku) }}
+    {{ form.text('barcode', variant.barcode) }}
+    <hr />
+    {{ form.money('price', variant.price) }}
+    {{ form.money('compare_price', variant.compare_price) }}
+    {{ form.money('cost', variant.cost) }}
+    <hr />
+    {% include "/_admin/product/_partials/attributes-form.html.twig" with {'form':form} %}
+
+
+    {{ form.number('inventory_quantity', variant.inventory_quantity, 
+        {
+        'help':'<a href="#stock_options" data-modal="true">Stock Options</a>'
+        }
+    ) }}
+
+    <hr />
+
+    {{ form.checkbox('require_shipping', variant.require_shipping, 
+        {
+            'label':'Requires Shipping'
+        }
+    ) }}
+    {{ form.checkbox('discountable', variant.discountable, 
+        {
+            'label':'Allow Discounts'
+        }
+    ) }}
+    {{ form.checkbox('taxable', variant.taxable, 
+        {
+            'label':'Taxable'
+        }
+    ) }}
+    <hr />
+
+    {{ form.imageuploader('images','product',variant.images) }}
+    <hr />
+    {{ form.number('position', variant.position) }}
+    {{ form.select('status', variant.status, {'active':'Active','disabled':'Disabled','removed':'Removed'}, {'help':"Note that setting the status to \"Disabled\" manually can be overwriten by the inventory policy."}) }}    
+
+    <hr />
+    {{ form.submit('save') }}
+{{ form.end() }}
+
+{% set content %}
+    {{ form.begin('variant') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Stock Options</h2>
+        <hr />
+        {{ form.checkbox('inventory_tracking', variant.inventory_tracking, 
+            {
+                'label':'Track Stock',
+                'help':'Automatically adjusts stock when a order is placed, canceled, or returned.'
+            }
+        ) }}
+        {{ form.select('inventory_policy', variant.inventory_policy|default("deny"), 
+            {
+                'deny':'Deny customers from ordering item', 
+                'continue':'Allow orders when out of stock',
+                'disable':'Disable item when out of stock'
+            }, 
+            {
+                'label':'Inventory Policy'
+            }
+        ) }}
+        {{ form.number('inventory_minimum_quantity', variant.inventory_minimum_quantity|default("0"), 
+            {
+                'label':'Minimum Quantity'
+            }
+        ) }}
+        {{ form.typeahead('inventory_shipping_estimate', variant.inventory_shipping_estimate, '', '', shipping_estimate|keys, {'label':'Backorder Estimate','placeholder':'Backorder Estimate Message'}) }}
+        {{ form.checkbox('inventory_returnable', variant.inventory_returnable, 
+            {
+                'label':'Returnable'
+            }
+        ) }}
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("stock_options", content) }}

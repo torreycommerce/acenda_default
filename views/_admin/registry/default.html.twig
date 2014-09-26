@@ -1,0 +1,25 @@
+{% if app.request.path is empty %}
+    {% include '/_admin/registry/_partials/list.html.twig' %}
+{% else %}
+    {% set request = app.request.path|split('/') %}
+    {% set registry_id = request[0] | integer %}
+    {% if registry_id and not app.request.get.id %}
+        {% set registries = api.get('/registry',{'query':{'id':registry_id}}) %}
+        {% set registry = registries.0 %}
+        {% set id = registry.id %}
+    {% elseif app.request.get.id %}
+        {% set id = app.request.get.id | integer %}
+    {% endif %}
+
+    {% if id is not integer or id == 0 %}
+        {% do app.redirect('/registry') %}
+    {% endif %}
+
+    {% if request.1 is empty %}
+        {% include '/_admin/registry/_partials/edit.html.twig' %}
+    {% elseif request.1 == 'print' %}
+        {% include '/_admin/registry/_partials/print.html.twig' %}
+    {% else %}
+        {% do app.redirect('/registry') %}
+    {% endif %}
+{% endif %}

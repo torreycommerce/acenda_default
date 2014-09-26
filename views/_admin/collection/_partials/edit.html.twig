@@ -1,0 +1,53 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% if create == false %}
+    {% set collection = api.get('/collection/' ~ id) %}
+    {% if collection.id is empty %}
+        {% do app.redirect('/collection',{'error':'Collection not found.'}) %}
+    {% endif %}
+{% endif %}
+
+{% if app.request.post.collection is not empty %}
+    {% set product_ids = app.request.post.collection.product_ids %}
+    {% set post_data = app.request.post.collection|merge({'product_ids':null}) %}
+
+    {% if create == true %}
+        {% set id = api.post('/collection', post_data) %}
+        {% set success = id != false %}
+    {% else %}
+        {% if app.request.post.collection.delete is not empty %}
+            {% set success = api.delete('/collection/' ~ id) %}
+        {% else %}
+            {% set success = api.put('/collection/' ~ id, post_data) %}
+        {% endif %}
+    {% endif %}
+    {% if success %}
+        {% if product_ids is not empty %}
+            {% set products = api.get('/product',{'query':{'id':{'$in':product_ids|split(',')}}}) %}
+            {% for item in products %}
+                {% set ids = item.collection_id is not empty ? item.collection_id|merge([(id)]) : id %}
+                {% do api.put('/product/' ~ item.id, {'collection_id': ids}) %}
+            {% endfor %}
+        {% endif %}
+        {% set referer = app.request.post.referer is not empty ? app.request.post.referer : '/collection' %}
+        {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+        {% do app.redirect(referer,{
+                'success':'<a href="'~  app.url ~ '/collection/' ~ id ~'">' ~ app.request.post.collection.name ~ ' Collection</a> successfully updated.'}
+        ) %}
+    {% endif %}
+{% endif %}
+
+{% block title %}
+    Collection Admin
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Collections':'/collection','Edit Colletion':''}) }}
+{% endblock %}
+
+{% block content %}
+    <h1>{% if id is not empty %}{{collection.name}}{% else %}New Collection{% endif %}</h1>
+    <hr />
+    {% include "/_admin/collection/_partials/form.html.twig" %}
+{% endblock %}

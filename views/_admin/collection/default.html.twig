@@ -1,0 +1,16 @@
+{% if app.request.path is empty %}
+    {% include '/_admin/collection/_partials/list.html.twig' %}
+{% elseif app.request.path == 'create' %}
+    {% set create = true %}
+    {% include '/_admin/collection/_partials/edit.html.twig' %}
+{% else %}
+    {% set request = app.request.path|split('/') %}
+    {% if request.0|integer == 0 %}
+        {% do app.redirect('/collection',{'error':'Collection not found.'}) %}
+    {% elseif request|length == 1 %}
+        {% set id = app.request.path|integer %}
+        {% include '/_admin/collection/_partials/edit.html.twig' %}
+    {% else %}
+        {% do app.redirect('/collection',{'error':'Collection not found.'}) %}
+    {% endif %}
+{% endif %}

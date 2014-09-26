@@ -1,0 +1,4 @@
+{% set id = app.request.path|integer %}
+{% if id != 0 %}
+    {% include '/_admin/snapshot/_partials/view.html.twig' %}
+{% endif %}

@@ -1,0 +1,117 @@
+{{ form.begin('collection') }}
+{{ form.disableEnterSubmit() }}
+{% set jsdata = [] %}
+
+{% set products = api.get('/product',{'query':{'collection_id':id},'elastic':false,'limit':100,'attributes':['name','title','id','thumbnail','status']}) %}
+
+{% set layout = collection.layout is not empty ? collection.layout : [{'name':'','items':products|values_in('id')}] %}
+
+{% for item in layout %}
+    {% set jsdata = jsdata|merge([{
+        'name':item.name,
+        'items':products|find({'id':item.items})
+    }]) %}
+{% endfor %}
+{% set script %}
+    layoutData = {{jsdata|json_encode}};
+{% endset %}
+{% do app.asset.script('product_layout_data', script) %}
+{% set script %}
+    updatedata = function() {
+        var sort = [];
+        $(".sort-group").each(function() {
+            var name = $(this).find('input').val();
+            var items = new Array();
+            $(this).find(".sort-item").each(function() {
+                items.push($(this).find("input").val());
+            });
+
+            sort.push({'name':name,'items':items});
+        });
+        $("#layout").val(JSON.stringify(sort));
+    }
+    addone = function() {
+        ele = $('.sort-group-default').clone();
+        ele.removeClass('sort-group-default');
+        ele.addClass('sort-group');
+        ele.css('display','block');
+        ul  = ele.find('ul');
+        ul.find('li').remove();
+        $("#collection_product_sort").prepend(ele);
+
+        $( ".dropgroup" ).sortable("refresh");
+        $( ".dropitem" ).sortable({
+          connectWith: "ul.dropitem",
+          stop: updatedata
+        });
+
+        return false;
+    }
+
+    $(function () {
+        layoutData.forEach(function(entry) {
+            ele = $('.sort-group-default').clone();
+            ele.removeClass('sort-group-default');
+            ele.addClass('sort-group');
+            ele.css('display','block');
+            ele.find('input').val(entry.name);
+            ul  = ele.find('ul');
+            ul.find('li').remove();
+
+            entry.items.forEach(function(entry) {
+                prd = $('.sort-group-default .list-group-item').clone();
+                if(entry.status != 'active') {
+                    entry.title += ' (' +entry.status+ ') '
+                }
+                if(!entry.thumbnail) {
+                    entry.thumbnail = '{{product.thumbnail}}';
+                }
+                prd.find('img').attr('src',entry.thumbnail);
+                prd.find('input').val(entry.id);
+                prd.find('.product-name').html(entry.title);
+                prd.find('a').attr('href','{{app.url}}/product/'+entry.id);
+                ul.append(prd);
+            });
+
+
+            $("#collection_product_sort").append(ele);
+            $("#layout").val(JSON.stringify(layoutData));
+        });
+        $( ".dropgroup" ).sortable({
+            connectWith: "ul.dropgroup",
+            stop: updatedata,
+        });
+        $( ".dropitem" ).sortable({
+            connectWith: "ul.dropitem",
+            stop: updatedata
+        });
+    });
+{% endset %}
+{% do app.asset.script('collection_product_sort', script) %}
+<div class="form-group">
+    <a href="#" onclick="return addone();" class="btn btn-success">Add Product Group</a>
+</div>
+<ul id="collection_product_sort" class="list-group dropgroup" style="min-height:50px">
+    <li class="list-group-item sort-group-default panel panel-gray" style="display:none">
+        <div class="form-group">
+            <div class="col-sm-6"> 
+                <div class="input-group">
+                    <span class="input-group-addon" style="background:none;border:none;"><i class="fa fa-arrows"></i></span>
+                    <input type="text" name="" style="border:none;border-bottom:1px dotted #ccc" class="form-control product-group-name nput-lg" value="" placeholder="Group Title" onchange="updatedata();">
+                    
+                </div>
+            </div>
+        </div>
+        <ul class=" list-group dropitem" style="margin-left:3em;min-height:50px">
+            <li class="list-group-item sort-item">
+                <input type="hidden" name="" value="" />
+                <img src="" height="40" />&nbsp;&nbsp;<span class="product-name"></span>
+                <a class="pull-right" target="_blank" href=""><i class="fa fa-external-link"></i></a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<textarea id="layout" name="collection[layout]" style="display:none"></textarea>
+<hr />
+{{ form.submit('save') }}
+{{ form.end() }}

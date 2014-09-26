@@ -1,0 +1,8 @@
+{% set id = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
+{% if id == 0 %}
+    {% include '/_admin/return/_partials/list.html.twig' %}
+{% else %}
+    {% set return = api.get('/orderreturn/' ~ id) %}
+    {% do app.redirect('/order/' ~ return.order_id ~ '#returns') %}
+{% endif %}

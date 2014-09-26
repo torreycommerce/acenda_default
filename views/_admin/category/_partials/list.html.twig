@@ -1,0 +1,34 @@
+
+{% set model = 'category' %}
+
+{% set title = 'Categories' %}
+{% set editUrl = '/category/{id}' %}
+{% set newUrl = '/category/create' %}
+
+{% set defaultFilters = { 
+    'active':{'name':'active','query':'status:active'}, 
+    'disabled':{'name':'disabled','query':'status:disabled'} 
+    }
+%}
+
+{% set defaultSort    = 'slug:1' %}
+{% set listColumns    = ['name','slug','position','status','date_modified'] %}
+{% set listFormatting = {'price':'money', 'date_modified':'date', 'publish':'yes-no'} %}
+
+{# Begin template - Do not edit below #}
+
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({(title):'/' ~ model}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "/_admin/_partials/list-page.html.twig" %}
+{% endblock %}
+

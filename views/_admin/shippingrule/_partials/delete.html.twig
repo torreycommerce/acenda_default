@@ -1,0 +1,8 @@
+{% set shippingrule = api.get('/shippingrule/' ~ id) %}
+{% set result = api.delete('/shippingrule/' ~ id) %}
+{% if result %}
+    {% do app.user.setFlash('Action performed successfully.') %}
+{% else %}
+    {% do app.user.setFlash('Error while performing action.', 'danger') %}
+{% endif %}
+{% do app.redirect('/shippingmethod/' ~ shippingrule.method_id) %}

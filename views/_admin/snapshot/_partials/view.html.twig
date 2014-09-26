@@ -1,0 +1,153 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+<link rel="stylesheet" href="{{ app.url }}/css/orders.css">
+{% endblock %}
+{% set snapshot = api.get('/ordersnapshot/' ~ id) %}
+{% set decoded = snapshot.decoded %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Orders':'/order','Order Details':'/order/' ~ snapshot.order_id, 'View Snapshot':''}) }}
+{% endblock %}
+{% block content %}
+<div class="alert alert-info">You're viewing a previous snapshot of this order. <a href="{{ app.url }}/order/{{ decoded.order_number }}">Go back</a></div>
+{% set previous_snapshot = api.get('/ordersnapshot/', {query: {'id': {'$lt': snapshot.id}, 'order_id':snapshot.order_id}, sort: {'id':-1}}).0 %}
+{% if previous_snapshot.id is not defined %}
+    {% set previous_disabled = true %}
+{% endif %}
+{% set next_snapshot = api.get('/ordersnapshot/', {query: {'id': {'$gt': snapshot.id}, 'order_id':snapshot.order_id}, sort: {'id':1}}).0 %}
+{% if next_snapshot.id is not defined %}
+    {% set next_disabled = true %}
+{% endif %}
+<a href="{{app.url}}/snapshot/{{previous_snapshot.id}}" class="btn btn-default" {% if previous_disabled %}disabled{% endif %}><i class="fa fa-backward"></i> Previous Snapshot</a>
+<a href="{{app.url}}/snapshot/{{next_snapshot.id}}" class="btn btn-default" {% if next_disabled %}disabled{% endif %}><i class="fa fa-forward"></i> Next Snapshot</a>
+<button onclick="$('#order-details').printThis();return false;" class="btn btn-primary pull-right"><i class="fa fa-print"></i> Print <span class="hidden-xs hidden-sm">Snapshot</span></button>
+<div id="order-details">
+    <div class="row">
+        <h1>
+            <div class="col-md-4">Order Admin - #{{ decoded.order_number }}</div>
+            <div class="col-md-4 pagination-centered">{{ decoded.date_created }}
+            </div>
+            <div class="col-md-4">
+                <div class="pull-right">
+                    Total: ${{ decoded.total }}
+                </div> 
+            </div>
+        </h1>
+    </div>
+    <hr>
+    {#<a href="#" class="btn"><i class="icon-print"></i> Print</a>#}
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Billing Address</h2>
+            <address>
+                <strong>{{ decoded.billing_first_name }} {{ decoded.billing_last_name }}</strong><br>
+                    {{ decoded.billing_street_line1 }}<br>
+                    {% if decoded.billing_street_line2 %}{{ decoded.billing_street_line2 }}<br>{% endif %}
+                    {% if decoded.billing_company %}{{ decoded.billing_company }}<br>{% endif %}
+                    {{ decoded.billing_city }}, {{ decoded.billing_state }} {{ decoded.billing_zip }}<br>
+                    {{ decoded.billing_country }}<br>
+                    {% if decoded.billing_street_line2 == '' %}<br>{% endif %}
+                    {% if decoded.billing_company == '' %}<br>{% endif %}
+            </address>
+        </div>
+        <div class="col-md-4">
+            <h2>Administrative Information</h2>
+            Transaction ID: {{ decoded.transaction_id }}<br>
+            Transaction type: {{ decoded.transaction_type }}<br>
+            Transaction status: {{ decoded.transaction_status }}<br>
+            {% if decoded.card_type is not empty %}
+            {{ decoded.card_type|capitalize }} x-{{ decoded.card_last4 }}<br>
+            {% endif %}
+            <div class="fraud-score">
+                <strong>Fraud Score:</strong> {{ decoded.fraud_score }}
+            </div>
+            <div class="order-frame-label">Administrative Tools</div>
+        </div>
+        <div class="col-md-4">
+            <h2>Shipping Address</h2>
+            <address>
+                <strong>{{ decoded.shipping_first_name }} {{ decoded.shipping_last_name }}</strong><br>
+                    {{ decoded.shipping_street_line1 }}<br>
+                    {% if decoded.shipping_street_line2 %}{{ decoded.shipping_street_line2 }}<br>{% endif %}
+                    {% if decoded.shipping_company %}{{ decoded.shipping_company }}<br>{% endif %}
+                    {{ decoded.shipping_city }}, {{ decoded.shipping_state }} {{ decoded.shipping_zip }}<br>
+                    {{ decoded.shipping_country }}<br>
+                    {% if decoded.shipping_street_line2 == '' %}<br>{% endif %}
+                    {% if decoded.shipping_company == '' %}<br>{% endif %}
+            </address>
+        </div>
+    </div>
+    <div class="row bottom-padded">
+        <div class="col-md-12">
+            <h2>Invoice</h2>
+            {% set items = decoded.items %}
+            {% set product_ids = [] %}
+            {% for item in items %}
+                {% set product_ids = product_ids|merge([item.product_id]) %}
+            {% endfor %}
+            {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+
+            {% if items is not empty %}
+            <table class="table">
+                <thead>
+                    <tr><strong><td></td><td>Status</td><td>Name</td><td>Price</td><td>Quantity</td><td>Tracking Number</td><td></td></strong></tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                <tr><td>
+                <a href="{{ products[item.product_id][0].url }}" class="thumbnail">
+                    <img src='{{ products[item.product_id][0].thumbnail }}' width="100">
+                </a>
+        </td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.tracking_number }}</td></tr>
+                {% endfor %}
+                <tr><td></td><td>Shipping</td><td>{{ decoded.shipping_rate }}</td><td></td></tr>
+                <tr><td></td><td>Tax</td><td>{{ decoded.tax }}</td><td></td></tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    {% set coupons = decoded.coupons %}
+    {% if coupons is not empty %}
+    <div class="row bottom-padded">
+        <div class="col-md-9 col-offset-3">
+            <h2>Coupons</h2>
+            <table class="table">
+                <thead>
+                <tr><td>Code</td><td>Discount</td></tr>
+                </thead>
+                <tbody>
+                {% for coupon in coupons %}
+                    <tr><td>{{ coupon.code }}</td><td>${{ coupon.discount }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% set returns = decoded.returns %}
+    {% if returns is not empty %}
+    <div class="row bottom-padded">
+        <div class="col-md-9 col-offset-3">
+            <h2>Returns</h2>
+            <table class="table">
+                <thead>
+                <tr><td>RMA</td><td>Item</td><td>Quantity</td></tr>
+                </thead>
+                <tbody>
+                {% for return in returns %}
+                    {% set item = api.get('/orderitem/' ~ return.item_id) %}
+                    <tr><td>{{ return.rma }}</td><td>{{ item.name }}</td><td>{{ return.quantity }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

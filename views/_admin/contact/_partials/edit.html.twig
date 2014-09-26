@@ -1,0 +1,28 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% import "/_admin/_macros/form-elements.html.twig" as form %}
+{% set contact = api.get('/contact/' ~ id) %}
+
+{% if contact.id is empty %}
+    {% do app.redirect('/contact') %}
+{% endif %}
+
+{% block title %}
+    Edit Product
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Contact Emails':'/contact','Edit Contact Email':''}) }}
+{% endblock %}
+
+{% block content %}
+    {% if app.request.post.contact is not empty %}
+        {% if api.put('/contact/' ~ id, app.request.post.contact) %}
+            {% set referer = app.request.post.referer %}
+            {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+            {% do app.redirect(referer) %}
+        {% endif %}
+    {% endif %}
+
+    {% include "/_admin/contact/_partials/form.html.twig" %}
+{% endblock %}

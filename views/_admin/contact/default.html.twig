@@ -1,0 +1,6 @@
+{% set id = app.request.path|integer %}
+{% if id == 0 %}
+    {% include '/_admin/contact/_partials/list.html.twig' %}
+{% else %}
+    {% include '/_admin/contact/_partials/edit.html.twig' %}
+{% endif %}

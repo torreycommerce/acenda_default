@@ -1,0 +1,30 @@
+
+<h1>Edit Contact Email <small>{{contact.name}}</small></h1>
+<div class="panel gray">
+    <div class="panel-heading">
+        <h4>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+            </ul>
+        </h4>
+    </div>
+    
+    <div class="panel-body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="details">
+            {{form.begin('contact','','POST',{data: contact}) }}            
+                <fieldset>
+                    <legend></legend>
+                    <div class="col-lg-7">
+                        {{ form.email('email',contact.email) }}
+                        {{ form.text('subject',contact.subject,{required:true}) }}
+                        <hr>
+                        {{ form.textarea('message',contact.message) }}                    
+                        {{ form.submit('save') }}
+                    </div>
+                </fieldset>
+            {{ form.end() }}
+            </div>
+        </div>
+    </div>
+</div>

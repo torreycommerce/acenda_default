@@ -1,0 +1,32 @@
+
+{% set model = 'productreview' %}
+
+{% set title = 'Product Reviews' %}
+{% set editUrl = '/product-review/{id}' %}
+
+{% set defaultFilters = { 
+    'active':{'name':'active','query':'status:active'}, 
+    'disabled':{'name':'disabled','query':'status:disabled'} 
+    }
+%}
+
+{% set defaultSort    = 'date_created:-1' %}
+{% set listColumns    = ['product_id','product_name','status','date_created'] %}
+{% set listFormatting = {} %}
+
+{# Begin template - Do not edit below #}
+
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({(title):'/' ~ model}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "/_admin/_partials/list-page.html.twig" %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% macro address(name) %}
+{% spaceless %}
+    {% import "/_admin/_macros/form-elements.html.twig" as forms %}
+    {% if name is not empty %}
+        {% set name = name ~ '_' %}
+    {% endif %}
+    {{ forms.text(name ~ 'first_name', '', {'label':'First Name', 'placeholder':'First Name', 'parsley-notblank':'true','required':true})}}
+    {{ forms.text(name ~ 'last_name', '', {'label':'Last Name', 'placeholder':'Last Name', 'parsley-notblank':'true', 'required':true}) }}
+    {{ forms.text(name ~ 'street_line1', '', {'label':'Street Line 1', 'placeholder':'Street Line 1', 'parsley-notblank':'true', 'required':true}) }}
+    {{ forms.text(name ~ 'street_line2', '', {'label':'Street Line 2', 'placeholder':'Street Line 2'}) }}
+    {{ forms.text(name ~ 'city', '', {'label':'City', 'placeholder':'City', 'parsley-notblank':'true', 'required':true}) }}
+    {{ forms.text(name ~ 'zip', '', {'label':'Zip Code', 'placeholder':'Zip Code', 'required':true}) }}
+    {{ forms.text(name ~ 'state', '', {'label':'State/Province', 'placeholder':'State/Province', 'parsley-type':'alphanum', 'required':true}) }}
+    {{ forms.text(name ~ 'country', '', {'label':'Country', 'placeholder':'Country', 'parsley-type':'alphanum', 'required':true}) }}
+    {{ forms.text(name ~ 'phone_number', '', {'label':'Phone Number', 'placeholder':'Phone Number','parsley-type':'phone', 'required':true}) }}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro address_nv(name) %}
+{% spaceless %}
+    {% import "/_admin/_macros/form-elements.html.twig" as forms %}
+    {% if name is not empty %}
+        {% set name = name ~ '_' %}
+    {% endif %}
+    {{ forms.text(name ~ 'first_name', '', {'label':'First Name', 'placeholder':'First Name'})}}
+    {{ forms.text(name ~ 'last_name', '', {'label':'Last Name', 'placeholder':'Last Name'}) }}
+    {{ forms.text(name ~ 'street_line1', '', {'label':'Street Line 1', 'placeholder':'Street Line 1'}) }}
+    {{ forms.text(name ~ 'street_line2', '', {'label':'Street Line 2', 'placeholder':'Street Line 2'}) }}
+    {{ forms.text(name ~ 'city', '', {'label':'City', 'placeholder':'City'}) }}
+    {{ forms.text(name ~ 'zip', '', {'label':'Zip Code', 'placeholder':'Zip Code'}) }}
+    {{ forms.text(name ~ 'state', '', {'label':'State/Province', 'placeholder':'State/Province'}) }}
+    {{ forms.text(name ~ 'country', '', {'label':'Country', 'placeholder':'Country'}) }}
+    {{ forms.text(name ~ 'phone_number', '', {'label':'Phone Number', 'placeholder':'Phone Number'}) }}
+{% endspaceless %}
+{% endmacro %}

@@ -1,0 +1,37 @@
+{{ form.begin('coupon','','post',{data:coupon}) }}
+{{ form.textarea('codes', '', {required:true}) }}
+
+<div class="form-group">
+    <label for="coupon_number" class="col-lg-4 col-sm-3 col-xs-12 control-label">Number to Generate</label>
+    <div class="col-lg-4 col-sm-3 col-xs-8">
+        <input type="number" id="coupon_number" value="" class="form-control" label="Number to Generate" placeholder="1" attributes="">
+    </div>
+    <div class="col-lg-2 col-sm-6">
+        <button class="btn btn-default" id="generate">Generate</button>
+    </div>
+</div>
+<hr />
+{{ form.datetime('date_begins','',{required:true}) }}
+{{ form.datetime('date_expires','', {'parsley-afterdate':'#coupon_date_begins'}) }}
+{{ form.text('number_uses','',{placeholder:'∞', 'parsley-type':'digits'}) }}
+<hr />
+{{ form.select('status','',{'disabled':'Disabled','active':'Active'}) }}
+<hr />
+{{ form.checkbox('global',false, {'label':'Is a global discount (will be applied to all carts)'}) }}
+{% if create %}
+{{ form.checkbox('single',true, {'label':'Cannot be used with other coupons'}) }}
+{% set coupons = api.get('/coupon') %}
+{% set coupons_array = {'':'Please select a coupon'} %}
+{% for coupon in coupons %}
+    {% set coupons_array = coupons_array + {(coupon.coupon_id):coupon.code} %}
+{% endfor %}
+<hr />
+{% if coupons_array.1 is not empty %}
+    {{ form.select('clone','', coupons_array, {label:"Clone a coupon's rules"}) }}
+{% endif %}
+{{ form.submit('Create') }}
+{% else %}
+{{ form.checkbox('single', false, {'label':'Cannot be used with other coupons'}) }}
+{{ form.submit('Save') }}
+{% endif %}
+{{ form.end() }}

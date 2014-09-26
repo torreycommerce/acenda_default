@@ -1,0 +1,32 @@
+{% set model = 'content' %}
+
+{% set title = 'Content pages' %}
+{% set editUrl = '/content/{id}' %}
+{% set newUrl = '/content/create' %}
+
+{% set defaultFilters = { 
+        'published':{'name':'published','query':'publish:1'}, 
+        'disabled':{'name':'disabled','query':'published:0'} 
+    } 
+%}
+
+{% set defaultSort    = 'id:1' %}
+{% set listColumns    = ['title','publish','date_modified'] %}
+{% set listFormatting = {'price':'money', 'date_modified':'date', 'publish':'yes-no'} %}
+
+{# Begin template - Do not edit below #}
+
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({(title):'/' ~ model}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "/_admin/_partials/list-page.html.twig" %}
+{% endblock %}

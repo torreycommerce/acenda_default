@@ -1,0 +1,145 @@
+
+{% macro create(columns, data, item_link = '/items/{id}', sort_link = 'sort',column_format = [], options = []) %}
+    {% import _self as list %}
+    {% set key = item_link|split('{')|last|split('}')|first %}
+    {% set deleteKey = options.delete|split('{')|last|split('}')|first %}
+    {% do app.asset.css(app.url ~ '/admin-assets/plugins/datatables/dataTables.css') %}
+    {% do app.asset.js(app.url ~ '/js/list-macro.js?v=06242014') %}
+    {% if app.request.get.hl is not empty %}
+        {% set highlight = app.request.get.hl|split(',') %}
+    {% endif %}
+
+    <div class="list-table" data-list-link="{{ item_link }}">
+        {% if options.actions is defined %}
+        <div class="multi-list-actions" style="display:none">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    With Selected... (<span class="number_selected"></span>)&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    {% for option,action in options.actions %}
+                    {% if action is iterable %}
+                        <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#">{{option}}</a>
+                        <ul class="dropdown-menu">
+                            {% for option,action in action %}
+                            {% if action == '' %}
+                                <li class="divider"></li>
+                                {% if option|trim %}<li class="dropdown-header">{{option|title}}</li>{% endif %}
+                            {% else %}
+                                <li><a class="action" name="{{option}}" href="#" data-multi-action="{{action}}">{{option|title}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                      </li>
+                    {% elseif action == '' %}
+                        <li class="divider"></li>
+                        {% if option|trim %}<li class="dropdown-header">{{option|title}}</li>{% endif %}
+                    {% else %}
+                        <li><a class="action" name="{{option}}" href="#" data-multi-action="{{action}}">{{option|title}}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-hover tablesorter datatables">
+                <thead>
+                  <tr>
+                    <th class="row-select-all" style="width:1%"><input type="checkbox" class="select-all" name="select_all" value="true"></th>
+                    {% for column in columns %}
+                        {% set title = options.labels[column] is defined ? options.labels[column] : column %}
+                        {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
+                        {% set sortable = options.unsortable is defined and column in options.unsortable ? false : true %}
+                        <th class="datacell {% if options.actions is defined %}cell-actions{% endif %}"><a {% if sortable %} href="{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}"{% endif %}><small>{{title|replace({'_':'&nbsp;'})|title}}</small>{% if sortable %}&nbsp;<i class="fa fa-sort"></i>{% endif %}</a></th>
+                    {% endfor %}
+                    {% if options.delete %}
+                        <th style="width:1%"></th>
+                    {% endif %}
+                  </tr>
+                </thead>
+                    <tbody>
+                {% for row in data %}
+                    {% set link = item_link is not empty ? item_link|replace({('{'~ key ~'}'):row[key]}) %}
+                    {% set link = link and link[:7] != 'http://' and link[:8] != 'https://' ? app.url ~ link : link %}
+                    <tr class="{% if row[key] in highlight %}success{% endif %}" style="cursor:pointer">
+                        <td class="row-select" style="width:1%"><input type="checkbox" class="select-row" name="{{row[key]}}" value="true"></td>
+                        {% for column in columns %}
+                            {% set data = row[column] %}
+                            {% set extras = null %}
+                            {% if data is iterable and data|length > 1 %}
+                                {% set extras %}
+                                    {% for i in data %}
+                                        {{ list.format_field(i, column_format[column]) }}{%- if loop.last == false -%}, {%- endif -%}
+                                    {% endfor %}
+                                {% endset %}
+                            {% endif %}
+
+                            <td class="datacell" {% if column_format[column] == 'image' %}style="text-align:center;padding:5px;margin:0"{% endif %}>
+                                <a {% if item_link is not empty %}href="{{ link }}"{% endif %}>
+                                {% if extras is not empty %}
+                                    <span data-tooltip="" data-toggle="tooltip" data-original-title="{{extras}}">{{list.format_field(row[column], column_format[column])}} <i class="fa fa-info-circle"></i></span>
+                                {% else %}
+                                    {{list.format_field(row[column], column_format[column])}}
+                                {% endif %}
+                                </a>
+                            </td>
+                        {% endfor %}
+                            {% if options.delete %}
+                                <td style="white-space:nowrap;">
+                                    {% if key is not empty %}<a {% if item_link is not empty %}href="{{ link }}"{% endif %} class="btn btn-default">View</a>{% endif %}
+                                    <a href="#" class="btn btn-default" data-action-delete="{{ app.url ~ options.delete|replace({('{'~ deleteKey ~'}'):row[deleteKey]}) }}" ><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro format_field(value, type = null, column) %}
+{% spaceless %}
+    {% if value is iterable %}
+        {% set value = value|first %}
+    {% endif %}
+    {% if type is empty %}
+        {{ value }}
+    {% elseif type == 'money' %}
+        ${{ value|replace({',':''})|number_format(2,'.',',') }}
+    {% elseif type == 'yes-no' %}
+        {% if value %}
+            Yes
+        {% else %}
+            No
+        {% endif %}
+    {% elseif type == 'image' %}
+        <img src="{{ value }}" height="30" />
+    {% elseif type == 'date' %}
+        <span data-tooltip="" data-toggle="tooltip" data-original-title="{{ value|date("F jS g:ia") }}">{{ value|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span>
+    {% elseif type == 'boolean' %}
+        {% if value %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    {% elseif type == 'file-size' %}
+        {% set kilobyte = 1024 %}
+        {% set megabyte = kilobyte * 1024 %}
+        {% set gigabyte = megabyte * 1024 %}
+        {% set terabyte = gigabyte * 1024 %}
+        {% if value < kilobyte %}
+            {{ value ~ ' B' }}
+        {% elseif value < megabyte %}
+            {{ (value / kilobyte)|number_format(0, '.') ~ ' KB' }}
+        {% elseif value < gigabyte %}
+            {{ (value / megabyte)|number_format(1, '.') ~ ' MB' }}
+        {% elseif value < terabyte %}
+            {{ (value / gigabyte)|number_format(1, '.') ~ ' GB' }}
+        {% else %}
+            {{ (value / terabyte)|number_format(1, '.') ~ ' TB' }}
+        {% endif %}
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}

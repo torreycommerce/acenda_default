@@ -1,0 +1,21 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Address Blacklist':'/addressblacklist','Address Blacklist Details':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.addressblacklist is not empty %}
+    {% set addressblacklistdata = app.request.post.addressblacklist %}
+    {% set result = api.put('/addressblacklist/' ~ id, addressblacklistdata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/admin/addressblacklist') %}
+{% endif %}
+{% set addressblacklist = api.get('/addressblacklist/' ~ id) %}
+{% include '/_admin/addressblacklist/_partials/form.html.twig' %}
+{% endblock %}

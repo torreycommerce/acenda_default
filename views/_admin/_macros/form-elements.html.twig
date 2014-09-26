@@ -1,0 +1,774 @@
+{% macro begin(name,action='',method='post',attributes=[]) %}
+{% spaceless %}
+
+    {{ app.asset.js(app.url ~ '/js/parsley.min.js') }}
+    {{ app.asset.js(app.url ~ '/js/parsley.extend.min.js') }}
+
+    {% set error = attributes.error|default(api.error) %}
+    {% set data =  app.request.post[name]|default(attributes.data) %}
+    {% do app.form.set(name, action, method, attributes, data, error) %}
+
+    {% set defined_attributes = ['name','action','method','class','enctype','data','error'] %}
+    <form id="{{app.form.id}}" name="{{name|e}}" novalidate parsley-validate action="{{action|e}}" method="{{method|upper}}" class="form-horizontal {{attributes.class|e}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %}{% for key,value in attributes if key not in defined_attributes %} {{key}}="{{value|e}}"{% endfor %}>
+
+    {% set referer = app.request.post.referer is not empty ? app.request.post.referer : app.request.referer %}
+    <input type="hidden" name="referer" value="{{ referer|e }}" />
+
+{% endspaceless %}
+{% endmacro %}
+
+{% macro errors() %}
+{% spaceless %}
+    {# print out all errors that were not assigned to a form field #}
+    {% set errors = app.form.error %}
+    {% if errors|length %}
+        <div class="col-sm-offset-3 col-sm-6 alert alert-danger">
+            {% for error in errors %}
+                {{error|join('<br />')}}<br />
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro field_extras(field) %}
+{% spaceless %}
+    {% if field.error is not empty  %}
+    <div class="col-sm-offset-3 col-sm-6">
+        <span class="text-danger">{{field.error}}</span>
+    </div>
+    {% endif %}
+
+    {% if field.help is not empty %}
+    <div class="col-sm-offset-3 col-sm-6">
+        <p class="help-block">{{field.help}}</p>
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro disableEnterSubmit() %}
+    {% import _self as elements %}
+    {# disable enter key submitting form #}
+    {% set script %}
+    $('#{{app.form.id}}').bind("keyup keypress", function(e) {
+      var code = e.keyCode || e.which; 
+      if (code  == 13) {               
+        e.preventDefault();
+        return false;
+      }
+    });
+    {% endset %}
+    {% do app.asset.script('disable_form_submit' ~ app.form.id, script) %}
+{% endmacro %}
+
+{% macro end() %}
+    </form>
+{% endmacro %}
+
+{% macro input(type, name, value='', attributes=[]) %}
+{% spaceless %}
+    {# {{ element.input('text','user_name','my_value',{'class':'test'}) }} #}
+
+    {% import _self as elements %}
+    {% set field = app.form.getField(type,name,value,attributes) %}
+
+    {% if attributes.input_only != true %}
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{field.id}}" class="col-sm-3 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+
+        <div class="col-sm-6">
+    {% endif %}
+            {% if attributes.before or attributes.after or attributes.button %}
+            <div class="input-group">
+            {% endif %}
+            {% if attributes.before %}
+            <span class="input-group-addon">{{ field.before }}</span>
+            {% endif %}
+            <input type="{{ field.type }}" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="form-control {{ field.class }}" {{ field.attributes }} />
+            {% if attributes.after %}
+            <span class="input-group-addon">{{ field.after }}</span>
+            {% endif %}
+            {% if attributes.button %}
+            <span class="input-group-btn">{{ field.button }}</span>
+            {% endif %}
+            {% if attributes.before or attributes.after or attributes.button %}
+            </div>
+            {% endif %}
+    {% if attributes.input_only != true %}
+        </div>
+    {% endif %}
+
+        {{ elements.field_extras(field) }}
+    {% if attributes.input_only != true %}
+    </div>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro textarea(name, value='', attributes=[]) %}
+{% spaceless %}
+    {# {{ element.textarea('textarea','my default value',{'title':'A Textarea','placeholder':'My Placeholder'}) }} #}
+
+    {% import _self as elements %}
+    {% set field = app.form.getField('textarea',name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{ field.id }}" class="col-sm-3 control-label">{{field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-6">
+            <textarea id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>{{ field.value }}</textarea>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro select(name, value='', selection=[], attributes=[]) %}
+{% spaceless %}
+    {# {{ element.select('test_select','default',{'test':'This is a test','default':'This is my default'}) }} #}
+
+    {% import _self as elements %}
+    {% set field = app.form.getField('select',name,value,attributes) %}
+    
+    {% if attributes.input_only != true %}
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{ field.id }}" class="col-sm-3 control-label">{{ field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-6">
+    {% endif %}
+            <select id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>
+                {% for key,item in selection %}
+                    <option value="{{key|e}}"{% if key == field.value %} selected="selected"{% endif %}>{{item}}</option>
+                {% endfor %}
+            </select>
+    {% if attributes.input_only != true %}
+        </div>
+    {% endif %}
+        {{ elements.field_extras(field) }}
+    {% if attributes.input_only != true %}
+    </div>
+    {% endif %}
+
+{% endspaceless %}
+{% endmacro %}
+
+{% macro multiselect(name, value='', selection=[], attributes=[]) %}
+{% spaceless %}
+    {# {{ element.multiselect('test_multiselect', ['default','test'], {'test':'This is a test','default':'This is my default'}) }} #}
+    {% import _self as elements %}
+
+    {% set value = value is iterable ? value : [value] %}
+
+    {% set field = app.form.getField('select',name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{ field.id }}" class="col-sm-3 control-label">{{ field.label }} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-6">
+            <select multiple id="{{ field.id }}" name="{{ field.name }}[]" class="form-control {{ field.class }}" {{ field.attributes }}>
+            {% for key,item in selection %}
+                <option value="{{key|e}}"{% if key in field.value %} selected="selected"{% endif %}>{{ item }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+
+{% endspaceless %}
+{% endmacro %}
+
+{% macro radio(name, value='', selection=[], attributes=[]) %}
+{% spaceless %}
+    {# {{ element.radio('radio','john',{'john':'This is john','bob':'This is bob'}) }} #}
+    {% import _self as elements %}
+
+    {% set field = app.form.getField('radio',name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        {% for key,item in selection %}
+        {% set elm_counter = elm_counter + 1 %}
+
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="radio">
+                <label class="control-label">
+                    <input type="radio" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in value %} checked="checked"{% endif %}/>
+                    {{ item }}</label>
+            </div>
+        </div>
+        {% endfor %}
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro checkbox(name,value=false, attributes=[]) %}
+{% spaceless %}
+    {# { element.checkbox('test_checkbox')}} #}
+    {% import _self as elements %}
+
+    {% set field = app.form.getField('checkbox',name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="checkbox">
+                <label class="control-label">
+                    <input type="hidden" name="{{ field.name }}" value="" />
+                    <input type="checkbox" name="{{ field.name }}" value="{{ field.attributes.value|default('1')|e }}" class="{{ field.class }}" {% if field.value %} checked="checked"{% endif %}/>
+                    {{ field.label }}</label>
+            </div>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro checkboxes(name,value='', selection=[], attributes=[]) %}
+{% spaceless %}
+    {# {{ element.radio('radio','john',{'john':'This is john','bob':'This is bob'}) }} #}
+    {% import _self as elements %}
+
+    {% set field = app.form.getField('checkbox',name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        {% for key,item in selection %}
+        {% set elm_counter = elm_counter + 1 %}
+
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="checkbox">
+                <label class="control-label">
+                    <input type="checkbox" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in field.value %} checked="checked"{% endif %}/>
+                    {{ item }}</label>
+            </div>
+        </div>
+        {% endfor %}
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro hidden(name, value='', attributes=[]) %}
+{% spaceless %}
+    {% import _self as elements %}
+    {# {{ element.input('text','user_name','my_value',{'class':'test'}) }} #}
+    {% set field = app.form.getField('hidden',name,value,attributes) %}
+    <input type="hidden" name="{{ field.name }}" value="{{ field.value }}" id="{{ field.id }}" {{ field.attributes }} />
+{% endspaceless %}
+{% endmacro %}
+
+
+{% macro submit(name, value='', attributes=[]) %}
+{% spaceless %}
+    {# {{ element.submit('submit me'}) }} #}
+
+    {% import _self as elements %}
+    {% set field = app.form.getField('button',name,value,attributes) %}
+
+    {{ elements.errors() }}
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <button type="submit" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="btn btn-primary {{field.class}}" {{field.attributes}} >{{ field.label }}</button>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro actions(attributes=[]) %}
+{% spaceless %}
+    {# {{ element.submit('submit me'}) }} #}
+
+    {% import _self as elements %}
+
+    {{ elements.errors() }}
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="btn-toolbar">
+            {% set field = app.form.getField('button','save','1') %}
+            <button type="submit" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="btn btn-primary {{field.class}}" {{field.attributes}} >{{ field.label }}</button>
+            &nbsp;
+            {% set field = app.form.getField('button','delete','1') %}
+            <button onclick="return confirm('Are you sure you wish to delete this item?')" type="submit" id="{{ field.id }}" name="{{ field.name }}" value="{{ field.value }}" class="btn btn-default {{field.class}}" {{field.attributes}} >{{ field.label }}</button>
+         </div>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro text(name, value='', attributes=[]) %}
+    {# {{ element.text('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro document(name, value='', attributes=[]) %}
+    {% import _self as elements %}
+    {% set attributes = attributes|merge({'class':'ckeditor'}) %}
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-ckeditor/ckeditor.js') %}
+    {% set field = app.form.getField(type,name,value,attributes) %}
+
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{ field.id }}" class="col-sm-3 control-label">{{field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-9">
+            <textarea id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>{{ field.value }}</textarea>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+{% endmacro %}
+
+{% macro tags(name, value='', tags=[], attributes=[]) %}
+{% spaceless %}
+
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-select2/select2.min.js') %}
+    {% do app.asset.js(app.url ~ '/admin-assets/js/jqueryui-1.10.3.min.js') %}
+    {% do app.asset.css(app.url ~ '/admin-assets/plugins/form-select2/select2.css') %}
+
+    {% set value = value is iterable ? value|join(',') : value %}
+    {% set value = value|slice(-1, 1) == ',' ? value|slice(0, -1) : value %}
+    {% set tags = tags is not iterable ? tags|split(',') : tags %}
+    {% set tags = tags is iterable ? tags|join('","') : tags %}
+    {% set tags = tags|slice(-1, 1) == ',' ? tags|slice(0, -1) : tags %}
+    {% set field = app.form.getField(type,name,value,attributes) %}
+    {% set script %}
+        $("#{{field.id}}").select2({
+            width: "resolve",
+            {% if attributes.limit > 0 %}
+            maximumSelectionSize: {{attributes.limit}},
+            {% endif %}
+            tags:[{% if tags is not empty %}"{{ tags }}"{% endif %}]
+        });
+        $("#{{field.id}}").select2("container").find("ul.select2-choices").sortable({
+            containment: 'parent',
+            start: function() { $("#{{field.id}}").select2("onSortStart"); },
+            update: function() { $("#{{field.id}}").select2("onSortEnd"); }
+        });
+    {% endset %}
+    {% do app.asset.script(field.id,script) %}
+
+    {% import _self as elements %}
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{field.id}}" class="col-sm-3 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-9">
+            <p>
+            {{ elements.hidden(name, value, attributes) }}
+            </p>
+        </div>
+
+        {{ elements.field_extras(field) }}
+    </div>
+
+{% endspaceless %}
+{% endmacro %}
+
+{% macro selectapi(name, value, apiroute, fields ,attributes) %}
+{% spaceless %}
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-select2/select2.min.js') %}
+    {% do app.asset.js(app.url ~ '/admin-assets/js/jqueryui-1.10.3.min.js') %}
+    {% do app.asset.css(app.url ~ '/admin-assets/plugins/form-select2/select2.css') %}
+
+    {% set field = app.form.getField(type,name,value,attributes) %}
+    {% set fields = fields is iterable ? fields|join(',') : fields %}
+
+    {% set script %}
+        $("#{{field.id}}").select2({
+            placeholder: "Search for a item",
+            //createSearchChoice:function(term, data) { if ($(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0) {return {id:'Create Item', text:term};} },
+            {% if attributes.limit > 0 %}
+            maximumSelectionSize: {{attributes.limit}},
+            {% endif %}
+            {% if attributes.multiple is not defined %}
+            multiple: true,
+            {% else %}
+            multiple: {{attributes.multiple}},
+            {% endif %}
+            ajax: {
+                url: acendaBaseUrl+"/siteapi/{{apiroute}}",
+                dataType: 'json',
+                quietMillis: 100,
+                data: function (term, page) { // page is the one-based page number tracked by Select2
+                    return {
+                        search: term, //search term
+                        limit: 10, // page size
+                        page: page, // page number
+                        attributes: "{{fields}}"
+                    };
+                },
+                results: function (data, page) {
+                    var more = true;
+                    if(data.result.length < 10) more = false;
+                    return {results: data.result, more: more};
+                }
+            },
+            {% if attributes.formatResult is empty %}
+            formatResult: function (item) {
+                var markup = '';
+                for (key in item) {
+                    if(markup != '') markup += ' - ';
+                    markup += item[key];
+                }
+                return markup;
+            },
+            {% else %}formatResult: {{attributes.formatResult}},{% endif %}
+            {% if attributes.formatSelection is empty %}
+            formatSelection: function (item) {
+                var markup = '';
+                for (key in item) {
+                    if(markup != '') markup += ' - ';
+                    markup += item[key];
+                }
+                return markup;
+            },
+            {% else %}formatSelection: {{attributes.formatSelection}},{% endif %}
+            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+            escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+        });
+        $("#{{field.id}}").select2('data',{{value|json_encode}});
+        
+        $("#{{field.id}}").select2("container").find("ul.select2-choices").sortable({
+            containment: 'parent',
+            start: function() { $("#{{field.id}}").select2("onSortStart"); },
+            update: function() { $("#{{field.id}}").select2("onSortEnd"); }
+        });
+    {% endset %}
+    {% do app.asset.script(field.id,script) %}
+
+    {% import _self as elements %}
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{field.id}}" class="col-sm-3 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-9">
+            <p>
+            <input type="hidden" name="{{field.name}}" id="{{field.id}}" value="{% for i in value %}{% if loop.index > 1%},{% endif %}{{i.id}}{% endfor %}" />
+            </p>
+        </div>
+
+        {{ elements.field_extras(field) }}
+    </div>
+
+{% endspaceless %}
+{% endmacro %}
+
+
+{% macro typeahead(name, value='', prefetchUrl='', remoteUrl='', localData=[], attributes=[]) %}
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-typeahead/typeahead.min.js') %}
+    {% do app.asset.css(app.url ~ '/admin-assets/plugins/form-typeahead/typeahead.css') %}
+    {% set field = app.form.getField(type,name,value,attributes) %}
+    {% set localData = localData is not iterable ? localData|split(',') : localData %}
+    {% set localData = localData is iterable ? localData|join('","') : localData %}
+    {% set script %}
+        $("#{{field.id}}").typeahead([
+          {
+            name: '{{field.name}}',
+            local: ["{{localData}}"],
+            prefetch: '{{prefetchUrl}}',
+            remote: '{{remoteUrl}}'
+          }
+        ]);
+    {% endset %}
+    {% do app.asset.script(field.id,script) %}
+
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro slugify(name, value='', parent='', attributes=[]) %}
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-slugify/jquery.slugify.js') %}
+    {% set parent = app.form.getField(type,parent,value,attributes) %}
+    {% set field = app.form.getField(type,name,value,attributes) %}
+    {% set script %}
+        $("#{{field.id}}").slugify("#{{parent.id}}");
+    {% endset %}
+    {% do app.asset.script(field.id,script) %}
+
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro multiselector(name, value='', selection=[], attributes=[]) %}
+{% spaceless %}
+    {# {{ element.multiselect('test_multiselect', ['default','test'], {'test':'This is a test','default':'This is my default'}) }} #}
+
+    {% set value = value is iterable ? value : [value] %}
+    {% set field = app.form.getField('select', name, value, attributes) %}
+
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/quicksearch/jquery.quicksearch.min.js') %}
+    {% do app.asset.js(app.url ~ '/admin-assets/plugins/form-multiselect/js/jquery.multi-select.min.js') %}
+    {% do app.asset.css(app.url ~ '/admin-assets/plugins/form-multiselect/css/multi-select.css') %}
+    {% set script %}
+        $('#{{field.id}}').multiSelect({
+          selectableHeader: "<input type='text' class='form-control' style='margin-bottom: 10px;'  autocomplete='off' placeholder='Filter entries...'>",
+          selectionHeader: "<input type='text' class='form-control' style='margin-bottom: 10px;' autocomplete='off' placeholder='Filter entries...'>",
+          afterInit: function(ms){
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function(e){
+              if (e.which === 40){
+                that.$selectableUl.focus();
+                return false;
+              }
+            });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function(e){
+              if (e.which == 40){
+                that.$selectionUl.focus();
+                return false;
+              }
+            });
+          },
+          afterSelect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+          },
+          afterDeselect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+          }
+          });
+    {% endset %}
+    {% do app.asset.script(field.id,script) %}
+    {% import _self as elements %}
+    <div class="form-group{% if field.error %} has-error{% endif %}">
+        <label for="{{ field.id }}" class="col-sm-3 control-label">{{ field.label }} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
+        <div class="col-sm-9">
+            <select multiple id="{{ field.id }}" name="{{ field.name }}[]" class="form-control {{ field.class }}" {{ field.attributes }}>
+            {% for key,item in selection %}
+                <option value="{{key|e}}"{% if key in field.value %} selected="selected"{% endif %}>{{ item }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        {{ elements.field_extras(field) }}
+    </div>
+    
+{% endspaceless %}
+{% endmacro %}
+
+{% macro number(name, value='', attributes=[]) %}
+    {# {{ element.number('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('number', name, value, attributes) }}
+{% endmacro %}
+
+{% macro money(name, value='', attributes=[]) %}
+    {# {{ element.number('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('number', name, value|number_format(2,'.',','), attributes + {'min':0, 'step':0.01}) }}
+{% endmacro %}
+
+{% macro date(name, value='', attributes=[]) %}
+
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datepicker/js/bootstrap-datepicker.js') }}
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datetimepicker2/js/bootstrap-datetimepicker.min.js') }}
+
+    {% set script %}
+       $('input[datepicker=1]').datetimepicker({
+           language: 'en',
+           pick12HourFormat: true
+       });
+    {% endset %}
+    {% do app.asset.script('initdatetime',script) %}
+
+    {# {{ element.date('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes + {'datepicker':true}) }}
+{% endmacro %}
+
+{% macro time(name, value='', attributes=[]) %}
+
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datepicker/js/bootstrap-datepicker.js') }}
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datetimepicker2/js/bootstrap-datetimepicker.min.js') }}
+
+    {% set script %}
+       $('input[datepicker=1]').datetimepicker({
+           language: 'en',
+           pick12HourFormat: true
+       });
+    {% endset %}
+    {% do app.asset.script('initdatetime',script) %}
+    {# {{ element.datetime('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('time', name, value, attributes) }}
+{% endmacro %}
+
+{% macro datetime(name, value='', attributes=[]) %}
+
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datepicker/js/bootstrap-datepicker.js') }}
+    {{ app.asset.js(app.url ~ '/admin-assets/plugins/form-datetimepicker2/js/bootstrap-datetimepicker.min.js') }}
+
+    {% set script %}
+       $('input[datepicker=1]').datetimepicker({
+           language: 'en',
+           pick12HourFormat: true
+       });
+    {% endset %}
+    {% do app.asset.script('initdatetime',script) %}
+    {# {{ element.date('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('datetime', name, value, attributes + {'datepicker':true, 'data-format':'MM/dd/yyyy HH:mm:ss PP'}) }}
+{% endmacro %}
+
+{% macro email(name, value='', attributes=[]) %}
+    {# {{ element.email('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro password(name, value='', attributes=[]) %}
+    {# {{ element.password('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {% set value = null %}
+    {% set attributes = attributes|merge({'autocomplete':'off'}) %}
+    {{ elements.input('password',name, value, attributes) }}
+{% endmacro %}
+
+{% macro phone(name, value='', attributes=[]) %}
+    {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('tel', name, value, attributes) }}
+{% endmacro %}
+
+{% macro phonenumber(name, value='', attributes=[]) %}
+    {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('tel', name, value, attributes) }}
+{% endmacro %}
+
+{% macro state(name, value='', attributes=[]) %}
+    {# {{ element.state('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro zipcode(name, value='', attributes=[]) %}
+    {# {{ element.zipcode('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+
+{% macro url(name, value='', attributes=[]) %}
+    {# {{ element.url('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('url', name, value, attributes) }}
+{% endmacro %}
+
+{% macro country(name, value='', attributes=[]) %}
+    {# {{ element.country('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('text', name, value, attributes) }}
+{% endmacro %}
+        
+{% macro file(name, value='', attributes=[]) %}
+    {# {{ element.file('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    {{ elements.input('file', name, value, attributes) }}
+{% endmacro %}
+
+
+{% macro imageuploader(name, bucket, images = [], maxImages = 12, allowCaptions = true ) %}
+    {# Image uploader expects images value to be a array of [{'id':'','name':''},...] #}
+    {% do app.asset.js( app.url ~ '/admin-assets/plugins/jquery-fileupload/js/jquery.iframe-transport.js' ) %}
+    {% do app.asset.js( app.url ~ '/admin-assets/plugins/jquery-fileupload/js/jquery.fileupload.js' ) %}
+    {% do app.asset.js( app.url ~ '/admin-assets/plugins/image-bucket-uploader/image-bucket-uploader.js' ) %}
+    {% do app.asset.css( app.url ~ '/admin-assets/plugins/image-bucket-uploader/image-bucket-uploader.css' ) %}
+    
+    {% set imagefield  = app.form.getField('hidden',name,value,attributes) %}
+    {% set uploadfield = app.form.getField('hidden',name ~ '_uploader',value,attributes) %}
+
+    {% set script %}
+        imageBucketUploader('{{bucket}}','#{{uploadfield.id}}','.{{uploadfield.id}}','.image-template', {{maxImages}});
+    {% endset %}
+
+    {% do app.asset.script('imageUploader' ~ bucket, script) %}
+    <div class="form-group">
+    <label class="col-sm-3 control-label hidden-xs">Images</label>
+    <div class="col-sm-9">
+        <span class="btn btn-success fileinput-button">
+            <i class="fa fa-plus"></i>
+            <span>Add Image</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input class="fileupload" type="file" name="{{uploadfield.id}}[]" id="{{uploadfield.id}}" multiple />
+        </span>
+    <input type="hidden" name="{{imagefield.name}}[0][id]" value="" />
+
+    <ul class="list-inline images {{uploadfield.id}}">
+        <li class="image-template image" style="display:none">
+            <div class="thumbnail">
+                <div class="image-block">
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="filename"></div>
+            <input type="hidden" class="fileid" name="{{imagefield.name}}[][id]" value="" disabled="disabled" />
+            {% if allowCaptions %}
+            <div>
+                <span class="col-xs-9"><input name="{{imagefield.name}}[][name]" value="" disabled="disabled" class="form-control" placeholder="Caption" /></span>
+                <button type="button" class="btn btn-default dropdown-toggle" onclick="$(this).parent().parent().remove()">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+            {% else  %}
+            <div>
+                <button type="button" class="btn btn-default dropdown-toggle" onclick="$(this).parent().parent().remove()">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+            {% endif %}
+        </li>
+
+        {% for image in images %}
+
+        <li class="image">
+            <div class="thumbnail">
+                <img src="{{app.image.getImageUrl(bucket,"thumbnail",image.id) }}" />
+            </div>
+            <div class="filename">Image {{loop.index}}</div>
+            <input type="hidden" class="fileid" name="{{imagefield.name}}[{{loop.index - 1}}][id]" value="{{image.id}}" />
+            {% if allowCaptions %}
+            <div>
+                <span class="col-xs-9">
+                    <input name="{{imagefield.name}}[{{loop.index - 1}}][name]" value="{{image.name}}" class="form-control" placeholder="Caption" />
+                </span>
+                <button type="button" class="btn btn-default dropdown-toggle" onclick="$(this).parent().parent().remove()">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+            {% else  %}
+            <div>
+                <button type="button" class="btn btn-default dropdown-toggle" onclick="$(this).parent().parent().remove()">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+            {% endif %}
+        </li>
+
+        {% endfor %}
+    </ul>
+    </div>
+    </div>
+    
+{% endmacro %}
+
+{% macro rating(name,score,glyph = 'glyphicon-star',attributes=[]) %}
+    {% import _self as elements %}
+    {% set field = app.form.getField('hidden',name,score,attributes) %}    
+    {% set score = field.value %}
+    {% set num_active = (score*5)|round %}  
+    <div id="{{id}}" class="star-rating star-rating-input">
+        {{ elements.hidden(name,score) }}
+        <div class="star-rating-stars">
+            {% for stars in 0..4 %}
+                {% if loop.index <= num_active %}
+                    {% set class = 'active-choosing'%}
+                {% else %} 
+                    {% set class = 'disabled-choosing'%}
+                {% endif %}            
+                <span id="rating-star-{{ loop.index }}" class="star-rating-star glyphicon {{glyph}} {{ class }}"></span>
+            {% endfor %}
+        </div>            
+    </div>
+{% endmacro %}
+

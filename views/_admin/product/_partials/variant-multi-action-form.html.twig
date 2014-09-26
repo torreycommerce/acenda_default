@@ -1,0 +1,176 @@
+{% set jsCallback %}
+    setStockOptionsMulti = function(items) {
+        $("#stock_options_items").val(items.join());
+        $("#variant_multi_stock_open").click();
+    }
+    setPricesMulti = function(items) {
+        $("#price_items").val(items.join());
+        $("#variant_multi_price_open").click();
+    }
+    setOptionsMulti = function(items) {
+        $("#variant_options_items").val(items.join());
+        $("#variant_multi_options_open").click();
+    }
+    setQuantityMulti = function(items) {
+        $("#variant_quantity_items").val(items.join());
+        $("#variant_multi_quantity_open").click();
+    }
+    setStatusMulti = function(items) {
+        $("#variant_status_items").val(items.join());
+        $("#variant_multi_status_open").click();
+    }
+    setAttributesMulti = function(items) {
+        $("#variant_attributes_items").val(items.join());
+        $("#variant_multi_attributes_open").click();
+    }
+    removeVariants = function(items, el) {
+        var action = "{{ app.url }}/product/{{ id }}/variant/delete";
+
+        if(confirm("Are you sure you wish to delete this item? This action cannot be undone.")) {
+            $('.multi-list-actions').hide();
+            el.closest(".list-table").find('th.cell-actions a').css('color','#666');
+            $.post(action, {'multi[]': items}).done(function( data ) {
+                location.reload();
+            });
+        }
+    }
+{% endset %}
+{% do app.asset.script('variantMultiOptions',jsCallback) %}
+{% set content %}
+    <a style="display:none" href="#variant_multi_stock" id="variant_multi_stock_open" data-modal="true"></a>
+    {{ form.begin('variant_stock') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Stock Options</h2>
+        <hr />
+        {{ form.hidden('items', "", {'id':'stock_options_items'})}}
+        {{ form.checkbox('inventory_tracking', variant.inventory_tracking, 
+            {
+                'label':'Track Stock',
+                'help':'Automatically adjusts stock when a order is placed, canceled, or returned.'
+            }
+        ) }}
+        {{ form.select('inventory_policy', variant.inventory_policy, 
+            {
+                'deny':'Deny customers from ordering item', 
+                'continue':'Allow orders when out of stock',
+                'disable':'Disable item when out of stock'
+            }, 
+            {
+                'label':'Inventory Policy'
+            }
+        ) }}
+        {{ form.number('inventory_minimum_quantity', variant.inventory_minimum_quantity, 
+            {
+                'label':'Minimum Quantity'
+            }
+        ) }}
+        {{ form.typeahead('inventory_shipping_estimate', variant.inventory_shipping_estimate, '', '', shipping_estimate|keys, {'label':'Backorder Estimate','placeholder':'Backorder Estimate Message'}) }}
+        {{ form.checkbox('inventory_returnable', variant.inventory_returnable, 
+            {
+                'label':'Returnable'
+            }
+        ) }}
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_stock", content) }}
+
+{% set content %}
+    <a style="display:none" href="#variant_multi_price" id="variant_multi_price_open" data-modal="true"></a>
+    {{ form.begin('variant_price') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Set Prices</h2>
+        <hr />
+
+        {{ form.hidden('items', "", {'id':'price_items'})}}
+        {{ form.money('price', variant.price) }}
+        {{ form.money('compare_price', variant.compare_price) }}
+        {{ form.money('cost', variant.cost) }}
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_price", content) }}
+
+{% set content %}
+    <a style="display:none" href="#variant_multi_quantity" id="variant_multi_quantity_open" data-modal="true"></a>
+    {{ form.begin('variant_quantity') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Set Variant Stock Quantity</h2>
+        <hr />
+        {{ form.hidden('items', "", {'id':'variant_quantity_items'})}}
+        {{ form.number('inventory_quantity', variant.inventory_quantity) }}
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_quantity", content) }}
+
+{% set content %}
+    <a style="display:none" href="#variant_multi_options" id="variant_multi_options_open" data-modal="true"></a>
+    {{ form.begin('variant_options') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Set Variant Options</h2>
+        <hr />
+        {{ form.hidden('items', "", {'id':'variant_options_items'})}}
+        {{ form.checkbox('require_shipping', variant.require_shipping, 
+            {
+                'label':'Requires Shipping'
+            }
+        ) }}
+        {{ form.checkbox('discountable', variant.discountable, 
+            {
+                'label':'Allow Discounts'
+            }
+        ) }}
+        {{ form.checkbox('taxable', variant.taxable, 
+            {
+                'label':'Taxable'
+            }
+        ) }}
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_options", content) }}
+
+{% set content %}
+    <a style="display:none" href="#variant_multi_status" id="variant_multi_status_open" data-modal="true"></a>
+    {{ form.begin('variant_status') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Set Variant Status</h2>
+        <hr />
+        {{ form.hidden('items', "", {'id':'variant_status_items'})}}
+        {{ form.select('status', variant.status, {'active':'Active','disabled':'Disabled','removed':'Removed'}, {'help':"Note that setting the status to \"Disabled\" manually can be overwriten by the inventory policy."}) }}    
+        <hr />
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_status", content) }}
+
+{% set content %}
+    <a style="display:none" href="#variant_multi_attributes" id="variant_multi_attributes_open" data-modal="true"></a>
+    {{ form.begin('variant') }}
+    {{ form.disableEnterSubmit() }}
+    <div class="row">
+        <h2>Create Variant Attributes</h2>
+        <hr />
+        {{ form.hidden('items', "", {'id':'variant_attributes_items'})}}
+        {% include "/_admin/product/_partials/attributes-form.html.twig" with {'form':form,'add_only':true} %}
+
+        {{ form.submit('save') }}
+    </div>
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("variant_multi_attributes", content) }}

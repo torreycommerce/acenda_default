@@ -1,0 +1,8 @@
+{% set couponrule = api.get('/couponrule/' ~ id) %}
+{% set result = api.delete('/couponrule/' ~ id) %}
+{% if result %}
+    {% do app.user.setFlash('Action performed successfully.') %}
+{% else %}
+    {% do app.user.setFlash('Error while performing action.', 'danger') %}
+{% endif %}
+{% do app.redirect('/coupon/' ~ couponrule.coupon_id) %}

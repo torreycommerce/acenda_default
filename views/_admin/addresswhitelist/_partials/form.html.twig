@@ -1,0 +1,10 @@
+    {{ form.begin('addresswhitelist','','post',{ 'data':addresswhitelist }) }}
+    {{ extras.address_nv() }}
+
+    {% if create %}
+    {{ form.submit('Create') }}
+    {% else %}
+    {{ form.submit('Save') }}
+    {% endif %}
+
+    {{ form.end() }}

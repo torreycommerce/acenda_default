@@ -1,0 +1,9 @@
+{% set id = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
+{% if id == 0 %}
+    {% do app.redirect('/admin/coupon/') %}
+{% elseif action == 'delete' %}
+    {% include '/_admin/couponrule/_partials/delete.html.twig' %}
+{% else %}
+    {% include '/_admin/couponrule/_partials/edit.html.twig' %}
+{% endif %}

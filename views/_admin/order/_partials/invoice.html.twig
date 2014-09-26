@@ -1,0 +1,76 @@
+{% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
+<div id="order-invoice">
+    <div class="row">
+            <div class="col-md-12"><h1>Order #{{ order.order_number }}</h1></div>
+            <div class="col-md-12"><h3>Placed on {{ order.date_created|date }}</div>
+    </div>
+    <hr>
+    {#<a href="#" class="btn"><i class="icon-print"></i> Print</a>#}
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Shipping Address</h2>
+            <address>
+                <strong>{{ order.shipping_first_name }} {{ order.shipping_last_name }}</strong><br>
+                    {{ order.shipping_street_line1 }}<br>
+                    {% if order.shipping_street_line2 %}{{ order.shipping_street_line2 }}<br>{% endif %}
+                    {% if order.shipping_company %}{{ order.shipping_company }}<br>{% endif %}
+                    {{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}<br>
+                    {{ order.shipping_country }}<br>
+            </address>
+        </div>
+    </div>
+    <hr>
+    <div class="row bottom-padded">
+        <div class="col-md-12">
+            <h2>Items</h2>
+            {% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+            {% set product_ids = [] %}
+            {% for item in items %}
+                {% set product_ids = product_ids|merge([item.product_id]) %}
+            {% endfor %}
+            {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+
+            {% if items is not empty %}
+            <table class="table">
+                <thead>
+                    <tr><strong><td>Name</td><td>Quantity</td><td>Status</td><td>Tracking Number</td><td>Price</td></strong></tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.status|title }}</td>
+                    <td>{{ item.tracking_number|default('-') }}</td>
+                    <td>${{ item.price|number_format(2) }}</td>
+                </tr>
+                {% endfor %}
+                <tr><td></td><td></td><td></td><td>Tax</td><td>${{ order.tax|number_format(2)  }}</td></tr>
+                <tr><td></td><td></td><td></td><td>Shipping ({{ shipping_method.name|default('Standard')|title }})</td><td>${{ order.shipping_rate|number_format(2)  }}</td></tr>
+                <tr><td></td><td></td><td></td><td><h3>Total</td><td><h3>${{ order.total|number_format(2)  }}</td></tr>
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    {% set coupons = order.coupons %}
+    {% if coupons is not empty %}
+    <div class="row bottom-padded">
+        <div class="col-md-9 col-offset-3">
+            <h2>Coupons</h2>
+            <table class="table">
+                <thead>
+                <tr><td>Code</td><td>Discount</td></tr>
+                </thead>
+                <tbody>
+                {% for coupon in coupons %}
+                    <tr><td>{{ coupon.code }}</td><td>${{ coupon.discount }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+

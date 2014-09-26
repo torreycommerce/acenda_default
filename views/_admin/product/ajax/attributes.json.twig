@@ -1,0 +1,14 @@
+{% spaceless %}
+{% if app.request.get.name is not empty %}
+{% set items = api.get('/variant',{'attributes':app.request.get.name,'format':'attributes','cache':60}) %}
+{% if app.request.get.query is not defined %}
+{{ items[(app.request.get.name)]|keys|json_encode }}
+{% else %}
+{% set ar = [] %}
+{% for i in items[(app.request.get.name)]|keys %}
+{% if app.request.get.query|lower in i|lower %}{% set ar = ar|merge([i]) %}{% endif %}
+{% endfor %}
+{{ar|json_encode}}
+{% endif %}
+{% endif %}
+{% endspaceless %}

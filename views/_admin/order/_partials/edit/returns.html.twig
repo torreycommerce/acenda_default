@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-9 col-offset-3">
+        {% if returns is empty %}
+            No returns have been placed for this order.
+        {% else %}
+        <table class="table">
+            <thead>
+                <tr><td>Status</td><td>RMA</td><td>Item</td><td>Quantity</td><td>Reason</td></tr>
+            </thead>
+            <tbody>
+            {% for return in returns %}
+            {% set item = api.get('/orderitem/' ~ return.item_id) %}
+            <tr><td>{{ form.select('return[' ~ return.id ~ '][status]', return.status, {'pending':'Pending', 'accepted':'Accepted','rejected':'Rejected', 'cancelled':'Cancelled'}, {input_only:true})}}</td><td>{{ return.rma }}</td><td>{{ item.name }}</td><td>{{ return.quantity }}</td><td>{{ return.reason }}</td></tr>
+            {% endfor %}
+            </tbody>
+            <div class="row">
+                <div class="col-lg-12">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </table>
+        {% endif %}
+    </div>
+</div>

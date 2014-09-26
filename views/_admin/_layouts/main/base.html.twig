@@ -1,0 +1,18 @@
+{%- import "/_admin/_macros/base.html.twig" as base -%}
+{%- import "/_admin/_macros/form-elements.html.twig" as form -%}
+{%- import "/_admin/_macros/form-extras.html.twig" as extras -%}
+{%- import "/_admin/_macros/list.html.twig" as list -%}
+                <div id="page-heading">
+                    {% block breadcrumb %}{% endblock %}
+                    {% block titlecontent %}{% endblock %}
+                </div>
+                <div class="container">
+                    {% block content %}{% endblock %}
+                </div>
+                {% block pagecontent %}{% endblock %}
+    {{ app.asset.js(app.url ~ '/js/parsley.min.js') }}
+    {{ app.asset.js(app.url ~ '/js/parsley.extend.min.js') }}
+    {{ app.asset.js(app.url ~ '/js/multidelete.js') }}
+    {% block js %}{% endblock %}
+    {% block css %}{% endblock %}
+

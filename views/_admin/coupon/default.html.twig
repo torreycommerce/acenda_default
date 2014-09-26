@@ -1,0 +1,9 @@
+{% set id = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
+{% if id == 0 %}
+    {% include '/_admin/coupon/_partials/list.html.twig' %}
+{% elseif action == 'delete' %}
+    {% include '/_admin/coupon/_partials/delete.html.twig' %}
+{% else %}
+    {% include '/_admin/coupon/_partials/edit.html.twig' %}
+{% endif %}

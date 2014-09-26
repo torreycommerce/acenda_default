@@ -1,0 +1,51 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% import "/_admin/_macros/form-elements.html.twig" as form %}
+
+{% block title %}
+    Import
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Import':'/import', 'Upload':''}) }}
+{% endblock %}
+
+{% block content %}
+    <h1>Import</h1>
+    <h2>Select model to import</h2>
+
+    {{ form.begin('import') }}
+    {{ form.select('model', '', {'ProductImport':'Product',
+                                 'Variant':'Product Inventory (Variants)',
+                                 'Customer':'Customer',
+                                 'Wishlist':'Wishlist',
+                                 'Registry':'Registry'}) }}
+    <div class="form-group">
+        <div class="col-sm-6 col-sm-offset-3">
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus fa fa-white"></i>
+                <span>Select file</span>
+                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" >
+                <input id="fileupload" type="file" name="import">
+            </span>
+            <br>
+            <br>
+            <!-- The global progress bar -->
+            <div id="progress" class="progress">
+                <div class="bar progress-bar progress-bar-primary"></div>
+            </div>
+            <div id="error" class="alert alert-danger" style="display:none"></div>
+        </div>
+    </div>
+    {{ form.end() }}
+{% endblock %}
+
+{% block js %}
+{{ app.asset.js(app.url ~ '/admin-assets/plugins/jquery-fileupload/js/jquery.iframe-transport.js') }}
+{{ app.asset.js(app.url ~ '/admin-assets/plugins/jquery-fileupload/js/jquery.fileupload.js') }}
+{{ app.asset.js(app.url ~ '/js/import.js') }}
+{% endblock %}
+
+{% block css %}
+{{ app.asset.css(app.url ~ '/admin-assets/plugins/jquery-fileupload/css/jquery.fileupload-ui.css') }}
+{% endblock %}

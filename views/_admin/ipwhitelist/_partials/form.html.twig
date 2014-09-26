@@ -1,0 +1,8 @@
+{{ form.begin('ipwhitelist','','post',{data:ipwhitelist}) }}
+{{ form.text('ip', '', {required:true}) }}
+{% if create %}
+{{ form.submit('Create') }}
+{% else %}
+{{ form.submit('Save') }}
+{% endif %}
+{{ form.end() }}

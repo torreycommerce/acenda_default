@@ -1,0 +1,113 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+
+{% if create == false %}
+    {% set content = api.get('/content/' ~ id) %}
+    {% if content.id is empty %}
+        {% do app.redirect('/content') %}
+    {% endif %}
+{% endif %}
+
+{% block title %}
+    Edit Content
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Content':'/content','Edit Content':''}) }}
+{% endblock %}
+
+{% block content %}
+
+{% if app.request.post.content is not empty %}
+    {% set postData = app.request.post.content %}
+    {% if postData.type == 'html' %}
+        {% set postData = postData|merge({'content':postData.content_html}) %}
+    {% endif %}
+    {% if create == true %}
+        {% set id = api.post('/content', postData) %}
+        {% if id != false %}
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/content?hl=' ~ id) %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if app.request.post.content.delete is not empty %}
+            {% do api.delete('/content/' ~ id) %}
+
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/content?hl=' ~ id) %}
+            {% endif %}
+
+        {% elseif api.put('/content/' ~ id, postData) %}
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/content?hl=' ~ id) %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+    <h1>{{content.title}}</h1>
+    <hr />
+    {{ form.begin('content') }}
+        {{ form.text('title', content.title) }}
+        {{ form.slugify('slug', content.slug, 'title') }}
+        <hr />
+        
+        {{ form.select('type', content.type, {'text':'Document','html':'HTML'}) }}
+
+        {% set js %}
+            $("#content_type").change(function () {
+                if($("#content_type").val() == 'html') {
+                    $("#select_content_html").show();
+                    $("#select_content_text").hide();
+                } else {
+                    $("#select_content_html").hide();
+                    $("#select_content_text").show();
+                }
+            });
+        {% endset %}
+        {% do app.asset.script('content_script',js) %}
+        <div id="select_content_text" {% if content.type == 'html' %}style="display:none"{% endif %}>
+            {{ form.document('content', content.content) }}
+        </div>
+        <div id="select_content_html" class="row" {% if content.type != 'html' %}style="display:none"{% endif %}>
+            <div class="form-group">
+                <label for="content_content_html" class="col-sm-3 control-label">Content </label>
+                <div class="col-sm-9">
+                    <textarea id="content_content_html" name="content[content_html]" style="font-family:Courier New, Courier, monospace" class="form-control" rows="20" placeholder="Content" >
+                        {{ app.request.post.content.content_html|default(content.content)}}
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+        {{ form.select('template', content.template, {'basic':'Basic'}) }}<hr />
+
+        <hr />
+
+        {{ form.text('page_title', content.page_title) }}
+        {{ form.textarea('meta_description', content.meta_description, {'rows':4}) }}
+        {{ form.slugify('slug', content.slug, 'title', {'before':'/content/','label':'Slug (URL)'}) }}
+
+        <hr />
+
+        {{ form.checkbox('publish', content.publish) }}
+        <hr />
+        {{ form.actions() }}
+    {{ form.end() }}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% if app.request.path is empty %}
+    {% include '/_admin/order/_partials/list.html.twig' %}
+{% else %}
+    {% set request = app.request.path|split('/') %}
+    {% set order_number = request[0] | integer %}
+    {% if order_number and not app.request.get.id %}
+        {% set orders = api.get('/order',{'query':{'order_number':order_number}}) %}
+        {% set order = orders.0 %}
+        {% set id = order.id %}
+    {% elseif app.request.get.id %}
+        {% set id = app.request.get.id | integer %}
+    {% endif %}
+
+    {% if id is not integer or id == 0 %}
+        {% do app.redirect('/order') %}
+    {% endif %}
+
+    {% if request.1 is empty %}
+        {% include '/_admin/order/_partials/edit.html.twig' %}
+    {% elseif request.1 == 'print' %}
+        {% include '/_admin/order/_partials/print.html.twig' %}
+    {% else %}
+        {% do app.redirect('/order') %}
+    {% endif %}
+{% endif %}

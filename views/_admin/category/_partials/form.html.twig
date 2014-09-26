@@ -1,0 +1,98 @@
+{% set all_attributes = api.get('/product',{'format':'fields'}) %}
+{% set attribute_keys = ['category_id'] %}
+{% for attribute in all_attributes if attribute[:6] == 'group_' %}
+    {% set attribute_keys = attribute_keys|merge([attribute]) %}
+{% endfor %}
+
+{% if category.query is not empty %}
+    {% set category = category|merge({ 'query':category.query|json_encode }) %}
+{% endif %}
+
+{% if category.image_query is not empty %}
+    {% set category = category|merge({ 'image_query':category.image_query|json_encode }) %}
+{% endif %}
+
+
+{% if category is empty %}
+    {% set category = {facets:"color,category_id,brand,type,gender,size,price,review_score"} %}
+{% elseif category.facets is empty %}
+    {% set category = category|merge({facets:"color,category_id,brand,type,gender,size,price,review_score"}) %}
+{% endif %}
+
+<hr />
+{{ form.begin('category', '', 'post', {'data':category}) }}
+{{ form.text('name', '') }}
+{{ form.select('status', '',{'active':'Active','disabled':'Disabled'}) }}
+{{ form.document('description', '') }}
+{{ form.tags('keywords', category.keywords, keywords|keys) }}
+{{ form.textarea('meta_description', category.meta_description, {'rows':4}) }}
+<hr />
+{{ form.tags('facets', category.facets, attribute_keys, {'help':'Facet filters are located on the left side of the category page and are used as navigation options. "group_" fields are combined product or variation attributes of a collection or product. IE: group_sku would contain all product skus found inside the collection.'}) }}
+
+<hr />
+{% do app.asset.script('imagetypejs',imagetypejs) %}
+
+{{ form.select('selection', '',{'manual':'Manual','automatic':'Query'},{'label':'Product Selection'}) }}
+<div id="cat_query" {% if category.selection != 'automatic' %}style="display:none"{% endif %}>
+    {{ form.textarea('query','') }}
+</div>
+
+<hr />
+{{ form.select('image_type', '',{'category':'Upload Image','product':'Product Image','query':'Product Query'}) }}
+<div class="image_type image_type_category" style="display:none;">
+    {% set images = category.image_id is not empty ? [{'id':category.image_id}] : [] %}
+    {{ form.imageuploader('images','category', images, 1, false) }}
+</div>
+<div class="image_type image_type_product" style="display:none;">
+    {% set jsCallback %}
+        productAdminSelection = function(item) {
+            var markup = '';
+            markup = '<img src="'+item.thumbnail+'" width="50"> '+item.name;
+            return markup;
+        }
+    {% endset %}
+    {% do app.asset.script('productAdminCollectionSelection',jsCallback) %}
+    {% set im_id = category.image_product_id is not empty ? category.image_product_id : '0' %}
+    {{ form.selectapi('image_product_id',
+                       api.get('/catalog/' ~ im_id,{'attributes':['id','name','thumbnail']}).array(),
+                      'catalog?elastic=1&sort=_score:-1',
+                      ['id','name','thumbnail'],
+                      {
+                        'label':'Product',
+                        'formatSelection':'productAdminSelection',
+                        'formatResult':'productAdminSelection',
+                        'limit':1
+                      })
+    }}
+</div>
+<div class="image_type image_type_query" style="display:none;">
+    {{ form.textarea('image_query','') }}
+</div>
+<hr />
+
+{{ form.slugify('slug', category.slug, 'name', {'help':'The unique name used in the url to identify this category.'}) }}
+
+{{ form.multiselector('parent_id', category.parent_id,  api.get('/category',{'attributes':'slug','sort':'slug'})|map_as({'id':'slug'}), {'label':'Parent Category'} ) }}
+
+{{ form.number('position', '') }}
+{{ form.checkbox('track_status', '', {'label':'Only show category when there are active items.'}) }}
+{{ form.actions() }}
+{{ form.end() }}
+
+{% set js %}
+    changeImageType = function() {
+        $(".image_type").hide();
+        $(".image_type_"+$("#category_image_type").val()).show();
+    }
+    changeImageType();
+    $("#category_image_type").change(function(){ changeImageType(); });
+
+    $("#category_selection").change(function(){
+        if($("#category_selection").val() == 'automatic') {
+            $("#cat_query").show();
+        } else {
+            $("#cat_query").hide();
+        }
+    });
+{% endset %}
+{% do app.asset.script('categoryjs',js) %}

@@ -1,0 +1,169 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% do app.asset.js(app.url ~ '/js/query-builder.js?06032014') %}
+{% do app.asset.css(app.url ~ '/css/query-builder.css') %}
+
+{% set model = app.request.get.model %}
+{% if create == false %}
+    {% set queryfilter = api.get('/queryfilter/' ~ id) %}
+    {% if queryfilter.id is empty %}
+        {% do app.redirect('/queryfilter') %}
+    {% endif %}
+    
+    {% set model = queryfilter.model %}
+{% endif %}
+
+{% if app.request.post.queryfilter is not empty %}
+    {% if create == true %}
+        {% set id = api.post('/queryfilter', app.request.post.queryfilter) %}
+        {% if id %}
+            {% if app.request.get.model is not empty %}
+                {% do app.redirect('/' ~ app.request.get.model ~ '?filter=' ~ id) %}
+            {% else %}
+                {% do app.redirect('/queryfilter') %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if app.request.post.queryfilter.delete is not empty %}
+            {% do api.delete('/queryfilter/' ~ id) %}
+            {% if app.request.get.model is not empty %}
+                {% do app.redirect('/' ~ app.request.get.model) %}
+            {% else %}
+                {% do app.redirect('/queryfilter') %}
+            {% endif %}
+
+        {% elseif api.put('/queryfilter/' ~ id, app.request.post.queryfilter) %}
+            {% if app.request.get.model is not empty %}
+                {% do app.redirect('/' ~ app.request.get.model ~ '?filter=' ~ id) %}
+            {% else %}
+                {% do app.redirect('/queryfilter') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% if model is not empty %}
+    {% if queryfilter.id is defined %}
+        {% set queryfilter = queryfilter.array()|merge({'model':app.request.get.model})%}
+    {% else %}
+        {% set queryfilter = {'model':model} %}
+    {% endif %}
+    {% set fields = api.get(model, {'format':'fields'}) %}
+{% endif %}
+
+{% block title %}
+    Query Filter
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Query Filters':'/queryfilter','Edit Query filter':''}) }}
+{% endblock %}
+
+
+{% block content %}
+    <h1>Query Filter</h1>
+    {{ form.begin('queryfilter','','post') }}
+
+
+        <div class="tab-container  ">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#builder" data-toggle="tab" onclick="initQuery(); return true;">Builder</a></li>
+                <li><a href="#raw" data-toggle="tab">Raw Query</a></li>
+                <li><a href="#test" data-toggle="tab" onclick="testQuery('{{model}}');return true;">Test</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="builder">
+
+                    <ul id="query_block" class="list-group dropitem ">
+                        <li class="list-group-item panel panel-primary">
+                            <div class="panel-body query-item-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-2">
+                                        <h4>WHERE</h4>
+                                    </div>
+                                    <span style="" class="help-text"></span>
+                                    <div class="form-group col-sm-10">
+
+                                        <select class="form-control field-name" onchange="updateQuery();">
+                                            <option value="">Select Field...</option>
+                                            {% for item in fields %}
+                                            <option value="{{ item }}">{{ item }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-2"></div>
+
+                                    <div class="form-group col-sm-10">
+                                        <select class="form-control field-action" onchange="updateQuery();">
+                                            <option value="$e">is equal to (string)</option>
+                                            <option value="$ne">is not equal to (string)</option>
+                                            <option value="$in">is in (string, string, ...)</option>
+                                            <option value="$nin">is not in (string, string, ...)</option>
+                                            <option value="$exists">exists (true or false)</option>
+                                            <option value="$lt">is less than (number)</option>
+                                            <option value="$gt">is greater than (number)</option>
+                                            <option value="$lte">is less than or equal to (number)</option>
+                                            <option value="$gte">is greater than or equal to (number)</option>
+                                            <option value="$regex">is in regular expression (regex)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-2"></div>
+                                    <div class="form-group col-sm-6">
+                                        <input type="text" class="form-control field-value" placeholder="Value" onchange="updateQuery();">
+                                    </div>
+                                    <div class="form-group col-sm-4">&nbsp;
+                                        <a class="btn btn-success action-and" onclick="return addAndQuery($(this));"><i class="fa fa-plus"></i> AND</a>
+                                        <a class="btn btn-primary action-or" onclick="return addOrQuery($(this));"><i class="fa fa-plus"></i> OR</a>
+                                        <a class="btn btn-default action-remove" onclick="return removeQuery($(this));"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </div>
+
+                                <ul class="list-group dropitem ">
+                                    
+                                </ul>
+                                <div class="end-marker"></div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane" id="raw">
+                     <textarea name="queryfilter[query]" id="query" class="form-control" rows="15" cols="40">{{app.request.post.queryfilter.query|default (queryfilter.query)}}</textarea>
+                     
+                    <p>
+                        <input type="checkbox" id="query_minify" onchange="initQuery();" name="query_minify" value="1" >
+                        <label for="query_minify" > Minify</label>
+                    </p>
+                </div>
+                <div class="tab-pane" id="test">
+                    <div id="test_query">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form.text('name', queryfilter.name,{'placeholder':'Filter name'}) }}
+        {% if model is not empty %}
+            {{ form.hidden('model', model) }}
+        {% else %}
+            {{ form.select('model', queryfilter.model, {'product':'Product','category':'Category'}) }}
+        {% endif %}
+        {% if create == true %}
+            {{ form.submit('save') }}
+        {% else %}
+            {{ form.actions() }}
+        {% endif %}
+
+
+
+    {{ form.end() }}
+        </div>
+    </div>
+    
+{% endblock %}

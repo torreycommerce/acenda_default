@@ -1,0 +1,45 @@
+{% if items is not empty %}
+{#{ form.begin('registryitem','','post',{data:items}) }#}
+<div class="row">
+    <div class="col-md-12">
+            {% set product_ids = items|values_in('product_id') %}
+            {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+
+            {% for n,item in items %}
+                {% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
+                {% set product = products[item.product_id][0] %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{{ app.url }}/product/{{ item.product_id }}" class="thumbnail">
+                            <img src="{{ products[item.product_id].0.thumbnail }}" >
+                        </a>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><strong>{{ products[item.product_id].0.title }} - {{ products[item.product_id].0.sku }}</strong></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-6">
+                                <div class="form-group">
+                                    <div class="input-group ">
+                                        <span style="margin-left:10px">Qty</span>&nbsp;{{ form.text('item[' ~ item.id ~ '][quantity]',item.quantity,{'required':true,'style':'width:50%','placeholder':'Qty','input_only':true}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="form-group">
+                                    <div class="input-group ">
+                                        <span style="margin-left:10px">Qty Purchased</span>&nbsp;{{ form.text('item[' ~ item.id ~ '][quantity_purchased]',item.quantity_purchased,{'required':true,'style':'width:50%','placeholder':'Qty Purchased','input_only':true}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin:0 0 20px 0" />
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

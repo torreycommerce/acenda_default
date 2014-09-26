@@ -1,0 +1,7 @@
+{% set result = api.delete('/coupon/' ~ id) %}
+{% if result %}
+    {% do app.user.setFlash('Action performed successfully.') %}
+{% else %}
+    {% do app.user.setFlash('Error while performing action.', 'danger') %}
+{% endif %}
+{% do app.redirect('/coupon') %}

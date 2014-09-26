@@ -1,0 +1,9 @@
+{% set id = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
+{% if id == 0 %}
+    {% include '/_admin/shippingmethod/_partials/list.html.twig' %}
+{% elseif action == 'delete' %}
+    {% include '/_admin/shippingmethod/_partials/delete.html.twig' %}
+{% else %}
+    {% include '/_admin/shippingmethod/_partials/edit.html.twig' %}
+{% endif %}

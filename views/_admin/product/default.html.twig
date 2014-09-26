@@ -1,0 +1,54 @@
+{% if app.request.path is empty %}
+    {% include '/_admin/product/_partials/list.html.twig' %}
+
+{% elseif app.request.path == 'create' %}
+    {% set create = true %}
+    {% include '/_admin/product/_partials/edit.html.twig' %}
+{% else %}
+    {% set request = app.request.path|split('/') %}
+
+    {% if app.request.path == 'inventory' %}
+        {% include '/_admin/product/_partials/variant/list.html.twig' %}
+
+    {% elseif request.0 == 'variant' and request.1 is integer %}
+        {% set id = request.1 %}
+        {% set variant = api.get('/variant/' ~ id) %}
+        {% set product_id = variant.product_id %}
+        {% include '/_admin/product/_partials/variant/edit.html.twig' %}
+
+    {% elseif request.0|integer == 0 %}
+        {% do app.redirect('/product',{'error':'Product not found.'}) %}
+
+    {% elseif request|length == 1 and app.request.path is integer %}
+        {% set id = app.request.path|integer %}
+        {% include '/_admin/product/_partials/edit.html.twig' %}
+
+
+    {% elseif request.1 == 'variant' and request.2 == 'create' %}
+        {% set product_id = request.0 %}
+        {% set create = true %}
+        {% include '/_admin/product/_partials/variant/edit.html.twig' %}
+
+    {% elseif request.1 == 'variant' and request.2 == 'duplicate' %}
+        {% set variants = api.get('/variant',{query:{'id':{'$in':app.request.post.multi}}}) %}
+        {% for variant in variants %}
+            {% set variant = variant|merge({'id':null}) %}
+            {% do api.post('/variant', variant) %}
+        {% endfor %}
+
+    {% elseif request.1 == 'variant' and request.2 == 'delete' %}
+        {% set items = app.request.post.multi %}
+        {% for id in items %}
+            {% do api.delete('/variant/' ~ id) %}
+        {% endfor %}
+
+    {% elseif request.1 == 'variant' and request.2|integer != 0 %}
+        {% set product_id = request.0 %}
+        {% set id = request.2 %}
+        {% include '/_admin/product/_partials/variant/edit.html.twig' %}
+
+    {% else %}
+        {% do app.redirect('/product',{'error':'Product not found.'}) %}
+        
+    {% endif %}   
+{% endif %}

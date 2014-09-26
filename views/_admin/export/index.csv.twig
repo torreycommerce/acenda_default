@@ -1,0 +1,19 @@
+{% set model = api.get('/customer', {query:app.request.get.query}) %}
+{% set first = true %}
+{% set first_item = true %}
+{% for item in model %}
+    {% if first %}
+        {% for key, value in item %}
+        {% if not first_item %},{% endif %}
+        {{ key }}
+        {% set first_item = false %}
+        {% endfor %}
+        {% set first = false %}
+    {% endif %}
+    {% for key, value in item %}
+    {% set first_item = true %}
+    {% if not first_item %},{% endif %}
+        {{ value|join(',') }},
+    {% set first_item = false %}
+    {% endfor %}
+{% endfor %}

@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Order Date</label>
+            <div class="col-sm-9">
+                <div class="form-control" disabled="disabled">{{ order.date_created|date() }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form.select('status','',{'pending':'Pending','cancelled':'Cancelled','shipped':'Shipped','returned':'Returned'}, {'label':'Order&nbsp;Status','onchange':'this.form.submit()'}) }}
+<hr>
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label">Unsettled&nbsp;Amt</label>
+    <div class="col-sm-9">
+        <div class="input-group">
+            <div class="form-control" disabled="disabled">
+            ${{ order.unsettled|number_format(2) }}
+            </div>
+
+            {% if order.unsettled != 0 %}
+            <div class="input-group-btn">
+                &nbsp;<button class="btn btn-warning" type="submit" name="order[action]" value="settle">Settle</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if order.transaction_status == 'authorize' %}
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label">Charge&nbsp;Order</label>
+    <div class="col-sm-9">
+        <div class="input-group">
+            <div class="form-control" disabled="disabled">
+            ${{ order.total|number_format(2) }}
+            </div>
+
+            <div class="input-group-btn" >
+                &nbsp;<button class="btn btn-success" type="submit" name="order[action]" value="delayCapture">Delay Capture</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if order.card_type is not empty %}
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label">Card&nbsp;Info</label>
+    <div class="col-sm-9">
+        <div class="input-group">
+            <div class="form-control" disabled="disabled">
+            {{ order.card_type|capitalize }} x-{{ order.card_last4 }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label">Transaction&nbsp;Info</label>
+    <div class="col-sm-9">
+        <div class="form-control" disabled="disabled">
+            {{ order.transaction_type }}: {{ order.transaction_id }} - {{ order.transaction_status }}
+        </div>
+    </div>
+</div>
+<hr>
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label"><input type="checkbox" name="order[fraud_check]" value="1" {% if order.fraud_check %}checked="checked"{% endif %}> Fraud Check</label>
+    <div class="col-sm-9">
+        <div class="input-group">
+            {% if order.fraud_score is not empty %}
+            <div class="form-control">
+            {{ order.fraud_score }}
+            </div>
+            {% endif %}
+            <div class="input-group-btn">
+                &nbsp;<button class="btn btn-primary" type="submit" name="order[action]" value="fraudCheck">Run Fraud Check</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="order_unsettled" class="col-sm-3 control-label">Fraud Results</label>
+    <div class="col-sm-9">
+        {% include "/_admin/order/_partials/edit/fraud.html.twig" %}
+    </div>
+</div>

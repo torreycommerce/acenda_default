@@ -1,0 +1,25 @@
+{{ form.begin('customeraddress', '', 'post', {data:customeraddress}) }}
+    <fieldset>
+        <legend>Address Information</legend>
+        {{ form.text('first_name',  '',{'required':true}) }}
+        {{ form.text('last_name',   '',{'required':true}) }}
+
+        {{ form.text('company') }}
+        {{ form.text('street_line1','',{'required':true,'label':'Street Line 1'}) }}
+        {{ form.text('street_line2','',{'label':'Street Line 2'}) }}
+        {{ form.text('city',        '',{'required':true}) }}
+        {{ form.zipcode('zip',      '',{'required':true}) }}
+        {{ form.state('state',      '',{'required':true}) }}
+        {{ form.country('country',  '',{'required':true}) }}
+    </fieldset>
+    <fieldset>
+        <legend>Contact Information</legend>
+        {{ form.phone('phone_number','',{'required':true}) }}
+    </fieldset>
+    <fieldset>
+        <legend></legend>
+        {{ form.checkbox('default','',{'label':'Default address'}) }}
+        {{ form.submit('save') }}
+    </fieldset>
+
+{{ form.end() }}

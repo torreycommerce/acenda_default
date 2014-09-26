@@ -1,0 +1,12 @@
+{{ form.begin('shippingrule','','post',{data:shippingrule}) }}
+{{ form.text('bottom_price', '', {required:true, 'parsley-type':'number'}) }}
+{{ form.text('top_price', '', {required:true, 'parsley-type':'number'}) }}
+{{ form.text('bottom_quantity', '', {required:true, 'parsley-type':'number'}) }}
+{{ form.text('top_quantity', '', {required:true, 'parsley-type':'number'}) }}
+{{ form.text('shipping', '', {required:true, 'parsley-type':'number'}) }}
+{% if create %}
+    {{ form.submit('Create') }}
+{% else %}
+    {{ form.submit('Save') }}
+{% endif %}
+{{ form.end() }}

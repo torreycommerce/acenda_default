@@ -1,0 +1,165 @@
+{{ form.begin('product') }}
+{{ form.disableEnterSubmit() }}
+{% set tags = api.get('/product',
+        {
+            'attributes':['tags'],
+            'format':'attributes',
+            'elastic':1,
+            'cache':300
+        }).tags
+%}
+{% set keywords = api.get('/product',
+        {
+            'attributes':['keywords'],
+            'format':'attributes',
+            'elastic':1,
+            'cache':300
+        }).keywords
+%}
+{% set brand = api.get('/product',
+        {
+            'attributes':['brand'],
+            'format':'attributes',
+            'elastic':0,
+            'cache':300
+        }).brand
+%}
+{% set type = api.get('/product',
+        {
+            'attributes':['type'],
+            'format':'attributes',
+            'elastic':1,
+            'cache':300
+        }).type
+%}
+{% set shipping_estimate = api.get('/variant',
+        {
+            'attributes':['inventory_shipping_estimate'],
+            'format':'attributes',
+            'cache':3000
+        }).inventory_shipping_estimate
+%}
+{% set jsCallback %}
+    productAdminSelection = function(item) {
+        var markup = '';
+        for (key in item) {
+            if(markup != '') markup += ' - ';
+            markup += item[key];
+        }
+        markup += '&nbsp;&nbsp;&nbsp;&nbsp;<a class="pull-right" href="{{app.url}}/collection/'+item.id+'"><i class="fa fa-edit"></i></a>';
+        return markup;
+    }
+{% endset %}
+{% do app.asset.script('productAdminCollectionSelection',jsCallback) %}
+
+{{ form.text('name', product.name,{'required':true}) }}
+<hr />
+{% set variations = id is not empty ? 
+    api.get('/variant',{
+            'sort':app.request.get.sort,
+            'page':app.request.get.page,
+            'query':{'product_id':id},
+            'elastic':false,
+            'limit':300,
+            'sort':'status:1,name:1'
+        }) : '' %}
+{% if variations[0] is not defined %}
+
+    {{ form.text('sku', product.sku) }}
+    {{ form.text('barcode', product.barcode) }}
+    
+    <hr />
+
+    {{ form.money('price', product.price) }}
+    {{ form.money('compare_price', product.compare_price) }}
+    {{ form.money('cost', product.cost) }}
+    <hr />
+
+    {% include "/_admin/product/_partials/attributes-form.html.twig" with {'form':form} %}
+
+    {{ form.number('inventory_quantity', product.inventory_quantity, 
+        {
+        'help':'<a href="#stock_options" data-modal="true">Stock Options</a>'
+        }
+    ) }}
+    <hr />
+
+{% else %}
+    <div class="form-group">
+    <label class="col-sm-3 control-label hidden-xs">Variants</label>
+    <div class="col-sm-9">
+        <p>
+            <a href="{{ app.url }}/product/{{product.id}}/variant/create" class="btn btn-success"><i class="fa fa-plus"></i> Add Variant</a>
+        </p>
+        {{ list.create(
+            ['title','sku','price','status'], 
+            variations, 
+            '/product/'~product.id~'/variant/{id}', 
+            'sort', 
+            {'price':'money'}, 
+            {
+                'delete': '/siteapi/variant/{id}',
+                'actions':
+                    {
+                        'Set Status': 'setStatusMulti',
+                        'Stock Options': 'setStockOptionsMulti',
+                        'Set Prices': 'setPricesMulti',
+                        'Stock Quantities': 'setQuantityMulti',
+                        'Add Attributes': 'setAttributesMulti',
+                        'Misc Options': 'setOptionsMulti',
+                        '':'',
+                        'Duplicate':app.url ~ '/product/' ~ id ~ '/variant/duplicate',
+                        'Delete Selected': 'removeVariants'
+                    }
+            }
+        )}}
+            
+    </div>
+    </div>
+    <hr />
+
+{% endif %}
+
+{{ form.imageuploader('images','product',product.images) }}
+
+<hr />
+<div class="form-group">
+    <label for="product_video" class="col-sm-3 control-label">Video&nbsp;</label>
+    <div class="col-sm-6"><input type="text" id="product_video" name="product[videos][]" value="{{ app.request.post.product.videos.0|default(product.videos.0) }}" class="form-control" placeholder="YouTube / Video link"></div>
+</div>
+
+<hr />
+{{ form.typeahead('type', product.type, '', '', type|keys) }}
+{{ form.document('description', product.description) }}
+{{ form.tags('tags', product.tags, tags|keys) }}
+<hr />
+
+{{ form.selectapi('collection_id',
+                   api.get('/collection',{'query':{'id':{'$in':product.collection_id}},'attributes':['id','name']}).array(),
+                  'collection?elastic=1&sort=_score:-1',
+                  ['id','name'],
+                  {
+                    'label':'Collections',
+                    'formatSelection':'productAdminSelection'
+                  })
+}}
+
+{{ form.multiselector('category_id', product.category_id,  api.get('/category',{'attributes':'slug','sort':'slug'})|map_as({'id':'slug'}), {'label':'Categories'} ) }}
+{{ form.typeahead('brand', product.brand, '', '', brand|keys) }}
+<hr />
+
+{{ form.text('page_title', product.page_title) }}
+{{ form.tags('keywords', product.keywords, keywords|keys) }}
+{{ form.textarea('meta_description', product.meta_description, {'rows':4}) }}
+{{ form.slugify('slug', product.slug, 'name', {'before':'/product/','label':'Slug (URL)'}) }}
+
+<hr />
+{{ form.select('status', product.status, {'active':'Active','disabled':'Disabled','removed':'Removed'}) }}
+<hr />
+{{ form.submit('save') }}
+{{ form.end() }}
+
+{% set variant = variations[0] %}
+{% include "/_admin/product/_partials/variant-multi-action-form.html.twig" with {'variant':variant} %}
+
+

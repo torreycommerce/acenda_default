@@ -1,0 +1,31 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% set id = app.request.path|integer %}
+{% if id == 0 %}
+    {% do app.redirect('/coupon') %}
+{% endif %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Coupons':'/coupon','Coupon Details':'/coupon/' ~ id, 'Create Rule':''}) }}
+
+{% endblock %}
+{% block content %}
+    {% if app.request.post.couponrule is not empty %}
+        {% set couponruledata = app.request.post.couponrule + {coupon_id:id} %}
+        {% set result = api.post('/couponrule', couponruledata) %}
+        {% if result %}
+            {% do app.user.setFlash('Action performed successfully.') %}
+            {% do app.redirect('/coupon/' ~ id) %}
+        {% else %}
+            {{ dump(api.error) }}
+        {% endif %}
+    {% endif %}
+    {% set create = true %}
+    <h1>{% if id is not empty and couponrule.name != "" %}{{couponrule.name}}{% else %}New Rule{% endif %}</h1>
+    <hr />
+    {% include "/_admin/couponrule/_partials/form.html.twig" %}
+{% endblock %}
+{% block js %}
+{{ app.asset.js(app.url ~ '/js/couponrule.js') }}
+{% endblock %}

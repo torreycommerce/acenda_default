@@ -1,0 +1,73 @@
+{% set attribute_keys = api.get('/variant',{'format':'fields'}) %}
+{% do app.asset.js(app.url ~ '/admin-assets/plugins/form-typeahead/typeahead.min.js') %}
+{% do app.asset.css(app.url ~ '/admin-assets/plugins/form-typeahead/typeahead.css') %}
+{% set reservedAttributes = [ 
+    "product_id","popularity", "barcode", "brand_id", "brand", "category_id", "category", 
+    "category_slug", "children", "compare_price", "cost", "cross_sellers", 
+    "date_created", "date_modified", "description", "group", "id", "images", 
+    "has_stock", "keywords", "name", "parent_id", "price", "review_score", 
+    "save_percent", "save_price", "sku", "slug", "position", "status",
+    "require_shipping", "weight", "inventory_shipping_estimate", "inventory_minimum_quantity", "inventory_quantity",
+    "inventory_returnable", "inventory_policy", "inventory_tracking", 
+    "tags", "taxable", "discountable", "title", "thumbnail", "url", "_snapshot"
+] %}
+{% set script %}
+
+setProductAttrubteName = function(f) {
+    var field = f.val().replace(' ','_').replace(/([^aA-zZ0-9_]+)/,'').toLowerCase();
+    var val_field = f.parent().parent().parent().find('.attribute-value');
+    f.val(field);
+    val_field.attr('name','variant['+field+']');
+    val_field.unbind();
+    val_field.typeahead([
+      {
+        name: val_field.attr('name'),
+        remote: acendaBaseUrl+'/product/ajax/attributes.json?query=%QUERY&name='+field
+      }
+    ]);
+}
+
+addProductAttribute = function() {
+    t = $('.additional-field-default').clone(); 
+    $('.additional-field-default').show(); 
+    $('.additional-field-default .attribute-name').typeahead([
+      {
+        name: 'item',
+        local: [{% for value in attribute_keys if value not in reservedAttributes and value[:6] != 'group_'  %}{% if loop.index > 1%},{% endif %}"{{value}}"{% endfor %}],
+      }
+    ]).on('typeahead:selected', function($e, datum){
+        setProductAttrubteName($($e.target));
+    }
+    );
+    $('.additional-field-default').removeClass('additional-field-default'); 
+    t.addClass('additional-field-default'); 
+    $('.additional-field-set').append(t); 
+
+    return false;
+}
+{% endset %}
+{% do app.asset.script('product_js',script) %}
+<div class="additional-field-set ">
+    {% if add_only == false %}
+    {% for key,value in variant if key not in reservedAttributes and value is not iterable %}
+        <input type="hidden" name="variant[{{key}}]" value="" />
+        {{ form.typeahead(key, variant[key], '', app.url ~ '/product/ajax/attributes.json?query=%QUERY&name=' ~ key, '',{'button':'<a href="#add-fields" onclick="$(this).parent().parent().parent().parent().remove();return false;" class="btn"><i class="fa fa-trash-o"></i></a>'}) }}
+    {% endfor %}
+    {% endif %}
+
+    <div class="additional-field-default form-group" style="display:none">
+        <div class="col-sm-offset-3 col-sm-3 col-xs-6">
+            <input type="text" id="" name="" value="" class="form-control attribute-name" placeholder="Name" onchange="setProductAttrubteName($(this));">
+        </div>
+        <div class="col-sm-3 col-xs-6 input-group">
+            <input type="text" id="" name="" value="" class="form-control attribute-value" placeholder="Value">
+            <span class="input-group-btn"><a href="#add-fields" onclick="$(this).parent().parent().parent().remove();return false;" class="btn"><i class="fa fa-trash-o"></i></a></span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-6">
+    <a onclick="return addProductAttribute();" class="btn btn-success">+ Add Attribute</a>
+    </div>
+</div>
+<hr />

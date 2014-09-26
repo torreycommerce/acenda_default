@@ -1,0 +1,11 @@
+    {{ form.begin('addressblacklist','','post',{ 'data':addressblacklist }) }}
+
+    {{ extras.address_nv() }}
+
+    {% if create %}
+    {{ form.submit('Create') }}
+    {% else %}
+    {{ form.submit('Save') }}
+    {% endif %}
+
+    {{ form.end() }}

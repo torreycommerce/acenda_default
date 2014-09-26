@@ -1,0 +1,94 @@
+{% macro breadcrumbs(crumbs=[]) %}
+    <div class="hidden-sm hidden-xs row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="{{app.url}}"><span class="glyphicon glyphicon-home"></span><span class="visually-hidden">Home</span></a></li>
+                {% for name,link in crumbs %}
+                    {% if link is empty %}
+                        <li class="active">{{name}}</li>
+                    {% else %}
+                        <li><a href="{{app.url}}{{link}}">{{ name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro pagination(number_items, items_per_page = 64, number_pages_displayed = 7, current_page = '', page_key = 'page' ) %}
+{% spaceless %}
+    {% if not current_page %}
+        {% set current_page = app.request.get[(page_key)] %}
+    {% endif %}
+    {% set number_pages = (number_items / items_per_page)|round(0,'ceil') %}
+    {% if number_pages > 1 %}
+        {% set current_page = current_page > 1? current_page : 1 %}
+        {% set start_page = current_page >= number_pages_displayed? current_page : 2 %}
+        {% set end_page = current_page >= number_pages_displayed? current_page + number_pages_displayed - 2 : number_pages_displayed %}
+        {% if end_page > number_pages %}
+            {% set end_page = number_pages %}
+            {% set start_page = number_pages - number_pages_displayed + 2 > 2? number_pages - number_pages_displayed + 2: 2 %}
+        {% endif %}
+            <ul class="pagination">
+                <li class="previous {% if app.request.get.page <= 1 %}disabled{% endif %}">
+                    <a {% if current_page > 1 %} href="{{app.request.getUrl({(page_key):current_page - 1})}}"{% endif %}>«</a>
+                </li>
+                <li class="page {% if current_page == 1 %}active{% endif %}">
+                    <a href="{{app.request.getUrl({(page_key):1})}}">1</a>
+                </li>
+                {% for page in start_page..end_page %}
+                    <li class="page {% if current_page == page %}active{% endif %}">
+                        <a href="{{app.request.getUrl({(page_key):page})}}">{{page}}</a>
+                    </li>
+                {% endfor %}
+                <li class="next {% if current_page >= number_pages %}disabled{% endif %}">
+                    <a {% if current_page < number_pages %}href="{{app.request.getUrl({(page_key):current_page + 1})}}"{% endif %}>»</a>
+                </li>
+            </ul>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro rating(score, attributes=[]) %}
+{% spaceless %}
+    <div {% if attributes.id is not empty %}id="{{ attributes.id }}"{% endif %} class="star-rating {% if attributes.class is not empty %}{{ attributes.class }}{% endif %}">
+        <div class="disabled">
+            {% for stars in 0..4 %}
+                <span class="glyphicon glyphicon-star"></span>
+            {% endfor %}
+            <div class="active" style="width: {{ (score*100)|number_format }}%"> 
+                {% for stars in 0..4 %}
+                    <span class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro modal(modal_id, content, attributes=[]) %}
+{% spaceless %}
+    {% do app.asset.js( app.url ~ '/admin-assets/plugins/jquery-magnific-popup/magnific-popup-min.js' ) %}
+    {% do app.asset.css( app.url ~ '/admin-assets/plugins/jquery-magnific-popup/magnific-popup.css' ) %}
+    {% set script %}
+        $('[data-modal]').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+            
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'mfp-dialog-box'
+        });
+    {% endset %}
+    {% do app.asset.script('magnific-modal', script) %}
+    <div id="{{modal_id}}" class="mfp-dialog mfp-dialog-box zoom-anim-dialog mfp-hide">{{ content }}</div>
+{% endspaceless %}
+{% endmacro %}
+

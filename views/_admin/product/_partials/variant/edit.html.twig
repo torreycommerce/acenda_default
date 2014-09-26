@@ -1,0 +1,60 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{# Attempt to get variant's parent product #}
+{% set product = api.get('/product/' ~ product_id) %}
+{% if product.id is empty %}
+    {% do app.redirect('/product') %}
+{% endif %}
+
+{% if create == false %}
+    {% set variant = api.get('/variant/' ~ id) %}
+    {% if variant.id is empty or product_id not in variant.product_id %}
+        {% do app.redirect('/product/' ~ product_id) %}
+    {% endif %}
+{% else %}
+    {% set variant = {
+        'inventory_tracking':1,
+        'require_shipping':1,
+        'discountable':1,
+        'taxable':1,
+        'inventory_returnable':1,
+    } %}
+{% endif %}
+
+{% if app.request.post.variant is not empty %}
+    {% if create == true %}
+        {% set id = api.post('/variant', app.request.post.variant|merge({'product_id':product_id})) %}
+        {% if id != false %}
+            {% if app.request.post.variant.inventory_tracking %}
+                {% do app.redirect('/product/'~product_id~'/variant/'~id,{
+                    'success':'Successfully updated stock tracking.'}
+                ) %}
+            {% else %}
+                {% do app.redirect('/product/' ~ product_id ~ '?hl=' ~ id,{
+                    'success':'<a href="'~  app.url ~ '/product/'~product_id~'/variant/'~id ~'">' ~ app.request.post.variant.name ~ '</a> successfully created.'}
+                ) %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if api.put('/variant/' ~ id, app.request.post.variant) %}
+            {% do app.redirect('/product/' ~ product_id ~ '?hl=' ~ id,{
+                'success':'<a href="'~  app.url ~ '/product/'~product_id~'/variant/'~id ~'">' ~ app.request.post.variant.name ~ '</a> successfully updated.'}
+            ) %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% block title %}
+    Product Variant Admin
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Products':'/product', (product.title):'/product/' ~ product_id, 'Variant':''}) }}
+{% endblock %}
+
+{% block content %}
+    <h1>{% if id is not empty %}{{variant.title}}{% else %}{{product.title}} - New Variant{% endif %}</h1>
+    <hr />
+    {% include "/_admin/product/_partials/variant/form.html.twig" %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{"results":[
+    {% set tasks = api.get('/task') %}
+    {% for task in tasks %}
+        { 
+           {% for k,v in task %}
+              "{{k}}":"{{v}}",
+           {% endfor %}
+        }
+    {% endfor %}
+
+   ]
+}
+
+

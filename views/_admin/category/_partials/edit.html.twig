@@ -1,0 +1,38 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% set category = api.get('/category/' ~ id).array %}
+
+{% if category.id is empty %}
+    {% do app.redirect('/category') %}
+{% endif %}
+
+{% if app.request.post.category is not empty %}
+    {% if app.request.post.category.delete is defined %}
+        {% if api.delete('/category/' ~ id) %}
+            {% do app.redirect('/category',{'success':'Category successfully removed.'}) %}
+        {% endif %}
+    {% else %}
+        {% set postData = app.request.post.category %}
+        {% set postData = postData|merge({'images':postData.images|values_in('id')}) %}
+        {% if api.put('/category/' ~ id, postData) %}
+            {% do app.redirect('/category',{'success':'Category successfully saved.'}) %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% block title %}
+    Edit Category
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Categories':'/category','Edit Category':''}) }}
+{% endblock %}
+
+{% block content %}
+
+    <h1>{% if id is not empty %}{{category.name}}{% else %}New Category{% endif %}</h1>
+
+    {% include '/_admin/category/_partials/form.html.twig' %}
+    
+{% endblock %}

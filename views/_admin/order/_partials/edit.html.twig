@@ -1,0 +1,181 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% if app.request.post.order is not empty %}
+    {% set orderdata = app.request.post.order %}
+    {% if orderdata.coupon_code is not empty %}
+        {% set result = api.post('/ordercoupon', {order_id:id,code:orderdata.coupon_code}) %}
+    {% endif %}
+    {% set action = orderdata.action|split('/')|first %}
+    {% set action_id = orderdata.action|split('/')|last %}
+    {% if action == 'settle' %}
+        {% set result = api.post('/order/' ~ id ~ '/settle') %}
+    {% elseif action == 'delayCapture' %}
+        {% set result = api.post('/order/' ~ id ~ '/delayCapture') %}
+    {% elseif action == 'refund' %}
+        {% set result = api.post('/order/' ~ id ~ '/refund') %}
+    {% elseif action == 'fraudCheck' %}
+        {% set result = api.post('/order/' ~ id ~ '/fraudCheck') %}
+    {% elseif action == 'removeCoupon' %}
+        {% set result = api.delete('/ordercoupon/' ~ action_id) %}
+    {% else %}
+        {% set result = api.put('/order/' ~ id, orderdata|merge({'imported':null}) ) %}
+    {% endif %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% if result %}
+        {% do app.redirect('/order/' ~ order_number) %}
+    {% else %} 
+        {% set error = api.error %}
+    {% endif %}
+{% endif %}
+
+{% set order = api.get('/order/' ~ id) %}
+{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+{% set coupons = api.get('/ordercoupon', {query:{order_id:order.id}}) %}
+{% set returns = api.get('/orderreturn', {query:{order_id:order.id}}) %}
+{% set snapshots = api.get('/ordersnapshot', {query:{order_id:order.id},sort:'id:-1',limit:5}) %}
+{% set fraud_results = order.fraud_results %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Orders':'/order',('Order #' ~ order.order_number):''}) }}
+{% endblock %}
+
+{% block title %}
+    Order #{{ order.order_number }}
+{% endblock %}
+
+{% block content %} 
+<style>
+.form-horizontal .control-label {
+    font-size: 1em;
+}
+</style>
+<button onclick="$('#order-invoice').printThis();return false;" class="btn btn-primary pull-right"><i class="fa fa-print"></i> Print <span class="hidden-xs hidden-sm">Invoice</span></button>
+<h1>Order #{{ order.order_number }} <small><span class="hidden-xs"> {{ order.date_created|date() }}</span></small></h1>
+
+{{ form.begin('order', '', 'post', {data:order}) }}
+{{ form.disableEnterSubmit() }}
+<div id="order-details">
+    {% if error is not empty %}
+        <div class="row">
+            <div class="alert alert-danger"><h1>{{ error }}</h1></div>
+        </div>
+    {% endif %}
+    {% if order.test_order %}
+        <div class="row">
+            <div class="alert alert-danger"><h1>This is a test order</h1></div>
+        </div>
+    {% endif %}
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#details" data-toggle="tab" onclick="initQuery(); return true;">Details</a></li>
+            <li><a href="#returns" data-toggle="tab">Returns {% if returns is not empty %}({{returns|find({'status':'pending'})|length}}){% endif %}</a></li>
+            <li><a href="#history" data-toggle="tab" onclick="testQuery('{{model}}');return true;">History {% if snapshots is not empty %}({{snapshots|length}}){% endif %}</a></li>
+        </ul>
+        <br />
+        <div class="tab-content">
+            <div class="tab-pane active" id="details">
+                {% include "/_admin/order/_partials/edit/addresses.html.twig" %}
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div id="items" class="panel panel-midnightblue">
+                            <div class="panel-heading">
+                                Items
+                            </div>
+                            <div class="panel-body">
+                                {% include "/_admin/order/_partials/edit/items.html.twig" %}
+                            </div>
+                        </div>
+                        <div id="totals" class="panel panel-midnightblue">
+                            <div class="panel-heading">
+                                Order Total
+                            </div>
+                            <div class="panel-body">
+                                {% include "/_admin/order/_partials/edit/totals.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-6 col-md-12">
+                        <div class="panel {% if order.transaction_status == 'authorize' %}panel-success{% elseif order.unsettled != 0 %}panel-orange{% else %}panel-midnightblue{% endif %}">
+                            <div class="panel-heading">
+                                <h4>Status &amp; Payment</h4>
+                            </div>
+                            <div class="panel-body">
+                                {% include "/_admin/order/_partials/edit/payment.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="returns">
+                {% include "/_admin/order/_partials/edit/returns.html.twig" %}
+            </div>
+            <div class="tab-pane" id="history">
+                {% include "/_admin/order/_partials/edit/snapshots.html.twig" %}
+            </div>
+        </div>
+</div>
+
+<div style="display:none">
+    {% include '/_admin/order/_partials/invoice.html.twig' %}
+</div>
+
+{{ form.end() }}
+
+{% set content %}
+    {{ form.begin('order', '', 'post', {data:order}) }}
+    {{ form.disableEnterSubmit() }}
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Billing Address</h2>
+                    {% if order.transaction_type == 'PayPal Express' %}
+                        Express order
+                    {% else %}
+                        {{ extras.address('billing') }}
+                    {% endif %}
+                    {{ form.email('email', order.email, {'label':'Customer Email', 'placeholder':'Customer Email', 'parsley-notblank':'true', 'required':true}) }}
+            </div>
+        </div>
+        <hr >
+        {{ form.submit('Save Billing Address') }}
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("edit_billing_addresses", content) }}
+
+{% set content %}
+    {{ form.begin('order', '', 'post', {data:order}) }}
+    {{ form.disableEnterSubmit() }}
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Shipping Address</h2>
+                {{ extras.address('shipping') }}
+                {% set methods = api.get('/shippingmethod') %}
+                {% set compiledmethods = {} %}
+                {% for method in methods %}
+                {% set compiledmethods = compiledmethods + {(method.id):method.name}%}
+                {% endfor %}
+                {{ form.select('shipping_method', '', compiledmethods, {'label':'Shipping Method'}) }}
+            </div>
+        </div>    <hr >
+        {{ form.submit('Save Shipping Address') }}
+    {{ form.end() }}
+{% endset %}
+{{ base.modal("edit_shipping_addresses", content) }}
+{% endblock %}
+
+
+{% block js %}
+{{ app.asset.js(app.url ~ '/js/region.js') }}
+{{ app.asset.js(app.url ~ '/js/admin/orders.js?v=06192014') }}
+{% endblock %}
+
+
+
+

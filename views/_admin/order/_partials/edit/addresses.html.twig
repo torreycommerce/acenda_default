@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel ">
+            <div class="panel-heading">
+                <h4>Shipping Address</h4>
+                <div class="options"><a href="#edit_shipping_addresses" data-modal="true" class=""><i class="fa fa-edit"></i> Edit</a></div>
+            </div>
+            <div class="panel-body">
+                <address>
+                    <strong>{{ order.shipping_first_name }} {{ order.shipping_last_name }}</strong><br>
+                        {{ order.shipping_street_line1 }}<br>
+                        {% if order.shipping_street_line2 %}{{ order.shipping_street_line2 }}<br>{% endif %}
+                        {% if order.shipping_company %}{{ order.shipping_company }}<br>{% endif %}
+                        {{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}<br>
+                        {{ order.shipping_country }}<br>
+                        
+                </address>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel ">
+            <div class="panel-heading">
+                <h4>Billing Address</h4>
+                {% if order.transaction_type != 'PayPal Express' %}
+                <div class="options"><a href="#edit_billing_addresses" data-modal="true" class=""><i class="fa fa-edit"></i> Edit</a></div>
+                {% endif %}
+            </div>
+            <div class="panel-body">
+                {% if order.transaction_type == 'PayPal Express' %}
+                    Express order
+                {% else %}
+                <address>
+                    <strong>{{ order.billing_first_name }} {{ order.billing_last_name }}</strong><br>
+                        {{ order.billing_street_line1 }}<br>
+                        {% if order.billing_street_line2 %}{{ order.billing_street_line2 }}<br>{% endif %}
+                        {% if order.billing_company %}{{ order.billing_company }}<br>{% endif %}
+                        {{ order.billing_city }}, {{ order.billing_state }} {{ order.billing_zip }}<br>
+                        {{ order.billing_country }}<br>
+                </address>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

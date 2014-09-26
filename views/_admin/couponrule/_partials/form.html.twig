@@ -1,0 +1,29 @@
+{{ app.asset.js(app.url ~ '/js/jquery.cascadingdropdown.js') }}
+{{ form.begin('couponrule','','post',{data:couponrule}) }}
+{{ form.select('name', '', {}, {required:true}) }}
+{{ form.select('operation', '', {}) }}
+{{ form.number('values[money]', '', {label:'', before:'$', placeholder:'0.00'}) }}
+{{ form.number('values[percent]', '', {label:'', after:'%', placeholder:'0'}) }}
+{{ form.select('values[collection]', '', {}, {label:''}) }}
+{{ form.text('values[query]', '', {label:''}) }}
+{{ form.select('values[group]', '', {}, {label:''}) }}
+{{ form.number('values[number-times]', '', {label:'', after:'times', placeholder:'0'}) }}
+{{ form.number('values[number]', '', {label:'', placeholder:'0'}) }}
+{{ form.hidden('id', couponrule.id) }}
+{% set categories = api.get('/category', {query:{'status':'active'}}) %}
+{% set category_list = {'':'Please select a category'} %}
+{% for category in categories %}
+    {% if category.name != 'View All' %}
+        {% set category_list = category_list + {(category.slug):category.name} %}
+    {% endif %}
+{% endfor %}
+{{ form.select('values[category]', '', category_list, {label:''}) }}
+{{ form.select('logic', '', {'and':'and', 'or':'or'}, {required:true}) }}
+{{ form.hidden('rule_type','') }}
+<hr />
+{% if create %}
+    {{ form.submit('Create') }}
+{% else %}
+    {{ form.submit('Save') }}
+{% endif %}
+{{ form.end() }}

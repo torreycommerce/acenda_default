@@ -1,0 +1,13 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+<link rel="stylesheet" href="{{ app.url }}/css/orders.css">
+{% endblock %}
+{% set order = api.get('/order/' ~ id) %}
+{% block content %}
+    {% include '/_admin/order/_partials/invoice.html.twig' %}
+{% endblock %}
+{% set script %}
+    window.print();
+{% endset %}
+{% do app.asset.script('print',script) %}

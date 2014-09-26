@@ -1,0 +1,25 @@
+{% macro checkBoxValue(value) %}
+    {% if value == true %}
+      value="{{ value }}" checked
+    {% endif %}
+{% endmacro %}
+
+{% macro selectValue(value,compareValue) %}
+    {% if value == compareValue %}
+      selected
+    {% endif %}
+{% endmacro %}
+
+{% macro checkValue(value,compareValue) %}
+    {% if value == compareValue %}
+      checked
+    {% endif %}
+{% endmacro %}
+
+{% macro checkBox(name,value) %}
+    <input type="hidden" name="{{ name }}" value="0">
+	<input type="checkbox" id="logo-custom" name="{{ name }}" value="1"
+    {% if value == true %}
+       checked
+    {% endif %}>
+{% endmacro %}

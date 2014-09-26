@@ -1,0 +1,83 @@
+    <h1>{{ title }}</h1>
+
+
+    {% set search  = app.request.get.s is defined ? app.request.get.s|trim : '' %}
+    {% set query   = app.request.get.query is defined ? app.request.get.query : '' %}
+    {# If the search contains special character ':' assume the search is a query #}
+    {% if ':' in search %}
+        {% set query = search %}
+        {% set search = '' %}
+    {% elseif search is not empty %}
+        {% set elastic = true %}
+    {% endif %}
+
+    {% set sort    = app.request.get.sort is defined or app.request.get.filter is defined ? app.request.get.sort : query is empty ? defaultSort : null %}
+    
+    {% set customfilters  = api.get('queryfilter',{'query':{'model': (model)}}) %}
+    {% set defaultFilters = defaultFilters is defined ? defaultFilters : [] %}
+    {% set filters = defaultFilters|merge(customfilters.toArray()) %}
+
+    {% set query = base_query is defined ? query != '' ? base_query ~ ',' ~ query : base_query : query %}
+
+
+    {% set filter_name  = '' %}
+    {% set filter_query = '' %}
+    {% if  app.request.get.filter is not empty %}
+        {% for filter in filters %}
+            {% if app.request.get.filter == filter.name or app.request.get.filter == filter.id %}
+                {% set filter_name  = filter.name %}
+                {% set filter_query = filter.query %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <p>
+        {% if newUrl is defined %}<a href="{{app.url}}{{newUrl}}" class="btn btn-success pull-left"><i class="fa fa-plus"></i> New Item</a>{% endif %}
+        <div class="pull-right">
+          <ul class="nav nav-pills">
+            <li>
+                <a role="button" data-toggle="dropdown" href="#">Filter{% if app.request.get.filter is not empty %} - {{ filter_name|title}}{% endif %} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li {% if app.request.get.filter is empty %} class="active" {% endif %}><a href="{{app.request.url({'filter':null,'page':null})}}">All Items</a></li>
+
+                    {% for filter in filters %}
+                        <li {% if filter_name == filter.name and filter_name != '' %} class="active" {% endif %}><a href="{{app.request.url({'filter':filter.name,'page':null})}}">{{filter.name|title}}</a></li>
+                    {% endfor %}
+                    <li class="divider"></li>
+                    <li><a href="{{ app.url }}/queryfilter/create?model={{model}}">New Filter</a></li>
+                    {% if customfilters|length > 0 %}
+                    {% for filter in customfilters %}
+                        <li><a href="{{ app.url }}/queryfilter/{{ filter.id }}?model={{model}}">Edit "{{ filter.name }}"</a></li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+            </li>
+            <li>
+            {% if filter_query is not empty %}
+                {% set query = query == '' ? filter_query : query ~ ',' ~ filter_query  %}
+            {% endif %}
+                <a role="button" data-toggle="dropdown" href="#">CSV <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ app.url }}/siteapi/{{ model }}/export/{% if query is not empty %}?query={{ query }}{% endif %}">Export CSV file</a>
+                    </li>
+                </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+    </p>
+    <p>
+        <form method="get" class="input-group">
+            <input type="hidden" name="page" value="1" />
+            <input type="hidden" name="filter" value="{{ app.request.get.filter }}" />
+            <input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search" />
+            <span class="input-group-btn"><button type="submit" class="btn btn-info"><i class="fa fa-search"></i></button></span>
+        </form>
+    </p>
+    
+    {% set items = api.get('/' ~ model,{'sort':sort,'page':app.request.get.page,'query':query,'search':search,'elastic':elastic,'attributes':attributes|default(listColumns),'limit':32}) %}
+
+    {{ base.pagination(items.num_total, 32) }}
+    {{ list.create(listColumns, items, editUrl, 'sort', listFormatting, listActions) }}
+
+    {{ base.pagination(items.num_total, 32) }}

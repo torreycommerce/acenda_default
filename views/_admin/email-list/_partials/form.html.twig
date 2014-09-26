@@ -1,0 +1,72 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+
+{% if create == false %}
+    {% set email = api.get('/email/' ~ id) %}
+    {% if email.id is empty %}
+        {% do app.redirect('/email-list') %}
+    {% endif %}
+{% endif %}
+
+{% block title %}
+    Edit Content
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Email Subscribers':'/email-list','Edit Email':''}) }}
+{% endblock %}
+
+{% block content %}
+
+{% if app.request.post.email is not empty %}
+    {% if create == true %}
+        {% set id = api.post('/email', app.request.post.email) %}
+        {% if id != false %}
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/email-list?hl=' ~ id) %}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if app.request.post.email.delete is not empty %}
+            {% do api.delete('/email/' ~ id) %}
+
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/email-list?hl=' ~ id) %}
+            {% endif %}
+
+        {% elseif api.put('/email/' ~ id, app.request.post.email) %}
+            {% if  app.request.post.referer is not empty %}
+                {% set referer = app.request.post.referer %}
+                {% set referer = '?' in referer ? referer ~ '&hl=' ~ id : referer ~ '?hl=' ~ id %}
+                {% do app.redirect(referer) %}
+            {% else %}
+                {% do app.redirect('/email-list?hl=' ~ id) %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+    <h1>Subscriber Email</h1>
+    <div class="panel gray">
+        <div class="panel-heading">
+            <h4>{{email.email}}</h4>
+        </div>
+        <div class="panel-body">
+                    {{ form.begin('email') }}
+                        {{ form.email('email', email.email) }}
+                        <hr />
+                        {{ form.submit('save') }}
+                    {{ form.end() }}
+        </div>
+    </div>
+
+{% endblock %}

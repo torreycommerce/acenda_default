@@ -1,0 +1,62 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Customer':'/customer','Customer Details':''}) }}
+{% endblock %}
+
+{% block content %}
+    {% if app.request.post.customer is not empty %}
+        {% set customerdata = app.request.post.customer %}
+        {% set result = api.put('/customer/' ~ id, customerdata) %}
+        {% if result %}
+            {% do app.redirect('/customer', {'success':'Customer successfully saved.'}) %}
+        {% else %}
+            {% do app.user.flash('Error while performing action.', 'danger') %}
+        {% endif %}
+    {% endif %}
+
+    {% set customer = api.get('/customer/' ~ id) %}
+    {% if customer is empty %}
+        {% do app.redirect('/customer', {'error':'Customer cannot be found.'}) %}
+    {% endif %}
+
+    <h1>{{ customer.full_name }}</h1>
+    <hr />
+
+    {{ form.begin('customer', '', 'post', {data:customer}) }}
+        {{ form.text('email','',{'parsley-type':'email',required:true}) }}
+        {{ form.text('first_name','',{required:true}) }}
+        {{ form.text('last_name','',{required:true}) }}
+        {{ form.text('phone_number','',{'parsley-type':'phone',required:true}) }}
+        {{ form.submit('Save') }}
+        <hr />
+    {{ form.end() }}
+        <form class="form-horizontal ">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Addresses</label>
+            <div class="col-sm-9">
+                <p><a class="btn btn-success" href="{{app.url}}/customeraddress/create/{{ id }}"><i class="fa fa-plus"></i> Create a new address</a>
+                </p>
+                {% set columns         = ['one_line','default','date_modified'] %}
+                {% set customeraddresses = api.get('/customeraddress',{'sort':sort,'page':app.request.get.page,'query':{customer_id:id},'attributes':columns,'limit':100}) %}
+                {{ list.create(columns, customeraddresses, '/customeraddress/{id}', 'sort_address', {'date_modified':'date', 'default':'boolean'}, {'delete':'delete','labels':{'one_line':'address'}}) }}   
+            </div>
+        </div>
+        </form>
+        <hr />
+
+        <form class="form-horizontal ">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Orders</label>
+            <div class="col-sm-9">
+                {% set columns         = ['order_number','status','total','date_created'] %}
+                {% set listActions = { 'labels' : {'order_number':'Number'}  }%}                
+                {% set customeraddresses = api.get('/order',{'sort':sort,'page':app.request.get.page,'query':{'$or':[{customer_id:id}, {email:customer.email}]},'attributes':columns,'limit':100}) %}
+                {{ list.create(columns, customeraddresses, '/order/{order_number}', 'sort_orders', {'date_created':'date', 'total':'money'},listActions)}}   
+            </div>
+        </div>
+        </form>
+    
+{% endblock %}

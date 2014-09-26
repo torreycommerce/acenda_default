@@ -1,0 +1,11 @@
+{% if app.request.path == 'create' %}
+    {% set create = true %}
+    {% include '/_admin/queryfilter/_partials/form.html.twig' %}
+{% else %}
+    {% set id = app.request.path|integer %}
+    {% if id == 0 %}
+        {% include '/_admin/queryfilter/_partials/list.html.twig' %}
+    {% else %}
+        {% include '/_admin/queryfilter/_partials/form.html.twig' %}
+    {% endif %}
+{% endif %}

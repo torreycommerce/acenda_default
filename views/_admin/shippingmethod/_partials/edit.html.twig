@@ -1,0 +1,26 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'Shipping Methods':'/shippingmethod','Shipping Method Details':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.shippingmethod is not empty %}
+    {% set shippingmethoddata = app.request.post.shippingmethod %}
+    {% set result = api.put('/shippingmethod/' ~ id, shippingmethoddata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/shippingmethod') %}
+{% endif %}
+{% set shippingmethod = api.get('/shippingmethod/' ~ id) %}
+{% include "/_admin/shippingmethod/_partials/form.html.twig" %}
+<h2>Rules</h2>
+<a class="btn btn-primary btn-lg" href="{{app.url}}/shippingrule/create/{{ id }}"><i class="glyphicon glyphicon-plus"></i>Create a new shipping rule</a>
+{% set rules = api.get('/shippingrule',{'query':{'method_id':id}}) %}
+{% set columns = ['id','bottom_price','top_price','bottom_quantity','top_quantity','shipping','date_modified'] %}
+{{ list.create(columns, rules, '/shippingrule/{id}', 'sort', {'date_modified':'date'}, {'delete':'/siteapi/shippingrule/{id}'}) }}
+{% endblock %}

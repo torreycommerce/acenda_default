@@ -1,0 +1,21 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+{% block css %}
+{% endblock %}
+{% block breadcrumb %}
+    {{ base.breadcrumbs({'IP Blacklist':'/ipblacklist','Create new blacklisted IP':''}) }}
+{% endblock %}
+{% block content %}
+{% if app.request.post.ipblacklist is not empty %}
+    {% set ipblacklistdata = app.request.post.ipblacklist %}
+    {% set result = api.put('/ipblacklist/' ~ id, ipblacklistdata) %}
+    {% if result %}
+        {% do app.user.setFlash('Action performed successfully.') %}
+    {% else %}
+        {% do app.user.setFlash('Error while performing action.', 'danger') %}
+    {% endif %}
+    {% do app.redirect('/ipblacklist') %}
+{% endif %}
+{% set ipblacklist = api.get('/ipblacklist/' ~ id) %}
+{% include "/_admin/ipblacklist/_partials/form.html.twig" %}
+{% endblock %}

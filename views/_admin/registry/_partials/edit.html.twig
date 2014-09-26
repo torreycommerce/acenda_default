@@ -1,0 +1,87 @@
+{% extends "/_admin/_layouts/theme.html.twig" %}
+{% import "/_admin/_macros/base.html.twig" as base %}
+
+{% set registry = api.get('/registry/' ~ id) %}
+{% if registry.id is empty %}
+{% do app.redirect('/registry') %}
+{% endif %}
+
+{% set items = api.get('/registryitem', {query:{registry_id:registry.id}}) %}
+
+
+{% block breadcrumb %}
+	{{ base.breadcrumbs({'Registries':'/registry','Edit Registry':''}) }}
+{% endblock %}
+
+{% block title %}
+	Edit Registry
+{% endblock %}
+{% set form_errors = [] %}
+{% block content %}
+{% if app.request.post.registry is not empty %}
+    {% set registrydata = app.request.post.registry %}
+    {% set registryitemdata = registrydata['item'] %}
+    {# We're deleting this registry and items associated with it #}
+    {% if app.request.post.registry.delete is not empty %}
+        {% for id,item in registryitemdata %}
+        	{% set result = api.delete('/registryitem/' ~ id) %}
+        {% endfor %}        
+    	{% set result = api.delete('/registry/' ~ id) %}
+        {% if result %}
+            {% do app.user.setFlash('Registry deleted successfully') %}
+            {% do app.redirect('/registry') %}
+        {% else %}
+            {% do app.user.setFlash('Registry could not be deleted', 'danger') %}
+        {% endif %}
+    {% else %}
+        {# Make registry the default if the default checkbox is checked #}
+        {% if registrydata.make_default %}
+            {% do api.post('/registry/' ~ registry.id ~ '/makeDefault') %}      
+        {% endif %}
+        {% for id,item in registryitemdata %}
+        	{% set result = api.put('/registryitem/' ~ id, item) %}
+        	{% if not result %}
+        	{% set form_errors = form_errors|merge(api.error()) %}
+        	{% endif %}	
+        {% endfor %}
+        {% if form_errors is not empty %}
+            {% do app.user.setFlash('Error while performing action.','danger') %}
+            {% do app.redirect('/registry/' ~ registry.id) %}           
+         {% else %}
+        	{% set result = api.put('/registry/' ~ registry.id, registrydata) %}
+	        {% if result %}
+	            {% do app.user.setFlash('Registry edited successfully') %}
+	            {% do app.redirect('/registry') %}
+	        {% else %}
+	            {% set form_errors = api.error() %}
+	            {% set registry = app.request.post.registry %}
+	        {% endif %}
+	    {% endif %}
+    {% endif %}
+{% endif %}
+
+{% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:registry.customer_id}}) %}
+
+<div id="registry-edit">
+    <div class="row">
+        {# Begin content #}    
+        <div class="col-sm-8 col-md-9 col-lg-10">
+            <header>
+                <div class="row">
+                    <div class="col-md-12">
+                        <header>
+                            <h1 class="page-header">Edit Registry</h1>
+                        </header>
+                    </div>
+                </div>
+            </header>
+            <div class="row">
+                <div class="col-md-12">
+                    {% include '/_admin/registry/_partials/form.html.twig' %}
+                </div>
+            </div>
+        </div>    
+        {# End content #}
+    </div>
+</div>
+{% endblock %}

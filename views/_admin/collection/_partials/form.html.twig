@@ -1,0 +1,98 @@
+{{ form.begin('collection') }}
+{{ form.disableEnterSubmit() }}
+{% set suggestions = api.get('/product',
+        {
+            'attributes':['tags','keywords'],
+            'format':'attributes',
+            'elastic':1,
+            'cache':300
+        })
+%}
+{% set brand = api.get('/collection',
+        {
+            'attributes':['brand'],
+            'format':'attributes',
+            'elastic':0,
+            'cache':300
+        }).brand
+%}
+
+{{ form.text('name', collection.name) }}
+<hr />
+
+{{ form.imageuploader('images','product',collection.images) }}
+
+<hr />
+<div class="form-group">
+    <label for="collection_video" class="col-sm-3 control-label">Video&nbsp;</label>
+    <div class="col-sm-6"><input type="text" id="collection_video" name="collection[videos][]" value="{{ app.request.post.collection.videos.0|default(collection.videos.0) }}" class="form-control" placeholder="YouTube / Video link"></div>
+</div>
+
+<hr />
+
+{{ form.document('description', collection.description) }}
+{{ form.tags('tags', collection.tags, suggestions.tags|keys) }}
+
+<hr />
+
+{% if create == false %}
+<div class="form-group">
+    <label class="col-sm-3 control-label">Products</label>
+    <div class="col-sm-9">
+        {% set sort = app.request.get.sort is not empty ? app.request.get.sort : 'position:1' %}
+        {% set products = api.get('/product',{'sort':(sort),'page':app.request.get.page,'query':{'collection_id':id},'elastic':false,'limit':100,'attributes':['name','sku','status','group_price']}) %}
+        {{ list.create(['name','sku','status','group_price'], products, '/product/{id}', 'sort', {'group_price':'money','thumbnail':'image'}, {'disable_form':true,'labels':{'group_price':'price'}}) }}
+        <a href="#sort_products" data-modal="true">Sort products</a>
+    </div>
+</div>
+{% endif %}
+
+{% set jsCallback %}
+    productAdminCollectionSelection = function(item) {
+        var markup = '';
+        for (key in item) {
+            if(markup != '') markup += ' - ';
+            markup += item[key];
+        }
+        markup += '&nbsp;&nbsp;&nbsp;&nbsp;<a class="pull-right" target="_blank" href="{{app.url}}/product/'+item.id+'"><i class="fa fa-external-link"></i></a>';
+        return markup;
+    }
+{% endset %}
+{% do app.asset.script('productAdminCollectionSelection',jsCallback) %}
+{{ form.selectapi('product_ids',
+                  '',
+                  'product?query={group:product,status:{$ne:removed}}&elastic=1&sort=_score:-1',
+                  ['id','name'],
+                  {
+                    'label':'Add a product',
+                    'formatSelection':'productAdminCollectionSelection'
+                  })
+}}
+
+{{ form.multiselector('category_id', collection.category_id, api.get('/category',{'attributes':'slug','sort':'slug'})|map_as({'id':'slug'}), {'label':'Categories'} ) }}
+
+{{ form.typeahead('brand', product.brand, '', '', brand|keys) }}
+
+
+<hr />
+
+{{ form.text('page_title', collection.page_title) }}
+{{ form.tags('keywords', collection.keywords, suggestions.keywords|keys) }}
+{{ form.textarea('meta_description', collection.meta_description, {'rows':4}) }}
+{{ form.slugify('slug', collection.slug, 'name', {'before':'/product/','label':'Slug (URL)'}) }}
+
+<hr />
+
+{{ form.select('status', collection.status, {'active':'Active','disabled':'Disabled'}) }}
+
+<hr />
+{{ form.actions() }}
+{{ form.end() }}
+
+
+{% if create == false %}
+    {% set content %}
+        {% include "/_admin/collection/_partials/sort_products.html.twig" %}
+    {% endset %}
+    {{ base.modal("sort_products", content) }}
+{% endif %}
