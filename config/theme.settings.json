@@ -125,6 +125,12 @@
                 "display-blog-dropdown":"1",
                 "display-collection-dropdown":"1"
             }
+        },
+        "footer": {
+            "general": {
+                "footer-linklist":"main-menu",
+                "footer-blog-post-header":""
+            }
         }
     },
     "presets": []
