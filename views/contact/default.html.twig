@@ -21,9 +21,11 @@ Contact Us
 %}
 {% if app.request.post.contact is defined and app.request.post.contact.subject in subjects %}
     {% do app.request.validateToken() %}
-    {% if api.post('/contact', app.request.post.contact) %}
+    {% if app.params['contact-us'][to] is empty or app.params['contact-us'][from] is empty %}
+        <div class="alert-danger">We're sorry, contact-us feature has not yet been setup.</div>
+    {% elseif api.post('/contact', app.request.post.contact) %}
         {% do app.redirect('/', {'success':'Your comment has been submitted. Thank you.'}) %}
-    {% endif %} 
+    {% endif %}
 {% endif %}
 <div class="row">
     <div class="col-md-12">
@@ -101,33 +103,7 @@ Contact Us
         {{ forms.end() }}
     </div>
     <div class="col-sm-5 col-md-5 col-md-offset-1">
-        <h2>For other questions</h2>
-        <hr>
-        <p>
-            <h4>BabyViva</h4>
-            <address>                
-                8680 Miralani Drive #128<br>
-                San Diego, CA 92126<br>
-                <abbr title="Phone">P:</abbr> 858-201-4166
-            </address>
-        </p>
-        <hr>
-        <p>
-            <h4>Customer Service Hours</h4>
-            <strong>Monday - Friday</strong><br>
-            10:00 AM to 5:00 PM PST
-        </p>
-        <hr>
-        <p>
-            <h4>Store Hours</h4>
-            <strong>Monday - Saturday</strong><br>
-            10:00 AM to 5:30 PM PST
-        </p>
-        <p>
-            <strong>Sunday</strong><br>
-            Noon to 5:00 PM PST
-        </p>
-        <hr>
+        
     </div>
 </div>
 {% endblock %}
