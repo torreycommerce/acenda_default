@@ -2,18 +2,18 @@
     "current": {
         "branding":{
             "branding_colors":{
-                "brand-primary":"#000000",
-                "brand-second":"#000000"
+                "brand-primary":"000000",
+                "brand-second":"000000"
             },
             "feedback_states": {
-                "brand-success":"#000000",
-                "state-success-text":"#000000",
-                "brand-info":"#000000",
-                "state-info-text":"#000000",
-                "brand-warning":"#000000",
-                "state-warning-text":"#000000",
-                "brand-danger":"#000000",
-                "state-danger-text":"#000000"
+                "brand-success":"000000",
+                "state-success-text":"000000",
+                "brand-info":"000000",
+                "state-info-text":"000000",
+                "brand-warning":"000000",
+                "state-warning-text":"000000",
+                "brand-danger":"000000",
+                "state-danger-text":"000000"
             }
         },
         "logo_images_and_colors":{
@@ -28,52 +28,52 @@
                 "site-bg-image-display": "stretch"
             },
             "toolbar": {
-                "toolbar-bg-color": "#7fff00",
+                "toolbar-bg-color": "7fff00",
                 "toolbar-bg-color-none": "0",
-                "toolbar-text-color": "#987654",
-                "toolbar-text-color-hover": "#123456",
+                "toolbar-text-color": "987654",
+                "toolbar-text-color-hover": "123456",
                 "toolbar-border-style": "none",
-                "toolbar-border-color": "#000000",
+                "toolbar-border-color": "000000",
                 "toolbar-border-search": "1",
-                "search-border-color": "#000000"
+                "search-border-color": "000000"
             },
             "footer_colors": {
-                "footer-background-color": "#000000",
+                "footer-background-color": "000000",
                 "footer-bg-color-remove": "0",
-                "footer-text-color": "#000000",
-                "footer-heading-color": "#000000",
+                "footer-text-color": "000000",
+                "footer-heading-color": "000000",
                 "footer-heading-underline": "0",
-                "footer-heading-underline-color": "#000000",
-                "footer-link-color": "#000000",
-                "footer-link-color-hover": "#000000",
+                "footer-heading-underline-color": "000000",
+                "footer-link-color": "000000",
+                "footer-link-color-hover": "000000",
                 "footer-border-style": "none",
-                "footer-border-color": "#000000"
+                "footer-border-color": "000000"
             },
             "content_area_color": {
-                "site-border-color": "#000000",
-                "content-background-color": "#000000",
+                "site-border-color": "000000",
+                "content-background-color": "000000",
                 "content-background-transparent": "0",
-                "text-color": "#000000",
-                "heading-color": "#000000",
-                "link-color": "#000000",
-                "link-color-hover": "#000000",
-                "price-color": "#000000"
+                "text-color": "000000",
+                "heading-color": "000000",
+                "link-color": "000000",
+                "link-color-hover": "000000",
+                "price-color": "000000"
             },
             "buttons": {
-                "btn-bg-color": "#000000",
-                "btn-bg-color-hover": "#000000",
-                "btn-text-color": "#000000",
-                "btn-text-color-hover": "#000000",
+                "btn-bg-color": "000000",
+                "btn-bg-color-hover": "000000",
+                "btn-text-color": "000000",
+                "btn-text-color-hover": "000000",
                 "btn-border-radius": "2px"
             },
             "borders": {
                 "general-border-style": "solid",
-                "gernal-border-color": "#000000"
+                "gernal-border-color": "000000"
             },
             "tabs": {
-                "tab-bg-color": "#000000",
+                "tab-bg-color": "000000",
                 "tab-bg-color-none": "1",
-                "tab-active-bg-color": "#000000",
+                "tab-active-bg-color": "000000",
                 "tab-active-bg-color-none": "0"
             }
         },
@@ -116,10 +116,10 @@
                 "navigation-alignment":"right",
                 "navigation-center":"0",
                 "nav-right-padding":"70",
-                "nav-link-color":"#888888",
-                "nav-link-hover-color":"#222222",
-                "selected-nav-link-color":"#ffffff",
-                "nav-dropdown-link-color":"#222222",
+                "nav-link-color":"888888",
+                "nav-link-hover-color":"222222",
+                "selected-nav-link-color":"ffffff",
+                "nav-dropdown-link-color":"222222",
                 "show-dropdown-arrow":"1",
                 "dropdown-arrow":"dark",
                 "display-blog-dropdown":"1",
