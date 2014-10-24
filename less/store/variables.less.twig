@@ -3,12 +3,12 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Brand
-@brand-primary:									{{ settings.current["branding"]["branding_colors"]["brand-primary"] }};
-@brand-secondary:								{{ settings.current["branding"]["branding_colors"]["brand-second"] }};
-@brand-success:         						{{ settings.current["branding"]["feedback_states"]["brand-success"] }};
-@brand-info:         		   					{{ settings.current["branding"]["feedback_states"]["brand-info"] }};
-@brand-warning:     						    {{ settings.current["branding"]["feedback_states"]["brand-warning"] }};
-@brand-danger:     							    {{ settings.current["branding"]["feedback_states"]["brand-danger"] }};
+@brand-primary:									#{{ settings.current["branding"]["branding_colors"]["brand-primary"] }};
+@brand-secondary:								#{{ settings.current["branding"]["branding_colors"]["brand-second"] }};
+@brand-success:         						#{{ settings.current["branding"]["feedback_states"]["brand-success"] }};
+@brand-info:         		   					#{{ settings.current["branding"]["feedback_states"]["brand-info"] }};
+@brand-warning:     						    #{{ settings.current["branding"]["feedback_states"]["brand-warning"] }};
+@brand-danger:     							    #{{ settings.current["branding"]["feedback_states"]["brand-danger"] }};
 
 // Gray
 @gray-darker:									lighten(#000, 13.5%); // #222
@@ -18,19 +18,19 @@
 @gray-lighter:									lighten(#000, 93.5%); // #eee
 
 // Feedback states
-@state-success-text:							{{ settings.current["branding"]["feedback_states"]["state-success-text"] }};
+@state-success-text:							#{{ settings.current["branding"]["feedback_states"]["state-success-text"] }};
 @state-success-bg:								@brand-success;
 @state-success-border:							darken(spin(@state-success-bg, -10), 5%);
 
-@state-info-text:								{{ settings.current["branding"]["feedback_states"]["state-info-text"] }};
+@state-info-text:								#{{ settings.current["branding"]["feedback_states"]["state-info-text"] }};
 @state-info-bg:									@brand-info;
 @state-info-border:								darken(spin(@state-info-bg, -10), 7%);
 
-@state-warning-text:							{{ settings.current["branding"]["feedback_states"]["state-warning-text"] }};
+@state-warning-text:							#{{ settings.current["branding"]["feedback_states"]["state-warning-text"] }};
 @state-warning-bg:								@brand-warning;
 @state-warning-border:							darken(spin(@state-warning-bg, -10), 5%);
 
-@state-danger-text:								{{ settings.current["branding"]["feedback_states"]["state-danger-text"] }};
+@state-danger-text:								#{{ settings.current["branding"]["feedback_states"]["state-danger-text"] }};
 @state-danger-bg:								@brand-danger;
 @state-danger-border:							darken(spin(@state-danger-bg, -10), 5%);
 
@@ -45,7 +45,7 @@
 // Body text
 // -------------------------
 
-@text-color:									{{ settings.current["logo_images_and_colors"]["content_area_color"]["text-color"] }};
+@text-color:									#{{ settings.current["logo_images_and_colors"]["content_area_color"]["text-color"] }};
 @font-family-base:								'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
 @font-size-base:								14px;
 @line-height-base:								1.428571429; // 20/14
@@ -86,11 +86,11 @@
 // Toolbar
 // ----------------------------------------------------------------------------------------------------
 
-@toolbar-bg:									{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-bg-color"] }};
+@toolbar-bg:									#{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-bg-color"] }};
 @toolbar-link-bg-color:							0 none;
-@toolbar-link-text-color:						{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-text-color"] }};
+@toolbar-link-text-color:						#{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-text-color"] }};
 @toolbar-link-bg-color-hover:					0 none;
-@toolbar-link-text-color-hover:					{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-text-color-hover"] }};
+@toolbar-link-text-color-hover:					#{{ settings.current["logo_images_and_colors"]["toolbar"]["toolbar-text-color-hover"] }};
 
 
 
