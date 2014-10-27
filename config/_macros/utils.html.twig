@@ -52,7 +52,7 @@
       {% for val,lab in list %}
       <input type="radio"  name="{{ tree }}" value="{{ val }}"
         {% if value == val %}
-           checked='checked' 
+           checked='checked'
         {% endif %}
         > {{ lab }}
       {% endfor %}
@@ -86,7 +86,7 @@
 
 {% macro selectColor(label,id,tree,value) %}
     <div class="form-group"><label class="col-sm-3 control-label">{{ label }}</label><div class="col-sm-9">
-    #<input class="sel-color-pick" type="text" id="{{ id }}" name="{{ tree }}" 
+    #<input class="sel-color-pick" type="text" id="{{ id }}" name="{{ tree }}"
             value="{{ value }}" size="7"></div></div><script type="text/javascript">
           $( document ).ready(function() {
            $('#{{ id }}').colpick({
@@ -145,4 +145,99 @@
     {% if value == true %}
        checked
     {% endif %}>
+{% endmacro %}
+
+
+{% macro fileUploader(label, id, name, value) %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('click', "#{{ id }} #fileuploader_file a", function(){
+                var self = this;
+                var _file = $('#{{ id }} input[name="{{ name }}"]').val().split('/');
+                var _file = _file[_file.length-1];
+
+                $.proxyAjax({
+                    url: acendaFront+"/api/files?file="+_file+'&path={{ id }}',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    error: function(xhr){
+                        if (xhr.status == 404){
+                            $(self).parent().hide();
+                            $("#{{id}} .upload_button").removeClass('disabled');
+                            $("#{{ id }}").find('input[name="{{ name }}"]').attr('value', "");
+                        }else
+                            console.log(xhr);
+                    },
+                    success: function(xhr){
+                        $(self).parent().hide();
+                        $("#{{id}} .upload_button").removeClass('disabled');
+                        $("#{{ id }}").find('input[name="{{ name }}"]').attr('value', "");
+                    },
+                });
+            });
+
+
+            $("#{{ id }} .upload_button").click(function(){
+                $('#{{ id }} input.fileUploader').click();
+            });
+            // // ('#{{ id }} input[type="file"]')
+            $('#{{ id }} input[type="file"]').proxyFileupload({
+                url: acendaFront+'/api/files/upload?path={{ id }}',
+                type: 'POST',
+                autoUpload: true,
+                dataType: 'json',
+                forceIframeTransport: false,
+                filesContainer: '#filesContainer',
+                send: function(e, data) {
+                    $('#{{ id }} #progress').fadeIn();
+                },
+                progress: function(e, data){
+                    var percent = Math.round((data.loaded / data.total) * 100);
+                    $('#{{ id }} .progress-bar').css('width', percent + '%');
+                },
+                error: function(e, data) {
+                    $('#{{ id }} #progress').hide();
+                },
+                success: function(data) {
+                    var html = '<div class="col-md-3" style="text-align: center; margin-top: 10px;"><img src="'+data.result.new_location+'" class="img-thumbnail"><br /><br />';
+                    html += '<a href="javascript: void(0);" class="btn btn-danger">Delete file</a></div>';
+
+                    $("#{{id}} .upload_button").addClass('disabled');
+                    $('#{{id}} input[name="{{ name }}"]').attr('value', data.result.new_location);
+                    $("#{{id}} #fileuploader_file").html(html).slideDown('fast');
+                    $('#{{id}} #progress').hide();
+                }
+            });
+        });
+    </script>
+<div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+        <div id="{{ id }}">
+            <input name="{{ name }}" type="hidden" value="{{ value }}" />
+            <div class="row">
+                <a class="upload_button btn btn-success {% if value != '' %} disabled {% endif %}" href="javascript: void(0);">Select a file</a>
+            </div>
+
+            <div class="row">
+                <div id="progress" class="progress col-md-6" style="display:none;">
+                    <div class="bar progress-bar progress-bar-primary"></div>
+                </div>
+            </div>
+            <div class="row" style="display: none;">
+                <input class='btn btn-success fileUploader' type="file" name="import" multiple>
+            </div>
+            <div class="row">
+                <div id="fileuploader_file" {% if value == '' %}style="display: none;"{% endif %}>
+                    {% if value != '' %}
+                        <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                            <img src="{{ value }}" class="img-thumbnail"><br /><br />
+                            <a href="javascript: void(0);" class="btn btn-danger">Delete file</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endmacro %}

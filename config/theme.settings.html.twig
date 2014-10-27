@@ -99,13 +99,7 @@
 									{{ utils.checkBox("settings[current][logo_images_and_colors][logo_background][logo-custom]", settings.current.branding.logo_background['logo-custom'],"logo-custom") }}
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="logo-custom-upload" class="col-sm-3 control-label">Shop Logo (should be less than 700 pixels wide)</label>
-								<div class="col-sm-9">
-									<input type="file" id="logo-custom-upload" name="settings[current][logo_images_and_colors][logo_background][logo-custom-upload]" data-max-width="700" data-max-height="600" data-bind="">
-									<p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">logo.png</a></p>
-								</div>
-							</div>
+							{{ utils.fileUploader('Shop Logo (should be less than 700 pixels wide)', 'logo-custom-upload','settings[current][logo_images_and_colors][logo_background][logo-custom-upload]', settings.current.logo_images_and_colors.logo_background['logo-custom-upload']) }}
 							<div class="form-group">
 								<label for="logo-custom-center" class="col-sm-3 control-label">Center logo (when main navigation is below)?</label>
 								<div class="col-sm-9">
@@ -118,13 +112,7 @@
 									{{ utils.checkBox("settings[current][logo_images_and_colors][logo_background][favicon-image]", settings.current.logo_images_and_colors.logo_background['favicon-image']) }}
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="favicon-upload" class="col-sm-3 control-label">Upload a favicon (must be 16px x 16px)</label>
-								<div class="col-sm-9">
-									<input type="file" id="favicon-upload" name="settings[current][logo_images_and_colors][logo_background][favicon-upload]" data-max-width="16" data-max-height="16" data-bind="favicon.png">
-									<p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">favicon.png</a></p>
-								</div>
-							</div>
+							{{ utils.fileUploader('Upload a favicon (must be 16px x 16px)', 'favicon-upload','settings[current][logo_images_and_colors][logo_background][favicon-upload]', settings.current.logo_images_and_colors.logo_background['favicon-upload']) }}
 							<div class="form-group">
 								<label for="site-bg-image" class="col-sm-3 control-label">Use a background image?</label>
 								<div class="col-sm-9">
@@ -136,12 +124,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="site-bg-image-custom" class="col-sm-3 control-label">Custom background image</label>
-								<div class="col-sm-9">
-									<input type="file" id="site-bg-image-custom" name="settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]" data-bind="site-bg-image-custom.png">
-								</div>
-							</div>
+							{{ utils.fileUploader('Custom background image', 'site-bg-image-custom', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]', settings.current.logo_images_and_colors.logo_background['site-bg-image-custom']) }}
 							<div class="form-group">
 								<label for="site-bg-image-display" class="col-sm-3 control-label">Background image display style</label>
 								<div class="col-sm-9">
@@ -150,11 +133,11 @@
 									<input type="radio" name="settings[current][logo_images_and_colors][logo_background][site-bg-image-display]" value="stretch" {{ utils.checkValue(settings.current.logo_images_and_colors.logo_background['site-bg-image-display'],"stretch") }}> Stretch
 								</div>
 							</div>
-						</fieldset>						
+						</fieldset>
 						{# End logo & background #}
 						{# Begin toolbar #}
 						<fieldset>
-							<legend>Toolbar</legend>						
+							<legend>Toolbar</legend>
 							<div class="form-group">
 								<label for="toolbar-bg-color" class="col-sm-3 control-label">Toolbar background color</label>
 								<div class="col-sm-9">
@@ -209,7 +192,7 @@
 						{# End toolbar #}
 						{# Begin footer colors #}
 						<fieldset>
-							<legend>Footer Colors</legend>						
+							<legend>Footer Colors</legend>
 							<div class="form-group">
 								<label for="footer-background-color" class="col-sm-3 control-label">Footer background color</label>
 								<div class="col-sm-9">
@@ -399,7 +382,7 @@
 								<label class="control-label col-sm-3" for="gernal-border-color">General border color</label>
 								<div class="col-sm-9">
 									<input id="gernal-border-color" name="settings[current][branding][borders][gernal-border-color]" value="{{ settings.current.branding.borders['gernal-border-color'] }}" size="7">
-								</div>									
+								</div>
 							</div>
 						</fieldset>
 						{# End borders #}
@@ -460,11 +443,11 @@
 											<option value="Helvetica, Arial, sans-serif" {{ utils.selectValue(settings.current.typography.base_styles['base-typeface'],"Helvetica, Arial, sans-serif") }}>Helvetica/Arial</option>
 
 											<option value="Impact, Charcoal, Helvetica, Arial, sans-serif" {{ utils.selectValue(settings.current.typography.base_styles['base-typeface'],"Impact, Charcoal, Helvetica, Arial, sans-serif") }}>Impact</option>
-											
+
 											<option value="'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, Helvetica, Arial, sans-serif" {{ utils.selectValue(settings.current.typography.base_styles['base-typeface'],"'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Lucida, Helvetica, Arial, sans-serif") }}>Lucida Grande</option>
-											
+
 											<option value="Trebuchet MS, sans-serif" {{ utils.selectValue(settings.current.typography.base_styles['base-typeface'],"Trebuchet MS, sans-serif") }}>Trebuchet MS</option>
-											
+
 											<option value="Verdana, Helvetica, Arial, sans-serif" {{ utils.selectValue(settings.current.typography.base_styles['base-typeface'],"Verdana, Helvetica, Arial, sans-serif") }}>Verdana</option>
 										</optgroup>
 										<optgroup label="Serif">
@@ -820,7 +803,7 @@
 										<option value="10px" {{ utils.selectValue(settings.current.typography.headings['h4-font-size'],"10px") }}>10px</option>
 									</select>
 								</div>
-							</div>						
+							</div>
 							{# End sub heading styles h4 elements #}
 							{# Begin sub heading styles h5 elements #}
 							<div class="form-group">
@@ -995,7 +978,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="nav-dropdown-link-hover-color">Nav Dropdown Link Hover Color</label>     
+								<label class="control-label col-sm-3" for="nav-dropdown-link-hover-color">Nav Dropdown Link Hover Color</label>
 								<div class="col-sm-9">
 									<input id="nav-dropdown-link-hover-color" name="settings[current][navigation][base_styles][nav-dropdown-link-hover-color]" value="{{ settings.current.navigation.base_styles['nav-dropdown-link-hover-color'] }}" size="7">
 								</div>
@@ -1085,7 +1068,7 @@
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="footer-display-newsletter">Display newsletter?</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input type="checkbox" id="footer-display-newsletter" name="footer-display-newsletter" value="1" checked="">
 								</div>
 							</div>
@@ -1109,25 +1092,25 @@
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="newsletter-btn-hover-color">Newsletter button color on hover</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input id="newsletter-btn-hover-color" name="newsletter-btn-hover-color" value="#51a7ca" size="7">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="newsletter-btn-text-color">Newsletter button text color</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input id="newsletter-btn-text-color" name="newsletter-btn-text-color" value="#ffffff" size="7">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="newsleter-btn-hover-text-color">Newsletter button text color on hover</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input id="newsleter_btn_hover_text_color" name="newsleter_btn_hover_text_color" value="#ffffff" size="7">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="enable-social-links">Display social links?</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input type="checkbox" id="enable-social-links" name="enable-social-links" value="1" checked="">
 								</div>
 							</div>
@@ -1200,7 +1183,7 @@
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="payment_methods">Payment Methods:</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input type="checkbox" id="accept-visa" name="" value="1"> Visa
 									<input type="checkbox" id="accept-mastercard" name="" value="1"> Mastercard
 									<input type="checkbox" id="accept-amex" name="" value="1"> American Express
@@ -1534,7 +1517,7 @@
 							</div>
 						</fieldset>
 						{# End featured collections #}
-					</div>	 
+					</div>
 				</div>
 			</div>
 			{# End homepage #}
@@ -1665,14 +1648,14 @@
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="sale_bg_color">Sale circle background color</label>
-								<div class="col-sm-9">        
+								<div class="col-sm-9">
 									<input id="sale-bg-color" name="sale-bg-color" value="#50b3da" size="7">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label" for="sale-text-color">Sale circle text color</label>
-								<div class="col-sm-9">        
-									<input id="sale-text-color" name="sale-text-color" value="#ffffff" size="7">          
+								<div class="col-sm-9">
+									<input id="sale-text-color" name="sale-text-color" value="#ffffff" size="7">
 								</div>
 							</div>
 							<div class="form-group">
@@ -1680,7 +1663,7 @@
 								<div class="col-sm-9">
 									<input type="checkbox" id="product-vendor" name="product-vendor" value="1" checked="">
 								</div>
-							</div>  
+							</div>
 						</fieldset>
 					</div>
 				</div>
@@ -1807,7 +1790,7 @@
 						</fieldset>
 					</div>
 				</div>
-			</div>			
+			</div>
 			{# End cart #}
 			{# Begin additional layouts #}
 			<div class="panel panel-default">
