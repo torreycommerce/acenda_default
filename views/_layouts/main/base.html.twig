@@ -136,4 +136,33 @@
     {% endblock %}
     {% block js %}{% endblock %}
 </body>
+{% if '/preview/' in app.url %}
+    {% set request = app.url | split('/preview/') %}
+    {% set back_to = request.0 %}
+    <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand"><a href="#"><img src="{{ back_to }}/images/logo-acenda-small.png"></a></div>
+                <button class="navbar-btn btn btn-default" onClick="window.location.href='{{ back_to }}'; return false;" >Go back to admin</button> 
+            </div>
+        </div>
+    </nav>
+<script>
+    $(document).ready(function() {
+        var timer=0;
+        timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        $('#preview-admin-header').hover(function() {
+            clearTimeout(timer);
+        },function() {
+            if(timer) clearTimeout(timer);
+                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        })
+        $(window).scroll(function() {
+            $('#preview-admin-header').fadeIn('slow');
+            if(timer) clearTimeout(timer);
+                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+        });
+    });
+</script>
+{% endif %}
 </html>
