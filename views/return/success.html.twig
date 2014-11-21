@@ -1,6 +1,6 @@
 {% extends "/_layouts/theme.html.twig" %}
 
-{% block title %}Return Created{% endblock %} 
+{% block title %}Return Created{% endblock %}
 
 {% block breadcrumb %}
     {% if app.user.id is defined %}
@@ -45,10 +45,12 @@ Please ship your returns to:
 
 <p>
 <address>
-    <strong>BabyViva</strong><br>
-    8680 Miralani Drive #128<br>
-    San Diego, CA 92126<br>
-    <abbr title="Phone">P:</abbr> 858-201-4166
+    <strong>{{ app.params['site']['title'] }}</strong><br>
+    {{ app.params['return_address']['street_line1'] }} {{ app.params['return_address']['street_line1'] }}<br>
+    {{ app.params['return_address']['city'] }}, {{ app.params['return_address']['state'] }} {{ app.params['return_address']['zip'] }}<br>
+    {% if app.params['information']['phone_number'] is defined %}
+        <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
+    {% endif %}
 </address>
 </p>
 {% endblock %}
