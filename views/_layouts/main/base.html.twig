@@ -137,7 +137,7 @@
     {% endblock %}
     {% block js %}{% endblock %}
 </body>
-{% if ('/preview/' in app.url and 'store-protected' not in app.request.url %}
+{% if '/preview/' in app.url and 'store-protected' not in app.request.url %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
