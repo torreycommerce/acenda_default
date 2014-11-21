@@ -49,25 +49,6 @@
 {% endspaceless %}
 {% endmacro %}
 
-{% macro protected_site() %}
-    {% if app.request.get.clear == 42 %}
-        {% do app.user.setState('user_allowed', null) %}
-    {% endif %}
-
-
-    {% set protected = api.get('/site/isprotected') %}
-    {% set authenticated = api.post('/site/authentication', {"password": app.user.getState('user_allowed')}) %}
-    {% if protected == true and not authenticated and app.request.url != "store-protected" %}
-        {% do app.redirect('/store-protected') %}
-    {% elseif protected == true and authenticated %}
-        <div class="alert alert-info">
-            <h1 style="color: white;">You're connected to a store protected by a password</h1>
-            <h4 style="color: white;">To clear the access from this computer, click on the following link:</h4>
-            <a href="{{app.request.base ~ "/" ~ app.request.url}}?clear=42">Clear Access</a>
-        </div>
-    {% endif %}
-{% endmacro %}
-
 {% macro rating(score, attributes=[]) %}
 {% spaceless %}
     <div {% if attributes.id is not empty %}id="{{ attributes.id }}"{% endif %} class="star-rating {% if attributes.class is not empty %}{{ attributes.class }}{% endif %}">
@@ -85,37 +66,70 @@
 {% endspaceless %}
 {% endmacro %}
 
+{% macro protected_site() %}
+
+    {% if app.request.get.clear == 42 %}
+        {% do app.user.setState('user_allowed', null) %}
+    {% endif %}
+
+
+    {% set protected = api.get('/site/isprotected') %}
+    {% set authenticated = api.post('/site/authentication', {"password": app.user.getState('user_allowed')}) %}
+    {% if protected == true and not authenticated and app.request.url != "store-protected" %}
+        {% do app.redirect('/store-protected') %}
+    {% elseif protected == true and authenticated %}
+        
+        {# <a href="{{app.request.base ~ "/" ~ app.request.url}}?clear=42">Clear Access</a>#}
+        
+        {# <div class="alert alert-info">
+            <h1 style="color: white;">You're connected to a store protected by a password</h1>
+            <h4 style="color: white;">To clear the access from this computer, click on the following link:</h4>
+            <a href="{{app.request.base ~ "/" ~ app.request.url}}?clear=42">Clear Access</a>
+        </div> #}
+        {% if app.request.url == "store-protected" %}
+            {% do app.redirect('/') %}
+        {% endif %}
+    {% elseif (app.request.url == "store-protected" and protected == false) %}
+        {% do app.redirect('/') %}
+    {% endif %}
+{% endmacro %}
+
+
+{#  below code will be deleted / replaced by _macros/social_sharing.html.twig  #}
 {% macro generate_tags_products(default_tags) %}
-    <meta property="og:keywords" content="{{ item.keywords|default(default_tags['description']) }}"/>
-    <meta property="og:title" content="{{ app.params.site.title }} - {{ (item.name|title)|default(default_tags['title']) }}" />
-    <meta property="og:description" content="{{ item.meta_description|default(default_tags['description']) }}" />
-    <meta property="og:site_name" content="{{ app.params.site.title }}"/>
-    <meta property="og:url" content="{{ app.url ~ "/" ~ app.request.url }}"/>
+
     {# Products & Collections' tags #}
     {% set request = app.request.path | split('/') %}
     {% if request.1 | split('-') | last | integer %}{% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}{% endif %}
     {% if app.request.path is integer %}{% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
     {% else %}{% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}{% endif %}
 
+    <meta property="og:keywords" content="{{ item.keywords|default(default_tags['description']) }}"/>
+
+    <meta property="og:title" content="{{ app.params.site.title }} - {{ (item.name|title)|default(default_tags['title']) }}" />
+
+    <meta property="og:description" content="{{ item.meta_description|default(default_tags['description']) }}" />
+    <meta property="og:site_name" content="{{ app.params.site.title }}"/>
+    <meta property="og:url" content="{{ app.url ~ "/" ~ app.request.url }}"/>
+
     <meta property="og:type" content="product" />
     <meta property="og:price:currency" content="USD" />
     {% if item.group == "product" %}
         <meta property="og:brand" content="{{ item.brand }}" />
-
         {% set prices = (item.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent'])) %}
         <meta property="og:price:amount" content="{{ prices.price.0 }}" />
         {% if prices.compare_price is not empty and prices.compare_price != prices.price %}
             <meta property="og:price:standard_amount" content="{% if prices.compare_price.0 %}{{ prices.compare_price.0 }}{% else %}0.0{% endif %}" />
         {% endif %}
-        {% set stock_description = item.variant[0].inventory_quantity > 0 ? 'In Stock' :  item.variant[0].inventory_shipping_estimate is not empty ? item.variant[0].inventory_shipping_estimate : '' %}
+        {% set stock_description = item.product[0].variant[0].inventory_quantity > 0 ? 'In Stock' :  item.product[0].variant[0].inventory_shipping_estimate is not empty ? item.product[0].variant[0].inventory_shipping_estimate : '' %}
         {% if stock_description %}
             <meta property="og:availability" content="{{ stock_description }}" />
         {% endif %}
-        {% if item.variant[0].gender %}
-            <meta property="product:gender" content="{{ item.product.variant[0].gender }}" />
+        {% if item.product[0].variant[0].gender %}
+            <meta property="product:gender" content="{{ item.product[0].variant[0].gender }}" />
         {% endif %}
-        {% if item.variant[0].color %}
-            <meta property="product:color" content="{{ item.variant[0].color }}" />
+        {% if item.product[0].variant[0].color %}
+            <meta property="product:color" content="{{ item.product[0].variant[0].color }}" />
         {% endif %}
     {% endif %}
 
@@ -163,6 +177,7 @@
 {% macro generate_metatags(default_tags) %}
     {%- import "/_macros/product.html.twig" as prod -%}
     {%- import _self as base -%}
+    {{ base.generate_twitter_cards(default_tags) }}
     {% spaceless %}
         {% set type = app.request.url|split('/')|first %}
         {% if type == "category" %}
@@ -178,4 +193,72 @@
             <meta property="og:image" content="{{ default_tags['img'] }}" />
         {% endif %}
     {% endspaceless %}
+
+{% endmacro %}
+
+{% macro generate_twitter_cards(default_tags)  %}
+  {# }{{ dump(default_tags) }} #}
+  {% set type = app.request.url|split('/')|first %}
+  {% spaceless %}
+  {% if type == "category" %}
+    {% set category = api.get('/category',{"query":{"status":"active","slug":app.request.path}})|first %}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="{{ category.meta_description|default(default_tags['description']) }}" />
+    {# We need a way to store this information in a config file / db #}
+    {# <meta name="twitter:site" content="@blablaTwitterAccount" /> #}
+    {# <meta name="twitter:creator" content="@blablaTwitterAccount2" /> #}
+    <meta name="twitter:title" content="{{ app.params.site.title }} - {{ (category.name|title)|default(default_tags['title']) }}" />
+
+  {% elseif type == "product" %}
+
+    {% set request = app.request.path | split('/') %}
+    {% if request.1 | split('-') | last | integer %}{% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}{% endif %}
+    {% if app.request.path is integer %}{% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
+    {% else %}{% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}{% endif %}
+
+    <meta name="twitter:card" content="product" />
+    <meta name="twitter:title" content="{{ app.params.site.title }} - {{ (item.name|title)|default(default_tags['title']) }}" />
+
+    {# item.meta_description is always null  #}
+    <meta name="twitter:description" content="{{ item.meta_description|default(default_tags['description']) }}" />
+
+    {% if item.group == "product" %}
+        <meta property="og:brand" content="{{ item.brand }}" />
+
+        {% set prices = (item.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent'])) %}
+        <meta name="twitter:label1" content="Price" />
+        <meta name="twitter:data1" content="${{ prices.price.0 }}" />
+
+        {% set stock_description = item.product[0].variant[0].inventory_quantity > 0 ? 'In Stock' :
+                    item.product[0].variant[0].inventory_shipping_estimate is not empty
+                    ? item.product[0].variant[0].inventory_shipping_estimate : '' %}
+
+        {% if stock_description %}
+            <meta name="twitter:label2" content="Availability" />
+            <meta name="twitter:data2" content="{{ stock_description }}" />
+        {% elseif item.product[0].variant[0].gender %}
+            <meta name="twitter:label2" content="Gender" />
+            <meta name="twitter:data2" content="{{ item.product[0].variant[0].gender }}" />
+        {% elseif item.product[0].variant[0].color %}
+            <meta name="twitter:label2" content="Color" />
+            <meta name="twitter:data2" content="{{ item.product[0].variant[0].color }}" />
+        {% endif %}
+    {% endif %}
+    {% set img_used = 0 %}
+    {% for img in item.images %}
+        {% if (img_used < 1) %}
+            <meta name="twitter:image" content="{{ app.url ~ '/../../..' ~ app.image.getImageUrl('product','large',img.id) }}" />
+            {% set img_used = img_used + 1 %}
+        {% endif %}
+    {% endfor %}
+
+  {% else %}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ default_tags['description'] }}" />
+    {# <meta name="twitter:site" content="@blablaTwitterAccount" /> #}
+    {# <meta name="twitter:creator" content="@blablaTwitterAccount2" /> #}
+    <meta name="twitter:title" content="{{ app.params.site.title }}" />
+    <meta name="twitter:image" content="{{ default_tags['img'] }}" />
+  {% endif %}
+  {% endspaceless %}
 {% endmacro %}

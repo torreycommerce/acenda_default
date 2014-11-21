@@ -136,16 +136,29 @@
     {% endblock %}
     {% block js %}{% endblock %}
 </body>
-{% if '/preview/' in app.url %}
+{% if ('/preview/' in app.url or app.params.password is not empty) and 'store-protected' not in app.request.url %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="navbar-brand"><a href="#"><img src="{{ back_to }}/images/logo-acenda-small.png"></a></div>
-                <button class="navbar-btn btn btn-default" onClick="window.location.href='{{ back_to }}'; return false;" >Go back to admin</button> 
+            <div class="row" style="padding-top:10px;">
+                        <div class="col-sm-4" style="padding-top:4px;">
+                            <img src="{{ back_to }}/images/logo-acenda-small.png">
+                        </div>
+                        <div class="col-sm-4" >
+                            {% if app.params.password is not empty %}
+                                <p style="padding-top:5px;color:white;">{{ app.request.url }}Your store is password protected with "{{ app.params.password }}"</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info pull-right" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
+                            {% if '/preview/' in app.url  %}
+                                <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ back_to }}'; return false;" >Visit your Live Site</button>
+                            {% endif %}
+                        </div>
             </div>
         </div>
+        
     </nav>
 <script>
     $(document).ready(function() {
