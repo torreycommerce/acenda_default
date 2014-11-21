@@ -50,7 +50,7 @@
     <link rel="sitemap" href="{{app.url}}/api/sitemap" />
 
     {% block css %}{% endblock %}
-    <title>BabyViva - {% block title %}{{ seo['title'] }}test{% endblock %}</title>
+    <title>BabyViva - {% block title %}{{ seo['title'] }}{% endblock %}</title>
 
     {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
         {{ social.get_metatags(app.params.social_settings, seo) }}
@@ -58,6 +58,7 @@
 
     <script>
     var acendaBaseUrl = '{{app.url}}'
+    var acendaBaseThemeUrl = '{{app.url_asset}}'
     </script>
     {% endblock %}
 </head>
@@ -91,7 +92,7 @@
                     <div class="col-md-12">
                         <div class="brand">
                             <div id="logo-img"><a href="{{app.url}}/"></a></div>
-                            <h1 id="logo-txt"><a href="{{app.url}}/">Site Template</a></h1>
+                            <h1 id="logo-txt"><a href="{{app.url}}/">{{ seo['title'] }}</a></h1>
                         </div>
                     </div>
                 </div>
