@@ -1,87 +1,64 @@
 {% import _self as utils %}
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel-group" id="accordion">
-			{# Begin branding colors #}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseBradningColors">Branding Colors</a></h3>
-				</div>
-				<div id="collapseBradningColors" class="panel-collapse collapse">
-					<div class="panel-body">
-						{# Begin branding colors #}
-						<fieldset>
-							<legend>Branding Colors</legend>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Primary brand color</label>
-								<div class="col-sm-9">
-									<input id="brand-primary" name="settings[current][branding][branding_colors][brand-primary]" value="{{ settings.current.branding.branding_colors['brand-primary'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="brand-primary">Secondary brand color</label>
-								<div class="col-sm-9">
-									<input id="brand-second" name="settings[current][branding][branding_colors][brand-second]" value="{{ settings.current.branding.branding_colors['brand-second'] }}" size="7">
-								</div>
-							</div>
-						</fieldset>
-						{# End branding colors #}
-						{# Begin feedback states #}
-						<fieldset>
-							<legend>Feedback States</legend>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="brand-success">Success background color</label>
-								<div class="col-sm-9">
-									<input id="brand-success" name="settings[current][branding][feedback_states][brand-success]" value="{{ settings.current.branding.feedback_states['brand-success'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="state-success-text">Success text color</label>
-								<div class="col-sm-9">
-									<input id="state-success-text" name="settings[current][branding][feedback_states][state-success-text]" value="{{ settings.current.branding.feedback_states['state-success-text'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="brand-info">Info background color</label>
-								<div class="col-sm-9">
-									<input id="brand-info" name="settings[current][branding][feedback_states][brand-info]" value="{{ settings.current.branding.feedback_states['brand-info'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="state-info-text">Info text color</label>
-								<div class="col-sm-9">
-									<input id="state-info-text" name="settings[current][branding][feedback_states][state-info-text]" value="{{ settings.current.branding.feedback_states['state-info-text'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="brand-warning">Warning background color</label>
-								<div class="col-sm-9">
-									<input id="brand-warning" name="settings[current][branding][feedback_states][brand-warning]" value="{{ settings.current.branding.feedback_states['brand-warning'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="state-warning-text">Warning text color</label>
-								<div class="col-sm-9">
-									<input id="state-warning-text" name="settings[current][branding][feedback_states][state-warning-text]" value="{{ settings.current.branding.feedback_states['state-warning-text'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="brand-danger">Danger background color</label>
-								<div class="col-sm-9">
-									<input id="brand-danger" name="settings[current][branding][feedback_states][brand-danger]" value="{{ settings.current.branding.feedback_states['brand-danger'] }}" size="7">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label" for="state-danger-text">Danger text color</label>
-								<div class="col-sm-9">
-									<input id="state-danger-text" name="settings[current][branding][feedback_states][state-danger-text]" value="{{ settings.current.branding.feedback_states['state-danger-text'] }}" size="7">
-								</div>
-							</div>
-						</fieldset>
-						{# End feedback states #}
-					</div>
-				</div>
-			</div>
+{{ utils.start_layout() }}
+
+	{{ utils.start_group('Branding Colors', 'collapseBradningColors') }}
+
+		{{ utils.start_subgroup('Branding Colors') }}
+			{{ utils.selectColor('Primary brand color', 'brand-primary', 'settings[current][branding][branding_colors][brand-primary]', settings.current.branding.branding_colors['brand-primary']) }}
+			{{ utils.selectColor('Secondary brand color', 'brand-second', 'settings[current][branding][branding_colors][brand-second]', settings.current.branding.branding_colors['brand-second']) }}
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Feedback States') }}
+		    {{ utils.selectColor('Success background color', 'brand-success', 'settings[current][branding][feedback_states][brand-success]',  settings.current.branding.feedback_states['brand-success']) }}
+		    {{ utils.selectColor('Success text color', 'state-success-text', 'settings[current][branding][feedback_states][state-success-text]',  settings.current.branding.feedback_states['state-success-text']) }}
+		    {{ utils.selectColor('Info background color', 'brand-info', 'settings[current][branding][feedback_states][brand-info]',  settings.current.branding.feedback_states['brand-info']) }}
+		    {{ utils.selectColor('Info text color', 'state-info-text', 'settings[current][branding][feedback_states][state-info-text]', settings.current.branding.feedback_states['state-info-text']) }}
+		    {{ utils.selectColor('Warning background color', 'brand-warning', 'settings[current][branding][feedback_states][brand-warning]',  settings.current.branding.feedback_states['brand-warning']) }}
+		    {{ utils.selectColor('Warning text color', 'state-warning-text', 'settings[current][branding][feedback_states][state-warning-text]', settings.current.branding.feedback_states['state-warning-text']) }}
+		    {{ utils.selectColor('Danger background color', 'brand-danger', 'settings[current][branding][feedback_states][brand-danger]', settings.current.branding.feedback_states['brand-danger']) }}
+		    {{ utils.selectColor('Danger text color', 'state-danger-text', 'settings[current][branding][feedback_states][state-danger-text]',  settings.current.branding.feedback_states['state-danger-text']) }}
+		{{ utils.end_subgroup() }}
+
+	{{ utils.end_group() }}
+
+	{{ utils.start_group('Logo, Images, and Colors', 'collapseLogoImagesColor') }}
+
+		{{ utils.start_subgroup('Logo & Background') }}
+			{{ utils.checkBoxx('Use a custom logo?','logo-custom','settings[current][logo_images_and_colors][logo_background][logo-custom]', settings.current.logo_images_and_colors.logo_background['logo-custom']) }}
+			{{ utils.fileUploader('Shop Logo (should be less than 700 pixels wide)', 'logo-custom-upload','settings[current][logo_images_and_colors][logo_background][logo-custom-upload]', settings.current.logo_images_and_colors.logo_background['logo-custom-upload']) }}
+			{{ utils.checkBoxx('Center logo (when main navigation is below)?','ogo-custom-center','settings[current][logo_images_and_colors][logo_background][logo-custom-center]', settings.current.logo_images_and_colors.logo_background['logo-custom-center']) }}
+			{{ utils.checkBoxx('Use a favicon image?','favicon-image','settings[current][logo_images_and_colors][logo_background][favicon-image]', settings.current.logo_images_and_colors.logo_background['favicon-image']) }}
+			{{ utils.fileUploader('Upload a favicon (must be 16px x 16px)', 'favicon-upload','settings[current][logo_images_and_colors][logo_background][favicon-upload]', settings.current.logo_images_and_colors.logo_background['favicon-upload']) }}
+			{{ utils.selectDropdown('Use a background image?','site-bg-image',"settings[current][logo_images_and_colors][logo_background][site-bg-image]", settings.current.logo_images_and_colors.logo_background['site-bg-image'], {'':'No background image', 'custom':'Use custom image (see upload button below' ,'style1':'Use background image of style 1', 'style2':'Use background image of style 2'}) }}
+			{{ utils.fileUploader('Custom background image', 'site-bg-image-custom', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]', settings.current.logo_images_and_colors.logo_background['site-bg-image-custom']) }}
+			{{ utils.selectDropdown('Background image display style', 'site-bg-image-display', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-display]', settings.current.logo_images_and_colors.logo_background['site-bg-image-display'], { 'tiled':'Tiled', 'full':'Not tiled', 'stretch':'Stretch' }) }}
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Toolbar') }}
+
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Footer Colors') }}
+
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Content Area Color') }}
+
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Buttons') }}
+
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Borders') }}
+
+		{{ utils.end_subgroup() }}
+
+		{{ utils.start_subgroup('Tabs') }}
+
+		{{ utils.end_subgroup() }}
+
+	{{ utils.end_group() }}
 			{# End branding colors #}
 			{# Begin logo, images, and colors #}
 			<div class="panel panel-default">
@@ -99,7 +76,13 @@
 									{{ utils.checkBox("settings[current][logo_images_and_colors][logo_background][logo-custom]", settings.current.branding.logo_background['logo-custom'],"logo-custom") }}
 								</div>
 							</div>
-							{{ utils.fileUploader('Shop Logo (should be less than 700 pixels wide)', 'logo-custom-upload','settings[current][logo_images_and_colors][logo_background][logo-custom-upload]', settings.current.logo_images_and_colors.logo_background['logo-custom-upload']) }}
+							<div class="form-group">
+								<label for="logo-custom-upload" class="col-sm-3 control-label">Shop Logo (should be less than 700 pixels wide)</label>
+								<div class="col-sm-9">
+									<input type="file" id="logo-custom-upload" name="settings[current][logo_images_and_colors][logo_background][logo-custom-upload]" data-max-width="700" data-max-height="600" data-bind="">
+									<p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">logo.png</a></p>
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="logo-custom-center" class="col-sm-3 control-label">Center logo (when main navigation is below)?</label>
 								<div class="col-sm-9">
@@ -112,7 +95,13 @@
 									{{ utils.checkBox("settings[current][logo_images_and_colors][logo_background][favicon-image]", settings.current.logo_images_and_colors.logo_background['favicon-image']) }}
 								</div>
 							</div>
-							{{ utils.fileUploader('Upload a favicon (must be 16px x 16px)', 'favicon-upload','settings[current][logo_images_and_colors][logo_background][favicon-upload]', settings.current.logo_images_and_colors.logo_background['favicon-upload']) }}
+							<div class="form-group">
+								<label for="favicon-upload" class="col-sm-3 control-label">Upload a favicon (must be 16px x 16px)</label>
+								<div class="col-sm-9">
+									<input type="file" id="favicon-upload" name="settings[current][logo_images_and_colors][logo_background][favicon-upload]" data-max-width="16" data-max-height="16" data-bind="favicon.png">
+									<p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">favicon.png</a></p>
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="site-bg-image" class="col-sm-3 control-label">Use a background image?</label>
 								<div class="col-sm-9">
@@ -124,7 +113,12 @@
 									</select>
 								</div>
 							</div>
-							{{ utils.fileUploader('Custom background image', 'site-bg-image-custom', 'settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]', settings.current.logo_images_and_colors.logo_background['site-bg-image-custom']) }}
+							<div class="form-group">
+								<label for="site-bg-image-custom" class="col-sm-3 control-label">Custom background image</label>
+								<div class="col-sm-9">
+									<input type="file" id="site-bg-image-custom" name="settings[current][logo_images_and_colors][logo_background][site-bg-image-custom]" data-bind="site-bg-image-custom.png">
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="site-bg-image-display" class="col-sm-3 control-label">Background image display style</label>
 								<div class="col-sm-9">
@@ -1808,7 +1802,6 @@
 				</div>
 			</div>
 			{# End additional layouts #}
-		</div>
-	</div>
-	<pre>{{  dump(settings) }}</pre>
-</div>
+{{ utils.end_layout() }}
+{{ utils.initColorpick() }}
+<pre>{{  dump(settings) }}</pre>
