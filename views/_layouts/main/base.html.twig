@@ -50,7 +50,7 @@
     <link rel="sitemap" href="{{app.url}}/api/sitemap" />
 
     {% block css %}{% endblock %}
-    <title>BabyViva - {% block title %}{{ seo['title'] }}{% endblock %}</title>
+    <title>{% block title %}{{ seo['title'] }}{% endblock %}</title>
 
     {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
         {{ social.get_metatags(app.params.social_settings, seo) }}
