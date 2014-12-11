@@ -40,7 +40,7 @@ $('button[value=cart]').click(function(event) {
 
     // Sum product quantities
     var sum = 0;
-    $('#productForm select').each(function() {
+    $('#productForm .quantity-selector').each(function() {
         if (!isNaN($(this).val())) {
             sum += parseInt($(this).val());
         }
