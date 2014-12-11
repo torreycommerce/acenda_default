@@ -1,154 +1,220 @@
+{% macro _attrHtml(attributes) %}
+{% spaceless %}
+{% for key,value in attributes %} {{key}}="{{value|e}}"{% endfor %}
+{% endspaceless %}
+{% endmacro %}
+
 {% macro start_layout() %}
-    <div class="row"><div class="col-md-12"><div class="panel-group" id="accordion">
+<div class="row"><div class="col-md-12"><div class="panel-group" id="accordion">
 {% endmacro %}
 
 {% macro end_layout() %}
-            </div></div></div>
+</div></div></div>
 {% endmacro %}
 
 {% macro start_group(title, id) %}
-  <div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#{{ id }}">{{ title }}</a></h3></div><div id="{{ id }}" class="panel-collapse collapse"><div class="panel-body">
+<div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#{{ id }}">{{ title }}</a></h3></div><div id="{{ id }}" class="panel-collapse collapse"><div class="panel-body">
 {% endmacro %}
 
 {% macro end_group() %}
-            </div></div></div>
+</div></div></div>
 {% endmacro %}
 
 {% macro start_subgroup(title) %}
-    <fieldset><legend>{{ title }}</legend>
+<fieldset><legend>{{ title }}</legend>
 {% endmacro %}
 
 {% macro end_subgroup() %}
-  </fieldset>
+</fieldset>
 {% endmacro %}
 
 {% macro uploadFile(label,id,tree,value) %}
-  <div class="form-group">
+<div class="form-group">
     <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
     <div class="col-sm-9">
-      <input type="file" id="{{ id }}" name="{{ tree }}" data-max-width="700" data-max-height="600" data-bind="">
-      <p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">{{ value }}</a></p>
+        <input type="file" id="{{ id }}" name="{{ tree }}" data-max-width="700" data-max-height="600" data-bind="">
+        <p><i class="fa fa-paperclip"></i> <a target="_blank" href="#">{{ value }}</a></p>
     </div>
-  </div>
+</div>
+{% endmacro %}
+
+{% macro showText(id, fontSelector='', sizeSelector='', weightSelector='', styleSelector='', transformSelector='') %}
+<div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">View result</label>
+    <div id="{{ id }}" class='col-md-6'>Sample text</div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var selector = "";
+        var style = "border: 2px dashed #000; padding: 10px;";
+        {% if fontSelector != "" %} style += 'font-family: '+$("#{{ fontSelector }}").val()+';'; selector += "#{{fontSelector}}, "; {% endif %}
+        {% if sizeSelector != "" %} style += 'font-size: '+$("#{{ sizeSelector }}").val()+';'; selector += "#{{sizeSelector}}, "; {% endif %}
+        {% if weightSelector != "" %} style += 'font-weight: '+$("#{{ weightSelector }}").val()+';'; selector += "#{{weightSelector}}, "; {% endif %}
+        {% if styleSelector != "" %} style += 'font-style: '+$("#{{ styleSelector }}").val()+';'; selector += "#{{styleSelector}}, "; {% endif %}
+        {% if transformSelector != "" %} style += 'text-transform: '+$("#{{ transformSelector }}").val()+';'; selector += "#{{transformSelector}}, "; {% endif %}
+        selector = selector.substr(0, (selector.length-2));
+        $("#{{ id }}").attr('style', style);
+
+
+        $(selector).on("change", function(){
+            var style = "border: 2px dashed #000; padding: 10px;";
+            {% if fontSelector != "" %} style += 'font-family: '+$("#{{ fontSelector }}").val()+';'; {% endif %}
+            {% if sizeSelector != "" %} style += 'font-size: '+$("#{{ sizeSelector }}").val()+';'; {% endif %}
+            {% if weightSelector != "" %} style += 'font-weight: '+$("#{{ weightSelector }}").val()+';'; {% endif %}
+            {% if styleSelector != "" %} style += 'font-style: '+$("#{{ styleSelector }}").val()+';'; {% endif %}
+            {% if transformSelector != "" %} style += 'text-transform: '+$("#{{ transformSelector }}").val()+';'; {% endif %}
+            $("#{{ id }}").attr('style', style);
+        });
+    });
+</script>
+</div>
+{% endmacro %}
+
+{% macro selectWithGroup(label,id,tree,value,list) %}
+<div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+        <select id="{{ id }}" name="{{ tree }}">
+            {% for lab,val in list %}
+            <optgroup label="{{ lab }}">
+                {% for v, l in val %}
+                <option value="{{ v }}" {% if value == v %} selected {% endif %}>{{ l }}</option>
+                {% endfor %}
+            </optgroup>
+            {% endfor %}
+        </select>
+    </div>
+</div>
 {% endmacro %}
 
 {% macro checkBoxx(label,id,tree,value) %}
-  <div class="form-group">
+<div class="form-group">
     <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
     <div class="col-sm-9">
-      <input type="hidden" name="{{ tree }}" value="0"><input type="checkbox" id="{{ id }}" name="{{ tree }}" value="1"
-      {% if value == true %}
-         checked
-      {% endif %}>
+        <input type="hidden" name="{{ tree }}" value="0"><input type="checkbox" id="{{ id }}" name="{{ tree }}" value="1"
+        {% if value == true %}
+        checked
+        {% endif %}>
     </div>
-  </div>
+</div>
+{% endmacro %}
+
+{% macro inputText(label,id,tree,value, attributes=[]) %}
+{% spaceless %}
+<div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+    <div class="col-sm-9">
+        <input type="text" name="{{ tree }}" id="{{ id }}" value="{{ value}}" {{ elements._attrHtml(attributes) }} />
+    </div>
+</div>
+{% endspaceless %}
 {% endmacro %}
 
 {# This macro is not working for some dark reasons #}
 {% macro multiRadiobutton(label,id,tree,value,list) %}
-  <div class="form-group">
+<div class="form-group">
     <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
     <div class="col-sm-9">
-      {% for val,lab in list %}
-      <input type="radio"  name="{{ tree }}" value="{{ val }}"
+        {% for val,lab in list %}
+        <input type="radio"  name="{{ tree }}" value="{{ val }}"
         {% if value == val %}
-           checked='checked'
+        checked='checked'
         {% endif %}
         > {{ lab }}
-      {% endfor %}
+        {% endfor %}
     </div>
     <script>
-    $( document ).ready(function() {
-      $('input[name="{{ tree }}"]').filter('[value="{{ value }}"]').prop('checked', 'checked');
-      //alert($('input[value="{{ value }}"]').val());
-      //$('input[value="{{ value }}"]').prop('checked', 'checked');
-    });
+        $( document ).ready(function() {
+            $('input[name="{{ tree }}"]').filter('[value="{{ value }}"]').prop('checked', 'checked');
+            //alert($('input[value="{{ value }}"]').val());
+            //$('input[value="{{ value }}"]').prop('checked', 'checked');
+        });
     </script>
-  </div>
+</div>
 {% endmacro %}
 
 {% macro selectDropdown(label,id,tree,value,list) %}
-  <div class="form-group">
-    <label for="site-bg-image" class="col-sm-3 control-label">Use a background image?</label>
+
+<div class="form-group">
+    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
     <div class="col-sm-9">
-      <select id="site-bg-image" name="{{ tree }}">
-        {% for val,lab in list %}
-          {% if value == val %}
-            <option value="{{ val }}">{{ lab }}</option>
-          {% else %}
+        <select id="{{ id }}" name="{{ tree }}">
+            {% for val,lab in list %}
+            {% if value == val %}
             <option value="{{ val }}" selected>{{ lab }}</option>
-          {% endif %}
-        {% endfor %}
-      </select>
+            {% else %}
+            <option value="{{ val }}">{{ lab }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
     </div>
-  </div>
+</div>
 {% endmacro %}
 
 {% macro selectColor(label,id,tree,value) %}
-    <div class="form-group"><label class="col-sm-3 control-label">{{ label }}</label><div class="col-sm-9">
+<div class="form-group"><label class="col-sm-3 control-label">{{ label }}</label><div class="col-sm-9">
     #<input class="sel-color-pick" type="text" id="{{ id }}" name="{{ tree }}"
-            value="{{ value }}" size="7"></div></div><script type="text/javascript">
-          $( document ).ready(function() {
-           $('#{{ id }}').colpick({
-          layout:'hex',
-          submit:0,
-          {% if value %}
-          color:'{{ value }}',
-          {% endif %}
-          colorScheme:'white',
-          onChange:function(hsb,hex,rgb,el,bySetColor) {
-            $(el).css('border-color','#'+hex);
-            // Fill the text box just if the color was set using the picker, and not the colpickSetColor function.
-            if(!bySetColor) $(el).val(hex);
-                  }
+    value="{{ value }}" size="7"></div></div><script type="text/javascript">
+        $( document ).ready(function() {
+            $('#{{ id }}').colpick({
+                layout:'hex',
+                submit:0,
+                {% if value %}
+                color:'{{ value }}',
+                {% endif %}
+                colorScheme:'white',
+                onChange:function(hsb,hex,rgb,el,bySetColor) {
+                    $(el).css('border-color','#'+hex);
+                    // Fill the text box just if the color was set using the picker, and not the colpickSetColor function.
+                    if(!bySetColor) $(el).val(hex);
+                }
             }).keyup(function(){
-              $(this).colpickSetColor(this.value);
+                $(this).colpickSetColor(this.value);
             }).css('border-color', '#{{ value }}');
-         });
-        </script>
-{% endmacro %}
+        });
+    </script>
+    {% endmacro %}
 
-{% macro initColorpick() %}
-        <style>
-          .sel-color-pick {
-          margin:0;
-          padding:0;
-          border:0;
-          width:70px;
-          height:20px;
-          border-right:20px solid;
-          line-height:20px;
+    {% macro initColorpick() %}
+    <style>
+        .sel-color-pick {
+            margin:0;
+            padding:0;
+            border:0;
+            width:70px;
+            height:20px;
+            border-right:20px solid;
+            line-height:20px;
         }
-        </style>
-{% endmacro %}
+    </style>
+    {% endmacro %}
 
-{% macro checkBoxValue(value) %}
+    {% macro checkBoxValue(value) %}
     {% if value == true %}
-      value="{{ value }}" checked
+    value="{{ value }}" checked
     {% endif %}
-{% endmacro %}
+    {% endmacro %}
 
-{% macro selectValue(value,compareValue) %}
+    {% macro selectValue(value,compareValue) %}
     {% if value == compareValue %}
-      selected
+    selected
     {% endif %}
-{% endmacro %}
+    {% endmacro %}
 
-{% macro checkValue(value,compareValue) %}
+    {% macro checkValue(value,compareValue) %}
     {% if value == compareValue %}
-      checked
+    checked
     {% endif %}
-{% endmacro %}
+    {% endmacro %}
 
-{% macro checkBox(name,value) %}
+    {% macro checkBox(name,value) %}
     <input type="hidden" name="{{ name }}" value="0"><input type="checkbox" id="logo-custom" name="{{ name }}" value="1"
     {% if value == true %}
-       checked
+    checked
     {% endif %}>
-{% endmacro %}
+    {% endmacro %}
 
 
-{% macro fileUploader(label, id, name, value) %}
+    {% macro fileUploader(label, id, name, value) %}
     <script type="text/javascript">
         $(document).ready(function(){
             $(document).on('click', "#{{ id }} #fileuploader_file a", function(){
@@ -166,7 +232,7 @@
                             $("#{{id}} .upload_button").removeClass('disabled');
                             $("#{{ id }}").find('input[name="{{ name }}"]').attr('value', "");
                         }else
-                            console.log(xhr);
+                        console.log(xhr);
                     },
                     success: function(xhr){
                         $(self).parent().hide();
@@ -200,44 +266,46 @@
                 },
                 success: function(data) {
                     var html = '<div class="col-md-3" style="text-align: center; margin-top: 10px;"><img src="'+data.result.new_location+'" class="img-thumbnail"><br /><br />';
-                    html += '<a href="javascript: void(0);" class="btn btn-danger">Delete file</a></div>';
+                        html += '<a href="javascript: void(0);" class="btn btn-danger">Delete file</a></div>';
 
-                    $("#{{id}} .upload_button").addClass('disabled');
-                    $('#{{id}} input[name="{{ name }}"]').attr('value', data.result.new_location);
-                    $("#{{id}} #fileuploader_file").html(html).slideDown('fast');
-                    $('#{{id}} #progress').hide();
-                }
+                        $("#{{id}} .upload_button").addClass('disabled');
+                        $('#{{id}} input[name="{{ name }}"]').attr('value', data.result.new_location);
+                        $("#{{id}} #fileuploader_file").html(html).slideDown('fast');
+                        $('#{{id}} #progress').hide();
+                    }
+                });
             });
-        });
-    </script>
-<div class="form-group">
-    <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
-    <div class="col-sm-9">
-        <div id="{{ id }}">
-            <input name="{{ name }}" type="hidden" value="{{ value }}" />
-            <div class="row">
-                <a class="upload_button btn btn-success {% if value != '' %} disabled {% endif %}" href="javascript: void(0);">Select a file</a>
-            </div>
+        </script>
+        <div class="form-group">
+            <label for="{{ id }}" class="col-sm-3 control-label">{{ label }}</label>
+            <div class="col-sm-9">
+                <div id="{{ id }}">
+                    <input name="{{ name }}" type="hidden" value="{{ value }}" />
+                    <div class="row">
+                        <a class="upload_button btn btn-success {% if value != '' %} disabled {% endif %}" href="javascript: void(0);">Select a file</a>
+                    </div>
 
-            <div class="row">
-                <div id="progress" class="progress col-md-6" style="display:none;">
-                    <div class="bar progress-bar progress-bar-primary"></div>
-                </div>
-            </div>
-            <div class="row" style="display: none;">
-                <input class='btn btn-success fileUploader' type="file" name="import" multiple>
-            </div>
-            <div class="row">
-                <div id="fileuploader_file" {% if value == '' %}style="display: none;"{% endif %}>
-                    {% if value != '' %}
-                        <div class="col-md-3" style="text-align: center; margin-top: 10px;">
-                            <img src="{{ value }}" class="img-thumbnail"><br /><br />
-                            <a href="javascript: void(0);" class="btn btn-danger">Delete file</a>
+                    <div class="row">
+                        <div id="progress" class="progress col-md-6" style="display:none;">
+                            <div class="bar progress-bar progress-bar-primary"></div>
                         </div>
-                    {% endif %}
+                    </div>
+                    <div class="row" style="display: none;">
+                        <input class='btn btn-success fileUploader' type="file" name="import" multiple>
+                    </div>
+                    <div class="row">
+                        <div id="fileuploader_file" {% if value == '' %}style="display: none;"{% endif %}>
+                            {% if value != '' %}
+                            <div class="col-md-3" style="text-align: center; margin-top: 10px;">
+                                <img src="{{ value }}" class="img-thumbnail"><br /><br />
+                                <a href="javascript: void(0);" class="btn btn-danger">Delete file</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{% endmacro %}
+        {% endmacro %}
+
+        
