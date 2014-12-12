@@ -32,7 +32,7 @@
                             </div>
                             {% endfor %}
                             {% if product.videos is not empty %}
-                            {% do app.asset.js(app.url ~ '/js/video-player.js') %}
+                            {% do app.asset.js(app.url_asset ~ '/js/video-player.js') %}
                             {% for video in product.videos %}
                             <div class="col-sm-2">
                                 <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
@@ -71,7 +71,7 @@
                 {% if review_score > 0 %}
                     <ul class="reviews">
                         <li class="stars">
-                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a> 
+                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
                         </li>
                         <li class="average">
                             <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
@@ -233,11 +233,11 @@
                 {# Begin social sharing #}
                 {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
                     <div id="social">
-                        <div class="row">                            
+                        <div class="row">
                             <div class="col-md-12">
                                 <span class="text">Share this item:</span>
                                 {{ social.sharing_buttons(app.params.social_settings, product) }}
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 {% endif %}
@@ -291,7 +291,7 @@
                             </div>
                             {# End reviews #}
                             {# End product description #}
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 {# End tab pane #}

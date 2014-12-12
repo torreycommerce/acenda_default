@@ -1,8 +1,0 @@
-{{ form.begin('ipblacklist','','post',{data:ipblacklist}) }}
-{{ form.text('ip', '', {required:true}) }}
-{% if create %}
-{{ form.submit('Create') }}
-{% else %}
-{{ form.submit('Save') }}
-{% endif %}
-{{ form.end() }}

@@ -146,7 +146,7 @@
                                         {% set address_select = address_select + {(address.id):address.one_line} %}
                                     {% endfor %}
                                     {% if address_select|length > 1 %}
-                            
+
                                         <div class="form-group">
                                             <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1"></label>
                                             <div class="col-sm-9 col-md-9 col-lg-5">
@@ -235,6 +235,6 @@
 </section>
 {% endblock %}
 {% block js %}
-{{ app.asset.js(app.url ~ '/js/checkout.js') }}
-{{ app.asset.js(app.url ~ '/js/region.js') }}
+{{ app.asset.js(app.url_asset ~ '/js/checkout.js') }}
+{{ app.asset.js(app.url_asset ~ '/js/region.js') }}
 {% endblock %}

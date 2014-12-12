@@ -25,7 +25,7 @@
 {% else %}
     {% if app.request.post.review is defined %}
         {% set review = app.request.post.review + {'customer_id':app.user.id,'status':'pending'} %}
-        {% if api.post('/productreview', review) %}              
+        {% if api.post('/productreview', review) %}
             {% do app.redirect('/product/' ~ product.slug, {'success':'Your review has been added and will appear once it has been approved.'}) %}
         {% else %}
             {% set form_errors = api.error() %}
@@ -42,7 +42,7 @@
         {% endif %}
         {# You must be logged in to review an item #}
         {{ form.begin('review','','post', {class:'form-horizontal'}) }}
-            {{ form.hidden('review[product_id]', product_id) }}          
+            {{ form.hidden('review[product_id]', product_id) }}
             <fieldset>
                 <legend>Identity</legend>
                 <div class="form-group">
@@ -152,5 +152,5 @@
 </div>
 {% endblock %}
 {% block js %}
-{{ app.asset.js(app.url ~ '/js/region.js') }}
+{{ app.asset.js(app.url_asset ~ '/js/region.js') }}
 {% endblock %}
