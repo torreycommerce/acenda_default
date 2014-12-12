@@ -2,6 +2,8 @@
 {% set return = api.get('/orderreturn/' ~ return_id) %}
 {% set item = api.get('/orderitem/' ~ return.item_id) %}
 
+{{ app.params['site']['title'] }}
+
 You have successfully created a return and a copy of the return instructions below have been emailed to you. In order for us to process your return, your items must meet the following criteria:
 
 - Items must be unused and returned with the original product tags.
@@ -19,7 +21,10 @@ Reason: {{return.reason}}
 
 Please ship your returns to:
 
-BabyViva
-8680 Miralani Drive #128
-San Diego, CA 92126
-P: 858-201-4166
+Address: {{ app.params['return_address']['street_line1'] }} {{ app.params['return_address']['street_line2'] }}
+City: {{ app.params['return_address']['city'] }}
+State: {{ app.params['return_address']['state'] }}
+Zip: {{ app.params['return_address']['zip'] }}
+{% if app.params['information']['phone_number'] is defined %}
+    P: {{ app.params['information']['phone_number'] }}
+{% endif %}

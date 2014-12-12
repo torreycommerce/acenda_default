@@ -5,7 +5,7 @@
 {% set products = api.get('/product',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 
-Thank you again for your order from BabyViva.
+Thank you again for your order from {{ app.params['site']['title'] }}.
 
 Order ID: {{ order.order_number }}
 
@@ -35,6 +35,6 @@ Tracking number: {{ item.tracking_number }}
 {% endif %}
 {% endfor %}
 
-Please Note:  If your order was placed after-hours or on the weekend your tracking number will not be active until the next business day when the package is picked up by the carrier. 
+Please Note:  If your order was placed after-hours or on the weekend your tracking number will not be active until the next business day when the package is picked up by the carrier.
 
-Thank you for shopping with us. 
+Thank you for shopping with us.

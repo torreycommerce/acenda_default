@@ -4,7 +4,7 @@
 {% set product_ids = items|values_in('product_id') %}
 {% set products = api.get('/product',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 
-You have cancelled your order with BabyViva.
+You have cancelled your order with {{ app.params['site']['title'] }}.
 
 This email is to confirm your order cancellation.
 
@@ -21,4 +21,4 @@ Quantity: {{ item.quantity }}
 {% endfor %}
 --------------------------------------------------------------------------
 
-Thank you for shopping with us. 
+Thank you for shopping with us.
