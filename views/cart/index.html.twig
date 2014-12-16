@@ -87,7 +87,7 @@ Cart
             {# Begin item image #}
             <div class="image col-xs-4 col-sm-6 col-md-2 col-lg-2">        
                 <div class="thumbnail">
-                    <img src="{{ product.thumbnail }}" />
+                    <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
                 </div>        
             </div>
             {# End item image #}
@@ -260,7 +260,7 @@ Cart
                     </div>
                     <div class="col-md-12">
                         <div id="paypal">
-                            <a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
+                            <a href="{{ app.url }}/checkout/paypal"><img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
                         </div>
                     </div>
                 </div>

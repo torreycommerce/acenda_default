@@ -188,7 +188,7 @@
                             <div class="product">
                                 <div class="image">
                                     <a class="thumbnail" href="{{app.url}}/category/{{category.slug}}">
-                                        <img src="{{category.thumbnail}}" class="img-responsive" data-image-source="{{category.thumbnail}}">
+                                        <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{category.thumbnail}}" class="img-responsive" data-image-source="{{category.thumbnail}}">
                                     </a>
                                 </div>
                                 <a href="{{app.url}}/category/{{category.slug}}"><header><h5 class="product-name">{{ category.name }}</h5></header></a>
