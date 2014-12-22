@@ -30,8 +30,8 @@
             "toolbar": {
                 "toolbar-bg-color": "7fff00",
                 "toolbar-bg-color-none": "0",
-                "toolbar-text-color": "987654",
-                "toolbar-text-color-hover": "123456",
+                "toolbar-text-color": "BBBBBB",
+                "toolbar-text-color-hover": "FFFFFF",
                 "toolbar-border-style": "none",
                 "toolbar-border-color": "000000",
                 "toolbar-border-search": "1",

@@ -56,17 +56,25 @@ nav#nav-desktop-main ul.dropdown-menu {
 // Search
 div.search {
     padding: 8px 14px;
-    form {        
-        &:active, &:focus, &:hover { .box-shadow(0px; 0px; 5px; rgba(46, 199, 229, 0.75));} // mixins    
+    form {
+
+        &:active, &:focus, &:hover {
+            .box-shadow(0px; 0px; 3px; @input-border-focus); // mixins
+        }
+        
         input {
-            border-color: #E6E6E6;
+            border-color: @input-border;
             &:active, &:focus, &:hover {
-                .box-shadow(0px; 0px; 10px; rgba(0, 0, 0, 0)); // mixins
+                .box-shadow(0px; 0px; 0px; @input-border); // mixins
             }
         }
+
         a {
-            border-color: #E6E6E6; color: #335E67;
-            &:hover { background-color: #ffffff;}
+            border-color: @input-border;
+            color: #335E67;
+            &:hover {
+                background-color: #ffffff;
+            }
         }
     }
 }
