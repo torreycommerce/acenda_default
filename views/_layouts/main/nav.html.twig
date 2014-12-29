@@ -4,7 +4,7 @@
 {# Begin desktop nav #}
 <nav id="nav-desktop-main" class="col-lg-9 col-md-9 hidden-sm hidden-xs">
     <ul class="nav navbar-nav">
-        {% for main_category,items in categories if main_category != "clearance" %}            
+        {% for main_category,items in categories if main_category != "clearance" %}
         {% if items|length %}
         {# Begin dropdown #}
         <li class="dropdown">
@@ -22,7 +22,9 @@
         </li>
         {# End dropdown #}
         {% else %}
-        <li><a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a></li>
+        <li>
+            <a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a>
+        </li>
         {% endif %}
         {% endfor %}
     </ul>
@@ -67,12 +69,16 @@
             </ul>
         </li>
         {% else %}
-        <li><a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i> Log in</a></li>
-        <li> <a href="{{app.url}}/return"><i class="fa fa-exchange"></i>Easy Returns</a></li>
+        <li>
+            <a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i> Log in</a>
+        </li>
+        <li>
+            <a href="{{app.url}}/return"><i class="fa fa-exchange"></i>Easy Returns</a>
+        </li>
         {% endif %}
         <div style="clear: both; height: 20px;"></div>
         <div class="col-xs-12">
-            <form id="mobile-search-form" role="search" method="get" action="{{ app.url }}/search">
+            <form id="mobile-search-form" role="search" action="{{ app.url }}/search" method="get">
                 <div class="input-group">
                     <input id="mobile-search-input" class="form-control" type="text" value="" name="s" placeholder="Enter search terms">
                     <div class="input-group-btn">
@@ -83,30 +89,35 @@
         </div>
         <div style="clear: both; height: 20px;"></div>
         <li><h2>Categories</h2></li>
-        <li><a href="{{app.url}}" class="sub_c"><i class="fa fa-home"></i>Home</a></li>
+        <li>
+            <a href="{{app.url}}" class="sub_c">
+                <i class="fa fa-home"></i>Home
+            </a>
+        </li>
         {% set id = 0 %}
         {% for main_category,items in categories %}
         {% set id = id + 1 %}
-        <li><a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ main_category }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
-            <i class="fa fa-star-o"></i>
-            {{main_category|replace('-',' ')|title}}
-        </a>
-        {% if items|length %}
-        <ul id="submenu-{{ id }}">
-            {% for category,subitems in items %}
-            <li>
-                <a tabindex="-1" href="{{app.url}}/category/{{main_category}}/{{category}}">
-                    <i class="fa fa-star-o"></i>
-                    {{category|replace('-',' ')|title}}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-{# End nav list #}
+        <li>
+            <a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ main_category }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
+                <i class="fa fa-star-o"></i>
+                {{main_category|replace('-',' ')|title}}
+            </a>
+            {% if items|length %}
+            <ul id="submenu-{{ id }}">
+                {% for category,subitems in items %}
+                <li>
+                    <a tabindex="-1" href="{{app.url}}/category/{{main_category}}/{{category}}">
+                        <i class="fa fa-star-o"></i>
+                        {{category|replace('-',' ')|title}}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {# End nav list #}
 </nav>
 {# End mobile navigation menu #}
 {% endspaceless %}
