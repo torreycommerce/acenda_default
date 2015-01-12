@@ -98,7 +98,6 @@
 
 
 
-
 // 
 // My Cart
 // ----------------------------------------------------------------------------------------------------
@@ -135,6 +134,8 @@
 @nav-dropdown-text:								@nav-text-hover;
 @nav-dropdown-text-hover:						@nav-text-hover;
 
+
+
 // Tabs
 // ----------------------------------------------------------------------------------------------------
 
@@ -149,34 +150,6 @@
 @nav-tabs-justified-link-border-color:			#ddd;
 @nav-tabs-justified-active-link-border-color:	@body-bg;
 
-
-// 
-// Forms
-// ----------------------------------------------------------------------------------------------------
-
-@input-bg: 										#fff;
-@input-bg-disabled:								@gray-lighter;
-@input-color:                    				@gray;
-@input-border:                   				#ccc;
-@input-border-focus:             				#f45b4f;
-@input-color-placeholder:        				@gray-light;
-@legend-color:                   				@gray-dark;
-@legend-border-color:            				#e5e5e5;
-@input-group-addon-bg:           				@gray-lighter;
-@input-group-addon-border-color: 				@input-border;
-
-
-// 
-// Tables
-// ----------------------------------------------------------------------------------------------------
-
-@table-cell-padding:            8px;
-@table-condensed-cell-padding:  5px;
-@table-bg:                      transparent;
-@table-bg-accent:               #f9f9f9;
-@table-bg-hover:                #f5f5f5;
-@table-bg-active:               @table-bg-hover;
-@table-border-color:            #ddd;
 
 
 // 
@@ -207,6 +180,31 @@
 @link-color-hover:              	        	#f45b4f;
 
 @price-color:                         			#b2246b;
+
+
+
+// 
+// Tables
+// ----------------------------------------------------------------------------------------------------
+
+// Padding for `<th>`s and `<td>`s.
+@table-cell-padding:            			8px;
+
+// Padding for cells in `.table-condensed`.
+@table-condensed-cell-padding:  			5px;
+
+// Default background color used for all tables.
+@table-bg:                      			transparent;
+
+// Background color used for `.table-striped`.
+@table-bg-accent:              				#f9f9f9;
+
+// Background color used for `.table-hover`.
+@table-bg-hover:               				#f5f5f5;
+@table-bg-active:               			@table-bg-hover;
+
+// Border color for table and cell borders.
+@table-border-color:            			#ddd;
 
 
 
@@ -261,6 +259,83 @@
 @btn-wishlist-bg:								@gray-light;
 @btn-wishlist-border:							@gray-light;
 @btn-wishlist-color:							#ffffff;
+
+
+
+// 
+// Forms
+// ----------------------------------------------------------------------------------------------------
+
+// `<input>` background color
+@input-bg: 										#fff;
+
+// `<input disabled>` background color
+@input-bg-disabled:								@gray-lighter;
+
+// Text color for `<input>`s
+@input-color:                    				@gray;
+
+// `<input>` border color
+@input-border:                   				#ccc;
+
+// Border color for inputs on focus
+@input-border-focus:             				#f45b4f;
+
+// Placeholder text color
+@input-color-placeholder:        				@gray-light;
+
+@legend-color:                   				@gray-dark;
+
+@legend-border-color:            				#e5e5e5;
+
+// Background color for textual input addons
+@input-group-addon-bg:           				@gray-lighter;
+
+// Border color for textual input addons
+@input-group-addon-border-color: 				@input-border;
+
+
+
+// 
+// Dropdowns
+// ----------------------------------------------------------------------------------------------------
+
+//** Background for the dropdown menu.
+@dropdown-bg:                    #fff;
+
+//** Dropdown menu `border-color`.
+@dropdown-border:                rgba(0,0,0,.15);
+
+//** Dropdown menu `border-color` **for IE8**.
+@dropdown-fallback-border:       #ccc;
+
+//** Divider color for between dropdown items.
+@dropdown-divider-bg:            #e5e5e5;
+
+//** Dropdown link text color.
+@dropdown-link-color:            @gray-dark;
+
+//** Hover color for dropdown links.
+@dropdown-link-hover-color:      darken(@gray-dark, 5%);
+
+//** Hover background for dropdown links.
+@dropdown-link-hover-bg:         #f5f5f5;
+
+//** Active dropdown menu item text color.
+@dropdown-link-active-color:     @component-active-color;
+
+//** Active dropdown menu item background color.
+@dropdown-link-active-bg:        @component-active-bg;
+
+//** Disabled dropdown menu item background color.
+@dropdown-link-disabled-color:   @gray-light;
+
+//** Text color for headers within dropdown menus.
+@dropdown-header-color:          @gray-light;
+
+// Note: Deprecated @dropdown-caret-color as of v3.1.0
+@dropdown-caret-color:           #000;
+
 
 
 // 
@@ -318,6 +393,19 @@
 @pagination-disabled-bg:						#ffffff;
 @pagination-disabled-border:					#dddddd;
 
+// Pager
+@pager-bg:                             @pagination-bg;
+@pager-border:                         @pagination-border;
+@pager-border-radius:                  15px;
+
+@pager-hover-bg:                       @pagination-hover-bg;
+
+@pager-active-bg:                      @pagination-active-bg;
+@pager-active-color:                   @pagination-active-color;
+
+@pager-disabled-color:                 @pagination-disabled-color;
+
+
 
 
 // 
@@ -356,6 +444,26 @@
 @alert-danger-bg:								@state-danger-bg;
 @alert-danger-border:							@state-danger-border;
 @alert-danger-text:								@state-danger-text;
+
+
+
+// 
+// Tooltips
+// ----------------------------------------------------------------------------------------------------
+
+//** Tooltip max width
+@tooltip-max-width:           200px;
+//** Tooltip text color
+@tooltip-color:               #fff;
+//** Tooltip background color
+@tooltip-bg:                  #000;
+@tooltip-opacity:             .9;
+
+//** Tooltip arrow width
+@tooltip-arrow-width:         5px;
+//** Tooltip arrow color
+@tooltip-arrow-color:         @tooltip-bg;
+
 
 
 // 
