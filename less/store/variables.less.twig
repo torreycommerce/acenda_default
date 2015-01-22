@@ -12,6 +12,11 @@
 //      Brand
 //      Gray
 //      Feedback states
+// Scaffolding
+//		Body color
+//		Text color
+//		Link color
+//		Price color
 // Typography
 //      Body text
 //      Headings
@@ -22,8 +27,6 @@
 // Navigation
 // Tabs
 // Logo
-// Content Area
-// Links
 // Tables
 // Buttons
 //      Default
@@ -67,6 +70,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Brand
+// -------------------------
 @brand-primary:									#{{ settings.current["branding"]["branding_colors"]["brand-primary"] }};
 @brand-secondary:								#{{ settings.current["branding"]["branding_colors"]["brand-second"] }};
 @brand-success:         						#{{ settings.current["branding"]["feedback_states"]["brand-success"] }};
@@ -75,6 +79,7 @@
 @brand-danger:     							    #{{ settings.current["branding"]["feedback_states"]["brand-danger"] }};
 
 // Gray
+// -------------------------
 @gray-darker:									lighten(#000, 13.5%); // #222
 @gray-dark:										lighten(#000, 20%);   // #333
 @gray:											lighten(#000, 33.5%); // #555
@@ -82,6 +87,7 @@
 @gray-lighter:									lighten(#000, 93.5%); // #eee
 
 // Feedback states
+// -------------------------
 @state-success-text:							#{{ settings.current["branding"]["feedback_states"]["state-success-text"] }};
 @state-success-bg:								@brand-success;
 @state-success-border:							darken(spin(@state-success-bg, -10), 5%);
@@ -103,26 +109,44 @@
 
 
 //
+// Scaffolding
+// ----------------------------------------------------------------------------------------------------
+
+// Background color for `<body>`
+// -------------------------
+@body-bg:					                    #FFFFFF;
+@shop-bg-image:									0 none;
+@shop-bg-image-retina:							0 none;
+
+// Text color on `<body>`
+// -------------------------
+@text-color:									#{{ settings.current["logo_images_and_colors"]["content_area_color"]["text-color"] }};
+
+// Link color
+// -------------------------
+@link-color:    		                        @brand-primary;
+@link-hover-color:      						darken(@link-color, 15%);
+
+// Price color
+// -------------------------
+@price-color:                         			#b2246b;
+
+
+
+//
 // Typography
 // ----------------------------------------------------------------------------------------------------
 
 // Body text
 // -------------------------
-
-@text-color:									#{{ settings.current["logo_images_and_colors"]["content_area_color"]["text-color"] }};
-@font-family-base:								'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
-@font-size-base:								14px;
+@font-family-sans-serif:						'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
+@font-family-serif:       						Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   						Menlo, Monaco, Consolas, "Courier New", monospace; // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @line-height-base:								1.428571429; // 20/14
 
-
-// Headings
-// -------------------------
-
-@headings-color:								;
-@headings-font-family:							'Open Sans Condensed';
-@headings-font-weight:							700;
-@headings-line-height:							1.1;
-@headings-small-color:							#333333;
+@font-size-base:								14px;
+@font-size-large:         						ceil((@font-size-base * 1.25)); // ~18px
+@font-size-small:         						ceil((@font-size-base * 0.85)); // ~12px
 
 @font-size-h1:									ceil((@font-size-base * 2.55));	// ~36px
 @font-size-h2:									ceil((@font-size-base * 1.85));	// ~26px
@@ -130,6 +154,20 @@
 @font-size-h4:									ceil((@font-size-base * 1.25));	// ~18px
 @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
+
+// Unit-less `line-height` for use in components like buttons.
+@line-height-base:								1.428571429; // 20/14
+
+// Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+
+// Headings
+// -------------------------
+@headings-color:								;
+@headings-font-family:							'Open Sans Condensed';
+@headings-font-weight:							700;
+@headings-line-height:							1.1;
+@headings-small-color:							#333333;
 
 @page-header-color:								@gray;
 @page-header-border-color:						#EEEEEE;
@@ -226,48 +264,27 @@
 
 
 // 
-// Content Area
-// ----------------------------------------------------------------------------------------------------
-
-@body-bg:					                    #FFFFFF;
-@shop-bg-image:									0 none;
-@shop-bg-image-retina:							0 none;
-
-
-
-//Links
-// ----------------------------------------------------------------------------------------------------
-@link-color:    		                        #f45b4f;
-@link-color-active:     		                #f45b4f;
-@link-color-focus:                  		    #f45b4f;
-@link-color-hover:              	        	#f45b4f;
-
-@price-color:                         			#b2246b;
-
-
-
-// 
 // Tables
 // ----------------------------------------------------------------------------------------------------
 
 // Padding for `<th>`s and `<td>`s.
-@table-cell-padding:            			8px;
+@table-cell-padding:            				8px;
 
 // Padding for cells in `.table-condensed`.
-@table-condensed-cell-padding:  			5px;
+@table-condensed-cell-padding:  				5px;
 
 // Default background color used for all tables.
-@table-bg:                      			transparent;
+@table-bg:                      				transparent;
 
 // Background color used for `.table-striped`.
-@table-bg-accent:              				#f9f9f9;
+@table-bg-accent:               				#f9f9f9;
 
 // Background color used for `.table-hover`.
-@table-bg-hover:               				#f5f5f5;
-@table-bg-active:               			@table-bg-hover;
+@table-bg-hover:                				#f5f5f5;
+@table-bg-active:               				@table-bg-hover;
 
 // Border color for table and cell borders.
-@table-border-color:            			#ddd;
+@table-border-color:            				#ddd;
 
 
 
@@ -364,40 +381,40 @@
 // ----------------------------------------------------------------------------------------------------
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    #fff;
+@dropdown-bg:                    				#fff;
 
 //** Dropdown menu `border-color`.
-@dropdown-border:                rgba(0,0,0,.15);
+@dropdown-border:                				rgba(0,0,0,.15);
 
 //** Dropdown menu `border-color` **for IE8**.
-@dropdown-fallback-border:       #ccc;
+@dropdown-fallback-border: 			      		#ccc;
 
 //** Divider color for between dropdown items.
-@dropdown-divider-bg:            #e5e5e5;
+@dropdown-divider-bg:       		     		#e5e5e5;
 
 //** Dropdown link text color.
-@dropdown-link-color:            @gray-dark;
+@dropdown-link-color:     		       			@gray-dark;
 
 //** Hover color for dropdown links.
-@dropdown-link-hover-color:      darken(@gray-dark, 5%);
+@dropdown-link-hover-color: 		     		darken(@gray-dark, 5%);
 
 //** Hover background for dropdown links.
-@dropdown-link-hover-bg:         #f5f5f5;
+@dropdown-link-hover-bg:      		   			#f5f5f5;
 
 //** Active dropdown menu item text color.
-@dropdown-link-active-color:     @component-active-color;
+@dropdown-link-active-color:  		   			@component-active-color;
 
 //** Active dropdown menu item background color.
-@dropdown-link-active-bg:        @component-active-bg;
+@dropdown-link-active-bg:    		    		@component-active-bg;
 
 //** Disabled dropdown menu item background color.
-@dropdown-link-disabled-color:   @gray-light;
+@dropdown-link-disabled-color:					@gray-light;
 
 //** Text color for headers within dropdown menus.
-@dropdown-header-color:          @gray-light;
+@dropdown-header-color:							@gray-light;
 
 // Note: Deprecated @dropdown-caret-color as of v3.1.0
-@dropdown-caret-color:           #000;
+@dropdown-caret-color:							#000;
 
 
 
@@ -440,16 +457,16 @@
 @pagination-disabled-border:					#dddddd;
 
 // Pager
-@pager-bg:                             @pagination-bg;
-@pager-border:                         @pagination-border;
-@pager-border-radius:                  15px;
+@pager-bg:                             			@pagination-bg;
+@pager-border:                         			@pagination-border;
+@pager-border-radius:                  			15px;
 
-@pager-hover-bg:                       @pagination-hover-bg;
+@pager-hover-bg:                       			@pagination-hover-bg;
 
-@pager-active-bg:                      @pagination-active-bg;
-@pager-active-color:                   @pagination-active-color;
+@pager-active-bg:                      			@pagination-active-bg;
+@pager-active-color:                   			@pagination-active-color;
 
-@pager-disabled-color:                 @pagination-disabled-color;
+@pager-disabled-color:                 			@pagination-disabled-color;
 
 
 
@@ -497,17 +514,36 @@
 // ----------------------------------------------------------------------------------------------------
 
 //** Tooltip max width
-@tooltip-max-width:           200px;
+@tooltip-max-width:           					200px;
 //** Tooltip text color
-@tooltip-color:               #fff;
+@tooltip-color:               					#fff;
 //** Tooltip background color
-@tooltip-bg:                  #000;
-@tooltip-opacity:             .9;
+@tooltip-bg:                  					#000;
+@tooltip-opacity:             					.9;
 
 //** Tooltip arrow width
-@tooltip-arrow-width:         5px;
+@tooltip-arrow-width:         					5px;
 //** Tooltip arrow color
-@tooltip-arrow-color:         @tooltip-bg;
+@tooltip-arrow-color:         					@tooltip-bg;
+
+
+
+// 
+// Labels
+// ----------------------------------------------------------------------------------------------------
+
+@label-default-bg:            					@gray-light;
+@label-primary-bg:            					@brand-primary;
+@label-success-bg:            					@brand-success;
+@label-info-bg:               					@brand-info;
+@label-warning-bg:            					@brand-warning;
+@label-danger-bg:             					@brand-danger;
+
+// Default label text color
+@label-color:                 					#fff;
+
+// Default text color of a linked label
+@label-link-hover-color:      					#fff;
 
 
 
@@ -559,6 +595,15 @@
 @panel-danger-text:								@state-danger-text;
 @panel-danger-border:							@state-danger-border;
 @panel-danger-heading-bg:						@state-danger-bg;
+
+
+
+// 
+// Wells
+// ----------------------------------------------------------------------------------------------------
+
+@well-bg:                     					#ffffff;
+@well-border:                 					darken(@well-bg, 7%);
 
 
 
