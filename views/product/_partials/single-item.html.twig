@@ -231,7 +231,17 @@
                 {% endif %}
                 {# End actions mobile #}
                 {# Begin social sharing #}
-                {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+                {% if app.params.social_settings is defined and app.params.social_settings is not empty and (
+                    app.params.social_settings["facebook"]["active_like"] == true or
+                    app.params.social_settings["facebook"]["active_share"] == true or
+                    app.params.social_settings["facebook"]["active_follow_page_button"] == true or
+                    app.params.social_settings["twitter"]["active_tweet"] == true or
+                    app.params.social_settings["twitter"]["active_follow_page_button"] == true or
+                    app.params.social_settings["pinterest"]["active_pin_it"] == true or 
+                    app.params.social_settings["pinterest"]["active_follow_page_button"] == true or
+                    app.params.social_settings["google"]["active_plus_one"] == true or
+                    app.params.social_settings["google"]["active_follow_page_button"] == true
+                ) %}
                     <div id="social">
                         <div class="row">
                             <div class="col-md-12">
