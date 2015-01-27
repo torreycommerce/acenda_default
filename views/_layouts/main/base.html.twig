@@ -6,10 +6,10 @@
 
 
 {# Getting Seo from config.mode.json #}
-{% if app.params.seo is defined and app.params.seo is not empty and app.params.seo.img|default is not empty %}
-  {% set seo = app.params.seo %}
+{% if app.params.seo is defined and app.params.seo is not empty %}
+    {% set seo = app.params.seo %}
 {% else %}
-  {% set seo = { img: "", description: "", keywords: "", title: "Home" } %}
+    {% set seo = { img: "", description: "", keywords: "", title: "Home" } %}
 {% endif %}
 {# End Config Seo #}
 {# Scripts #}
@@ -154,12 +154,12 @@
                         <div class="col-sm-4">
                             <button class="btn btn-info pull-right" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
                             {% if '/preview/' in app.url  %}
-                                <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ back_to }}'; return false;" >Visit your Live Site</button>
+                                <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
                             {% endif %}
                         </div>
             </div>
         </div>
-        
+
     </nav>
 <script>
     $(document).ready(function() {
