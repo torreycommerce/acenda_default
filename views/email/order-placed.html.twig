@@ -1,41 +1,201 @@
-{# Variables passed in: order_id #}
+
 {% set order = api.get('/order/' ~ order_id) %}
 {% set items = api.get('/orderitem', {query:{order_id:order_id}}) %}
 {% set product_ids = items|values_in('product_id') %}
 {% set products = api.get('/product',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 
-Thank you for placing your order with {{ app.params['site']['title'] }}!
+<table border="0" cellpadding="0" cellspacing="0" width="100%" >
+	<!-- Begin email header -->
+	<!-- Begin Top Part -->
+	<tr>
+		<td>
+			<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640" >
+				<tr>
+					<!-- Begin Top Part -->
+					<td align="right" style="padding:5 0px;"><a href="#"><img src="images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
+					<td align="right" style="padding-right:20px;" width="100"><a href="#"><img src="images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
+					<!-- End Top Part -->
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640">
+				<tr>
+					<!-- Begin logo -->
+					<td align="center" width="640" height="97">
+						<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;">{{ app.params['site']['title'] }}</h1>
+						<hr/>
+					</td>
+					<!-- End logo -->
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<!-- End email header -->
+	<!-- Begin email content -->
+	<tr>
+		<td>				
+			<table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640">
+				<tr><td></td>
+				</tr>
 
-This email is to confirm your recent order.
+				<!-- Begin welcome section -->
+				<tr>
+					<td align="left" style="padding:10px 20px; vertical-align:top;">
+						<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;"><a href="#" style="text-decoration:none; color:#333333; ">Thank you for placing your order with {{ app.params['site']['title'] }}!</a></h1>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" style="padding:0px 20px; vertical-align:top;">
+						<p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 14px; line-height: 22px; color:#555555; font-weight:400;">This email is to confirm your recent order.</p><br/>
+					</td>
+				</tr>
+				<!-- Begin Order Placing Info Section -->
+				<tr>
+					<td>
+						<table align="center" border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb;">
+							<tr align="left" style="vertical-align:top;">
+								<td style="padding-left: 20px;">
+									<h2 style="color:#f45b4f; font-size: 18px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 700; margin: 0; padding-top: 20px;">ORDER INFO</h2>
+								</td>
+							</tr>
+							<tr align="left" style="vertical-align:top;">
+								<td style="padding-left:20px; padding-top:20px; padding-bottom:10px;">
+									<p style="color:#555555; font-size: 14px; line-height: 21px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;">
+										Order ID: {{ order.order_number }} <br/>
+										Subtotal: ${{ order.subtotal|number_format(2) }}<br/>
+										Total: ${{order.total|number_format(2)}}<br/><br />
+									</p>
+								</td>
+								<td style="padding-left:10px;  padding-top:20px; padding-bottom:10px;">
+									<p style="color:#555555; font-size: 14px; line-height: 21px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;">
+										Date: {{ order.date_created }}<br/>
+										Tax: ${{order.tax|number_format(2)}}<br/>
+										Total: ${{order.total|number_format(2)}}<br/><br />
+									</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>			<!-- End Order Placing Info -->
+			</table>
+		</td>
+	</tr>
 
-Order ID: {{ order.order_number }}
-Date: {{ order.date_created }}
-Subtotal: ${{ order.subtotal|number_format(2) }}
-Tax: ${{order.tax|number_format(2)}}
-Total: ${{order.total|number_format(2)}}
+	<!-- Begin Order Shipping Info Section -->
+	<tr>
+		<td>
+			<table align="center" border="0"  cellpadding="0" cellspacing="0" width="640" style="padding-bottom:20px;">
+				<tr>
+					<td  align="left" style="padding-top:20px; padding-bottom: 0px; padding-left:20px; vertical-align:top;"><p style="color:#333333; font-size: 14px; line-height: 21px; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 700; margin:0; ">This order will be shipped to you at:</p>
 
-This order will be shipped to you at:
+						<p style="color:#555555; font-size: 14px; line-height: 22px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;">
+							{{ order.shipping_first_name }} {{ order.shipping_last_name }} <br />
+							{{ order.shipping_street_line1}} {{ order.shipping_street_line2}} <br />
+							{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }} <br />
+							{{ order.shipping_country }} <br />
+							{{ order.shipping_phone_number }} <br />
+							using {{ shipping_method.name }} <br />
+							{% for item in items %} <br /> </p>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>			<!-- End Order Shipping Info -->
+		<!-- Begin Item Info -->
 
-{{ order.shipping_first_name }} {{ order.shipping_last_name }}
-{{ order.shipping_street_line1}} {{ order.shipping_street_line2}}
-{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}
-{{ order.shipping_country }}
-{{ order.shipping_phone_number }}
+		<tr>
+			<td>
+				<table align="center" border="0"  cellpadding="0" cellspacing="0" width="640" style="padding-bottom:20px;">
+					<tr>
+						<td  align="left" style="padding:10px 20px; vertical-align:top;"><h2 style="color:#e16c25; font-size: 14px; font-family: Nunito, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 20px;">ITEM INFO</h2></td>
+					</tr>
+					<tr>
+						<td><hr style="color:#f45b4f;"></td>
+					</tr>
+					<tr>
+						<td align="left" style="padding:0px 20px; vertical-align:center;"><p style="color:#555555; font-size: 14px; line-height: 22px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 10px;">
+							URL: {{app.url}}{{products[item.product_id].0.url}} <br />
+							SKU: {{item.sku}} <br />
+							Item name: {{ item.name }} <br />
+							Price: ${{ item.price|number_format(2) }} <br />
+							Quantity: {{ item.quantity }}<br />
+							{% endfor %}</p>
+						</td>
+					</tr>
+					<tr>
+						<td><hr style=" color:#f45b4f;"></td>				
+					</tr>
+					<tr>
+						<td  align="left" style="padding:20px 20px; vertical-align:top;">
+							<p style="color:#555555; font-size: 13px; line-height: 20px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;">We will try to get your order shipped to you as soon as possible.<br /> <br/>
+								Thank you for shopping with us.</p>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>           <!-- End Item Info -->
+			<!-- End email content -->
 
-using {{ shipping_method.name }}
-
-{% for item in items %}
---------------------------------------------------------------------------
-URL: {{app.url}}{{products[item.product_id].0.url}}
-SKU: {{item.sku}}
-Item name: {{ item.name }}
-Price: ${{ item.price|number_format(2) }}
-Quantity: {{ item.quantity }}
---------------------------------------------------------------------------
-
-{% endfor %}
-
-We will try to get your order shipped to you as soon as possible.
-
-Thank you for shopping with us.
+			<!-- Begin email footer -->
+			<tr>
+				<td>
+					<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640">
+						<tr align="left" style="vertical-align:top; ">
+							<td width="50px;" style=" padding:20px 0px 10px 20px;">
+								<p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size:15px; font-weight:700; margin: 0; color:#ffffff;">Quicklinks</p>
+							</td>
+						</tr>
+						<tr align="left" style="vertical-align:top;">
+							<td width="110px;">
+								<ul style="list-style-type: none; margin:0px; padding-left:20px;">
+									<li style="padding-bottom: 6px;">
+										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Order Status</a></li>
+									</ul>
+								</td>
+								<td width="110px;">
+									<ul style="list-style-type: none; margin:0px; padding-left:20px;">
+										<li style="padding-bottom: 6px;">
+											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Shopping Cart</a></li>
+											<li style="padding-bottom: 6px;">
+												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Gift Registry</a></li>
+											</ul>
+										</td>
+										<td width="110px;">
+											<ul style="list-style-type: none; margin:0px; padding-left:20px;">
+												<li style="padding-bottom: 6px;">
+													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Help &amp; FAQs</a></li>
+													<li style="padding-bottom: 6px;">
+														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Contact Us</a></li>
+													</ul>
+												</td>
+												<td width="110px;">
+													<ul style="list-style-type: none; margin:0px; padding-left:20px;">
+														<li style="padding-bottom: 6px;">
+															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Privacy &amp; Security</a></li>
+															<li style="padding-bottom: 6px;">
+																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="#">Terms &amp; Conditions</a></li>
+															</ul>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640">
+													<tr>
+														<td><hr style="color:#555555;"></td>
+													</tr>
+													<tr align="center" style="vertical-align:top; ">
+														<td style=" padding:20px 0px 10px 20px;"><p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 12px; color:#555555;">Copyright &copy;2015 {{ app.params['site']['title'] }} All Rights Reserved. Powered by Acenda.</p>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<!-- End email footer -->
+									</table>
