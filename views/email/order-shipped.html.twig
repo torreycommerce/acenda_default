@@ -11,8 +11,8 @@
 			<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640" >
 				<tr>
 					<!-- Begin Top Part -->
-					<td align="right" style="padding:5 0px;"><a href="{{app.url}}/account/login"><img src="{{app.url_asset}}/images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
-					<td align="right" style="padding-right:20px;" width="100"><a href="{{app.url}}/cart"><img src="{{app.url_asset}}/images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
+					<td align="right" style="padding:5 0px;"><a href="{{app.live_url}}/account/login"><img src="{{ app.live_asset }}/images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
+					<td align="right" style="padding-right:20px;" width="100"><a href="{{app.live_url}}/cart"><img src="{{ app.live_asset }}/images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
 					<!-- End Top Part -->
 				</tr>
 			</table>
@@ -80,7 +80,7 @@
 										</tr>
 										<tr>
 											<td align="left" style="padding:0px 20px; vertical-align:center;"><p style="color:#555555; font-size: 14px; line-height: 22px; font-family: Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 20px;">Status: {{ item.status }} <br />
-												URL: {{app.url}}{{products[item.product_id].0.url}} <br />
+												URL: {{app.live_url}}{{products[item.product_id].0.url}} <br />
 												SKU: {{item.sku}} <br />
 												Item name: {{ item.name }} <br />
 												Quantity: {{ item.quantity }} <br />
@@ -120,31 +120,31 @@
 							<td width="110px;">
 								<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 									<li style="padding-bottom: 6px;">
-										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/account/orders">Order Status</a></li>
+										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/account/orders">Order Status</a></li>
 									</ul>
 								</td>
 								<td width="110px;">
 									<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 										<li style="padding-bottom: 6px;">
-											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/cart">Shopping Cart</a></li>
+											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/cart">Shopping Cart</a></li>
 											<li style="padding-bottom: 6px;">
-												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/registry/search">Gift Registry</a></li>
+												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/registry/search">Gift Registry</a></li>
 											</ul>
 										</td>
 										<td width="110px;">
 											<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 												<li style="padding-bottom: 6px;">
-													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/help">Help &amp; FAQs</a></li>
+													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/content/base/help">Help &amp; FAQs</a></li>
 													<li style="padding-bottom: 6px;">
-														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/contact">Contact Us</a></li>
+														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/contact">Contact Us</a></li>
 													</ul>
 												</td>
 												<td width="110px;">
 													<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 														<li style="padding-bottom: 6px;">
-															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/privacy-security">Privacy &amp; Security</a></li>
+															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/content/base/privacy-security">Privacy &amp; Security</a></li>
 															<li style="padding-bottom: 6px;">
-																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/terms">Terms &amp; Conditions</a></li>
+																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live_url}}/content/base/terms">Terms &amp; Conditions</a></li>
 															</ul>
 														</td>
 													</tr>
