@@ -1,10 +1,8 @@
-
 {% set order = api.get('/order/' ~ order_id) %}
 {% set items = api.get('/orderitem', {query:{order_id:order_id}}) %}
 {% set product_ids = items|values_in('product_id') %}
 {% set products = api.get('/product',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
-
 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
 	<!-- Begin email header -->
 	<!-- Begin Top Part -->
@@ -13,8 +11,8 @@
 			<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640" >
 				<tr>
 					<!-- Begin Top Part -->
-					<td align="right" style="padding:5 0px;"><a href="{{app.url}}"><img src="{{app.url}}/images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
-					<td align="right" style="padding-right:20px;" width="100"><a href="{{app.url}}"><img src="{{app.url}}/images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
+					<td align="right" style="padding:5 0px;"><a href="{{app.url}}/account/login"><img src="{{app.url_asset}}/images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
+					<td align="right" style="padding-right:20px;" width="100"><a href="{{app.url}}/cart"><img src="{{app.url_asset}}/images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
 					<!-- End Top Part -->
 				</tr>
 			</table>
@@ -39,9 +37,6 @@
 	<tr>
 		<td>				
 			<table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640">
-				<tr><td></td>
-				</tr>
-
 				<!-- Begin welcome section -->
 				<tr>
 					<td align="left" style="padding:10px 20px; vertical-align:top;">
@@ -153,31 +148,31 @@
 							<td width="110px;">
 								<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 									<li style="padding-bottom: 6px;">
-										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Order Status</a></li>
+										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/account/orders">Order Status</a></li>
 									</ul>
 								</td>
 								<td width="110px;">
 									<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 										<li style="padding-bottom: 6px;">
-											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Shopping Cart</a></li>
+											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/cart">Shopping Cart</a></li>
 											<li style="padding-bottom: 6px;">
-												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Gift Registry</a></li>
+												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/registry/search">Gift Registry</a></li>
 											</ul>
 										</td>
 										<td width="110px;">
 											<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 												<li style="padding-bottom: 6px;">
-													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Help &amp; FAQs</a></li>
+													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/help">Help &amp; FAQs</a></li>
 													<li style="padding-bottom: 6px;">
-														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Contact Us</a></li>
+														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/contact">Contact Us</a></li>
 													</ul>
 												</td>
 												<td width="110px;">
 													<ul style="list-style-type: none; margin:0px; padding-left:20px;">
 														<li style="padding-bottom: 6px;">
-															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Privacy &amp; Security</a></li>
+															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/privacy-security">Privacy &amp; Security</a></li>
 															<li style="padding-bottom: 6px;">
-																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}">Terms &amp; Conditions</a></li>
+																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.url}}/content/base/terms">Terms &amp; Conditions</a></li>
 															</ul>
 														</td>
 													</tr>
