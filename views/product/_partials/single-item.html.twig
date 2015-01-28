@@ -69,17 +69,17 @@
                 {# Begin review stars #}
                 {% set review_score = product.product|average('review_score') %}
                 {% if review_score > 0 %}
-                    <ul class="reviews">
-                        <li class="stars">
-                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
-                        </li>
-                        <li class="average">
-                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
-                        </li>
-                        <li class="submit">
-                            <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
-                        </li>
-                    </ul>
+                <ul class="reviews">
+                    <li class="stars">
+                        <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+                    </li>
+                    <li class="average">
+                        <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
+                    </li>
+                    <li class="submit">
+                        <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
+                    </li>
+                </ul>
                 {% endif %}
                 {# End review #}
                 {# Begin Product Prices #}
@@ -96,25 +96,25 @@
                             <ul class="pricing">
                                 {# Begin regular price #}
                                 {% if product.variant[0].price != product.variant[0].compare_price and product.variant[0].compare_price is not empty %}
-                                    <li class="regular">
-                                        Compare at {{ prod.price(product.variant[0].compare_price) }}
-                                    </li>
+                                <li class="regular">
+                                    Compare at {{ prod.price(product.variant[0].compare_price) }}
+                                </li>
                                 {% endif %}
                                 {# End regular price #}
                                 {# Begin percent off #}
                                 {% if product.variant[0].save_price > 1 %}
-                                    <li class="percent">
-                                        Save up to {{ prod.saveprice(product.variant[0].save_price ) }} {{ prod.savepercent(product.variant[0].save_percent) }}
-                                    </li>
+                                <li class="percent">
+                                    Save up to {{ prod.saveprice(product.variant[0].save_price ) }} {{ prod.savepercent(product.variant[0].save_percent) }}
+                                </li>
                                 {% endif %}
                                 {# End percent off #}
                                 {# Begin price per month #}
                                 {% if product.variant[0].price >= 100 %}
-                                    <li class="per-month">
+                                <li class="per-month">
                                     <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
                                         {{ prod.billmelater(product.variant[0].price) }}
                                     </span>
-                                    </li>
+                                </li>
                                 {% endif %}
                                 {# End price per month #}
                             </ul>
@@ -126,58 +126,59 @@
                 {# End Product Prices #}
                 {# Begin actions desktop #}
                 {% if app.user.id is not empty %}
-                    {% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
-                    {% if registries is not empty %}
-                        {% set registry_ids = [] %}
-                        {% for registry in registries %}
-                            {% set registry_ids = registry_ids|merge([registry.id]) %}
-                        {% endfor %}
-                        {% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
-                    {% endif %}
-                    {% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
-                    {% if wishlists is not empty %}
-                        {% set wishlist_ids = [] %}
-                        {% for wishlist in wishlists %}
-                            {% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
-                        {% endfor %}
-                        {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
-                    {% endif %}
+                {% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
+                {% if registries is not empty %}
+                {% set registry_ids = [] %}
+                {% for registry in registries %}
+                {% set registry_ids = registry_ids|merge([registry.id]) %}
+                {% endfor %}
+                {% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+                {% endif %}
+                {% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
+                {% if wishlists is not empty %}
+                {% set wishlist_ids = [] %}
+                {% for wishlist in wishlists %}
+                {% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
+                {% endfor %}
+                {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+                {% endif %}
                 {% endif %}
                 {% if product.variant[0].price > 0 %}
                 <div class="actions hidden-sm hidden-xs">
                     <div class="row">
                         <div class="col-md-12">
-                        <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
-                            <div class="btn-toolbar">
+                            <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
+                                <div class="btn-toolbar">
 
-                              {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
-                                product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
-                                product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
-                                {# Begin product quantity #}
-                                <div class="quantity-input-group">
-                                    <label for="quantity-selector" class="control-label">Qty</label>
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                        </div>
-                                        <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                    {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
+                                    product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
+                                    product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
+                                    {# Begin product quantity #}
+                                    <div class="quantity-input-group">
+                                        <label for="quantity-selector" class="control-label">Qty</label>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                            </div>
+                                            <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div style="clear: both"></div>
+                                    {# End product quantity #}
+                                    {# Begin add to cart button #}
+                                    <button type="submit" class="btn btn-cart" name="action" value="cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span>Add to Cart</span>
+                                    </button>
+
+                                    {% endif %}
+
+                                    {% include "/product/_partials/list/buttons.html.twig" %}
                                 </div>
-                                {# End product quantity #}
-                                {# Begin add to cart button #}
-                                <button type="submit" class="btn btn-cart" name="action" value="cart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Add to Cart</span>
-                                </button>
-
-                                {% endif %}
-
-                                {% include "/product/_partials/list/buttons.html.twig" %}
-                            </div>
-                        </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -190,7 +191,7 @@
                                 <div class="btn-toolbar">
                                     <div class="row">
 
-                                      {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
+                                        {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
                                         product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
                                         product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
 
@@ -237,11 +238,11 @@
                     app.params.social_settings["facebook"]["active_follow_page_button"] == true or
                     app.params.social_settings["twitter"]["active_tweet"] == true or
                     app.params.social_settings["twitter"]["active_follow_page_button"] == true or
-                    app.params.social_settings["pinterest"]["active_pin_it"] == true or 
+                    app.params.social_settings["pinterest"]["active_pin_it"] == true or
                     app.params.social_settings["pinterest"]["active_follow_page_button"] == true or
                     app.params.social_settings["google"]["active_plus_one"] == true or
                     app.params.social_settings["google"]["active_follow_page_button"] == true
-                ) %}
+                    ) %}
                     <div id="social">
                         <div class="row">
                             <div class="col-md-12">
@@ -250,38 +251,38 @@
                             </div>
                         </div>
                     </div>
-                {% endif %}
-                {# End social sharing #}
+                    {% endif %}
+                    {# End social sharing #}
+                </div>
             </div>
-        </div>
-        {# End product details #}
-        {# Begin product tabs - desktop #}
-        <section id="product-tabs" class="row hidden-md hidden-sm hidden-xs">
-            <div class="col-lg-12">
-                {# Begin tabs nav #}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel-tabs">
-                            <ul class="nav nav-tabs">
-                                {% if product.description is not empty %}
-                                <li class="active">
-                                    <a href="#description-desktop" data-toggle="tab">Description</a>
-                                </li>
-                                {% endif %}
-                                <li {% if product.description is empty %}class="active"{% endif %}>
-                                    <a href="#reviews-desktop" data-toggle="tab">Reviews</a>
-                                </li>
-                            </ul>
+            {# End product details #}
+            {# Begin product tabs - desktop #}
+            <section id="product-tabs" class="row hidden-md hidden-sm hidden-xs">
+                <div class="col-lg-12">
+                    {# Begin tabs nav #}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-tabs">
+                                <ul class="nav nav-tabs">
+                                    {% if product.description is not empty %}
+                                    <li class="active">
+                                        <a href="#description-desktop" data-toggle="tab">Description</a>
+                                    </li>
+                                    {% endif %}
+                                    <li {% if product.description is empty %}class="active"{% endif %}>
+                                        <a href="#reviews-desktop" data-toggle="tab">Reviews</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {# End tabs nav #}
-                {# Begin tab pane #}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="tab-content">
-                            {# Begin product description #}
-                            {% if product.description is not empty %}
+                    {# End tabs nav #}
+                    {# Begin tab pane #}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tab-content">
+                                {# Begin product description #}
+                                {% if product.description is not empty %}
                                 {% set full_description = parent.description != product.description ? parent.description ~ product.description : product.description %}
                                 <div id="description-desktop" class="tab-pane fade in active">
                                     <div class="panel panel-default">
@@ -290,74 +291,74 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}
-                            {# Begin reviews #}
-                            <div id="reviews-desktop" class="tab-pane fade {% if product.description is empty %}active{% else %}in{% endif %}">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        {% include "/product/_partials/reviews.html.twig" %}
+                                {% endif %}
+                                {# Begin reviews #}
+                                <div id="reviews-desktop" class="tab-pane fade {% if product.description is empty %}active{% else %}in{% endif %}">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            {% include "/product/_partials/reviews.html.twig" %}
+                                        </div>
                                     </div>
                                 </div>
+                                {# End reviews #}
+                                {# End product description #}
                             </div>
-                            {# End reviews #}
-                            {# End product description #}
                         </div>
                     </div>
+                    {# End tab pane #}
                 </div>
-                {# End tab pane #}
-            </div>
+            </section>
+            {# Begin product tabs - desktop #}
         </section>
-        {# Begin product tabs - desktop #}
-    </section>
-    {# End Product Details #}
-</div>
-{# Begin product tabs - mobile #}
-<section id="product-tabs-mobile" class="row hidden-lg">
-    <div class="col-md-12">
-        {# Begin tabs nav #}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-tabs">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#description-mobile" data-toggle="tab">Description</a>
-                        </li>
-                        <li>
-                            <a href="#reviews-mobile" data-toggle="tab">Reviews</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {# End tabs nav #}
-        {# Begin tab pane #}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tab-content">
-                    {# Begin product description - mobile #}
-                    {% set full_description = parent.description != product.description ? parent.description ~ product.description : product.description %}
-                    <div id="description-mobile" class="tab-pane fade in active">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                {{full_description}}
-                            </div>
-                        </div>
-                    </div>
-                    {# End product description #}
-                    {# Begin reviews - mobile #}
-                    <div id="reviews-mobile" class="tab-pane fade">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                {% include "/product/_partials/reviews.html.twig" %}
-                            </div>
-                        </div>
-                    </div>
-                    {# End reviews #}
-                </div>
-            </div>
-        </div>
-        {# End tab pane #}
+        {# End Product Details #}
     </div>
-</section>
-{# End product tab - mobile #}
+    {# Begin product tabs - mobile #}
+    <section id="product-tabs-mobile" class="row hidden-lg">
+        <div class="col-md-12">
+            {# Begin tabs nav #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#description-mobile" data-toggle="tab">Description</a>
+                            </li>
+                            <li>
+                                <a href="#reviews-mobile" data-toggle="tab">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {# End tabs nav #}
+            {# Begin tab pane #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        {# Begin product description - mobile #}
+                        {% set full_description = parent.description != product.description ? parent.description ~ product.description : product.description %}
+                        <div id="description-mobile" class="tab-pane fade in active">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    {{full_description}}
+                                </div>
+                            </div>
+                        </div>
+                        {# End product description #}
+                        {# Begin reviews - mobile #}
+                        <div id="reviews-mobile" class="tab-pane fade">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    {% include "/product/_partials/reviews.html.twig" %}
+                                </div>
+                            </div>
+                        </div>
+                        {# End reviews #}
+                    </div>
+                </div>
+            </div>
+            {# End tab pane #}
+        </div>
+    </section>
+    {# End product tab - mobile #}
 </div>
