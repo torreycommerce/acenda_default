@@ -3,20 +3,20 @@
 {% block title %}{{ app.params.site.title}} is protected{% endblock %}
 {% block content %}
 {% if app.request.post.auth_protection is not empty %}
-    {% if app.form.validateCaptcha(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post.recaptcha_response_field) %}
-        {% set auth = api.post('/site/authentication', app.request.post.auth_protection) %}
-        {% if api.post('/site/authentication', app.request.post.auth_protection) %}
-            {% do app.user.setState('user_allowed', app.request.post.auth_protection.password) %}
-            {% do app.redirect('/') %}
-        {% else %}
-            {% set form_errors = api.error() %}
-        {% endif %}
-    {% else %}
-        {% do app.user.setFlash('The captcha is not valide', 'danger') %}
-        {% do app.redirect('store-protected') %}
-    {% endif %}
+{% if app.form.validateCaptcha(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post.recaptcha_response_field) %}
+{% set auth = api.post('/site/authentication', app.request.post.auth_protection) %}
+{% if api.post('/site/authentication', app.request.post.auth_protection) %}
+{% do app.user.setState('user_allowed', app.request.post.auth_protection.password) %}
+{% do app.redirect('/') %}
+{% else %}
+{% set form_errors = api.error() %}
 {% endif %}
-<div class="content">
+{% else %}
+{% do app.user.setFlash('The captcha is not valide', 'danger') %}
+{% do app.redirect('store-protected') %}
+{% endif %}
+{% endif %}
+<div class="content" style="min-height: calc(100vh - 269px);">
     <div class="container">
         <div class="row">
             {{ forms.begin('auth_protection','','post', {class:'form-horizontal'}) }}
