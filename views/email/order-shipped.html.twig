@@ -41,7 +41,7 @@
 					<!-- Begin welcome section -->
 					<tr>
 						<td align="left" style="padding:10px 20px; vertical-align:top;">
-							<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;"><a href="#" style="text-decoration:none; color:#333333; ">Thank you again for your order from {{ app.params['site']['title'] }} !</a></h1>
+							<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;"><a href="{{app.live_url}}/account/order/{{ order.order_number }}" style="text-decoration:none; color:#333333; ">Thank you again for your order from {{ app.params['site']['title'] }} !</a></h1>
 						</td>
 					</tr>
 					<tr>
