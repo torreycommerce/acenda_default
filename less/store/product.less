@@ -3,12 +3,12 @@
 // --------------------------------------------------
 // Images
 // Details
-    // Header
-    // Reviews
-    // Pricing
+// Header
+// Reviews
+// Pricing
 // Actions
-    // Desktop
-    // Mobile
+// Desktop
+// Mobile
 // Tabs
 // Misc
 
@@ -21,7 +21,7 @@
     #image-main.thumbnail {
         max-height: 451px;
         text-align: center;
-        
+
         .helper{
             display: inline-block;
             height: 100%;
@@ -50,7 +50,7 @@
                 vertical-align: middle;
             }
 
-            img, 
+            img,
             iframe {
                 display: inline-block;
                 text-align: center;
@@ -101,20 +101,20 @@
                 margin-top:12px;
                 font-size: 30px;
             }
-        }        
+        }
         &:hover {
             .video-icon {
                 opacity: 1;
             }
         }
-    }    
+    }
 
     // Image Carousel
     #image-carousel {
         margin-bottom: 20px;
         .thumbnail { margin-bottom: 0;}
     }
-    
+
 }
 
 
@@ -128,7 +128,7 @@
     header {
         border-bottom: 1px solid @border-color;
         margin-bottom: 15px;
-        padding-bottom: 15px;        
+        padding-bottom: 15px;
 
         .brand {
             margin-bottom: 5px;
@@ -137,7 +137,7 @@
         .name {
             margin-bottom: 5px;
             margin-top: 0;
-        }        
+        }
     }
 
     // Reviews
@@ -156,142 +156,142 @@
         }
 
         .stars {}
-        .average {}
-        .submit {}
-    }
-    
-
-    // Pricing        
-    .price,
-    .price-range {
-        display: inline-block;
-        margin-bottom: 15px;
-        margin-right: 10px;
-        font-size: 22px;
-    }
-
-    .stock {
-        display: inline-block;
-        color: #009900;
-        font-size: 12px;
-        padding-bottom: 2px;
-    }
-    
-    ul.pricing {
-        margin-left: 0px;
-        padding-left: 0px;
-
-        li {
-            color: @gray;
-            font-size: 12px;
-            display: inline-block;
-            list-style-type: none;
-            padding: 0;
-            margin-right: 10px;
-        }
-
-        .per-month {
-            color: lighten(@text-color, 25%);
-        }
-
-        .regular {
-            color: lighten(@text-color, 25%);
-        }
-
-        .percent {
-            color: lighten(@text-color, 25%);
-        }
-    }
-    
-    .btn-toolbar {
-        margin-bottom: 20px;
-    }
-
-    .description-content{
-        a { font-size: 12px; }
-    }
+            .average {}
+                .submit {}
+                }
 
 
-    // Shipping Estimate
-    ul.shipping {
-        padding-left: 0;
+                // Pricing
+                .price,
+                .price-range {
+                    display: inline-block;
+                    margin-bottom: 15px;
+                    margin-right: 10px;
+                    font-size: 22px;
+                }
 
-        li {
-            color: lighten(@text-color, 25%);
-            font-size: 12px;
-            display: inline-block;
-            list-style-type: none;
-            padding: 0;
-            margin-right: 10px;
-        }
-    }
-
-    // Product Tags
-    ul.tags {
-        padding-left: 0;
-
-        li {
-            color: lighten(@text-color, 25%);
-            font-size: 12px;
-            display: inline-block;
-            list-style-type: none;
-            padding: 0;
-            margin-right: 10px;
-        }
-    }
-}
-
-
-
-// Actions
-// --------------------------------------------------
-
-#product-details {
-    .actions {
-        background: none; margin-bottom: 20px;
-        .quantity-input-group { margin-bottom: 10px;}
-        .btn-cart { margin-bottom: 10px;}
-        .btn-toolbar .btn-group {
-            float: none;
-        }
-        // Actions Desktop
-        @media (min-width: @screen-md-min) {
-            .quantity-input-group { margin-bottom: 0;}
-            .btn-cart { margin-bottom: 0px;}
-        }
-    }
-}
-
-
-
-// Product - Tabs
-// --------------------------------------------------
-
-#product-tabs,
-#product-tabs-mobile {
-
-    .panel { border-top: 0 none;}
-
-    // Panel Tabs
-    
-
-    // Panel Tabs - Content
-    .tab-content {
-        padding: 0;
-        // Tab Panes
-        .tab-pane {
-
-            // Lists
-            ul {
-                padding: 0px 20px 10px 20px;
-                
-                li {
+                .stock {
+                    display: inline-block;
+                    color: #009900;
                     font-size: 12px;
-                    padding:4px 0;
+                    padding-bottom: 2px;
+                }
 
-                    a.disabled { color: #aaa; }
+                ul.pricing {
+                    margin-left: 0px;
+                    padding-left: 0px;
+
+                    li {
+                        color: @gray;
+                        font-size: 12px;
+                        display: inline-block;
+                        list-style-type: none;
+                        padding: 0;
+                        margin-right: 10px;
+                    }
+
+                    .per-month {
+                        color: lighten(@text-color, 25%);
+                    }
+
+                    .regular {
+                        color: lighten(@text-color, 25%);
+                    }
+
+                    .percent {
+                        color: lighten(@text-color, 25%);
+                    }
+                }
+
+                .btn-toolbar {
+                    margin-bottom: 20px;
+                }
+
+                .description-content{
+                    a { font-size: 12px; }
+                }
+
+
+                // Shipping Estimate
+                ul.shipping {
+                    padding-left: 0;
+
+                    li {
+                        color: lighten(@text-color, 25%);
+                        font-size: 12px;
+                        display: inline-block;
+                        list-style-type: none;
+                        padding: 0;
+                        margin-right: 10px;
+                    }
+                }
+
+                // Product Tags
+                ul.tags {
+                    padding-left: 0;
+
+                    li {
+                        color: lighten(@text-color, 25%);
+                        font-size: 12px;
+                        display: inline-block;
+                        list-style-type: none;
+                        padding: 0;
+                        margin-right: 10px;
+                    }
                 }
             }
-        }
-    } 
-}
+
+
+
+            // Actions
+            // --------------------------------------------------
+
+            #product-details {
+                .actions {
+                    background: none; margin-bottom: 20px;
+                    .quantity-input-group { margin-bottom: 10px;}
+                    .btn-cart { margin-bottom: 10px;}
+                    .btn-toolbar .btn-group {
+                        float: none;
+                    }
+                    // Actions Desktop
+                    @media (min-width: @screen-md-min) {
+                        .quantity-input-group { margin-bottom: 10px;}
+                        .btn-cart { margin-bottom: 0px;}
+                    }
+                }
+            }
+
+
+
+            // Product - Tabs
+            // --------------------------------------------------
+
+            #product-tabs,
+            #product-tabs-mobile {
+
+                .panel { border-top: 0 none;}
+
+                // Panel Tabs
+
+
+                // Panel Tabs - Content
+                .tab-content {
+                    padding: 0;
+                    // Tab Panes
+                    .tab-pane {
+
+                        // Lists
+                        ul {
+                            padding: 0px 20px 10px 20px;
+
+                            li {
+                                font-size: 12px;
+                                padding:4px 0;
+
+                                a.disabled { color: #aaa; }
+                            }
+                        }
+                    }
+                }
+            }
