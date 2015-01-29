@@ -6568,6 +6568,7 @@ img[data-image-zoom] {
     padding: 0;
 }
 #content {
+    min-height: calc(100vh - 248px);
     padding-bottom: 10px;
     background-position: top center;
     background-repeat: repeat;

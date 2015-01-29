@@ -3,11 +3,12 @@
 // --------------------------------------------------
 
 #content {
+	min-height: calc(~"100vh - 248px");
 	padding-bottom: 10px;
 	background-position: top center;
-    background-repeat: repeat;
-	
-    .img-retina (@shop-bg-image; @shop-bg-image-retina; 100px; 100px);
+	background-repeat: repeat;
 
-    .container { background-color: @body-bg; padding-top: 10px;}
+	.img-retina (@shop-bg-image; @shop-bg-image-retina; 100px; 100px);
+
+	.container { background-color: @body-bg; padding-top: 10px;}
 }
