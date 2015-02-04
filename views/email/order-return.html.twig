@@ -1,7 +1,7 @@
 {% set return = api.get('/orderreturn/' ~ return_id) %}
 {% set item = api.get('/orderitem/' ~ return.item_id) %}
 {# Variables passed in: order_id, return_id #}
-<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif;">
 	<!-- Begin email header -->
 	<tr>
 		<td>
@@ -11,7 +11,7 @@
 	<!-- End email header -->
 	<!-- Begin title -->
 	<tr>
-		<td style="padding:20px 20px 10px 20px; vertical-align:top;">
+		<td style="padding:20px 20px 10px 20px; vertical-align: top;">
 			<h1 style="color: #333333; font-size: 36px; line-height: 46px; margin: 0;">
 				Order Return
 			</h1>
@@ -27,10 +27,10 @@
 						<h2 style="color: #E16C25; font-size: 18px; text-transform: uppercase;">
 							Order Return Details
 						</h2>
-						<p style="color: #555555; font-size: 14px; line-height: 22px;">
+						<p style="font-size: 14px; line-height: 22px;">
 							You have successfully created a return and a copy of the return instructions below have been emailed to you. In order for us to process your return, your items must meet the following criteria:
 						</p>
-						<ul style="color:#555555; font-size: 14px; line-height: 22px; margin-bottom: 0px; padding-left: 20px;">
+						<ul style="font-size: 14px; line-height: 22px; margin-bottom: 0px; padding-left: 20px;">
 							<li>Items must be unused and returned with the original product tags.</li>
 							<li>Items must be returned in their original, undamaged packaging.</li>
 							<li>Please do not place shipping labels on product packaging, only place shipping labels on the cardboard shipping box.</li>
@@ -86,17 +86,17 @@
 	<!-- Begin return address -->
 	<tr>
 		<td>
-			<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif; padding: 20px;">
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif; padding: 20px;">
 				<tr>
 					<td style="border-bottom: 1px dashed #CCCCCC; padding-bottom: 10px; vertical-align: top;">
-						<h2 style="color: #E16C25; font-size: 18px; margin: 0; text-transform: uppercase;">
+						<h2 style="font-size: 18px; margin: 0; text-transform: uppercase;">
 							Ship your returns to:
 						</h2>
 					</td>
 				</tr>
 				<tr>
 					<td style="border-bottom: 1px dashed #CCCCCC; padding-bottom: 20px; padding-top: 20px; vertical-align: top;">
-						<p style="color: #555555; font-size: 20px; line-height: 30px; margin: 0;">
+						<p style="font-size: 20px; line-height: 30px; margin: 0;">
 							Address: {{ app.params['return_address']['street_line1'] }} {{ app.params['return_address']['street_line2'] }} <br>
 							City: {{ app.params['return_address']['city'] }}
 							State: {{ app.params['return_address']['state'] }}
@@ -114,7 +114,7 @@
 	<!-- Begin thank you -->
 	<tr>
 		<td style="padding: 20px; vertical-align:top;">
-			<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+			<p style="font-size: 14px; line-height: 22px;">
 				Thank you for shopping with us.
 			</p>
 		</td>

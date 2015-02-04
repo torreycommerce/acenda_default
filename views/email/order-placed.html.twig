@@ -3,7 +3,7 @@
 {% set product_ids = items|values_in('product_id') %}
 {% set products = api.get('/product',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
-<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif;">
 	<!-- Begin email header -->
 	<tr>
 		<td>
@@ -13,15 +13,11 @@
 	<!-- End email header -->
 	<!-- Begin title -->
 	<tr>
-		<td style="padding:20px 20px 10px 20px; vertical-align:top;">
-			<h1 style="color: #333333; font-size: 36px; line-height: 46px; margin: 0;">
+		<td style="padding:20px; vertical-align:top;">
+			<h1 style="color: #333333; font-size: 36px; line-height: 46px;">
 				Thank you for placing your order with {{ app.params['site']['title'] }}!
 			</h1>
-		</td>
-	</tr>
-	<tr>
-		<td style="padding:10px 20px 20px 20px; vertical-align:top;">
-			<p style="font-size: 14px; line-height: 22px; color:#555555;">
+			<p style="font-size: 14px; line-height: 22px;">
 				This email is to confirm your recent order.
 			</p>
 		</td>
@@ -30,7 +26,7 @@
 	<!-- Begin order info -->
 	<tr>
 		<td>
-			<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb; font-family: helvetica, arial, sans-serif; padding: 20px;">
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb; color: #555555; font-family: helvetica, arial, sans-serif; padding: 20px;">
 				<tr>
 					<td style="padding-bottom: 10px; vertical-align: top;">
 						<h2 style="color: #E16C25; font-size: 18px; margin: 0; text-transform: uppercase;">
@@ -40,14 +36,14 @@
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">
-						<p style="color:#555555; font-size: 14px; line-height: 22px; margin: 0;">
+						<p style="font-size: 14px; line-height: 22px; margin: 0;">
 							Order ID: {{ order.order_number }} <br>
 							Subtotal: ${{ order.subtotal|number_format(2) }}<br>
 							Total: ${{order.total|number_format(2)}}
 						</p>
 					</td>
 					<td style="vertical-align: top;">
-						<p style="color:#555555; font-size: 14px; line-height: 22px; margin: 0;">
+						<p style="font-size: 14px; line-height: 22px; margin: 0;">
 							Date: {{ order.date_created }}<br>
 							Tax: ${{order.tax|number_format(2)}}<br>
 							Total: ${{order.total|number_format(2)}}
@@ -61,20 +57,20 @@
 	<!-- Begin shipping details -->
 	<tr>
 		<td>
-			<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif; padding: 20px;">
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif; padding: 20px;">
 				<tr>
 					<td style="border-bottom: 1px solid #CCCCCC; padding-bottom: 10px; vertical-align: top;">
-						<h2 style="color: #555555; font-size: 18px; margin: 0; text-transform: uppercase;">
+						<h2 style="font-size: 18px; margin: 0; text-transform: uppercase;">
 							Shipping Details
 						</h2>
 					</td>
 				</tr>
 				<tr>
 					<td  style="padding-bottom: 0px; padding-top: 10px; vertical-align:top;">
-						<p style="color: #555555; font-size: 14px; line-height: 22px;">
+						<p style="font-size: 14px; line-height: 22px;">
 							This order will be shipped to you at:
 						</p>
-						<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+						<p style="font-size: 14px; line-height: 22px; margin: 0;">
 							{{ order.shipping_first_name }} {{ order.shipping_last_name }} <br>
 							{{ order.shipping_street_line1}} {{ order.shipping_street_line2}} <br>
 							{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }} <br>
@@ -92,15 +88,17 @@
 	<!-- Begin item info -->
 	<tr>
 		<td>
-			<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif; padding: 20px;">
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif; padding: 20px;">
 				<tr>
 					<td style="border-bottom: 1px solid #CCCCCC; padding-bottom: 10px; vertical-align: top;">
-						<h2 style="color: #E16C25; font-size: 18px; margin: 0; text-transform: uppercase;">Item Info</h2>
+						<h2 style="font-size: 18px; margin: 0; text-transform: uppercase;">
+							Item Info
+						</h2>
 					</td>
 				</tr>
 				<tr>
 					<td style="border-bottom: 1px solid #cccccc; padding-bottom: 10px; padding-top: 10px; vertical-align: top;">
-						<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+						<p style="font-size: 14px; line-height: 22px; margin: 0;">
 							URL: {{app.url}}{{products[item.product_id].0.url}}<br>
 							SKU: {{item.sku}}<br>
 							Item name: {{ item.name }}<br>
@@ -117,7 +115,7 @@
 	<!-- Begin thank you -->
 	<tr>
 		<td style="padding: 20px; vertical-align:top;">
-			<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+			<p style="font-size: 14px; line-height: 22px;">
 				We will try to get your order shipped to you as soon as possible.<br>
 				Thank you for shopping with us.
 			</p>

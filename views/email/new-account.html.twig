@@ -1,4 +1,4 @@
-<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif;">
+<table border="0" cellpadding="0" cellspacing="0" width="640" style="color: #555555; font-family: helvetica, arial, sans-serif;">
 	<!-- Begin email header -->
 	<tr>
 		<td>
@@ -8,37 +8,29 @@
 	<!-- End email header -->
 	<!-- Begin welcome -->
 	<tr>
-		<td align="left" style="padding:20px 20px 10px 20px; vertical-align:top;">
-			<h1 style="color: #333333; font-size: 36px; line-height: 46px; margin: 0;">
+		<td style="padding:20px; vertical-align:top;">
+			<h1 style="color: #333333; font-size: 36px; line-height: 46px;">
 				Welcome to {{ app.params['site']['title'] }}!
 			</h1>
-		</td>
-	</tr>
-	<tr>
-		<td align="left" style="padding:10px 20px 20px 20px; vertical-align:top;">
-			<p style="font-size: 14px; line-height: 22px; color: #555555;">
+			<p style="font-size: 14px; line-height: 22px;">
 				We are excited to have you as a customer and look forward to provide you with great products and services from {{ app.params['site']['title'] }}.
 			</p>
 		</td>
 	</tr>		
 	<!-- End welcome -->
-	<!-- Begin login -->
+	<!-- Begin login details -->
 	<tr>
 		<td>				
-			<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb; font-family: helvetica, arial, sans-serif; padding: 20px;">
-				<tr>
-					<td style="padding-bottom: 10px; vertical-align: top;">
-						<h2 style="color: #E16C25; font-size: 18px; margin: 0; text-transform: uppercase;">
-							Login Details
-						</h2>
-					</td>
-				</tr>
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb; color: #555555; font-family: helvetica, arial, sans-serif; padding: 20px;">
 				<tr>
 					<td style="vertical-align: top;">
-						<p style="color: #555555; font-size: 14px; line-height: 22px;">
+						<h2 style="color: #E16C25; font-size: 18px; margin: 0; text-transform: uppercase;">
+							Login Details
+						</h2>					
+						<p style="font-size: 14px; line-height: 22px;">
 							log in using your personal details below
 						</p>
-						<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+						<p style="font-size: 14px; line-height: 22px; margin: 0;">
 							<span style="font-weight: 700;">Your Username:</span> {{ email }}<br>
 							<span style="font-weight: 700;">Your Password:</span> *****<br>
 							Forgot Your Password? <a href="{{ app.url }}/account/reset-password" style="color: #E16C25;">Click here to reset your password</a>
@@ -48,11 +40,11 @@
 			</table>
 		</td>
 	</tr>
-	<!-- End login -->
+	<!-- End login details -->
 	<!-- Begin thank you -->
 	<tr>
-		<td align="left" style="padding: 20px; vertical-align:top;">
-			<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+		<td style="padding: 20px; vertical-align: top;">
+			<p style="font-size: 14px; line-height: 22px;">
 				Thank you from your friends at {{ app.params['site']['title'] }}.<br>						
 				Please add us to your email address book to make sure you receive important emails from us.
 			</p>
