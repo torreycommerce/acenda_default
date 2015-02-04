@@ -2,174 +2,104 @@
 {% set item = api.get('/orderitem/' ~ item_id) %}
 {% set product = api.get('/product/' ~ item.product_id) %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
-
-	<table border="0" cellpadding="0" cellspacing="0" width="100%" >
-		<!-- Begin email header -->
-		<!-- Begin Top Part -->
-		<tr>
-			<td>
-				<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640" >
-					<tr>
-						<!-- Begin Top Part -->
-						<td align="right" style="padding: 5 0px;"><a href="{{app.live}}/account/login"><img src="{{ app.live_asset }}/images/btn-login.png" alt="Login Your Account"  width="79" height="34"/></a></td>
-						<td align="right" style="padding-right:20px;" width="100"><a href="{{app.live}}/cart"><img src="{{ app.live_asset }}/images/btn-cart.png" alt="Go to Your Cart" width="93" height="34"/></a></td>
-						<!-- End Top Part -->
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640">
-					<tr>
-						<!-- Begin logo -->
-						<td align="center" width="640" height="97">
-							<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;">{{ app.params['site']['title'] }}</h1>
-							<hr/>
-						</td>
-						<!-- End logo -->
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<!-- End email header -->
-		<!-- Begin email content -->
-		<tr>
-			<td>				
-				<table align="center" border="0" bgcolor="#ffffff" cellpadding="0" cellspacing="0" width="640">
-					<!-- Begin welcome section -->
-					<tr>
-						<td align="left" style="padding:10px 20px; vertical-align:top;">
-							<h1 style="color: #333333; font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 36px; line-height: 1.42857;">
-								<a href="{{app.live_url}}/account/order/{{ order.order_number }}" style="text-decoration:none; color:#333333; ">Thank you again for your order from {{ app.params['site']['title'] }}!</a>
-							</h1>
-						</td>
-					</tr>
-					<tr>
-						<td align="left" style="padding:0px 20px; vertical-align:top;">
-							<p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 14px; line-height: 22px; color:#555555; font-weight:700;">Order ID: {{ order.order_number }}
-							</p><br/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb;">
-								<tr align="left" style="vertical-align:top;">
-									<td style="padding-left: 20px;">
-										<h2 style="color:#f45b4f; font-size: 14px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 20px;">Shipping Address</h2>
-										<p style="color:#555555; font-size: 14px; line-height: 21px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;">
-											{{ order.shipping_first_name }} {{ order.shipping_last_name }} <br />
-											{% if order.giftlist_present is empty %} <br />
-											{{ order.shipping_street_line1}} {{ order.shipping_street_line2}} <br />
-											{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }} <br />
-											{{ order.shipping_country }} <br />
-											{{ order.shipping_phone_number }} <br />
-											{% endif %}
-										</p><br />
-									</td>
-									<td>
-										<h2 style="color:#f45b4f; font-size: 14px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 20px;">Delivery Method</h2>
-										<p style="color:#555555; font-size: 14px; line-height: 24px; font-family: Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 400; margin:0;">Using {{ shipping_method.name }} <br/></p>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<!-- End Shipping Info Section -->
-
-					<!-- Begin Item Info Section -->
-					<tr>
-						<td>
-							<table align="center"  border="0" cellpadding="0" cellspacing="0" width="640" style="padding-bottom:20px;">
-								<tr>
-									<td  align="left" style="padding:10px 20px; vertical-align:top;"><h2 style="color:#f45b4f; font-size: 14px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 600; margin: 0; padding-top: 20px;">PRODUCT</h2>
-									</td>
-								</tr>
-								<tr>
-									<td><hr style="color:#f45b4f"/></td>
-								</tr>
-								<tr>
-									<td align="left" style="padding:0px 20px; vertical-align:center;"><p style="color:#555555; font-size: 14px; line-height: 22px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0; padding-top: 20px;">Status: {{ item.status }} <br/>
-										URL: {{app.live}}{{product.url}} <br/>
-										SKU: {{item.sku}} <br/>
-										Item name: {{ item.name }} <br/>
-										Quantity: {{ item.quantity }} <br/>
-										Tracking number: {{ item.tracking_number }} <br/></p>
-									</td>
-								</tr>
-								<tr>
-									<td><hr style="color:#f45b4f"/></td>
-								</tr>
-								<tr>
-									<td  align="left" style="padding:10px 20px; vertical-align:top;">
-										<p style="color:#555555; font-size: 13px; line-height: 21px; font-family: Open Sans, Helvetica Neue, Arial, sans-serif; font-weight: 400; margin: 0;"><b>Please Note:</b> If your order was placed after-hours or on the weekend your tracking number will not be active until the next business day when the package is picked up by the carrier. <br /> <br/>
-											Thank you for shopping with us.</p>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr><!-- End Item Info Section -->
-					</table>
-				</td>
-			</tr>       <!-- End email content -->
-
-			<!-- Begin email footer -->
-			<tr>
-				<td>
-					<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640">
-						<tr align="left" style="vertical-align:top; ">
-							<td width="50px;" style=" padding:20px 0px 10px 20px;">
-								<p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size:15px; font-weight:700; margin: 0; color:#ffffff;">Quicklinks</p>
-							</td>
-						</tr>
-						<tr align="left" style="vertical-align:top;">
-							<td width="110px;">
-								<ul style="list-style-type: none; margin:0px; padding-left:20px;">
-									<li style="padding-bottom: 6px;">
-										<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/account/orders">Order Status</a></li>
-									</ul>
-								</td>
-								<td width="110px;">
-									<ul style="list-style-type: none; margin:0px; padding-left:20px;">
-										<li style="padding-bottom: 6px;">
-											<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/cart">Shopping Cart</a></li>
-											<li style="padding-bottom: 6px;">
-												<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/registry/search">Gift Registry</a></li>
-											</ul>
-										</td>
-										<td width="110px;">
-											<ul style="list-style-type: none; margin:0px; padding-left:20px;">
-												<li style="padding-bottom: 6px;">
-													<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/content/base/help">Help &amp; FAQs</a></li>
-													<li style="padding-bottom: 6px;">
-														<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/contact">Contact Us</a></li>
-													</ul>
-												</td>
-												<td width="110px;">
-													<ul style="list-style-type: none; margin:0px; padding-left:20px;">
-														<li style="padding-bottom: 6px;">
-															<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/content/base/privacy-security">Privacy &amp; Security</a></li>
-															<li style="padding-bottom: 6px;">
-																<a style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; color: #ffffff; font-size: 12px; text-decoration:none;" href="{{app.live}}/content/base/terms">Terms &amp; Conditions</a></li>
-															</ul>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<table align="center" border="0" bgcolor="#222222" cellpadding="0" cellspacing="0" width="640">
-													<tr>
-														<td><hr style="color:#555555;"></td>
-													</tr>
-													<tr align="center" style="vertical-align:top; ">
-														<td style=" padding:20px 0px 10px 20px;"><p style="font-family: Open Sans, Helvetica Neue, helvetica, arial, sans-serif; font-size: 12px; color:#555555;">Copyright &copy;2015 {{ app.params['site']['title'] }} All Rights Reserved. Powered by Acenda.</p>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-										<!-- End email footer -->
-									</table>
-									
+<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif;">
+	<!-- Begin email header -->
+	<tr>
+		<td>
+			{% include 'core/header.html.twig' %}
+		</td>
+	</tr>
+	<!-- End email header -->
+	<!-- Begin title -->
+	<tr>
+		<td style="padding:20px 20px 10px 20px; vertical-align:top;">
+			<h1 style="color: #333333; font-size: 36px; line-height: 46px; margin: 0;">
+				<a href="{{app.live_url}}/account/order/{{ order.order_number }}" style="text-decoration:none; color:#333333;">
+					Thank you again for your order from {{ app.params['site']['title'] }}!
+				</a>
+			</h1>
+		</td>
+	</tr>
+	<tr>
+		<td style="padding:10px 20px 20px 20px; vertical-align:top;">
+			<p style="font-size: 14px; line-height: 22px; color:#555555;">
+				Order ID: {{ order.order_number }}
+			</p>
+		</td>
+	</tr>
+	<!-- End title -->
+	<!-- Begin email content -->
+	<tr>
+		<td>
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="background-color: #ebebeb; font-family: helvetica, arial, sans-serif; padding: 20px;">
+				<tr>
+					<td style="vertical-align: top;">
+						<h2 style="color: #E16C25; font-size: 18px; text-transform: uppercase;">
+							Shipping Address
+						</h2>
+						<p style="color:#555555; font-size: 14px; line-height: 22px; margin: 0;">
+							{{ order.shipping_first_name }} {{ order.shipping_last_name }} <br>
+							{% if order.giftlist_present is empty %} <br>
+							{{ order.shipping_street_line1}} {{ order.shipping_street_line2}} <br>
+							{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }} <br>
+							{{ order.shipping_country }} <br>
+							{{ order.shipping_phone_number }} <br>
+							{% endif %}
+						</p>
+					</td>
+					<td style="vertical-align: top;">
+						<h2 style="color: #E16C25; font-size: 18px; text-transform: uppercase;">
+							Delivery Method
+						</h2>
+						<p style="color:#555555; font-size: 14px; line-height: 22px; margin: 0;">
+							Using {{ shipping_method.name }}
+						</p>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table border="0" cellpadding="0" cellspacing="0" width="640" style="font-family: helvetica, arial, sans-serif; padding: 20px;">
+				<tr>
+					<td style="border-bottom: 1px solid #CCCCCC; padding-bottom: 10px; vertical-align: top;">
+						<h2 style="color: #555555; font-size: 18px; margin: 0; text-transform: uppercase;">
+							Products
+						</h2>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom: 1px solid #cccccc; padding-bottom: 10px; padding-top: 10px; vertical-align: top;">
+						<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+							Status: {{ item.status }} <br>
+							URL: {{app.live}}{{product.url}} <br>
+							SKU: {{item.sku}} <br>
+							Item name: {{ item.name }} <br>
+							Quantity: {{ item.quantity }} <br>
+							Tracking number: {{ item.tracking_number }}
+						</p>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<!-- End email content -->
+	<!-- Begin thank you -->
+	<tr>
+		<td style="padding: 20px; vertical-align:top;">
+			<p style="color: #555555; font-size: 14px; line-height: 22px; margin: 0;">
+				<span class="font-weight: 700;">Please Note:</span> If your order was placed after-hours or on the weekend your tracking number will not be active until the next business day when the package is picked up by the carrier.<br>
+				Thank you for shopping with us.
+			</p>
+		</td>
+	</tr>
+	<!-- End thank you -->
+	<!-- Begin email footer -->
+	<tr>
+		<td>
+			{% include 'core/footer.html.twig' %}
+		</td>
+	</tr>
+	<!-- End email footer -->
+</table>
