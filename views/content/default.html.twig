@@ -35,5 +35,5 @@
 {% endblock %}
 
 {% block page_content %}
-    {{ content.content }}
+    {{ render(content.content, { 'site_name' : 'lolololol'}) }}
 {% endblock %}
