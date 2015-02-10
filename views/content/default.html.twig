@@ -35,5 +35,5 @@
 {% endblock %}
 
 {% block page_content %}
-    {{ include(content.content, { 'site_name' : 'lolololol'}) }}
+    {{ include(template_from_string(content.content), { 'site_name' : 'lolololol'}) }}
 {% endblock %}
