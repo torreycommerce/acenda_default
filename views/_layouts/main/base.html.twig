@@ -162,7 +162,7 @@
             {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
             {% if sandboxMode is not empty %}
             <div class="row" style="padding-top:10px;">
-                <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> Your PayPal PayflowPro is in test mode (Sandbox). (<a href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">edit</a>)</p></center>
+                <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> Your PayPal PayflowPro account is in test mode (Sandbox). (<a href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">edit</a>)</p></center>
             </div>
             {% endif %}
         </div>
