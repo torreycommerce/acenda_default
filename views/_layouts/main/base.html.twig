@@ -158,9 +158,20 @@
                             {% endif %}
                         </div>
             </div>
-        </div>
 
+            {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
+            {% if sandboxMode is not empty %}
+            <div class="row" style="padding-top:10px;">
+                <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> Your PayPal PayflowPro account is in test mode (Sandbox). (<a href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">edit</a>)</p></center>
+            </div>
+            {% endif %}
+        </div>
+        <!-- <div id="store-password-alert" class="alert alert-warning fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            Your store is password protected with the code: test. When you're ready you can <a href="/site-settings">remove the password and open your site</a>.
+        </div> -->
     </nav>
+        
 <script>
     $(document).ready(function() {
         var timer=0;
@@ -181,3 +192,4 @@
 </script>
 {% endif %}
 </html>
+
