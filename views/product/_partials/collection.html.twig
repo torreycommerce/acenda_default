@@ -417,7 +417,7 @@
                                                                             product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
                                                                             <label for="quantity-selector" class="control-label">Qty</label>
                                                                             <div class="input-group">
-                                                                                <select name="items[{{variation.id}}]" class="qty-dropdown form-control parsley-validated" required="1">
+                                                                                <select name="items[{{variation.id}}]" class="qty-dropdown form-control parsley-validated quantity-selector" required="1">
                                                                                     {% for i in 0..12 %}
                                                                                     <option value="{{i}}">{{i}}</option>
                                                                                     {% endfor %}
@@ -487,4 +487,3 @@
                 </div>
             </section>
             {# End Product Tabs #}
-            
