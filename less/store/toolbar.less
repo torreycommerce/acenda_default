@@ -107,46 +107,51 @@ section#toolbar {
     
 
     // Account button
-    div.btn-group.my-account {
-        button {
-            background-color: #29B1CC;
-            color: #ffffff;
-            font-size: 11px;
-            padding: 6px 12px;
+    .btn-group.my-account {
+        a {
+           background-color: @brand-secondary;
+           border-radius: 0;
+           color: #ffffff ;
+           font-size: 13px;
+           padding: 8px 12px 8px 12px;
 
-            i { padding-right: 10px;  } // Icon
+           i { padding-right: 10px;  } // Icon
 
-            span.text {}
+           span.text {}
 
-            span.caret {
-                border-top-color: #ffffff;
-                border-bottom-color: #ffffff;
-                margin-left: 10px;
-            }
+           span.caret {
+               border-top-color: #ffffff ;
+               border-bottom-color: #ffffff ;
+               margin-left: 10px;
+           }
 
-            &:active, &:focus, &:hover {
-                background-color: @toolbar-link-bg-color-hover;
-                color: @toolbar-link-text-color-hover;
-            }
-        }
+           &:active, &:focus, &:hover {
+               background-color: darken(@brand-secondary, 20%);
+               color: #ffffff ;
+           }
+       }
 
         // Dropdown
-        ul.dropdown-menu {
+       .dropdown-menu {
+           li {
+               padding: 0;
 
-            li { padding: 0;}
+               a {
+                   background-color: @toolbar-link-bg-color;
+                   color: @toolbar-link-text-color;
+                   text-align: left;
 
-            li a {
-                background-color: #ffffff; color: #000000; text-align: left;
+                   .border-radius(0px); // mixins
 
-                .border-radius(0px); // mixins
+                   &:active, &:focus, &:hover {
+                       background-color: @toolbar-link-bg-color-hover;
+                       color: @toolbar-link-text-color-hover;
+                   }
+               }
+           }
 
-                &:active, &:focus, &:hover {
-                    background-color: @toolbar-link-bg-color-hover;
-                    color: @toolbar-link-text-color-hover;
-                }
-            }
-            li .divider { margin: 0;}
-        }
+           li .divider { margin: 0;}
+       }
     }
 
 

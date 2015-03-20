@@ -265,7 +265,7 @@
                     $('#{{ id }} #progress').hide();
                 },
                 success: function(data) {
-                    var html = '<div class="col-md-3" style="text-align: center; margin-top: 10px;"><img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="'+data.result.new_location+'" class="img-thumbnail"><br /><br />';
+                    var html = '<div class="col-md-3" style="text-align: center; margin-top: 10px;"><img onerror="this.src=\'{{ app.url_asset }}/images/product/image-250x250.jpg\'" src="'+data.result.new_location+'" class="img-thumbnail"><br /><br />';
                         html += '<a href="javascript: void(0);" class="btn btn-danger">Delete file</a></div>';
 
                         $("#{{id}} .upload_button").addClass('disabled');
