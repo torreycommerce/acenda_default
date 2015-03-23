@@ -52,9 +52,16 @@
     {% block css %}{% endblock %}
     <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
-    {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-        {{ social.get_metatags(app.params.social_settings, seo) }}
-    {% endif %}
+    {% set headers = api.get('/site/headers') %}
+    {% for header_key in headers|keys %}
+        {% if headers[header_key] is iterable %}
+            {% for sub in headers[header_key] %}
+                <meta name="{{header_key}}" content="{{ sub }}">
+            {% endfor %}
+        {% else %}
+            <meta name="{{header_key}}" content="{{ headers[header_key] }}">
+        {% endif %}
+    {% endfor %}
 
     <script>
     var acendaBaseUrl = '{{app.url}}'
@@ -171,7 +178,7 @@
             Your store is password protected with the code: test. When you're ready you can <a href="/site-settings">remove the password and open your site</a>.
         </div> -->
     </nav>
-        
+
 <script>
     $(document).ready(function() {
         var timer=0;
@@ -192,4 +199,3 @@
 </script>
 {% endif %}
 </html>
-
