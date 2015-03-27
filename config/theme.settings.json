@@ -133,7 +133,7 @@
             }
         }
     },
-    "Fashion": {
+    "Default": {
         "branding": {
             "branding_colors": {
                 "brand-primary": "ba20ba",
