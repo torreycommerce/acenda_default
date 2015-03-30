@@ -3,17 +3,17 @@
         "branding": {
             "branding_colors": {
                 "brand-primary": "ba20ba",
-                "brand-secondary": "B3B3B3"
-                "brand-success": "5CB85C"
-                "brand-info": "3BA4C4"
-                "brand-warning": "F0AC4D"
+                "brand-secondary": "B3B3B3",
+                "brand-success": "5CB85C",
+                "brand-info": "3BA4C4",
+                "brand-warning": "F0AC4D",
                 "brand-danger": "D9534F"
             },
             "gray": {
                 "gray-darker": "222222",
-                "gray-dark": "333333"
-                "gray": "555555"
-                "gray-light": "999999"
+                "gray-dark": "333333",
+                "gray": "555555",
+                "gray-light": "999999",
                 "gray-lighter": "EEEEEE"
             },
             "feedback_states": {
