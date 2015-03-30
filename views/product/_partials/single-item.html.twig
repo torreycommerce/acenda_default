@@ -10,7 +10,7 @@
                     <div class="thumbnail">
                         <span class="helper hidden-xs"></span>
                         <div id="main-product-video" style="display:none"></div>
-                        <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="" />
+                        <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","large",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="" />
                     </div>
                 </div>
             </div>
@@ -149,41 +149,37 @@
                 {% endif %}
                 {% if product.variant[0].price > 0 %}
                 <form method="post" id="productForm" action="{{ app.url }}/product/route">                        
-                    {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
-                    product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
-                    product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
-                    <div class="actions hidden-sm hidden-xs row">
-                        {# Begin product quantity #}
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="quantity-input-group">
-                                    <label for="quantity-selector" class="control-label">Qty</label>
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                        </div>
-                                        <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {# End product quantity #}
-                        {# Begin add to cart button #}
-                        <div class="form-group">
-                            <div class="col-sm-4">
-                                <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Add to Cart</span>
-                                </button>
-                            </div>
-                            {% endif %}
-                            {% include "/product/_partials/list/actions-single.html.twig" %}
-                        </div>
-                    </div>
-                </form>
+                   {% if product.variant[0]['inventory_quantity'] is defined and product.variant[0]['inventory_minimum_quantity'] is defined and
+                   product.variant[0]['inventory_policy'] is defined and (product.variant[0]['inventory_policy'] == 'continue' or
+                   product.variant[0]['inventory_quantity'] > product.variant[0]['inventory_minimum_quantity'] ) %}
+                   <div class="actions hidden-sm hidden-xs row">
+                       {# Begin product quantity #}
+                       <div class="form-group col-sm-12">
+                           <div class="quantity-input-group">
+                               <label for="quantity-selector" class="control-label">Qty</label>
+                               <div class="input-group">
+                                   <div class="input-group-btn">
+                                       <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                   </div>
+                                   <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
+                                   <div class="input-group-btn">
+                                       <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       {# End product quantity #}
+                       {# Begin add to cart button #}
+                       <div class="form-group col-sm-4">
+                           <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
+                               <i class="fa fa-shopping-cart"></i>
+                               <span>Add to Cart</span>
+                           </button>
+                       </div>
+                       {% include "/product/_partials/list/actions-single.html.twig" %}
+                   </div>
+                   {% endif %}
+               </form>
                 {# End actions desktop #}
                 {# Begin actions mobile #}
                 <div class="actions hidden-lg hidden-md">
@@ -205,7 +201,7 @@
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                     </div>
-                                                    <input id="add-to-cart-quantity" class="form-control" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
+                                                    <input id="add-to-cart-quantity" class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{product.variant[0].id}}]">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                     </div>
