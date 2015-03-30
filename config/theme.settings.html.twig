@@ -2,110 +2,71 @@
 // Variables
 // ----------------------------------------------------------------------------------------------------
 // Project: Acenda Default Theme
-// ----------------------------------------------------------------------------------------------------
-#}
+// ----------------------------------------------------------------------------------------------------#}
+
+
 
 {#
-//
 // Table of Contents
 // ----------------------------------------------------------------------------------------------------
 // Colors
-// 		Brand
-// 			Primary brand color
-// 			Secondary brand color
-//
-// 		Feedback states
-// 			Sucess background color
-// 			Sucess text color
-// 			Info background color
-// 			Info text color
-// 			Warning background color
-// 			Warning text color
-// 			Danger background color
-// 			Danger text color
-//
-// Logo, Images, and Colors
-// 		Logo & Background
-// 			Use a custom logo?
-// 			Shop logo
-// 			Center logo
-// 			Use a favicon image?
-// 			Upload favicon
-// 			Use a background image?
-// 			Custom background image
-// 			Background image display style
-// 		Toolbar
-// 			Toolbar background color
-// 			Remove background color
-// 			Toolbar text color
-// 			Toolbar text hover color
-// 			Show toolbar botom border
-// 			Toolbar border color
-// 			Show border around search?
-// 			Show border color
-// 		Footer
-// 			Footer background color
-// 			Remove footer color
-// 			Footer text color
-// 			Footer heading color
-// 			Show footer heading underline?
-// 			Footer heading underline color
-// 			Footer link color
-// 			Show footer bottom border?
-// 			Footer border color
-// 		Content Area
-// 			Site background color
-// 			Content area background color
-// 			No content area background color
-// 			Text color
-// 			Heading color
-// 			Link color
-// 			Link hover color
-// 			Price color
-// 		Buttons
-// 			Button background color
-// 			Button background color hover
-// 			Button text color
-// 			Button text color hover
-// 			Button border radius
-// 		Borders
-// 			General border style
-// 			General border color
-// 		Tabs
-//
+//      Brand
+//      Gray
+//      Feedback states
+// Scaffolding
+//		Body color
+//		Text color
+//		Link color
+//		Price color
 // Typography
-// 		Base styles
-// 		Navigation styles
-// 		Heading styles
-// 		Headings
-// 		Button styles
-//
+//      Body text
+//      Headings
+// Images
+// Header
+// Toolbar
+// My Cart
+// Login
+// Navigation
+// Tabs
+// Logo
+// Tables
+// Buttons
+//      Default
+//      Primary
+//      Secondary
+//      Cart Button
+//      Checkout Button
+//      Add To Registry Button
+//      Add To Wishlist Button
+// Forms
+// Dropdowns
+// Breadcrumbs
+// Pagination
+//      Pager
+// Product Categories
+// Alerts
+//      Success
+//      Info
+//      Warning
+//      Danger
+// Tooltips
+// Panels
+//      Default
+//      Primary
+//      Success
+//      Info
+//      Warning
+//      Danger
 // Footer
-// 		General
-//
-// Homepage
-// 		General
-//
-// Homepage
-// 		Homepage content
-// 		Slideshow settings
-// 		Featured layouts
-//
-// Product page
-//
-// Product collection
-//
-// Blog page
-//
-// Cart
-//
-// Additional Layouts
-//
-#}
+// Social
+// Carousel
+//      Controls
+//      Indicators
+//      Default
+// ----------------------------------------------------------------------------------------------------#}
 
 {% import _self as utils %}
 {{ utils.start_layout() }}
-
 {{ utils.start_group('Branding Colors', 'collapseBradningColors') }}
 
 {#
@@ -123,6 +84,29 @@
 {# Secondary brand color - input #}
 {{ utils.selectColor('Secondary brand color', 'brand-second', 'settings[current][branding][branding_colors][brand-second]', settings.current.branding.branding_colors['brand-second']) }}
 {{ utils.end_subgroup() }}
+
+{# ------------------------- #}
+
+{# Gray
+// ------------------------- #}
+
+{# Gray - darker #}
+{{ utils.selectColor('Gray darker', 'gray-darker', 'settings[current][branding][gray][gray-darker]', settings.current.branding.gray['gray-darker']) }}
+
+{# Gray - dark #}
+{{ utils.selectColor('Gray dark', 'gray-dark', 'settings[current][branding][gray][gray-dark]', settings.current.branding.gray['gray-dark']) }}
+
+{# Gray #}
+{{ utils.selectColor('Gray', 'gray', 'settings[current][branding][gray][gray]', settings.current.branding.gray['gray']) }}
+
+{# Gray - light #}
+{{ utils.selectColor('Gray light', 'gray-light', 'settings[current][branding][gray][gray-light]', settings.current.branding.gray['gray-light']) }}
+
+{# Gray - lighter #}
+{{ utils.selectColor('Gray lighter', 'gray-lighter', 'settings[current][branding][gray][gray-lighter]', settings.current.branding.gray['gray-lighter']) }}
+
+{{ utils.end_subgroup() }}
+
 
 {# ------------------------- #}
 
@@ -147,7 +131,7 @@
 {# Warning background color- input #}
 {{ utils.selectColor('Warning background color', 'brand-warning', 'settings[current][branding][feedback_states][brand-warning]',  settings.current.branding.feedback_states['brand-warning']) }}
 
-{# Warning text color- input #}
+{# Warning text color - input #}
 {{ utils.selectColor('Warning text color', 'state-warning-text', 'settings[current][branding][feedback_states][state-warning-text]', settings.current.branding.feedback_states['state-warning-text']) }}
 
 {# Danger background color - input #}
@@ -221,16 +205,24 @@
 {{ utils.selectColor("Toolbar text hover color", "toolbar-text-color-hover", "settings[current][logo_images_and_colors][toolbar][toolbar-text-color-hover]", settings.current.logo_images_and_colors.toolbar['toolbar-text-color-hover']) }}
 
 {# Show toolbar bottom border? - checkbox #}
+{#
 {{ utils.selectDropdown('Show toolbar bottom border?','toolbar-border-style',"settings[current][logo_images_and_colors][toolbar][toolbar-border-style]", settings.current.logo_images_and_colors.toolbar['toolbar-border-style'], {'none':'None', 'regular_width':'Regular width' ,'full_width':'Full width'}) }}
+#}
 
 {# Toolbar border color -  input #}
+{#
 {{ utils.selectColor("Toolbar border color", "toolbar-border-color", "settings[current][logo_images_and_colors][toolbar][toolbar-border-color]", settings.current.logo_images_and_colors.toolbar['toolbar-border-color']) }}
+#}
 
 {# Show border around search? - checkbox #}
+{#
 {{ utils.checkBoxx("Show border around search?", "toolbar-border-search", "settings[current][logo_images_and_colors][toolbar][toolbar-border-search]", settings.current.logo_images_and_colors.toolbar['toolbar-border-search']) }}
+#}
 
 {# Search border color -  input #}
+{# 
 {{ utils.selectColor("Search border color", "search-border-color", "settings[current][logo_images_and_colors][toolbar][search-border-color]", settings.current.logo_images_and_colors.toolbar['search-border-color']) }}
+#}
 
 {{ utils.end_subgroup() }}
 {# ------------------------- #}

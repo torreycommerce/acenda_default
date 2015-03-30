@@ -3,18 +3,30 @@
         "branding": {
             "branding_colors": {
                 "brand-primary": "ba20ba",
-                "brand-second": "000000"
+                "brand-secondary": "B3B3B3"
+                "brand-success": "5CB85C"
+                "brand-info": "3BA4C4"
+                "brand-warning": "F0AC4D"
+                "brand-danger": "D9534F"
+            },
+            "gray": {
+                "gray-darker": "222222",
+                "gray-dark": "333333"
+                "gray": "555555"
+                "gray-light": "999999"
+                "gray-lighter": "EEEEEE"
             },
             "feedback_states": {
-                "brand-success": "000000",
-                "state-success-text": "000000",
+                "brand-success-text": "FFFFFF",
+                "brand-success-bg": "5CB85C",
+                "brand-success-border": "5CB85C",
                 "brand-info": "000000",
-                "state-info-text": "000000",
+                "state-info-text": "FFFFFF",
                 "brand-warning": "000000",
-                "state-warning-text": "000000",
+                "state-warning-text": "FFFFFF",
                 "brand-danger": "000000",
-                "state-danger-text": "000000"
-            }
+                "state-danger-text": "FFFFFF"
+            }            
         },
         "logo_images_and_colors": {
             "logo_background": {
@@ -28,10 +40,10 @@
                 "site-bg-image-display": "stretch"
             },
             "toolbar": {
-                "toolbar-bg-color": "0000ff",
+                "toolbar-bg-color": "ffffff",
                 "toolbar-bg-color-none": "0",
-                "toolbar-text-color": "BBBBBB",
-                "toolbar-text-color-hover": "FFFFFF",
+                "toolbar-text-color": "999999",
+                "toolbar-text-color-hover": "666666",
                 "toolbar-border-style": "none",
                 "toolbar-border-color": "000000",
                 "toolbar-border-search": "1",

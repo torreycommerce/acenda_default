@@ -1,3 +1,4 @@
+//
 // Variables
 // ----------------------------------------------------------------------------------------------------
 // Project: Acenda Default Theme
@@ -66,12 +67,13 @@
 
 
 
-// {{ '2' }}
-// Colors 
+//
+// Colors
 // ----------------------------------------------------------------------------------------------------
 
 // Brand
 // -------------------------
+
 @brand-primary:									#{{ settings.current["branding"]["branding_colors"]["brand-primary"] }};
 @brand-secondary:								#{{ settings.current["branding"]["branding_colors"]["brand-second"] }};
 @brand-success:         						#{{ settings.current["branding"]["feedback_states"]["brand-success"] }};
@@ -81,11 +83,11 @@
 
 // Gray
 // -------------------------
-@gray-darker:									lighten(#000, 13.5%); // #222
-@gray-dark:										lighten(#000, 20%);   // #333
-@gray:											lighten(#000, 33.5%); // #555
-@gray-light:									lighten(#000, 60%);   // #999
-@gray-lighter:									lighten(#000, 93.5%); // #eee
+@gray-darker:									#{{ settings.current["branding"]["gray"]["gray-darker"] }};{# lighten(#000, 13.5%); // #222 #}
+@gray-dark:										#{{ settings.current["branding"]["gray"]["gray-dark"] }};{# lighten(#000, 20%);   // #333 #}
+@gray:											#{{ settings.current["branding"]["gray"]["gray"] }};{# lighten(#000, 33.5%); // #555 #}
+@gray-light:									#{{ settings.current["branding"]["gray"]["gray-light"] }};{# lighten(#000, 60%);   // #999 #}
+@gray-lighter:									#{{ settings.current["branding"]["gray"]["gray-lighter"] }};{# lighten(#000, 93.5%); // #eee #}
 
 // Feedback states
 // -------------------------
@@ -118,6 +120,7 @@
 @body-bg:					                    #FFFFFF;
 @shop-bg-image:									0 none;
 @shop-bg-image-retina:							0 none;
+// -------------------------
 
 // Text color on `<body>`
 // -------------------------
@@ -151,13 +154,13 @@
 @line-height-base:								1.428571429; // 20/14
 
 @font-size-base:								14px;
-@font-size-large:         						ceil((@font-size-base * 1.25)); // ~18px
-@font-size-small:         						ceil((@font-size-base * 0.85)); // ~12px
+@font-size-large:         						18px; {# ceil((@font-size-base * 1.25)); // ~18px#}
+@font-size-small:         						13px; {# ceil((@font-size-base * 0.85)); // ~12px#}
 
-@font-size-h1:									ceil((@font-size-base * 2.55));	// ~36px
-@font-size-h2:									ceil((@font-size-base * 1.85));	// ~26px
-@font-size-h3:									ceil((@font-size-base * 1.55));	// ~22px
-@font-size-h4:									ceil((@font-size-base * 1.25));	// ~18px
+@font-size-h1:									36px; {# ceil((@font-size-base * 2.55));	// ~36px#}
+@font-size-h2:									26px; {# ceil((@font-size-base * 1.85));	// ~26px#}
+@font-size-h3:									22px; {# ceil((@font-size-base * 1.55));	// ~22px#}
+@font-size-h4:									18px; {# ceil((@font-size-base * 1.25));	// ~18px#}
 @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
 
