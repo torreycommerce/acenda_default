@@ -2,7 +2,7 @@
     "current": {
         "branding": {
             "branding_colors": {
-                "brand-primary": "ba20ba",
+                "brand-primary": "ba59ba",
                 "brand-secondary": "B3B3B3",
                 "brand-success": "5CB85C",
                 "brand-info": "3BA4C4",
@@ -174,7 +174,7 @@
                 "state-warning-text": "FFFFFF",
                 "brand-danger": "D9534F",
                 "state-danger-text": "FFFFFF"
-            } 
+            }
         },
         "logo_images_and_colors": {
             "logo_background": {
