@@ -20,13 +20,13 @@
                 "brand-success-text": "FFFFFF",
                 "brand-success-bg": "5CB85C",
                 "brand-success-border": "5CB85C",
-                "brand-info": "000000",
+                "brand-info": "3BA4C4",
                 "state-info-text": "FFFFFF",
-                "brand-warning": "000000",
+                "brand-warning": "F0AC4D",
                 "state-warning-text": "FFFFFF",
-                "brand-danger": "000000",
+                "brand-danger": "D9534F",
                 "state-danger-text": "FFFFFF"
-            }            
+            }
         },
         "logo_images_and_colors": {
             "logo_background": {
@@ -50,42 +50,42 @@
                 "search-border-color": "000000"
             },
             "footer_colors": {
-                "footer-background-color": "000000",
+                "footer-background-color": "ffffff",
                 "footer-bg-color-remove": "0",
-                "footer-text-color": "000000",
-                "footer-heading-color": "000000",
+                "footer-text-color": "999999",
+                "footer-heading-color": "555555",
                 "footer-heading-underline": "0",
                 "footer-heading-underline-color": "000000",
                 "footer-link-color": "000000",
-                "footer-link-color-hover": "000000",
+                "footer-link-color-hover": "6A4362",
                 "footer-border-style": "none",
-                "footer-border-color": "000000"
+                "footer-border-color": "EEEEEE"
             },
             "content_area_color": {
                 "site-border-color": "000000",
-                "content-background-color": "000000",
+                "content-background-color": "FFFFFF",
                 "content-background-transparent": "0",
-                "text-color": "000000",
-                "heading-color": "000000",
-                "link-color": "000000",
-                "link-color-hover": "000000",
-                "price-color": "000000"
+                "text-color": "333333",
+                "heading-color": "555555",
+                "link-color": "6A4362",
+                "link-color-hover": "6A4362",
+                "price-color": "333333"
             },
             "buttons": {
-                "btn-bg-color": "000000",
-                "btn-bg-color-hover": "000000",
-                "btn-text-color": "000000",
-                "btn-text-color-hover": "000000",
-                "btn-border-radius": "2px"
+                "btn-bg-color": "ffffff",
+                "btn-bg-color-hover": "ebebeb",
+                "btn-text-color": "333333",
+                "btn-text-color-hover": "333333",
+                "btn-border-radius": "4px"
             },
             "borders": {
                 "general-border-style": "solid",
                 "gernal-border-color": "000000"
             },
             "tabs": {
-                "tab-bg-color": "000000",
+                "tab-bg-color": "FFFFFF",
                 "tab-bg-color-none": "1",
-                "tab-active-bg-color": "000000",
+                "tab-active-bg-color": "FFFFFF",
                 "tab-active-bg-color-none": "0"
             }
         },
@@ -132,8 +132,8 @@
                 "nav-link-hover-color": "222222",
                 "selected-nav-link-color": "b858b8",
                 "nav-dropdown-link-color": "222222",
-                "nav-dropdown-background-color": "000000",
-                "nav-dropdown-link-hover-color": "000000",
+                "nav-dropdown-background-color": "FFFFFF",
+                "nav-dropdown-link-hover-color": "888888",
                 "show-dropdown-arrow": "1",
                 "dropdown-arrow": "dark",
                 "display-blog-dropdown": "1",
@@ -151,18 +151,30 @@
         "branding": {
             "branding_colors": {
                 "brand-primary": "ba20ba",
-                "brand-second": "000000"
+                "brand-second": "B3B3B3",
+                "brand-success": "5CB85C",
+                "brand-info": "3BA4C4",
+                "brand-warning": "F0AC4D",
+                "brand-danger": "D9534F"
+            },
+            "gray": {
+                "gray-darker": "222222",
+                "gray-dark": "333333",
+                "gray": "555555",
+                "gray-light": "999999",
+                "gray-lighter": "EEEEEE"
             },
             "feedback_states": {
-                "brand-success": "000000",
-                "state-success-text": "000000",
-                "brand-info": "000000",
-                "state-info-text": "000000",
-                "brand-warning": "000000",
-                "state-warning-text": "000000",
-                "brand-danger": "000000",
-                "state-danger-text": "000000"
-            }
+                "brand-success-text": "FFFFFF",
+                "brand-success-bg": "5CB85C",
+                "brand-success-border": "5CB85C",
+                "brand-info": "3BA4C4",
+                "state-info-text": "FFFFFF",
+                "brand-warning": "F0AC4D",
+                "state-warning-text": "FFFFFF",
+                "brand-danger": "D9534F",
+                "state-danger-text": "FFFFFF"
+            } 
         },
         "logo_images_and_colors": {
             "logo_background": {
@@ -176,52 +188,52 @@
                 "site-bg-image-display": "stretch"
             },
             "toolbar": {
-                "toolbar-bg-color": "0000ff",
+                "toolbar-bg-color": "ffffff",
                 "toolbar-bg-color-none": "0",
-                "toolbar-text-color": "BBBBBB",
-                "toolbar-text-color-hover": "FFFFFF",
+                "toolbar-text-color": "999999",
+                "toolbar-text-color-hover": "666666",
                 "toolbar-border-style": "none",
                 "toolbar-border-color": "000000",
                 "toolbar-border-search": "1",
                 "search-border-color": "000000"
             },
             "footer_colors": {
-                "footer-background-color": "000000",
+                "footer-background-color": "ffffff",
                 "footer-bg-color-remove": "0",
-                "footer-text-color": "000000",
-                "footer-heading-color": "000000",
+                "footer-text-color": "999999",
+                "footer-heading-color": "555555",
                 "footer-heading-underline": "0",
                 "footer-heading-underline-color": "000000",
                 "footer-link-color": "000000",
-                "footer-link-color-hover": "000000",
+                "footer-link-color-hover": "6A4362",
                 "footer-border-style": "none",
-                "footer-border-color": "000000"
+                "footer-border-color": "EEEEEE"
             },
             "content_area_color": {
                 "site-border-color": "000000",
-                "content-background-color": "000000",
+                "content-background-color": "FFFFFF",
                 "content-background-transparent": "0",
-                "text-color": "000000",
-                "heading-color": "000000",
-                "link-color": "000000",
-                "link-color-hover": "000000",
-                "price-color": "000000"
+                "text-color": "333333",
+                "heading-color": "555555",
+                "link-color": "6A4362",
+                "link-color-hover": "6A4362",
+                "price-color": "333333"
             },
             "buttons": {
-                "btn-bg-color": "000000",
-                "btn-bg-color-hover": "000000",
-                "btn-text-color": "000000",
-                "btn-text-color-hover": "000000",
-                "btn-border-radius": "2px"
+                "btn-bg-color": "ffffff",
+                "btn-bg-color-hover": "ebebeb",
+                "btn-text-color": "333333",
+                "btn-text-color-hover": "333333",
+                "btn-border-radius": "4px"
             },
             "borders": {
                 "general-border-style": "solid",
                 "gernal-border-color": "000000"
             },
             "tabs": {
-                "tab-bg-color": "000000",
+                "tab-bg-color": "FFFFFF",
                 "tab-bg-color-none": "1",
-                "tab-active-bg-color": "000000",
+                "tab-active-bg-color": "FFFFFF",
                 "tab-active-bg-color-none": "0"
             }
         },

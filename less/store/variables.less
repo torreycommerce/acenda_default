@@ -1,3 +1,4 @@
+
 //
 // Variables
 // ----------------------------------------------------------------------------------------------------
@@ -74,36 +75,31 @@
 // Brand
 // -------------------------
 
-@brand-primary:									#6A4362;
-@brand-secondary:								#B3B3B3;
-@brand-success:                                 #5CB85C ;
-@brand-info:                                    #3BA4C4 ;
-@brand-warning:                                 #F0AC4D ;
-@brand-danger:                                  #D9534F ;
+@brand-primary:									#ba20ba;
+@brand-secondary:								#;
+@brand-success:         						#;
+@brand-info:         		   					#3BA4C4;
+@brand-warning:     						    #F0AC4D;
+@brand-danger:     							    #D9534F;
 
 // Gray
 // -------------------------
-@gray-darker:									lighten(#000, 13.5%); // #222
-@gray-dark:										lighten(#000, 20%);   // #333
-@gray:											lighten(#000, 33.5%); // #555
-@gray-light:									lighten(#000, 60%);   // #999
-@gray-lighter:									lighten(#000, 93.5%); // #eee
-
+@gray-darker:									#222222;@gray-dark:										#333333;@gray:											#555555;@gray-light:									#999999;@gray-lighter:									#EEEEEE;
 // Feedback states
 // -------------------------
-@state-success-text:							#fff;
+@state-success-text:							#;
 @state-success-bg:								@brand-success;
 @state-success-border:							darken(spin(@state-success-bg, -10), 5%);
 
-@state-info-text:								#fff;
+@state-info-text:								#FFFFFF;
 @state-info-bg:									@brand-info;
 @state-info-border:								darken(spin(@state-info-bg, -10), 7%);
 
-@state-warning-text:							#fff;
+@state-warning-text:							#FFFFFF;
 @state-warning-bg:								@brand-warning;
 @state-warning-border:							darken(spin(@state-warning-bg, -10), 5%);
 
-@state-danger-text:								#fff;
+@state-danger-text:								#FFFFFF;
 @state-danger-bg:								@brand-danger;
 @state-danger-border:							darken(spin(@state-danger-bg, -10), 5%);
 
@@ -117,9 +113,10 @@
 
 // Background color for `<body>`
 // -------------------------
-@body-bg:										#FFFFFF;
+@body-bg:					                    #FFFFFF;
 @shop-bg-image:									0 none;
 @shop-bg-image-retina:							0 none;
+// -------------------------
 
 // Text color on `<body>`
 // -------------------------
@@ -127,12 +124,12 @@
 
 // Link color
 // -------------------------
-@link-color:									@brand-primary;
-@link-hover-color:								darken(@link-color, 15%);
+@link-color:    		                        @brand-primary;
+@link-hover-color:      						darken(@link-color, 15%);
 
 // Price color
 // -------------------------
-@price-color:									#333333;
+@price-color:                         			#b2246b;
 
 // Hr
 // -------------------------
@@ -153,15 +150,9 @@
 @line-height-base:								1.428571429; // 20/14
 
 @font-size-base:								14px;
-@font-size-large:								18px;
-@font-size-small:								12px;
-
-@font-size-h1:									32px;
-@font-size-h2:									22px;
-@font-size-h3:									20px;
-@font-size-h4:									18px;
-@font-size-h5:									@font-size-base;
-@font-size-h6:									12px;
+@font-size-large:         						18px; @font-size-small:         						13px; 
+@font-size-h1:									36px; @font-size-h2:									26px; @font-size-h3:									22px; @font-size-h4:									18px; @font-size-h5:									@font-size-base;				// ~15px
+@font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
 
 // Unit-less `line-height` for use in components like buttons.
 @line-height-base:								1.428571429; // 20/14
@@ -171,8 +162,8 @@
 
 // Headings
 // -------------------------
-@headings-color:								#6A4362;
-@headings-font-family:							@font-family-lucida;
+@headings-color:								;
+@headings-font-family:							'Open Sans Condensed';
 @headings-font-weight:							700;
 @headings-line-height:							1.1;
 @headings-small-color:							#333333;
@@ -201,7 +192,7 @@
 
 
 
-//
+// 
 // Header
 // ----------------------------------------------------------------------------------------------------
 
@@ -215,19 +206,19 @@
 // Toolbar
 // ----------------------------------------------------------------------------------------------------
 
-@toolbar-bg:                                    #ffffff ;
+@toolbar-bg:									#ffffff;
 
 // Default state
-@toolbar-link-bg-color:                          transparent;
-@toolbar-link-text-color:                        #999999 ;
+@toolbar-link-bg-color:							0 none;
+@toolbar-link-text-color:						#999999;
 
 // Hover
-@toolbar-link-bg-color-hover:                    transparent;
-@toolbar-link-text-color-hover:                  darken(@toolbar-link-text-color, 20%);
+@toolbar-link-bg-color-hover:					0 none;
+@toolbar-link-text-color-hover:					#666666;
 
 
 
-//
+// 
 // My Cart
 // ----------------------------------------------------------------------------------------------------
 
@@ -238,7 +229,7 @@
 
 
 
-//
+// 
 // Login
 // ----------------------------------------------------------------------------------------------------
 
@@ -249,19 +240,19 @@
 @login-hover-bg:								darken(@login-bg, 10%);
 
 
-//
+// 
 // Navigation
 // -------------------------
 
 // Default
 @nav-bg:										0 none;
-@nav-text:										#555555;
+@nav-text:										#666666;
 @nav-text-weight:								600;
 @nav-hr:										@gray-lighter;
 
 // Hover
-@nav-bg-hover:									transparent;
-@nav-text-hover:								lighten(@nav-text, 20%);
+@nav-bg-hover:									0 none;
+@nav-text-hover:								#000000;
 @nav-text-hover-decoration: 					underline;
 
 // Dropdown
@@ -295,7 +286,7 @@
 // Logo
 // ----------------------------------------------------------------------------------------------------
 
-@logo-color:									#555555;
+@logo-color:									#333333;
 @logo-font-size:                                60px;
 @logo-font-weight:								600;
 @logo:                      		            "../images/store-logo-1x.png";
@@ -397,18 +388,18 @@
 @input-bg-disabled:								@gray-lighter;
 
 // Text color for `<input>`s
-@input-color:                    				@brand-primary;
+@input-color:                    				@gray;
 
 // `<input>` border color
 @input-border:                   				#ccc;
 
 // Border color for inputs on focus
-@input-border-focus:             				@brand-primary;
+@input-border-focus:             				#f45b4f;
 
 // Placeholder text color
-@input-color-placeholder:        				lighten(@text-color, 40%);
+@input-color-placeholder:        				@gray-light;
 
-@legend-color:                   				@brand-primary;
+@legend-color:                   				@gray-dark;
 
 @legend-border-color:            				#e5e5e5;
 
@@ -467,16 +458,16 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								@gray-light;
-@breadcrumb-bg:									transparent;
+@breadcrumb-color:								@gray;
+@breadcrumb-bg:									#ffffff;
 
 // Active
-@breadcrumb-active-color:						lighten(@breadcrumb-color, 10%);
-@breadcrumb-active-bg:							transparent;
+@breadcrumb-active-color:						@gray-light;
+@breadcrumb-active-bg:							#ffffff;
 
 // Hover
-@breadcrumb-color-hover:						saturate(@breadcrumb-color, 10%);
-@breadcrumb-bg-hover:							transparent;
+@breadcrumb-color-hover:						@gray-darker;
+@breadcrumb-bg-hover:							#ffffff;
 
 
 
@@ -723,12 +714,12 @@
 
 @footer-bg-image:								"../images/bg-pattern-footer-1x.png";
 @footer-bg-image-retina:						"../images/bg-pattern-footer-2x.png";
-@footer-bg-color:								#ffffff;
+@footer-bg-color:								#222222;
 @footer-color:									@gray-light;
-@footer-color-link:								#000000;
+@footer-color-link:								#ffffff;
 @footer-color-link-hover:						@brand-primary;
-@footer-header-text:							#555555;
-@footer-hr:										@nav-hr;
+@footer-header-text:							#ffffff;
+@footer-hr:										@gray;
 @footer-copy:									#FAF6F0;
 
 
