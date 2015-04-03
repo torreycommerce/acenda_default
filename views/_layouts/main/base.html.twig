@@ -101,6 +101,7 @@
                         <div class="brand">
                             {% if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' %}
                               <div id="logo-img"><a href="{{app.url}}/"></a></div>
+                            {% else %}
                               <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
                             {% endif %}
                         </div>
