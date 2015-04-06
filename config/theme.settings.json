@@ -1,153 +1,453 @@
 {
     "current": {
-        "colors" : {
-            "background" :  {
-                "main-color" : {"type" : "color" ,  "value" : "000000"}
+        "colors": {
+            "background": {
+                "bg-main-color": {
+                    "type": "color",
+                    "value": "f299f2"
+                }
             },
-            "content" : {
-                "logo-link-color" : {"type" : "color" ,  "value" : "000000"},
-                "logo-link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "content-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "headers-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "secondary-color" : {"type" : "color" ,  "value" : "000000"},
-                "table-header-color" : {"type" : "color" ,  "value" : "000000"},
-                "sale-price-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "sale-price-text-color" : {"type" : "color" ,  "value" : "000000"}
+            "content": {
+                "content-logo-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-logo-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-headers-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-secondary-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-table-header-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-sale-price-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-sale-price-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "buttons" : {
-                "button-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-text-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-text-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "buttons": {
+                "button-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-text-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "headers" : {
-                "cart-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "search-box-border-color" : {"type" : "color" ,  "value" : "000000"}
+            "headers": {
+                "headers-cart-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-search-box-border-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "navigation" : {
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "dropdown-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "dropdown-border-color" : {"type" : "color" ,  "value" : "000000"}
+            "navigation": {
+                "nav-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-dropdown-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-dropdown-border-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "carousel" : {
-                "button-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-arrow-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-arrow-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "carousel": {
+                "carousel-button-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-arrow-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-arrow-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "product_grid" : {
-                "header-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-product-name-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "price-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-behind-price-color" : {"type" : "color" ,  "value" : "000000"}
+            "product_grid": {
+                "product-gr-header-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-bg-product-name-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-bg-behind-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "product_pages" : {
-                "price-color" : {"type" : "color" ,  "value" : "000000"}
+            "product_pages": {
+                "product-pg-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "sidebar" : {
-                "widget-title-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-widget-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "divider-color" : {"type" : "color" ,  "value" : "000000"}
+            "sidebar": {
+                "sidebar-widget-title-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-bg-widget-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-divider-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "blog-comments" : {
-                "bg-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "author-color" : {"type" : "color" ,  "value" : "000000"},
-                "date-color" : {"type" : "color" ,  "value" : "000000"}
+            "blog-comments": {
+                "blog-bg-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-author-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-date-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "footer-color" : {
-                "bg-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "footer-color": {
+                "footer-bg-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             }
         }
     },
     "default": {
-        "colors" : {
-            "background" :  {
-                "main-color" : {"type" : "color" ,  "value" : "000000"}
+        "colors": {
+            "background": {
+                "bg-main-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "content" : {
-                "logo-link-color" : {"type" : "color" ,  "value" : "000000"},
-                "logo-link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "content-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "headers-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "secondary-color" : {"type" : "color" ,  "value" : "000000"},
-                "table-header-color" : {"type" : "color" ,  "value" : "000000"},
-                "sale-price-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "sale-price-text-color" : {"type" : "color" ,  "value" : "000000"}
+            "content": {
+                "content-logo-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-logo-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-headers-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-secondary-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-table-header-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-sale-price-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "content-sale-price-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "buttons" : {
-                "button-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-text-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-text-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "buttons": {
+                "button-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "button-text-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "headers" : {
-                "cart-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "search-box-border-color" : {"type" : "color" ,  "value" : "000000"}
+            "headers": {
+                "headers-cart-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "headers-search-box-border-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "navigation" : {
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "dropdown-background-color" : {"type" : "color" ,  "value" : "000000"},
-                "dropdown-border-color" : {"type" : "color" ,  "value" : "000000"}
+            "navigation": {
+                "nav-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-dropdown-background-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "nav-dropdown-border-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "carousel" : {
-                "button-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-arrow-color" : {"type" : "color" ,  "value" : "000000"},
-                "button-arrow-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "carousel": {
+                "carousel-button-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-arrow-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "carousel-button-arrow-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "product_grid" : {
-                "header-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-product-name-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "price-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-behind-price-color" : {"type" : "color" ,  "value" : "000000"}
+            "product_grid": {
+                "product-gr-header-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-bg-product-name-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "product-gr-bg-behind-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "product_pages" : {
-                "price-color" : {"type" : "color" ,  "value" : "000000"}
+            "product_pages": {
+                "product-pg-price-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "sidebar" : {
-                "widget-title-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "bg-widget-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"},
-                "divider-color" : {"type" : "color" ,  "value" : "000000"}
+            "sidebar": {
+                "sidebar-widget-title-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-bg-widget-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "sidebar-divider-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "blog-comments" : {
-                "bg-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "author-color" : {"type" : "color" ,  "value" : "000000"},
-                "date-color" : {"type" : "color" ,  "value" : "000000"}
+            "blog-comments": {
+                "blog-bg-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-author-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "blog-date-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             },
-            "footer-color" : {
-                "bg-color" : {"type" : "color" ,  "value" : "000000"},
-                "text-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-color" : {"type" : "color" ,  "value" : "000000"},
-                "link-hover-color" : {"type" : "color" ,  "value" : "000000"}
+            "footer-color": {
+                "footer-bg-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-text-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-link-color": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "footer-link-hover-color": {
+                    "type": "color",
+                    "value": "000000"
+                }
             }
         }
     }
