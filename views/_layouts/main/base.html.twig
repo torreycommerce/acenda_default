@@ -104,6 +104,7 @@
                                 {% set logo_info = app.params.logoimages | first %}
                                 {% set logo = app.image.getImageUrl('logo','thumbnail',logo.id) %}
                             {% endif %}
+                            {{ dump(logo) }}
                             {% if logo is not empty %}
                               <div id="logo-img" style="background-image: url('{{ logo }}')"><a href="{{app.url}}/"></a></div>
                             {% endif %}
