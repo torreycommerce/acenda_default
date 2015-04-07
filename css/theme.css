@@ -6367,10 +6367,6 @@ nav#nav-desktop-main {
 nav#nav-desktop-main hr {
   border-color: #eeeeee;
 }
-nav#nav-desktop-main ul {
-  display: inline-block;
-  float: none;
-}
 nav#nav-desktop-main ul li a {
   color: #666666;
   font-weight: 600;
