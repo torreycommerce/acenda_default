@@ -11,10 +11,7 @@
                 <div class="item active">
                     {% if app.params.carousel is not empty %}
                         {% set carousel_info = app.params.carousel | first %}
-                        {{ dump(carousel_info) }}
-                        {{ dump(carousel_info.id) }}
                         {% set carousel = app.image.getImageUrl('carousel','carousel',carousel_info.id) %}
-                        {{ dump(carousel) }}
                     {% endif %}
 
                     {% if carousel is not empty %}
