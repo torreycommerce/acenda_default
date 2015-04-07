@@ -101,7 +101,8 @@
                         <div class="brand">
                             {# if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' #}
                             {% if app.params.logoimages is not empty %}
-                                {{ dump(app.params.logoimages | first) }}
+                               {{ set logo = app.params.logoimages | first }}
+                               {{ dump(logo.id) }}
                             {% endif %}
                               <div id="logo-img"><a href="{{app.url}}/"></a></div>
                             }
