@@ -75,7 +75,7 @@
 // Brand
 // -------------------------
 
-@brand-primary:									#ba20ba;
+@brand-primary:									#00ffae;
 @brand-secondary:								#B3B3B3;
 @brand-success:         						#5CB85C;
 @brand-info:         		   					#3BA4C4;
@@ -85,10 +85,10 @@
 // Gray
 // -------------------------
 @gray-darker:									lighten(#000, 13.5%);
-@gray-dark:										lighten(#000, 20%);   // #333
-@gray:											lighten(#000, 33.5%); // #555
-@gray-light:									lighten(#000, 60%);   // #999
-@gray-lighter:									lighten(#000, 93.5%); // #eee
+@gray-dark:										lighten(#000, 20%);  
+@gray:											lighten(#000, 33.5%);
+@gray-light:									lighten(#000, 60%);   
+@gray-lighter:									lighten(#000, 93.5%); 
 
 // Feedback states
 // -------------------------
@@ -118,7 +118,7 @@
 
 // Background color for `<body>`
 // -------------------------
-@body-bg:					                    #FFFFFF;
+@body-bg:					                    #ffffff;
 @shop-bg-image:									0 none;
 @shop-bg-image-retina:							0 none;
 // -------------------------
@@ -129,12 +129,12 @@
 
 // Link color
 // -------------------------
-@link-color:    		                        @brand-primary;
-@link-hover-color:      						darken(@link-color, 15%);
+@link-color:    		                        #6A4362;
+@link-hover-color:      						#44293E;
 
 // Price color
 // -------------------------
-@price-color:                         			#b2246b;
+@price-color:                         			#44293E;
 
 // Hr
 // -------------------------
@@ -167,14 +167,14 @@
 
 // Headings
 // -------------------------
-@headings-color:								;
+@headings-color:								#6a4362;
 @headings-font-family:							'Open Sans Condensed';
 @headings-font-weight:							700;
 @headings-line-height:							1.1;
 @headings-small-color:							#333333;
 
-@page-header-color:								@gray;
-@page-header-border-color:						#EEEEEE;
+@page-header-color:								#555555;
+@page-header-border-color:						#555555;
 
 
 
@@ -201,7 +201,7 @@
 // Header
 // ----------------------------------------------------------------------------------------------------
 
-@header-bg-color:								#ffffff;
+@header-bg-color:								#;
 @header-bg-pattern:								0 none;
 @header-bg-pattern-retina:						0 none;
 
@@ -227,10 +227,10 @@
 // My Cart
 // ----------------------------------------------------------------------------------------------------
 
-@my-cart-bg:									@brand-primary;
+@my-cart-bg:									#6A4362;
 @my-cart-bg-hover:								saturate(@my-cart-bg, 10%);
 @my-cart-text:									#ffffff;
-@my-cart-text-hover:							#ffffff;
+@my-cart-text-hover:							#;
 
 
 
@@ -239,9 +239,9 @@
 // ----------------------------------------------------------------------------------------------------
 
 @login-color:									#ffffff;
-@login-bg:										@gray;
+@login-bg:										#777777;
 
-@login-hover-color:								#ffffff;
+@login-hover-color:								@login-color;
 @login-hover-bg:								darken(@login-bg, 10%);
 
 
@@ -291,14 +291,14 @@
 // Logo
 // ----------------------------------------------------------------------------------------------------
 
-@logo-color:									#333333;
+@logo-color:									#6a4362;
 @logo-font-size:                                60px;
 @logo-font-weight:								600;
 @logo:                      		            "../images/store-logo-1x.png";
 @logo-retina:                       		    "../images/store-logo-2x.png";
 
 // Hover
-@logo-color-hover: 								saturate(@logo-color, 20%);
+@logo-color-hover: 								#555555;
 @logo-color-text-decoration-hover: 				underline;
 
 
@@ -341,44 +341,44 @@
 
 // Primary Button
 // -------------------------
-@btn-primary-bg:								@brand-primary;
-@btn-primary-border:							@brand-primary;
+@btn-primary-bg:								#6A4362;
+@btn-primary-border:							#6A4362;
 @btn-primary-color:								#ffffff;
 
 
 // Secondary Button
 // -------------------------
-@btn-secondary-bg:								@brand-secondary;
-@btn-secondary-border:							@brand-secondary;
+@btn-secondary-bg:								#B3B3B3;
+@btn-secondary-border:							#B3B3B3;
 @btn-secondary-color:							#ffffff;
 
 
 // Cart Button
 // -------------------------
-@btn-cart-bg:									@brand-primary;
-@btn-cart-border:								@brand-primary;
+@btn-cart-bg:									#6A4362;
+@btn-cart-border:								#6A4362;
 @btn-cart-color:								#ffffff;
 
 
 // Checkout Button
 // -------------------------
-@btn-checkout-bg:								@brand-primary;
-@btn-checkout-border:							@brand-primary;
-@btn-checkout-color:							#ffffff;
+@btn-checkout-bg:								@btn-cart-bg;
+@btn-checkout-border:							@btn-cart-border;
+@btn-checkout-color:							@btn-cart-color;
 
 
 // Add to Registry Button
 // -------------------------
-@btn-registry-bg:								@gray-light;
-@btn-registry-border:							@gray-light;
+@btn-registry-bg:								#777777;
+@btn-registry-border:							#777777;
 @btn-registry-color:							#ffffff;
 
 
 // Add to Wishlist Button
 // -------------------------
-@btn-wishlist-bg:								@gray-light;
-@btn-wishlist-border:							@gray-light;
-@btn-wishlist-color:							#ffffff;
+@btn-wishlist-bg:								@btn-registry-bg;
+@btn-wishlist-border:							@btn-registry-border;
+@btn-wishlist-color:							@btn-registry-color;
 
 
 
@@ -387,13 +387,13 @@
 // ----------------------------------------------------------------------------------------------------
 
 // `<input>` background color
-@input-bg: 										#fff;
+@input-bg: 										#ffffff;
 
 // `<input disabled>` background color
-@input-bg-disabled:								@gray-lighter;
+@input-bg-disabled:								lighten(@input-color, 93.5%); 
 
 // Text color for `<input>`s
-@input-color:                    				@gray;
+@input-color:                    				#555555;
 
 // `<input>` border color
 @input-border:                   				#ccc;
@@ -402,14 +402,14 @@
 @input-border-focus:             				#f45b4f;
 
 // Placeholder text color
-@input-color-placeholder:        				@gray-light;
+@input-color-placeholder:        				lighten(@input-color, 40%); 
 
-@legend-color:                   				@gray-dark;
+@legend-color:                   				#6A4362;
 
-@legend-border-color:            				#e5e5e5;
+@legend-border-color:            				lighten(@legend-color, 60%); 
 
 // Background color for textual input addons
-@input-group-addon-bg:           				@gray-lighter;
+@input-group-addon-bg:           				lighten(@legend-color, 50%); 
 
 // Border color for textual input addons
 @input-group-addon-border-color: 				@input-border;
@@ -421,7 +421,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    				#fff;
+@dropdown-bg:                    				#ffffff;
 
 //** Dropdown menu `border-color`.
 @dropdown-border:                				rgba(0,0,0,.15);
@@ -463,15 +463,15 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								@gray;
+@breadcrumb-color:								#555555;
 @breadcrumb-bg:									#ffffff;
 
 // Active
-@breadcrumb-active-color:						@gray-light;
+@breadcrumb-active-color:						lighten(@breadcrumb-color, 46.7%);
 @breadcrumb-active-bg:							#ffffff;
 
 // Hover
-@breadcrumb-color-hover:						@gray-darker;
+@breadcrumb-color-hover:						lighten(@breadcrumb-color, 13.5%);
 @breadcrumb-bg-hover:							#ffffff;
 
 
@@ -542,7 +542,7 @@
 @product-name-text-transform:					none;
 
 // Price
-@product-price-color: 							@brand-primary;
+@product-price-color: 							#6A4362;
 @product-price-font-family:						@font-family-lucida;
 @product-price-font-size:						14px;
 @product-price-font-style:						normal;
@@ -720,11 +720,11 @@
 @footer-bg-image:								"../images/bg-pattern-footer-1x.png";
 @footer-bg-image-retina:						"../images/bg-pattern-footer-2x.png";
 @footer-bg-color:								#222222;
-@footer-color:									@gray-light;
+@footer-color:									#999999;
 @footer-color-link:								#ffffff;
 @footer-color-link-hover:						@brand-primary;
 @footer-header-text:							#ffffff;
-@footer-hr:										@gray;
+@footer-hr:										#999999;
 @footer-copy:									#FAF6F0;
 
 
@@ -751,7 +751,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Captions
-@carousel-caption-color:                         @brand-primary;
+@carousel-caption-color:                        #6A4362;
 @carousel-text-shadow:                            0 none;
 
 // Controls
