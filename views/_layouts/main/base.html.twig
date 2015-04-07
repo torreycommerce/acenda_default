@@ -102,9 +102,8 @@
                             {# if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' #}
                             {% if app.params.logoimages is not empty %}
                                 {% set logo_info = app.params.logoimages | first %}
-                                {% set logo = app.image.getImageUrl('logo','thumbnail',logo.id) %}
+                                {% set logo = app.image.getImageUrl('logo','thumbnail',logo_info.id) %}
                             {% endif %}
-                            {{ dump(logo) }}
                             {% if logo is not empty %}
                               <div id="logo-img" style="background-image: url('{{ logo }}')"><a href="{{app.url}}/"></a></div>
                             {% endif %}
