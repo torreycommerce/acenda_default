@@ -100,7 +100,12 @@
                     <div class="col-md-12">
                         <div class="brand">
                             {# if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' #}
+                            {% if app.params.logoimages is not empty %}
+                                {{ dump(app.params.logoimages | first) }}
+                            {% endif %}
                               <div id="logo-img"><a href="{{app.url}}/"></a></div>
+                            }
+                            }
                             {# else #}
                               <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
                             {# endif #}
