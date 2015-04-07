@@ -101,10 +101,12 @@
                         <div class="brand">
                             {# if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' #}
                             {% if app.params.logoimages is not empty %}
-                               {% set logo = app.params.logoimages | first %}
-                               {{ dump(app.image.getImageUrl('logo','thumbnail',logo.id)) }}
+                                {% set logo_info = app.params.logoimages | first %}
+                                {% set logo = app.image.getImageUrl('logo','thumbnail',logo.id) %}
                             {% endif %}
-                              <div id="logo-img"><a href="{{app.url}}/"></a></div>
+                            {% if logo is not empty %}
+                              <div id="logo-img" style="background-image: url('{{ logo }}')"><a href="{{app.url}}/"></a></div>
+                            {% endif %}
                             {# else #}
                               <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
                             {# endif #}
