@@ -25,7 +25,6 @@ nav#nav-desktop-main {
 
    ul{
        float: none;
-       display: inline-block;
        li {
            a {
                color: @nav-text;
@@ -40,7 +39,20 @@ nav#nav-desktop-main {
                    margin-left: 8px;
                }
            }
-           &:active, &:focus, &:hover {
+           &:active, &:focus {
+               a {
+                   background-color: @nav-bg-hover;
+                   color: @nav-text-hover;
+                   span.caret {
+                       border-top-color: @nav-text-hover;
+                       border-bottom-color: @nav-text-hover;
+                   }
+               }
+           }
+           &:hover {
+               ul.dropdown-menu {
+                   display: block;
+               }
                a {
                    background-color: @nav-bg-hover;
                    color: @nav-text-hover;
