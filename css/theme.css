@@ -6367,11 +6367,8 @@ nav#nav-desktop-main {
 nav#nav-desktop-main hr {
   border-color: #eeeeee;
 }
-nav#nav-desktop-main ul li:hover ul.dropdown-menu {
-  display: block;
-}
 nav#nav-desktop-main ul {
-    float: none;
+  float: none;
 }
 nav#nav-desktop-main ul li a {
   color: #666666;
@@ -6386,13 +6383,22 @@ nav#nav-desktop-main ul li a span.caret {
   margin-left: 8px;
 }
 nav#nav-desktop-main ul li:active a,
-nav#nav-desktop-main ul li:focus a,
-nav#nav-desktop-main ul li:hover a {
+nav#nav-desktop-main ul li:focus a {
   background-color: 0 none;
   color: #000000;
 }
 nav#nav-desktop-main ul li:active a span.caret,
-nav#nav-desktop-main ul li:focus a span.caret,
+nav#nav-desktop-main ul li:focus a span.caret {
+  border-top-color: #000000;
+  border-bottom-color: #000000;
+}
+nav#nav-desktop-main ul li:hover ul.dropdown-menu {
+  display: block;
+}
+nav#nav-desktop-main ul li:hover a {
+  background-color: 0 none;
+  color: #000000;
+}
 nav#nav-desktop-main ul li:hover a span.caret {
   border-top-color: #000000;
   border-bottom-color: #000000;
@@ -6821,7 +6827,7 @@ footer#main ul.copyright li {
   padding-right: 5px;
 }
 header#main {
-  background-color: #;
+  background-color: #ffffff;
   background-image: url("../bootstrap/0 none");
   background-position: top center;
   background-repeat: repeat;
