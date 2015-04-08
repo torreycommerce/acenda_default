@@ -75,7 +75,7 @@
 // Brand
 // -------------------------
 
-@brand-primary:									#00ffae;
+@brand-primary:									#6A4362;
 @brand-secondary:								#B3B3B3;
 @brand-success:         						#5CB85C;
 @brand-info:         		   					#3BA4C4;
@@ -201,7 +201,7 @@
 // Header
 // ----------------------------------------------------------------------------------------------------
 
-@header-bg-color:								#;
+@header-bg-color:								#ffffff;
 @header-bg-pattern:								0 none;
 @header-bg-pattern-retina:						0 none;
 
@@ -278,8 +278,8 @@
 @nav-tabs-link-hover-border-color:				@gray-lighter;
 
 // Active
-@nav-tabs-active-link-hover-bg:					@body-bg;
-@nav-tabs-active-link-hover-color:				@gray;
+@nav-tabs-active-link-hover-bg:					@panel-bg;
+@nav-tabs-active-link-hover-color:				@panel-text-color;
 @nav-tabs-active-link-hover-border-color:		@gray-lighter;
 
 @nav-tabs-justified-link-border-color:			#ddd;
@@ -463,16 +463,16 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								#555555;
-@breadcrumb-bg:									#ffffff;
+@breadcrumb-color:								#333333;
+@breadcrumb-bg:									none;
 
 // Active
-@breadcrumb-active-color:						lighten(@breadcrumb-color, 46.7%);
-@breadcrumb-active-bg:							#ffffff;
+@breadcrumb-active-color:						lighten(@breadcrumb-color, 16.7%);
+@breadcrumb-active-bg:							none;
 
 // Hover
 @breadcrumb-color-hover:						lighten(@breadcrumb-color, 13.5%);
-@breadcrumb-bg-hover:							#ffffff;
+@breadcrumb-bg-hover:							none;
 
 
 
@@ -581,6 +581,8 @@
 @product-price-percent-font-weight:				400;
 @product-price-percent-text-transform:			none;
 
+// Price Stock
+@stock-text-color:								#6F062F;
 
 
 // 
@@ -654,11 +656,12 @@
 // 
 // Panels
 // ----------------------------------------------------------------------------------------------------
-@panel-bg:										#ffffff;
+@panel-bg:										#535353;
+@panel-text-color:								#9B9B9B;
 @panel-body-padding:							10px;
 @panel-border-radius:							0px;
-@panel-inner-border:                            #ffffff ;
-@panel-footer-bg:                               darken(#fff , 3%);
+@panel-inner-border:                            #ffffff;
+@panel-footer-bg:                               darken(#fff , 50%);
 
 
 // Default
