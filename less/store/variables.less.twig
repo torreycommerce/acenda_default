@@ -283,8 +283,8 @@
 @nav-tabs-link-hover-border-color:				@gray-lighter;
 
 // Active
-@nav-tabs-active-link-hover-bg:					@body-bg;
-@nav-tabs-active-link-hover-color:				@gray;
+@nav-tabs-active-link-hover-bg:					@panel-bg;
+@nav-tabs-active-link-hover-color:				@panel-text-color;
 @nav-tabs-active-link-hover-border-color:		@gray-lighter;
 
 @nav-tabs-justified-link-border-color:			#ddd;
@@ -469,15 +469,15 @@
 
 // Default
 @breadcrumb-color:								#{{ settings.current["colors"]["content"]["breadcrumb-color"]["value"] }};
-@breadcrumb-bg:									#{{ settings.current["colors"]["content"]["breadcrumb-bg"]["value"] }};
+@breadcrumb-bg:									none;
 
 // Active
-@breadcrumb-active-color:						lighten(@breadcrumb-color, 46.7%);
-@breadcrumb-active-bg:							#ffffff;
+@breadcrumb-active-color:						lighten(@breadcrumb-color, 16.7%);
+@breadcrumb-active-bg:							none;
 
 // Hover
 @breadcrumb-color-hover:						lighten(@breadcrumb-color, 13.5%);
-@breadcrumb-bg-hover:							#ffffff;
+@breadcrumb-bg-hover:							none;
 
 
 
@@ -586,6 +586,8 @@
 @product-price-percent-font-weight:				400;
 @product-price-percent-text-transform:			none;
 
+// Price Stock
+@stock-text-color:								#{{ settings.current["colors"]["product-grid"]["stock-text-color"]["value"] }};
 
 
 // 
@@ -659,11 +661,12 @@
 // 
 // Panels
 // ----------------------------------------------------------------------------------------------------
-@panel-bg:										#ffffff;
+@panel-bg:										#{{ settings.current["colors"]["panel"]["panel-bg"]["value"] }};
+@panel-text-color:								#{{ settings.current["colors"]["panel"]["panel-text-color"]["value"] }};
 @panel-body-padding:							10px;
 @panel-border-radius:							0px;
-@panel-inner-border:                            #ffffff ;
-@panel-footer-bg:                               darken(#fff , 3%);
+@panel-inner-border:                            #ffffff;
+@panel-footer-bg:                               darken(#fff , 50%);
 
 
 // Default

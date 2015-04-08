@@ -4,7 +4,7 @@
             "brand": {
                 "brand-primary": {
                     "type": "color",
-                    "value": "00ffae"
+                    "value": "6A4362"
                 },
                 "brand-secondary": {
                     "type": "color",
@@ -50,13 +50,9 @@
                     "type": "color",
                     "value": "44293E"
                 },
-                "breadcrumb-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
                 "breadcrumb-color": {
                     "type": "color",
-                    "value": "555555"
+                    "value": "333333"
                 }
             },
             "buttons": {
@@ -223,6 +219,20 @@
                 "product-price-color": {
                     "type": "color",
                     "value": "6A4362"
+                },
+                "stock-text-color": {
+                    "type": "color",
+                    "value": "6F062F"
+                }
+            },
+            "panel": {
+                "panel-bg": {
+                    "type": "color",
+                    "value": "535353"
+                },
+                "panel-text-color": {
+                    "type": "color",
+                    "value": "9B9B9B"
                 }
             },
             "footer-color": {
@@ -352,13 +362,9 @@
                     "type": "color",
                     "value": "44293E"
                 },
-                "breadcrumb-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
                 "breadcrumb-color": {
                     "type": "color",
-                    "value": "555555"
+                    "value": "333333"
                 }
             },
             "buttons": {
@@ -527,6 +533,16 @@
                     "value": "6A4362"
                 }
             },
+            "panel": {
+                "panel-bg": {
+                    "type": "color",
+                    "value": "535353"
+                },
+                "panel-text-color": {
+                    "type": "color",
+                    "value": "9B9B9B"
+                }
+            },
             "footer-color": {
                 "footer-bg-color": {
                     "type": "color",
@@ -547,6 +563,534 @@
                 "footer-hr": {
                     "type": "color",
                     "value": "999999"
+                },
+                "footer-copy": {
+                    "type": "color",
+                    "value": "FAF6F0"
+                }
+            }
+        }
+    },
+    "home": {
+        "colors": {
+            "brand": {
+                "brand-primary": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "brand-secondary": {
+                    "type": "color",
+                    "value": "C2B7A7"
+                },
+                "brand-success": {
+                    "type": "color",
+                    "value": "4CAE4C"
+                },
+                "brand-info": {
+                    "type": "color",
+                    "value": "3BA4C4"
+                },
+                "brand-warning": {
+                    "type": "color",
+                    "value": "F0AD4E"
+                },
+                "brand-danger": {
+                    "type": "color",
+                    "value": "794341"
+                }
+            },
+            "background": {
+                "body-bg": {
+                    "type": "color",
+                    "value": "707070"
+                }
+            },
+            "content": {
+                "logo-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "text-color": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "link-color": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "link-hover-color": {
+                    "type": "color",
+                    "value": "bbbbbb"
+                },
+                "breadcrumb-color": {
+                    "type": "color",
+                    "value": "bbbbbb"
+                }
+            },
+            "buttons": {
+                "btn-primary-bg": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "btn-primary-border": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "btn-primary-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-secondary-bg": {
+                    "type": "color",
+                    "value": "B3B3B3"
+                },
+                "btn-secondary-border": {
+                    "type": "color",
+                    "value": "B3B3B3"
+                },
+                "btn-secondary-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-cart-bg": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "btn-cart-border": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "btn-cart-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-registry-bg": {
+                    "type": "color",
+                    "value": "C2B7A7"
+                },
+                "btn-registry-border": {
+                    "type": "color",
+                    "value": "C2B7A7"
+                },
+                "btn-registry-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "forms": {
+                "input-bg": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "input-border": {
+                    "type": "color",
+                    "value": "ccc"
+                },
+                "input-color": {
+                    "type": "color",
+                    "value": "555555"
+                },
+                "input-border-focus": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "legend-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                }
+            },
+            "headers": {
+                "headings-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "headings-small-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "header-bg-color": {
+                    "type": "color",
+                    "value": "707070"
+                },
+                "page-header-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "page-header-border-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "navigation": {
+                "nav-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "nav-text-hover": {
+                    "type": "color",
+                    "value": "333333"
+                },
+                "dropdown-bg": {
+                    "type": "color",
+                    "value": "E7E7E7"
+                }
+            },
+            "toolbar": {
+                "toolbar-bg": {
+                    "type": "color",
+                    "value": "535353"
+                },
+                "toolbar-link-text-color": {
+                    "type": "color",
+                    "value": "999999"
+                },
+                "toolbar-link-text-color-hover": {
+                    "type": "color",
+                    "value": "666666"
+                },
+                "my-cart-bg": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "my-cart-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "my-text-hover": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "login-bg": {
+                    "type": "color",
+                    "value": "C2B7A7"
+                },
+                "login-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "carousel": {
+                "carousel-caption-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "carousel-control-color": {
+                    "type": "color",
+                    "value": "ffc859"
+                }
+            },
+            "product-grid": {
+                "product-brand-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "product-name-color": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "product-price-color": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "stock-text-color": {
+                    "type": "color",
+                    "value": "009900"
+                }
+            },
+            "panel": {
+                "panel-bg": {
+                    "type": "color",
+                    "value": "535353"
+                },
+                "panel-text-color": {
+                    "type": "color",
+                    "value": "9B9B9B"
+                }
+            },
+            "footer-color": {
+                "footer-bg-color": {
+                    "type": "color",
+                    "value": "3B3B3B"
+                },
+                "footer-color": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "footer-color-link": {
+                    "type": "color",
+                    "value": "79BDC9"
+                },
+                "footer-header-text": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "footer-hr": {
+                    "type": "color",
+                    "value": "F2F2F2"
+                },
+                "footer-copy": {
+                    "type": "color",
+                    "value": "FAF6F0"
+                }
+            }
+        }
+    },
+    "jewelry": {
+        "colors": {
+            "brand": {
+                "brand-primary": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "brand-secondary": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "brand-success": {
+                    "type": "color",
+                    "value": "4CAE4C"
+                },
+                "brand-info": {
+                    "type": "color",
+                    "value": "5BC0DE"
+                },
+                "brand-warning": {
+                    "type": "color",
+                    "value": "F0AD4E"
+                },
+                "brand-danger": {
+                    "type": "color",
+                    "value": "361312"
+                }
+            },
+            "background": {
+                "body-bg": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "content": {
+                "logo-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "text-color": {
+                    "type": "color",
+                    "value": "424242"
+                },
+                "link-color": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "link-hover-color": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "breadcrumb-color": {
+                    "type": "color",
+                    "value": "bbbbbb"
+                }
+            },
+            "buttons": {
+                "btn-primary-bg": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "btn-primary-border": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "btn-primary-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-secondary-bg": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "btn-secondary-border": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "btn-secondary-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-cart-bg": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "btn-cart-border": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "btn-cart-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "btn-registry-bg": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "btn-registry-border": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "btn-registry-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "forms": {
+                "input-bg": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "input-border": {
+                    "type": "color",
+                    "value": "ccc"
+                },
+                "input-color": {
+                    "type": "color",
+                    "value": "555555"
+                },
+                "input-border-focus": {
+                    "type": "color",
+                    "value": "6f062f"
+                },
+                "legend-color": {
+                    "type": "color",
+                    "value": "40041B"
+                }
+            },
+            "headers": {
+                "headings-color": {
+                    "type": "color",
+                    "value": "40041B"
+                },
+                "headings-small-color": {
+                    "type": "color",
+                    "value": "40041B"
+                },
+                "header-bg-color": {
+                    "type": "color",
+                    "value": "191615"
+                },
+                "page-header-color": {
+                    "type": "color",
+                    "value": "40041B"
+                },
+                "page-header-border-color": {
+                    "type": "color",
+                    "value": "40041B"
+                }
+            },
+            "navigation": {
+                "nav-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "nav-text-hover": {
+                    "type": "color",
+                    "value": "333333"
+                },
+                "dropdown-bg": {
+                    "type": "color",
+                    "value": "E7E7E7"
+                }
+            },
+            "toolbar": {
+                "toolbar-bg": {
+                    "type": "color",
+                    "value": "000000"
+                },
+                "toolbar-link-text-color": {
+                    "type": "color",
+                    "value": "999999"
+                },
+                "toolbar-link-text-color-hover": {
+                    "type": "color",
+                    "value": "666666"
+                },
+                "my-cart-bg": {
+                    "type": "color",
+                    "value": "6F062F"
+                },
+                "my-cart-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "my-text-hover": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "login-bg": {
+                    "type": "color",
+                    "value": "D1D1D1"
+                },
+                "login-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+            },
+            "carousel": {
+                "carousel-caption-color": {
+                    "type": "color",
+                    "value": "6f062f"
+                },
+                "carousel-control-color": {
+                    "type": "color",
+                    "value": "ffc859"
+                }
+            },
+            "product-grid": {
+                "product-brand-color": {
+                    "type": "color",
+                    "value": "191615"
+                },
+                "product-name-color": {
+                    "type": "color",
+                    "value": "424242"
+                },
+                "product-price-color": {
+                    "type": "color",
+                    "value": "191615"
+                },
+                "stock-text-color": {
+                    "type": "color",
+                    "value": "6F062F"
+                }
+            },
+            "panel": {
+                "panel-bg": {
+                    "type": "color",
+                    "value": "f2f2f2"
+                },
+                "panel-text-color": {
+                    "type": "color",
+                    "value": "333333"
+                }
+            },
+            "footer-color": {
+                "footer-bg-color": {
+                    "type": "color",
+                    "value": "191615"
+                },
+                "footer-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "footer-color-link": {
+                    "type": "color",
+                    "value": "f2f2f2"
+                },
+                "footer-header-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "footer-hr": {
+                    "type": "color",
+                    "value": "F2F2F2"
                 },
                 "footer-copy": {
                     "type": "color",
