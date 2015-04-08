@@ -75,12 +75,12 @@
 // Brand
 // -------------------------
 
-@brand-primary:									#6A4362;
-@brand-secondary:								#B3B3B3;
-@brand-success:         						#5CB85C;
-@brand-info:         		   					#3BA4C4;
-@brand-warning:     						    #F0AC4D;
-@brand-danger:     							    #D9534F;
+@brand-primary:									#6F062F;
+@brand-secondary:								#D1D1D1;
+@brand-success:         						#4CAE4C;
+@brand-info:         		   					#5BC0DE;
+@brand-warning:     						    #F0AD4E;
+@brand-danger:     							    #361312;
 
 // Gray
 // -------------------------
@@ -125,12 +125,12 @@
 
 // Text color on `<body>`
 // -------------------------
-@text-color:									#333333;
+@text-color:									#424242;
 
 // Link color
 // -------------------------
-@link-color:    		                        #6A4362;
-@link-hover-color:      						#44293E;
+@link-color:    		                        #6F062F;
+@link-hover-color:      						#6F062F;
 
 // Price color
 // -------------------------
@@ -167,14 +167,14 @@
 
 // Headings
 // -------------------------
-@headings-color:								#6a4362;
+@headings-color:								#40041B;
 @headings-font-family:							'Open Sans Condensed';
 @headings-font-weight:							700;
 @headings-line-height:							1.1;
-@headings-small-color:							#333333;
+@headings-small-color:							#40041B;
 
-@page-header-color:								#555555;
-@page-header-border-color:						#555555;
+@page-header-color:								#40041B;
+@page-header-border-color:						#40041B;
 
 
 
@@ -201,7 +201,7 @@
 // Header
 // ----------------------------------------------------------------------------------------------------
 
-@header-bg-color:								#ffffff;
+@header-bg-color:								#191615;
 @header-bg-pattern:								0 none;
 @header-bg-pattern-retina:						0 none;
 
@@ -211,7 +211,7 @@
 // Toolbar
 // ----------------------------------------------------------------------------------------------------
 
-@toolbar-bg:									#ffffff;
+@toolbar-bg:									#000000;
 
 // Default state
 @toolbar-link-bg-color:							0 none;
@@ -227,7 +227,7 @@
 // My Cart
 // ----------------------------------------------------------------------------------------------------
 
-@my-cart-bg:									#6A4362;
+@my-cart-bg:									#6F062F;
 @my-cart-bg-hover:								saturate(@my-cart-bg, 10%);
 @my-cart-text:									#ffffff;
 @my-cart-text-hover:							#;
@@ -239,7 +239,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 @login-color:									#ffffff;
-@login-bg:										#777777;
+@login-bg:										#D1D1D1;
 
 @login-hover-color:								@login-color;
 @login-hover-bg:								darken(@login-bg, 10%);
@@ -251,13 +251,13 @@
 
 // Default
 @nav-bg:										0 none;
-@nav-text:										#666666;
+@nav-text:										#ffffff;
 @nav-text-weight:								600;
 @nav-hr:										@gray-lighter;
 
 // Hover
 @nav-bg-hover:									0 none;
-@nav-text-hover:								#000000;
+@nav-text-hover:								#333333;
 @nav-text-hover-decoration: 					underline;
 
 // Dropdown
@@ -291,7 +291,7 @@
 // Logo
 // ----------------------------------------------------------------------------------------------------
 
-@logo-color:									#6a4362;
+@logo-color:									#ffffff;
 @logo-font-size:                                60px;
 @logo-font-weight:								600;
 @logo:                      		            "../images/store-logo-1x.png";
@@ -341,22 +341,22 @@
 
 // Primary Button
 // -------------------------
-@btn-primary-bg:								#6A4362;
-@btn-primary-border:							#6A4362;
+@btn-primary-bg:								#6F062F;
+@btn-primary-border:							#6F062F;
 @btn-primary-color:								#ffffff;
 
 
 // Secondary Button
 // -------------------------
-@btn-secondary-bg:								#B3B3B3;
-@btn-secondary-border:							#B3B3B3;
+@btn-secondary-bg:								#D1D1D1;
+@btn-secondary-border:							#D1D1D1;
 @btn-secondary-color:							#ffffff;
 
 
 // Cart Button
 // -------------------------
-@btn-cart-bg:									#6A4362;
-@btn-cart-border:								#6A4362;
+@btn-cart-bg:									#6F062F;
+@btn-cart-border:								#6F062F;
 @btn-cart-color:								#ffffff;
 
 
@@ -369,8 +369,8 @@
 
 // Add to Registry Button
 // -------------------------
-@btn-registry-bg:								#777777;
-@btn-registry-border:							#777777;
+@btn-registry-bg:								#D1D1D1;
+@btn-registry-border:							#D1D1D1;
 @btn-registry-color:							#ffffff;
 
 
@@ -399,12 +399,12 @@
 @input-border:                   				#ccc;
 
 // Border color for inputs on focus
-@input-border-focus:             				#f45b4f;
+@input-border-focus:             				#6f062f;
 
 // Placeholder text color
 @input-color-placeholder:        				lighten(@input-color, 40%); 
 
-@legend-color:                   				#6A4362;
+@legend-color:                   				#40041B;
 
 @legend-border-color:            				lighten(@legend-color, 60%); 
 
@@ -421,7 +421,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    				#ffffff;
+@dropdown-bg:                    				#E7E7E7;
 
 //** Dropdown menu `border-color`.
 @dropdown-border:                				rgba(0,0,0,.15);
@@ -463,11 +463,11 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								#333333;
+@breadcrumb-color:								darken(@breadcrumb-active-color, 13.5%);
 @breadcrumb-bg:									none;
 
 // Active
-@breadcrumb-active-color:						lighten(@breadcrumb-color, 16.7%);
+@breadcrumb-active-color:						#bbbbbb;
 @breadcrumb-active-bg:							none;
 
 // Hover
@@ -526,7 +526,7 @@
 @product-bg-color:								none;	
 
 // Brand
-@product-brand-color: 							#6A4362;
+@product-brand-color: 							#191615;
 @product-brand-font-family:						@font-family-lucida;
 @product-brand-font-size:						13px;
 @product-brand-font-style:						normal;
@@ -534,7 +534,7 @@
 @product-brand-text-transform:					none;
 
 // Product Name
-@product-name-color: 							#777777;
+@product-name-color: 							#424242;
 @product-name-font-family:						@font-family-lucida;
 @product-name-font-size:						14px;
 @product-name-font-style:						normal;
@@ -542,7 +542,7 @@
 @product-name-text-transform:					none;
 
 // Price
-@product-price-color: 							#6A4362;
+@product-price-color: 							#191615;
 @product-price-font-family:						@font-family-lucida;
 @product-price-font-size:						14px;
 @product-price-font-style:						normal;
@@ -656,8 +656,8 @@
 // 
 // Panels
 // ----------------------------------------------------------------------------------------------------
-@panel-bg:										#535353;
-@panel-text-color:								#9B9B9B;
+@panel-bg:										#f2f2f2;
+@panel-text-color:								#333333;
 @panel-body-padding:							10px;
 @panel-border-radius:							0px;
 @panel-inner-border:                            #ffffff;
@@ -722,12 +722,12 @@
 
 @footer-bg-image:								"../images/bg-pattern-footer-1x.png";
 @footer-bg-image-retina:						"../images/bg-pattern-footer-2x.png";
-@footer-bg-color:								#222222;
-@footer-color:									#999999;
-@footer-color-link:								#ffffff;
+@footer-bg-color:								#191615;
+@footer-color:									#ffffff;
+@footer-color-link:								#f2f2f2;
 @footer-color-link-hover:						@brand-primary;
 @footer-header-text:							#ffffff;
-@footer-hr:										#999999;
+@footer-hr:										#F2F2F2;
 @footer-copy:									#FAF6F0;
 
 
@@ -754,7 +754,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Captions
-@carousel-caption-color:                        #6A4362;
+@carousel-caption-color:                        #6f062f;
 @carousel-text-shadow:                            0 none;
 
 // Controls

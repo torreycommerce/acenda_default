@@ -468,11 +468,11 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								#{{ settings.current["colors"]["content"]["breadcrumb-color"]["value"] }};
+@breadcrumb-color:								darken(@breadcrumb-active-color, 13.5%);
 @breadcrumb-bg:									none;
 
 // Active
-@breadcrumb-active-color:						lighten(@breadcrumb-color, 16.7%);
+@breadcrumb-active-color:						#{{ settings.current["colors"]["content"]["breadcrumb-active-color"]["value"] }};
 @breadcrumb-active-bg:							none;
 
 // Hover

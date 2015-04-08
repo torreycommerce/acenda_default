@@ -4,27 +4,27 @@
             "brand": {
                 "brand-primary": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "brand-secondary": {
                     "type": "color",
-                    "value": "B3B3B3"
+                    "value": "D1D1D1"
                 },
                 "brand-success": {
                     "type": "color",
-                    "value": "5CB85C"
+                    "value": "4CAE4C"
                 },
                 "brand-info": {
                     "type": "color",
-                    "value": "3BA4C4"
+                    "value": "5BC0DE"
                 },
                 "brand-warning": {
                     "type": "color",
-                    "value": "F0AC4D"
+                    "value": "F0AD4E"
                 },
                 "brand-danger": {
                     "type": "color",
-                    "value": "D9534F"
+                    "value": "361312"
                 }
             },
             "background": {
@@ -36,33 +36,33 @@
             "content": {
                 "logo-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "ffffff"
                 },
                 "text-color": {
                     "type": "color",
-                    "value": "333333"
+                    "value": "424242"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "44293E"
+                    "value": "6F062F"
                 },
-                "breadcrumb-color": {
+                "breadcrumb-active-color": {
                     "type": "color",
-                    "value": "333333"
+                    "value": "bbbbbb"
                 }
             },
             "buttons": {
                 "btn-primary-bg": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "btn-primary-border": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "btn-primary-color": {
                     "type": "color",
@@ -70,11 +70,11 @@
                 },
                 "btn-secondary-bg": {
                     "type": "color",
-                    "value": "B3B3B3"
+                    "value": "D1D1D1"
                 },
                 "btn-secondary-border": {
                     "type": "color",
-                    "value": "B3B3B3"
+                    "value": "D1D1D1"
                 },
                 "btn-secondary-color": {
                     "type": "color",
@@ -82,11 +82,11 @@
                 },
                 "btn-cart-bg": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "btn-cart-border": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "btn-cart-color": {
                     "type": "color",
@@ -94,11 +94,11 @@
                 },
                 "btn-registry-bg": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "D1D1D1"
                 },
                 "btn-registry-border": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "D1D1D1"
                 },
                 "btn-registry-color": {
                     "type": "color",
@@ -120,53 +120,53 @@
                 },
                 "input-border-focus": {
                     "type": "color",
-                    "value": "f45b4f"
+                    "value": "6f062f"
                 },
                 "legend-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "40041B"
                 }
             },
             "headers": {
                 "headings-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "40041B"
                 },
                 "headings-small-color": {
                     "type": "color",
-                    "value": "333333"
+                    "value": "40041B"
                 },
                 "header-bg-color": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "191615"
                 },
                 "page-header-color": {
                     "type": "color",
-                    "value": "555555"
+                    "value": "40041B"
                 },
                 "page-header-border-color": {
                     "type": "color",
-                    "value": "555555"
+                    "value": "40041B"
                 }
             },
             "navigation": {
                 "nav-text": {
                     "type": "color",
-                    "value": "666666"
+                    "value": "ffffff"
                 },
                 "nav-text-hover": {
                     "type": "color",
-                    "value": "000000"
+                    "value": "333333"
                 },
                 "dropdown-bg": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "E7E7E7"
                 }
             },
             "toolbar": {
                 "toolbar-bg": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "000000"
                 },
                 "toolbar-link-text-color": {
                     "type": "color",
@@ -178,7 +178,7 @@
                 },
                 "my-cart-bg": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6F062F"
                 },
                 "my-cart-text": {
                     "type": "color",
@@ -190,7 +190,7 @@
                 },
                 "login-bg": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "D1D1D1"
                 },
                 "login-color": {
                     "type": "color",
@@ -200,7 +200,7 @@
             "carousel": {
                 "carousel-caption-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "6f062f"
                 },
                 "carousel-control-color": {
                     "type": "color",
@@ -210,15 +210,15 @@
             "product-grid": {
                 "product-brand-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "191615"
                 },
                 "product-name-color": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "424242"
                 },
                 "product-price-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "191615"
                 },
                 "stock-text-color": {
                     "type": "color",
@@ -228,25 +228,25 @@
             "panel": {
                 "panel-bg": {
                     "type": "color",
-                    "value": "535353"
+                    "value": "f2f2f2"
                 },
                 "panel-text-color": {
                     "type": "color",
-                    "value": "9B9B9B"
+                    "value": "333333"
                 }
             },
             "footer-color": {
                 "footer-bg-color": {
                     "type": "color",
-                    "value": "222222"
+                    "value": "191615"
                 },
                 "footer-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "ffffff"
                 },
                 "footer-color-link": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "f2f2f2"
                 },
                 "footer-header-text": {
                     "type": "color",
@@ -254,7 +254,7 @@
                 },
                 "footer-hr": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "F2F2F2"
                 },
                 "footer-copy": {
                     "type": "color",
@@ -362,9 +362,9 @@
                     "type": "color",
                     "value": "44293E"
                 },
-                "breadcrumb-color": {
+                "breadcrumb-active-color": {
                     "type": "color",
-                    "value": "333333"
+                    "value": "000"
                 }
             },
             "buttons": {
@@ -622,7 +622,7 @@
                     "type": "color",
                     "value": "bbbbbb"
                 },
-                "breadcrumb-color": {
+                "breadcrumb-active-color": {
                     "type": "color",
                     "value": "bbbbbb"
                 }
@@ -886,7 +886,7 @@
                     "type": "color",
                     "value": "6F062F"
                 },
-                "breadcrumb-color": {
+                "breadcrumb-active-color": {
                     "type": "color",
                     "value": "bbbbbb"
                 }
