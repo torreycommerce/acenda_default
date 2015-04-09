@@ -147,19 +147,19 @@
 
 // Body text
 // -------------------------
-@font-family-sans-serif:						'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
-@font-family-serif:								Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:							Menlo, Monaco, Consolas, "Courier New", monospace; // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-lucida:							Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif;
+@font-family-sans-serif:						{{ settings.current["typography"]["base_styles"]["base-typeface"]["value"] }};
+@font-family-serif:								@font-family-sans-serif;
+@font-family-monospace:							@font-family-sans-serif;
+@font-family-lucida:							{{ settings.current["typography"]["h1_heading_styles"]["heading-typeface"]["value"] }};
 @line-height-base:								1.428571429; // 20/14
 
-@font-size-base:								14px;
+@font-size-base:								{{ settings.current["typography"]["base_styles"]["font-size-base"]["value"] }};
 @font-size-large:         						18px; {# ceil((@font-size-base * 1.25)); // ~18px#}
 @font-size-small:         						13px; {# ceil((@font-size-base * 0.85)); // ~12px#}
 
-@font-size-h1:									36px; {# ceil((@font-size-base * 2.55));	// ~36px#}
-@font-size-h2:									26px; {# ceil((@font-size-base * 1.85));	// ~26px#}
-@font-size-h3:									22px; {# ceil((@font-size-base * 1.55));	// ~22px#}
+@font-size-h1:									{{ settings.current["typography"]["h1_heading_styles"]["font-size-h1"]["value"] }};
+@font-size-h2:									{{ settings.current["typography"]["h2_heading_styles"]["font-size-h2"]["value"] }};
+@font-size-h3:									{{ settings.current["typography"]["h3_heading_styles"]["font-size-h3"]["value"] }};
 @font-size-h4:									18px; {# ceil((@font-size-base * 1.25));	// ~18px#}
 @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
@@ -173,8 +173,8 @@
 // Headings
 // -------------------------
 @headings-color:								#{{ settings.current["colors"]["headers"]["headings-color"]["value"] }};
-@headings-font-family:							'Open Sans Condensed';
-@headings-font-weight:							700;
+@headings-font-family:							{{ settings.current["typography"]["h1_heading_styles"]["heading-typeface"]["value"] }};
+@headings-font-weight:							{{ settings.current["typography"]["h1_heading_styles"]["headings-font-weight"]["value"] }};
 @headings-line-height:							1.1;
 @headings-small-color:							#{{ settings.current["colors"]["headers"]["headings-small-color"]["value"] }};
 
@@ -297,8 +297,9 @@
 // ----------------------------------------------------------------------------------------------------
 
 @logo-color:									#{{ settings.current["colors"]["content"]["logo-color"]["value"] }};
-@logo-font-size:                                60px;
-@logo-font-weight:								600;
+@logo-font-style:								{{ settings.current["typography"]["logo_styles"]["logo-typeface"]["value"] }};
+@logo-font-size:                                {{ settings.current["typography"]["logo_styles"]["logo-font-size"]["value"] }};
+@logo-font-weight:								{{ settings.current["typography"]["base_styles"]["logo-font-weight"]["value"] }};
 @logo:                      		            "../images/store-logo-1x.png";
 @logo-retina:                       		    "../images/store-logo-2x.png";
 
@@ -532,31 +533,31 @@
 
 // Brand
 @product-brand-color: 							#{{ settings.current["colors"]["product-grid"]["product-brand-color"]["value"] }};
-@product-brand-font-family:						@font-family-lucida;
-@product-brand-font-size:						13px;
+@product-brand-font-family:						{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
+@product-brand-font-size:						{{ settings.current["typography"]["product-text-styles"]["product-brand-font-size"]["value"] }};
 @product-brand-font-style:						normal;
 @product-brand-font-weight:						600;
 @product-brand-text-transform:					none;
 
 // Product Name
 @product-name-color: 							#{{ settings.current["colors"]["product-grid"]["product-name-color"]["value"] }};
-@product-name-font-family:						@font-family-lucida;
-@product-name-font-size:						14px;
+@product-name-font-family:						{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
+@product-name-font-size:						{{ settings.current["typography"]["product-text-styles"]["product-name-font-size"]["value"] }};
 @product-name-font-style:						normal;
 @product-name-font-weight:						400;
 @product-name-text-transform:					none;
 
 // Price
 @product-price-color: 							#{{ settings.current["colors"]["product-grid"]["product-price-color"]["value"] }};
-@product-price-font-family:						@font-family-lucida;
-@product-price-font-size:						14px;
+@product-price-font-family:						{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
+@product-price-font-size:						{{ settings.current["typography"]["product-text-styles"]["product-price-font-size"]["value"] }};
 @product-price-font-style:						normal;
 @product-price-font-weight:						600;
 @product-price-text-transform:					none;
 
 // Price Per Month
 @product-price-per-month-color:					lighten(@product-name-color, 10%);
-@product-price-per-month-font-family:			@font-family-lucida;
+@product-price-per-month-font-family:			{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
 @product-price-per-month-font-size:				14px;
 @product-price-per-month-font-style:			normal;
 @product-price-per-month-font-weight:			400;
@@ -564,7 +565,7 @@
 
 // Price Range
 @product-price-range-color:						lighten(@product-name-color, 10%);
-@product-price-range-font-family:				@font-family-lucida;
+@product-price-range-font-family:				{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
 @product-price-range-font-size:					14px;
 @product-price-range-font-style:				normal;
 @product-price-range-font-weight:				400;
@@ -572,7 +573,7 @@
 
 // Price Regular
 @product-price-regular-color:					lighten(@product-name-color, 10%);
-@product-price-regular-font-family:				@font-family-lucida;
+@product-price-regular-font-family:				{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
 @product-price-regular-font-size:				12px;
 @product-price-regular-font-style:				normal;
 @product-price-regular-font-weight:				400;
@@ -580,7 +581,7 @@
 
 // Price Percent
 @product-price-percent-color:					lighten(@product-name-color, 10%);
-@product-price-percent-font-family:				@font-family-lucida;
+@product-price-percent-font-family:				{{ settings.current["typography"]["product-text-styles"]["product-text-typeface"]["value"] }};
 @product-price-percent-font-size:				12px;
 @product-price-percent-font-style:				normal;
 @product-price-percent-font-weight:				400;

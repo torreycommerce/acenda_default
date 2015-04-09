@@ -148,15 +148,18 @@
 
 // Body text
 // -------------------------
-@font-family-sans-serif:						'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
-@font-family-serif:								Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:							Menlo, Monaco, Consolas, "Courier New", monospace; // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-lucida:							Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif;
+@font-family-sans-serif:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
+@font-family-serif:								@font-family-sans-serif;
+@font-family-monospace:							@font-family-sans-serif;
+@font-family-lucida:							Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
 @line-height-base:								1.428571429; // 20/14
 
 @font-size-base:								14px;
 @font-size-large:         						18px; @font-size-small:         						13px; 
-@font-size-h1:									36px; @font-size-h2:									26px; @font-size-h3:									22px; @font-size-h4:									18px; @font-size-h5:									@font-size-base;				// ~15px
+@font-size-h1:									38px;
+@font-size-h2:									28px;
+@font-size-h3:									18px;
+@font-size-h4:									18px; @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
 
 // Unit-less `line-height` for use in components like buttons.
@@ -168,8 +171,8 @@
 // Headings
 // -------------------------
 @headings-color:								#40041B;
-@headings-font-family:							'Open Sans Condensed';
-@headings-font-weight:							700;
+@headings-font-family:							Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
+@headings-font-weight:							;
 @headings-line-height:							1.1;
 @headings-small-color:							#40041B;
 
@@ -292,8 +295,9 @@
 // ----------------------------------------------------------------------------------------------------
 
 @logo-color:									#ffffff;
+@logo-font-style:								Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @logo-font-size:                                60px;
-@logo-font-weight:								600;
+@logo-font-weight:								;
 @logo:                      		            "../images/store-logo-1x.png";
 @logo-retina:                       		    "../images/store-logo-2x.png";
 
@@ -527,7 +531,7 @@
 
 // Brand
 @product-brand-color: 							#191615;
-@product-brand-font-family:						@font-family-lucida;
+@product-brand-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-brand-font-size:						13px;
 @product-brand-font-style:						normal;
 @product-brand-font-weight:						600;
@@ -535,7 +539,7 @@
 
 // Product Name
 @product-name-color: 							#424242;
-@product-name-font-family:						@font-family-lucida;
+@product-name-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-name-font-size:						14px;
 @product-name-font-style:						normal;
 @product-name-font-weight:						400;
@@ -543,15 +547,15 @@
 
 // Price
 @product-price-color: 							#191615;
-@product-price-font-family:						@font-family-lucida;
-@product-price-font-size:						14px;
+@product-price-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
+@product-price-font-size:						13px;
 @product-price-font-style:						normal;
 @product-price-font-weight:						600;
 @product-price-text-transform:					none;
 
 // Price Per Month
 @product-price-per-month-color:					lighten(@product-name-color, 10%);
-@product-price-per-month-font-family:			@font-family-lucida;
+@product-price-per-month-font-family:			Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-per-month-font-size:				14px;
 @product-price-per-month-font-style:			normal;
 @product-price-per-month-font-weight:			400;
@@ -559,7 +563,7 @@
 
 // Price Range
 @product-price-range-color:						lighten(@product-name-color, 10%);
-@product-price-range-font-family:				@font-family-lucida;
+@product-price-range-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-range-font-size:					14px;
 @product-price-range-font-style:				normal;
 @product-price-range-font-weight:				400;
@@ -567,7 +571,7 @@
 
 // Price Regular
 @product-price-regular-color:					lighten(@product-name-color, 10%);
-@product-price-regular-font-family:				@font-family-lucida;
+@product-price-regular-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-regular-font-size:				12px;
 @product-price-regular-font-style:				normal;
 @product-price-regular-font-weight:				400;
@@ -575,7 +579,7 @@
 
 // Price Percent
 @product-price-percent-color:					lighten(@product-name-color, 10%);
-@product-price-percent-font-family:				@font-family-lucida;
+@product-price-percent-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-percent-font-size:				12px;
 @product-price-percent-font-style:				normal;
 @product-price-percent-font-weight:				400;
@@ -728,7 +732,7 @@
 @footer-color-link-hover:						@brand-primary;
 @footer-header-text:							#ffffff;
 @footer-hr:										#F2F2F2;
-@footer-copy:									#FAF6F0;
+@footer-copy:									#f2f2f2;
 
 
 // 

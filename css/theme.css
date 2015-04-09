@@ -265,7 +265,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #424242;
@@ -350,8 +350,8 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Open Sans Condensed';
-  font-weight: 700;
+  font-family: Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
+  font-weight: ;
   line-height: 1.1;
   color: #40041b;
 }
@@ -431,15 +431,15 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 38px;
 }
 h2,
 .h2 {
-  font-size: 26px;
+  font-size: 28px;
 }
 h3,
 .h3 {
-  font-size: 22px;
+  font-size: 18px;
 }
 h4,
 .h4 {
@@ -680,7 +680,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 }
 code {
   padding: 2px 4px;
@@ -6017,19 +6017,19 @@ h6,
 .h5,
 .h6 {
   color: #40041b;
-  font-family: 'Open Sans Condensed';
+  font-family: Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
   line-height: 1.1;
   font-style: normal;
   margin: 5px 0;
 }
 h1 {
-  font-size: 36px;
+  font-size: 38px;
 }
 h2 {
-  font-size: 26px;
+  font-size: 28px;
 }
 h3 {
-  font-size: 22px;
+  font-size: 18px;
 }
 h4 {
   font-size: 18px;
@@ -6580,8 +6580,9 @@ section#branding .brand #logo-img a span {
   visibility: hidden;
 }
 section#branding .brand #logo-txt {
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   text-align: center;
-  font-weight: 600;
+  font-weight: ;
   text-transform: uppercase;
 }
 section#branding .brand #logo-txt a {
@@ -6901,7 +6902,7 @@ header#main {
 }
 .product-grid .product header .brand {
   color: #191615;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
@@ -6910,7 +6911,7 @@ header#main {
 }
 .product-grid .product header .product-name {
   color: #424242;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -6920,8 +6921,8 @@ header#main {
 }
 .product-grid .product .pricing .price {
   color: #191615;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
-  font-size: 14px;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
+  font-size: 13px;
   font-style: normal;
   font-weight: 600;
   text-transform: none;
@@ -6933,7 +6934,7 @@ header#main {
 }
 .product-grid .product .pricing .price-per-month {
   color: #5c5c5c;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -6942,7 +6943,7 @@ header#main {
 }
 .product-grid .product .pricing .price-range {
   color: #5c5c5c;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -6951,7 +6952,7 @@ header#main {
 }
 .product-grid .product .pricing .price-regular {
   color: #5c5c5c;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -6960,7 +6961,7 @@ header#main {
 }
 .product-grid .product .pricing .percent {
   color: #5c5c5c;
-  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana, sans-serif;
+  font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
