@@ -75,20 +75,20 @@
 // Brand
 // -------------------------
 
-@brand-primary:									#ba20ba;
-@brand-secondary:								#B3B3B3;
-@brand-success:         						#5CB85C;
-@brand-info:         		   					#3BA4C4;
-@brand-warning:     						    #F0AC4D;
-@brand-danger:     							    #D9534F;
+@brand-primary:									#6F062F;
+@brand-secondary:								#D1D1D1;
+@brand-success:         						#4CAE4C;
+@brand-info:         		   					#5BC0DE;
+@brand-warning:     						    #F0AD4E;
+@brand-danger:     							    #361312;
 
 // Gray
 // -------------------------
 @gray-darker:									lighten(#000, 13.5%);
-@gray-dark:										lighten(#000, 20%);   // #333
-@gray:											lighten(#000, 33.5%); // #555
-@gray-light:									lighten(#000, 60%);   // #999
-@gray-lighter:									lighten(#000, 93.5%); // #eee
+@gray-dark:										lighten(#000, 20%);  
+@gray:											lighten(#000, 33.5%);
+@gray-light:									lighten(#000, 60%);   
+@gray-lighter:									lighten(#000, 93.5%); 
 
 // Feedback states
 // -------------------------
@@ -118,23 +118,23 @@
 
 // Background color for `<body>`
 // -------------------------
-@body-bg:					                    #FFFFFF;
+@body-bg:					                    #ffffff;
 @shop-bg-image:									0 none;
 @shop-bg-image-retina:							0 none;
 // -------------------------
 
 // Text color on `<body>`
 // -------------------------
-@text-color:									#333333;
+@text-color:									#424242;
 
 // Link color
 // -------------------------
-@link-color:    		                        @brand-primary;
-@link-hover-color:      						darken(@link-color, 15%);
+@link-color:    		                        #6F062F;
+@link-hover-color:      						#6F062F;
 
 // Price color
 // -------------------------
-@price-color:                         			#b2246b;
+@price-color:                         			#44293E;
 
 // Hr
 // -------------------------
@@ -148,15 +148,18 @@
 
 // Body text
 // -------------------------
-@font-family-sans-serif:						'Open Sans', "Helvetica Neue", helvetica, arial, sans-serif;
-@font-family-serif:								Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:							Menlo, Monaco, Consolas, "Courier New", monospace; // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-lucida:							Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Verdana,sans-serif;
+@font-family-sans-serif:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
+@font-family-serif:								@font-family-sans-serif;
+@font-family-monospace:							@font-family-sans-serif;
+@font-family-lucida:							Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
 @line-height-base:								1.428571429; // 20/14
 
 @font-size-base:								14px;
 @font-size-large:         						18px; @font-size-small:         						13px; 
-@font-size-h1:									36px; @font-size-h2:									26px; @font-size-h3:									22px; @font-size-h4:									18px; @font-size-h5:									@font-size-base;				// ~15px
+@font-size-h1:									38px;
+@font-size-h2:									28px;
+@font-size-h3:									18px;
+@font-size-h4:									18px; @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
 
 // Unit-less `line-height` for use in components like buttons.
@@ -167,14 +170,14 @@
 
 // Headings
 // -------------------------
-@headings-color:								;
-@headings-font-family:							'Open Sans Condensed';
-@headings-font-weight:							700;
+@headings-color:								#40041B;
+@headings-font-family:							Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;
+@headings-font-weight:							;
 @headings-line-height:							1.1;
-@headings-small-color:							#333333;
+@headings-small-color:							#40041B;
 
-@page-header-color:								@gray;
-@page-header-border-color:						#EEEEEE;
+@page-header-color:								#40041B;
+@page-header-border-color:						#40041B;
 
 
 
@@ -201,7 +204,7 @@
 // Header
 // ----------------------------------------------------------------------------------------------------
 
-@header-bg-color:								#ffffff;
+@header-bg-color:								#191615;
 @header-bg-pattern:								0 none;
 @header-bg-pattern-retina:						0 none;
 
@@ -211,7 +214,7 @@
 // Toolbar
 // ----------------------------------------------------------------------------------------------------
 
-@toolbar-bg:									#ffffff;
+@toolbar-bg:									#000000;
 
 // Default state
 @toolbar-link-bg-color:							0 none;
@@ -227,10 +230,10 @@
 // My Cart
 // ----------------------------------------------------------------------------------------------------
 
-@my-cart-bg:									@brand-primary;
+@my-cart-bg:									#6F062F;
 @my-cart-bg-hover:								saturate(@my-cart-bg, 10%);
 @my-cart-text:									#ffffff;
-@my-cart-text-hover:							#ffffff;
+@my-cart-text-hover:							#;
 
 
 
@@ -239,9 +242,9 @@
 // ----------------------------------------------------------------------------------------------------
 
 @login-color:									#ffffff;
-@login-bg:										@gray;
+@login-bg:										#D1D1D1;
 
-@login-hover-color:								#ffffff;
+@login-hover-color:								@login-color;
 @login-hover-bg:								darken(@login-bg, 10%);
 
 
@@ -251,13 +254,13 @@
 
 // Default
 @nav-bg:										0 none;
-@nav-text:										#666666;
+@nav-text:										#ffffff;
 @nav-text-weight:								600;
 @nav-hr:										@gray-lighter;
 
 // Hover
 @nav-bg-hover:									0 none;
-@nav-text-hover:								#000000;
+@nav-text-hover:								#333333;
 @nav-text-hover-decoration: 					underline;
 
 // Dropdown
@@ -278,8 +281,8 @@
 @nav-tabs-link-hover-border-color:				@gray-lighter;
 
 // Active
-@nav-tabs-active-link-hover-bg:					@body-bg;
-@nav-tabs-active-link-hover-color:				@gray;
+@nav-tabs-active-link-hover-bg:					@panel-bg;
+@nav-tabs-active-link-hover-color:				@panel-text-color;
 @nav-tabs-active-link-hover-border-color:		@gray-lighter;
 
 @nav-tabs-justified-link-border-color:			#ddd;
@@ -291,14 +294,15 @@
 // Logo
 // ----------------------------------------------------------------------------------------------------
 
-@logo-color:									#333333;
+@logo-color:									#ffffff;
+@logo-font-style:								Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @logo-font-size:                                60px;
-@logo-font-weight:								600;
+@logo-font-weight:								;
 @logo:                      		            "../images/store-logo-1x.png";
 @logo-retina:                       		    "../images/store-logo-2x.png";
 
 // Hover
-@logo-color-hover: 								saturate(@logo-color, 20%);
+@logo-color-hover: 								#555555;
 @logo-color-text-decoration-hover: 				underline;
 
 
@@ -341,44 +345,44 @@
 
 // Primary Button
 // -------------------------
-@btn-primary-bg:								@brand-primary;
-@btn-primary-border:							@brand-primary;
+@btn-primary-bg:								#6F062F;
+@btn-primary-border:							#6F062F;
 @btn-primary-color:								#ffffff;
 
 
 // Secondary Button
 // -------------------------
-@btn-secondary-bg:								@brand-secondary;
-@btn-secondary-border:							@brand-secondary;
+@btn-secondary-bg:								#D1D1D1;
+@btn-secondary-border:							#D1D1D1;
 @btn-secondary-color:							#ffffff;
 
 
 // Cart Button
 // -------------------------
-@btn-cart-bg:									@brand-primary;
-@btn-cart-border:								@brand-primary;
+@btn-cart-bg:									#6F062F;
+@btn-cart-border:								#6F062F;
 @btn-cart-color:								#ffffff;
 
 
 // Checkout Button
 // -------------------------
-@btn-checkout-bg:								@brand-primary;
-@btn-checkout-border:							@brand-primary;
-@btn-checkout-color:							#ffffff;
+@btn-checkout-bg:								@btn-cart-bg;
+@btn-checkout-border:							@btn-cart-border;
+@btn-checkout-color:							@btn-cart-color;
 
 
 // Add to Registry Button
 // -------------------------
-@btn-registry-bg:								@gray-light;
-@btn-registry-border:							@gray-light;
+@btn-registry-bg:								#D1D1D1;
+@btn-registry-border:							#D1D1D1;
 @btn-registry-color:							#ffffff;
 
 
 // Add to Wishlist Button
 // -------------------------
-@btn-wishlist-bg:								@gray-light;
-@btn-wishlist-border:							@gray-light;
-@btn-wishlist-color:							#ffffff;
+@btn-wishlist-bg:								@btn-registry-bg;
+@btn-wishlist-border:							@btn-registry-border;
+@btn-wishlist-color:							@btn-registry-color;
 
 
 
@@ -387,29 +391,29 @@
 // ----------------------------------------------------------------------------------------------------
 
 // `<input>` background color
-@input-bg: 										#fff;
+@input-bg: 										#ffffff;
 
 // `<input disabled>` background color
-@input-bg-disabled:								@gray-lighter;
+@input-bg-disabled:								lighten(@input-color, 93.5%); 
 
 // Text color for `<input>`s
-@input-color:                    				@gray;
+@input-color:                    				#555555;
 
 // `<input>` border color
 @input-border:                   				#ccc;
 
 // Border color for inputs on focus
-@input-border-focus:             				#f45b4f;
+@input-border-focus:             				#6f062f;
 
 // Placeholder text color
-@input-color-placeholder:        				@gray-light;
+@input-color-placeholder:        				lighten(@input-color, 40%); 
 
-@legend-color:                   				@gray-dark;
+@legend-color:                   				#40041B;
 
-@legend-border-color:            				#e5e5e5;
+@legend-border-color:            				lighten(@legend-color, 60%); 
 
 // Background color for textual input addons
-@input-group-addon-bg:           				@gray-lighter;
+@input-group-addon-bg:           				lighten(@legend-color, 50%); 
 
 // Border color for textual input addons
 @input-group-addon-border-color: 				@input-border;
@@ -421,7 +425,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    				#fff;
+@dropdown-bg:                    				#E7E7E7;
 
 //** Dropdown menu `border-color`.
 @dropdown-border:                				rgba(0,0,0,.15);
@@ -463,16 +467,16 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Default
-@breadcrumb-color:								@gray;
-@breadcrumb-bg:									#ffffff;
+@breadcrumb-color:								darken(@breadcrumb-active-color, 13.5%);
+@breadcrumb-bg:									none;
 
 // Active
-@breadcrumb-active-color:						@gray-light;
-@breadcrumb-active-bg:							#ffffff;
+@breadcrumb-active-color:						#bbbbbb;
+@breadcrumb-active-bg:							none;
 
 // Hover
-@breadcrumb-color-hover:						@gray-darker;
-@breadcrumb-bg-hover:							#ffffff;
+@breadcrumb-color-hover:						lighten(@breadcrumb-color, 13.5%);
+@breadcrumb-bg-hover:							none;
 
 
 
@@ -526,32 +530,32 @@
 @product-bg-color:								none;	
 
 // Brand
-@product-brand-color: 							#6A4362;
-@product-brand-font-family:						@font-family-lucida;
+@product-brand-color: 							#191615;
+@product-brand-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-brand-font-size:						13px;
 @product-brand-font-style:						normal;
 @product-brand-font-weight:						600;
 @product-brand-text-transform:					none;
 
 // Product Name
-@product-name-color: 							#777777;
-@product-name-font-family:						@font-family-lucida;
+@product-name-color: 							#424242;
+@product-name-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-name-font-size:						14px;
 @product-name-font-style:						normal;
 @product-name-font-weight:						400;
 @product-name-text-transform:					none;
 
 // Price
-@product-price-color: 							@brand-primary;
-@product-price-font-family:						@font-family-lucida;
-@product-price-font-size:						14px;
+@product-price-color: 							#191615;
+@product-price-font-family:						Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
+@product-price-font-size:						13px;
 @product-price-font-style:						normal;
 @product-price-font-weight:						600;
 @product-price-text-transform:					none;
 
 // Price Per Month
 @product-price-per-month-color:					lighten(@product-name-color, 10%);
-@product-price-per-month-font-family:			@font-family-lucida;
+@product-price-per-month-font-family:			Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-per-month-font-size:				14px;
 @product-price-per-month-font-style:			normal;
 @product-price-per-month-font-weight:			400;
@@ -559,7 +563,7 @@
 
 // Price Range
 @product-price-range-color:						lighten(@product-name-color, 10%);
-@product-price-range-font-family:				@font-family-lucida;
+@product-price-range-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-range-font-size:					14px;
 @product-price-range-font-style:				normal;
 @product-price-range-font-weight:				400;
@@ -567,7 +571,7 @@
 
 // Price Regular
 @product-price-regular-color:					lighten(@product-name-color, 10%);
-@product-price-regular-font-family:				@font-family-lucida;
+@product-price-regular-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-regular-font-size:				12px;
 @product-price-regular-font-style:				normal;
 @product-price-regular-font-weight:				400;
@@ -575,12 +579,14 @@
 
 // Price Percent
 @product-price-percent-color:					lighten(@product-name-color, 10%);
-@product-price-percent-font-family:				@font-family-lucida;
+@product-price-percent-font-family:				Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
 @product-price-percent-font-size:				12px;
 @product-price-percent-font-style:				normal;
 @product-price-percent-font-weight:				400;
 @product-price-percent-text-transform:			none;
 
+// Price Stock
+@stock-text-color:								#6F062F;
 
 
 // 
@@ -654,11 +660,12 @@
 // 
 // Panels
 // ----------------------------------------------------------------------------------------------------
-@panel-bg:										#ffffff;
+@panel-bg:										#f2f2f2;
+@panel-text-color:								#333333;
 @panel-body-padding:							10px;
 @panel-border-radius:							0px;
-@panel-inner-border:                            #ffffff ;
-@panel-footer-bg:                               darken(#fff , 3%);
+@panel-inner-border:                            #ffffff;
+@panel-footer-bg:                               darken(#fff , 50%);
 
 
 // Default
@@ -719,13 +726,13 @@
 
 @footer-bg-image:								"../images/bg-pattern-footer-1x.png";
 @footer-bg-image-retina:						"../images/bg-pattern-footer-2x.png";
-@footer-bg-color:								#222222;
-@footer-color:									@gray-light;
-@footer-color-link:								#ffffff;
+@footer-bg-color:								#191615;
+@footer-color:									#ffffff;
+@footer-color-link:								#f2f2f2;
 @footer-color-link-hover:						@brand-primary;
 @footer-header-text:							#ffffff;
-@footer-hr:										@gray;
-@footer-copy:									#FAF6F0;
+@footer-hr:										#F2F2F2;
+@footer-copy:									#f2f2f2;
 
 
 // 
@@ -751,7 +758,7 @@
 // ----------------------------------------------------------------------------------------------------
 
 // Captions
-@carousel-caption-color:                         @brand-primary;
+@carousel-caption-color:                        #6f062f;
 @carousel-text-shadow:                            0 none;
 
 // Controls
