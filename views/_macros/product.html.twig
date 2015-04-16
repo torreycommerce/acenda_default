@@ -17,6 +17,12 @@
                         {% set img_url = variant.thumbnail %}
                 {% endfor %}
             {% endif %}
+
+	    {% set secure =  app.url_asset | slice(0,5)  %}
+	    {% if secure == 'https' %}
+		{% set img_url = img_url | replace({'http:':'https:'}) %}
+            {% endif %}
+
             {# Begin product image #}               
             <div class="image">
                 <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
