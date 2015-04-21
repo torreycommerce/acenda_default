@@ -6427,13 +6427,13 @@ nav#nav-desktop-main ul li:hover a span.caret {
   border: 0 none;
 }
 .navigation .navbar .sidebar {
-  background-color: #ffffff;
+  background-color: #ffffff ;
   -moz-box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
   box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
 }
 .navigation .navbar .sidebar .nav > li > a {
-  background-color: #ffffff;
+  background-color: #ffffff ;
   color: #6a4362;
   text-align: center;
 }
@@ -6441,11 +6441,11 @@ nav#nav-desktop-main ul li:hover a span.caret {
 .navigation .navbar .sidebar .nav > li > a:focus,
 .navigation .navbar .sidebar .nav > li > a:hover {
   background-color: #6a4362;
-  color: #ffffff;
+  color: #ffffff ;
 }
 .navigation .navbar .sidebar .nav > li.active > a {
   background-color: #6a4362;
-  color: #ffffff;
+  color: #ffffff ;
 }
 .nav-tabs {
   margin-top: 10px;
@@ -6563,11 +6563,11 @@ a.thumbnail.active {
   padding-bottom: 10px;
   background-position: top center;
   background-repeat: repeat;
-  background-image: url("../bootstrap/0 none");
+  background-image: url("0 none");
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   #content {
-    background-image: url("../bootstrap/0 none");
+    background-image: url("0 none");
     background-size: 100px 100px;
   }
 }
@@ -6855,13 +6855,13 @@ footer#main ul.copyright li {
 }
 header#main {
   background-color: #ffffff;
-  background-image: url("../bootstrap/0 none");
+  background-image: url("0 none");
   background-position: top center;
   background-repeat: repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
   header#main {
-    background-image: url("../bootstrap/0 none");
+    background-image: url("0 none");
     background-size: 100px 100px;
   }
 }
@@ -7174,7 +7174,7 @@ section#toolbar ul li.cart a .item-count {
 section#toolbar .btn-group.my-account a {
   background-color: #b3b3b3;
   border-radius: 0;
-  color: #ffffff;
+  color: #ffffff ;
   font-size: 13px;
   padding: 8px 12px 8px 12px;
 }
@@ -7182,15 +7182,15 @@ section#toolbar .btn-group.my-account a i {
   padding-right: 10px;
 }
 section#toolbar .btn-group.my-account a span.caret {
-  border-top-color: #ffffff;
-  border-bottom-color: #ffffff;
+  border-top-color: #ffffff ;
+  border-bottom-color: #ffffff ;
   margin-left: 10px;
 }
 section#toolbar .btn-group.my-account a:active,
 section#toolbar .btn-group.my-account a:focus,
 section#toolbar .btn-group.my-account a:hover {
   background-color: #808080;
-  color: #ffffff;
+  color: #ffffff ;
 }
 section#toolbar .btn-group.my-account .dropdown-menu li {
   padding: 0;
