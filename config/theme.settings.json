@@ -31,7 +31,15 @@
                 "body-bg": {
                     "type": "color",
                     "value": "ffffff"
-                }
+                },
+                "header-bg-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "container-bg-color": {
+                    "type": "color",
+                    "value": "ffffff"
+                }                                    
             },
             "content": {
                 "logo-color": {
@@ -591,6 +599,18 @@
                 "body-bg": {
                     "type": "color",
                     "value": "ffffff"
+                },
+                "header-bg": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
+                "container-bg": {
+                    "type": "color",
+                    "value": "ffffff"
+                }
+                "footer-bg": {
+                    "type": "color",
+                    "value": "222222"
                 }
             },
             "content": {
