@@ -95,7 +95,7 @@ p {
 }
 .btn-primary {
   background-color: #6a4362;
-  border-color: #6a4362;
+  border-color: #{{ settings["colors"]["buttons"]["btn-primary-border"]["value"] }};
   color: #ffffff;
 }
 .btn-secondary {
@@ -609,7 +609,7 @@ section#branding .brand #logo-txt {
   text-transform: uppercase;
 }
 section#branding .brand #logo-txt a {
-  color: #6a4362;
+  color: #{{ settings["colors"]["content"]["logo-color"]["value"] }};
   font-size: 60px;
 }
 section#branding .brand #logo-txt a:active,
