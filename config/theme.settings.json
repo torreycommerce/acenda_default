@@ -247,7 +247,7 @@
                     "value": "9B9B9B"
                 }
             },
-            "footer-color": {
+            "footer": {
                 "footer-bg-color": {
                     "type": "color",
                     "value": "222222"
