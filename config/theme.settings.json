@@ -80,6 +80,18 @@
                     "type": "color",
                     "value": "ffffff"
                 },
+                "login-button-background": {
+                    "type": "color",
+                    "value": "6A4362"
+                },
+                "login-button-border": {
+                    "type": "color",
+                    "value": "6A4362"
+                },
+                "login-button-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
                 "btn-secondary-bg": {
                     "type": "color",
                     "value": "B3B3B3"
@@ -104,15 +116,15 @@
                     "type": "color",
                     "value": "ffffff"
                 },
-                "btn-registry-bg": {
+                "registry-wishlist-background": {
                     "type": "color",
                     "value": "777777"
                 },
-                "btn-registry-border": {
+                "registry-wishlist-border": {
                     "type": "color",
                     "value": "777777"
                 },
-                "btn-registry-color": {
+                "registry-wishlist-color": {
                     "type": "color",
                     "value": "ffffff"
                 }

@@ -186,9 +186,9 @@ fieldset[disabled] .btn-checkout.active {
   background-color: #ffffff;
 }
 .btn-registry {
-  color: #ffffff;
-  background-color: #777777;
-  border-color: #777777;
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-color"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["registry-wishlist-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["registry-wishlist-border"]["value"] }};
 }
 .btn-registry:hover,
 .btn-registry:focus,
@@ -227,9 +227,9 @@ fieldset[disabled] .btn-registry.active {
   background-color: #ffffff;
 }
 .btn-wishlist {
-  color: #ffffff;
-  background-color: #777777;
-  border-color: #777777;
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-color"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["registry-wishlist-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["registry-wishlist-border"]["value"] }};
 }
 .btn-wishlist:hover,
 .btn-wishlist:focus,
@@ -1124,8 +1124,9 @@ section#toolbar ul li a i {
   padding-right: 4px;
 }
 section#toolbar ul li.login a {
-  background-color: #777777;
-  color: #ffffff;
+  background-color: #{{ settings["colors"]["buttons"]["login-button-background"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
   padding: 8px 12px;
 }
 section#toolbar ul li.login a i {
