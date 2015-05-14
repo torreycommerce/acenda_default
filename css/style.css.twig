@@ -66,6 +66,17 @@ h6 {
 p {
   margin: 0 0 10px;
 }
+
+a{
+  color: #{{ settings["colors"]["content"]["link-color"]["value"] }};
+}
+
+a:visited,
+a:hover, 
+a:active {
+  color: #{{ settings["colors"]["content"]["link-hover-color"]["value"] }};
+}
+
 .page-header {
   color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
   margin-bottom: 10px;
@@ -2065,10 +2076,7 @@ section#toolbar .popover .cart-totals .total {
   margin-bottom: 0;
 }
 #product-details header {
-  border-bottom: 1px solid;
-  border-bottom-color: color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
-  opacity: 0.8;
-  filter: Alpha(opacity=50);
+  border-bottom: 1px solid #eeeeee;
   margin-bottom: 15px;
   padding-bottom: 15px;
 }
