@@ -92,15 +92,15 @@
                     "type": "color",
                     "value": "ffffff"
                 },
-                "btn-cart-bg": {
+                "add-to-cart-background": {
                     "type": "color",
                     "value": "6A4362"
                 },
-                "btn-cart-border": {
+                "add-to-cart-border": {
                     "type": "color",
                     "value": "6A4362"
                 },
-                "btn-cart-color": {
+                "add-to-cart-text": {
                     "type": "color",
                     "value": "ffffff"
                 },
