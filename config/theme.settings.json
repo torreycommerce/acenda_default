@@ -1,32 +1,6 @@
 {
     "current": {
         "colors": {
-            "brand": {
-                "brand-primary": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "brand-secondary": {
-                    "type": "color",
-                    "value": "B3B3B3"
-                },
-                "brand-success": {
-                    "type": "color",
-                    "value": "5CB85C"
-                },
-                "brand-info": {
-                    "type": "color",
-                    "value": "3BA4C4"
-                },
-                "brand-warning": {
-                    "type": "color",
-                    "value": "F0AC4D"
-                },
-                "brand-danger": {
-                    "type": "color",
-                    "value": "D9534F"
-                }
-            },
             "background": {
                 "body-bg": {
                     "type": "color",
