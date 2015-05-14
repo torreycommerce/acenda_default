@@ -219,7 +219,7 @@
 {% endif %}
 <script>
     respondToSizingMessage = function(e) {
-  if(e.origin == 'http://origin-domain.com') {
+  if(e.origin == 'http://angularadmin.acendev') {
     // e.data is the string sent by the origin with postMessage.
     if(e.data == 'sizing?') {
       e.source.postMessage('sizing:'+document.body.scrollHeight+','+document.body.scrollWidth, e.origin);
@@ -228,6 +228,6 @@
 }
 // we have to listen for 'message'
 window.addEventListener('message', respondToSizingMessage, false);
-    
+
 </script>
 </html>
