@@ -149,14 +149,6 @@
                 "header-bg-color": {
                     "type": "color",
                     "value": "ffffff"
-                },
-                "page-header-color": {
-                    "type": "color",
-                    "value": "555555"
-                },
-                "page-header-border-color": {
-                    "type": "color",
-                    "value": "555555"
                 }
             },
             "navigation": {
