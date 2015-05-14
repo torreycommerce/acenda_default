@@ -247,9 +247,10 @@ fieldset[disabled] .btn-registry.active {
 .btn-wishlist:active,
 .btn-wishlist.active,
 .open .dropdown-toggle.btn-wishlist {
-  color: #ffffff;
-  background-color: #636363;
-  border-color: #585858;
+  opacity: 0.9;
+  filter: Alpha(opacity=90);
+  -moz-opacity: 0.9;
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
 }
 .btn-wishlist:active,
 .btn-wishlist.active,
@@ -1172,8 +1173,10 @@ section#toolbar ul li.cart a {
   
 }
 section#toolbar ul li.cart a:hover {
-  background-color: #733a67;
-  color: #ffffff;
+  opacity: 0.9;
+  filter: Alpha(opacity=90);
+  -moz-opacity: 0.9;
+  color: #{{ settings["colors"]["buttons"]["cart-button-text"]["value"] }};
 }
 section#toolbar ul li.cart a:hover .text,
 section#toolbar ul li.cart a:hover .item-count {
