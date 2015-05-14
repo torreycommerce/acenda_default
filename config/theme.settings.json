@@ -24,6 +24,10 @@
                     "type": "color",
                     "value": "333333"
                 },
+                "price-color": {
+                    "type": "color",
+                    "value": "6a4362"
+                },
                 "link-color": {
                     "type": "color",
                     "value": "6A4362"

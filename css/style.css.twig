@@ -91,7 +91,7 @@ p {
 .btn-default {
   background-color: #ffffff;
   border-color: #cccccc;
-  color: #333333;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 .btn-primary {
   background-color: #6a4362;
@@ -952,7 +952,7 @@ header#main {
   text-transform: none;
 }
 .product-grid .product .pricing .price {
-  color: #6a4362;
+  color: #{{ settings["colors"]["content"]["price-color"]["value"] }};
   font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
@@ -1051,7 +1051,7 @@ header#main {
   border-bottom-color: #cccccc;
   border-right-color: #cccccc;
   border-top-color: #cccccc;
-  color: #333333;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 #social {
   border-bottom: 1px solid #eeeeee;
@@ -1327,7 +1327,7 @@ section#toolbar .popover .cart-totals .total {
   display: inline;
 }
 #shopping-cart .item .details .name {
-  color: #333333;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 13px;
   line-height: 21px;
 }
@@ -1496,7 +1496,7 @@ section#toolbar .popover .cart-totals .total {
   border-bottom: 1px solid #e5e5e5;
 }
 #order-complete #order-items .panel .panel-heading a {
-  color: #333333;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 #order-complete #order-items .panel .panel-heading a .panel-title {
   font-size: 13px;
@@ -2088,6 +2088,7 @@ section#toolbar .popover .cart-totals .total {
 }
 #product-details .price,
 #product-details .price-range {
+  color: #{{ settings["colors"]["content"]["price-color"]["value"] }};
   display: inline-block;
   margin-bottom: 15px;
   margin-right: 10px;
