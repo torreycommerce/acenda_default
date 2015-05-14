@@ -2065,7 +2065,10 @@ section#toolbar .popover .cart-totals .total {
   margin-bottom: 0;
 }
 #product-details header {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid;
+  border-bottom-color: color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
+  opacity: 0.8;
+  filter: Alpha(opacity=50);
   margin-bottom: 15px;
   padding-bottom: 15px;
 }
