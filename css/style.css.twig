@@ -71,11 +71,6 @@ a{
   color: #{{ settings["colors"]["content"]["link-color"]["value"] }};
 }
 
-a:visited,
-a:hover, 
-a:active {
-  color: #{{ settings["colors"]["content"]["link-hover-color"]["value"] }};
-}
 
 .page-header {
   color: #{{ settings["colors"]["content"]["title-color"]["value"] }};
@@ -105,9 +100,9 @@ a:active {
   color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
 }
 .btn-primary {
-  background-color: #6a4362;
-  border-color: #{{ settings["colors"]["buttons"]["btn-primary-border"]["value"] }};
-  color: #ffffff;
+  background-color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["add-to-cart-border"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
 }
 .btn-secondary {
   background-color: #{{ settings["colors"]["buttons"]["btn-secondary-background"]["value"] }};
