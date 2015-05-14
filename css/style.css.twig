@@ -100,7 +100,7 @@ a{
   color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
 }
 .btn-primary {
-  background-color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["add-to-cart-background"]["value"] }};
   border-color: #{{ settings["colors"]["buttons"]["add-to-cart-border"]["value"] }};
   color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
 }
@@ -120,9 +120,8 @@ a{
 .btn-cart:active,
 .btn-cart.active,
 .open .dropdown-toggle.btn-cart {
-  color: #ffffff;
-  background-color: #51334b;
-  border-color: #452b3f;
+  opacity: 0.5;
+  filter: Alpha(opacity=50);
 }
 .btn-cart:active,
 .btn-cart.active,
