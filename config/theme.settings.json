@@ -20,6 +20,10 @@
                     "type": "color",
                     "value": "6a4362"
                 },
+                "title-color": {
+                    "type": "color",
+                    "value": "6a4362"
+                },
                 "text-color": {
                     "type": "color",
                     "value": "333333"
@@ -135,20 +139,6 @@
                 "legend-color": {
                     "type": "color",
                     "value": "6A4362"
-                }
-            },
-            "headers": {
-                "headings-color": {
-                    "type": "color",
-                    "value": "6a4362"
-                },
-                "headings-small-color": {
-                    "type": "color",
-                    "value": "333333"
-                },
-                "header-bg-color": {
-                    "type": "color",
-                    "value": "ffffff"
                 }
             },
             "navigation": {
