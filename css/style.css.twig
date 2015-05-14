@@ -99,9 +99,10 @@ p {
   color: #ffffff;
 }
 .btn-secondary {
-  background-color: #b3b3b3;
-  border-color: #b3b3b3;
-  color: #ffffff;
+  color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["btn-secondary-bg"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["btn-secondary-border"]["value"] }};
+
 }
 .btn-cart {
   color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
@@ -282,6 +283,7 @@ fieldset[disabled] .btn-wishlist.active {
 html,
 body {
   background-color: #{{ settings["colors"]["background"]["body-bg"]["value"] }};
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   margin: 0;
   padding: 0;
   border: 0;
@@ -514,8 +516,8 @@ a.thumbnail.active {
   border-color: transparent;
 }
 .panel {
-  background-color: #535353;
-  color: #9b9b9b;
+  background-color: #{{ settings["colors"]["panel"]["panel-bg"]["value"] }};
+  color: #{{ settings["colors"]["panel"]["panel-text"]["value"] }};
   border-bottom: 1px solid #eeeeee;
   border-left: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
