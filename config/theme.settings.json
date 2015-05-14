@@ -82,7 +82,7 @@
                     "type": "color",
                     "value": "ffffff"
                 },
-                "btn-secondary-bg": {
+                "btn-secondary-background": {
                     "type": "color",
                     "value": "B3B3B3"
                 },
@@ -90,7 +90,7 @@
                     "type": "color",
                     "value": "B3B3B3"
                 },
-                "btn-secondary-color": {
+                "btn-secondary-text": {
                     "type": "color",
                     "value": "ffffff"
                 },
@@ -114,7 +114,7 @@
                     "type": "color",
                     "value": "777777"
                 },
-                "registry-wishlist-color": {
+                "registry-wishlist-text": {
                     "type": "color",
                     "value": "ffffff"
                 }
