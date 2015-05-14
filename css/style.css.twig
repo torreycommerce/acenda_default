@@ -933,7 +933,7 @@ header#main {
   margin-bottom: 0;
 }
 .product-grid .product header .brand {
-  color: #6a4362;
+  color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
   font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-style: normal;
@@ -942,7 +942,7 @@ header#main {
   text-transform: none;
 }
 .product-grid .product header .product-name {
-  color: #777777;
+  color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
   font-family: Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -2069,6 +2069,10 @@ section#toolbar .popover .cart-totals .total {
 }
 #product-details header .brand {
   margin-bottom: 5px;
+}
+
+#product-details header .brand a{
+  color: #{{ settings["colors"]["headers"]["headings-color"]["value"] }};
 }
 #product-details header .name {
   margin-bottom: 5px;
