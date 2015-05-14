@@ -120,9 +120,9 @@ a{
 .btn-cart:active,
 .btn-cart.active,
 .open .dropdown-toggle.btn-cart {
-  opacity: 1.1;
-  filter: Alpha(opacity=110);
-  -moz-opacity: 1.1;
+  opacity: 0.9;
+  filter: Alpha(opacity=90);
+  -moz-opacity: 0.9;
   color: #{{ settings["colors"]["buttons"]["add-to-cart-text"]["value"] }};
 
 }
@@ -195,18 +195,20 @@ fieldset[disabled] .btn-checkout.active {
   background-color: #ffffff;
 }
 .btn-registry {
-  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
   background-color: #{{ settings["colors"]["buttons"]["registry-wishlist-background"]["value"] }};
   border-color: #{{ settings["colors"]["buttons"]["registry-wishlist-border"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
+
 }
 .btn-registry:hover,
 .btn-registry:focus,
 .btn-registry:active,
 .btn-registry.active,
 .open .dropdown-toggle.btn-registry {
-  color: #ffffff;
-  background-color: #636363;
-  border-color: #585858;
+  opacity: 0.9;
+  filter: Alpha(opacity=90);
+  -moz-opacity: 0.9;
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
 }
 .btn-registry:active,
 .btn-registry.active,
