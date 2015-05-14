@@ -100,9 +100,9 @@ a:active {
   color: #fff;
 }
 .btn-default {
-  background-color: #ffffff;
-  border-color: #cccccc;
-  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["btn-secondary-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["btn-secondary-border"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
 }
 .btn-primary {
   background-color: #6a4362;
@@ -110,9 +110,9 @@ a:active {
   color: #ffffff;
 }
 .btn-secondary {
-  color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
-  background-color: #{{ settings["colors"]["buttons"]["btn-secondary-bg"]["value"] }};
+  background-color: #{{ settings["colors"]["buttons"]["btn-secondary-background"]["value"] }};
   border-color: #{{ settings["colors"]["buttons"]["btn-secondary-border"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["btn-secondary-text"]["value"] }};
 
 }
 .btn-cart {
@@ -198,7 +198,7 @@ fieldset[disabled] .btn-checkout.active {
   background-color: #ffffff;
 }
 .btn-registry {
-  color: #{{ settings["colors"]["buttons"]["registry-wishlist-color"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
   background-color: #{{ settings["colors"]["buttons"]["registry-wishlist-background"]["value"] }};
   border-color: #{{ settings["colors"]["buttons"]["registry-wishlist-border"]["value"] }};
 }
@@ -239,7 +239,7 @@ fieldset[disabled] .btn-registry.active {
   background-color: #ffffff;
 }
 .btn-wishlist {
-  color: #{{ settings["colors"]["buttons"]["registry-wishlist-color"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["registry-wishlist-text"]["value"] }};
   background-color: #{{ settings["colors"]["buttons"]["registry-wishlist-background"]["value"] }};
   border-color: #{{ settings["colors"]["buttons"]["registry-wishlist-border"]["value"] }};
 }
