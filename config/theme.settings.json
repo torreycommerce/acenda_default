@@ -68,15 +68,15 @@
                 }
             },
             "buttons": {
-                "btn-primary-bg": {
+                "cart-button-background": {
                     "type": "color",
                     "value": "6A4362"
                 },
-                "btn-primary-border": {
+                "cart-button-border": {
                     "type": "color",
                     "value": "6A4362"
                 },
-                "btn-primary-color": {
+                "cart-button-text": {
                     "type": "color",
                     "value": "ffffff"
                 },
