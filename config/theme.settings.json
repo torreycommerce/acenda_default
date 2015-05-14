@@ -30,11 +30,11 @@
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "999999"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "44293E"
+                    "value": "666666"
                 },
                 "breadcrumb-active-color": {
                     "type": "color",
@@ -68,11 +68,11 @@
                 },
                 "login-button-background": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "B3B3B3"
                 },
                 "login-button-border": {
                     "type": "color",
-                    "value": "6A4362"
+                    "value": "b3b3b3"
                 },
                 "login-button-text": {
                     "type": "color",
@@ -169,40 +169,6 @@
                     "value": "000000"
                 },
                 "dropdown-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                }
-            },
-            "toolbar": {
-                "toolbar-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "toolbar-link-text-color": {
-                    "type": "color",
-                    "value": "999999"
-                },
-                "toolbar-link-text-color-hover": {
-                    "type": "color",
-                    "value": "666666"
-                },
-                "my-cart-bg": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "my-cart-text": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "my-cart-text-hover": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "login-bg": {
-                    "type": "color",
-                    "value": "777777"
-                },
-                "login-color": {
                     "type": "color",
                     "value": "ffffff"
                 }

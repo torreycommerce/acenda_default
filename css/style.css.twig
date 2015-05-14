@@ -1111,7 +1111,7 @@ section#toolbar ul li:last-child {
 }
 section#toolbar ul li a {
   background-color: 0 none;
-  color: #999999;
+  color: #{{ settings["colors"]["content"]["link-color"]["value"] }};
   font-size: 13px;
   margin: 0;
   padding: 8px 8px;
@@ -1121,7 +1121,7 @@ section#toolbar ul li a:active,
 section#toolbar ul li a:focus,
 section#toolbar ul li a:hover {
   background-color: 0 none;
-  color: #666666;
+  color: #{{ settings["colors"]["content"]["link-hover-color"]["value"] }};
 }
 section#toolbar ul li a i {
   padding-right: 4px;
@@ -1186,9 +1186,10 @@ section#toolbar ul li.cart a .item-count {
   padding: 8px 12px;
 }
 section#toolbar .btn-group.my-account a {
-  background-color: #b3b3b3;
+  background-color: #{{ settings["colors"]["buttons"]["login-button-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["login-button-border"]["value"] }};
   border-radius: 0;
-  color: #ffffff ;
+  color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
   font-size: 13px;
   padding: 8px 12px 8px 12px;
 }
@@ -1196,8 +1197,8 @@ section#toolbar .btn-group.my-account a i {
   padding-right: 10px;
 }
 section#toolbar .btn-group.my-account a span.caret {
-  border-top-color: #ffffff ;
-  border-bottom-color: #ffffff ;
+  border-top-color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
+  border-bottom-color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
   margin-left: 10px;
 }
 section#toolbar .btn-group.my-account a:active,
@@ -1211,7 +1212,7 @@ section#toolbar .btn-group.my-account .dropdown-menu li {
 }
 section#toolbar .btn-group.my-account .dropdown-menu li a {
   background-color: 0 none;
-  color: #999999;
+  color: #{{ settings["colors"]["buttons"]["login-button-text"]["value"] }};
   text-align: left;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
