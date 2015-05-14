@@ -1145,6 +1145,7 @@ section#toolbar ul li.login a:hover {
 /*dwqdqwdq*/
 section#toolbar ul li.cart a {
   background-color: #{{ settings["colors"]["buttons"]["cart-button-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["cart-button-border"]["value"] }};
   color: #{{ settings["colors"]["buttons"]["cart-button-text"]["value"] }};
   display: inline-block;
   margin: 0;
@@ -1152,7 +1153,7 @@ section#toolbar ul li.cart a {
   padding-left: 16px;
   padding-top: 0;
   padding-right: 0;
-  border-color: #{{ settings["colors"]["buttons"]["cart-button-border"]["value"] }};
+  
 }
 section#toolbar ul li.cart a:hover {
   background-color: #733a67;
@@ -1173,7 +1174,9 @@ section#toolbar ul li.cart a .text {
   padding-right: 6px;
 }
 section#toolbar ul li.cart a .item-count {
-  background-color: #4b2f45;
+  background-color: #{{ settings["colors"]["buttons"]["cart-count-background"]["value"] }};
+  border-color: #{{ settings["colors"]["buttons"]["cart-count-border"]["value"] }};
+  color: #{{ settings["colors"]["buttons"]["cart-count-text"]["value"] }};
   display: inline-block;
   font-weight: bold;
   padding: 8px 12px;

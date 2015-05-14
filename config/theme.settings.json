@@ -80,6 +80,18 @@
                     "type": "color",
                     "value": "ffffff"
                 },
+                "cart-count-background": {
+                    "type": "color",
+                    "value": "6A4362"
+                },
+                "cart-count-border": {
+                    "type": "color",
+                    "value": "6A4362"
+                },
+                "cart-count-text": {
+                    "type": "color",
+                    "value": "ffffff"
+                },
                 "login-button-background": {
                     "type": "color",
                     "value": "6A4362"
