@@ -248,7 +248,7 @@
                 }
             },
             "footer": {
-                "footer-color": {
+                "footer-text-color": {
                     "type": "color",
                     "value": "999999"
                 },

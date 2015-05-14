@@ -763,7 +763,7 @@ footer#main {
   background-color: #{{ settings["colors"]["background"]["footer-bg"]["value"] }};
   background-position: top center;
   background-repeat: repeat;
-  color: #{{ settings["colors"]["footer"]["footer-color"]["value"] }};
+  color: #{{ settings["colors"]["footer"]["footer-text-color"]["value"] }};
   font-size: 12px;
   padding: 30px 0;
 }
@@ -789,7 +789,7 @@ footer#main .quicklinks ul li {
   margin-top: 6px;
 }
 footer#main .quicklinks ul li a {
-  color: #{{ settings["colors"]["footer"]["footer-color"]["value"] }};
+  color: #{{ settings["colors"]["footer"]["footer-text-color"]["value"] }};
   padding-bottom: 5px;
   padding-top: 5px;
 }
@@ -845,7 +845,7 @@ footer#main .social a.google-plus:focus {
   background-color: #e02500;
 }
 footer#main hr {
-  border-color: #999999;
+  border-color: #{{ settings["colors"]["footer"]["footer-hr"]["value"] }};
 }
 footer#main ul.copyright {
   padding-bottom: 10px;
