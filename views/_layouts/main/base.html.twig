@@ -43,7 +43,13 @@
       <link rel="shortcut icon" href="{{app.theme['logo_images_and_colors']['logo_background']['favicon-upload']}}" type="image/x-icon" />
     {% endif %}
     <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/theme.css?v=05092014" />
+    
+    <!-- <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/theme.css?v=05092014" />
+-->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/style.css" />
+
     <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/fonts/font-awesome/css/font-awesome.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
@@ -157,7 +163,7 @@
     {% endblock %}
     {% block js %}{% endblock %}
 </body>
-{% if '/preview/' in app.url and 'store-protected' not in app.request.url %}
+{% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
@@ -211,4 +217,17 @@
 
 </script>
 {% endif %}
+<script>
+    respondToSizingMessage = function(e) {
+  if(e.origin == 'http://angularadmin.acendev') {
+    // e.data is the string sent by the origin with postMessage.
+    if(e.data == 'src?') {
+      e.source.postMessage(document.location.href, e.origin);
+    }
+  }
+}
+// we have to listen for 'message'
+window.addEventListener('message', respondToSizingMessage, false);
+
+</script>
 </html>
