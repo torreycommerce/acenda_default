@@ -152,10 +152,9 @@
                             {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
                         {% endif %}
                     {% endif %}
+                    <div id="variation-selector-{{product.id}}">
+                    </div>
                     {% if variation.price > 0 %}
-                        <div id="variation-selector-{{product.id}}">
-                        </div>
-
                         <form method="post" id="productForm" action="{{ app.url }}/product/route">
                            {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
                            variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
