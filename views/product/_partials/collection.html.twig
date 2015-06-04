@@ -364,62 +364,63 @@
                                                                                 <div class="price">
                                                                                     {{ prod.price(variation.price) }}
                                                                                 </div>
-                                                                            {% endif %}
-                                                                            {# End variation dropdown #}
-                                                                            {# Begin pricing #}
-                                                                            {% if (variation.compare_price is not empty) or (variation.price >= 100) or (variation.save_price is not empty) %}
-                                                                                <ul class="pricing">
-                                                                                    {# Begin regular price #}
-                                                                                    {% if variation.compare_price > 0 %}
-                                                                                        <li class="regular">
-                                                                                            Compare at {{ prod.price(variation.compare_price) }}
-                                                                                        </li>
-                                                                                    {% endif %}
-                                                                                    {# End regular price #}
-                                                                                    {# Begin price per month #}
-                                                                                    {% if variation.price >= 100 %}
-                                                                                        <li class="per-month">
-                                                                                            <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
-                                                                                                {{ prod.billmelater(variation.price) }}
-                                                                                            </span>
-                                                                                        </li>
-                                                                                    {% endif %}
-                                                                                    {# End price per month #}
-                                                                                    {# Begin percent off #}
-                                                                                    {% if variation.save_price is not empty %}
-                                                                                        <li class="percent">
-                                                                                            Save {{ prod.saveprice(variation.save_price) }} {{ prod.savepercent(variation.save_percent) }}
-                                                                                        </li>
-                                                                                    {% endif %}
-                                                                                    {# End percent off #}
-                                                                                </ul>
-                                                                            {% endif %}
-                                                                            {# End pricing #}
-                                                                            {# Begin estimated shipping #}
-                                                                            {% if (variation.inventory_quantity is not empty and variation.inventory_minimum_quantity is not empty) or
-                                                                                (variation.inventory_shipping_estimate is not empty) %}
-                                                                                <ul class="shipping">
-                                                                                    <li class="estimated-time">
-                                                                                        {% if variation.inventory_quantity > variation.inventory_minimum_quantity %}
-                                                                                            In Stock
-                                                                                        {% elseif variation.inventory_shipping_estimate is not empty %}
-                                                                                            {{ variation.inventory_shipping_estimate }}
+                                                                            
+                                                                                {# End variation dropdown #}
+                                                                                {# Begin pricing #}
+                                                                                {% if (variation.compare_price is not empty) or (variation.price >= 100) or (variation.save_price is not empty) %}
+                                                                                    <ul class="pricing">
+                                                                                        {# Begin regular price #}
+                                                                                        {% if variation.compare_price > 0 %}
+                                                                                            <li class="regular">
+                                                                                                Compare at {{ prod.price(variation.compare_price) }}
+                                                                                            </li>
                                                                                         {% endif %}
-                                                                                    </li>
-                                                                                </ul>
+                                                                                        {# End regular price #}
+                                                                                        {# Begin price per month #}
+                                                                                        {% if variation.price >= 100 %}
+                                                                                            <li class="per-month">
+                                                                                                <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
+                                                                                                    {{ prod.billmelater(variation.price) }}
+                                                                                                </span>
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                        {# End price per month #}
+                                                                                        {# Begin percent off #}
+                                                                                        {% if variation.save_price is not empty %}
+                                                                                            <li class="percent">
+                                                                                                Save {{ prod.saveprice(variation.save_price) }} {{ prod.savepercent(variation.save_percent) }}
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                        {# End percent off #}
+                                                                                    </ul>
+                                                                                {% endif %}
+                                                                                {# End pricing #}
+                                                                                {# Begin estimated shipping #}
+                                                                                {% if (variation.inventory_quantity is not empty and variation.inventory_minimum_quantity is not empty) or
+                                                                                    (variation.inventory_shipping_estimate is not empty) %}
+                                                                                    <ul class="shipping">
+                                                                                        <li class="estimated-time">
+                                                                                            {% if variation.inventory_quantity > variation.inventory_minimum_quantity %}
+                                                                                                In Stock
+                                                                                            {% elseif variation.inventory_shipping_estimate is not empty %}
+                                                                                                {{ variation.inventory_shipping_estimate }}
+                                                                                            {% endif %}
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                {% endif %}
+                                                                                {# End estimated shipping #}
+                                                                                {# Begin product tags #}
+                                                                                {% if product.tags is not empty %}
+                                                                                    <ul class="tags hidden-xs hidden-sm">
+                                                                                        <li>
+                                                                                            {% for tag in product.tags %}
+                                                                                                <span class="label label-info">{{tag|title}}</span>
+                                                                                            {% endfor %}
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                {% endif %}
+                                                                                {# End product tags #}
                                                                             {% endif %}
-                                                                            {# End estimated shipping #}
-                                                                            {# Begin product tags #}
-                                                                            {% if product.tags is not empty %}
-                                                                                <ul class="tags hidden-xs hidden-sm">
-                                                                                    <li>
-                                                                                        {% for tag in product.tags %}
-                                                                                            <span class="label label-info">{{tag|title}}</span>
-                                                                                        {% endfor %}
-                                                                                    </li>
-                                                                                </ul>
-                                                                            {% endif %}
-                                                                            {# End product tags #}
                                                                         </div>
                                                                     </div>
                                                                     {# End collection product details #}
@@ -427,38 +428,40 @@
                                                                     <div class="col-xs-7 col-sm-6 col-md-3 col-lg-2">
                                                                         <div class="actions">
                                                                             <div class="btn-toolbar">
-                                                                                <div class="quantity-input-group quantity">
-                                                                                    {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
-                                                                                    variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
-                                                                                    variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
-                                                                                        <label for="quantity-selector" class="control-label">Qty</label>
-                                                                                        <div class="input-group">
-                                                                                            
-                                                                                            <div class="input-group-btn">
-                                                                                               <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                                                                            </div>
-                                                                                            <input class="form-control quantity-selector" type="text" value="0" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
-                                                                                            <div class="input-group-btn">
-                                                                                               <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
-                                                                                           </div>
+                                                                                {% if variation.price > 0 %}
+                                                                                    <div class="quantity-input-group quantity">
+                                                                                        {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
+                                                                                        variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
+                                                                                        variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
+                                                                                            <label for="quantity-selector" class="control-label">Qty</label>
+                                                                                            <div class="input-group">
+                                                                                                
+                                                                                                <div class="input-group-btn">
+                                                                                                   <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                                                                                </div>
+                                                                                                <input class="form-control quantity-selector" type="text" value="0" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+                                                                                                <div class="input-group-btn">
+                                                                                                   <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                                                                               </div>
 
-                                                                                            {# <select name="items[{{variation.id}}]" class="qty-dropdown form-control parsley-validated quantity-selector" required="1">
-                                                                                                {% for i in 0..12 %}
-                                                                                                    <option value="{{i}}">{{i}}</option>
-                                                                                                {% endfor %}
-                                                                                            </select> #}
-                                                                                            {#
-                                                                                                <div class="input-group-btn">
-                                                                                                    <button class="btn btn-neutral btn-remove"><i class="fa fa-minus"></i></button>
-                                                                                                </div>
-                                                                                                <input class="form-control quantity-selector" type="text" value="{{ children.total_count == 1 ? 1 : 0 }}" maxlength="2" name="items[{{variation.id}}]">
-                                                                                                <div class="input-group-btn">
-                                                                                                    <button class="btn btn-neutral btn-add"><i class="fa fa-plus"></i></button>
-                                                                                                </div>
-                                                                                                #}
-                                                                                        </div>
-                                                                                    {% endif %}
-                                                                                </div>
+                                                                                                {# <select name="items[{{variation.id}}]" class="qty-dropdown form-control parsley-validated quantity-selector" required="1">
+                                                                                                    {% for i in 0..12 %}
+                                                                                                        <option value="{{i}}">{{i}}</option>
+                                                                                                    {% endfor %}
+                                                                                                </select> #}
+                                                                                                {#
+                                                                                                    <div class="input-group-btn">
+                                                                                                        <button class="btn btn-neutral btn-remove"><i class="fa fa-minus"></i></button>
+                                                                                                    </div>
+                                                                                                    <input class="form-control quantity-selector" type="text" value="{{ children.total_count == 1 ? 1 : 0 }}" maxlength="2" name="items[{{variation.id}}]">
+                                                                                                    <div class="input-group-btn">
+                                                                                                        <button class="btn btn-neutral btn-add"><i class="fa fa-plus"></i></button>
+                                                                                                    </div>
+                                                                                                    #}
+                                                                                            </div>
+                                                                                        {% endif %}
+                                                                                    </div>
+                                                                                {% endif %}
                                                                             </div>
                                                                         </div>
                                                                     </div>
