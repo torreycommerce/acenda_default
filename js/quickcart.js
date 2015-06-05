@@ -69,36 +69,6 @@ $('button[value=cart]').click(function(event) {
         $('li.cart, div.mobile-popover').attr('data-content','<h5>Failed to add item(s) to cart.</h5>').popover('show');
     })
     .success(ajaxCart);
-
-    // event.preventDefault();
-
-    // // Sum product quantities
-    // var sum = 0;
-    // $('#productForm .quantity-selector').each(function() {
-    //     if (!isNaN($(this).val())) {
-    //         sum += parseInt($(this).val());
-    //     }
-    // });
-
-    // if (sum === 0) {
-    //     alert('Need to enter a quantity!');
-    //     return false;
-    // }
-
-    // // Disable submit button
-    // $('button[value=cart]').attr('disabled',true);
-    // $.post(acendaBaseUrl + '/product/route',
-    //     $('#productForm').serialize())
-    // .always(function(data) {
-    //     // Make sure to reenable it, success or failure
-    //     $('button[value=cart]').attr('disabled',false);
-    //     $("html, body").animate({ scrollTop: 0 }, 600);
-    // })
-    // .fail(function() {
-    //     // Set popover on failure to add items
-    //     $('li.cart, div.mobile-popover').attr('data-content','<h5>Failed to add item(s) to cart.</h5>').popover('show');
-    // })
-    // .success(ajaxCart);
 });
 
 function ajaxCart(data, r) {
