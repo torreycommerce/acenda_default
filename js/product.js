@@ -187,7 +187,7 @@ function VariantsManager (variants, variant_options, isCollection) {
      
                 var ul = $('<ul>', {class: "swatches Color"});  
                 var span = $('<span>', {class: "selected-color"}).append(
-                                $('<strong>', {}).text(selectName.toUpperCase()) 
+                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length)) 
                             );
 
             }else{//size (default) styling
