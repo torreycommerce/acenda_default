@@ -194,7 +194,7 @@ function VariantsManager (variants, variant_options, isCollection) {
                 var div = $('<div>', {id: "variation-selector-"+self.product_id+"-"+selectName, name: selectName, class: "size-details"});           
                 var ul = $('<ul>', {class: "swatches-size Size"});  
                 var span = $('<span>', {class: "selected-size"}).append(
-                                $('<strong>', {}).text(selectName.toUpperCase()) 
+                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length)) 
                             );
             }
 
