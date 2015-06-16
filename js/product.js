@@ -224,7 +224,7 @@ function VariantsManager (variants, variant_options, isCollection) {
                     $(self.selector).append(div);
                 }
             }else{
-                var row = $('<div>', {class: "row no-margin"});
+                var row = $('<div>', {class: "row col-md-12"});
                 row.append(div);
                 if(selectName.toLowerCase() == "color"){
                     $(self.selector).prepend(row);

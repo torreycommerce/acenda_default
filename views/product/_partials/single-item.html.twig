@@ -5,7 +5,7 @@
 {% for variation in product.variant %}
     <div class="row" id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
         {# Beging product images #}
-        <div id="product-images" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
             {# Begin main image #}
             {% set main_image_id = variation.images.0.id is not empty ? variation.images.0.id : product.images.0.id %}
             {% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
@@ -56,7 +56,7 @@
         </div>
         {# End product images #}
         {# Begin Product Details #}
-        <section id="product-details" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <section id="product-details" class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
             <div class="row">
                 <div class="col-xs-12">
                     {# Begin Product Heading Group #}
