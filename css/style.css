@@ -312,10 +312,12 @@ html {
 .quantity-input-group label {
   display: inline-block;
   float: left;
-  font-weight: 400;
   margin-right: 8px;
   padding-top: 7px;
   padding-bottom: 6px;
+  color: #6a4362;
+  text-transform: capitalize;
+}
 }
 .quantity-input-group .input-group {
   float: left;
@@ -2889,14 +2891,7 @@ html {
   margin-left: 5px;
   margin-right: 4px;
 }
-.quantity-input-group label {
-  display: inline-block;
-  float: left;
-  font-weight: 400;
-  margin-right: 8px;
-  padding-top: 7px;
-  padding-bottom: 6px;
-}
+
 .quantity-input-group .input-group {
   float: left;
   width: 114px;
@@ -5166,7 +5161,6 @@ table.yiiLog {
 */
 position: relative;}
 .color-details span {
-  font-family: "Roboto";
   color: #6a4362;
   text-transform: capitalize;
 }
@@ -5177,8 +5171,6 @@ position: relative;}
 
 .color-details-collection span {
   text-align: center;
-  font-family: "Roboto";
-  font-size: 12px;
   color: #6a4362;
   text-transform: capitalize;
 }
@@ -5216,10 +5208,12 @@ position: relative;}
     display: block;
     font-size:10px;
     height: 33px;
+    min-width: 33px;
+    padding-top: 5px;
     text-align: center;
     text-decoration: none;
     transition: all 0.25s ease 0s;
-    min-width: 33px;
+    
 }
 .swatches .notavailable {
     /* Swatches Selected NotAvailable Border  */
@@ -5263,12 +5257,11 @@ position: relative;}
 
 .size-details {
     padding-top: 5px;
-/*    padding-bottom: 55px;
-*/}
+    padding-bottom: 10px;
+}
 
 .size-details span {
   font-weight: normal;
-  font-family: "Roboto";
   color: #6a4362;
   text-transform: capitalize;
 }
@@ -5309,10 +5302,12 @@ position: relative;}
     display: block;
     font-size: 10px;
     height: 33px;
+    min-width: 33px;
+    padding-top: 5px;
     text-align: center;
     text-decoration: none;
     transition: all 0.25s ease 0s;
-    min-width: 33px;
+    
 }
 .swatches-size .notavailable a {
     background: none;
