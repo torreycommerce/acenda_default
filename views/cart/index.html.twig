@@ -111,7 +111,7 @@ Cart
                     <div class="col-md-3 col-lg-2">
                         <div class="pricing">
                             <div class="regular">
-                                {% if product.compare_price is not empty %}
+                                {% if product.compare_price is not empty and product.compare_price > product.price %}
                                 <strike>
                                     <div class="item-label">Reg:</div>
                                     <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
@@ -121,7 +121,7 @@ Cart
                                 <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
                                 {% endif %}
                             </div>
-                            {% if product.compare_price is not empty %}
+                            {% if product.compare_price is not empty and product.compare_price > product.price%}
                             <div class="sale">
                                 <div class="item-label">Sale:</div>
                                 <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
@@ -129,8 +129,8 @@ Cart
                             {% endif %}
                             <div class="total">
                                 {% set price = product.price * item.quantity %}
-                                <div class="item-label">Total:</div>
-                                <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ price|number_format(2)|split('.')|last }}</span></span>
+                                <div class="item-label"><strong>Total:</strong></div>
+                                <span class="dollar-sign">$</span><span class="amount"><span class="dollars"><strong>{{ price|number_format(2)|split('.')|first }}</strong></span>.<span class="cents"><strong>{{ price|number_format(2)|split('.')|last }}</strong></span></span>
                             </div>
                             <div class="error alert alert-danger" style="display:none">
                             </div>
