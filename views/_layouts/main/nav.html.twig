@@ -1,4 +1,4 @@
-{% set categories = api.get('/category/tree') %}
+{% set categories = api.get('/category/sapling') %}
 <!-- NAV -->
 {% spaceless %}
 {# Begin desktop nav #}
@@ -8,14 +8,14 @@
         {% if items|length %}
         {# Begin dropdown #}
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown " href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}
+            <a class="dropdown-toggle" data-toggle="dropdown " href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}
                 <i class="fa fa-caret-down"></i>
             </a>
             <ul id="category_item" class="dropdown-menu">
-                {% for category,subitems in items %}
+                {% for category,subitems in items.limb %}
                 {% set i = i + 1 %}
                 <li>
-                    <a tabindex="-1" href="{{app.url}}/category/{{category}}">{{category|replace('-',' ')|title}}</a>
+                    <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -23,7 +23,7 @@
         {# End dropdown #}
         {% else %}
         <li>
-            <a href="{{app.url}}/category/{{main_category}}">{{main_category|replace('-',' ')|title}}</a>
+            <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
         </li>
         {% endif %}
         {% endfor %}
