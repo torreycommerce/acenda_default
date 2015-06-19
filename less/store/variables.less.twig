@@ -164,6 +164,8 @@
 @font-size-h5:									@font-size-base;				// ~15px
 @font-size-h6:									ceil((@font-size-base * 0.90));	// ~13px
 
+
+
 // Unit-less `line-height` for use in components like buttons.
 @line-height-base:								1.428571429; // 20/14
 
@@ -304,7 +306,7 @@
 @logo-retina:                       		    "../images/store-logo-2x.png";
 
 // Hover
-@logo-color-hover: 								#555555;
+@logo-color-hover: 								saturate(@logo-color, 20%);
 @logo-color-text-decoration-hover: 				underline;
 
 
