@@ -266,14 +266,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text": {
-                    "type": "render_text",
-                    "font_id": "base-typeface",
-                    "size_id": "font-size-base",
-                    "weight_id": "body-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "logo_styles": {
@@ -325,14 +317,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text-logo": {
-                    "type": "render_text",
-                    "font_id": "logo-typeface",
-                    "size_id": "logo-font-size",
-                    "weight_id": "logo-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h1_heading_styles": {
@@ -385,14 +369,6 @@
                         "30px": "30px",
                         "28px": "28px"
                     }
-                },
-                "render-text-h1": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h1",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h2_heading_styles": {
@@ -410,14 +386,6 @@
                         "20px": "20px",
                         "18px": "18px"
                     }
-                },
-                "render-text-h2": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h2",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h3_heading_styles": {
@@ -434,14 +402,6 @@
                         "14px": "14px",
                         "12px": "12px"
                     }
-                },
-                "render-text-h3": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h3",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "product-text-styles": {
@@ -780,14 +740,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text": {
-                    "type": "render_text",
-                    "font_id": "base-typeface",
-                    "size_id": "font-size-base",
-                    "weight_id": "body-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "logo_styles": {
@@ -839,14 +791,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text-logo": {
-                    "type": "render_text",
-                    "font_id": "logo-typeface",
-                    "size_id": "logo-font-size",
-                    "weight_id": "logo-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h1_heading_styles": {
@@ -899,14 +843,6 @@
                         "30px": "30px",
                         "28px": "28px"
                     }
-                },
-                "render-text-h1": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h1",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h2_heading_styles": {
@@ -924,14 +860,6 @@
                         "20px": "20px",
                         "18px": "18px"
                     }
-                },
-                "render-text-h2": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h2",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h3_heading_styles": {
@@ -948,14 +876,6 @@
                         "14px": "14px",
                         "12px": "12px"
                     }
-                },
-                "render-text-h3": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h3",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "product-text-styles": {
@@ -1294,14 +1214,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text": {
-                    "type": "render_text",
-                    "font_id": "base-typeface",
-                    "size_id": "font-size-base",
-                    "weight_id": "body-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "logo_styles": {
@@ -1353,14 +1265,6 @@
                         "400": "400",
                         "300": "300"
                     }
-                },
-                "render-text-logo": {
-                    "type": "render_text",
-                    "font_id": "logo-typeface",
-                    "size_id": "logo-font-size",
-                    "weight_id": "logo-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h1_heading_styles": {
@@ -1413,14 +1317,6 @@
                         "30px": "30px",
                         "28px": "28px"
                     }
-                },
-                "render-text-h1": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h1",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h2_heading_styles": {
@@ -1438,14 +1334,6 @@
                         "20px": "20px",
                         "18px": "18px"
                     }
-                },
-                "render-text-h2": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h2",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "h3_heading_styles": {
@@ -1462,14 +1350,6 @@
                         "14px": "14px",
                         "12px": "12px"
                     }
-                },
-                "render-text-h3": {
-                    "type": "render_text",
-                    "font_id": "heading-typeface",
-                    "size_id": "font-size-h3",
-                    "weight_id": "heading-font-weight",
-                    "style_id": "",
-                    "transform_id": ""
                 }
             },
             "product-text-styles": {

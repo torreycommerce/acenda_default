@@ -5,7 +5,7 @@
 {% for variation in product.variant %}
     <div class="row" id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
         {# Beging product images #}
-        <div id="product-images" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
             {# Begin main image #}
             {% set main_image_id = variation.images.0.id is not empty ? variation.images.0.id : product.images.0.id %}
             {% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
@@ -56,7 +56,7 @@
         </div>
         {# End product images #}
         {# Begin Product Details #}
-        <section id="product-details" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <section id="product-details" class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
             <div class="row">
                 <div class="col-xs-12">
                     {# Begin Product Heading Group #}
@@ -152,40 +152,39 @@
                             {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
                         {% endif %}
                     {% endif %}
-                    <div id="variation-selector-{{product.id}}">
-                    </div>
+                    <div id="variation-selector-{{product.id}}"></div>
                     {% if variation.price > 0 %}
-                        <form method="post" id="productForm" action="{{ app.url }}/product/route">
-                           {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
-                           variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
-                           variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
-                              <div class="actions hidden-sm hidden-xs row">
-                                   {# Begin product quantity #}
-                                   <div class="form-group col-sm-12">
-                                       <div class="quantity-input-group">
-                                           <label for="quantity-selector" class="control-label">Qty</label>
-                                           <div class="input-group">
-                                               <div class="input-group-btn">
-                                                   <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                               </div>
-                                               <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
-                                               <div class="input-group-btn">
-                                                   <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
-                                               </div>
+                    <form method="post" id="productForm" action="{{ app.url }}/product/route">
+                       {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
+                       variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
+                       variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
+                          <div class="actions hidden-sm hidden-xs row">
+                               {# Begin product quantity #}
+                               <div class="form-group col-sm-12">
+                                   <div class="quantity-input-group">
+                                       <label for="quantity-selector" class="control-label"><strong>Qty</strong></label>
+                                       <div class="input-group">
+                                           <div class="input-group-btn">
+                                               <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                           </div>
+                                           <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+                                           <div class="input-group-btn">
+                                               <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
                                            </div>
                                        </div>
                                    </div>
-                                   {# End product quantity #}
-                                   {# Begin add to cart button #}
-                                   <div class="form-group col-sm-4">
-                                       <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
-                                           <i class="fa fa-shopping-cart"></i>
-                                           <span>Add to Cart</span>
-                                       </button>
-                                   </div>
-                                   {% include "/product/_partials/list/actions-single.html.twig" %}
                                </div>
-                           {% endif %}
+                               {# End product quantity #}
+                               {# Begin add to cart button #}
+                               <div class="form-group col-sm-4">
+                                   <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
+                                       <i class="fa fa-shopping-cart"></i>
+                                       <span>Add to Cart</span>
+                                   </button>
+                               </div>
+                               {% include "/product/_partials/list/actions-single.html.twig" %}
+                           </div>
+                       {% endif %}
                         </form>
                         {# End actions desktop #}
                         {# Begin actions mobile #}
@@ -270,11 +269,11 @@
                             <div class="panel-tabs">
                                 <ul class="nav nav-tabs">
                                     {% if product.description is not empty %}
-                                        <li class="active">
-                                            <a href="#description-desktop" data-toggle="tab">Description</a>
-                                        </li>
+                                    <li class="active">
+                                        <a href="#description-desktop" data-toggle="tab">Description</a>
+                                    </li>
                                     {% endif %}
-                                    <li {% if product.description is empty %}class="active"{% endif %}>
+                                    <li {% if product.description is empty %} class="active"{% endif %}>
                                         <a href="#reviews-desktop" data-toggle="tab">Reviews</a>
                                     </li>
                                 </ul>
@@ -318,6 +317,7 @@
             {# End Product Details #}
     </div>
     {# Begin product tabs - mobile #}
+    {% endfor %}
     <section id="product-tabs-mobile" class="row hidden-lg">
         <div class="col-md-12">
             {# Begin tabs nav #}
@@ -367,4 +367,3 @@
     </section>
     {# End product tab - mobile #}
     <!-- </div> -->
-{% endfor %}

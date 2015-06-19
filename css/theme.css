@@ -7994,8 +7994,8 @@ section#toolbar .popover .cart-totals .total {
 @media (max-width: 991px) {
   #product-images #image-main .thumbnail img,
   #product-images #image-main .thumbnail iframe {
-    max-height: 340px;
-    max-width: 340px;
+    max-height: 340px !important;
+    max-width: 340px !important;
   }
 }
 @media (max-width: 1199px) {

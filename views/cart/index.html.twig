@@ -87,7 +87,12 @@ Cart
             {# Begin item image #}
             <div class="image col-xs-4 col-sm-6 col-md-2 col-lg-2">
                 <div class="thumbnail">
-                    <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
+                    {% if product.images.0.thumbnail is not empty %}
+                        {% set prod_image = product.images.0.thumbnail %}
+                    {% else %}
+                        {% set prod_image = product.thumbnail %}
+                    {% endif %}
+                    <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ prod_image }}" />
                 </div>
             </div>
             {# End item image #}
@@ -111,7 +116,7 @@ Cart
                     <div class="col-md-3 col-lg-2">
                         <div class="pricing">
                             <div class="regular">
-                                {% if product.compare_price is not empty %}
+                                {% if product.compare_price is not empty and product.compare_price > product.price %}
                                 <strike>
                                     <div class="item-label">Reg:</div>
                                     <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
@@ -121,7 +126,7 @@ Cart
                                 <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
                                 {% endif %}
                             </div>
-                            {% if product.compare_price is not empty %}
+                            {% if product.compare_price is not empty and product.compare_price > product.price%}
                             <div class="sale">
                                 <div class="item-label">Sale:</div>
                                 <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
@@ -129,8 +134,8 @@ Cart
                             {% endif %}
                             <div class="total">
                                 {% set price = product.price * item.quantity %}
-                                <div class="item-label">Total:</div>
-                                <span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ price|number_format(2)|split('.')|last }}</span></span>
+                                <div class="item-label"><strong>Total:</strong></div>
+                                <span class="dollar-sign">$</span><span class="amount"><span class="dollars"><strong>{{ price|number_format(2)|split('.')|first }}</strong></span>.<span class="cents"><strong>{{ price|number_format(2)|split('.')|last }}</strong></span></span>
                             </div>
                             <div class="error alert alert-danger" style="display:none">
                             </div>
@@ -279,5 +284,5 @@ Cart
     {% endif %}
     {% endblock %}
     {% block js %}
-    {{ app.asset.js(app.url ~ '/js/estimator.js') }}
+    {{ app.asset.js(app.url_asset ~ '/js/estimator.js') }}
     {% endblock %}
