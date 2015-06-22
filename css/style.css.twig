@@ -410,7 +410,7 @@ nav#nav-desktop-main ul {
   float: none;
 }
 nav#nav-desktop-main ul li a {
-  color: #{{ settings["colors"]["navigation"]["nav-text"]["value"] }};
+  color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};
   font-weight: 600;
   font-size: 16px;
   outline: none;
@@ -436,7 +436,7 @@ nav#nav-desktop-main ul li:hover ul.dropdown-menu {
 }
 nav#nav-desktop-main ul li:hover a {
   background-color: 0 none;
-  color: #000000;
+  color: #{{ settings["colors"]["content"]["nav-text-hover"]["value"] }};
 }
 nav#nav-desktop-main ul li:hover a span.caret {
   border-top-color: #000000;
@@ -2133,13 +2133,13 @@ section#toolbar .popover .cart-totals .total {
   margin-right: 10px;
 }
 #product-details ul.pricing .per-month {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 #product-details ul.pricing .regular {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 #product-details ul.pricing .percent {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
 }
 #product-details .description-content a {
   font-size: 12px;
@@ -2148,7 +2148,7 @@ section#toolbar .popover .cart-totals .total {
   padding-left: 0;
 }
 #product-details ul.shipping li {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 12px;
   display: inline-block;
   list-style-type: none;
@@ -2159,7 +2159,7 @@ section#toolbar .popover .cart-totals .total {
   padding-left: 0;
 }
 #product-details ul.tags li {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 12px;
   display: inline-block;
   list-style-type: none;
