@@ -279,7 +279,7 @@
                     }
                 }
             },
-            "h1_heading_styles": {
+            "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
                     "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
@@ -303,69 +303,11 @@
                         "Monospace": {
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
-                        }
-                    }
-                },
-                "heading-font-weight": {
-                    "type": "dropdown",
-                    "value": "600",
-                    "options": {
-                        "700": "700",
-                        "600": "600",
-                        "400": "400",
-                        "300": "300"
-                    }
-                },
-                "font-size-h1": {
-                    "type": "dropdown",
-                    "value": "38px",
-                    "options": {
-                        "42px": "42px",
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px"
                     }
                 }
             },
-            "h2_heading_styles": {
-                "font-size-h2": {
-                    "type": "dropdown",
-                    "value": "28px",
-                    "options": {
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px"
-                    }
-                }
-            },
-            "h3_heading_styles": {
-                "font-size-h3": {
-                    "type": "dropdown",
-                    "value": "18px",
-                    "options": {
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px",
-                        "16px": "16px",
-                        "14px": "14px",
-                        "12px": "12px"
-                    }
-                }
-            },
-            "product-text-styles": {
-                "product-text-typeface": {
+            "link-text": {
+                "link-text-typeface": {
                     "type": "dropdown_group",
                     "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
@@ -389,45 +331,6 @@
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
-                    }
-                },
-                "product-brand-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-name-font-size": {
-                    "type": "dropdown",
-                    "value": "14px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-price-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
                     }
                 }
             }
@@ -713,7 +616,7 @@
                     }
                 }
             },
-            "h1_heading_styles": {
+            "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
                     "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
@@ -737,69 +640,11 @@
                         "Monospace": {
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
-                        }
-                    }
-                },
-                "heading-font-weight": {
-                    "type": "dropdown",
-                    "value": "600",
-                    "options": {
-                        "700": "700",
-                        "600": "600",
-                        "400": "400",
-                        "300": "300"
-                    }
-                },
-                "font-size-h1": {
-                    "type": "dropdown",
-                    "value": "38px",
-                    "options": {
-                        "42px": "42px",
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px"
                     }
                 }
             },
-            "h2_heading_styles": {
-                "font-size-h2": {
-                    "type": "dropdown",
-                    "value": "28px",
-                    "options": {
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px"
-                    }
-                }
-            },
-            "h3_heading_styles": {
-                "font-size-h3": {
-                    "type": "dropdown",
-                    "value": "18px",
-                    "options": {
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px",
-                        "16px": "16px",
-                        "14px": "14px",
-                        "12px": "12px"
-                    }
-                }
-            },
-            "product-text-styles": {
-                "product-text-typeface": {
+            "link-text": {
+                "link-text-typeface": {
                     "type": "dropdown_group",
                     "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
@@ -824,49 +669,9 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "product-brand-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-name-font-size": {
-                    "type": "dropdown",
-                    "value": "14px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-price-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             }
-        }
-    },
+        },
     "fashion": {
         "colors": {
             "background": {
@@ -1147,7 +952,7 @@
                     }
                 }
             },
-            "h1_heading_styles": {
+            "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
                     "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
@@ -1171,69 +976,11 @@
                         "Monospace": {
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
-                        }
-                    }
-                },
-                "heading-font-weight": {
-                    "type": "dropdown",
-                    "value": "600",
-                    "options": {
-                        "700": "700",
-                        "600": "600",
-                        "400": "400",
-                        "300": "300"
-                    }
-                },
-                "font-size-h1": {
-                    "type": "dropdown",
-                    "value": "38px",
-                    "options": {
-                        "42px": "42px",
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px"
                     }
                 }
             },
-            "h2_heading_styles": {
-                "font-size-h2": {
-                    "type": "dropdown",
-                    "value": "28px",
-                    "options": {
-                        "34px": "34px",
-                        "32px": "32px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px"
-                    }
-                }
-            },
-            "h3_heading_styles": {
-                "font-size-h3": {
-                    "type": "dropdown",
-                    "value": "18px",
-                    "options": {
-                        "26px": "26px",
-                        "24px": "24px",
-                        "22px": "22px",
-                        "20px": "20px",
-                        "18px": "18px",
-                        "16px": "16px",
-                        "14px": "14px",
-                        "12px": "12px"
-                    }
-                }
-            },
-            "product-text-styles": {
-                "product-text-typeface": {
+            "link-text": {
+                "link-text-typeface": {
                     "type": "dropdown_group",
                     "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
@@ -1258,47 +1005,7 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "product-brand-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-name-font-size": {
-                    "type": "dropdown",
-                    "value": "14px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
-                },
-                "product-price-font-size": {
-                    "type": "dropdown",
-                    "value": "13px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             }
         }
     }
-}
