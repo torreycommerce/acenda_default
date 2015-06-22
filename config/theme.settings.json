@@ -105,7 +105,8 @@
                     "type": "color",
                     "value": "ffffff"
                 }
-            },          
+            },
+          
             "footer": {
                 "footer-text-color": {
                     "type": "color",
@@ -255,7 +256,7 @@
     },
     "default": {
         "colors": {
-            "background": {
+             "background": {
                 "body-bg": {
                     "type": "color",
                     "value": "ffffff"
@@ -359,7 +360,8 @@
                     "type": "color",
                     "value": "ffffff"
                 }
-            },          
+            },
+          
             "footer": {
                 "footer-text-color": {
                     "type": "color",
@@ -613,7 +615,8 @@
                     "type": "color",
                     "value": "ffffff"
                 }
-            },          
+            },
+          
             "footer": {
                 "footer-text-color": {
                     "type": "color",
@@ -641,7 +644,7 @@
             "base_styles": {
                 "base-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -649,7 +652,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
@@ -677,12 +680,22 @@
                         "12px": "12px",
                         "11px": "11px"
                     }
+                },
+                "body-font-weight": {
+                    "type": "dropdown",
+                    "value": "400",
+                    "options": {
+                        "700": "700",
+                        "600": "600",
+                        "400": "400",
+                        "300": "300"
+                    }
                 }
             },
             "logo_styles": {
                 "logo-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -690,7 +703,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
@@ -708,22 +721,21 @@
                 },
                 "logo-font-size": {
                     "type": "dropdown",
-                    "value": "34px",
+                    "value": "60px",
                     "options": {
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "24px": "24px"
+                        "78px": "78px",
+                        "72px": "72px",
+                        "66px": "66px",
+                        "60px": "60px",
+                        "56px": "56px",
+                        "50px": "50px",
+                        "40px": "40px"
                     }
                 },
                 "logo-font-weight": {
                     "type": "dropdown",
-                    "value": "800",
+                    "value": "600",
                     "options": {
-                        "800": "800",
                         "700": "700",
                         "600": "600",
                         "400": "400",
@@ -731,10 +743,10 @@
                     }
                 }
             },
-            "heading_styles": {
+            "h1_heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -742,7 +754,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
@@ -757,7 +769,132 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
+                },
+                "heading-font-weight": {
+                    "type": "dropdown",
+                    "value": "600",
+                    "options": {
+                        "700": "700",
+                        "600": "600",
+                        "400": "400",
+                        "300": "300"
+                    }
+                },
+                "font-size-h1": {
+                    "type": "dropdown",
+                    "value": "38px",
+                    "options": {
+                        "42px": "42px",
+                        "40px": "40px",
+                        "38px": "38px",
+                        "36px": "36px",
+                        "34px": "34px",
+                        "32px": "32px",
+                        "30px": "30px",
+                        "28px": "28px"
+                    }
+                }
+            },
+            "h2_heading_styles": {
+                "font-size-h2": {
+                    "type": "dropdown",
+                    "value": "28px",
+                    "options": {
+                        "34px": "34px",
+                        "32px": "32px",
+                        "30px": "30px",
+                        "28px": "28px",
+                        "26px": "26px",
+                        "24px": "24px",
+                        "22px": "22px",
+                        "20px": "20px",
+                        "18px": "18px"
+                    }
+                }
+            },
+            "h3_heading_styles": {
+                "font-size-h3": {
+                    "type": "dropdown",
+                    "value": "18px",
+                    "options": {
+                        "26px": "26px",
+                        "24px": "24px",
+                        "22px": "22px",
+                        "20px": "20px",
+                        "18px": "18px",
+                        "16px": "16px",
+                        "14px": "14px",
+                        "12px": "12px"
+                    }
+                }
+            },
+            "product-text-styles": {
+                "product-text-typeface": {
+                    "type": "dropdown_group",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
+                    "options": {
+                        "Sans-Serif": {
+                            "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
+                            "Impact, Charcoal, Helvetica, Arial, sans-serif": "Impact",
+                            "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
+                            "Trebuchet MS, sans-serif": "Trebuchet MS",
+                            "Verdana, Helvetica, Arial, sans-serif": "Verdana",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
+                            "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
+                        },
+                        "Serif": {
+                            "Garamond, Baskerville, Caslon, serif": "Garamond",
+                            "Georgia, Utopia, Times New Roman, Times, serif": "Georgia",
+                            "Palatino, Palatino Linotype, Book Antiqua, serif": "Palatino",
+                            "Times New Roman, Times, serif": "Times New Roman",
+                            "Josefin Slab, Georgia, Garamond, Times New Roman, Times, serif": "Josefin Slab"
+                        },
+                        "Monospace": {
+                            "Courier New, Courier, monospace": "Courier new",
+                            "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
+                        }
+                    }
+                },
+                "product-brand-font-size": {
+                    "type": "dropdown",
+                    "value": "13px",
+                    "options": {
+                        "17px": "17px",
+                        "16px": "16px",
+                        "15px": "15px",
+                        "14px": "14px",
+                        "13px": "13px",
+                        "12px": "12px",
+                        "11px": "11px"
+                    }
+                },
+                "product-name-font-size": {
+                    "type": "dropdown",
+                    "value": "14px",
+                    "options": {
+                        "17px": "17px",
+                        "16px": "16px",
+                        "15px": "15px",
+                        "14px": "14px",
+                        "13px": "13px",
+                        "12px": "12px",
+                        "11px": "11px"
+                    }
+                },
+                "product-price-font-size": {
+                    "type": "dropdown",
+                    "value": "13px",
+                    "options": {
+                        "17px": "17px",
+                        "16px": "16px",
+                        "15px": "15px",
+                        "14px": "14px",
+                        "13px": "13px",
+                        "12px": "12px",
+                        "11px": "11px"
+                    }
                 }
             }
         }
     }
+}
