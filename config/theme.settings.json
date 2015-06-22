@@ -119,28 +119,6 @@
                     "value": "ffffff"
                 }
             },
-            "forms": {
-                "input-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "input-border": {
-                    "type": "color",
-                    "value": "ccc"
-                },
-                "input-color": {
-                    "type": "color",
-                    "value": "555555"
-                },
-                "input-border-focus": {
-                    "type": "color",
-                    "value": "f45b4f"
-                },
-                "legend-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                }
-            },
             "navigation": {
                 "nav-text": {
                     "type": "color",
@@ -163,24 +141,6 @@
                 "carousel-control-color": {
                     "type": "color",
                     "value": "ffc859"
-                }
-            },
-            "product-grid": {
-                "product-brand-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "product-name-color": {
-                    "type": "color",
-                    "value": "777777"
-                },
-                "product-price-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "stock-text-color": {
-                    "type": "color",
-                    "value": "009900"
                 }
             },
             "panel": {
@@ -593,28 +553,6 @@
                     "value": "ffffff"
                 }
             },
-            "forms": {
-                "input-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "input-border": {
-                    "type": "color",
-                    "value": "ccc"
-                },
-                "input-color": {
-                    "type": "color",
-                    "value": "555555"
-                },
-                "input-border-focus": {
-                    "type": "color",
-                    "value": "f45b4f"
-                },
-                "legend-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                }
-            },
             "navigation": {
                 "nav-text": {
                     "type": "color",
@@ -637,24 +575,6 @@
                 "carousel-control-color": {
                     "type": "color",
                     "value": "ffc859"
-                }
-            },
-            "product-grid": {
-                "product-brand-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "product-name-color": {
-                    "type": "color",
-                    "value": "777777"
-                },
-                "product-price-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "stock-text-color": {
-                    "type": "color",
-                    "value": "009900"
                 }
             },
             "panel": {
@@ -952,11 +872,11 @@
             "background": {
                 "body-bg": {
                     "type": "color",
-                    "value": "E841C6"
+                    "value": "ffffff"
                 },
                 "header-bg": {
                     "type": "color",
-                    "value": "E841C6"
+                    "value": "ffffff"
                 },
                 "footer-bg": {
                     "type": "color",
@@ -1067,28 +987,6 @@
                     "value": "ffffff"
                 }
             },
-            "forms": {
-                "input-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
-                "input-border": {
-                    "type": "color",
-                    "value": "ccc"
-                },
-                "input-color": {
-                    "type": "color",
-                    "value": "555555"
-                },
-                "input-border-focus": {
-                    "type": "color",
-                    "value": "f45b4f"
-                },
-                "legend-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                }
-            },
             "navigation": {
                 "nav-text": {
                     "type": "color",
@@ -1111,24 +1009,6 @@
                 "carousel-control-color": {
                     "type": "color",
                     "value": "ffc859"
-                }
-            },
-            "product-grid": {
-                "product-brand-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "product-name-color": {
-                    "type": "color",
-                    "value": "777777"
-                },
-                "product-price-color": {
-                    "type": "color",
-                    "value": "6A4362"
-                },
-                "stock-text-color": {
-                    "type": "color",
-                    "value": "009900"
                 }
             },
             "panel": {
