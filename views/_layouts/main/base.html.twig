@@ -113,7 +113,7 @@
                                 {% set logo = app.image.getImageUrl('logo','thumbnail',logo_info.id) %}
                             {% endif %}
                             {% if logo is not empty %}
-                              <a href="{{app.url}}/" style="background-image: url({{ logo }});background-position: 0 0; background-repeat: no-repeat; display: block;height:80px;width:auto;background-size: contain;"></a>
+                              <a href="{{app.url}}/" style="background-image: url({{ logo }});background-position: 50% 0; background-repeat: no-repeat; display: block;height:80px;width:auto;background-size: contain;"></a>
                             {% else %}
                             {# else #}
                               <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
