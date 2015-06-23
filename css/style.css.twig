@@ -2283,7 +2283,7 @@ section#toolbar .popover .cart-totals .total {
   padding-left: 0;
 }
 #collection .tab-content .panel .product ul.pricing li {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 12px;
   display: inline-block;
   list-style-type: none;
@@ -2294,7 +2294,7 @@ section#toolbar .popover .cart-totals .total {
   padding-left: 0;
 }
 #collection .tab-content .panel .product ul.shipping li {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 12px;
   display: inline-block;
   list-style-type: none;
@@ -2305,7 +2305,7 @@ section#toolbar .popover .cart-totals .total {
   padding-left: 0;
 }
 #collection .tab-content .panel .product ul.tags li {
-  color: #737373;
+  color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
   font-size: 12px;
   display: inline-block;
   list-style-type: none;
@@ -2621,6 +2621,7 @@ table.yiiLog {
 
 .color-details-collection {
     border:none;
+    color: #{{ settings["colors"]["content"]["title-color"]["value"] }};
     padding:0;
 }
 
