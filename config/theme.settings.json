@@ -142,7 +142,7 @@
             "base_styles": {
                 "base-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -150,7 +150,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
@@ -183,7 +183,7 @@
             "logo_styles": {
                 "logo-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -191,7 +191,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
@@ -235,7 +235,7 @@
             "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
-                    "value": "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial",
+                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -243,7 +243,7 @@
                             "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
                             "Trebuchet MS, sans-serif": "Trebuchet MS",
                             "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Source Sans Pro, sans-serif, Open Sans, Lucida Grande, Helvetica, Arial": "Source Sans Pro",
+                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
                             "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
                         },
                         "Serif": {
