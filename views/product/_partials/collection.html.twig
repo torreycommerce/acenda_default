@@ -74,7 +74,7 @@
         </div>
         {# End product header #}
         {# Begin review stars #}
-        {% set review_score = product.product|values_in('review_score')|merge([product.review_score])|average() %}
+        {% set review_score = product.product|values_in('review_score')|merge(product|values_in('review_score'))|average() %}
         {% if review_score > 0 %}
             <div class="row">
                 <div class="col-md-12">
