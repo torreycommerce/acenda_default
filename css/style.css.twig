@@ -416,8 +416,9 @@ nav#nav-desktop-main ul {
 }
 nav#nav-desktop-main ul li a {
   color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};
+  font-family: {{ settings["typography"]["nav_styles"]["nav-typeface"]["value"] }};
   font-weight: 600;
-  font-size: 16px;
+  font-size: {{ settings["typography"]["nav_styles"]["nav-size-base"]["value"] }};
   outline: none;
   padding: 16px 12px;
 }
@@ -1130,6 +1131,7 @@ section#toolbar ul li:last-child {
 section#toolbar ul li a {
   background-color: 0 none;
   color: #{{ settings["colors"]["content"]["link-color"]["value"] }};
+  font-family: {{ settings["typography"]["nav_styles"]["nav-typeface"]["value"] }};
   font-size: 13px;
   margin: 0;
   padding: 8px 8px;
