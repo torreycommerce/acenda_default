@@ -26,6 +26,10 @@ function VariantsManager (variants, variant_options, isCollection) {
         return "[id=variation-selector-"+self.product_id+"-"+selectName+"-"+optionValue+"]";
     }
 
+    this.getSelectedValue = function(selectName){
+        return "[id=selected-"+selectName+"]";
+    }
+
     this.updateChips = function(){
         var self = this;
         $.each(self.selectsData, function(name, optionArray){
@@ -66,6 +70,9 @@ function VariantsManager (variants, variant_options, isCollection) {
                     }
                 }
             });
+
+            //Update option value selected
+            $(self.getSelectedValue(name)).text(self.selectedValues[name]);
         });
 
         //hide and show variant div to display proper variant picture
@@ -191,15 +198,16 @@ function VariantsManager (variants, variant_options, isCollection) {
      
                 var ul = $('<ul>', {class: "swatches Color"});  
                 var span = $('<span>', {class: "selected-color"}).append(
-                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length)) 
+                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length) + " ") 
                             );
 
             }else{//size (default) styling
                 var div = $('<div>', {id: "variation-selector-"+self.product_id+"-"+selectName, name: selectName, class: "size-details"});           
                 var ul = $('<ul>', {class: "swatches-size Size"});  
                 var span = $('<span>', {class: "selected-size"}).append(
-                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length)) 
+                                $('<strong>', {}).text(selectName.slice(0,1).toUpperCase()+selectName.slice(1,selectName.length) + " ") 
                             );
+
             }
 
             $.each(optionArray, function(index, optionValue){
@@ -218,7 +226,10 @@ function VariantsManager (variants, variant_options, isCollection) {
                 );
             });
 
+            var span_selected = $('<span>', {class: "", id: "selected-"+selectName}).text(""); 
+
             div.append(span);
+            div.append(span_selected);
             div.append(ul);
 
             if(self.isCollection){
