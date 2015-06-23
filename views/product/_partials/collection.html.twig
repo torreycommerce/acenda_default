@@ -301,34 +301,16 @@
                                                     var VariantsData = {isCollection: true, products: []};
                                                 </script>
 
-                                                {% for product in children %}
-                                                    {% set variation_dropdown = '' %}
+                                                {% for product in children %}  
                                                     {% if product.variant|length > 1 %}
-
                                                         <script type="text/javascript">
                                                             VariantsData.products.push({variants: {{product.variant|json_encode}}, variant_options: {{product.variant_options|json_encode}}});
                                                         </script>
-                                                        {% set variation_dropdown %}
-                                                            {% spaceless %}
-                                                            <div class="variation-selection">
-                                                                <div id="variation-selector-{{product.id}}" class="input-group">
-                                                                </div>
-
-                                                                {# <div class="input-group">
-                                                                    <select id="variation-selector-{{product.id}}" class="form-control" onchange="showProductVariation($(this));">
-                                                                        {% for variation in product.variant %}
-                                                                            <option value="product-{{variation.id}}">Style: {{variation.name}}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div> #}
-                                                            </div>
-                                                            {% endspaceless %}
-                                                        {% endset %}
                                                     {% endif %}
                                                     <div class="variations">
-                                                        {% for variation in product.variant %}
-                                                            <div class="product" id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
-                                                                <div class="row">
+                                                        <div class="row">
+                                                            {% for variation in product.variant %}
+                                                                <div class="product" id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
                                                                     {# Begin collection product image #}
                                                                     {% if variation.images is not empty %}
                                                                         <div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
@@ -421,13 +403,27 @@
                                                                                 {# End product tags #}
                                                                             {% endif %}
                                                                         </div>
+                                                                        {% if variation.sku is not empty %}
+                                                                            <div> 
+                                                                                ITEM #{{variation.sku}}
+                                                                            </div>
+                                                                        {% endif %}
                                                                     </div>
                                                                     {# End collection product details #}
-                                                                    <div class="col-xs-7 col-sm-4 col-md-3 col-lg-4">
-                                                                        <div class="details">
-                                                                        {{ variation_dropdown }}
+                                                                </div>
+                                                            {% endfor %}
+
+                                                            <div class="col-xs-7 col-sm-4 col-md-3 col-lg-4">
+                                                                <div class="details">
+                                                                    <div class="variation-selection">
+                                                                        <div id="variation-selector-{{product.id}}" class="input-group">
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {% for variation in product.variant %}
+                                                                <div class="product" id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
                                                                     {# Begin collection product actions #}
                                                                     <div class="col-xs-7 col-xs-offset-5 col-sm-4 col-sm-offset-0 col-md-3 col-lg-2">
                                                                         <div class="actions">
@@ -457,9 +453,10 @@
                                                                     </div>
                                                                     {# End collection product actions #}
                                                                 </div>
-                                                            </div>
-                                                        {% endfor %}
-                                                        {# End variation block of product #}
+                                                            {% endfor %}
+
+                                                            {# End variation block of product #}
+                                                        </div>
                                                     </div>
                                                 {% endfor %}
                                                 {# End collection product #}

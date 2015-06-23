@@ -27,7 +27,7 @@ function VariantsManager (variants, variant_options, isCollection) {
     }
 
     this.getSelectedValue = function(selectName){
-        return "[id=selected-"+selectName+"]";
+        return "[id=selected-"+selectName+"-"+self.product_id+"]";
     }
     this.getProductVariation = function(variant_id){
         return "[id=product-" + variant_id + "]";
@@ -229,7 +229,7 @@ function VariantsManager (variants, variant_options, isCollection) {
                 );
             });
 
-            var span_selected = $('<span>', {class: "", id: "selected-"+selectName}).text(""); 
+            var span_selected = $('<span>', {class: "", id: "selected-"+selectName+"-"+self.product_id}).text(""); 
 
             div.append(span);
             div.append(span_selected);
