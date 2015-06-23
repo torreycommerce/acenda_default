@@ -608,7 +608,7 @@
         }
     },
     "blue": {
-        "colors": {
+         "colors": {
             "background": {
                 "body-bg": {
                     "type": "color",
@@ -647,6 +647,14 @@
                 "link-hover-color": {
                     "type": "color",
                     "value": "666666"
+                },
+                "nav-text-color": {
+                    "type": "color",
+                    "value": "666666"
+                },
+                "nav-text-hover": {
+                    "type": "color",
+                    "value": "000"
                 }
             },
             "buttons": {
@@ -714,7 +722,7 @@
                     "value": "ffffff"
                 }
             },
-          
+
             "footer": {
                 "footer-text-color": {
                     "type": "color",
