@@ -180,7 +180,11 @@
                                 {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
                             {% endif %}
                         {% endif %}
-                        <div>ITEM #{{variation.sku}}</div>
+                        {% if variation.sku is not empty %}
+                            <div> 
+                                ITEM #{{variation.sku}}
+                            </div>
+                        {% endif %}
                     </div>
                 {% endfor %}
                 <div id="variation-selector-{{product.id}}">
