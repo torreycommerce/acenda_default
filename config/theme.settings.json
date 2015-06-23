@@ -620,37 +620,37 @@
                 },
                 "footer-bg": {
                     "type": "color",
-                    "value": "222222"
+                    "value": "4AAAA5"
                 }                                  
             },
             "content": {
                 "logo-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "35404F"
                 },
                 "text-color": {
                     "type": "color",
-                    "value": "CCCCCC"
+                    "value": "696969"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "35404F"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "4AAAA5"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "4AAAA5"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "666666"
+                    "value": "35404F"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "666666"
+                    "value": "35404F"
                 },
                 "nav-text-hover": {
                     "type": "color",
@@ -660,7 +660,7 @@
             "buttons": {
                 "login-button-background": {
                     "type": "color",
-                    "value": "b3b3b3"
+                    "value": "7ACCC8"
                 },
                 "login-button-text": {
                     "type": "color",
@@ -668,7 +668,7 @@
                 },
                 "cart-button-background": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "4AAAA5"
                 },
                 "cart-button-text": {
                     "type": "color",
@@ -676,7 +676,7 @@
                 },
                 "cart-count-background": {
                     "type": "color",
-                    "value": "4b2f45"
+                    "value": "35404F"
                 },
                 "cart-count-text": {
                     "type": "color",
@@ -689,7 +689,7 @@
                 },
                 "btn-secondary-border": {
                     "type": "color",
-                    "value": "cccccc"
+                    "value": "A3D39C"
                 },
                 "btn-secondary-text": {
                     "type": "color",
@@ -698,11 +698,11 @@
 
                "add-to-cart-background": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "4AAAA5"
                 },
                 "add-to-cart-border": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "4AAAA5"
                 },
                 "add-to-cart-text": {
                     "type": "color",
@@ -711,11 +711,11 @@
 
                "registry-wishlist-background": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "A3D39C"
                 },
                 "registry-wishlist-border": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "A3D39C"
                 },
                 "registry-wishlist-text": {
                     "type": "color",
@@ -726,7 +726,7 @@
             "footer": {
                 "footer-text-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "35404F"
                 },
                 "footer-color-link-hover": {
                     "type": "color",
@@ -734,15 +734,15 @@
                 },
                 "footer-header-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "35404F"
                 },
                 "footer-hr": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "35404F"
                 },
                 "footer-copy": {
                     "type": "color",
-                    "value": "FAF6F0"
+                    "value": "4AAAA5"
                 }
             }
         },
@@ -750,7 +750,7 @@
            "base_styles": {
                 "base-typeface": {
                     "type": "dropdown_group",
-                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
+                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -791,7 +791,7 @@
             "nav_styles": {
                 "nav-typeface": {
                     "type": "dropdown_group",
-                    "value": "Helvetica, Arial, sans-serif",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -817,7 +817,7 @@
                 },
                 "nav-size-base": {
                     "type": "dropdown",
-                    "value": "15px",
+                    "value": "14px",
                     "options": {
                         "17px": "17px",
                         "16px": "16px",
@@ -883,7 +883,7 @@
             "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
-                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
+                    "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
