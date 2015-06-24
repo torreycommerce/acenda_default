@@ -98,19 +98,20 @@
                 {# End Product Heading Group #}
                 {# Begin review stars #}
                 {% set review_score = product|average('review_score') %}
-                {% if review_score > 0 %}
                     <ul class="reviews">
-                        <li class="stars">
-                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
-                        </li>
-                        <li class="average">
-                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
-                        </li>
+                        {% if review_score > 0 %}
+                            <li class="stars">
+                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+                            </li>
+                            <li class="average">
+                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
+                            </li>
+                        {% endif %}
                         <li class="submit">
                             <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
                         </li>
                     </ul>
-                {% endif %}
+                
                 {# End review #}
 
                 {% for variation in product.variant %}
@@ -161,37 +162,30 @@
                             </div>
                         {% endif %}
                         {# End Product Prices #}
-                        {% if variation.sku is not empty %}
-                            <div> 
-                                ITEM #{{variation.sku}}
-                            </div>
+                        {# Begin actions desktop #}
+                        {% if app.user.id is not empty %}
+                            {% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
+                            {% if registries is not empty %}
+                                {% set registry_ids = [] %}
+                                {% for registry in registries %}
+                                    {% set registry_ids = registry_ids|merge([registry.id]) %}
+                                {% endfor %}
+                                {% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+                            {% endif %}
+                            {% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
+                            {% if wishlists is not empty %}
+                                {% set wishlist_ids = [] %}
+                                {% for wishlist in wishlists %}
+                                    {% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
+                                {% endfor %}
+                                {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+                            {% endif %}
                         {% endif %}
+                        <div>ITEM #{{variation.sku}}</div>
                     </div>
                 {% endfor %}
-
-                {# Begin actions desktop #}
-                {% if app.user.id is not empty %}
-                    {% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
-                    {% if registries is not empty %}
-                        {% set registry_ids = [] %}
-                        {% for registry in registries %}
-                            {% set registry_ids = registry_ids|merge([registry.id]) %}
-                        {% endfor %}
-                        {% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
-                    {% endif %}
-                    {% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
-                    {% if wishlists is not empty %}
-                        {% set wishlist_ids = [] %}
-                        {% for wishlist in wishlists %}
-                            {% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
-                        {% endfor %}
-                        {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
-                    {% endif %}
-                {% endif %}
-
                 <div id="variation-selector-{{product.id}}">
                 </div>
-                
                 {% for variation in product.variant %}
                     <div id="product-{{variation.id}}" {% if loop.index > 1 %}style="display:none"{% endif %}>
                         {% if variation.price > 0 %}
