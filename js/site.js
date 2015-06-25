@@ -454,6 +454,31 @@ $(document).ready(function() {
   });
 });
 
+//Search Autocomplete
+$(document).ready(function() {
+
+  var searchCompleter = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: acendaBaseUrl+'/api/catalog/autocomplete?query=%QUERY',
+      wildcard: '%QUERY',
+      transform: function (response) {
+        res = [];
+        for (var i = 0, len = response.result.length; i < len; i++) {
+          res.push({'value':response.result[i]});
+        }
+        return res;
+      }
+    }
+  });
+  $('.search-autocomplete').typeahead(null, {
+    name: 'search',
+    display: 'value',
+    source: searchCompleter
+  });
+});
+
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
