@@ -306,7 +306,7 @@ html {
 .quantity-input-group {
     float: left;
     margin-left: 0;
-    margin-right: 4px;
+    margin-right: 0;
 }
 .quantity-input-group label {
     color: #6a4362;
@@ -2336,6 +2336,8 @@ section#toolbar .popover .cart-totals .total {
     font-size: 12px;
 }
 #collection .tab-content .panel .product .details .price {
+    font-weight: 500;
+    color: #6a4362;
     margin-bottom: 5px;
 }
 #collection .tab-content .panel .product .details .stock {
@@ -2381,7 +2383,7 @@ section#toolbar .popover .cart-totals .total {
     margin-right: 10px;
 }
 #collection .tab-content .panel .product .actions {
-    margin: 10px 0 0 0;
+    margin: 10px 0 10px 0;
 }
 @media (min-width: 991px) {
     #collection .tab-content .panel .product .actions {
@@ -2709,6 +2711,7 @@ table.yiiLog {
 .color-details-collection span {
     text-align: center;
     color: #6a4362;
+    font-size: 12px;
     text-transform: capitalize;
 }
 .swatches {

@@ -86,7 +86,7 @@
             <div class="col-xs-12">
                 {# Begin Product Heading Group #}
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                         <header>
                             <div class="brand">
                                 <a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
@@ -119,16 +119,16 @@
                         {# Begin Product Prices #}
                         {% if variation.price > 0 %}
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     {% set stock_description = variation.inventory_quantity > 0 ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : '' %}
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-xs-12">
                                             <div class="price">{{ prod.price(variation.price) }}</div>
                                             <div class="stock">{{stock_description}}</div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-xs-12">
                                             {# Begin pricing #}
                                             <ul class="pricing">
                                                 {# Begin regular price #}
@@ -229,12 +229,9 @@
                             </form>
                             {# End actions desktop #}
                             {# Begin actions mobile #}
-                            <div class="actions hidden-lg hidden-md row">
-                            <div class="col-xs-12">
-                                <div class="row">
-                                    <div class="col-sm-12 col-xs-12">
+                            <div class="actions hidden-lg hidden-md row" >
                                         <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
-                                            <div class="btn-toolbar">
+                                                <div class="col-xs-12">
                                                 <div class="row">
 
                                                     {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
@@ -242,9 +239,9 @@
                                                     variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
 
                                                     {# Begin product quantity #}
-                                                    <div class="col-sm-3 col-xs-2">
+                                                    <div class="form-group col-sm-3 col-xs-2">
                                                         <div class="quantity-input-group">
-                                                            <label for="add-to-cart-quantity" class="control-label">Qty</label>
+                                                            <label for="quantity-selector" class="control-label">Qty</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-btn">
                                                                     <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
@@ -272,9 +269,6 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
                             </div>
                         {% endif %}
                         {# End actions mobile #}
