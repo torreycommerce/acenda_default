@@ -1,5 +1,5 @@
 {% extends "/_layouts/theme.html.twig" %}
-{% set default_query = {"status":"active","brand":app.request.path,"category_id":{'$exists':true}} %}
+{% set default_query = {"status":"active","brand":app.request.path} %}
 {% set default_attributes = "category_id,color,type,gender,size,price,review_score" %}
 
 {% set title = 'By Brand - ' ~ (app.request.path|title) %}
