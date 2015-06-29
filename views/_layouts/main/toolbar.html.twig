@@ -3,8 +3,8 @@
     {# Begin search bar #}
     <div class="search col-lg-3 col-md-3 hidden-sm hidden-xs">
         <form role="search" method="get" action="{{app.url}}/search">
-            <div class="input-group">
-                <input class="form-control input-md" type="text" name="s" placeholder="Enter search terms">
+            <div class="input-group twitter-typeahead">
+                <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Enter search terms">
                 <span class="input-group-btn">
                     <button class="btn btn-md" type="submit">
                         <i class="fa fa-search"></i>
