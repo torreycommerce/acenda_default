@@ -456,8 +456,24 @@ $(document).ready(function() {
 
 //Search Autocomplete
 $(document).ready(function() {
+  var searchCompleterCategory = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: {
+      url: acendaBaseUrl+'/api/category/tree',
+      ttl: 300000, //5 min cache
+      transform: function (response) {
+        res = [];
+        for(var k in response.result) {
+            var v = k.replace('-',' ').replace('/',' > ').replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+            res.push({'value':v, 'url':acendaBaseUrl+'/category/'+k});
+          }
+        return res;
+      }
+    }
+  });
 
-  var searchCompleter = new Bloodhound({
+  var searchCompleterProduct = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
@@ -472,10 +488,22 @@ $(document).ready(function() {
       }
     }
   });
-  $('.search-autocomplete').typeahead(null, {
-    name: 'search',
-    display: 'value',
-    source: searchCompleter
+
+  $('.search-autocomplete').typeahead(null, 
+    {
+      name: 'search',
+      display: 'value',
+      source: searchCompleterCategory
+    },
+    {
+      name: 'search',
+      display: 'value',
+      source: searchCompleterProduct
+    }
+  ).on('typeahead:selected', function(event, selection) {
+    if('url' in selection) {
+      window.location=selection.url;
+    }
   });
 });
 
