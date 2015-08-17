@@ -1172,7 +1172,7 @@ section#toolbar ul li.cart a {
     color: #ffffff;
     display: inline-block;
     margin: 0;
-    padding-bottom: 0;
+    padding-bottom: 2px;
     padding-left: 16px;
     padding-top: 0;
     padding-right: 0;
@@ -1219,7 +1219,7 @@ section#toolbar .btn-group.my-account a span.caret {
 section#toolbar .btn-group.my-account a:active,
 section#toolbar .btn-group.my-account a:focus,
 section#toolbar .btn-group.my-account a:hover {
-    background-color: #808080;
+    background-color: #b3b3b3;
     color: #ffffff;
 }
 section#toolbar .btn-group.my-account .dropdown-menu li {
@@ -1227,8 +1227,8 @@ section#toolbar .btn-group.my-account .dropdown-menu li {
 }
 section#toolbar .btn-group.my-account .dropdown-menu li a {
     background-color: 0 none;
-    color: #999999;
-    text-align: left;
+    color: #f2f2f2;
+    text-align: center;
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     -ms-border-radius: 0px;
