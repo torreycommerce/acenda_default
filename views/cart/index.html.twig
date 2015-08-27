@@ -29,6 +29,7 @@ Cart
 {% do api.post('/sessioncartcoupon/refreshCoupons') %}
 {% set cart = api.get('/sessioncart') %}
 {% set cart_coupon = api.get('/sessioncartcoupon') %}
+{% set config = api.get('/config') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
 {% if shipping_methods is empty %}
 <div class="row">
@@ -258,16 +259,20 @@ Cart
                             Subtotal:&nbsp;<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ cart.subtotal|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ cart.subtotal|number_format(2)|split('.')|last }}</span></span>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div id="proceed-to-checkout">
-                            <a class="btn btn-block btn-primary" href="{{ app.url }}/checkout">Proceed To Checkout</a>
+                    {% if config.components.payflowpro.enable == true %}
+                        <div class="col-md-12">
+                            <div id="proceed-to-checkout">
+                                <a class="btn btn-block btn-primary" href="{{ app.url }}/checkout">Proceed To Checkout</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div id="paypal">
-                            <a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
+                    {% endif %}
+                    {% if config.components.nvp.enable == true %}
+                        <div class="col-md-12">
+                            <div id="paypal">
+                                <a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
