@@ -120,7 +120,7 @@
                         {% if variation.price > 0 %}
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {% set stock_description = variation.has_stock ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : '' %}
+                                    {% set stock_description = variation.has_stock ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : 'Out of Stock' %}
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="price">{{ prod.price(variation.price) }}</div>
