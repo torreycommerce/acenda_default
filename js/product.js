@@ -107,17 +107,22 @@ function VariantsManager (variants, variant_options, isCollection) {
                 this.disabled = false;
                 disabled_cart_button--;
                 if(disabled_cart_button == 0){
-                    $('button[value=cart]').attr('disabled',false);
+                    self.disableAddToCart(false);
                 }
             }
-            
         }else{
             if(this.disabled == false){
                 this.disabled = true;
-                $('button[value=cart]').attr('disabled',true);
+                self.disableAddToCart(true);
                 disabled_cart_button++;
             }
         }
+    }
+
+    this.disableAddToCart = function(boolean){
+        $('button[value=cart]').attr('disabled',boolean);
+        $('button[value=registry]').attr('disabled',boolean);
+        $('button[value=wishlist]').attr('disabled',boolean);
     }
 
     this.updateVariants = function(selectName, optionValue){
@@ -289,10 +294,10 @@ function VariantsManager (variants, variant_options, isCollection) {
             });
         });
 
-        var selected_variant = null;
+        var selected_variant = self.variants[0];
 
         $.each(self.variants, function(index,variant){
-            if(variant.price > 0){
+            if(variant.price > 0 && variant.has_stock){
                 selected_variant = variant;
                 return false;
             }

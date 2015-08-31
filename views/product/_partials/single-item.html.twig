@@ -120,7 +120,7 @@
                         {% if variation.price > 0 %}
                             <div class="row">
                                 <div class="col-xs-12">
-                                    {% set stock_description = variation.inventory_quantity > 0 ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : '' %}
+                                    {% set stock_description = variation.has_stock ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : '' %}
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="price">{{ prod.price(variation.price) }}</div>
@@ -191,8 +191,7 @@
                         {% if variation.price > 0 %}
                             <form method="post" id="productForm" action="{{ app.url }}/product/route">
                                {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
-                               variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
-                               variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
+                               variation['inventory_policy'] is defined and variation['has_stock'] %}
                                 <div class="actions hidden-sm hidden-xs row">
                                     <div class="col-md-12">
                                        {# Begin product quantity #}
@@ -235,8 +234,7 @@
                                                 <div class="row">
 
                                                     {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and
-                                                    variation['inventory_policy'] is defined and (variation['inventory_policy'] == 'continue' or
-                                                    variation['inventory_quantity'] > variation['inventory_minimum_quantity'] ) %}
+                                                    variation['inventory_policy'] is defined and variation['has_stock'] %}
 
                                                     {# Begin product quantity #}
                                                     <div class="form-group col-sm-3 col-xs-2">
