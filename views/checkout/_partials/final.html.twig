@@ -64,6 +64,7 @@
                         {% endif %}
                     </div>
                 </div>
+                {% if response is not empty %}
                 <h3>Items Ordered</h3>
                 <div id="order-items" class="panel-group">
                     {# LOOP Items #}
@@ -227,6 +228,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
             {% if col_ == "col-md-8 col-lg-8" %}
             <div class="col-md-4 col-lg-4">
