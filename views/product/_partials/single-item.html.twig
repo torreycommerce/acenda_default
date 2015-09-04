@@ -203,7 +203,8 @@
                                                            <div class="input-group-btn">
                                                                <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                            </div>
-                                                           <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+                                                           {% set limit = variation.inventory_minimum_quantity is empty ? variation.inventory_quantity : variation.inventory_quantity - variation.inventory_minimum_quantity %}
+                                                           <input {% if variation.inventory_policy !='continue' %} data-limit="{{limit}}" {% endif %} class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
                                                            <div class="input-group-btn">
                                                                <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                            </div>

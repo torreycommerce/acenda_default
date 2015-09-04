@@ -433,20 +433,19 @@
                                                                                 <div class="btn-toolbar">
                                                                                     {% if variation.price > 0 %}
                                                                                         <div class="quantity-input-group quantity">
-                                                                                            {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and variation['inventory_policy'] is defined and variation['has_stock'] %}
-                                                                                                <label for="quantity-selector" class="control-label" style="padding-top:0;">Qty</label>
-                                                                                                <div class="input-group">
-                                                                                                    
-                                                                                                    <div class="input-group-btn">
-                                                                                                       <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                                                                                    </div>
-                                                                                                    <input class="form-control quantity-selector" type="text" value="0" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
-                                                                                                    <div class="input-group-btn">
-                                                                                                       <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
-                                                                                                   </div>
-
+                                                                                        {% if variation['inventory_quantity'] is defined and variation['inventory_minimum_quantity'] is defined and variation['inventory_policy'] is defined and variation['has_stock'] %}
+                                                                                            <label for="quantity-selector" class="control-label" style="padding-top:0;">Qty</label>
+                                                                                            <div class="input-group">
+                                                                                                <div class="input-group-btn">
+                                                                                                   <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                                                                 </div>
-                                                                                            {% endif %}
+                                                                                                {% set limit = variation.inventory_minimum_quantity is empty ? variation.inventory_quantity : variation.inventory_quantity - variation.inventory_minimum_quantity %}
+                                                                                                <input {% if variation.inventory_policy !='continue' %} data-limit="{{limit}}" {% endif %} class="form-control quantity-selector" type="text" value="0" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+                                                                                                <div class="input-group-btn">
+                                                                                                   <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                                                                               </div>
+                                                                                            </div>
+                                                                                        {% endif %}
                                                                                         </div>
                                                                                     {% endif %}
                                                                                 </div>
