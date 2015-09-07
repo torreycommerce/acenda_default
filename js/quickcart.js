@@ -156,7 +156,9 @@ function ajaxCart(data, r) {
         defer.done(function() {
 
             var errors = $('.ajaxcart .error');
+            var errors_mobile = $('.mobile-popover .ajaxcart .error');
             errors.empty();
+            errors_mobile.empty();
 
             // Sort the responses by most recently added to the cart (by cart item ID)
             response.sort(function(a, b) {
@@ -188,10 +190,10 @@ function ajaxCart(data, r) {
                     if(response[i].inventory_minimum_quantity){
                         var stock = stock - parseInt(response[i].inventory_minimum_quantity);
                     }
-                    var message = product_name + ": Not added" + '</br>' + 'Only ' + stock + ' left in stock.';
+                    var message = product_name + " <b>Not added</b>" + '</br>' + 'Only ' + stock + ' left in stock.';
                     var error = $('<div>', {class: "col-md-12 alert alert-danger"}).html(message);
                     errors.append(error);
-                    errors.show();
+                    errors_mobile.append(error);
                 }
 
             }
@@ -240,17 +242,13 @@ function displayCart(el, r){
 
     cartCloseTimeout = setTimeout(function(){
         el.popover("hide"); 
-        //if errors set previously remove them and update cart data-content
-        
-        
+        resetErrors();
     }, 5000);
 }
 
 function resetErrors(){
     $('.ajaxcart .error').empty();
-    if ($("div.mobile-popover").is(":hidden"))
-        $('li.cart').attr('data-content',$('.cart .ajaxcart').html());
-    else{
-        $('div.mobile-popover').attr('data-content',$('.mobile-popover .ajaxcart').html());
-    }
+    $('.mobile-popover .ajaxcart .error').empty();
+    $('li.cart').attr('data-content',$('.cart .ajaxcart').html());
+    $('div.mobile-popover').attr('data-content',$('.mobile-popover .ajaxcart').html());
 }
