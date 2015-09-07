@@ -22,12 +22,17 @@ function VariantsManager (variants, variant_options, isCollection) {
     this.disabled = false;
     this.outOfStock = "Out of stock, please try another combination";
 
+    this.jqSelector = function(str){
+        var temp = str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+        return temp;
+    }
+
     this.getVariationSelector = function(selectName, optionValue){
-        return "[id=variation-selector-"+self.product_id+"-"+selectName+"-"+optionValue+"]";
+        return "[id=variation-selector-"+ this.jqSelector(self.product_id+"-"+selectName+"-"+optionValue) +"]";
     }
 
     this.getSelectedValue = function(selectName){
-        return "[id=selected-"+selectName+"-"+self.product_id+"]";
+        return "[id=selected-"+ this.jqSelector(selectName+"-"+self.product_id) +"]";
     }
     this.getProductVariation = function(variant_id){
         return "[id=product-" + variant_id + "]";
@@ -102,17 +107,22 @@ function VariantsManager (variants, variant_options, isCollection) {
                 this.disabled = false;
                 disabled_cart_button--;
                 if(disabled_cart_button == 0){
-                    $('button[value=cart]').attr('disabled',false);
+                    self.disableAddToCart(false);
                 }
             }
-            
         }else{
             if(this.disabled == false){
                 this.disabled = true;
-                $('button[value=cart]').attr('disabled',true);
+                self.disableAddToCart(true);
                 disabled_cart_button++;
             }
         }
+    }
+
+    this.disableAddToCart = function(boolean){
+        $('button[value=cart]').attr('disabled',boolean);
+        $('button[value=registry]').attr('disabled',boolean);
+        $('button[value=wishlist]').attr('disabled',boolean);
     }
 
     this.updateVariants = function(selectName, optionValue){
@@ -188,9 +198,11 @@ function VariantsManager (variants, variant_options, isCollection) {
         return tag =  $('<a>', {class: "", style:"background-color:"+color});
     }
 
-    this.buildChips = function(selectData){
+    this.buildChips = function(variant_options){
         var self = this;
-        $.each(selectData, function(selectName, optionArray){
+        $.each(variant_options, function(index, option){
+            var selectName = option.name;
+            var optionArray = option.values;
             //Color styling
             if( selectName.toLowerCase() == "color"){
                 if(self.isCollection){
@@ -236,19 +248,11 @@ function VariantsManager (variants, variant_options, isCollection) {
             div.append(ul);
 
             if(self.isCollection){
-                if(selectName.toLowerCase() == "color"){
-                    $(self.selector).prepend(div);
-                }else{
-                    $(self.selector).append(div);
-                }
+                $(self.selector).append(div);
             }else{
                 var row = $('<div>', {class: "row col-md-12"});
                 row.append(div);
-                if(selectName.toLowerCase() == "color"){
-                    $(self.selector).prepend(row);
-                }else{
-                    $(self.selector).append(row);
-                }
+                $(self.selector).append(row);
             }
         });
 
@@ -256,24 +260,44 @@ function VariantsManager (variants, variant_options, isCollection) {
         self.updateChips();
     }
 
-    this.init = function(){
-        var self = this;
-        $.each( self.variant_options, function(index, value){
-            self.selectsData[value] = [];
+    this.orderOptions = function(options){
+        var ordered_options = [];
+        $.each( options, function(index, option){
+            var indexToInsert=0;
+            for(var i=0; i<ordered_options.length; i++){
+                if(ordered_options[i].position<option.position){
+                    //next
+                    indexToInsert = i+1;
+                }else if(ordered_options[i].position>option.position){
+                    break;
+                }else if(ordered_options[i].position==option.position){
+                    indexToInsert = i;
+                    break;
+                }
+            }
+            ordered_options.splice(indexToInsert,0,option);
         });
 
-        $.each( self.variants, function(index, variant){
-            $.each( self.selectsData, function(optionName, values){
-                if( values.indexOf(variant[optionName])<0 )
-                    values.push(variant[optionName]);
+        return ordered_options;
+    }
+
+    this.init = function(){
+        var self = this;
+        //Options ordering
+        self.variant_options = self.orderOptions(self.variant_options);
+
+        //Build selectsData
+        $.each( self.variant_options, function(index, option){
+            self.selectsData[option.name] = [];
+            $.each( option.values, function(index, value){
+                self.selectsData[option.name].push(value);
             });
         });
 
-        var selected_variant = null;
+        var selected_variant = self.variants[0];
 
         $.each(self.variants, function(index,variant){
-            console.log(variant);
-            if(variant.price > 0){
+            if(variant.price > 0 && variant.has_stock){
                 selected_variant = variant;
                 return false;
             }
@@ -283,7 +307,8 @@ function VariantsManager (variants, variant_options, isCollection) {
         $.each(self.selectsData, function(selectName,optionArray){
             self.selectedValues[selectName] = selected_variant[selectName];
         });
+
         //Bluilding HTML Select elements
-        self.buildChips(self.selectsData);
+        self.buildChips(self.variant_options);
     }
 }

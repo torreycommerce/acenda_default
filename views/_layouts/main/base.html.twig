@@ -34,62 +34,53 @@
 <html>
 <head> 
     {% block head %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
+        <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
+        <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" 
+            type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/datepicker.css" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/style.css?v=06252015" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/fonts/font-awesome/css/font-awesome.min.css" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/jquery.mmenu.css" media="all" />
+        <link rel="sitemap" href="{{app.url}}/api/sitemap" />
 
-    <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
-    <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
-    {#
-    {% if app['theme']['logo_images_and_colors']['logo_background']['favicon-image'] == '1' %}
-      <link rel="shortcut icon" href="{{app.theme['logo_images_and_colors']['logo_background']['favicon-upload']}}" type="image/x-icon" />
-    {% endif %}
-    #}
-    <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' }}" type="image/x-icon" />
+        {% block css %}
+        {% endblock %}
+        
+        <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/datepicker.css" />
-    
-    <!-- <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/theme.css?v=05092014" />
--->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/style.css?v=06252015" />
+        {% set headers = api.get('/site/headers') %}
+        {% for header_key in headers|keys %}
+            {% if headers[header_key] is iterable %}
+                {% for sub in headers[header_key] %}
+                    <meta name="{{header_key}}" content="{{ sub }}">
+                {% endfor %}
+            {% else %}
+                <meta name="{{header_key}}" content="{{ headers[header_key] }}">
+            {% endif %}
+        {% endfor %}
 
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/fonts/font-awesome/css/font-awesome.min.css" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/jquery.mmenu.css" media="all" />
-    <link rel="sitemap" href="{{app.url}}/api/sitemap" />
-
-    {% block css %}{% endblock %}
-    <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
-
-    {% set headers = api.get('/site/headers') %}
-    {% for header_key in headers|keys %}
-        {% if headers[header_key] is iterable %}
-            {% for sub in headers[header_key] %}
-                <meta name="{{header_key}}" content="{{ sub }}">
-            {% endfor %}
-        {% else %}
-            <meta name="{{header_key}}" content="{{ headers[header_key] }}">
-        {% endif %}
-    {% endfor %}
-
-    <script>
-    var acendaBaseUrl = '{{app.url}}'
-    var acendaBaseThemeUrl = '{{app.url_asset}}'
-    </script>
+        <script>
+            var acendaBaseUrl = '{{app.url}}'
+            var acendaBaseThemeUrl = '{{app.url_asset}}'
+        </script>
     {% endblock %}
 </head>
 <body>
     {% block body %}
-<!--[if lte IE 8]>
-<div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-notification flash-notification-danger">
-<h4>Please upgrade your browser!</h4><br>
-<p>Please upgrade to <a href="http://getfirefox.com" class="alert-link">Firefox</a>, <a href="http://www.google.com/chrome" class="alert-link">Chrome</a> or <a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx" class="alert-link">Internet Explorer 9 or 10</a>. Thank you!</p>
-</div>
-<![endif]-->
+        <!--[if lte IE 8]>
+        <div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-notification flash-notification-danger">
+        <h4>Please upgrade your browser!</h4><br>
+        <p>Please upgrade to <a href="http://getfirefox.com" class="alert-link">Firefox</a>, <a href="http://www.google.com/chrome" class="alert-link">Chrome</a> or <a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx" class="alert-link">Internet Explorer 9 or 10</a>. Thank you!</p>
+        </div>
+        <![endif]-->
     {# Begin Header #}
     <header id="main">
         {{ base.protected_site() }}
@@ -111,7 +102,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="brand">
-                            {# if app['theme']['logo_images_and_colors']['logo_background']['logo-custom'] == '1' #}
                             {% if app.params.logoimages is not empty %}
                                 {% set logo_info = app.params.logoimages | first %}
                                 {% set logo = logo_info.url %}
@@ -119,9 +109,7 @@
                             {% if logo is not empty %}
                               <a href="{{app.url}}/" style="background-image: url({{ logo }});background-position: 50% 0; background-repeat: no-repeat; display: block;height:80px;width:auto;background-size: contain;"></a>
                             {% else %}
-                            {# else #}
-                              <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-                            {# endif #}
+                                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
                             {% endif %}
                         </div>
                     </div>
@@ -173,33 +161,25 @@
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
         <div class="container-fluid">
             <div class="row" style="padding-top:10px;">
-                        <div class="col-sm-4" style="padding-top:4px;">
-                            <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ back_to }}/images/logo-acenda-small.png">
-                        </div>
-                        <div class="col-sm-4" >
-                            {% if app.params.password is not empty %}
-                                <p style="padding-top:5px;color:white;">Your store is password protected with "{{ app.params.password }}"</p>
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-4">
-                            <button class="btn btn-info pull-right" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
-                            {% if '/preview/' in app.url  %}
-                                <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
-                            {% endif %}
-                        </div>
+                <div class="col-sm-4" style="padding-top:4px;">
+                    <img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}" style="max-width: 100px;">
+                </div>
+                <div class="col-sm-4">
+                    {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
+                    {% if sandboxMode is not empty %}
+                    <div class="row">
+                        <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> <a style="color: #fff;" href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">Your PayPal PayflowPro account is in test mode (Sandbox)</a></p></center>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-info pull-right" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
+                    {% if '/preview/' in app.url  %}
+                        <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
+                    {% endif %}
+                </div>
             </div>
-
-            {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
-            {% if sandboxMode is not empty %}
-            <div class="row" style="padding-top:10px;">
-                <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> Your PayPal PayflowPro account is in test mode (Sandbox). (<a href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">edit</a>)</p></center>
-            </div>
-            {% endif %}
         </div>
-        <!-- <div id="store-password-alert" class="alert alert-warning fade in">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            Your store is password protected with the code: test. When you're ready you can <a href="/site-settings">remove the password and open your site</a>.
-        </div> -->
     </nav>
 
 <script>
@@ -221,17 +201,4 @@
 
 </script>
 {% endif %}
-<script>
-    respondToSizingMessage = function(e) {
-  if(e.origin == 'http://angularadmin.acendev') {
-    // e.data is the string sent by the origin with postMessage.
-    if(e.data == 'src?') {
-      e.source.postMessage(document.location.href, e.origin);
-    }
-  }
-}
-// we have to listen for 'message'
-window.addEventListener('message', respondToSizingMessage, false);
-
-</script>
 </html>
