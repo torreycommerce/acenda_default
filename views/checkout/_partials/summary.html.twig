@@ -110,7 +110,7 @@
             </div>        
             <div class="total row">
                 <div class="col-sm-4 text-right">Total:</div>
-                {% set total = expressdetails.AMT|replace({',':''}) + tax.tax|replace({',':''}) %}
+                {% set total = expressdetails.AMT|replace({',':''}) - expressdetails.TAXAMT|replace({',':''}) + tax.tax|replace({',':''}) %}
                 <div class="amount col-sm-8"> <span class="dollar-sign">$</span> <span class="price">{{ total|number_format(2) }}</span> </div>
                 <input type="hidden" name="checkout[total_verify]" value="{{ total }}">
             </div>        

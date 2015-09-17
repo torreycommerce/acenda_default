@@ -15,7 +15,7 @@
 	<tr>
 		<td style="padding:20px; vertical-align:top;">
 			<h1 style="color: #333333; font-size: 36px; line-height: 46px;">
-				Thank you for placing your order with {{ app.params['site']['title'] }}!
+				Thank you for placing your order with {{ site_title|default("") }}!
 			</h1>
 			<p style="font-size: 14px; line-height: 22px;">
 				This email is to confirm your recent order.

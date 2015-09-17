@@ -15,7 +15,7 @@
 		<td style="padding:20px 20px 10px 20px; vertical-align:top;">
 			<h1 style="color: #333333; font-size: 36px; line-height: 46px;">
 				<a href="{{app.live_url}}/account/order/{{ order.order_number }}" style="text-decoration:none; color:#333333;">
-					Thank you again for your order from {{ app.params['site']['title'] }}!
+					Thank you again for your order from {{ site_title|default("") }}!
 				</a>
 			</h1>
 			<p style="font-size: 14px; line-height: 22px;">

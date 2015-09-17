@@ -71,9 +71,17 @@
             var acendaBaseUrl = '{{app.url}}'
             var acendaBaseThemeUrl = '{{app.url_asset}}'
         </script>
+        
+        {# Initialize dataLayer for Google Tag Manager if set #}
+        {% if app.params.seo.google_tag_manager is defined %}
+            <script>dataLayer = [];</script>
+        {% endif %}
     {% endblock %}
 </head>
 <body>
+    {% block tag_manager %}
+        {% include '/_partials/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
+    {% endblock %}
     {% block body %}
         <!--[if lte IE 8]>
         <div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-notification flash-notification-danger">
@@ -148,6 +156,9 @@
         <div class="container">
             {% block footer %}
             {%include "/_layouts/main/footer.html.twig"%}
+            {% endblock %}
+            {% block analytics %}
+            {% include '/_partials/analytics.html.twig' %} {# Google Analylics Snippet #}
             {% endblock %}
         </div>
     </footer>

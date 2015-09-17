@@ -86,13 +86,14 @@
 ##
 #}
 {% set products = api.get('/catalog', {
-                            "query":default_query|merge(filter_query),
-                            "page":app.request.get.page,
-                            "limit":limit,
-                            "search":app.request.get.s,
-                            "search_in":search_fields,
-                            "sort":sortBy
-                      }) %}
+                        "query":default_query|merge(filter_query),
+                        "page":app.request.get.page,
+                        "limit":limit,
+                        "search":app.request.get.s,
+                        "search_in":search_fields,
+                        "sort":sortBy
+                  }) %}
+
 
 {#
 ##
