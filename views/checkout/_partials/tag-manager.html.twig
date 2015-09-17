@@ -1,0 +1,27 @@
+{# Adding transaction data to Google Tag Manager dataLayer  #}
+{% if app.params.seo.google_tag_manager is not empty %}
+    {% if final_order is defined %}
+        <!-- Google Tag Manager DataLayer -->
+        <script>
+            transaction = {
+                'transactionId': '{{final_order.order_number}}',
+                'transactionAffiliation': '{{app.params.site.title}}',
+                'transactionTotal': '{{final_order.total}}',
+                'transactionTax': '{{final_order.tax}}',
+                'transactionShipping': '{{final_order.shipping_rate}}',
+                'transactionProducts': []
+            }
+            {% for item in items %}
+                transaction.transactionProducts.push({
+                    'sku': '{{products[item.product_id].0.sku}}',
+                    'name': '{{item.name}}',
+                    // 'category': 'Apparel',
+                    'price': '{{item.price}}',
+                    'quantity': '{{item.quantity}}'
+                })
+            {% endfor %}
+            dataLayer.push(transaction);
+        </script>
+        <!-- Google Tag Manager DataLayer End -->
+    {% endif %}
+{% endif %}
