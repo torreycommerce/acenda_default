@@ -1,10 +1,40 @@
 {% extends "/_layouts/theme.html.twig" %}
-{% block content %}
+
 {% set expressdetails = api.get('/order/paypalExpressDetails/' ~ app.request.post.express.token) %}
 {% set request = {express:app.request.post.express,token:app.request.post.express.token,ip:app.request.ip,email:expressdetails.EMAIL} %}
 {% if app.user.id is not empty %}
     {% set request = request + {customer_id:app.user.id} %}
 {% endif %}
+
 {% set response = api.post('/order/paypalExpressFinalize', request) %}
-{% include '/checkout/_partials/final.html.twig' %}
+
+
+{# data block from checkout/_partials/final.html.twig #}
+{% if response is not empty %}
+    {% do app.user.clearCheckoutStates('shipping') %}
+    {% do app.user.clearCheckoutStates('billing') %}
+    {% set final_order = api.get('/order/' ~ response | integer) %}
+    {% set items = api.get('/orderitem', {query:{'order_id':final_order.id}}) %}
+    {% set coupons = api.get('/ordercoupon', {query:{'order_id':final_order.id}}) %}
+    {% set product_ids = items|values_in('product_id') %}
+    {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+    {% set col_ = app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8"%}
+{% endif %}
+
+
+{% block content %}
+	{% include '/checkout/_partials/final.html.twig' %}
+{% endblock %}
+
+{% block tag_manager %}
+	{# Set the dataLayer variable. As to be place before the Google Tag Manager snippet (parent here) #}
+	{% include '/checkout/_partials/tag-manager.html.twig' %} {# Checkout has special analytics #}
+	{{ parent() }}
+{% endblock %}
+
+{% block analytics %}
+	{{ parent() }}
+	{# Creates and sends a new transaction to Google analytics.#} 
+	{# As to be place after the Google Analytics snippet (parent here) #}
+	{% include '/checkout/_partials/analytics.html.twig' %} {# Checkout has special analytics #}
 {% endblock %}
