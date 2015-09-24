@@ -144,7 +144,7 @@ $(document).ready(function() {
 
 
    $('[data-image-zoom]').imageZoom();
-   $('[data-image-swap]').click(function() {
+   $(".container").on("click", "[data-image-swap]", function() {
       var src = $(this).attr('data-image-swap-src');
       var el = $('#'+$(this).attr('data-image-swap'));
       var srczoom = $(this).attr('data-image-swap-zoom');
