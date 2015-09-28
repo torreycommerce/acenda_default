@@ -16,15 +16,44 @@ function AcendaAnalytics(trackingID){
 		ga('require', 'displayfeatures'); 						// Enable demographics
 		ga('send', 'pageview');
 
-		this.route(window.location.pathname);
+		if(true){ // if Enhanced Ecommerce
+			ga('require', 'ec');
+			this.ECroute(window.location.pathname);
+		}else{
+			this.route(window.location.pathname);
+		}
+		
 	}
 
 	this.route = function(route){
-		console.log("ROUTE : " + route);
 		if(route.includes('place')){
-			console.log("new Transaction")
 			this.transaction();
 		}
+	}
+
+	this.ECroute = function(route){
+		if(route.includes('place')){
+			this.ECtransaction();
+		}
+		if(route.includes('product')){
+			this.productDetails();
+		}
+	}
+
+	this.productDetails = function(){
+		if(acenda.products.length == 1){
+			ga('ec:addProduct', {
+			  'id': acenda.products[0].id,
+			  'name': acenda.products[0].name,
+			  'brand': acenda.products[0].brand,
+			});
+			ga('ec:setAction', 'detail');
+			ga("send", "event", "EnhancedEcommerce", "Viewed Product", {nonInteraction: 1})
+		}
+	}
+
+	this.ECtransaction = function(){
+
 	}
 
 	this.transaction = function(){
