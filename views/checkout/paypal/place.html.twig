@@ -26,15 +26,7 @@
 	{% include '/checkout/_partials/final.html.twig' %}
 {% endblock %}
 
-{% block tag_manager %}
-	{# Set the dataLayer variable. As to be place before the Google Tag Manager snippet (parent here) #}
-	{% include '/checkout/_partials/tag-manager.html.twig' %} {# Checkout has special analytics #}
-	{{ parent() }}
-{% endblock %}
-
-{% block analytics %}
-	{{ parent() }}
-	{# Creates and sends a new transaction to Google analytics.#} 
-	{# As to be place after the Google Analytics snippet (parent here) #}
-	{% include '/checkout/_partials/analytics.html.twig' %} {# Checkout has special analytics #}
+{% block acenda %}
+    {{ parent() }}
+    {% include "/checkout/_partials/acenda.html.twig" %}
 {% endblock %}

@@ -28,6 +28,7 @@
 {{ app.asset.js(app.url_asset ~ '/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/js/jquery.maskedinput.js') }}
 {{ app.asset.js(app.url_asset ~ '/js/typeahead.js') }}
+{{ app.asset.js(app.url_asset ~ '/js/acendaAnalytics.js') }}
 {# End Scripts #}
 {% endspaceless %}
 <!DOCTYPE html>
@@ -68,8 +69,17 @@
         {% endfor %}
 
         <script>
-            var acendaBaseUrl = '{{app.url}}'
-            var acendaBaseThemeUrl = '{{app.url_asset}}'
+                var acendaBaseUrl = '{{app.url}}'
+                var acendaBaseThemeUrl = '{{app.url_asset}}'
+        </script>
+        <script>
+            {% block acenda %}
+                var acenda = {};
+                acenda.site = '{{app.params.site.title}}';
+                {% if app.params.seo.google_analytics is not empty and app.params.seo.google_tag_manager is empty %}
+                    acenda.google_analytics_id = '{{ app.params.seo.google_analytics }}';
+                {% endif %}
+            {% endblock %}
         </script>
         
         {# Initialize dataLayer for Google Tag Manager if set #}
@@ -156,9 +166,6 @@
         <div class="container">
             {% block footer %}
             {%include "/_layouts/main/footer.html.twig"%}
-            {% endblock %}
-            {% block analytics %}
-            {% include '/_partials/analytics.html.twig' %} {# Google Analylics Snippet #}
             {% endblock %}
         </div>
     </footer>
