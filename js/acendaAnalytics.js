@@ -18,6 +18,7 @@ function AcendaAnalytics(trackingID){
 
 		if(true){ // if Enhanced Ecommerce
 			ga('require', 'ec');
+			ga('set', '&cu', this.currency)
 			this.ECroute(window.location.pathname);
 		}else{
 			this.route(window.location.pathname);
@@ -53,7 +54,28 @@ function AcendaAnalytics(trackingID){
 	}
 
 	this.ECtransaction = function(){
-
+		if(acenda.order){
+            if(acenda.order.items){
+            	for(x in acenda.order.items){
+            		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
+					  'id': acenda.order.id,                   // Product ID (string).
+					  'name': acenda.order.items[x].name, // Product name (string).
+					  'price': acenda.order.items[x].price,         // Product price (currency).
+					  //'coupon': 'APPARELSALE',          // Product coupon (string).
+					  'quantity': acenda.order.items[x].quantity   // Product quantity (number).
+					});
+            	}
+            }
+			ga('ec:setAction', 'purchase', {          // Transaction details are provided in an actionFieldObject.
+			  'id': acenda.order.id,                  // (Required) Transaction id (string).
+			  'affiliation': acenda.site, 			  // Affiliation (string).
+			  'revenue': acenda.order.revenue,        // Revenue (currency).
+			  'tax': acenda.order.tax,                // Tax (currency).
+			  'shipping': acenda.order.shipping,      // Shipping (currency).
+			  //'coupon': 'SUMMER2013'                // Transaction coupon (string).
+			});
+			ga("send", "event", "EnhancedEcommerce", "Completed Order", {nonInteraction: 1});
+		}
 	}
 
 	this.transaction = function(){
