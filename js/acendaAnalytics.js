@@ -17,8 +17,6 @@ function AcendaAnalytics(trackingID){
 		ga('send', 'pageview');
 
 		if(true){ // if Enhanced Ecommerce
-			ga('require', 'ec');
-			ga('set', '&cu', this.currency)
 			this.ECroute(window.location.pathname);
 		}else{
 			this.route(window.location.pathname);
@@ -33,16 +31,93 @@ function AcendaAnalytics(trackingID){
 	}
 
 	this.ECroute = function(route){
+		ga('require', 'ec');
+		ga('set', '&cu', this.currency)
+		this.addToCartTracking();
+
 		if(route.includes('place')){
 			this.ECtransaction();
 		}
 		if(route.includes('product')){
 			this.productDetails();
 		}
+		if(route.includes('cart')){
+			this.removeToCartTracking();
+		}
+	}
+
+	this.removeToCartTracking = function(){
+		var self = this;
+		$('button[value*=remove\\/]').click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var item_index = button.attr("value").replace('remove/','');
+			var item_index = parseInt(item_index);
+			if(Number.isInteger(item_index)){
+				var variant = acenda.cart.items[item_index];
+			}
+			ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: variant.quantity, price: variant.price, brand: variant.brand, currency: self.currency});
+			ga("ec:setAction", "remove");
+			ga("send", "event", "EnhancedEcommerce", "Removed Product", {nonInteraction: 1});
+			button.off("click");
+			button.trigger("click");
+		});
+	}
+
+	this.addToCartTracking = function(){
+		var self = this;
+		$('button[value=cart]').click(function(event) {
+    
+    		var addedProducts = false;
+		    event.preventDefault();
+		    var cartButton = event.currentTarget;
+		    var form = cartButton.parentElement;
+		    while(form.nodeName != 'FORM'){
+		        form = form.parentElement;
+		    }
+		    form = $(form);
+		    form.find('.quantity-selector').each(function() {
+		        if (!isNaN($(this).val())) {
+		        	var qty = parseInt($(this).val());
+		            var variant_id = $(this).attr("name").replace('items[','').replace(']','');
+		            var variant = self.getVariant(variant_id);
+		            if(variant && qty > 0){
+		            	ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: qty, price: variant.price, brand: variant.brand, currency: self.currency});
+		            	addedProducts = true;
+		            }
+		        }
+		    });
+		    if(addedProducts){
+		    	ga("ec:setAction", "add");
+		    	ga("send", "event", "EnhancedEcommerce", "Added Product", {nonInteraction: 1});
+		    }
+		});
+	}
+
+	this.getVariant = function(variant_id){
+		if(acenda.products){
+			for(x in acenda.products){
+				for(y in acenda.products[x].variants){
+					if( variant_id == acenda.products[x].variants[y].id){
+						acenda.products[x].variants[y].brand = acenda.products[x].brand;
+						return acenda.products[x].variants[y];
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	this.productDetails = function(){
-		if(acenda.products.length == 1){
+		if(acenda.collection){
+			ga('ec:addProduct', {
+			  'id': acenda.collection.id,
+			  'name': acenda.collection.name,
+			  'brand': acenda.collection.brand,
+			});
+			ga('ec:setAction', 'detail');
+			ga("send", "event", "EnhancedEcommerce", "Viewed Product", {nonInteraction: 1})
+		}else{
 			ga('ec:addProduct', {
 			  'id': acenda.products[0].id,
 			  'name': acenda.products[0].name,
@@ -53,6 +128,7 @@ function AcendaAnalytics(trackingID){
 		}
 	}
 
+	//Add coupons used on the order
 	this.ECtransaction = function(){
 		if(acenda.order){
             if(acenda.order.items){
