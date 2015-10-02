@@ -28,7 +28,9 @@
 {{ app.asset.js(app.url_asset ~ '/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/js/jquery.maskedinput.js') }}
 {{ app.asset.js(app.url_asset ~ '/js/typeahead.js') }}
+{% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
 {{ app.asset.js(app.url_asset ~ '/js/acendaAnalytics.js') }}
+{% endif %}
 {# End Scripts #}
 {% endspaceless %}
 <!DOCTYPE html>
@@ -74,26 +76,22 @@
         </script>
         <script>
             {% block acenda %}
-                var acenda = {};
-                acenda.site = '{{app.params.site.title}}';
-                {% if app.params.seo.google_analytics is not empty and app.params.seo.google_tag_manager is empty %}
-                    acenda.google_analytics_id = '{{ app.params.seo.google_analytics }}';
-                {% endif %}
+                {% include '/_partials/acenda.html.twig' %}
             {% endblock %}
         </script>
+
         
-        {# Initialize dataLayer for Google Tag Manager if set #}
-        {# if app.params.seo.google_tag_manager is defined #}
-            <script>dataLayer = [];</script>
-        {# endif #}
     {% endblock %}
 </head>
 <body>
-    <script>
-    {% block dataLayer %}
-        {% include '/_partials/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
-    {% endblock %}
-    </script>
+    {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
+        <script>
+            var dataLayer = [];
+            {% block dataLayer %}
+                {% include '/_partials/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
+            {% endblock %}
+        </script>
+    {% endif %}
 
     {% block body %}
         <!--[if lte IE 8]>
