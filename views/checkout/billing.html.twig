@@ -4,6 +4,10 @@
 {% import "/_macros/normalizer.html.twig" as normalizer %}
 {% set step = 'billing' %}
 {% set cart = api.get('/sessioncart') %}
+{% if cart.items is not empty %} {# Set cart products for acenda object #}
+    {% set product_ids = cart.items|values_in('product_id') %}
+    {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+{% endif %}
 {% block content %}
 {% if app.request.get.clear == "same" %}
     {% do app.user.setState('shipping_same_as_billing', null) %}
@@ -237,4 +241,9 @@
 {% block js %}
 {{ app.asset.js(app.url_asset ~ '/js/checkout.js') }}
 {{ app.asset.js(app.url_asset ~ '/js/region.js') }}
+{% endblock %}
+
+{% block acenda %}
+    {{ parent() }}
+    {% include "/checkout/_partials/acenda.html.twig" %}
 {% endblock %}

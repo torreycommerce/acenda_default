@@ -66,3 +66,7 @@
     {{ parent() }}
     {% include "/product/_partials/acenda.html.twig" %}
 {% endblock %}
+{% block dataLayer %}
+    {{ parent() }}
+    {% include "/product/_partials/dataLayer.html.twig" %}
+{% endblock %}

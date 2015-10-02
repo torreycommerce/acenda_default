@@ -20,8 +20,7 @@ function AcendaAnalytics(trackingID){
 			this.ECroute(window.location.pathname);
 		}else{
 			this.route(window.location.pathname);
-		}
-		
+		}	
 	}
 
 	this.route = function(route){
@@ -44,6 +43,234 @@ function AcendaAnalytics(trackingID){
 		if(route.includes('cart')){
 			this.removeToCartTracking();
 		}
+		if(route.includes('checkout') || route.includes('cart')){
+			this.checkoutProcess(route);
+		}
+	}
+
+	this.getCheckoutStep = function(route){
+		if(route.includes('cart')){
+			return 1;
+		}else if(route.includes('checkout/billing')){
+			return 3;
+		}else if(route.includes('checkout/place') || route.includes('checkout/paypal/place')){
+			return 4;
+		}else if(route.includes('checkout') || route.includes('checkout/paypal/review')){
+			return 2;
+		}
+	}
+
+	this.getCheckoutMethod = function(link){
+		if(link.includes("paypal")){
+			return "PayPal Checkout";
+		}else{
+			return "Regular Checkout";
+		}
+	}
+
+	this.getShippingMethod = function(){
+		var value = $('select[name=shipping\\[shipping_method\\]]').val();
+		var shippingMethod = $("option[value="+value+"]").text();
+		return shippingMethod;
+	}
+
+	this.getPaymentMethod = function(){
+		var number = $('input[name=checkout\\[card_number\\]]').val();
+        var re = {
+            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+            mastercard: /^5[1-5][0-9]{14}$/,
+            amex: /^3[47][0-9]{13}$/,
+            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/
+        };
+        if (re.visa.test(number)) {
+            return 'visa';
+        } else if (re.mastercard.test(number)) {
+            return 'mastercard';
+        } else if (re.amex.test(number)) {
+            return 'amex';
+        } else if (re.discover.test(number)) {
+            return 'discover';
+        } else {
+            return null;
+        }
+	}
+
+
+	this.checkoutProcess = function(route){
+		self = this;
+
+		var checkout_step = self.getCheckoutStep(route)
+
+		if(checkout_step == 1){
+			self.checkoutStep1();
+		}	
+		if(checkout_step == 2){
+			self.checkoutStep2(route);
+		}
+		if(checkout_step == 3){
+			self.checkoutStep3();
+		}
+		if(checkout_step == 4){
+			self.checkoutStep4();
+		}
+	}
+
+	//Checkout Step 1
+	//On arrival on /cart page "Viewed Checkout - Cart"
+		//add product -> send Step 1
+		//When clicking on proceed to checkout -> send Step 1 of checkout with  option:paypal/regular "Started Checkout"
+	this.checkoutStep1 = function(){
+		//attach click action on checkout buttons 
+		$('a[href*=checkout]').click(function(event) {
+			event.stopPropagation();
+			var link = $(event.currentTarget);
+			var checkout_method = self.getCheckoutMethod(link.attr("href"));
+			ga('ec:setAction', 'checkout_option', {'step': 1, 'option': checkout_method});
+			ga("send", "event", "EnhancedEcommerce", "Started Checkout",
+				{
+					nonInteraction: 1,
+					hitCallback: function() {
+						link.off("click");
+						link.trigger("click");
+					}
+				}
+			);
+		});
+
+		//create and send checkout step
+		if(acenda.cart){
+            if(acenda.cart.items){
+            	for(x in acenda.cart.items){
+            		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
+					  'id': acenda.cart.items[x].id,    // Product ID (string).
+					  'name': acenda.cart.items[x].name, // Product name (string).
+					  'price': acenda.cart.items[x].price,         // Product price (currency).
+					  'brand': acenda.cart.items[x].brand,			// Product brand (string).
+					  //'coupon': 'APPARELSALE',          // Product coupon (string).
+					  'quantity': acenda.cart.items[x].quantity   // Product quantity (number).
+					});
+            	}
+            }
+			ga('ec:setAction', 'checkout', {          // Transaction details are provided in an actionFieldObject.
+			  	'step': 1,
+			});
+			ga("send", "event", "EnhancedEcommerce", "Viewed Checkout - Cart", {nonInteraction: 1});
+		}
+	}
+
+	//Checkout Step 2
+	//On arrival on /checkout page (or checkout/paypal/review) "Viewed Checkout - Shipping Info"
+		//add product -> send Step 2
+		//When clicking on continue checkout -> send Step 2 of checkout with  option:shipping_method "Completed Checkout - Shipping Info"
+	this.checkoutStep2 = function(route){
+		var button;
+		if(route.includes('paypal')){
+			button = 'button[name=place]';
+		}else{
+			button = 'button[name=continue]';
+		}
+		//attach click action on continue buttons 
+		$(button).click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var shipping_method = self.getShippingMethod();
+			ga('ec:setAction', 'checkout_option', {'step': 2, 'option': shipping_method});
+			ga("send", "event", "EnhancedEcommerce", "Completed Checkout - Shipping Info",
+				{
+					nonInteraction: 1,
+					hitCallback: function() {
+						button.off("click");
+						button.trigger("click");
+					}
+				}
+			);
+		});
+
+		//create and send checkout step
+		if(acenda.cart){
+            if(acenda.cart.items){
+            	for(x in acenda.cart.items){
+            		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
+					  'id': acenda.cart.items[x].id,    // Product ID (string).
+					  'name': acenda.cart.items[x].name, // Product name (string).
+					  'price': acenda.cart.items[x].price,         // Product price (currency).
+					  'brand': acenda.cart.items[x].brand,			// Product brand (string).
+					  //'coupon': 'APPARELSALE',          // Product coupon (string).
+					  'quantity': acenda.cart.items[x].quantity   // Product quantity (number).
+					});
+            	}
+            }
+			ga('ec:setAction', 'checkout', {          // Transaction details are provided in an actionFieldObject.
+			  	'step': 2,
+			});
+			ga("send", "event", "EnhancedEcommerce", "Viewed Checkout - Shipping Info", {nonInteraction: 1});
+		}
+	}
+
+	//Checkout Step 3
+	//On arrival on /checkout/billing (or paypal page) page "Viewed Checkout - Billing Info"
+		//When clicking on continue checkout -> send Step 3 of checkout with  option:payement_method "Completed Checkout - Billing Info"
+		//What should I do for PAYPAL payement ?
+	this.checkoutStep3 = function(){
+		//attach click action on continue buttons 
+		$('button[name=place_order]').click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var payment_method = self.getPaymentMethod();
+			ga('ec:setAction', 'checkout_option', {'step': 3, 'option': payment_method});
+			ga("send", "event", "EnhancedEcommerce", "Completed Checkout - Billing Info",
+				{
+					nonInteraction: 1,
+					hitCallback: function() {
+						button.off("click");
+						button.trigger("click");
+					}
+				}
+			);
+		});
+
+		//create and send checkout step
+		if(acenda.cart){
+            if(acenda.cart.items){
+            	for(x in acenda.cart.items){
+            		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
+					  'id': acenda.cart.items[x].id,    // Product ID (string).
+					  'name': acenda.cart.items[x].name, // Product name (string).
+					  'price': acenda.cart.items[x].price,         // Product price (currency).
+					  'brand': acenda.cart.items[x].brand,			// Product brand (string).
+					  //'coupon': 'APPARELSALE',          // Product coupon (string).
+					  'quantity': acenda.cart.items[x].quantity   // Product quantity (number).
+					});
+            	}
+            }
+			ga('ec:setAction', 'checkout', {
+			  	'step': 3,
+			});
+			ga("send", "event", "EnhancedEcommerce", "Viewed Checkout - Billing Info", {nonInteraction: 1});
+		}
+	}
+
+	//Checkout Step 4
+	//On arrival on /checkout/place page "Checkout Completed"
+		//add product -> send Step 4
+	this.checkoutStep4 = function(){
+		if(acenda.order){
+            if(acenda.order.items){
+            	for(x in acenda.order.items){
+            		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
+					  'id': acenda.order.items[x].id,    // Product ID (string).
+					  'name': acenda.order.items[x].name, // Product name (string).
+					  'price': acenda.order.items[x].price,         // Product price (currency).
+					  //'coupon': 'APPARELSALE',          // Product coupon (string).
+					  'quantity': acenda.order.items[x].quantity   // Product quantity (number).
+					});
+            	}
+            }
+			ga('ec:setAction', 'checkout', {          // Transaction details are provided in an actionFieldObject.
+			  	'step': 4,
+			});
+			ga("send", "event", "EnhancedEcommerce", "Checkout Completed", {nonInteraction: 1});
+		}
 	}
 
 	this.removeToCartTracking = function(){
@@ -58,9 +285,15 @@ function AcendaAnalytics(trackingID){
 			}
 			ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: variant.quantity, price: variant.price, brand: variant.brand, currency: self.currency});
 			ga("ec:setAction", "remove");
-			ga("send", "event", "EnhancedEcommerce", "Removed Product", {nonInteraction: 1});
-			button.off("click");
-			button.trigger("click");
+			ga("send", "event", "EnhancedEcommerce", "Removed Product", 
+				{
+					nonInteraction: 1,
+					hitCallback: function() {
+						button.off("click");
+						button.trigger("click");
+					}
+				}
+			);
 		});
 	}
 
@@ -134,7 +367,7 @@ function AcendaAnalytics(trackingID){
             if(acenda.order.items){
             	for(x in acenda.order.items){
             		ga('ec:addProduct', {               // Provide product details in an productFieldObject.
-					  'id': acenda.order.id,                   // Product ID (string).
+					  'id': acenda.order.items[x].id,    // Product ID (string).
 					  'name': acenda.order.items[x].name, // Product name (string).
 					  'price': acenda.order.items[x].price,         // Product price (currency).
 					  //'coupon': 'APPARELSALE',          // Product coupon (string).
@@ -181,4 +414,9 @@ function AcendaAnalytics(trackingID){
             ga('ecommerce:send');
 		}
 	}
+}
+
+function AcendaTagManager(trackingID){
+	this.trackingID = trackingID;
+	this.currency = 'USD';
 }

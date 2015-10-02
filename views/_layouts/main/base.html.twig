@@ -83,15 +83,18 @@
         </script>
         
         {# Initialize dataLayer for Google Tag Manager if set #}
-        {% if app.params.seo.google_tag_manager is defined %}
+        {# if app.params.seo.google_tag_manager is defined #}
             <script>dataLayer = [];</script>
-        {% endif %}
+        {# endif #}
     {% endblock %}
 </head>
 <body>
-    {% block tag_manager %}
+    <script>
+    {% block dataLayer %}
         {% include '/_partials/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
     {% endblock %}
+    </script>
+
     {% block body %}
         <!--[if lte IE 8]>
         <div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-notification flash-notification-danger">
