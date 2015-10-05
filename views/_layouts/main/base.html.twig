@@ -85,12 +85,14 @@
 </head>
 <body>
     {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
+        <!-- Google Tag Manager DataLayer -->
         <script>
             var dataLayer = [];
             {% block dataLayer %}
                 {% include '/_partials/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
             {% endblock %}
         </script>
+        <!-- Google Tag Manager DataLayer End -->
     {% endif %}
 
     {% block body %}

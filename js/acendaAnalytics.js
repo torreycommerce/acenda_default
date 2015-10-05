@@ -1,5 +1,7 @@
 if(acenda.google_analytics_id){
 	new AcendaAnalytics(acenda.google_analytics_id).init();
+}else if(acenda.google_tag_manager){
+	new AcendaTagManager().init();
 }
 
 function AcendaAnalytics(trackingID){
@@ -16,7 +18,7 @@ function AcendaAnalytics(trackingID){
 		ga('require', 'displayfeatures'); 						// Enable demographics
 		ga('send', 'pageview');
 
-		if(true){ // if Enhanced Ecommerce
+		if(acenda.enhanced_ecommerce){ // if Enhanced Ecommerce
 			this.ECroute(window.location.pathname);
 		}else{
 			this.route(window.location.pathname);
@@ -300,7 +302,6 @@ function AcendaAnalytics(trackingID){
 	this.addToCartTracking = function(){
 		var self = this;
 		$('button[value=cart]').click(function(event) {
-    
     		var addedProducts = false;
 		    event.preventDefault();
 		    var cartButton = event.currentTarget;
@@ -416,7 +417,245 @@ function AcendaAnalytics(trackingID){
 	}
 }
 
-function AcendaTagManager(trackingID){
-	this.trackingID = trackingID;
+function AcendaTagManager(){
 	this.currency = 'USD';
+
+	this.init = function(){
+		if(acenda.enhanced_ecommerce){ // if Enhanced Ecommerce
+			this.ECroute(window.location.pathname);
+		}
+	}
+
+	this.ECroute = function(route){
+		this.addToCartTracking();
+		if(route.includes('cart')){
+			this.removeToCartTracking();
+		}
+		if(route.includes('checkout') || route.includes('cart')){
+			this.checkoutProcess(route);
+		}
+	}
+
+	this.getCheckoutStep = function(route){
+		if(route.includes('cart')){
+			return 1;
+		}else if(route.includes('checkout/billing')){
+			return 3;
+		}else if(route.includes('checkout/place') || route.includes('checkout/paypal/place')){
+			return 4;
+		}else if(route.includes('checkout') || route.includes('checkout/paypal/review')){
+			return 2;
+		}
+	}
+
+	this.getCheckoutMethod = function(link){
+		if(link.includes("paypal")){
+			return "PayPal Checkout";
+		}else{
+			return "Regular Checkout";
+		}
+	}
+
+	this.getShippingMethod = function(){
+		var value = $('select[name=shipping\\[shipping_method\\]]').val();
+		var shippingMethod = $("option[value="+value+"]").text();
+		return shippingMethod;
+	}
+
+	this.getPaymentMethod = function(){
+		var number = $('input[name=checkout\\[card_number\\]]').val();
+        var re = {
+            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+            mastercard: /^5[1-5][0-9]{14}$/,
+            amex: /^3[47][0-9]{13}$/,
+            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/
+        };
+        if (re.visa.test(number)) {
+            return 'visa';
+        } else if (re.mastercard.test(number)) {
+            return 'mastercard';
+        } else if (re.amex.test(number)) {
+            return 'amex';
+        } else if (re.discover.test(number)) {
+            return 'discover';
+        } else {
+            return null;
+        }
+	}
+
+
+	this.checkoutProcess = function(route){
+		self = this;
+
+		var checkout_step = self.getCheckoutStep(route)
+
+		if(checkout_step == 1){
+			self.checkoutStep1();
+		}	
+		if(checkout_step == 2){
+			self.checkoutStep2(route);
+		}
+		if(checkout_step == 3){
+			self.checkoutStep3();
+		}
+		if(checkout_step == 4){
+			self.checkoutStep4();
+		}
+	}
+
+	//Checkout Step 1
+	//On arrival on /cart page "Viewed Checkout - Cart"
+		//add product -> send Step 1
+		//When clicking on proceed to checkout -> send Step 1 of checkout with  option:paypal/regular "Started Checkout"
+	this.checkoutStep1 = function(){
+		//attach click action on checkout buttons 
+		$('a[href*=checkout]').click(function(event) {
+			event.stopPropagation();
+			var link = $(event.currentTarget);
+			var checkout_method = self.getCheckoutMethod(link.attr("href"));
+			dataLayer.push({
+			    'event': 'checkoutOption',
+			    'ecommerce': {
+			      'checkout_option': {
+			        'actionField': {'step': 1, 'option': checkout_method}
+			      }
+			    }
+   			});
+			link.off("click");
+			link.trigger("click");
+		});
+	}
+
+	//Checkout Step 2
+	//On arrival on /checkout page (or checkout/paypal/review) "Viewed Checkout - Shipping Info"
+		//add product -> send Step 2
+		//When clicking on continue checkout -> send Step 2 of checkout with  option:shipping_method "Completed Checkout - Shipping Info"
+	this.checkoutStep2 = function(route){
+		var button;
+		if(route.includes('paypal')){
+			button = 'button[name=place]';
+		}else{
+			button = 'button[name=continue]';
+		}
+		//attach click action on continue buttons 
+		$(button).click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var shipping_method = self.getShippingMethod();
+			dataLayer.push({
+			    'event': 'checkoutOption',
+			    'ecommerce': {
+			      'checkout_option': {
+			        'actionField': {'step': 2, 'option': shipping_method}
+			      }
+			    }
+   			});
+			button.off("click");
+			button.trigger("click");
+		});
+	}
+
+	//Checkout Step 3
+	//On arrival on /checkout/billing (or paypal page) page "Viewed Checkout - Billing Info"
+		//When clicking on continue checkout -> send Step 3 of checkout with  option:payement_method "Completed Checkout - Billing Info"
+		//What should I do for PAYPAL payement ?
+	this.checkoutStep3 = function(){
+		//attach click action on continue buttons 
+		$('button[name=place_order]').click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var payment_method = self.getPaymentMethod();
+			dataLayer.push({
+			    'event': 'checkoutOption',
+			    'ecommerce': {
+			      'checkout_option': {
+			        'actionField': {'step': 3, 'option': payment_method}
+			      }
+			    }
+   			});
+   			button.off("click");
+			button.trigger("click");
+		});
+	}
+
+	//Checkout Step 4
+	//On arrival on /checkout/place page "Checkout Completed"
+		//add product -> send Step 4
+	this.checkoutStep4 = function(){
+	}
+
+	this.getVariant = function(variant_id){
+		if(acenda.products){
+			for(x in acenda.products){
+				for(y in acenda.products[x].variants){
+					if( variant_id == acenda.products[x].variants[y].id){
+						acenda.products[x].variants[y].brand = acenda.products[x].brand;
+						return acenda.products[x].variants[y];
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	this.removeToCartTracking = function(){
+		var self = this;
+		$('button[value*=remove\\/]').click(function(event) {
+			event.stopPropagation();
+			var button = $(event.currentTarget);
+			var item_index = button.attr("value").replace('remove/','');
+			var item_index = parseInt(item_index);
+			if(Number.isInteger(item_index)){
+				var variant = acenda.cart.items[item_index];
+			}
+			var product =  {id: variant.id, name: variant.name, quantity: variant.quantity, price: variant.price, brand: variant.brand};
+			
+			dataLayer.push({
+			  	'event': 'removeFromCart',
+			  	'ecommerce': {
+			  		'currencyCode': self.currency,
+			    	'remove': {                               // 'remove' actionFieldObject measures.
+			      		'products': [product]
+			    	}
+			  	}
+			});
+			button.off("click");
+			button.trigger("click");
+		});
+	}
+
+	this.addToCartTracking = function(){
+		var self = this;
+		$('button[value=cart]').click(function(event) {
+    		var addedProducts = [];
+		    event.preventDefault();
+		    var cartButton = event.currentTarget;
+		    var form = cartButton.parentElement;
+		    while(form.nodeName != 'FORM'){
+		        form = form.parentElement;
+		    }
+		    form = $(form);
+		    form.find('.quantity-selector').each(function() {
+		        if (!isNaN($(this).val())) {
+		        	var qty = parseInt($(this).val());
+		            var variant_id = $(this).attr("name").replace('items[','').replace(']','');
+		            var variant = self.getVariant(variant_id);
+		            if(variant && qty > 0){
+		            	addedProducts.push({id: variant.id, name: variant.name, quantity: qty, price: variant.price, brand: variant.brand});
+		            }
+		        }
+		    });
+		    if(addedProducts.length>0){
+		    	dataLayer.push({
+					'event': 'addToCart',
+				  	'ecommerce': {
+				    	'currencyCode': self.currency,
+				    	'add': {                                // 'add' actionFieldObject measures.
+				      		'products': addedProducts
+				    	}
+				  	}
+				});
+		    }
+		});
+	}
 }
