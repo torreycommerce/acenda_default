@@ -8,6 +8,7 @@
     acenda.order.items = [];
     {% for item in items %}
         acenda.order.items.push({
+            id: {{ item.id }},                // Product id. Required
             name: {{ item.name|json_encode }},                // Product name. Required
             sku: {{ products[item.product_id].0.sku|json_encode }},          // SKU/code
             price: {{ item.price|json_encode }},                 // Unit price
