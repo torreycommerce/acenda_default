@@ -2084,8 +2084,8 @@ section#toolbar .popover .cart-totals .total {
 @media (max-width: 767px) {
     #product-images #image-main .thumbnail img,
     #product-images #image-main .thumbnail iframe {
-        max-height: 640px;
-        max-width: 640px;
+        max-height: 290px;
+        max-width: 290px;
     }
 }
 @media (max-width: 991px) {
@@ -2098,15 +2098,15 @@ section#toolbar .popover .cart-totals .total {
 @media (max-width: 1199px) {
     #product-images #image-main .thumbnail img,
     #product-images #image-main .thumbnail iframe {
-        max-height: 532px;
-        max-width: 532px;
+        max-height: 451px;
+        max-width: 451px;
     }
 }
 @media (min-width: 1200px) {
     #product-images #image-main .thumbnail img,
     #product-images #image-main .thumbnail iframe {
-        max-height: 640px;
-        max-width: 640px;
+        max-height: 451px;
+        max-width: 451px;
     }
 }
 #product-images .thumbnail.video {
