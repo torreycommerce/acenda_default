@@ -1,3 +1,43 @@
+<style>
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    margin-left: 1px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    margin-top: -1px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+}
+</style>
+
 {% set categories = api.get('/category/sapling') %}
 <!-- NAV -->
 {% spaceless %}
@@ -5,27 +45,30 @@
 <nav id="nav-desktop-main" class="col-md-12 hidden-sm hidden-xs">
     <ul class="nav navbar-nav">
         {% for main_category,items in categories if main_category != "clearance" %}
-        {% if items.limb|length %}
-        {# Begin dropdown #}
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown " href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}
-                <i class="fa fa-caret-down"></i>
-            </a>
-            <ul id="category_item" class="dropdown-menu">
-                {% for category,subitems in items.limb %}
-                {% set i = i + 1 %}
-                <li>
-                    <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
+            {% if items.limb|length %}
+                {# Begin dropdown #}
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown " href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul id="category_item" class="dropdown-menu">
+                        {% for category,subitems in items.limb %}
+                            {% if subitems.limb|length %}
+                                  {{ base.subcategory(category,subitems) }}
+                            {% else %}
+                                <li>
+                                    <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </li>
-                {% endfor %}
-            </ul>
-        </li>
-        {# End dropdown #}
-        {% else %}
-        <li>
-            <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
-        </li>
-        {% endif %}
+                {# End dropdown #}
+            {% else %}
+                <li>
+                    <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
     <div class="row">
