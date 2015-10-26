@@ -144,9 +144,9 @@
                 <div>
                         <form method="post" id="productForm" action="{{ app.url }}/product/route">
                             <div class="actions hidden-sm hidden-xs row">
-                                <div class="col-md-12">
+                                <div class="col-md-12" id="div-quantity-{{product.id}}">
                                    {# Begin product quantity #}
-                                    <div class="row" id="div-quantity-{{product.id}}">
+                                    <div class="row">
                                        <div class="form-group col-md-3">
                                             <div class="quantity-input-group">
                                                 <label for="quantity-selector" class="control-label"><strong>Qty</strong></label>
@@ -180,8 +180,8 @@
                         {# Begin actions mobile #}
                         <div class="actions hidden-lg hidden-md row" >
                             <form method="post" id="productForm" action="{{ app.url }}/product/route" class="form-inline">
-                                    <div class="col-xs-12">
-                                    <div class="row" id="div-quantity-mobile-{{product.id}}">
+                                    <div class="col-xs-12" id="div-quantity-mobile-{{product.id}}">
+                                    <div class="row" >
                                         {# Begin product quantity #}
                                         <div class="form-group col-sm-3 col-xs-2">
                                             <div class="quantity-input-group">

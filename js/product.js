@@ -29,6 +29,22 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         return temp;
     }
 
+    this.formatPrice = function(price){
+        if(Number(price)){
+            return Number(price).toFixed(2).toString();
+        }else{
+            return price;
+        }
+    }
+
+    this.getNumber = function(price){
+        if(Number(price)){
+            return Number(price);
+        }else{
+            return 0;
+        }
+    }
+
     this.getVariationSelector = function(selectName, optionValue){
         selectName = selectName.replace(/ /g, "-");
         optionValue = optionValue.replace(/ /g, "-");
@@ -149,15 +165,19 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         var self = this
         console.log('updateQuantitySku');
         $('#div-quantity-'+self.product_id).hide();
-        if (obj_variant.price > 0 && typeof obj_variant.inventory_quantity != 'undefined' 
+        $('#div-quantity-mobile-'+self.product_id).hide();
+        if ( self.getNumber(obj_variant.price) > 0 && typeof obj_variant.inventory_quantity != 'undefined' 
             && typeof obj_variant.inventory_minimum_quantity != 'undefined'
             && typeof obj_variant.inventory_policy != 'undefined'
             && obj_variant.has_stock == '1') {
                 $('#div-quantity-'+self.product_id).show();
-                $("#variant-input-"+self.product_id).attr('name', 'items['+obj_variant.id+']'); 
+                $('#div-quantity-mobile-'+self.product_id).show();
+                $("#variant-input-"+self.product_id).attr('name', 'items['+obj_variant.id+']');
+                $("#variant-input-mobile-"+self.product_id).attr('name', 'items['+obj_variant.id+']'); 
                 if(obj_variant.inventory_policy != 'continue'){
                     var limit = !obj_variant.inventory_minimum_quantity ? obj_variant.inventory_quantity : obj_variant.inventory_quantity - obj_variant.inventory_minimum_quantity;
-                    $("#variant-input-"+self.product_id).attr('data-limit', limit); 
+                    $("#variant-input-"+self.product_id).attr('data-limit', limit);
+                    $("#variant-input-mobile-"+self.product_id).attr('data-limit', limit); 
                 }
                   
         }
@@ -170,38 +190,39 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         //$('#variant-details').
     }
     this.updatePriceAndAvailability = function(obj_variant) {
+        var self = this;
         console.log('updatePriceAndAvailability');
 
         $('#price-box-'+this.product_id).hide();
         $('#pricing-box-'+this.product_id).hide();
         // $('.price-box').hide();
-        if (obj_variant.price > 0) {
+        if ( self.getNumber(obj_variant.price) > 0) {
             // $('.price-box').show();
             $('#price-box-'+this.product_id).show();
             $('#pricing-box-'+this.product_id).show();
-            $('#product-price-'+this.product_id).html('$'+obj_variant.price);
+            $('#product-price-'+this.product_id).html('$' + self.formatPrice(obj_variant.price));
             $('#product-standard-price-'+this.product_id).hide();
-            if (typeof obj_variant.compare_price != 'undefined' && obj_variant.price != obj_variant.compare_price && obj_variant.compare_price > 0) {
+            if (typeof obj_variant.compare_price != 'undefined' && obj_variant.price != obj_variant.compare_price && self.getNumber(obj_variant.compare_price) > 0) {
                 $('#product-standard-price-'+this.product_id).show();
                 if(this.isCollection){
-                    $('#product-standard-price-'+this.product_id).html('Compare at '+'$'+obj_variant.compare_price);
+                    $('#product-standard-price-'+this.product_id).html('Compare at '+'$'+self.formatPrice(obj_variant.compare_price));
                 }else{
-                    $('#product-standard-price-'+this.product_id).html('$'+obj_variant.compare_price);
+                    $('#product-standard-price-'+this.product_id).html('Compare at '+'$'+self.formatPrice(obj_variant.compare_price));
                 }
             }
             $('#save-pricing-'+this.product_id).hide();
-            if (typeof obj_variant.save_price != 'undefined' && obj_variant.save_price > 1) {
+            if (typeof obj_variant.save_price != 'undefined' && self.getNumber(obj_variant.save_price) > 1) {
                 $('#save-pricing-'+this.product_id).show();
-                $('#save-pricing-'+this.product_id).html('Save '+'$'+obj_variant.save_price+' ('+obj_variant.save_percent+'%'+')');
+                $('#save-pricing-'+this.product_id).html('Save up to '+'$'+self.formatPrice(obj_variant.save_price)+' ('+obj_variant.save_percent+'%'+')');
             }
             var stock_text = this.getStockDescription(obj_variant);
             if(this.isCollection){
                 $('#stock-text-'+this.product_id).html(stock_text);
             }else{
                 if (stock_text == 'In Stock')
-                    $('#stock-text-'+this.product_id).html('<i class="fa fa fa-check-circle-o color-in"></i>'+stock_text);
+                    $('#stock-text-'+this.product_id).html(stock_text);
                 else
-                    $('#stock-text-'+this.product_id).html('<i class="fa fa-minus-circle color-out"></i>'+stock_text);
+                    $('#stock-text-'+this.product_id).html(stock_text);
             }
             /*
             $('.pricing-bill-me-later').hide();
@@ -268,6 +289,7 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         if(filteredVariants.length == 1){
                 var id = self.getProductVariation(filteredVariants[0].id);
                 var quantityInput = "#variant-input-"+self.product_id;
+                var quantityInputMobile = "#variant-input-mobile-"+self.product_id;
 
                 self.resetSelection();
                 self.updateImages(filteredVariants[0]);
@@ -277,8 +299,10 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
 
                 if(self.isCollection){
                     $(quantityInput).val(0);
+                    $(quantityInputMobile).val(0);
                 }else{
                     $(quantityInput).val(1);
+                    $(quantityInputMobile).val(1);
                 }
             //Disable/Enable button according to variants availability    
             if(this.disabled == true){
@@ -346,7 +370,7 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
 
         $.each( this.variants, function(index, variant){
             var passfilter = true;
-            if(variant.price > 0){
+            if( self.getNumber(variant.price) > 0 ){
                 $.each( selectedValues, function(selectName, selectValue){
                     if(selectValue != ""){
                         if(variant[selectName]){
@@ -475,7 +499,7 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         var selected_variant = self.variants[0];
 
         $.each(self.variants, function(index,variant){
-            if(variant.price > 0 && variant.has_stock){
+            if( self.getNumber(variant.price) > 0 && variant.has_stock ){
                 selected_variant = variant;
                 return false;
             }
