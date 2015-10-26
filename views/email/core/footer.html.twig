@@ -3,7 +3,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr style="height:140px;">
         <td align="left" class="footertitle" style="width:45%; font-family: 'Open Sans', sans-serif; font-size: 20px; font-weight: 500; color: #f2f2f2;">
-          <a style="color: #f2f2f2; text-decoration: none;" href="{{params['url']['current']}}/">{{ site_title|default("") }}</a>
+          <a style="color: #f2f2f2; text-decoration: none;" href="{{params['url']['current']}}/">{{ app.params.site.title }}</a>
         </td>
         <td class="footerborder" style="width:5%; height:60px; padding: 40px 0; border-left: 1px solid #949494;"></td>
         <td align="left" class="footernav" style="width:25%; font-family: 'Open Sans', sans-serif; font-size: 12px;  color: #f2f2f2;">
@@ -29,7 +29,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr style="height:20px;">
         <td align="center" class="footercopy" style="font-family: 'Open Sans', sans-serif; font-size: 10px;  color: #d9d9d9;">
-          Copyright  &copy;{{"now"|date("Y")}} <a href="{{params['url']['current']}}/" target="_blank" style="text-decoration:none;">{{ params['site']['title']|default("") }}</a>. Powered by <a style="text-decoration: none; font-size: 10px;  color: #cbcbcb;" href="https://www.acenda.com/" target="_new">Acenda.</a>
+          Copyright  &copy;{{"now"|date("Y")}} <a href="{{params['url']['current']}}/" target="_blank" style="text-decoration:none;">{{ app.params.site.title }}</a>. Powered by <a style="text-decoration: none; font-size: 10px;  color: #cbcbcb;" href="https://www.acenda.com/" target="_new">Acenda.</a>
         </td>
       </tr>
     </table>

@@ -79,7 +79,7 @@
             </tr>
             <tr>
               <td class="bodycopy" style="font-size: 14px; line-height: 22px; color: #1d2831; font-family: 'Open Sans', sans-serif;">
-                You have successfullly subscribed to the {{ params['site']['title']|default("") }} newsletter. You will now be one of the first to know about our best promotions, latest arrivals, exclusive offers, and much more!*
+                You have successfullly subscribed to the {{ app.params.site.title }} newsletter. You will now be one of the first to know about our best promotions, latest arrivals, exclusive offers, and much more!*
               </td>
             </tr>
           </table>
@@ -121,7 +121,7 @@
             {% include 'email/core/top-seller.html.twig' %}
           <tr>
             <td class="innerpadding bodycopy" style="padding: 40px 30px 40px 30px; font-size: 14px; line-height: 22px; color: #1d2831; font-family: 'Open Sans', sans-serif;">
-              Thank you from your friends at {{ params['site']['title']|default("") }}.<br/>
+              Thank you from your friends at {{ app.params.site.title }}.<br/>
               Please add us to your email address book to make sure you receive important 
               emails from us.
             </td>
