@@ -144,6 +144,12 @@ fieldset[disabled] .btn-cart.active {
     color: #6a4362;
     background-color: #ffffff;
 }
+
+@media (max-width: 1200px) {
+.btn-cart, .btn-registry, .btn-wishlist{
+    font-size: 12px! important;
+}
+}
 .btn-checkout {
     color: #ffffff;
     background-color: #6a4362;
