@@ -78,6 +78,12 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         return this.arr_uniq_var_img_url.variant_id;
     }
 
+    this.preloadImages = function(imgs){
+        $.each(imgs, function(index, img){
+            $('<img src="'+img.standard+'"/>');
+        });
+    }
+
     this.getImageUrl = function(img_id, img_type) {
         console.log('getImageUrl');
         console.log(typeof this.arr_uniq_var_img_url['_'+img_id][img_type] != 'undefined');
@@ -193,12 +199,10 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         var self = this;
         console.log('updatePriceAndAvailability');
 
-        $('#price-box-'+this.product_id).hide();
+        $('#product-price-'+this.product_id).hide();
         $('#pricing-box-'+this.product_id).hide();
-        // $('.price-box').hide();
         if ( self.getNumber(obj_variant.price) > 0) {
-            // $('.price-box').show();
-            $('#price-box-'+this.product_id).show();
+            $('#product-price-'+this.product_id).show();
             $('#pricing-box-'+this.product_id).show();
             $('#product-price-'+this.product_id).html('$' + self.formatPrice(obj_variant.price));
             $('#product-standard-price-'+this.product_id).hide();
@@ -224,13 +228,7 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
                 else
                     $('#stock-text-'+this.product_id).html(stock_text);
             }
-            /*
-            $('.pricing-bill-me-later').hide();
-            if (typeof obj_variant.price >= 100) {
-                $('.pricing-bill-me-later').show();
-            }*/
-        }
-        
+        }   
     }
 
     this.getStockDescription = function (obj_variant) {
@@ -485,6 +483,10 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
 
     this.init = function(){
         var self = this;
+
+        //preload variant img
+        this.preloadImages(this.arr_uniq_var_img_url);
+
         //Options ordering
         self.variant_options = self.orderOptions(self.variant_options);
 
