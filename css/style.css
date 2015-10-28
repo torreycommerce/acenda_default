@@ -144,12 +144,6 @@ fieldset[disabled] .btn-cart.active {
     color: #6a4362;
     background-color: #ffffff;
 }
-
-@media (max-width: 1200px) {
-.btn-cart, .btn-registry, .btn-wishlist{
-    font-size: 12px! important;
-}
-}
 .btn-checkout {
     color: #ffffff;
     background-color: #6a4362;
@@ -428,7 +422,7 @@ nav#nav-desktop-main ul li:focus a span.caret {
     border-bottom-color: #000000;
 }
 nav#nav-desktop-main ul li:hover ul.dropdown-menu {
-    display: block;
+    /*display: block;*/
 }
 nav#nav-desktop-main ul li:hover a {
     background-color: 0 none;

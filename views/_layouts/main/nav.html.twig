@@ -1,5 +1,14 @@
 <style>
-.dropdown-submenu {
+.marginBottom-0 {margin-bottom:0;}
+
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
+.dropdown-submenu:hover>a:after{border-left-color:#555;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+</style>
+<style>
+/*.dropdown-submenu {
     position: relative;
 }
 
@@ -35,18 +44,76 @@
 .dropdown-submenu.pull-left>.dropdown-menu {
     left: -100%;
     margin-left: 10px;
-}
+}*/
 </style>
-
 {% set categories = api.get('/category/sapling') %}
 <!-- NAV -->
 {% spaceless %}
 {# Begin desktop nav #}
-<nav id="nav-desktop-main" class="col-md-12 hidden-sm hidden-xs">
+<nav id="nav-desktop-main" class="navbar col-md-12 hidden-sm hidden-xs" role="navigation">            
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Active Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Dropdown Link 1</a></li>
+                <li><a href="#">Dropdown Link 2</a></li>
+                <li><a href="#">Dropdown Link 3</a></li>
+                <li class="divider"></li>
+                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Dropdown Submenu Link 4.1</a></li>
+                      <li><a href="#">Dropdown Submenu Link 4.2</a></li>
+                      <li><a href="#">Dropdown Submenu Link 4.3</a></li>
+                      <li><a href="#">Dropdown Submenu Link 4.4</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Dropdown Submenu Link 5.1</a></li>
+                      <li><a href="#">Dropdown Submenu Link 5.2</a></li>
+                      <li><a href="#">Dropdown Submenu Link 5.3</a></li>
+                      <li class="divider"></li>
+                      <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Dropdown Submenu Link 5.4.1</a></li>
+                          <li><a href="#">Dropdown Submenu Link 5.4.2</a></li>
+                          <li class="divider"></li>
+                          <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4.3</a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Dropdown Submenu Link 5.4.3.1</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.3.2</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.3.3</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.3.4</a></li>
+                            </ul>
+                          </li>
+                          <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4.4</a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Dropdown Submenu Link 5.4.4.1</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.4.2</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.4.3</a></li>
+                              <li><a href="#">Dropdown Submenu Link 5.4.4.4</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+        </div>
+    </div>
+</nav>
+{# End desktop nav #}
+{# Begin desktop nav 
+<nav id="nav-desktop-main" class="navbar col-md-12 hidden-sm hidden-xs">
     <ul class="nav navbar-nav">
         {% for main_category,items in categories if main_category != "clearance" %}
             {% if items.limb|length %}
-                {# Begin dropdown #}
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown " href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}
                         <i class="fa fa-caret-down"></i>
@@ -63,7 +130,6 @@
                         {% endfor %}
                     </ul>
                 </li>
-                {# End dropdown #}
             {% else %}
                 <li>
                     <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
@@ -77,7 +143,7 @@
         </div>
     </div>
 </nav>
-{# End desktop nav #}
+ End desktop nav #}
 {# Begin mobile navigation menu #}
 <nav id="nav-mobile-main" class="mobile-nav hidden-md hidden-lg" data-navi="mobile-nav-main" data-navi-type="root">
     {# Begin nav list #}
@@ -159,35 +225,6 @@
                 {% endif %}
             </li>
         {% endfor %}
-
-
-
-
-
-        {#
-        {% set id = 0 %}
-        {% for main_category,items in categories %}
-            {% set id = id + 1 %}
-            <li>
-                <a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
-                    <i class="fa fa-star-o"></i>
-                    {{main_category|replace('-',' ')|title}}
-                </a>
-                {% if items.limb|length %}
-                <ul id="submenu-{{ id }}">
-                    {% for category,subitems in items.limb %}
-                        <li>
-                            <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">
-                                <i class="fa fa-star-o"></i>
-                                {{category|replace('-',' ')|title}}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </li>
-        {% endfor %}
-        #}
     </ul>
     {# End nav list #}
 </nav>
