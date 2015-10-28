@@ -2,6 +2,13 @@
     {# Beging product images #}
     <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
         {# Begin main image #}
+
+        {% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
+        {% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
+
+        {% set main_image_alt = product.images.0.alt is not empty ? product.images.0.alt :product.product|values_in('images')[0]['alt'] %}
+        {% set main_image_alt = main_image_alt is empty ? '' : main_image_alt %}
+
         <div id="image-main">
             <div class="row">
                 <div class="col-sm-12">
