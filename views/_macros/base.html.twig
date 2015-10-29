@@ -19,7 +19,11 @@
 {% macro subcategory_mobile(main_category, items, id) %}
 {% set i = 0 %}
 <li>
-    <a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
+    {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
+        <i class="fa fa-star-o"></i>
+        {{main_category|replace('-',' ')|title}}
+    </a>#}
+    <a href="{{app.url}}/category/{{ items.slug }}" class="sub_c" ref="{{ id }}">
         <i class="fa fa-star-o"></i>
         {{main_category|replace('-',' ')|title}}
     </a>

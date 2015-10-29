@@ -128,15 +128,17 @@ $(document).ready(function() {
   });
 
     $("#nav-mobile-main").mmenu({
-       zposition: "front",
-       position: "left",
-       classes: "mm-light",
-       dragOpen: true,
-       moveBackground: true
-    }, {
+        zposition: "front",
+        position: "left",
+        classes: "mm-light",
+        dragOpen: true,
+        moveBackground: true,
+        onClick: {
+          preventDefault: false,
+          close:true
+        }
+    },{
     }).trigger("open.btn-nav-mobile");
-
-
 
     $("#acc_btn").click(function(){$('#account').trigger('open');});
     $(".sub_c").click(function(){$('#'+$(this).attr("ref")).trigger('open');});

@@ -93,7 +93,11 @@
         {% for main_category,items in categories %}
             {% set id = id + 1 %}
             <li>
-                <a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
+                {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
+                    <i class="fa fa-star-o"></i>
+                    {{main_category|replace('-',' ')|title}}
+                </a>#}
+                <a href="{{app.url}}/category/{{ items.slug }}" class="sub_c" ref="submenu-{{ id }}">
                     <i class="fa fa-star-o"></i>
                     {{main_category|replace('-',' ')|title}}
                 </a>
@@ -107,7 +111,7 @@
                             {{ base.subcategory_mobile(category, subitems, subid) }}
                         {% else %}
                             <li>
-                                <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">
+                                <a href="{{app.url}}/category/{{subitems.slug}}">
                                     <i class="fa fa-star-o"></i>
                                     {{category|replace('-',' ')|title}}
                                 </a>
