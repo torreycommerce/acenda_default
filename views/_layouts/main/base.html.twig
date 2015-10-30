@@ -167,7 +167,7 @@
                 {% if url_based_class | trim == ''%}
                     {% set url_based_class = 'store-home-page' %}
                 {% endif %}
-                <div class="dynamic-classes {{ url_based_class }} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
+                <div class="dynamic-classes {% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
                     {% block content %}
                     {% endblock %}
                 </div>
