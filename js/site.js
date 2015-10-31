@@ -127,6 +127,7 @@ $(document).ready(function() {
     $('#nav-mobile-main').trigger('close');
   });
 
+    $("#nav-mobile-main").attr("style", "");
     $("#nav-mobile-main").mmenu({
         zposition: "front",
         position: "left",
