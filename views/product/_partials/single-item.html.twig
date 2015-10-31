@@ -255,7 +255,12 @@
                                     <a href="#description-desktop" data-toggle="tab">Description</a>
                                 </li>
                                 {% endif %}
-                                <li {% if product.description is empty %} class="active"{% endif %}>
+                                {% if product.dynamic_attributes is not empty %}
+                                    <li {% if product.description is empty %} class="active"{% endif %}>
+                                        <a href="#features-desktop" data-toggle="tab">Features</a>
+                                    </li>
+                                {% endif %}
+                                <li {% if product.description is empty and product.dynamic_attributes is empty %} class="active"{% endif %}>
                                     <a href="#reviews-desktop" data-toggle="tab">Reviews</a>
                                 </li>
                             </ul>
@@ -278,8 +283,24 @@
                                     </div>
                                 </div>
                             {% endif %}
+                            {# Begin features #}
+                            {% if product.dynamic_attributes is not empty %}
+                                <div id="features-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <ul>
+                                                {% for feature in product.dynamic_attributes %}
+                                                   <li>
+                                                       {{feature}}: {{product[feature]}}
+                                                   </li> 
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                             {# Begin reviews #}
-                            <div id="reviews-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
+                            <div id="reviews-desktop" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         {% include "/product/_partials/reviews.html.twig" %}
