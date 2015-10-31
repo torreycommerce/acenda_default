@@ -27,6 +27,10 @@
     {{ base.breadcrumbs(category_crumbs) }}
 {% endblock %}
 
+{% block dynamicclasses %}
+    category-slug-{{app.request.path}}
+{% endblock %}
+
 {% block content %}
 {%include "/category/_partials/base.html.twig"%}
 {% endblock %}
