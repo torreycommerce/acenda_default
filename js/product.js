@@ -232,6 +232,14 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         }   
     }
 
+    this.updateDescription = function(obj_variant){
+        if(obj_variant.description){
+            $('#variant-description-'+this.product_id).html(obj_variant.description);
+        }else{
+            $('#variant-description-'+this.product_id).html('');
+        }
+    }
+
     this.getStockDescription = function (obj_variant) {
          return obj_variant.has_stock == '1' ? 'In Stock' :  obj_variant.inventory_shipping_estimate ? obj_variant.inventory_shipping_estimate : 'Out of Stock';
     }
@@ -294,6 +302,7 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
                 self.updateVideos();
                 self.updateQuantitySku(filteredVariants[0]);
                 self.updatePriceAndAvailability(filteredVariants[0]);
+                self.updateDescription(filteredVariants[0]);
 
                 if(self.isCollection){
                     $(quantityInput).val(0);
