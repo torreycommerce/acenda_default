@@ -53,6 +53,7 @@
         <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/jquery.mmenu.css" media="all" />
         <link rel="sitemap" href="{{app.url}}/api/sitemap" />
+        <link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
 
         {% block css %}
         {% endblock %}
