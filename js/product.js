@@ -446,14 +446,14 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
      
                 var ul = $('<ul>', {class: "swatches Color"});  
                 var span = $('<span>', {class: "selected-color"}).append(
-                                $('<strong>', {}).text(self.unslugify(selectName) + " ")
+                                $('<strong>', {}).text(self.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
                 var div = $('<div>', {id: self.getVariationOptionId(selectName), class: "size-details"});           
                 var ul = $('<ul>', {class: "swatches-size Size"});  
                 var span = $('<span>', {class: "selected-size"}).append(
-                                $('<strong>', {}).text(self.unslugify(selectName) + " ") 
+                                $('<strong>', {}).text(self.unslugify(selectName) + ":  ") 
                             );
             }
 
