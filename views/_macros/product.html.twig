@@ -2,7 +2,6 @@
     {% spaceless %}
     {% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
     {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
-
     {% import _self as this %}
     {% import "/_macros/base.html.twig" as base %}
     <div class="product">
@@ -82,16 +81,20 @@
             <div id="color-image-carousel-{{product.id}}" class="col-xs-6 col-sm-10 carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="item active">
+                        {% set colors = [] %}
                         {% for item,child in product.variant if child.status == 'active' and child.images is not empty %}
-                        <div class="thumbnail col-xs-2">
-                            <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ child.thumbnail }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ child.thumbnail }}">
-                        </div>
-                        {% set carouselblock = carouselblock + 1 %}
-                        {% if carouselblock is divisibleby(6) and product.variant[(item + 1)] is defined %}
-                            {% set carouselHasNext = true %}
-                            </div>
-                            <div class="item">
-                        {% endif %}
+                            {% if child.color not in colors %}
+                                {% set colors = colors|merge([child.color]) %}
+                                <div class="thumbnail col-xs-2">
+                                    <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="{{ child.thumbnail }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ child.thumbnail }}">
+                                </div>
+                                {% set carouselblock = carouselblock + 1 %}
+                                {% if carouselblock is divisibleby(6) and product.variant[(item + 1)] is defined %}
+                                    {% set carouselHasNext = true %}
+                                    </div>
+                                    <div class="item">
+                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
