@@ -443,7 +443,7 @@ $('.btn-add-to-cart').click(function (e) {
 // ZeroClipboard for wishlist/registry share links
 $(function() {
 var client = new ZeroClipboard( $('#btn-share'), {
-  moviePath: acendaBaseThemeUrl + "/swf/ZeroClipboard.swf"
+  moviePath: acendaBaseThemeUrl + "/assets/swf/ZeroClipboard.swf"
 });
 
 client.on( "load", function(client) {
@@ -503,7 +503,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.search-autocomplete').typeahead(null, 
+  $('.search-autocomplete').typeahead(null,
     {
       name: 'search',
       display: 'value',
