@@ -1,6 +1,6 @@
 
 {% import "/_macros/form-elements-bootstrap.html.twig" as form %}
-{% extends "/_layouts/theme.html.twig" %}
+{% extends "/_layouts/base.html.twig" %}
 {% set product_id = app.request.path|split('/')|last %}
 {% if not product_id or product_id is not integer %}
     {% do app.redirect('/',{'error':'The review you requested is not available.'}) %}

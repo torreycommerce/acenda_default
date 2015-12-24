@@ -1,1 +1,0 @@
-Acenda default theme

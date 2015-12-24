@@ -12,52 +12,52 @@
 {% endif %}
 {# End Config Seo #}
 {# Scripts #}
-{{ app.asset.js(app.url_asset ~ '/js/jquery-2.0.3.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/bootstrap/bootstrap.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/ZeroClipboard.min.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/site.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/google_map_normalizer.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/quickcart.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/jquery.mmenu.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/jquery.zoomify.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/rating.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/bootstrap-datepicker.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/parsley.min.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/parsley.extend.min.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/jquery.cascadingdropdown.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/normalizer.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/jquery.maskedinput.js') }}
-{{ app.asset.js(app.url_asset ~ '/js/typeahead.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.0.3.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap/bootstrap.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/ZeroClipboard.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/google_map_normalizer.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/quickcart.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.mmenu.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.zoomify.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/rating.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap-datepicker.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/parsley.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/parsley.extend.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.maskedinput.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/typeahead.js') }}
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
-{{ app.asset.js(app.url_asset ~ '/js/acendaAnalytics.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/acendaAnalytics.js') }}
 {% endif %}
 {# End Scripts #}
 {% endspaceless %}
 <!DOCTYPE html>
 <html>
-<head> 
+<head>
     {% block head %}
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
         <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
-        <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" 
+        <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}"
             type="image/x-icon" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/datepicker.css" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/style.css?v=06252015" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/fonts/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/datepicker.css" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/style.css?v=06252015" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/fonts/font-awesome/css/font-awesome.min.css" />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/css/jquery.mmenu.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/jquery.mmenu.css" media="all" />
         <link rel="sitemap" href="{{app.url}}/api/sitemap" />
         <link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
 
         {% block css %}
         {% endblock %}
-        
+
         <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
         {% set headers = api.get('/site/headers') %}
@@ -81,7 +81,7 @@
             {% endblock %}
         </script>
 
-        
+
     {% endblock %}
 </head>
 <body>
