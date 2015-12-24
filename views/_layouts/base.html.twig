@@ -85,7 +85,7 @@
     {% endblock %}
 </head>
 <body>
-    {% include "/_layouts/main/stage_header.html.twig" %}
+    {% include "/_layouts/stage_header.html.twig" %}
     {% set url_based_class = app.request.url|split('/')|last %}
     {% set url_based_array = app.request.url|split('/') %}
     {% set url_based_class = '' %}
