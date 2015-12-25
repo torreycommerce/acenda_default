@@ -8,7 +8,7 @@
                         <div class="thumbnail" id="variant-selected-image-{{product.id}}">
                             <span class="helper"></span>
                             <div id="main-product-video" style="display:none"></div>
-                            <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" />
+                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" />
                         </div>
                     </div>
                 </div>
@@ -22,13 +22,13 @@
                                 <div class="item active" id="variant-image-carousel-copy" style="display:none;">
                                     <div class="col-xs-2" id="variant-image-thumbnail-copy">
                                         <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-                                            <img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" class="" src="" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
+                                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
                                         </div>
                                     </div>
                                     <div class="col-xs-2" id="variant-video-copy">
                                         {% do app.asset.js(app.url_asset ~ '/js/video-player.js') %}
                                         <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-                                            <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/images/product/image-250x250.jpg'" src="">
+                                            <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
                                         </div>
                                     </div>
                                 </div>
