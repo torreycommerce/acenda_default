@@ -302,14 +302,14 @@ Cart
     {% endif %}
     {% endif %}
     {% endblock %}
-    
+
     {% block js %}
     {{ app.asset.js(app.url_asset ~ '/js/estimator.js') }}
     {% endblock %}
 
     {% block acenda %}
         {{ parent() }}
-        {% include "/cart/_partials/analytics/acenda.html.twig" %}
+        {% include "/cart/_partials/acenda.html.twig" %}
     {% endblock %}
     {% block dataLayer %}
     {% include "/cart/_partials/dataLayer.html.twig" %}
