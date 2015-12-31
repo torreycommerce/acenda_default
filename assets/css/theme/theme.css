@@ -70,6 +70,9 @@ p {
 a {
     color: #333333;
 }
+a:hover, a:focus, a:visited {
+    color: #555555;
+}
 .page-header {
     color: #555555;
     margin-bottom: 10px;
@@ -92,6 +95,9 @@ a {
 .bg-danger {
     color: #fff;
 }
+.btn {
+    transition: all 0.5s ease;
+}
 .btn-default {
     background-color: #ffffff;
     border-color: #cccccc;
@@ -101,6 +107,8 @@ a {
     background-color: #6a4362;
     border-color: #6a4362;
     color: #ffffff;
+    transition: all 0.5s ease;
+
 }
 .btn-secondary {
     background-color: #b3b3b3;
