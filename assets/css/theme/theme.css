@@ -1282,7 +1282,7 @@ section#toolbar ul li.cart a {
     color: #ffffff;
     display: inline-block;
     margin: 0;
-    padding-bottom: 2px;
+    padding-bottom: 0;
     padding-left: 16px;
     padding-top: 0;
     padding-right: 0;

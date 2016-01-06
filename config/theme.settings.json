@@ -62,17 +62,33 @@
                     "type": "color",
                     "value": "ffffff"
                 },
+                "primary-btn-hover-background": {
+                    "type": "color",
+                    "value": "4b2f45"
+                },
+                "primary-btn-hover-border": {
+                    "type": "color",
+                    "value": "4b2f45"
+                },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "777"
+                    "value": "777777"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "777"
+                    "value": "777777"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "fff"
+                },
+                "secondary-btn-hover-background": {
+                    "type": "color",
+                    "value": "444"
+                },
+                "secondary-btn-hover-border": {
+                    "type": "color",
+                    "value": "444"
                 }
             },
 
@@ -122,19 +138,6 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "font-size-base": {
-                    "type": "dropdown",
-                    "value": "14px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             },
             "nav_styles": {
@@ -163,19 +166,6 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "nav-size-base": {
-                    "type": "dropdown",
-                    "value": "15px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             },
             "logo_styles": {
@@ -203,19 +193,6 @@
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
-                    }
-                },
-                "logo-font-size": {
-                    "type": "dropdown",
-                    "value": "34px",
-                    "options": {
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "24px": "24px"
                     }
                 },
                 "logo-font-weight": {
@@ -261,19 +238,15 @@
         }
     },
     "default": {
-         "colors": {
+        "colors": {
             "background": {
                 "body-bg": {
                     "type": "color",
                     "value": "ffffff"
                 },
-                "header-bg": {
-                    "type": "color",
-                    "value": "ffffff"
-                },
                 "footer-bg": {
                     "type": "color",
-                    "value": "222222"
+                    "value": "fff"
                 }                                  
             },
             "content": {
@@ -283,7 +256,7 @@
                 },
                 "text-color": {
                     "type": "color",
-                    "value": "CCCCCC"
+                    "value": "555"
                 },
                 "title-color": {
                     "type": "color",
@@ -295,11 +268,11 @@
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "333"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "666666"
+                    "value": "666"
                 },
                 "nav-text-color": {
                     "type": "color",
@@ -308,32 +281,52 @@
                 "nav-text-hover": {
                     "type": "color",
                     "value": "000"
+                },
+                "border-color": {
+                    "type": "color",
+                    "value": "eeeeee"
                 }
             },
-           "buttons": {
+            "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "E7214C"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "E7214C"
                 },
                 "primary-btn-text": {
                     "type": "color",
                     "value": "ffffff"
                 },
+                "primary-btn-hover-background": {
+                    "type": "color",
+                    "value": "c0153a"
+                },
+                "primary-btn-hover-border": {
+                    "type": "color",
+                    "value": "c0153a"
+                },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "777"
+                    "value": "dee0e3"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "777"
+                    "value": "dee0e3"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "42464d"
+                },
+                "secondary-btn-hover-background": {
+                    "type": "color",
+                    "value": "e6e6e6"
+                },
+                "secondary-btn-hover-border": {
+                    "type": "color",
+                    "value": "e6e6e6"
                 }
             },
 
@@ -341,10 +334,6 @@
                 "footer-text-color": {
                     "type": "color",
                     "value": "999999"
-                },
-                "footer-color-link-hover": {
-                    "type": "color",
-                    "value": "ffffff"
                 },
                 "footer-header-text": {
                     "type": "color",
@@ -387,19 +376,6 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "font-size-base": {
-                    "type": "dropdown",
-                    "value": "14px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             },
             "nav_styles": {
@@ -428,19 +404,6 @@
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
                     }
-                },
-                "nav-size-base": {
-                    "type": "dropdown",
-                    "value": "15px",
-                    "options": {
-                        "17px": "17px",
-                        "16px": "16px",
-                        "15px": "15px",
-                        "14px": "14px",
-                        "13px": "13px",
-                        "12px": "12px",
-                        "11px": "11px"
-                    }
                 }
             },
             "logo_styles": {
@@ -468,19 +431,6 @@
                             "Courier New, Courier, monospace": "Courier new",
                             "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
                         }
-                    }
-                },
-                "logo-font-size": {
-                    "type": "dropdown",
-                    "value": "34px",
-                    "options": {
-                        "40px": "40px",
-                        "38px": "38px",
-                        "36px": "36px",
-                        "34px": "34px",
-                        "30px": "30px",
-                        "28px": "28px",
-                        "24px": "24px"
                     }
                 },
                 "logo-font-weight": {

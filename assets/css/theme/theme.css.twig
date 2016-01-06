@@ -102,6 +102,14 @@ a:hover, a:visited, a:focus {
     border-color: #{{ settings["colors"]["buttons"]["primary-btn-border"]["value"] }};
     color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
 }
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
+    border-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-border"]["value"] }};
+    background-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-background"]["value"] }};
+}
 .btn-secondary {
     background-color: #{{ settings["colors"]["buttons"]["secondary-btn-background"]["value"] }};
     border-color: #{{ settings["colors"]["buttons"]["secondary-btn-border"]["value"] }};
@@ -117,9 +125,9 @@ a:hover, a:visited, a:focus {
 .btn-cart:active,
 .btn-cart.active,
 .open .dropdown-toggle.btn-cart {
-    color: #{{ settings["colors"]["buttons"]["primary-btn-background"]["value"] }};
-    border-color: #{{ settings["colors"]["buttons"]["primary-btn-border"]["value"] }};
-    background-color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
+    color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
+    border-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-border"]["value"] }};
+    background-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-background"]["value"] }};
 }
 .btn-cart:active,
 .btn-cart.active,
@@ -158,9 +166,9 @@ fieldset[disabled] .btn-cart.active {
 .btn-checkout:active,
 .btn-checkout.active,
 .open .dropdown-toggle.btn-checkout {
-    color: #{{ settings["colors"]["buttons"]["primary-btn-background"]["value"] }};
-    border-color: #{{ settings["colors"]["buttons"]["primary-btn-border"]["value"] }};
-    background-color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
+    color: #{{ settings["colors"]["buttons"]["primary-btn-text"]["value"] }};
+    border-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-border"]["value"] }};
+    background-color: #{{ settings["colors"]["buttons"]["primary-btn-hover-background"]["value"] }};
 }
 .btn-checkout:active,
 .btn-checkout.active,
@@ -199,9 +207,9 @@ fieldset[disabled] .btn-checkout.active {
 .btn-registry:active,
 .btn-registry.active,
 .open .dropdown-toggle.btn-registry {
-    color: #{{ settings["colors"]["buttons"]["secondary-btn-background"]["value"] }};
-    border-color: #{{ settings["colors"]["buttons"]["secondary-btn-border"]["value"] }};
-    background-color: #{{ settings["colors"]["buttons"]["secondary-btn-text"]["value"] }}
+    color: #{{ settings["colors"]["buttons"]["secondary-btn-text"]["value"] }};
+    border-color: #{{ settings["colors"]["buttons"]["secondary-btn-hover-border"]["value"] }};
+    background-color: #{{ settings["colors"]["buttons"]["secondary-btn-hover-background"]["value"] }}
 }
 .btn-registry:active,
 .btn-registry.active,
@@ -240,9 +248,9 @@ fieldset[disabled] .btn-registry.active {
 .btn-wishlist:active,
 .btn-wishlist.active,
 .open .dropdown-toggle.btn-wishlist {
-    color: #{{ settings["colors"]["buttons"]["secondary-btn-background"]["value"] }};
-    border-color: #{{ settings["colors"]["buttons"]["secondary-btn-border"]["value"] }};
-    background-color: #{{ settings["colors"]["buttons"]["secondary-btn-text"]["value"] }}
+    color: #{{ settings["colors"]["buttons"]["secondary-btn-text"]["value"] }};
+    border-color: #{{ settings["colors"]["buttons"]["secondary-btn-hover-border"]["value"] }};
+    background-color: #{{ settings["colors"]["buttons"]["secondary-btn-hover-background"]["value"] }}
 }
 .btn-wishlist:active,
 .btn-wishlist.active,
@@ -291,7 +299,6 @@ body {
     background-color: #{{ settings["colors"]["background"]["body-bg"]["value"] }};
     color: #{{ settings["colors"]["content"]["text-color"]["value"] }};
     font-family: {{ settings["typography"]["base_styles"]["base-typeface"]["value"] }};
-    font-size: {{ settings["typography"]["base_styles"]["font-size-base"]["value"] }};
 }
 html {
     font-size: 62.5%;
@@ -410,7 +417,6 @@ nav#nav-desktop-main ul {
 nav#nav-desktop-main ul li a {
     color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};
     font-family: {{ settings["typography"]["nav_styles"]["nav-typeface"]["value"] }};
-    font-size: {{ settings["typography"]["nav_styles"]["nav-size-base"]["value"] }};
     font-weight: 600;
     outline: none;
     padding: 16px 12px;
@@ -419,7 +425,6 @@ nav#nav-desktop-main ul li a {
 nav#nav-desktop-main .dropdown ul li a{
     color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};
     font-weight: 500;
-    font-size: {{ settings["typography"]["nav_styles"]["nav-size-base"]["value"] }};
     outline: none;
     padding: 16px 12px;
 }
@@ -731,7 +736,7 @@ section#branding .brand #logo-img a span {
 section#branding .brand #logo-txt {
     font-family: {{ settings["typography"]["logo_styles"]["logo-typeface"]["value"] }};
     text-align: center;
-    font-weight: ;
+    font-weight: {{ settings["typography"]["logo_styles"]["logo-font-weight"]["value"] }};
     text-transform: uppercase;
 }
 section#branding .brand #logo-txt a {
@@ -1285,7 +1290,7 @@ section#toolbar ul li.cart a {
     color: #ffffff;
     display: inline-block;
     margin: 0;
-    padding-bottom: 2px;
+    padding-bottom: 0;
     padding-left: 16px;
     padding-top: 0;
     padding-right: 0;
