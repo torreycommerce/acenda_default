@@ -106,7 +106,7 @@ a:hover, a:focus, a:visited {
 .btn-primary {
     background-color: #6a4362;
     border-color: #6a4362;
-    color: #ffffff;
+    color: #ffffff! important;
     transition: all 0.5s ease;
 
 }
