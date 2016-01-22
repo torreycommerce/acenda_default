@@ -26,14 +26,14 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-2" id="variant-video-copy">
-                                        {% do app.asset.js(app.url_asset ~ '/js/video-player.js') %}
+                                        {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
                                         <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
                                             <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="item active itemauto" id="variant-image-carousel-{{product.id}}">          
+                                <div class="item active itemauto" id="variant-image-carousel-{{product.id}}">
                                 </div>
 
                             </div>
@@ -76,7 +76,7 @@
                             <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
                         </li>
                     </ul>
-                
+
                 {# End review #}
 
                     <div id="variant-availability-price">
@@ -293,7 +293,7 @@
                                                 {% for feature in product.dynamic_attributes %}
                                                    <li>
                                                        {{feature}}: {{product[feature]}}
-                                                   </li> 
+                                                   </li>
                                                 {% endfor %}
                                             </ul>
                                         </div>

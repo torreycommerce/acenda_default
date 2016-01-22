@@ -47,7 +47,7 @@
 {% endfor %}
 {% endfor %}
 {% if product.videos is not empty %}
-{% do app.asset.js(app.url_asset ~ '/js/video-player.js') %}
+{% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
 {% for video in product.videos %}
 <div class="col-xs-2">
 <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
@@ -308,7 +308,7 @@ app.params.social_settings["google"]["active_follow_page_button"] == true
 {# End collection group header #}
 {# Begin collection product $(this).parentsUntil('.product').hide(); #}
 
-{% for product in children %}  
+{% for product in children %}
 <div class="variations">
 <div class="product">
 <div class="row">
@@ -329,7 +329,7 @@ app.params.social_settings["google"]["active_follow_page_button"] == true
                     {# Begin variation dropdown #}
                         <div class="price" id="product-price-{{product.id}}">
                         </div>
-                    
+
                         {# End variation dropdown #}
                         {# Begin pricing #}
                             <ul class="pricing" id="pricing-box-{{product.id}}">
@@ -370,7 +370,7 @@ app.params.social_settings["google"]["active_follow_page_button"] == true
                         {% endif %}
                         {# End product tags #}
                 </div>
-                    <div class="sku-details" id="div-sku-{{product.id}}"> 
+                    <div class="sku-details" id="div-sku-{{product.id}}">
                         <strong>Item:</strong> #<span id="variant-sku-{{product.id}}"></span>
                     </div>
             </div>
