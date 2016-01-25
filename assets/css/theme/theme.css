@@ -97,6 +97,7 @@ a:hover, a:focus, a:visited {
 }
 .btn {
     transition: all 0.5s ease;
+    font-size:12px;
 }
 .btn-default {
     background-color: #ffffff;
@@ -1279,7 +1280,7 @@ section#toolbar ul li.login a:hover {
 }
 section#toolbar ul li.cart a {
     background-color: #6a4362;
-    color: #ffffff;
+    color: #ffffff! important;
     display: inline-block;
     margin: 0;
     padding-bottom: 0;
@@ -1755,6 +1756,9 @@ section#toolbar .popover .cart-totals .total {
 }
 .tt-hint {
     color: #999;
+}
+.form-control {
+    height: 31px;
 }
 .tt-menu { 
     /*width: 422px;
