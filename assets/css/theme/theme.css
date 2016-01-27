@@ -100,9 +100,9 @@ a:hover, a:focus, a:visited {
     font-size:12px;
 }
 .btn-default {
-    background-color: #ffffff;
-    border-color: #cccccc;
-    color: #333333;
+    background-color: #ffffff! important;
+    border-color: #cccccc! important;
+    color: #333333! important;
 }
 .btn-primary {
     background-color: #6a4362;
@@ -112,21 +112,21 @@ a:hover, a:focus, a:visited {
 
 }
 .btn-secondary {
-    background-color: #b3b3b3;
-    border-color: #b3b3b3;
-    color: #ffffff;
+    background-color: #b3b3b3! important;
+    border-color: #b3b3b3! important;
+    color: #ffffff! important;
 }
 .btn-cart {
-    color: #ffffff;
-    background-color: #6a4362;
-    border-color: #6a4362;
+    color: #ffffff! important;
+    background-color: #6a4362! important;
+    border-color: #6a4362! important;
 }
 .btn-cart:hover,
 .btn-cart:focus,
 .btn-cart:active,
 .btn-cart.active,
 .open .dropdown-toggle.btn-cart {
-    color: #ffffff;
+    color: #ffffff! important;
     background-color: #51334b;
     border-color: #452b3f;
 }
@@ -158,16 +158,16 @@ fieldset[disabled] .btn-cart.active {
     background-color: #ffffff;
 }
 .btn-checkout {
-    color: #ffffff;
-    background-color: #6a4362;
-    border-color: #6a4362;
+    color: #ffffff! important;
+    background-color: #6a4362! important;
+    border-color: #6a4362! important;
 }
 .btn-checkout:hover,
 .btn-checkout:focus,
 .btn-checkout:active,
 .btn-checkout.active,
 .open .dropdown-toggle.btn-checkout {
-    color: #ffffff;
+    color: #ffffff! important;
     background-color: #51334b;
     border-color: #452b3f;
 }
