@@ -2889,7 +2889,7 @@ table.yiiLog {
 .swatches .notavailable:before {
     /* Swatches Unselected NotAvailable - icon */
     
-    content: "\f068";
+    /*content: "\f068";*/
     font-family: 'FontAwesome' !important;
     color: #fff;
     cursor: not-allowed;
