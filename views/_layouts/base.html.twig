@@ -63,16 +63,9 @@
 
         <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
-        {% set headers = api.get('/site/headers') %}
-        {% for header_key in headers|keys %}
-            {% if headers[header_key] is iterable %}
-                {% for sub in headers[header_key] %}
-                    <meta name="{{header_key}}" content="{{ sub }}">
-                {% endfor %}
-            {% else %}
-                <meta name="{{header_key}}" content="{{ headers[header_key] }}">
-            {% endif %}
-        {% endfor %}
+        {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+            {{ social.get_metatags(app.params.social_settings, seo) }}
+        {% endif %}
 
         <script>
                 var acendaBaseUrl = '{{app.url}}'
