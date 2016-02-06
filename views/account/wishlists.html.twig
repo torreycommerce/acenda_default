@@ -64,15 +64,6 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                 {# Begin wishlist #}
                 {{ forms.begin('wishlist','','post',{ class:'form-horizontal' }) }}
                 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
-                {# Begin actions #}            
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="actions-header">
-                            <a class="btn btn-primary" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i>&nbsp;Create a new wishlist</a>
-                        </div>
-                    </div>
-                </div>
-                {# End actions #}
                 {% if wishlists is empty %}
                 There are no wishlists.
                 {% else %}
