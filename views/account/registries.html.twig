@@ -56,21 +56,14 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                     </div>
                 </header>
                 {# End header #}
-                {# Begin top actions #}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="actions-header">
-                            <a class="btn btn-primary" href="{{app.url}}/account/registry/create"><i class="fa fa-plus"></i>&nbsp;Create a new registry</a>
-                        </div>
-                    </div>
-                </div>
-                {# End top actions #}
                 {# Begin registries #}
                 <div class="row">
                     {{ form.begin('registry') }}
                     {% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
                     {% if registries is empty %}
+                    <div class="col-md-12">
                     There are no registries.
+                    </div>
                     {% else %}
                     {% for registry in registries %}
                     {# Begin registry #}
