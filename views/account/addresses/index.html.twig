@@ -61,12 +61,11 @@ set in the array in /account/_macros/base.html.twig
                         <div class="col-md-12">
                             <header>
                                 <h1 class="page-header">Your Addresses</h1>
-                                <p>Click the edit button to adjust, set as default, or remove an address</p>
                             </header>
                         </div>
                     </div>
                 </header>
-                {# Begin header actiions #}
+                {# Begin header actions
                 <div class="row">
                     <div class="col-md-12">
                         <div class="actions-header">
@@ -74,13 +73,15 @@ set in the array in /account/_macros/base.html.twig
                         </div>
                     </div>
                 </div>
-                {# End header actions #}
+                End header actions #}
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
                             {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
                             {% if addresses is empty %}
-                            There are no addresses.
+                                <div class="col-md-12">
+                                    There are no addresses.
+                                </div>                            
                             {% else %}
                                 {% for row,address in addresses %}
                                 <div class="col-lg-4 col-md-4 col-sm-6">
@@ -148,6 +149,7 @@ set in the array in /account/_macros/base.html.twig
                 <div class="row">
                     <div class="col-md-12">
                         <div class="actions-footer">
+                            <p class="small">Click the edit button to adjust, set as default, or remove an address</p>
                             <a href="{{app.url}}/account/addresses/new" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;Add new address</a>
                         </div>
                     </div>
