@@ -9,23 +9,38 @@
             {# Grab image based on color facets #}
             {% set img_url = product.thumbnail %}
 
-            {% if product.attributes.color|length > 1 %}
+            {# if product.attributes.color|length > 1 %}
                 {% set current_colors = app.request.get.f.color|keys %}
                 {% for variant in product.variant 
                     if variant.status == 'active' and variant.color in current_colors and variant.images is not empty %}
                         {% set img_url = variant.thumbnail %}
                 {% endfor %}
+            {% endif #}
+
+    	    {% set secure =  app.url_asset | slice(0,5)  %}
+    	    {% if secure == 'https' %}
+    		  {% set img_url = img_url | replace({'http:':'https:'}) %}
             {% endif %}
 
-	    {% set secure =  app.url_asset | slice(0,5)  %}
-	    {% if secure == 'https' %}
-		{% set img_url = img_url | replace({'http:':'https:'}) %}
+            {% if product.images is not empty %}
+                {% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
+            {% else %}
+                {% set image_url = "" %}
+                {# Look for first variant with images, price>0 and has_stock #}
+                {% for variant in product.variant
+                      if variant.status == 'active' 
+                      and variant.price>0 
+                      and variant.has_stock 
+                      and variant.images is not empty 
+                      and image_url is empty %}
+                          {% set image_url = app.image.getImageUrl('product','thumbnail', variant.images[0].id) %}
+                {% endfor %}
             {% endif %}
 
             {# Begin product image #}               
             <div class="image">
                 <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
-                    <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ img_url }}" class="img-responsive" data-image-source="{{ img_url }}">
+                    <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
                 </a>
             </div>                            
             {# End product image #}
