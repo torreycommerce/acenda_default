@@ -305,12 +305,21 @@
                         No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>
                     </div>
                     {% endif %}
-                    {% for row,product in products %}
-                    {# Begin product #}
-                    <div class="col-md-{{12 / items_per_row}} col-sm-{{18 / items_per_row}} col-xs-{{ 36 / items_per_row }}">
-                        {{ prod.gridproduct(product) }}
-                    </div>
-                    {# End product #}
+
+                    {% set collection_ids = [] %}
+                    {% for row,product in products if product.id not in collection_ids %}
+                        {% if product.group == 'product' %}
+                            {% for id in product.product[0].collection_id %}
+                                {% set collection_ids = collection_ids|merge([id]) %}
+                            {% endfor %}
+                        {% else %}
+                            {% set collection_ids = collection_ids|merge([product.id]) %}
+                        {% endif %}
+                        {# Begin product #}
+                        <div class="col-md-{{12 / items_per_row}} col-sm-{{18 / items_per_row}} col-xs-{{ 36 / items_per_row }}">
+                            {{ prod.gridproduct(product) }}
+                        </div>
+                        {# End product #}
                     {% endfor %}
                     <div class="clearfix"></div>
                 </div>
