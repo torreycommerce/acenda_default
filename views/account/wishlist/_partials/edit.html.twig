@@ -4,10 +4,10 @@
 
 {% do account.login() %}
 
-{% block title %}Account - Edit Wishlist{% endblock %} 
+{% block title %}Account - Edit Wish List{% endblock %} 
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Account':'/account','Wishlists':'/account/wishlists','Edit Wishlist':''}) }}
+    {{ base.breadcrumbs({'Account':'/account','Wish Lists':'/account/wishlists','Edit Wish List':''}) }}
 {% endblock %}
 
 {% block content %}
@@ -17,9 +17,9 @@
     {% if wishlistdata.action|split('/')|first == 'delete' %}
         {% set result = api.delete('/wishlist/' ~ wishlist.id) %} 
         {% if result %}
-            {% do app.user.setFlash('Wishlist deleted successfully') %}
+            {% do app.user.setFlash('Wish list deleted successfully') %}
         {% else %}
-            {% do app.user.setFlash('Wishlist could not be deleted', 'danger') %}
+            {% do app.user.setFlash('Wish list could not be deleted', 'danger') %}
         {% endif %}
         {% do app.redirect('/account/wishlists') %}
     {% else %}
@@ -29,7 +29,7 @@
         {% endif %}
         {% set result = api.put('/wishlist/' ~ wishlist.id, wishlistdata) %}
         {% if result %}
-            {% do app.user.setFlash('Wishlist edited successfully') %}
+            {% do app.user.setFlash('Wish list edited successfully') %}
             {% do app.redirect('/account/wishlists') %}
         {% else %}
             {% set form_errors = api.error() %}
