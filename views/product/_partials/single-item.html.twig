@@ -8,7 +8,7 @@
                         <div class="thumbnail" id="variant-selected-image-{{product.id}}">
                             <span class="helper"></span>
                             <div id="main-product-video" style="display:none"></div>
-                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" />
+                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" style="display:none"/>
                         </div>
                     </div>
                 </div>
@@ -17,7 +17,7 @@
             {# Begin image carousel #}
                 <div id="image-carousel" class="row">
                     <div class="image-carousel">
-                        <div id="image-carousel-{{product.variant[0].id}}" class="carousel">
+                        <div id="image-carousel-{{product.id}}" class="carousel" style="display:none">
                             <div>
                                 <div class="item active" id="variant-image-carousel-copy" style="display:none;">
                                     <div class="col-xs-2" id="variant-image-thumbnail-copy">

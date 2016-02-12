@@ -1,28 +1,30 @@
 $(function() {
     if(acenda.collection){
         $.each(acenda.products, function(index, product){
-            new VariantsManager(product.variants, product.variant_options, product.img, product.videos, true).init();
+            new VariantsManager(product, product.img, true).init();
         });
     }else{
-        new VariantsManager(acenda.products[0].variants, acenda.products[0].variant_options, acenda.products[0].img, acenda.products[0].videos, false).init();
+        new VariantsManager(acenda.products[0], acenda.products[0].img, false).init();
     }
 });
 
 var disabled_cart_button = 0;
 
-function VariantsManager (variants, variant_options, img, videos, isCollection) {
+function VariantsManager (product, img, isCollection) {
     var self = this;
-    this.variants = variants;
-    this.variant_options = variant_options;
+    this.product = product;
+    this.variants = this.product.variants;
+    this.variant_options = this.product.variant_options;
     this.arr_uniq_var_img_url = img.arr_uniq_var_img_url;
-    this.videos = videos;
+    this.videos = this.product.videos;
     this.isCollection = isCollection;
-    this.product_id = this.variants[0].product_id;
+    this.product_id = this.product.id;
     this.selector = "[id=variation-selector-"+this.product_id+"]";
     this.selectsData = {};
     this.selectedValues = {};
     this.disabled = false;
     this.outOfStock = "Out of stock, please try another combination";
+    this.productImageSet = false;
 
     this.jqSelector = function(str){
         var temp = str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
@@ -97,8 +99,6 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
     }
 
     this.getImageUrl = function(img_id, img_type) {
-        //console.log('getImageUrl');
-        //console.log(typeof this.arr_uniq_var_img_url['_'+img_id][img_type] != 'undefined');
         if (typeof this.arr_uniq_var_img_url['_'+img_id][img_type] != 'undefined') {
             return this.arr_uniq_var_img_url['_'+img_id][img_type];
         }
@@ -145,9 +145,8 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
         $('#variant-selected-image-'+this.product_id+' img').attr('src', '');
     }
 
-    this.updateImages = function(obj_variant) {
+    this.updateImagesAndVideo = function(obj_variant) {
         var self = this;
-        //console.log(obj_variant);
         self.resetSelection();
         if (obj_variant.images.length > 0 ) {
             var i = 0;
@@ -162,15 +161,39 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
 
                 if (i == 0)
                     this.setSelectImage(standard_img_url,large_img_url,img_alt);
-                this.addImageToCarousel(obj_variant.id+'-'+obj_variant.images[key].id,standard_img_url,large_img_url,img_alt);
+                if(!self.isCollection)
+                    this.addImageToCarousel(obj_variant.id+'-'+obj_variant.images[key].id,standard_img_url,large_img_url,img_alt);
 
-                //console.log(large_img_url);
-                //console.log(standard_img_url);
                 i++;
             }
-            return this.arr_uniq_var_img_url.variant_id;
-        } else {
-            return this.arr_uniq_var_img_url.variant_id;
+        } else if (self.product.images.length > 0) {
+            var i = 0;
+            for (key in self.product.images) {
+                var standard_img_url = this.getImageUrl(self.product.images[key].id,'standard');
+                var large_img_url = this.getImageUrl(self.product.images[key].id,'large');
+
+                if (typeof self.product.images[key].alt !== 'undefined')
+                    var img_alt = self.product.images[key].alt;
+                else
+                    var img_alt = '';
+
+                if (i == 0)
+                    this.setSelectImage(standard_img_url,large_img_url,img_alt);
+                if(!self.isCollection)
+                    this.addImageToCarousel(self.product.id+'-'+self.product.images[key].id,standard_img_url,large_img_url,img_alt);
+                i++;
+            }
+        }
+        if(!self.isCollection)
+            self.updateVideos();
+        //The first time the page load and the images are set, wait for 
+        //the main product image to be loaded before showing it with carousel
+        if(!self.productImageSet){
+            $('#variant-selected-image-'+this.product_id+' img').on("load", function() {
+                $('#variant-selected-image-'+self.product_id+' img').show();
+                $('#image-carousel-'+self.product_id).show();
+            });
+            self.productImageSet = true;
         }
     }
 
@@ -182,7 +205,6 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
 
     this.updateQuantitySku = function(obj_variant) {
         var self = this
-        //console.log('updateQuantitySku');
         $('#div-quantity-'+self.product_id).hide();
         $('#div-quantity-mobile-'+self.product_id).hide();
         if ( self.getNumber(obj_variant.price) > 0 && typeof obj_variant.inventory_quantity != 'undefined'
@@ -205,13 +227,9 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
             $('#div-sku-'+self.product_id).show();
             $('#variant-sku-'+self.product_id).html(obj_variant.sku);
         }
-        //    console.log(obj_variant);
-        //$('#variant-details').
     }
     this.updatePriceAndAvailability = function(obj_variant) {
         var self = this;
-        //console.log('updatePriceAndAvailability');
-
         $('#product-price-'+this.product_id).hide();
         $('#pricing-box-'+this.product_id).hide();
         if ( self.getNumber(obj_variant.price) > 0) {
@@ -310,8 +328,8 @@ function VariantsManager (variants, variant_options, img, videos, isCollection) 
                 var quantityInput = "#variant-input-"+self.product_id;
                 var quantityInputMobile = "#variant-input-mobile-"+self.product_id;
                 // self.resetSelection();
-                self.updateImages(filteredVariants[0]);
-                self.updateVideos();
+                self.updateImagesAndVideo(filteredVariants[0]);
+
                 self.updateQuantitySku(filteredVariants[0]);
                 self.updatePriceAndAvailability(filteredVariants[0]);
                 self.updateDescription(filteredVariants[0]);
