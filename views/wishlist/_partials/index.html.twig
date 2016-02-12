@@ -4,7 +4,7 @@
 {{ wishlist.name }}
 {% endblock %}
 {% block breadcrumb %}
-{{ base.breadcrumbs({'Wishlist':''}) }}
+{{ base.breadcrumbs({'Wish List':''}) }}
 {% endblock %}
 {% block content %}
 {% if wishlist.privacy == 'private' and app.user.id != wishlist.customer_id %}
