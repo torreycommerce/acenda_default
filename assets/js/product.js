@@ -159,6 +159,12 @@ function VariantsManager (product, img, isCollection) {
         } else if (self.product.images.length > 0) {
             images = self.product.images;
         }
+        if(images.length == 0){
+            if(!self.isCollection) stopVideo();
+            self.resetImageSelection();
+            self.currentImage = "";
+        }
+        
         self.resetCarouselSelection();
         var i = 0;
         for (key in images) {
@@ -175,7 +181,7 @@ function VariantsManager (product, img, isCollection) {
                 if(self.currentImage != id){
                     $('#image-carousel-'+self.product_id).hide();
                     $('#variant-selected-image-'+self.product_id+' img').hide();
-                    stopVideo();
+                    if(!self.isCollection) stopVideo();
                     self.resetImageSelection();
                     self.setSelectImage(standard_img_url,large_img_url,img_alt);
                     self.currentImage = id;
