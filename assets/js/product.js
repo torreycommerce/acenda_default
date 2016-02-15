@@ -115,10 +115,7 @@ function VariantsManager (product, img, isCollection) {
         }else{
             $('#variant-selected-image-'+this.product_id+' img').attr('src', standard_img_url);
         }
-        
-        if(!this.isCollection){
-            $('#variant-selected-image-'+this.product_id+' img').attr('data-image-zoom', large_img_url);
-        }
+        $('#variant-selected-image-'+this.product_id+' img').attr('data-image-zoom', large_img_url);
         $('#variant-selected-image-'+this.product_id+' img').attr('alt', img_alt);
     }
 
@@ -178,6 +175,7 @@ function VariantsManager (product, img, isCollection) {
                 if(self.currentImage != id){
                     $('#image-carousel-'+self.product_id).hide();
                     $('#variant-selected-image-'+self.product_id+' img').hide();
+                    stopVideo();
                     self.resetImageSelection();
                     self.setSelectImage(standard_img_url,large_img_url,img_alt);
                     self.currentImage = id;
@@ -187,8 +185,8 @@ function VariantsManager (product, img, isCollection) {
                 this.addImageToCarousel(obj_variant.id+'-'+images[key].id,standard_img_url,large_img_url,img_alt);
             i++;
         }
-        if(!self.isCollection)
-            self.updateVideos();
+        
+        self.updateVideos();
         //The first time the page load and the images are set, wait for 
         //the main product image to be loaded before showing it with carousel
         $('#variant-selected-image-'+this.product_id+' img').on("load", function() {
@@ -329,7 +327,6 @@ function VariantsManager (product, img, isCollection) {
                 var quantityInputMobile = "#variant-input-mobile-"+self.product_id;
                 // self.resetSelection();
                 self.updateImagesAndVideo(filteredVariants[0]);
-
                 self.updateQuantitySku(filteredVariants[0]);
                 self.updatePriceAndAvailability(filteredVariants[0]);
                 self.updateDescription(filteredVariants[0]);
