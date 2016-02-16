@@ -1,15 +1,15 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% block breadcrumb %}
-{{ base.breadcrumbs({'Public Wishlists':''}) }}
+{{ base.breadcrumbs({'Public Wish Lists':''}) }}
 {% endblock %}
 {% block content %}
 {% set wishlists = api.get('/wishlist',{query:{'privacy':'public'}}) %}
 {% if wishlists is empty %}
-    There are no public wishlists.
+    There are no public wish lists.
 {% else %}
 <table class="table table-striped">
-    <tr><td>Wishlist ID</td><td>Wishlist Name</td></tr>
+    <tr><td>Wish List ID</td><td>Wish List Name</td></tr>
         {% for wishlist in wishlists %}
         <a href="{{ app.url }}/wishlist/{{ wishlist.id }}"><tr><td>{{ wishlist.id }}</td><td>{{ wishlist.name }}</td></tr></a>
         {% endfor %}
