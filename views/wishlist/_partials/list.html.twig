@@ -179,7 +179,7 @@
                                                 <h4 class="modal-title">Delete this item?</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Remove this item from your wishlist?</p>
+                                                <p>Remove this item from your wish list?</p>
                                                 <b>{{ product.title }}</b>
                                             </div>
                                             <div class="modal-footer">
@@ -237,10 +237,10 @@
         <div class="row">
             <div class="col-md-12 text-right">
                 {% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
-                <a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this wishlist has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}"><i class="fa fa-share"></i> Share this wishlist</a>
+                <a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this wish list has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}"><i class="fa fa-share"></i> Share this wishlist</a>
                 {% endif %}
                 {% if wishlist.customer_id == app.user.id %}
-                <a class="btn btn-primary btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage wishlist</a>
+                <a class="btn btn-primary btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
                 {% endif %}
             </div>
         </div>       
