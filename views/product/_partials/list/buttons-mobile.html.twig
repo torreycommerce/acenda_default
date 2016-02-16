@@ -38,7 +38,7 @@
     {% endif %}
     {% if wishlists is empty %}
         <button type="submit" name="action" value="wishlist" class="btn btn-wishlist btn-block">
-            <i class="fa fa-plus"></i>&nbsp;<span>Add to Wishlist</span>
+            <i class="fa fa-plus"></i>&nbsp;<span>Add to Wish List</span>
         </button>
     {% else %}
         <div class="btn-group btn-block">
@@ -48,7 +48,7 @@
                 {% else %}
                     <i class="fa fa-star"></i>&nbsp;
                 {% endif %}
-                    <span>Add to Wishlist</span>
+                    <span>Add to Wish List</span>
             </button>
             <ul class="dropdown-menu" role="menu">
                 {% for wishlist in wishlists %}
