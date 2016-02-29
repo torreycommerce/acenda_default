@@ -36,7 +36,7 @@ $('#ajaxcart-close').click(function() {
 });
 
 $('button[value=cart]').click(function(event) {
-    
+
     event.preventDefault();
     var cartButton = event.currentTarget;
     var form = cartButton.parentElement;
@@ -165,7 +165,7 @@ function ajaxCart(data, r) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
             });
             for (var i = 0; i < response.length; i++) {
-                var product_name = response[i].title;
+                var product_name = response[i].name;
                 var product_price = parseFloat(response[i].price).toFixed(2);
                 var product_thumbnail = response[i].thumbnail;
                 var product_id = response[i].id;
@@ -208,7 +208,7 @@ function ajaxCart(data, r) {
 
             $('#collection .quantity-selector').val(0); // Set collection quantity selector values to 0
 
-            
+
             if(cart_items.length > 0) {
                 if ($("div.mobile-popover").is(":hidden"))
                     displayCart($('li.cart').attr('data-content',$('.cart .ajaxcart').html()), r);
@@ -241,7 +241,7 @@ function displayCart(el, r){
     });
 
     cartCloseTimeout = setTimeout(function(){
-        el.popover("hide"); 
+        el.popover("hide");
         resetErrors();
     }, 5000);
 }
