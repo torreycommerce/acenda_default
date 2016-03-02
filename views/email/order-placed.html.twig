@@ -146,7 +146,7 @@
                   </tr>
                   <tr>
                     <td class="bodycopy light" style="font-size: 14px; line-height: 22px; color: #dcdcdc; font-family: 'Open Sans', sans-serif;">
-                        <b>URL:</b> {{params['url']['current']}}{{products[item.product_id].0.url}}<br>
+                        <b>URL:</b> {{app.url}}{{products[item.product_id].0.url}}<br>
                         <b>SKU:</b> {{item.sku}}<br>
                         <b>Item name:</b> {{ item.name }}<br>
                         <b>Price:</b> ${{ item.price|number_format(2) }}<br>
