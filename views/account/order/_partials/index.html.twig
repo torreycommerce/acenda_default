@@ -6,10 +6,13 @@
 {% do account.login() %}
 
 {% set order = api.get('/order',{query:{customer_id:app.user.id,order_number:id}}).0 %}
+{% if order is not empty %}
+    {% set order = api.get('/order/' ~ order.id) %}
+{% endif %}
 
 {% set page_name = 'order' %}
 
-{% block title %}Account - Order Details{% endblock %} 
+{% block title %}Account - Order Details{% endblock %}
 
 {% block breadcrumb %}
     {{ base.breadcrumbs({'Account':'/account','Order History':'/account/orders','Order Details':''}) }}
