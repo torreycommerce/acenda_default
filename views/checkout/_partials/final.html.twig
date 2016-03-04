@@ -62,7 +62,6 @@
                 <h3>Items Ordered</h3>
                 <div id="order-items" class="panel-group">
                     {# LOOP Items #}
-                    {# for product in products #}
                     {% for id, item in items %}
                     {% set product = products[item.product_id].0 %}
                     <div class="item panel panel-default">

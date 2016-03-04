@@ -102,7 +102,6 @@
                 <div class="col-xs-6 text-right"><strong>Total:</strong></div>
                 {% set total = cart.subtotal|replace({',':''}) %}
                 <div class="amount col-sm-6"> <span class="dollar-sign"><strong>$</strong></span><span class="price"><strong>{{ total|number_format(2, '.') }}</strong></span> </div>
-                <input type="hidden" name="checkout[total_verify]" value="{{ total }}">
             </div>
         {% endif %}
         {% if step == 'billing' %}    
@@ -134,14 +133,14 @@
         {% endif %}
         {% if step == 'express' %}
             <div class="tax row">
-                <div class="col-xs-6 text-right">Total before tax:</div>
+                <div class="col-xs-6 text-right">Total Before Tax:</div>
                 {% set total_before_tax = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) %}
                 <div class="amount col-xs-6">
                     <span class="dollar-sign">$</span><span class="price">{{ total_before_tax|number_format(2, '.') }}</span>
                 </div>    
             </div>  
             <div class="tax row">
-                <div class="col-sm-6 text-right">Tax:</div>
+                <div class="col-sm-6 text-right">Sales Tax:</div>
                 {% if selected_address is empty %}
                     {% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxableSubtotal, 'shipping_zip':expressdetails.SHIPTOZIP, 'shipping_rate':expressdetails.SHIPPINGAMT}) %}
                 {% else %}
