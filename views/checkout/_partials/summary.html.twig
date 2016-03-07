@@ -119,7 +119,7 @@
                 {% else %}
                     {% set zip = app.user.getState('shipping_zip') %}
                 {% endif %}
-                {% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxableSubtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate}) %}
+                {% set tax = api.post('/taxdata/calculate', {'subtotal':cart.subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate}) %}
                 <div class="amount col-xs-6 text-right">
                     <span class="dollar-sign">$</span><span class="price">{{ tax.tax|number_format(2, '.') }}</span>
                 </div>
