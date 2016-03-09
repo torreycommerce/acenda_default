@@ -244,9 +244,9 @@ function VariantsManager (product, img, isCollection) {
             if (typeof obj_variant.compare_price != 'undefined' && obj_variant.price != obj_variant.compare_price && self.getNumber(obj_variant.compare_price) > 0) {
                 $('#product-standard-price-'+this.product_id).show();
                 if(this.isCollection){
-                    $('#product-standard-price-'+this.product_id).html('Compare at '+'$'+self.formatPrice(obj_variant.compare_price));
+                    $('#product-standard-price-'+this.product_id).html('$'+self.formatPrice(obj_variant.compare_price));
                 }else{
-                    $('#product-standard-price-'+this.product_id).html('Compare at '+'$'+self.formatPrice(obj_variant.compare_price));
+                    $('#product-standard-price-'+this.product_id).html('$'+self.formatPrice(obj_variant.compare_price));
                 }
             }
             $('#save-pricing-'+this.product_id).hide();

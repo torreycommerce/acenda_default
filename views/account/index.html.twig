@@ -39,7 +39,7 @@ set in the array in /account/_macros/base.html.twig
                 <header>
                     <div class="row">
                         <div class="col-md-12">                    
-                            <h2><b>Hello {{ app.user.first_name|title }}!</b></h2>
+                            <h3 class="page-header"><i class="fa fa-user"></i> Hello {{ app.user.first_name|title }}!</h3>
                             <p>Welcome to your account.</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ set in the array in /account/_macros/base.html.twig
                 <div id="recent-notifications">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Notifications</h4>
+                            <h5><i class="fa fa-exclamation-circle"></i> Notifications</h5>
                             {% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
                         </div>
                         <div class="panel-body">
@@ -87,7 +87,7 @@ set in the array in /account/_macros/base.html.twig
                 <div id="recent-orders">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Recent Orders</h4>
+                            <h5><i class="fa fa-shopping-bag"></i> Recent Orders</h5>
                             {% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
                         </div>
                         {# Begin order #}
@@ -135,7 +135,7 @@ set in the array in /account/_macros/base.html.twig
                 <div id="recent-wishlist">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Recent Wishlist Items</h4>
+                            <h5><i class="fa fa-gift"></i> Recent Wishlist Items</h5>
                             {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
                             {% set _in = [] %}
                             {% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}

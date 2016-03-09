@@ -32,7 +32,7 @@
             </label>
             <div class="col-sm-9 col-md-5 col-lg-5">
                 {% if address_select is empty %}
-                <a href="{{app.url}}/account/addresses/new">Please create an address first</a>
+                <a class="btn-link" href="{{app.url}}/account/addresses/new">Please create an address first</a>
                 {% else %}
                 {{ forms.select('wishlist[address_id]', wishlist.address_id, address_select, {label:'Address', class:'form-control parsley-validated', required: true}) }}
                 {% endif %}
@@ -74,7 +74,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="delete-modal-label">Delete "{{wishlist.name}}"?</h4>
+            <h4 class="modal-title" id="delete-modal-label"><i class="fa fa-trash"></i> Delete "{{wishlist.name}}"?</h4>
           </div>
           <div class="modal-body">
               Are you sure you want to delete "{{ wishlist.name }}"?

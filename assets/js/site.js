@@ -161,10 +161,10 @@ $(document).ready(function() {
 
 
    $('.navbar .nav li a').click(function(){
-       if($(this).attr('target') == undefined){
-           window.location=($(this).attr('href'));
-       }
-   });
+      if($(this).attr('target') == undefined){
+          window.location=($(this).attr('href'));
+      }
+  });
 
    /*$('nav#main li.dropdown').hover(
        function(){

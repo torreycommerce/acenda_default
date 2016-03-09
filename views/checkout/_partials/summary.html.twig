@@ -14,9 +14,22 @@
                 </div>
                 {# End product image #}
                 {# Begin product description #}
+
                 <div class="description col-xs-6 col-sm-8 col-md-8">
                     <div class="name">{{ product.title }}</div>
-                    <div class="availability">{{ variation.has_stock ? 'In Stock' :  variation.inventory_shipping_estimate is not empty ? variation.inventory_shipping_estimate : 'Out of Stock' }}</div>
+                        <div class="availability">
+                          {% if product.has_stock %}
+                              In Stock
+                          {% elseif variation.inventory_shipping_estimate is not empty %}
+                              <span class="text-danger">
+                                  {{ variation.inventory_shipping_estimate }}
+                              </span>
+                          {% else %}
+                              <span class="text-danger">
+                                  Out of Stock
+                              </span>
+                          {% endif %}
+                        </div>
                     <div class="qty">Qty: {{ item.quantity }}</div>
                     <div class="amount"><span class="price">Price:</span> <span class="dollar-sign">$</span>{{  product.price }} <span class="each">each</span></div>
                     {% if item.wishlist_id is not empty %}
@@ -41,8 +54,8 @@
 <footer class="row">
     <div class="col-md-12">        
         {# Begin product actions #}
-        <div class="row" style="padding: 10px 0;">
-            <div class="actions col-xs-8 col-xs-offset-4">
+        <div class="row">
+            <div class="actions col-xs-8 col-xs-offset-4 mT10 mB20">
                 <a class="btn btn-default btn-sm" href="{{ app.url }}/cart">Edit Cart</a>
             </div>
         </div>

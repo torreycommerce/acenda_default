@@ -144,10 +144,10 @@
 ##  Begin Twig template
 ##
 #}
-    <div class="row">
+<div class="row"> {# Begin Row #}
     {# Begin category filters #}
     <section class="category-filters">
-        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 hidden-xs">
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
             {% for name,filter_set in filters %}
                 {% if filter_set|length > 1 %}
                     {% set filter_count = filters %}
@@ -183,13 +183,13 @@
     </section>
     {# End category filters #}
     <section class="product-grid">
-        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">        
+        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12">        
             {# Begin category header #}            
                 {# Begin category name #}
-                <div class="row">
+                <div class="row category">
                     <div class="col-md-12">
                         <header>
-                            <h1 class="page-header">{{ name|default(category.name) }}</h1>
+                            <h2 class="page-header">{{ name|default(category.name) }}</h2>
                         </header>
                     </div>
                 </div>
@@ -232,7 +232,7 @@
                 <div class="page-filters">
                     <div class="row">                    
                         {# Begin search bar #}
-                        <div class="col-lg-4 col-md-3 col-sm-12">
+                        <div class="col-md-3 col-sm-12">
                             <div class="search-within">
                                 <form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
                                     <div class="input-group twitter-typeahead">
@@ -248,42 +248,44 @@
                         </div>
                         {# End search bar #}
                         {# Begin paging #}
-                        <div class="col-lg-4 col-md-5 col-sm-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="pagination-top">
                                 {{ base.pagination(products.num_total,limit,5) }}
                             </div>
                         </div>
                         {# End paging #}
                         {# Begin filters #}
-                        <div class="sorting" class="col-lg-4 col-md-4 col-sm-12">
-                            <div id="sort-by" class="btn-group form-inline">
-                                <form class="form-inline">
-                                    <span class="small">Sort By:&nbsp;</span>
-                                    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
-                                        {{ sortByTitle }}&nbsp;
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu text-left pull-right">
-                                        {% for name,sort in sort_options %}
-                                        <li><a class="small" href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </form>
-                            </div>
-                            <div id="items-per-page" class="btn-group">
-                                <form class="form-inline">
-                                    <span class="small">View:&nbsp;</span>
-                                    <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">{{ limit }}&nbsp;
-                                        <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right text-left">                                
-                                        <li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
-                                        <li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
-                                        <li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
-                                        <li><a href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a></li>
-                                    </ul>
-                                </form>
-                            </div>                    
+                        <div class="col-md-5 col-sm-6 col-xs-12">
+                            <div class="sorting">
+                                <div id="sort-by" class="btn-group form-inline">
+                                    <form class="form-inline">
+                                        <span class="small">Sort By:&nbsp;</span>
+                                        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
+                                            {{ sortByTitle }}&nbsp;
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu text-left pull-right">
+                                            {% for name,sort in sort_options %}
+                                            <li><a class="small" href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div id="items-per-page" class="btn-group">
+                                    <form class="form-inline">
+                                        <span class="small">View:&nbsp;</span>
+                                        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">{{ limit }}&nbsp;
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right text-left">                                
+                                            <li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
+                                            <li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
+                                            <li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
+                                            <li><a href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a></li>
+                                        </ul>
+                                    </form>
+                                </div>  
+                            </div>                  
                         </div>
                         {# End filters #}
                     </div>
@@ -316,13 +318,13 @@
                             {% set collection_ids = collection_ids|merge([product.id]) %}
                         {% endif %}
                         {# Begin product #}
-                        <div class="col-md-{{12 / items_per_row}} col-sm-{{18 / items_per_row}} col-xs-{{ 36 / items_per_row }}">
+                        <div class="col-md-4 col-sm-4 col-xs-12 cateClear">
                             {{ prod.gridproduct(product) }}
                         </div>
                         {# End product #}
                     {% endfor %}
-                    <div class="clearfix"></div>
-                </div>
+                    <div class="clearfix">
+                    </div>
                     {% if products|length == limit or app.request.get.page > 1 %}
                         <div class="col-md-12">
                             <div class="pagination-bottom">
@@ -335,5 +337,5 @@
             {# End Product list #}
         </div>
     </section>
-</div>
+</div> {# End Row #}
 {% endspaceless %}

@@ -1,6 +1,6 @@
     {{ forms.begin('address','','post',{ class:'form-horizontal' }) }}
         <fieldset>
-            <legend>Address Information</legend>
+            <legend><i class="fa fa-map-marker"></i> Address Information</legend>
             <div id="custom-address">
                 <div class="form-group">
                     <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">First Name
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="form-group normalizable">
-                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Street line 1
+                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Address line 1
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 col-md-5 col-lg-5">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="form-group normalizable">
-                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Street line 2
+                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Address line 2
                     </label>
                     <div class="col-sm-9 col-md-5 col-lg-5">
                         {{ forms.text('address[street_line2]', address.street_line2, {class:'form-control parsley-validated', placeholder:"Street line 2"}) }}
@@ -67,17 +67,6 @@
                     </div>
                 </div>
                 <div class="form-group normalizable">
-                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Zip
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-sm-9 col-md-5 col-lg-5">
-                        {{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip", required:true}) }}
-                    </div>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
-                        <div class="validation">{{ forms.errorlist(form_errors, 'zip') }}</div>
-                    </div>
-                </div>
-                <div class="form-group normalizable">
                     <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">State/Province
                         <span class="text-danger">*</span>
                     </label>
@@ -87,6 +76,17 @@
                     </div>
                     <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
                         <div class="validation">{{ forms.errorlist(form_errors, 'state') }}</div>
+                    </div>
+                </div>
+                <div class="form-group normalizable">
+                    <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Zip Code
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-9 col-md-5 col-lg-5">
+                        {{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip", required:true}) }}
+                    </div>
+                    <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                        <div class="validation">{{ forms.errorlist(form_errors, 'zip') }}</div>
                     </div>
                 </div>
                 <div class="form-group normalizable">
@@ -104,7 +104,7 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Contact Information</legend>
+            <legend><i class="fa fa-user"></i> Contact Information</legend>
             <div class="form-group">
                 <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Phone number
                     <span class="text-danger">*</span>

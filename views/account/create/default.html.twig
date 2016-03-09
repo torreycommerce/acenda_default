@@ -35,14 +35,14 @@
         <div class="row">
             <div class="col-md-12">
                 <header>
-                    <h1 class="page-header">{{title|title}}</h1>
+                    <h2 class="page-header"><i class="fa fa-user"></i> {{title|title}}</h2>
                     <p>New to {{ app.params.site.title }}? Create an account by filling out the form below.</p>
                 </header>
             </div>
         </div>
         {{ forms.begin('create','','post', {class:'form-horizontal'}) }}
         <fieldset>
-            <legend>Login Information</legend>
+            <legend><i class="fa fa-unlock-alt"></i> Login Information</legend>
             <div class="form-group">
                 <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Email
                     <span class="text-danger">*</span>
@@ -92,7 +92,7 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Contact Information</legend>
+            <legend><i class="fa fa-user"></i> Contact Information</legend>
             <div class="form-group">
                 <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">First Name
                     <span class="text-danger">*</span>

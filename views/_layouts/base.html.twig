@@ -50,7 +50,6 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Josefin+Slab:400,600,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/jquery.mmenu.css" media="all" />
 
         <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
@@ -125,27 +124,6 @@
                     </section>
                     {# End Toolbar #}
                 {% endif %}
-                {# Beging Branding #}
-                <section id="branding">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="brand">
-                                    {% if app.params.logoimages is not empty %}
-                                        {% set logo_info = app.params.logoimages | first %}
-                                        {% set logo = logo_info.url %}
-                                    {% endif %}
-                                    {% if logo is not empty %}
-                                      <a href="{{app.url}}/" style="background-image: url({{ logo }});background-position: 50% 0; background-repeat: no-repeat; display: block;height:80px;width:auto;background-size: contain;"></a>
-                                    {% else %}
-                                        <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                {# End Branding #}
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Navigation #}
