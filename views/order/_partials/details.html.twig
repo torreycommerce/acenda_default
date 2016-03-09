@@ -59,7 +59,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="order-actions">
-                            {% if order.status == 'pending' %}
                             <a class="btn btn-neutral btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel order</a>
                             <div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -80,7 +79,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                             {% if order.returnable_items > 0 %}
                                 <div class="actions">
                                     {% if order.customer_id is defined %}
