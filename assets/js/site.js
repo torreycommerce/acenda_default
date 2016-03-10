@@ -442,12 +442,6 @@ $('.btn-add-to-cart').click(function (e) {
   $('.panel-tabs a[href="#children"]').tab('show');
 })
 
-// ZeroClipboard for wishlist/registry share links
-$(function() {
-var client = new ZeroClipboard( $('#btn-share'), {
-  moviePath: acendaBaseThemeUrl + "/assets/swf/ZeroClipboard.swf"
-});
-
 client.on( "load", function(client) {
   client.on( "complete", function(client, args) {
       $('#btn-share').popover('show');
