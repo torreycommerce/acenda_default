@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <header>
                 <hgroup>
-                    <h2 class="wishlist-name">{{ wishlist.name }}</h2>
+                    <h3 class="wishlist-name page-header"><i class="fa fa-gift"></i> {{ wishlist.name }}</h3>
                 </hgroup>
             </header>
         </div>
@@ -220,7 +220,7 @@
                                 {# Begin add to cart button #}
                                 <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-12 col-sm-offset-0 col-lg-5 col-lg-offset-4 pull-right">
                                     <div class="add-to-cart">
-                                        <button class="btn btn-add-to-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart</button>
+                                        <button class="btn btn-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart</button>
                                     </div>                                    
                                 </div>
                                 {# End add to cart button #}
@@ -240,7 +240,7 @@
                 <a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this wish list has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}"><i class="fa fa-share"></i> Share this wishlist</a>
                 {% endif %}
                 {% if wishlist.customer_id == app.user.id %}
-                <a class="btn btn-primary btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
+                <a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
                 {% endif %}
             </div>
         </div>       

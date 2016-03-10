@@ -13,7 +13,7 @@
 {% block content %}
 {% set default_address = api.get('/customeraddress', {query:{default:1, verified:1, customer_id:app.user.id}}).0 %}
 {% if default_address == false %}
-    {% do app.user.setFlash('There are no verified addresses. Please create a new address or verify one first.', 'danger') %}
+    {% do app.user.setFlash('There are no verified addresses. Please <a class="btn-link" href="{{app.url}}/account/addresses">create a new address</a> or verify one first.', 'danger') %}
     {% do app.redirect('/account/registries') %}
 {% endif %}
 {% if app.request.post.registry is not empty %}
@@ -49,7 +49,7 @@
             <header>
         		<div class="row">
         			<div class="col-md-12">
-        				<h1>Create a Registry</h1>
+        				<h3 class="page-header"><i class="fa fa-gift"></i> Create a Registry</h3>
         			</div>
         		</div>
             </header>

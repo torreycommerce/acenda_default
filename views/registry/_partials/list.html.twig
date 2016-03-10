@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <header>
                 <hgroup>
-                    <h2 class="registry-name">{{ registry.name }}</h2>
+                    <h2 class="registry-name page-header"><i class="fa fa-gift"></i> {{ registry.name }}</h2>
                 </hgroup>
             </header>
         </div>
@@ -163,6 +163,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </div>
                             {# End quantity modal #}                                        
                             {% endif %}
                             {% if registry.customer_id == app.user.id %}
@@ -188,7 +189,6 @@
                             </div>
                             {# End remove modal #}
                             {% endif %}
-                        </div>
                         {# End quantities #}
                     </div>
                     {# End product details #}
@@ -200,8 +200,8 @@
                                 <div class="col-xs-2 col-sm-5 col-md-8 col-md-offset-1 col-lg-3 col-lg-offset-0">
                                     <div class="quantity">
                                         <div class="quantity-input-group">
+                                        <label for="quantity-selector" class="control-label">Qty</label>
                                             <div class="input-group">
-                                                <label for="quantity-selector" class="control-label">Qty</label>
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                 </div>
@@ -217,7 +217,7 @@
                                 {# Begin add to cart #}
                                 <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-12 col-sm-offset-0 col-lg-5 col-lg-offset-4 pull-right">
                                     <div class="add-to-cart">
-                                        <button class="btn btn-add-to-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart </button>
+                                        <button class="btn btn-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart </button>
                                     </div>
                                 </div>
                                 {# End add to cart #}        
@@ -233,7 +233,10 @@
         <div class="row">
             <div class="col-md-12 text-right">
                 {% if registry.privacy == 'public' or registry.privacy == 'unlisted' %}
-                <a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this registry has been copied to the clipboard." data-clipboard-text="{{ app.url}}/registry/{{registry.id}}"><i class="fa fa-share"></i> Share this registry</a>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-share"></i> Share this registry :</span>
+                    <input class="form-control" style="cursor: copy;" type="text" onclick="this.select()" value="{{ app.url}}/registry/{{registry.id}}" readonly="readonly">
+                </div>
                 {% endif %}
                 {% if registry.customer_id == app.user.id %}
                 <a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage registry</a>

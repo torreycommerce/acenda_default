@@ -1,47 +1,46 @@
-    <div>
-        {# Beging product images #}
-        <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
-            {# Begin main image #}
-            <div id="image-main">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="thumbnail" id="variant-selected-image-{{product.id}}">
-                            <span class="helper"></span>
-                            <div id="main-product-video" style="display:none"></div>
-                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" style="display:none"/>
+<div id="Single Product" class="row">    
+    {# Beging product images #}
+    <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
+        {# Begin main image #}
+        <div id="image-main">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="thumbnail" id="variant-selected-image-{{product.id}}">
+                        <span class="helper"></span>
+                        <div id="main-product-video" style="display:none"></div>
+                        <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="" data-image-zoom="" alt="" style="display:none"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# Begin main image #}
+        {# Begin image carousel #}
+            <div id="image-carousel" class="row">
+                <div class="image-carousel">
+                    <div id="image-carousel-{{product.id}}" class="carousel" style="display:none">
+                        <div>
+                            <div class="item active" id="variant-image-carousel-copy" style="display:none;">
+                                <div class="col-xs-2" id="variant-image-thumbnail-copy">
+                                    <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
+                                        <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-2" id="variant-video-copy">
+                                    {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
+                                    <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
+                                        <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item active itemauto" id="variant-image-carousel-{{product.id}}">
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            {# Begin main image #}
-            {# Begin image carousel #}
-                <div id="image-carousel" class="row">
-                    <div class="image-carousel">
-                        <div id="image-carousel-{{product.id}}" class="carousel" style="display:none">
-                            <div>
-                                <div class="item active" id="variant-image-carousel-copy" style="display:none;">
-                                    <div class="col-xs-2" id="variant-image-thumbnail-copy">
-                                        <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-                                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-2" id="variant-video-copy">
-                                        {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
-                                        <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-                                            <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="item active itemauto" id="variant-image-carousel-{{product.id}}">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {# End image carousel #}
-        </div>
+        {# End image carousel #}
     </div>
     {# End product images #}
 
@@ -57,10 +56,51 @@
                                 <a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
                             </div>
                             <h2 class="name">{{product.title}}</h2>
+                            <div class="sku-details" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
+                            <div id="variant-availability-price">
+                            {# Begin Product Prices #}
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="price" id="product-price-{{product.id}}"></div>
+{#                                                 <div class="stock" id="stock-text-{{product.id}}"></div>
+ #}                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12" id="pricing-box-{{product.id}}">
+                                                {# Begin pricing #}
+                                                <ul class="pricing list-inline">
+                                                    {# Begin regular price #}
+                                                        <li class="regular" id="product-standard-price-{{product.id}}">
+                                                        </li>
+                                                    {# End regular price #}
+                                                    {# Begin percent off #}
+                                                        {# <li class="percent" id="save-pricing-{{product.id}}">
+                                                        </li> #}
+                                                    {# End percent off #}
+                                                    {# Begin price per month #}
+                                                    {# if variation.price >= 100 %}
+                                                        <li class="per-month">
+                                                            <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
+                                                                {{ prod.billmelater(variation.price) }}
+                                                            </span>
+                                                        </li>
+                                                    {% endif #}
+                                                    {# End price per month #}
+                                                </ul>
+                                                {# End pricing #}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {# End Product Prices #}
+                            </div>
                         </header>
                     </div>
                 </div>
                 {# End Product Heading Group #}
+
                 {# Begin review stars #}
                 {% set review_score = reviews|average('score') %}
                     <ul class="reviews">
@@ -78,47 +118,6 @@
                     </ul>
 
                 {# End review #}
-
-                    <div id="variant-availability-price">
-                        {# Begin Product Prices #}
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="price" id="product-price-{{product.id}}"></div>
-                                            <div class="stock" id="stock-text-{{product.id}}"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12" id="pricing-box-{{product.id}}">
-                                            {# Begin pricing #}
-                                            <ul class="pricing">
-                                                {# Begin regular price #}
-                                                    <li class="regular" id="product-standard-price-{{product.id}}">
-                                                    </li>
-                                                {# End regular price #}
-                                                {# Begin percent off #}
-                                                    <li class="percent" id="save-pricing-{{product.id}}">
-                                                    </li>
-                                                {# End percent off #}
-                                                {# Begin price per month #}
-                                                {# if variation.price >= 100 %}
-                                                    <li class="per-month">
-                                                        <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
-                                                            {{ prod.billmelater(variation.price) }}
-                                                        </span>
-                                                    </li>
-                                                {% endif #}
-                                                {# End price per month #}
-                                            </ul>
-                                            {# End pricing #}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {# End Product Prices #}
-                        <div class="sku-details" id="div-sku-{{product.id}}"><strong>Item: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
-                    </div>
                 <div id="variation-selector-{{product.id}}">
                 </div>
                 {# Begin actions desktop #}
@@ -165,7 +164,7 @@
                                    {# End product quantity #}
                                    {# Begin add to cart button #}
                                     <div class="row">
-                                       <div class="form-group col-md-4">
+                                       <div class="form-group col-md-12">
                                            <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
                                                <i class="fa fa-shopping-cart"></i>
                                                <span>Add to Cart</span>
@@ -368,5 +367,5 @@
         </div>
     </section>
     {# End product tab - mobile #}
-    <!-- </div> -->
+</div> 
     {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}

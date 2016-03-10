@@ -29,7 +29,7 @@
         {% endif %}
     {% endif %}
     {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-    <h1>Create</h1>
+    <h3 class="page-header"><i class="fa fa-gift"></i> Create New Wishlisht</h3>
     <div id="wishlist-create">
         {% include '/account/wishlist/_partials/form.html.twig' %}
     </div>

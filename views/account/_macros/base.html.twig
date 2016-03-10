@@ -7,15 +7,15 @@
 
 {% macro navigation(current_page = '') %}
 {% set tabs = {
-    '':'Account Center',
-    'notifications':'Notifications',
-    'addresses':'Addresses',
-    'orders':'Orders',
-    'wishlists':'Wishlists',
-    'registries':'Registries',
-    'reviews':'Reviews',
-    'returns':'Returns',
-    'account-settings':'Account Settings',
+    '':'<i class="fa fa-user"></i> Account Center',
+    'notifications':'<i class="fa fa-exclamation-circle"></i> Notifications',
+    'addresses':'<i class="fa fa-map-marker"></i> Addresses',
+    'orders':'<i class="fa fa-shopping-bag"></i> Orders',
+    'wishlists':'<i class="fa fa-gift"></i> Wish lists',
+    'registries':'<i class="fa fa-gift"></i> Registries',
+    'reviews':'<i class="fa fa-star"></i> Reviews',
+    'returns':'<i class="fa fa-reply"></i> Returns',
+    'account-settings':'<i class="fa fa-cogs"></i> Account Settings',
 } %}
 <div class="navbar navbar-default">
     {# Begin mobile menu button #}
@@ -38,7 +38,7 @@
         </ul>        
     </div>
     <div class="logout">
-        <a class="btn btn-danger btn-block" href="{{app.url}}/account/logout">Logout</a>
+        <a class="btn btn-danger btn-block" href="{{app.url}}/account/logout">Log out</a>
     </div>
     {# End menu #}
 </div>

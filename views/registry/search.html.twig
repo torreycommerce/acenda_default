@@ -18,14 +18,14 @@
     <div class="row">
         <div class="col-md-12">
             <header>
-                <h1 class="page-header">Gift Registry</h1>
+                <h2 class="page-header"><i class="fa fa-gift"></i> Gift Registry</h2>
             </header>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-8">
-            <h2>Find a Registry</h2>
+            <h3>Find a Registry</h3>
 
             {{ forms.begin('registry_search','','get',{class:'form-horizontal'}) }}
             <div class="form-group">
@@ -66,10 +66,9 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
-
+                <div class="col-sm-5 col-sm-offset-2 col-md-5 col-md-offset-2">
                     <div class="actions">
-                        {{ forms.submit('', '', 'Search', {class:'btn btn-primary'})}}
+                        {{ forms.submit('', '', 'Search', {class:'btn btn-primary btn-block mB20'})}}
                     </div>
                   {% if registries is empty  and app.request.get.registry_search is not empty %} 
                         <div class="alert alert-warning">Sorry, there were no matching registries found. Please try broadening your search.</div>
@@ -79,9 +78,13 @@
             {{ forms.end() }}
         </div>
         <div class="col-md-4">
-            <h2>Create a New Registry</h2>
+            <h3>Create a New Registry</h3>
+             <div class="row">
+                <div class="col-sm-5 col-sm-offset-2 col-md-offset-0 col-md-12">
             <p>Please login to create a new registry</p>
-            <a class="btn btn-primary" href="{{ app.url }}/account/registries"><i class="fa fa-plus"></i> Create a New Registry</a>
+            <a class="btn btn-primary btn-block btn-sm btn-a mB20" href="{{ app.url }}/account/registries"><i class="fa fa-plus"></i> Create a New Registry</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -91,17 +94,20 @@
         {% for registry in registries %}
         <div class="registry">
             <div class="row">        
-                <div class="col-sm-4 col-md-2 col-lg-2">
+                <div class="col-sm-3">
                     <div>Date: {{ registry.event_date }}</div>
                 </div>
-                <div class="col-sm-8 col-md-4 col-lg-4">
+                <div class="col-sm-2">
                     <div><a href="{{app.url}}/registry/{{registry.id}}">{{ registry.name }}</a></div>
                 </div>            
-                <div class="col-sm-8 col-sm-offset-4 col-md-3 col-md-offset-0 col-lg-3  col-lg-offset-0">
+                <div class="col-sm-2">
                     <div>{{ registry.first_name }}&nbsp;{{registry.last_name}}</div>
                 </div>
-                <div class="col-sm-8 col-sm-offset-4 col-md-3 col-md-offset-0 col-lg-3 col-lg-3 col-lg-offset-0">
+                <div class="col-sm-2">
                     <div>{{ registry.city }}, {{ registry.state }}</div>
+                </div>
+                <div class="col-sm-3">
+                    <a class="btn-link" href="{{app.url}}/registry/{{registry.id}}"><i class="fa fa-arrow-right"></i> See registry</a>
                 </div>
             </div>
         </div>   

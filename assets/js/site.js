@@ -161,8 +161,10 @@ $(document).ready(function() {
 
 
    $('.navbar .nav li a').click(function(){
-      window.location=($(this).attr('href'));
-   });
+      if($(this).attr('target') == undefined){
+          window.location=($(this).attr('href'));
+      }
+  });
 
    /*$('nav#main li.dropdown').hover(
        function(){
@@ -439,12 +441,6 @@ if ($('.panel-tabs li:eq(1) a').length && $('.read-more').length)
 $('.btn-add-to-cart').click(function (e) {
   $('.panel-tabs a[href="#children"]').tab('show');
 })
-
-// ZeroClipboard for wishlist/registry share links
-$(function() {
-var client = new ZeroClipboard( $('#btn-share'), {
-  moviePath: acendaBaseThemeUrl + "/assets/swf/ZeroClipboard.swf"
-});
 
 client.on( "load", function(client) {
   client.on( "complete", function(client, args) {

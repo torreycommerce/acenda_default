@@ -36,7 +36,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                 <div class="row">
                     <div class="col-md-12">
                         <header>
-                            <h1 class="page-header">Account Settings</h1>
+                            <h3 class="page-header"><i class="fa fa-cogs"></i> Account Settings</h3>
                             <p>To apply changes on this page you must provide your current password.</p>
                         </header>
                     </div>
@@ -66,7 +66,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
                         {{ forms.begin('account_settings','','post', {class:'form-horizontal'}) }}
                         <fieldset>
-                            <legend>Contact Information</legend>
+                            <legend><i class="fa fa-user"></i> Contact Information</legend>
                             <div class="form-group">
                                 <label class="control-label col-sm-4 col-md-4 col-lg-3" for="account_settings[first_name]">
                                     First Name<span class="text-danger">*</span>
@@ -133,7 +133,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
                         {{ forms.begin('change_password','','post', {class:'form-horizontal'}) }}
                         <fieldset>
-                            <legend>Authentication</legend>
+                            <legend><i class="fa fa-unlock-alt"></i> Authentication</legend>
                             {# Begin current password address #}
                             <div class="form-group">
                                 <label class="control-label col-sm-4 col-md-4 col-lg-3" for="change_password[current_password]">Current Password<span class="text-danger">*</span>

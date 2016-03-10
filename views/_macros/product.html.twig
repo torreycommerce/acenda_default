@@ -9,7 +9,6 @@
             {# Grab image based on color facets #}
             {# Old Behavior
             {% set img_url = product.thumbnail %}
-
             {% if product.attributes.color|length > 1 %}
                 {% set current_colors = app.request.get.f.color|keys %}
                 {% for variant in product.variant 
@@ -17,10 +16,9 @@
                         {% set img_url = variant.thumbnail %}
                 {% endfor %}
             {% endif %}
-
-    	    {% set secure =  app.url_asset | slice(0,5)  %}
-    	    {% if secure == 'https' %}
-    		  {% set img_url = img_url | replace({'http:':'https:'}) %}
+            {% set secure =  app.url_asset | slice(0,5)  %}
+            {% if secure == 'https' %}
+              {% set img_url = img_url | replace({'http:':'https:'}) %}
             {% endif %}
             #}
 
@@ -43,6 +41,19 @@
             <div class="image">
                 <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
                     <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
+                    <div class="label">
+                    {% for tag in product.tags %}
+                        {% if tag == 'new' %}
+                            <span class="label-new">{{ tag|capitalize }}</span>
+                        {% elseif tag == 'sale' %}
+                            <span class="label-sale">{{ tag|capitalize }}</span>
+                        {% elseif tag == 'popular' %}
+                            <span class="label-hot">{{ tag|capitalize }}</span>
+                        {% else %}
+                            <span class="label-feat">{{ tag|capitalize }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
                 </a>
             </div>                            
             {# End product image #}
@@ -59,7 +70,7 @@
             <a href="{{app.url}}/product/{{product.slug}}">
                 <header>
                     <div class="brand">{{product.brand}}</div>
-                    <h5 class="product-name">{{product.name}}</h5>                    
+                    <h5 class="product-name">{{product.name}}</h5>             
                 </header>
                 <div class="pricing">
                     {% if product.attributes.price %}
@@ -205,3 +216,4 @@
     {% endif %}
 {% endspaceless %}
 {% endmacro %}
+Status API Training Shop Blog About Pricing
