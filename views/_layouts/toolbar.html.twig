@@ -153,7 +153,7 @@
     <div class="toolbar-mobile">
         <div class="col-xs-2 nav-mobile">
         {# Begin navigation button #}
-            <a href="#nav-mobile-main" style="float:left;">
+            <a href="#nav-mobile-main" class="fLeft">
                 <i class="fa fa-bars fa-2x"></i>
             </a>
         {# End navigation button #}
@@ -166,7 +166,7 @@
                 {% set logo = logo_info.url %}
             {% endif %}
             {% if logo is not empty %}
-              <a href="{{app.url}}/" style="background-image: url({{ logo }});background-position: 50% 0; background-repeat: no-repeat; display: block;height:45px;width:auto;background-size: contain;"></a>
+               <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
             {% else %}
                 <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
             {% endif %}

@@ -164,30 +164,29 @@
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
-    <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" style="background-color: rgba(0,0,0,0.8);" role="navigation">
+    <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <div class="row" style="padding-top:10px;">
-                <div class="col-sm-4" style="padding-top:4px;">
-                    <img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}" style="max-width: 100px;">
+            <div class="row pT10">
+                <div class="col-sm-4 pT4">
+                    <img class="maxW100" src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}">
                 </div>
                 <div class="col-sm-4">
                     {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
                     {% if sandboxMode is not empty %}
                     <div class="row">
-                        <center><p style="padding-top:5px;color:white;"><i class="fa fa-exclamation-triangle fa-2x" style="color:#f45b4f"></i> <a style="color: #fff;" href='{{ back_to }}/site-settings#paymentplatforms' target="_blank">Your PayPal PayflowPro account is in test mode (Sandbox)</a></p></center>
+                        <center><p><i class="fa fa-exclamation-triangle fa-2x"></i> <a ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank">Your PayPal PayflowPro account is in test mode (Sandbox)</a></p></center>
                     </div>
                     {% endif %}
                 </div>
-                <div class="col-sm-4">
-                    <button class="btn btn-info pull-right" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
+                <div class="col-sm-4 pull-right">
+                    <button class="btn btn-info" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
                     {% if '/preview/' in app.url  %}
-                        <button class="btn btn-success pull-right" style="margin-right:5px;" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
+                        <button class="btn btn-success" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
                     {% endif %}
                 </div>
             </div>
         </div>
     </nav>
-
 <script>
     $(document).ready(function() {
         var timer=0;

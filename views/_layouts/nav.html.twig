@@ -45,7 +45,7 @@
         <li class="close-menu">
             <span>Close</span><i class="fa fa-angle-left"></i>
         </li>
-        <div style="clear: both"></div>
+        <div class="cBoth"></div>
         {% if app.user.id %}
         <li>
             <a href="javascript: void(0);" id="acc_btn"><i class="fa fa-user"></i> My Account</a>
@@ -69,7 +69,7 @@
             <a href="{{app.url}}/return"><i class="fa fa-exchange"></i>Easy Returns</a>
         </li>
         {% endif %}
-        <div style="clear: both; height: 20px;"></div>
+        <div class="cBoth"></div>
         <div class="col-xs-12">
             <form id="mobile-search-form" role="search" action="{{ app.url }}/search" method="get">
                 <div class="input-group">
@@ -80,7 +80,7 @@
                 </div>
             </form>
         </div>
-        <div style="clear: both; height: 20px;"></div>
+        <div class="cBoth"></div>
         <li><h2>Categories</h2></li>
         <li>
             <a href="{{app.url}}" class="sub_c">
