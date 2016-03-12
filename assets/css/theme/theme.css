@@ -28,7 +28,7 @@ html,body {border:0; color:#555; font-size:100%; margin:0; font-family: Lucida S
 /* Link */
 a {color: #555;transition: all 0.5s ease;}
 a:hover,a:focus {color: #999;text-decoration: none;}
-a.btn-a {line-height: 180%;}
+a.btn-a {line-height: 210%;}
 /*Title*/
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4 
 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small  
@@ -144,10 +144,10 @@ only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192
 #branding .brand #logo-img a span {position: absolute;visibility: hidden;}
 #branding .brand #logo-txt {text-align: left;text-transform: uppercase;}
 #branding .brand #logo-txt a {font-size:300%;font-weight: 600;}
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
 #branding .brand {padding-top: 10px;}
 #branding .brand #logo-img {width: 100%;text-align: center;}
-#branding .brand #logo-img a {display: inline-block;}}
+#branding .brand #logo-img a {display: inline-block;}}*/
 @media (max-width: 991px) {
 #branding .brand #logo-txt a {font-size:200%;}}/* End Logo Branding Style*/
 /**** End Toolbar Styling  ****/
@@ -687,9 +687,9 @@ h2.section-name{margin-bottom: 20px;}
 .thumbnail {border:transparent;border-radius: 0;}
 .page-header {padding-bottom: 10px;margin: 0px 0 20px;border-bottom: 1px solid #eee;}
 .cBoth{clear: both;}
-.lineT {text-decoration: line-through;}
 .cateClear:nth-child(3n+1) {clear:left;}
 .proClear:nth-child(4n+1) {clear:left;}
+.img-center {margin:0 auto;}
 .visually-hidden {
     /*http://developer.yahoo.com/blogs/ydn/posts/2012/10/clip-your-hidden-content-for-better-accessibility/*/
     position: absolute !important;

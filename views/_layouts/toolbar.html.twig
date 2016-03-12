@@ -134,11 +134,11 @@
     </div>
     {# Begin search bar #}
     <div class="search col-lg-3 col-md-3 hidden-sm hidden-xs">
-         <form role="search" method="get" action="{{app.url}}/search">
-            <div class="input-group twitter-typeahead">
-                <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Enter search terms">
-                <span class="input-group-btn">
-                    <button class="btn" type="submit">
+        <form role="search" class="search-form" method="get" action="{{app.url}}/search">
+            <div class="form-group has-feedback input-group twitter-typeahead">
+                <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
+                <span class="input-group-btn form-control-feedback">
+                    <button class="btn btn-md" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </span>
@@ -149,7 +149,7 @@
 </div>
 {# End Branding end Search #}
 {# Begin mobile toolbar #}
-<div class="row hidden-md hidden-lg">
+<div class="row hidden-md hidden-lg" id="branding">
     <div class="toolbar-mobile">
         <div class="col-xs-2 nav-mobile">
         {# Begin navigation button #}
@@ -159,14 +159,14 @@
         {# End navigation button #}
         </div>
         {# Begin Mobile Logo button #}
-        <div class="col-xs-8 text-center nav-mobile">
+        <div class="col-xs-8 nav-mobile">
             <div class="brand">
             {% if app.params.logoimages is not empty %}
                 {% set logo_info = app.params.logoimages | first %}
                 {% set logo = logo_info.url %}
             {% endif %}
             {% if logo is not empty %}
-               <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
+               <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
             {% else %}
                 <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
             {% endif %}
