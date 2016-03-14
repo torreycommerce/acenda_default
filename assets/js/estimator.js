@@ -35,7 +35,7 @@ function estimator() {
                 setTotalBeforeTax(total_before_tax);
                 if (method_data.result.date_range.length > 0){
                     $('#block-date-estimate').show();
-                    $('#date-estimate').html(method_data.result.date_range[0] + ' - ' + method_data.result.date_range[1]);
+                    $('#date-estimate').html(method_data.result.date_range[0] + ' to ' + method_data.result.date_range[1]);
                 }else{
                     $('#block-date-estimate').hide();
                 }
