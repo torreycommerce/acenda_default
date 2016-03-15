@@ -1,5 +1,7 @@
 
 
+
+
 (function($){
    var ImageZoom = function(element, options)
    {
@@ -166,18 +168,7 @@ $(document).ready(function() {
       }
   });
 
-   /*$('nav#main li.dropdown').hover(
-       function(){
-             $(this).addClass('open').find('ul').show(0,function() {
-             })
-       },
-       function(){
-          $(this).removeClass('open').find('ul').stop(true,true).hide();
-       }
-   );
-  $('a.dropdown-toggle, .dropdown-menu a').on('touchstart', function(e) {
-    e.stopPropagation();
-  });*/
+
 
 });
 
@@ -448,7 +439,6 @@ client.on( "load", function(client) {
       setTimeout(function(){$('#btn-share').popover('hide');}, 3000);
   } );
 } );
-});
 
 //Newsletter Validator
 $(document).ready(function() {
