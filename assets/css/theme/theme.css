@@ -20,8 +20,7 @@
 /**** 1-) Global Styling  ****/
 html {font-size:100%; -webkit-touch-callout:none; -webkit-text-size-adjust:none; -ms-text-size-adjust:100%;}
 html,body {border:0; color:#555; font-size:100%; margin:0; font-family: Lucida Sans, Lucida Grande, Helvetica, sans-serif;}
-#content {flex: 1;margin-bottom:40px;}
-#body {display: flex;min-height: 100vh;flex-direction: column;}
+#content {flex: 1;margin-bottom:40px;min-height: calc(100vh - 449px);}
 /* Body for Mobile Screen */
 @media screen and (max-width: 767px){body {font-size: 87.5%;}}
 @media screen and (max-width: 1200px){body {font-size: 90%;}}
@@ -44,7 +43,6 @@ img {border:none;}
 img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 .img-thumbnail {border-radius: 0;}
 /**** End Global Styling  ****/
-
 
 /**** 2-) Button Styling  ****/
 .btn {border-radius:0;transition: all 0.5s ease;}
@@ -304,6 +302,8 @@ footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px
 
 
 /**** 7-) Category Page Styling   ****/
+.categoryCol .col-lg-2 {width:20%;}
+.categoryCol .col-lg-10 {width:80%;}
 .category-filters .filter {margin-bottom: 15px;}
 @media (max-width: 992px) {.category-filters .filter {margin-bottom: 10px;}}
 .category-filters .filter .panel-group {margin-bottom:5px;}

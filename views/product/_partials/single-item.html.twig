@@ -106,10 +106,10 @@
                     <ul class="reviews">
                         {% if review_score > 0 %}
                             <li class="stars">
-                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
                             </li>
                             <li class="average">
-                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
+                                <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
                             </li>
                         {% endif %}
                         <li class="submit">
@@ -242,7 +242,7 @@
         </div>
         {# End product details #}
         {# Begin product tabs - desktop #}
-        <section id="product-tabs" class="row hidden-sm hidden-xs">
+        <div id="product-tabs" class="row">
             <div class="col-md-12">
                 {# Begin tabs nav #}
                 <div class="row">
@@ -314,58 +314,9 @@
                 </div>
                 {# End tab pane #}
             </div>
-        </section>
+        </div>
         {# Begin product tabs - desktop #}
     </section>
     {# End Product Details #}
-
-    <section id="product-tabs-mobile" class="row hidden-md hidden-lg">
-        <div class="col-xs-12">
-            {# Begin tabs nav #}
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel-tabs">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#description-mobile" data-toggle="tab">Description</a>
-                            </li>
-                            <li>
-                                <a href="#reviews-mobile" data-toggle="tab">Reviews</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {# End tabs nav #}
-            {# Begin tab pane #}
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="tab-content">
-                        {# Begin product description - mobile #}
-                        {% set full_description = product.description %}
-                        <div id="description-mobile" class="tab-pane fade in active">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    {{full_description}}
-                                </div>
-                            </div>
-                        </div>
-                        {# End product description #}
-                        {# Begin reviews - mobile #}
-                        <div id="reviews-mobile" class="tab-pane fade">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    {% include "/product/_partials/reviews.html.twig" %}
-                                </div>
-                            </div>
-                        </div>
-                        {# End reviews #}
-                    </div>
-                </div>
-            </div>
-            {# End tab pane #}
-        </div>
-    </section>
-    {# End product tab - mobile #}
 </div> 
-    {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
+{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
