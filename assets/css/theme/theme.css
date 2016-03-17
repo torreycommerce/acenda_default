@@ -44,6 +44,7 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 .img-thumbnail {border-radius: 0;}
 /**** End Global Styling  ****/
 
+
 /**** 2-) Button Styling  ****/
 .btn {border-radius:0;transition: all 0.5s ease;}
 .btn-default {font-size: 85%;}
@@ -302,8 +303,7 @@ footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px
 
 
 /**** 7-) Category Page Styling   ****/
-.categoryCol .col-lg-2 {width:20%;}
-.categoryCol .col-lg-10 {width:80%;}
+@media (min-width: 992px) {.categoryCol .col-lg-2 {width:20%;}.categoryCol .col-lg-10 {width:80%;}.categoryCol .col-md-3 {width:25%;}.categoryCol .col-md-9 {width:75%;}}
 .category-filters .filter {margin-bottom: 15px;}
 @media (max-width: 992px) {.category-filters .filter {margin-bottom: 10px;}}
 .category-filters .filter .panel-group {margin-bottom:5px;}
@@ -347,6 +347,7 @@ footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px
 
 
 /**** 8-) Product, Collection Page Styling   ****/
+.product-grid .product .image img {width: 100%;height:auto;}
 .product-grid .product {height: auto;text-align: left;margin-bottom: 30px;}
 .product-grid .product a {text-decoration: none;}
 .product-grid .product a:hover, a:focus, a.active {text-decoration: none;color: #555;}
@@ -524,7 +525,7 @@ table.yiiLog {display: none;}
 #social .text {display: inline-block;float: left;font-size: 80%;line-height: 22px;margin-right: 6px;}
 #social .facebook,#social .twitter,#social .pinterest {display: inline-block;float: left;margin-right: 8px;}
 #social .google-plus {display: inline-block;float: left;}
-.label {color:#fff;font-size:65%;font-weight:normal;right: 0;padding: 0;position: absolute;text-transform: uppercase;top: 0;}
+.label {color:#fff;font-size:65%;font-weight:normal;right: 15px;padding: 0;position: absolute;text-transform: uppercase;top: 0;}
 .label .label-new {background-color: #558C89;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
 .label .label-sale {background-color: #c11818;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
 .label .label-hot {background-color: #365755;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
