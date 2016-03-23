@@ -73,7 +73,7 @@
                     <div class="brand">
                         <a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
                     </div>
-                    <h2 class="name">{{product.name}}</h2>
+                    <h1 class="name">{{product.name}}</h1>
                     {# Begin product prices #}
                     {% set prices =  product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
                     {% if prices.price|first > 0 %}
