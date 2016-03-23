@@ -90,7 +90,7 @@
                                     <div class="shipping-address">
                                         <div><strong>Shipping Address:</strong></div>
                                         <div class="address">
-                                            <div class="name">{{ final_order.shipping_first_name }} {{ final_order.shipping_first_name }}</div>
+                                            <div class="name">{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
                                             <div class="address1">{{ final_order.shipping_street_line1 }}</div>
                                             <div class="city-state">{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
                                         </div>
@@ -101,7 +101,7 @@
                                         <div class="billing-address">
                                             <div><strong>Billing Address:</strong></div>
                                             <div class="address">
-                                                <div class="name">{{ final_order.billing_first_name }} {{ final_order.billing_first_name }}</div>
+                                                <div class="name">{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
                                                 <div class="address1">{{ final_order.billing_street_line1 }}</div>
                                                 <div class="city-state">{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
                                                 <div class="billing-method">Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
