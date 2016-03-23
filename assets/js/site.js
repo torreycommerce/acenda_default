@@ -433,12 +433,12 @@ $('.btn-add-to-cart').click(function (e) {
   $('.panel-tabs a[href="#children"]').tab('show');
 })
 
-client.on( "load", function(client) {
-  client.on( "complete", function(client, args) {
-      $('#btn-share').popover('show');
-      setTimeout(function(){$('#btn-share').popover('hide');}, 3000);
-  } );
-} );
+// client.on( "load", function(client) {
+//   client.on( "complete", function(client, args) {
+//       $('#btn-share').popover('show');
+//       setTimeout(function(){$('#btn-share').popover('hide');}, 3000);
+//   } );
+// } );
 
 //Newsletter Validator
 $(document).ready(function() {
