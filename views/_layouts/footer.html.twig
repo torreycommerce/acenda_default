@@ -17,7 +17,7 @@
             {% else %}
                 <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
             {% endif %}
-        </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-3">
             <h4>Quicklinks</h4>
@@ -79,8 +79,8 @@
                     <div class="input-group-btn">
                         <button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Subscribe</button>
                     </div>
-                    {{ newsletterform.end() }}
                 </div>
+                {{ newsletterform.end() }}
             </div>
         </div>
     </div>
@@ -92,7 +92,6 @@
             <li>All Rights Reserved.</li>
             <li>Powered by Acenda.</li>
         </ul>
-    </div>
     </div>
 </div>
 {% set request = app.request.url | split('/') %}

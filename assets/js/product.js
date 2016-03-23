@@ -15,7 +15,7 @@ function VariantsManager (product, img, isCollection) {
     this.variants = this.product.variants;
     this.variant_options = this.product.variant_options;
     this.arr_uniq_var_img_url = img.arr_uniq_var_img_url;
-    this.defaultImage = img.default;
+    this.defaultImage = img.default_img;
     this.videos = this.product.videos;
     this.isCollection = isCollection;
     this.product_id = this.product.id;
@@ -128,7 +128,7 @@ function VariantsManager (product, img, isCollection) {
             clonedDiv.attr("id", id);
             clonedDiv.appendTo( "#variant-image-carousel-"+this.product_id );
             $('#'+id+" div").attr("data-video-src", video);
-        }.bind(this));
+        });
         $("[data-image-swap]").click(function() {
             stopVideo();
         });
@@ -178,12 +178,13 @@ function VariantsManager (product, img, isCollection) {
             i++;
         }
         this.updateVideos();
+        var _this = this;
         //The first time the page load and the images are set, wait for
         //the main product image to be loaded before showing it with carousel
         $('#variant-selected-image-'+this.product_id+' img').on("load", function() {
-            $('#variant-selected-image-'+this.product_id+' img').show();
-            $('#image-carousel-'+this.product_id).show();
-        }.bind(this));
+            $('#variant-selected-image-'+_this.product_id+' img').show();
+            $('#image-carousel-'+_this.product_id).show();
+        });
     }
     this.updateVideos = function(){
         if(this.videos && !this.isCollection){
@@ -257,48 +258,49 @@ function VariantsManager (product, img, isCollection) {
          return obj_variant.has_stock == '1' ? 'In Stock' :  obj_variant.inventory_shipping_estimate ? obj_variant.inventory_shipping_estimate : 'Out of Stock';
     }
     this.updateChips = function(){
+        var _this = this;
         $.each(this.selectsData, function(name, optionArray){
             var selectedValues2 = {};
 
-            $.each(this.selectsData, function(name2, optionArray2){
+            $.each(_this.selectsData, function(name2, optionArray2){
                 if(name2 != name){
-                    if(this.selectedValues[name2]){
-                        selectedValues2[name2] = this.selectedValues[name2];
+                    if(_this.selectedValues[name2]){
+                        selectedValues2[name2] = _this.selectedValues[name2];
                     }
                 }
-            }.bind(this));
+            });
 
-            var filteredVariants = this.getFilteredVariants(selectedValues2);
-            var generatedSelectsData = this.generateSelectsData(filteredVariants);
+            var filteredVariants = _this.getFilteredVariants(selectedValues2);
+            var generatedSelectsData = _this.generateSelectsData(filteredVariants);
 
             $.each(optionArray, function(index, value){
 
                 if(generatedSelectsData[name].indexOf(value) < 0){
-                    if(this.selectedValues[name] == value){
+                    if(_this.selectedValues[name] == value){
                         // Selected, not available
-                        $(this.getVariationSelector(name, value)).attr("class", "notavailable-selected");
-                        $(this.getVariationSelector(name, value)).tooltip();
+                        $(_this.getVariationSelector(name, value)).attr("class", "notavailable-selected");
+                        $(_this.getVariationSelector(name, value)).tooltip();
                     }else{
                         //not selected not available
-                        $(this.getVariationSelector(name, value)).attr("class", "notavailable");
-                        $(this.getVariationSelector(name, value)).tooltip();
+                        $(_this.getVariationSelector(name, value)).attr("class", "notavailable");
+                        $(_this.getVariationSelector(name, value)).tooltip();
                     }
                 }else{
-                    if(this.selectedValues[name] == value){
+                    if(_this.selectedValues[name] == value){
                         //Selected, available
-                        $(this.getVariationSelector(name, value)).attr("class", "selected");
-                        $(this.getVariationSelector(name, value)).tooltip("destroy");
+                        $(_this.getVariationSelector(name, value)).attr("class", "selected");
+                        $(_this.getVariationSelector(name, value)).tooltip("destroy");
                     }else{
                         //not Selected available
-                        $(this.getVariationSelector(name, value)).attr("class", "");
-                        $(this.getVariationSelector(name, value)).tooltip("destroy");
+                        $(_this.getVariationSelector(name, value)).attr("class", "");
+                        $(_this.getVariationSelector(name, value)).tooltip("destroy");
                     }
                 }
-            }.bind(this));
+            });
 
             //Update option value selected
-            $(this.getSelectedValue(name)).text(this.selectedValues[name]);
-        }.bind(this));
+            $(_this.getSelectedValue(name)).text(_this.selectedValues[name]);
+        });
 
         //hide and show variant div to display proper variant picture
         var filteredVariants = this.getFilteredVariants(this.selectedValues);
@@ -352,11 +354,12 @@ function VariantsManager (product, img, isCollection) {
                 var temp = {};
                 temp[selectName] = optionValue;
                 filteredVariants = this.getFilteredVariants( temp );
+                var _this = this;
                 //Default selected variant with the new selected value
                 if(filteredVariants.length != 0){
                     $.each(this.selectsData, function(selectName, optionArray){
-                        this.selectedValues[selectName] = filteredVariants[0][selectName];
-                    }.bind(this));
+                        _this.selectedValues[selectName] = filteredVariants[0][selectName];
+                    });
                 }
             }
             this.updateChips();
@@ -378,9 +381,10 @@ function VariantsManager (product, img, isCollection) {
     }
     this.getFilteredVariants = function(selectedValues){
         var filteredVariants = [];
+        var _this = this;
         $.each( this.variants, function(index, variant){
             var passfilter = true;
-            if( this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
+            if( _this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
                 $.each( selectedValues, function(selectName, selectValue){
                     if(selectValue != ""){
                         if(variant[selectName]){
@@ -396,14 +400,14 @@ function VariantsManager (product, img, isCollection) {
                 passfilter = false;
             }
             if(passfilter) filteredVariants.push(variant);
-        }.bind(this));
+        });
         return filteredVariants;
     }
     this.getATag = function(selectName, optionValue){
-        return tag =  $('<a>', {class: ""}).text(optionValue);
+        return tag =  $('<a>', {'class': ""}).text(optionValue);
     }
     this.getAColorTag = function(selectName, optionValue, color){
-        return tag =  $('<a>', {class: "", style:"background-color:"+color});
+        return tag =  $('<a>', {'class': "", style:"background-color:"+color});
     }
     this.unslugify = function(input){
         var tmpArray = input.split('_');
@@ -414,60 +418,61 @@ function VariantsManager (product, img, isCollection) {
         return tmpArray.join(" ");
     }
     this.buildChips = function(variant_options){
+        var _this = this;
         $.each(variant_options, function(index, option){
             var selectName = option.name;
             var optionArray = option.values;
             //Color styling
             if( selectName.toLowerCase() == "color"){
-                if(this.isCollection){
-                    var div = $('<div>', {id: this.getVariationOptionId(selectName), class: "color-details-collection"});
+                if(_this.isCollection){
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "color-details-collection"});
                 }else{
-                    var div = $('<div>', {id: this.getVariationOptionId(selectName), class: "color-details"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "color-details"});
                 }
 
-                var ul = $('<ul>', {class: "swatches Color"});
-                var span = $('<span>', {class: "selected-color"}).append(
-                                $('<strong>', {}).text(this.unslugify(selectName) + ":  ")
+                var ul = $('<ul>', {"class": "swatches Color"});
+                var span = $('<span>', {"class": "selected-color"}).append(
+                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
-                var div = $('<div>', {id: this.getVariationOptionId(selectName), class: "size-details"});
-                var ul = $('<ul>', {class: "swatches-size Size"});
-                var span = $('<span>', {class: "selected-size"}).append(
-                                $('<strong>', {}).text(this.unslugify(selectName) + ":  ")
+                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "size-details"});
+                var ul = $('<ul>', {"class": "swatches-size Size"});
+                var span = $('<span>', {"class": "selected-size"}).append(
+                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
             }
 
             $.each(optionArray, function(index, optionValue){
                 ul.append(
-                    $('<li>', { id: this.getVariationValueId(selectName, optionValue),
-                                class: "",
+                    $('<li>', { "id": _this.getVariationValueId(selectName, optionValue),
+                                "class": "",
                                 "data-tooltip": "",
                                 "data-toggle": "tooltip",
-                                "title": this.outOfStock
+                                "title": _this.outOfStock
                     })
                     .append(
-                            this.getATag(selectName, optionValue)
+                            _this.getATag(selectName, optionValue)
                     ).click(function(){
-                        this.updateVariants(selectName, optionValue);
-                    }.bind(this))
+                        _this.updateVariants(selectName, optionValue);
+                    })
                 );
-            }.bind(this));
+            });
 
-            var span_selected = $('<span>', {class: "", id: this.getVariationSelectedId(selectName)}).text("");
+            var span_selected = $('<span>', {"class": "", "id": _this.getVariationSelectedId(selectName)}).text("");
 
             div.append(span);
             div.append(span_selected);
             div.append(ul);
 
-            if(this.isCollection){
-                $(this.selector).append(div);
+            if(_this.isCollection){
+                $(_this.selector).append(div);
             }else{
-                var row = $('<div>', {class: "row col-md-12"});
+                var row = $('<div>', {"class": "row col-md-12"});
                 row.append(div);
-                $(this.selector).append(row);
+                $(_this.selector).append(row);
             }
-        }.bind(this));
+        });
 
         this.updateChips();
     }
@@ -495,26 +500,27 @@ function VariantsManager (product, img, isCollection) {
         //Options ordering
         this.variant_options = this.orderOptions(this.variant_options);
         //Build selectsData
+        var _this = this
         $.each( this.variant_options, function(index, option){
-            this.selectsData[option.name] = [];
+            _this.selectsData[option.name] = [];
             $.each( option.values, function(index, value){
-                this.selectsData[option.name].push(value);
-            }.bind(this));
-        }.bind(this));
+                _this.selectsData[option.name].push(value);
+            });
+        });
 
         var selected_variant = this.variants[0];
 
         $.each(this.variants, function(index,variant){
-            if( this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
+            if( _this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
                 selected_variant = variant;
                 return false;
             }
-        }.bind(this));
+        });
 
         //Default selected variant
         $.each(this.selectsData, function(selectName,optionArray){
-            this.selectedValues[selectName] = selected_variant[selectName];
-        }.bind(this));
+            _this.selectedValues[selectName] = selected_variant[selectName];
+        });
 
         //Bluilding HTML Select elements
         this.buildChips(this.variant_options);
