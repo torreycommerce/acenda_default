@@ -45,7 +45,8 @@ acenda.products = [];
 								arr_uniq_prod_img:  {{ arr_uniq_prod_img | json_encode}},
 								arr_uniq_var_img: {{ arr_uniq_var_img | json_encode }},
 								arr_uniq_img: {{ arr_uniq_img | json_encode }},
-								arr_uniq_var_img_url: {{ arr_uniq_var_img_url | json_encode }}
+								arr_uniq_var_img_url: {{ arr_uniq_var_img_url | json_encode }},
+								default: '{{ app.url_asset }}/assets/images/product/image-250x250.jpg'
 							},
 							videos: {{product.videos|json_encode}}
 						} );
