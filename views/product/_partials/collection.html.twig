@@ -1,69 +1,66 @@
 <div class="row">
-{# Beging product images #}
-<div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
-{# Begin main image #}
-
-{% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
-{% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
-
-{% set main_image_alt = product.images.0.alt is not empty ? product.images.0.alt :product.product|values_in('images')[0]['alt'] %}
-{% set main_image_alt = main_image_alt is empty ? '' : main_image_alt %}
-
-<div id="image-main">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="thumbnail">
-                <span class="helper"></span>
-                <div id="main-product-video" style="display:none"></div>
-                    <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
-            </div>
-        </div>
-    </div>
-</div>
-{# End main image #}
-{# Begin image carousel #}
-<div id="image-carousel" class="row">
-    <div class="image-carousel">
-        <div id="image-carousel-{{product.id}}" class="carousel">
-            <div>
-                <div class="item active">
-                {% for image in product.images %}
-                {% set name = image.name is not empty ? image.name : product.name %}
-                    <div class="col-xs-2">
-                        <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-                        <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.id }}" />
-                        </div>
+    {# Beging product images #}
+    <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
+        {# Begin main image #}
+        {% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
+        {% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
+        {% set main_image_alt = product.images.0.alt is not empty ? product.images.0.alt :product.product|values_in('images')[0]['alt'] %}
+        {% set main_image_alt = main_image_alt is empty ? '' : main_image_alt %}
+        <div id="image-main">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="thumbnail">
+                        <span class="helper"></span>
+                        <div id="main-product-video" style="display:none"></div>
+                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
                     </div>
-                {% endfor %}
-                {% set items = product.product %}
-                {% for item in items %}
-                {% for image in item.images if image.id is not empty %}
-                {% set name = image.name is not empty ? image.name : item.name %}
-                    <div class="col-xs-2">
-                        <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.alt }}" />
-                        </div>
-                    </div>
-                {% endfor %}
-                {% endfor %}
-                {% if product.videos is not empty %}
-                {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
-                {% for video in product.videos %}
-                    <div class="col-xs-2">
-                        <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-                            <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
-                        </div>
-                    </div>
-                {% endfor %}
-                {% endif %}
                 </div>
             </div>
         </div>
+        {# End main image #}
+        {# Begin image carousel #}
+        <div id="image-carousel" class="row">
+            <div class="image-carousel">
+                <div id="image-carousel-{{product.id}}" class="carousel">
+                    <div>
+                        <div class="item active">
+                            {% for image in product.images %}
+                                {% set name = image.name is not empty ? image.name : product.name %}
+                                <div class="col-xs-2">
+                                    <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
+                                        <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.id }}" />
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% set items = product.product %}
+                            {% for item in items %}
+                                {% for image in item.images if image.id is not empty %}
+                                    {% set name = image.name is not empty ? image.name : item.name %}
+                                    <div class="col-xs-2">
+                                        <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
+                                            <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.alt }}" />
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            {% if product.videos is not empty %}
+                                {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
+                                {% for video in product.videos %}
+                                    <div class="col-xs-2">
+                                        <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
+                                            <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# End image carousel #}
     </div>
-</div>
-{# End image carousel #}
-</div>
-{# End product images #}
+    {# End product images #}
     {# Begin Product Details #}
     <section id="product-details" class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
         {# Begin product header #}
@@ -112,23 +109,23 @@
         {# End product header #}
         {# Begin review stars #}
         {% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="reviews">
-                        {% if review_score > 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="reviews">
+                    {% if review_score > 0 %}
                         <li class="stars">
-                        <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
                         </li>
                         <li class="average">
-                        <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
+                            <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
                         </li>
-                        {% endif %}
-                        <li class="submit">
+                    {% endif %}
+                    <li class="submit">
                         <a href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
+        </div>
         {# End review stars #}
         {# Begin add to cart / actions area #}
         {% if prices.price is not empty %}
@@ -145,79 +142,75 @@
         {# End add to cart / actions area #}
         {# Begin short description #}
         {% if product.description is not empty %}
-        {% set description = product.description|slice(0,300) %}
+            {% set description = product.description|slice(0,300) %}
             <section id="collection-short-description-desktop" class="hidden-xs">
                 <div class="description-content">
                     {{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read more)</a>{% endif %}
-            </div>
+                </div>
             </section>
         {% endif %}
         {# End short description #}
-
-
         {# Begin social sharing #}
         {% if app.params.social_settings is defined and app.params.social_settings is not empty and (
-        app.params.social_settings["facebook"]["active_like"] == true or
-        app.params.social_settings["facebook"]["active_share"] == true or
-        app.params.social_settings["facebook"]["active_follow_page_button"] == true or
-        app.params.social_settings["twitter"]["active_tweet"] == true or
-        app.params.social_settings["twitter"]["active_follow_page_button"] == true or
-        app.params.social_settings["pinterest"]["active_pin_it"] == true or
-        app.params.social_settings["pinterest"]["active_follow_page_button"] == true or
-        app.params.social_settings["google"]["active_plus_one"] == true or
-        app.params.social_settings["google"]["active_follow_page_button"] == true
-        ) %}
-        <div id="social">
-        <div class="row">
-        <div class="col-md-12">
-        <span class="text">Share this item:</span>
-        {{ social.sharing_buttons(app.params.social_settings, product) }}
-        </div>
-        </div>
-        </div>
+            app.params.social_settings["facebook"]["active_like"] == true or
+            app.params.social_settings["facebook"]["active_share"] == true or
+            app.params.social_settings["facebook"]["active_follow_page_button"] == true or
+            app.params.social_settings["twitter"]["active_tweet"] == true or
+            app.params.social_settings["twitter"]["active_follow_page_button"] == true or
+            app.params.social_settings["pinterest"]["active_pin_it"] == true or
+            app.params.social_settings["pinterest"]["active_follow_page_button"] == true or
+            app.params.social_settings["google"]["active_plus_one"] == true or
+            app.params.social_settings["google"]["active_follow_page_button"] == true
+            ) %}
+            <div id="social">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="text">Share this item:</span>
+                        {{ social.sharing_buttons(app.params.social_settings, product) }}
+                    </div>
+                </div>
+            </div>
         {% endif %}
         {# End social sharing #}
-
-
     </section>
 {# End Product Details #}
 </div>
 {% if product.description is not empty %}
-<section id="collection-short-description-mobile" class="hidden-sm hidden-md hidden-lg">
-    <div class="row">
-<div class="col-sm-12 col-xs-12">
-<div class="description-content">
-{{ description }}
-</div>
-</div>
-</div>
-</section>
+    <section id="collection-short-description-mobile" class="hidden-sm hidden-md hidden-lg">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="description-content">
+                    {{ description }}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endif %}
 {# End Product Details #}
 {# Begin Product Tabs #}
 <section id="collection" class="row">
     <div class="col-md-12">
-    {# Begin tabs nav #}
-    <div class="row">
-    <div class="col-md-12">
-    <div class="panel-tabs">
-    <ul class="nav nav-tabs">
-    <li class="active">
-    <a href="#children" data-toggle="tab">Products</a>
-    </li>
-    {% if product.description is not empty %}
-    <li>
-    <a href="#details" data-toggle="tab">Description</a>
-    </li>
-    {% endif %}
-    <li>
-    <a href="#reviews" data-toggle="tab">Reviews</a>
-    </li>
-    </ul>
-    </div>
-    </div>
-    </div>
-    {# End tabs nav #}
+        {# Begin tabs nav #}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-tabs">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#children" data-toggle="tab">Products</a>
+                        </li>
+                        {% if product.description is not empty %}
+                            <li>
+                                <a href="#details" data-toggle="tab">Description</a>
+                            </li>
+                        {% endif %}
+                        <li>
+                            <a href="#reviews" data-toggle="tab">Reviews</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {# End tabs nav #}
         {# Begin tab pane #}
         <div class="row">
             <div class="col-md-12">
