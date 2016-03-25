@@ -284,10 +284,16 @@
                                                                     {# Begin pricing #}
                                                                         <ul class="pricing" id="pricing-box-{{product.id}}">
                                                                             {# Begin regular price #}
-                                                                            <li class="regular" id="product-standard-price-{{product.id}}">${{ bundle.price_without_discount }}</li>
+                                                                            <li class="regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
                                                                             {# End regular price #}
                                                                             {# Begin percent off #}
-                                                                            <li class="percent" id="save-pricing-{{product.id}}">${{ bundle.discount_value }}</li>
+                                                                            {% if bundle.discount_type == 'dollar'%}
+                                                                                <li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
+                                                                            {% elseif bundle.discount_type == 'percentage' %}
+                                                                                <li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
+                                                                            {% elseif bundle.discount_type == 'fixed' %}
+                                                                                <li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
+                                                                            {% endif %}
                                                                             {# End percent off #}
                                                                         </ul>
                                                                     {# End pricing #}
@@ -316,7 +322,12 @@
                                                             <div class="details">
                                                                 <div class="col-md-8 row">
                                                                     <div class="variation-selection">
-                                                                        dw
+                                                                        {{ bundle.description }}<br/>
+                                                                        <ul>
+                                                                            {% for item in items %}
+                                                                                <li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
+                                                                            {% endfor %}
+                                                                        </ul>
                                                                     </div>
                                                                 </div>
                                                             </div>
