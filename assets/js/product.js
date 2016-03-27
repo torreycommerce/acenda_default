@@ -52,11 +52,11 @@ function VariantsManager (product, img, isCollection) {
                 if(optionValue){
                     for(var j=0; j<this.variant_options[i].values.length; j++){
                         if(this.variant_options[i].values[j] == optionValue){
-                            return {option: i, value: j};
+                            return {"option": i, "value": j};
                         }
                     }
                 }else{
-                    return {option: i};
+                    return {"option": i};
                 }
             }
         }
@@ -122,11 +122,12 @@ function VariantsManager (product, img, isCollection) {
         $('#'+variant_image_id+" img").attr('alt', img_alt);
     }
     this.addVideosToCarousel = function(videos) {
+        var _this = this;
         $.each(videos, function(index, video){
             var clonedDiv = $('#variant-video-copy').clone();
-            var id = "product-video-"+this.product_id+"-"+index;
+            var id = "product-video-"+_this.product_id+"-"+index;
             clonedDiv.attr("id", id);
-            clonedDiv.appendTo( "#variant-image-carousel-"+this.product_id );
+            clonedDiv.appendTo( "#variant-image-carousel-"+_this.product_id );
             $('#'+id+" div").attr("data-video-src", video);
         });
         $("[data-image-swap]").click(function() {
@@ -407,7 +408,7 @@ function VariantsManager (product, img, isCollection) {
         return tag =  $('<a>', {'class': ""}).text(optionValue);
     }
     this.getAColorTag = function(selectName, optionValue, color){
-        return tag =  $('<a>', {'class': "", style:"background-color:"+color});
+        return tag =  $('<a>', {'class': "", "style":"background-color:"+color});
     }
     this.unslugify = function(input){
         var tmpArray = input.split('_');
