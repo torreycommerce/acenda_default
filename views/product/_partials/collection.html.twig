@@ -269,9 +269,10 @@
                                                                 <div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
                                                                     <img id="main-product-image-copy"
                                                                         onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'"
-                                                                        src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg"
+                                                                        src="{{app.image.getImageUrl("product","standard",bundle.items[0].images[0].id) }}"
                                                                         width="250" class="img-responsive" alt="" />
                                                                 </div>
+                                                                    
                                                             </div>
                                                             {# End collection product image #}
                                                             {# Begin collection product details #}
@@ -361,9 +362,6 @@
                                     {# End collection product #}
                                     </div>
                                 </div>
-                                <pre>
-                                    {{ dump(bundle) }}
-                                </pre>
                             </div>
                         </div>
                     {% endif %}
