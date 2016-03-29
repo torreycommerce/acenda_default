@@ -57,6 +57,8 @@ $('button[value=cart]').click(function(event) {
 
     // Disable submit button
     $('button[value=cart]').attr('disabled',true);
+    console.log("Add to cart");
+    console.log(form.serialize());
     $.post(acendaBaseUrl + '/product/route',
         form.serialize())
     .always(function(data) {
