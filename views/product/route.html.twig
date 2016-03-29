@@ -20,7 +20,7 @@
                 {% set result = api.get('/bundle/'~bundle_id) %}
                 {% if result is not empty %}
                     {% for variant in result.variant_id %}
-                        {% set result = api.post('/sessioncartitem', {"product_id":variant.id, "quantity":variant.quantity}) %}
+                        {% set result = api.post('/sessioncartitem', {"product_id":variant.id, "quantity":variant.quantity * quantity}) %}
                         {% set result_add = result_add + {(variant.id):result} %}
                     {% endfor %}
                 {% endif %}
