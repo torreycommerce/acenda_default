@@ -11,7 +11,7 @@
         {% do app.redirect('/return') %}
     {% endif %}
     {% set page_name = 'return' %}
-	{% set orderitems = api.get('/orderitem', {query:{order_id:order.id}}) %}
+	{% set orderitems = api.get('/orderitem', {query:{order_id:order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
 	{% if order.date_created|strtotime > app.params.returnTime|strtotime %}
     	{% do app.user.setFlash('Order is too old for returns.', 'danger') %}
     	{% do app.redirect('/return') %}
