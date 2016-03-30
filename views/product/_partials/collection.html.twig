@@ -326,7 +326,7 @@
                                                                         <div class="variation-selection">
                                                                             {{ bundle.description }}<br/>
                                                                             <ul>
-                                                                                {% for item in items %}
+                                                                                {% for item in bundle.items %}
                                                                                     <li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
                                                                                 {% endfor %}
                                                                             </ul>
