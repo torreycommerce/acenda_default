@@ -23,6 +23,7 @@
                         {% set result = api.post('/sessioncartitem', {"product_id":variant.id, "quantity":variant.quantity * quantity}) %}
                         {% set result_add = result_add + {(variant.id):result} %}
                     {% endfor %}
+                    {% set result = api.post('/sessioncartdiscount', {"type":"bundle", "id":bundle_id}) %}
                 {% endif %}
             {% endif %}
         {% endfor %}
