@@ -13,6 +13,7 @@
 {% endif %}
 
 {% set orderitems = api.get('/orderitem', {query:{order_id:order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
+{% set returns = api.get('/orderreturn', {query:{order_id: order.id, status: {'$in': ['pending','returned']}}}) %}
 {% if order.date_created|strtotime > app.params.returnTime|strtotime %}
     {% do app.redirect('/account/orders', {'error':'Order is too old for returns.x' ~ app.request.path ~ 'x'}) %}
 {% endif %}

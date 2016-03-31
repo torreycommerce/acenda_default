@@ -32,6 +32,7 @@
 {% endblock %}
 
 {% block content %}
+{{ dump(app.request.path) }}
 <div id="account">
 	{# Begin page header #}
 	<div class="row">
@@ -42,7 +43,7 @@
 		</div>
 	</div>
 	{# End page header #}
-	<div class="row">		
+	<div class="row">
 		<div class="col-md-6 col-lg-6">
 			<div class="well">
 				{# Begin Login #}

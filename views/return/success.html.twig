@@ -14,9 +14,9 @@
 <h1>Return Created</h1>
 
 {% set ids = app.request.get.ids|split(',') %}
-{% set returns = api.get('/orderreturn', {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}
+{% set returns = api.get('/orderreturn?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}
 {% set orderitem_ids = returns|values_in('item_id') %}
-{% set items = api.get('/orderitem', {query:{id:{'$in':orderitem_ids}}})|group_by('id') %}
+{% set items = api.get('/orderitem?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':orderitem_ids}}})|group_by('id') %}
 
 <p>You have successfully created a return and a copy of the return instructions below have been emailed to you. In order for us to process your return, your items must meet the following criteria:
 <ol>

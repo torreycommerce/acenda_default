@@ -4,17 +4,16 @@
     {% set results = [] %}
     {% for key, value in quantity %}
         {% if quantity[key] > 0 %}
-            {% set result = api.post('/orderreturn', {order_id:order.id, item_id:key, customer_id:app.user.id, quantity:quantity[key], reason:reason[key], status:'pending'}) %}
+            {% set result = api.post('/orderreturn?order_number=' ~ app.request.post.createreturn.order_number ~ '&email=' ~ app.request.post.createreturn.email, {order_id:order.id, item_id:key, customer_id:app.user.id, quantity:quantity[key], reason:reason[key], status:'pending'}) %}
             {% set results = results|merge([result]) %}
         {% endif %}
     {% endfor %}
     {% if results is not empty %}
-        {% do app.redirect('/return/success?ids=' ~ results|join(',')) %}
+        {% do app.redirect('/return/success?ids=' ~ results|join(',') ~ "&email=" ~ app.request.post.createreturn.email ~ "&order_number=" ~ app.request.post.createreturn.order_number) %}
     {% else %}
         {% set form_error = api.error %}
     {% endif %}
 {% endif %}
-{% set returns = api.get('/orderreturn', {query:{order_id: order.id, status: {'$in': ['pending','returned']}}}) %}
 <div id="return-create">
     <div class="row">
         {# Begin returns #}
@@ -32,17 +31,18 @@
                     <hr>
                 </div>
             </div>
-                {{ forms.begin('createreturn', app.url ~ '/account/return/create/' ~ order.order_number, 'post', {class:''}) }}
+                {% set where = app.user.email is empty ? "" : "/account" %}
+                {{ forms.begin('createreturn', app.url ~ where ~'/return/create/' ~ order.order_number, 'post', {class:''}) }}
                 {% set global_available = order.returnable_items %}
                 {{ forms.hidden('createreturn[email]', order.email) }}
-                {{ forms.hidden('createreturn[order_id]', order.order_id) }}
+                {{ forms.hidden('createreturn[order_number]', order.order_number) }}
                 {% set product_ids = orderitems|values_in('product_id') %}
                 {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
                 {% set ret = 0 %}
                 {% for item in orderitems %}
                     {% set q = item.fulfilled_quantity %}
                     {% for r in returns %}
-                        {% if item.product_id == r.item_id %} {% set q = q - r.quantity %} {% endif %}
+                        {% if item.id == r.item_id %} {% set q = q - r.quantity %} {% endif %}
                     {% endfor %}
                     {% if products[item.product_id][0].inventory_returnable == "1" and q > 0 %}
                         {% set ret = ret + 1 %}
