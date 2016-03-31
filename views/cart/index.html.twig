@@ -212,6 +212,23 @@ Cart
     {{ forms.begin('cart','','post', {class:'form-horizontal'}) }}
     <div class="row">
         <div class="col-md-9">
+            <div id="bundles">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-11 col-lg-10">
+                        <div class="title"><i class="fa fa-object-group"></i> Bundles</div>
+                        <div class="form-group">
+                            {% for index, discount in cart.discount_collection.discounts %}
+                                {% if discount.type == 'bundle' %}
+                                    <div class="col-xs-12"><i class="fa fa-caret-square-o-right"></i> A few of your items are part of the bundle "{{ discount.model.name }}" that
+                                    gives you ${{ discount.amount }} off your total cart amount.</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
             {# Begin subtotal / checkout #}
             <div id="coupon-code">
                 <div class="row">
