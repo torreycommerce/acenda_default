@@ -28,6 +28,7 @@ Cart
 {% endif %}
 
 {% do api.post('/sessioncartcoupon/refreshCoupons') %}
+{% do api.post('/sessioncartdiscount/refresh') %}
 {% set cart = api.get('/sessioncart') %}
 {% set cart_coupon = api.get('/sessioncartcoupon') %}
 {% set config = api.get('/config') %}
