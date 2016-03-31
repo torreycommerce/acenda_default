@@ -19,9 +19,11 @@ Cart
 {% endif %}
 {% if app.request.post.cart.action|split('/')|first == 'removecoupon' %}
     {% set result = api.delete('/sessioncartcoupon/' ~ app.request.post.cart.action|split('/')|last) %}
+    {% set result = api.delete('/sessioncartdiscount', {"type":"coupon", "code":app.request.post.cart.action|split('/')|last}) %}
 {% endif %}
 {% if app.request.post.cart.coupon_code is not empty %}
     {% set result = api.post('/sessioncartcoupon', {code:app.request.post.cart.coupon_code}) %}
+    {% set result = api.post('/sessioncartdiscount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
 {% endif %}
 {% if api.error is not empty %}
     {% set error = api.error %}
