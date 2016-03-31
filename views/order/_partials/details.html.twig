@@ -1,5 +1,5 @@
 {% if (app.request.post and app.request.post.return) %}
-    {% if (api.put('/orderreturn/' ~ app.request.post.return, {query:{order_id:order.id}, status:'cancelled'})) %}
+    {% if (api.put('/orderreturn/' ~ app.request.post.return ~ '/cancel?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number)) %}
         <div class="alert alert-dismissable alert-block alert-success flash-notification flash-notification-success" id="flash-notification-success">
             <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
             Return successfully cancelled
@@ -26,7 +26,7 @@
                             <div>Order Total: ${{ order.total|number_format(2, '.') }}</div>
                         </div>
                         {# End order details #}
-                    </div>         
+                    </div>
                     <div class="col-sm-12 col-md-12">
                         {# Begin shipping Address #}
                         <div class="shipping-address">
@@ -43,7 +43,7 @@
                             </address>
                         </div>
                         {# End shipping Address #}
-                    </div>          
+                    </div>
                     <div class="col-sm-12 col-md-12">
                         {# Begin shipment details #}
                         <div class="shipping-method">
@@ -71,7 +71,7 @@
                                         <div class="modal-body">Are you sure you want to cancel this order?</div>
                                         <div class="modal-footer">
                                             {{ form.begin('',app.url ~ '/order/actions') }}
-                                            <a class="btn btn-default" data-dismiss="modal">Back</a> 
+                                            <a class="btn btn-default" data-dismiss="modal">Back</a>
                                             <button name="action" value="cancel" class="btn btn-danger">Cancel Order</button>
                                             <input type="hidden" name="email" value="{{order.email}}">
                                             <input type="hidden" name="id" value="{{order.order_number}}">
@@ -83,26 +83,22 @@
                             {% endif %}
                             {% if order.returnable_items > 0 %}
                                 <div class="actions">
-                                    {% if order.customer_id is defined %}
-                                        <a class="btn btn-neutral btn-mobile" href="{{ app.url }}/account/return/create/{{ order.order_number }}">Return Item(s)</a>
-                                    {% else %}
-                                        {{ form.begin('',app.url ~ '/return') }}
-                                            <input type="hidden" name='guestreturn[email]' value="{{app.request.post.order.email}}" />
-                                            <input type="hidden" name='guestreturn[order_id]', value="{{app.request.post.order.id}}" />
-                                            <input type="submit" name="guestreturn[action]" value="Return Item(s)" class="btn btn-primary" />
-                                        {{ form.end()}}
-                                    {% endif %}
+                                    {{ forms.begin('guestreturn',app.url ~ '/return/create','post', {class:'form-horizontal'}) }}
+                                        {{ forms.hidden('guestreturn[email]', app.request.post.order.email) }}
+                                        {{ forms.hidden('guestreturn[order_number]', app.request.post.order.number) }}
+                                        {{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-neutral btn-mobile'}) }}
+                                    {{ forms.end()}}
                                 </div>
                             {% endif %}
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 {# End order actions #}
             </div>
             {# End order details #}
             <div class="order-items col-sm-8 col-md-8 col-lg-9">
                 {# Begin order items #}
-                {% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+                {% set items = api.get('/orderitem?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
                 {% set product_ids = items|values_in('product_id') %}
                 {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
                 {% if items is not empty %}
@@ -130,21 +126,21 @@
                                     (for wishlist)
                                     {% endif %}
                                 </div>
-                                {# End wishlist #}                        
+                                {# End wishlist #}
                                 {# Begin item price #}
                                 <div class="col-md-12 col-lg-3">
                                     Price: ${{ product.price|number_format(2, '.') }}
                                 </div>
                                 {# End item price #}
                                 {# Being item quantity #}
-                                <div class="col-md-12 col-lg-2">                            
+                                <div class="col-md-12 col-lg-2">
                                     Qty: {{ item.quantity }}
                                 </div>
-                                {# End item quantity #}                        
+                                {# End item quantity #}
                                 {# Begin tracking number #}
                                 <div class="col-md-12 col-lg-3">
                                     {% if item.tracking_number is not empty %}
-                                    Tracking number: 
+                                    Tracking number:
                                     <a href="http://www.google.com/search?q={{ item.tracking_number }}">
                                         {{ item.tracking_number }}
                                     </a>
@@ -153,11 +149,14 @@
                                 {# End tracking number #}
                                 {# Begin registry #}
                                 {% if item.registry_id is not empty %}
-                                <div class="col-md-12 col-lg-12">                            
-                                    (for registry)                       
+                                <div class="col-md-12 col-lg-12">
+                                    (for registry)
                                 </div>
                                 {% endif %}
                                 {# End registry #}
+                                <div class="col-md-12" style="margin: 10px 0;">
+                                    Shipment status: {{ item.fulfilled_quantity }} of this item fulfilled.
+                                </div>
                             </div>
                         </div>
                         {# End product details #}
@@ -165,7 +164,30 @@
                     <hr>
                 </div>
                 {# End order items #}
-                {% endfor %}                
+                {% endfor %}
+                {% set fulfillments = api.get('/orderfulfillment?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
+                {% if fulfillments is not empty and fulfillments|length > 0 %}
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for f in fulfillments %}
+                            <p>
+                                On {{ f.date_created|date("m/d/Y") }} at {{ f.date_created|date("H:i:s") }} a shipment left our warehouse
+                                {% if f.tracking_numbers is not empty and f.tracking_numbers|length > 0 %}
+                                    with the following tracking number(s):
+                                    <ul>
+                                        {% for t in f.tracking_numbers %}
+                                            <li>{{ t }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    without tracking number.
+                                {% endif %}
+                            </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr />
+                {% endif %}
                 <div class="row">
                     {# Begin billing address #}
                     <div class="col-sm-6 col-md-4 col-lg-4">
@@ -186,7 +208,7 @@
                             {% endif %}
                         </div>
                         <div class="billing-method">
-                            <div><strong>Billing Method</strong></div>                        
+                            <div><strong>Billing Method</strong></div>
                             {% if order.transaction_type == 'PayPal Express' %} {# Express order #}
                             <div>
                                 PayPal Express
@@ -215,7 +237,7 @@
                             {# Begin coupons #}
                             <div class="coupon">
                                 <div class="row">
-                                {% set coupons = api.get('/ordercoupon', {query:{order_id:order.id}}) %}
+                                {% set coupons = api.get('/ordercoupon?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
                                 {% if coupons is not empty %}
                                     {% set discount = 0 %}
                                     {% for dsc in coupons %}
@@ -241,18 +263,18 @@
                                     <div class="col-md-6 text-right">${{order.total|number_format(2, '.')}}</div>
                                 </div>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
                     {# End order totals #}
-                {% endif %}            
+                {% endif %}
                 </div>
             </div>
         </div>
     </div>
     {# Begin returns #}
-    {% set returns = api.get('/orderreturn', {query:{order_id:order.id}}) %}
+    {% set returns = api.get('/orderreturn?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
     {% if returns is not empty %}
-    <div class="returns">        
+    <div class="returns">
         <div class="well">
             <div class="row">
                 <div class="col-md-12">
@@ -262,7 +284,7 @@
                 </div>
             </div>
             {% for return in returns %}
-            {% set item = api.get('/orderitem/' ~ return.item_id) %}
+            {% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
             <div class="item">
                 <div class="row">
                     <div class="col-sm-3 col-md-3 col-lg-2">
@@ -285,6 +307,8 @@
                                 <input type="submit" name="cancel" value="Cancel" class="btn btn-neutral btn-sm btn-block" />
                                 <input type="hidden" name="id" value="{{item.id}}">
                                 <input type="hidden" name="return" value="{{return.id}}">
+                                <input type="hidden" name="order[email]" value="{{ app.request.post.order.email }}">
+                                <input type="hidden" name="order[number]" value="{{ app.request.post.order.number }}">
                             {{ form.end() }}
                         </div>
                     </div>
@@ -294,7 +318,7 @@
             </div>
             {% endfor %}
         </div>
-        
+
     </div>
     {% endif %}
     {# End returns #}

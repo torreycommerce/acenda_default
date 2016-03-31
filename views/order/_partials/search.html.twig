@@ -32,11 +32,11 @@ Order Status &amp; History
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input2">Order ID
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input2">Order Number
                     <span class="text-danger">*</span>
                 </label>
                 <div class="col-sm-9 col-md-5 col-lg-5">
-                    {{ forms.number('order[id]', '', {class:'form-control parsley-validated', required:true, placeholder: "OrderID"}) }}
+                    {{ forms.number('order[number]', '', {class:'form-control parsley-validated', required:true, placeholder: "Order Number"}) }}
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
                     <div class="validation">{{ forms.errorlist(form_errors, 'id') }}</div>
