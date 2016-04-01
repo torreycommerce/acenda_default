@@ -1,4 +1,9 @@
 $(function() {
+    /*
+        Instantiate a variant manager object per product on the page displayed.
+        The product displayed on the page are available in the acenda js object, 
+        with other information (see views/product/acenda.html.twig)
+    */
     if(acenda.collection){
         $.each(acenda.products, function(index, product){
             new VariantsManager(product, product.img, true).init();
@@ -8,29 +13,41 @@ $(function() {
     }
 });
 
+/* 
+    Variable used as a semaphore to control when the main add to cart button on collection page is disabled.
+    This variable is common to every instances of VariantsManager (one per product on the page).
+*/
 var disabled_cart_button = 0;
-
+/*
+    JS (fake) class to manage variant selection for a product
+*/
 function VariantsManager (product, img, isCollection) {
-    this.product = product;
-    this.variants = this.product.variants;
-    this.variant_options = this.product.variant_options;
-    this.arr_uniq_var_img_url = img.arr_uniq_var_img_url;
-    this.defaultImage = img.default_img;
-    this.videos = this.product.videos;
-    this.isCollection = isCollection;
-    this.product_id = this.product.id;
-    this.selector = "[id=variation-selector-"+this.product_id+"]";
-    this.selectsData = {};
-    this.selectedValues = {};
-    this.disabled = false;
-    this.outOfStock = "Out of stock, please try another combination";
-    this.currentImage = "";
-
-    this.jqSelector = function(str){
-        var temp = str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
-        return temp;
-    }
-
+    this.product = product; //Product object as stored in elastic search 
+    this.variants = this.product.variants; //Array of variants object
+    /*
+        Array of variant options:
+        [ {name: "size", position: 1, values: ["S","M","L"]}, ... ]
+    */
+    this.variant_options = this.product.variant_options; 
+    /*
+        Array of variant images's url:
+        [ { _variantId: [imageUrl1, imageUrl2, ...], _variantId2: ... ]
+    */
+    this.arr_uniq_var_img_url = img.arr_uniq_var_img_url; 
+    this.defaultImage = img.default_img; //Url to default product image (displayed when no images available)
+    this.videos = this.product.videos; //Array of product videos urls
+    this.isCollection = isCollection; //Boolean telling if we're on a collection page
+    this.product_id = this.product.id; //Product id
+    this.selector = "[id=variation-selector-"+this.product_id+"]"; //CSS selector for the div element containing the variant chips
+    this.selectsData = {}; //Object representing the available variant options (reprensenting the chips): { size: ["S","M","L"], color: ...}
+    this.selectedValues = {}; //Object holding the currently selected variant options: { size: "M", color: "blue", ...}
+    this.disabled = false; //Boolean representing the state of the add to cart button, either enable or disabled
+    this.outOfStock = "Out of stock, please try another combination"; //Tooltip text displayed on on variant chip hover when option not availble
+    this.currentImage = ""; //Id of the currently displayed image
+    /*
+        Format the Number received so it has two decimals
+        return a string
+    */
     this.formatPrice = function(price){
         if(Number(price)){
             return Number(price).toFixed(2).toString();
@@ -38,7 +55,10 @@ function VariantsManager (product, img, isCollection) {
             return price;
         }
     }
-
+    /*
+        Convert string price to a valid js number
+        return equivalent number or 0 if the string is not a number
+    */
     this.getNumber = function(price){
         if(Number(price)){
             return Number(price);
@@ -46,6 +66,10 @@ function VariantsManager (product, img, isCollection) {
             return 0;
         }
     }
+    /*
+        return the index of the option selectName and its value optionValue in this.variant_options:
+        {"option": i, "value": j}
+    */
     this.getOptionIndexes = function(selectName, optionValue){
         for(var i=0; i<this.variant_options.length; i++){
             if(this.variant_options[i].name == selectName){
@@ -61,33 +85,46 @@ function VariantsManager (product, img, isCollection) {
             }
         }
     }
+    /*
+        generate and return the css selector string generated from 
+        the product id, and the indexes returned by getOptionIndexes(selectName, optionValue) (see above)
+    */
     this.getVariationSelector = function(selectName, optionValue){
         var index = this.getOptionIndexes(selectName, optionValue);
         return "[id=variation-selector-"+this.product_id+"-"+index.option+"-"+index.value+"]";
 
     }
+    /*
+        generate and return the html tag id of the variant chip with option selectName and value optionValue
+    */
     this.getVariationValueId = function(selectName, optionValue){
         var index = this.getOptionIndexes(selectName, optionValue);
         return "variation-selector-"+this.product_id+"-"+index.option+"-"+index.value;
     }
+    /*
+        generate and return the html tag id of the variant chips div for option selectName
+    */
     this.getVariationOptionId = function(selectName){
         var index = this.getOptionIndexes(selectName, null);
         return "variation-selector-"+this.product_id+"-"+index.option;
     }
+    /*
+        generate and return the html tag id of the span displaying the value of the option selected
+    */
     this.getVariationSelectedId = function(selectName){
         var index = this.getOptionIndexes(selectName, null);
         return "selected-"+index.option+"-"+this.product_id;
     }
+    /*
+        generate and return the css selector of the span displaying the value of the option selected
+    */
     this.getSelectedValue = function(selectName){
         var index = this.getOptionIndexes(selectName, null);
         return "[id=selected-"+ index.option+"-"+this.product_id+"]";
     }
-    this.getProductVariation = function(variant_id){
-        return "[id=product-" + variant_id + "]";
-    }
-    this.getClosestImages = function(variant_id) {
-        return this.arr_uniq_var_img_url.variant_id;
-    }
+    /*
+        get and return the image url for the image id img_id and the image type img_type
+    */
     this.getImageUrl = function(img_id, img_type) {
         if (typeof this.arr_uniq_var_img_url['_'+img_id][img_type] != 'undefined') {
             return this.arr_uniq_var_img_url['_'+img_id][img_type];
@@ -96,21 +133,27 @@ function VariantsManager (product, img, isCollection) {
             return "";
         }
     }
+    /*
+        Set the image for the selected variant
+    */
     this.setSelectImage = function(standard_img_url,large_img_url,img_alt) {
-        var clonedImg = $('#main-product-image-copy').clone();
-        img = $('#variant-selected-image-'+this.product_id+' img');
-        clonedImg.attr("id", "main-product-image");
-        img.remove();
+        var clonedImg = $('#main-product-image-copy').clone(); //Retrieve a copy of the hidden html element of the image
+        img = $('#variant-selected-image-'+this.product_id+' img'); // Retrive the currently displayed html image elemtn 
+        clonedImg.attr("id", "main-product-image"); //Set the html id of the cloned html element
+        img.remove(); //remove the currently displayed image html element from the dom
         if(standard_img_url){
             clonedImg.attr('src', standard_img_url);
             clonedImg.attr('data-image-zoom', large_img_url);
             clonedImg.attr('alt', img_alt);
-            clonedImg.appendTo( "#variant-selected-image-"+this.product_id); 
-            if(!this.isCollection) clonedImg.imageZoom();
+            clonedImg.appendTo( "#variant-selected-image-"+this.product_id);  //Append the new image to the dom
+            if(!this.isCollection) clonedImg.imageZoom(); //Enable zoom effect on teh new image if not on collection page
         }else{
-            clonedImg.appendTo( "#variant-selected-image-"+this.product_id); 
+            clonedImg.appendTo( "#variant-selected-image-"+this.product_id); //Append the new image to the dom
         }
     }
+    /*
+        Add image to the carousel element of the page, according to the urls provided
+    */
     this.addImageToCarousel = function(variant_image_id,standard_img_url,large_img_url,img_alt) {
         var clonedDiv = $('#variant-image-thumbnail-copy').clone();
         clonedDiv.attr("id", variant_image_id);
@@ -121,6 +164,9 @@ function VariantsManager (product, img, isCollection) {
         $('#'+variant_image_id+" img").attr('alt', large_img_url);
         $('#'+variant_image_id+" img").attr('alt', img_alt);
     }
+    /*
+        Add videos to the carousel element of the page, according to the urls provided
+    */
     this.addVideosToCarousel = function(videos) {
         var _this = this;
         $.each(videos, function(index, video){
@@ -130,29 +176,35 @@ function VariantsManager (product, img, isCollection) {
             clonedDiv.appendTo( "#variant-image-carousel-"+_this.product_id );
             $('#'+id+" div").attr("data-video-src", video);
         });
+        //Set stop video event when clicking on a image of the carousel
         $("[data-image-swap]").click(function() {
             stopVideo();
         });
-        initVideoPlayer();
+        initVideoPlayer(); //Initialiaze video player on newly set videos
     }
-    this.resetImageSelection = function () {
-        $('#variant-selected-image-'+this.product_id+' img').attr('src', '');
-    }
+    /*
+        Empty carousel section of the page
+    */
     this.resetCarouselSelection = function () {
         $( "#variant-image-carousel-"+this.product_id ).html('');
     }
+    /*
+        Update images and videos of teh page according to the provided variant object provided
+    */
     this.updateImagesAndVideo = function(obj_variant) {
         var images = [];
-        if (obj_variant.images.length > 0 ) {
+        if (obj_variant.images.length > 0 ) { //Look for variant images first, or for product images if product images not available
             images = obj_variant.images;
         } else if (typeof this.product.images !== 'undefined' && this.product.images.length > 0) {
             images = this.product.images;
         }
+        //If no images where found
         if(images.length == 0){
             if(!this.isCollection) stopVideo();
             this.setSelectImage();
             this.currentImage = "";
         }
+        //empty carousel and add each variant images and to it
         this.resetCarouselSelection();
         var i = 0;
         for (key in images) {
@@ -164,7 +216,7 @@ function VariantsManager (product, img, isCollection) {
                 var img_alt = images[key].alt;
             else
                 var img_alt = '';
-
+            //on first iteration set main image
             if (i == 0){
                 if(this.currentImage != id){
                     $('#image-carousel-'+this.product_id).hide();
@@ -187,14 +239,22 @@ function VariantsManager (product, img, isCollection) {
             $('#image-carousel-'+_this.product_id).show();
         });
     }
+    /*
+        Add available videos to the carousel
+    */
     this.updateVideos = function(){
         if(this.videos && !this.isCollection){
             this.addVideosToCarousel(this.videos);
         }
     }
+    /*
+        Update variant available quantity and sku
+    */
     this.updateQuantitySku = function(obj_variant) {
+        //Hide quantity selector
         $('#div-quantity-'+this.product_id).hide();
         $('#div-quantity-mobile-'+this.product_id).hide();
+        //If the product has a valid price and is available => Set new product quandtity limit according to policy set and display quantity seelctor back
         if ( this.getNumber(obj_variant.price) > 0 && typeof obj_variant.inventory_quantity != 'undefined'
             && typeof obj_variant.inventory_minimum_quantity != 'undefined'
             && typeof obj_variant.inventory_policy != 'undefined'
@@ -210,6 +270,7 @@ function VariantsManager (product, img, isCollection) {
                 }
 
         }
+        //Hide sku, set it and show it back
         $('#div-sku-'+this.product_id).hide();
         if (obj_variant.sku) {
             $('#div-sku-'+this.product_id).show();
@@ -307,7 +368,6 @@ function VariantsManager (product, img, isCollection) {
         var filteredVariants = this.getFilteredVariants(this.selectedValues);
 
         if(filteredVariants.length == 1){
-                var id = this.getProductVariation(filteredVariants[0].id);
                 var quantityInput = "#variant-input-"+this.product_id;
                 var quantityInputMobile = "#variant-input-mobile-"+this.product_id;
                 // this.resetSelection();
