@@ -11,7 +11,7 @@
         {% do app.redirect('/return') %}
     {% endif %}
     {% set page_name = 'return' %}
-	{% set orderitems = api.get('/orderitem?email='~form.email~'&order_number='~form.order_number, {query:{fulfillment_status:{'$in':['complete', 'partial']}}}) %}
+	{% set orderitems = api.get('/orderitem?email='~form.email~'&order_number='~form.order_number, {query:{order_id: order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
     {% set returns = api.get('/orderreturn?email='~form.email~'&order_number='~form.order_number, {query:{order_id: order.id, status: {'$in': ['pending','returned']}}}) %}
 	{% if order.date_created|strtotime > app.params.returnTime|strtotime %}
     	{% do app.user.setFlash('Order is too old for returns.', 'danger') %}
