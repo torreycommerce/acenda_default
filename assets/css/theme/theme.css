@@ -638,41 +638,31 @@ table.yiiLog {display: none;}
 @media (min-width: 768px) {#order .returns .item .actions {margin-bottom: 0;margin-top: 0;}}
 /**** End Account Page Styling   ****/
 
-
 /**** 10-) Variants Styling  ****/
-.color-details {padding-top: 5px;position: relative;}
-.color-details span {font-size: 80%;text-transform: capitalize;}
+.color-details{padding-top: 5px;position: relative;}
+.color-details span, .size-details span  {font-size: 80%;text-transform: capitalize;}
 .sku-details {font-size: 75%;text-transform: capitalize;color:#919191;}
 .color-details-collection {border: none;padding: 0;}
 .color-details-collection span {text-align: center;font-size: 80%;text-transform: capitalize;}
-.swatches {margin: 0;padding-left: 0;}
-.swatches li {border: 1px solid #b2b2b2;display: inline-block;margin: 2px 1px;vertical-align: top;list-style: none;}
+.swatches, .swatches-size {margin: 0;padding-left: 0;}
+.swatches li, .swatches-size li {border: 1px solid #b2b2b2;display: inline-block;margin: 2px 1px;vertical-align: top;list-style: none;}
 .swatches .selected,
 .swatches li:hover {/* Swatches Selected Available Hover Border */border: 1px solid #6a4362;}
 .notavailable li:hover {/* Swatches Selected Available Hover Border */border: 2px dotted red;cursor: not-allowed;}
-.swatches a {background-position: center center;background-repeat: no-repeat;border: 1px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;display: block;
-font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
+.swatches-size a 
+.swatches a,  {background-position: center center;background-repeat: no-repeat;border: 1px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
 .swatches .notavailable {/* Swatches Selected NotAvailable Border  */border: 1px dotted #b2b2b2;cursor: not-allowed;opacity: 0.5;-webkit-opacity: 0.5;-ms-opacity: 0.5;position: relative;}
 .swatches .notavailable-selected {/* Swatches Selected NotAvailable Border  */border: 1px dotted red;cursor: not-allowed;opacity: 0.5;-webkit-opacity: 0.5;-ms-opacity: 0.5;position: relative;}
 .swatches .notavailable:before {font-family: 'FontAwesome' !important;color: #fff;cursor: not-allowed;font-weight: 300;text-decoration: inherit;padding-right: 0.5em;position: absolute;top: 7px;left: 10px;}
-.swatches a img {height: 29px;width: 29px;}
-/******--Size Details--******/
 .size-details {padding-top: 5px;padding-bottom: 0;}
-.size-details span {font-size: 80%;text-transform: capitalize;}
-.swatches-size {margin: 0;padding-left: 0;}
-.swatches-size li {border: 1px solid #b2b2b2;background: #fff;display: inline-block;margin: 2px 1px;vertical-align: top;list-style: none;}
 .swatches-size .selected,
 .swatches-size li:hover {/* Swatches Selected Available Hover Border */border: 1px solid #6a4362;}
+.swatches a img, .swatches-size a img  {height: 29px;width: 29px;}
 .swatches-size .notavailable-selected {/* Swatches Selected NotAvailable Border  */border: 1px dashed red;background: none !important;cursor: not-allowed;}
-.swatches-size a {background-position: center center;background-repeat: no-repeat;background-color: #ecebe9;border: 2px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;
-display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
-.swatches-size .notavailable a {background: none;cursor: not-allowed;opacity: 0.3;-webkit-opacity: 0.3;-ms-opacity: 0.3;}
-.swatches-size .notavailable-selected a {/* Swatches Selected NotAvailable  */background: none;cursor: not-allowed;opacity: 0.3;-webkit-opacity: 0.3;-ms-opacity: 0.3;}
-.swatches-size .notavailable:hover {border: 1px dashed #34495e;cursor: not-allowed;}
+.swatches-size p, .notavailable p {height: 29px;width: 29px;margin: 0;padding-top: 5px;}
+.swatches-size .notavailable a, .swatches-size .notavailable-selected a {/* Swatches Selected NotAvailable  */background: none;cursor: not-allowed;opacity: 0.3;-webkit-opacity: 0.3;-ms-opacity: 0.3;}
 .swatches-size .notavailable {/* Swatches Selected NotAvailable Border  */border: 1px dashed #b2b2b2;background-color: transparent;cursor: not-allowed;}
-.swatches-size a img {height: 29px;width: 29px;}
-.swatches-size p {height: 29px;width: 29px;margin: 0;padding-top: 5px;}
-.notavailable p {height: 29px;width: 29px;background: none;margin: 0;padding-top: 5px;}
+.swatches-size .notavailable:hover {border: 1px dashed #34495e;cursor: not-allowed;}
 /**** End Variants Styling  ****/
 
 /**** 11-) Other Styling  ****/
