@@ -72,6 +72,14 @@
                     <div class="brand">{{product.brand}}</div>
                     <h5 class="product-name">{{product.name}}</h5>             
                 </header>
+                {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
+                {% set review_score = reviews|average('score') %}
+                <div class="reviews"> 
+                        {% if review_score > 0 %} {{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}
+                            {% if reviews.num_total %}({{ reviews.num_total }})
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 <div class="pricing">
                     {% if product.attributes.price %}
                     <div class="price">{{ this.price(product.attributes.price) }}</div>
