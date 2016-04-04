@@ -289,21 +289,21 @@
             {% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
             <div class="item">
                 <div class="row">
-                    <div class="col-sm-3 col-md-3 col-lg-2">
+                    <div class="col-sm-2">
                         <div>RMA: {{ return.rma }}</div>
                     </div>
-                    <div class="col-sm-4 col-md-5 col-lg-6">
+                    <div class="col-sm-5">
                         <div>{{ item.name }}</div>
                     </div>
-                    <div class="col-sm-1 col-md-1 col-lg-1">
-                        <div>QTY: {{ return.quantity }}</div>
+                    <div class="col-sm-1">
+                        <div>QTY: <strong>{{ return.quantity }}</strong></div>
                     </div>
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-sm-2">
                         <div>Status: {{ return.status }}</div>
                     </div>
                     {% if return.status =='pending' %}
                     {# Begin actions #}
-                    <div class="col-sm-2 col-md-1 col-lg-1">
+                    <div class="col-sm-2">
                         <div class="actions">
                             {{ forms.begin('cancel-return',app.request.path) }}
                                 <input type="submit" name="cancel" value="Cancel" class="btn btn-neutral btn-sm btn-block" />

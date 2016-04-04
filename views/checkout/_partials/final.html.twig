@@ -1,8 +1,15 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+<div class="row">
+    <div class="col-md-12">
+        <hgroup>
+            <h1 class="page-header"><i class="fa fa-shopping-cart"></i> Checkout: Final</h1>
+        </hgroup>
+    </div>
+</div>
 {% if response is not empty %}
-    <h1>Thank You!</h1>
+    <legend><i class="fa fa-thumbs-o-up"></i> Thank You!</legend>
 {% else %}
-    <h1>Checkout: Order Failed</h1>
+    <legend><i class="fa fa-exclamation-circle"></i> Checkout: Order Failed</legend>
 {% endif %}
 
 {# Calculate subtotal without discounts #}
@@ -194,5 +201,12 @@
                 </div>
             </div>
             {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div id="continue-shopping">
+                    <a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+                </div>
+            </div>
         </div>
     </div>

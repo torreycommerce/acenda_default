@@ -669,7 +669,7 @@ display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text
 /**** 11-) Other Styling  ****/
 label {font-size:80%! important;}
 .form-control {border-radius: 0;}
-.well {border-radius:0;}
+.well {border-radius:0;background-color: #F3F3F3;}
 .alert {border-radius: 0;color:#555;}
 legend {font-size: 110%;color: #555;font-weight: 600;}
 .valignT {vertical-align: top! important;}
