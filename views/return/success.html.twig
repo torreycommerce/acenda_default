@@ -39,18 +39,21 @@ Reason: {{ return.reason }}<br>
 </p>
 {% endfor %}
 
-<p>
-Please ship your returns to:
-</p>
+{% set ret_addr = api.get('/location', {query:{return:true}})|first %}
 
-<p>
-<address>
-    <strong>{{ app.params['site']['title'] }}</strong><br>
-    {{ app.params['return_address']['street_line1'] }} {{ app.params['return_address']['street_line2'] }}<br>
-    {{ app.params['return_address']['city'] }}, {{ app.params['return_address']['state'] }} {{ app.params['return_address']['zip'] }}<br>
-    {% if app.params['information']['phone_number'] is defined %}
-        <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
-    {% endif %}
-</address>
-</p>
+{% if ret_addr is not empty %}
+    <p>
+    Please ship your returns to:
+    </p>
+    <p>
+        <address>
+            <strong>{{ app.params['site']['title'] }} ({{ ret.name }})</strong><br>
+            {{ ret_addr.street_line1 }} {{ ret_addr.street_line2 }}<br>
+            {{ ret_addr.city }}, {{ ret_addr.state }} {{ ret_addr.zip }}<br>
+            {% if app.params['information']['phone_number'] is defined %}
+                <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
+            {% endif %}
+        </address>
+    </p>
+{% endif %}
 {% endblock %}
