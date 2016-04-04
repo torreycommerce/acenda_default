@@ -649,14 +649,15 @@ table.yiiLog {display: none;}
 .swatches .selected,
 .swatches li:hover {/* Swatches Selected Available Hover Border */border: 1px solid #6a4362;}
 .notavailable li:hover {/* Swatches Selected Available Hover Border */border: 2px dotted red;cursor: not-allowed;}
-.swatches-size a 
-.swatches a,  {background-position: center center;background-repeat: no-repeat;border: 1px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
+.swatches a  {background-position: center center;background-repeat: no-repeat;border: 1px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
 .swatches .notavailable {/* Swatches Selected NotAvailable Border  */border: 1px dotted #b2b2b2;cursor: not-allowed;opacity: 0.5;-webkit-opacity: 0.5;-ms-opacity: 0.5;position: relative;}
 .swatches .notavailable-selected {/* Swatches Selected NotAvailable Border  */border: 1px dotted red;cursor: not-allowed;opacity: 0.5;-webkit-opacity: 0.5;-ms-opacity: 0.5;position: relative;}
 .swatches .notavailable:before {font-family: 'FontAwesome' !important;color: #fff;cursor: not-allowed;font-weight: 300;text-decoration: inherit;padding-right: 0.5em;position: absolute;top: 7px;left: 10px;}
 .size-details {padding-top: 5px;padding-bottom: 0;}
 .swatches-size .selected,
 .swatches-size li:hover {/* Swatches Selected Available Hover Border */border: 1px solid #6a4362;}
+.swatches-size a {background-position: center center;background-repeat: no-repeat;background-color: #ecebe9;border: 2px solid #FFFFFF;box-shadow: 1px 1px 2px #C5C5C5;cursor: pointer;
+display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text-align: center;text-decoration: none;transition: all 0.25s ease 0s;}
 .swatches a img, .swatches-size a img  {height: 29px;width: 29px;}
 .swatches-size .notavailable-selected {/* Swatches Selected NotAvailable Border  */border: 1px dashed red;background: none !important;cursor: not-allowed;}
 .swatches-size p, .notavailable p {height: 29px;width: 29px;margin: 0;padding-top: 5px;}
