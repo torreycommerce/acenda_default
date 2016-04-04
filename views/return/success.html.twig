@@ -47,7 +47,7 @@ Reason: {{ return.reason }}<br>
     </p>
     <p>
         <address>
-            <strong>{{ app.params['site']['title'] }} ({{ ret.name }})</strong><br>
+            <strong>{{ app.params['site']['title'] }}</strong><br>
             {{ ret_addr.street_line1 }} {{ ret_addr.street_line2 }}<br>
             {{ ret_addr.city }}, {{ ret_addr.state }} {{ ret_addr.zip }}<br>
             {% if app.params['information']['phone_number'] is defined %}
