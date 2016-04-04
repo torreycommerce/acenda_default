@@ -305,13 +305,13 @@
                     {# Begin actions #}
                     <div class="col-sm-2 col-md-1 col-lg-1">
                         <div class="actions">
-                            {{ form.begin('cancel-return',app.request.path) }}
+                            {{ forms.begin('cancel-return',app.request.path) }}
                                 <input type="submit" name="cancel" value="Cancel" class="btn btn-neutral btn-sm btn-block" />
                                 <input type="hidden" name="id" value="{{item.id}}">
                                 <input type="hidden" name="return" value="{{return.id}}">
                                 <input type="hidden" name="order[email]" value="{{ app.request.post.order.email }}">
                                 <input type="hidden" name="order[number]" value="{{ app.request.post.order.number }}">
-                            {{ form.end() }}
+                            {{ forms.end() }}
                         </div>
                     </div>
                     {# End actions #}
