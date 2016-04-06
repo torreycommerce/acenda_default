@@ -19,7 +19,7 @@
 
 /**** 1-) Global Styling  ****/
 html {font-size:100%; -webkit-touch-callout:none; -webkit-text-size-adjust:none; -ms-text-size-adjust:100%;}
-html,body {border:0; color:#555; font-size:100%; margin:0; font-family: Lucida Sans, Lucida Grande, Helvetica, sans-serif;}
+html,body {background-color:#fff;border:0; color:#555; font-size:100%; margin:0; font-family: Lucida Sans, Lucida Grande, Helvetica, sans-serif;}
 #content {flex: 1;margin-bottom:40px;min-height: calc(100vh - 449px);}
 /* Body for Mobile Screen */
 @media screen and (max-width: 767px){body {font-size: 87.5%;}}
@@ -142,7 +142,8 @@ only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192
 #branding .brand #logo-img a {background-image: url("../images/store-logo-2x.png");background-size: 100% 100%;}}
 #branding .brand #logo-img a span {position: absolute;visibility: hidden;}
 #branding .brand #logo-txt {text-align: left;text-transform: uppercase;}
-#branding .brand #logo-txt a {font-size:300%;font-weight: 600;}
+#branding .brand #logo-txt a {font-size:300%;font-weight: 600;color:#555;}
+#branding .brand #logo-txt a:hover, #branding .brand #logo-txt a:focus {color: #999;}
 /*@media (max-width: 767px) {
 #branding .brand {padding-top: 10px;}
 #branding .brand #logo-img {width: 100%;text-align: center;}
@@ -411,7 +412,7 @@ footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px
 #product-details .actions .btn-cart {margin-bottom: 10px;}
 #product-details .actions .control-label {font-size: 80%;text-transform: capitalize;}
 @media (min-width: 992px) {#product-details .actions .quantity-input-group {margin-bottom: 10px;}#product-details .actions .btn-cart {margin-bottom: 0px;}}
-#product-tabs .nav > li > a, #collection .nav > li > a {font-size:90%;border-radius:0;}
+#product-tabs .nav > li > a, #collection .nav > li > a {font-size:90%;border-radius:0;color:#555;}
 #product-tabs .nav > li > a:hover {border-radius:0;}
 #product-tabs .panel {font-size:85%;}
 #product-tabs .panel hr {margin:5px 0;}
@@ -531,11 +532,10 @@ table.yiiLog {display: none;}
 .label .label-hot {background-color: #365755;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
 .label .label-feat {background-color: #555;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
 
-
 /**** End Product, Collection Page Styling   ****/
 
- 
-/**** 9-) Account Page Styling   ****/
+
+ /**** 9-) Account Page Styling   ****/
 #customer-account .panel .panel-body {font-size: 90%! important;}
 #customer-account-center #recent-orders .order {border-bottom: 1px solid #DDDDDD;padding-bottom: 10px;padding-top: 10px;}
 #customer-account-center #recent-orders .order .order-details {padding-bottom: 10px;}
@@ -551,37 +551,29 @@ table.yiiLog {display: none;}
 #customer-account-orders .well {background-color: transparent;}
 #customer-account-orders .order-search {margin-bottom: 10px;}
 @media (min-width: 768px) {#customer-account-orders .order-search {margin-bottom: 0;}}
+#customer-account-orders .coupon {margin: 20px 0;}
+#customer-account-orders .coupon .discount-line-through {text-decoration: line-through;}
+#customer-account-orders .billing-address {font-size: 75%;margin-bottom: 20px;}
+#customer-account-orders .billing-address address {margin-bottom: 0;}
+#customer-account-orders .billing-method {font-size: 75%;margin-bottom: 20px;}
+#customer-account-orders .order-totals {font-size: 75%;margin-bottom: 20px;}
 #customer-account-orders .order-details {font-size: 75%;}
+@media (min-width: 768px) {#customer-account-orders .order-details {border-right: 1px solid #E5E5E5;}}
 #customer-account-orders .order-details .order-info {margin-bottom: 20px;}
 #customer-account-orders .order-details .shipping-address {margin-bottom: 20px;}
 #customer-account-orders .order-details .shipping-method {margin-bottom: 20px;}
 #customer-account-orders .order-details .order-total {margin-bottom: 20px;}
 #customer-account-orders .order-details .actions {margin-bottom: 20px;}
+#customer-account-orders .order-details .modal {font-size: 85%;}
+#customer-account-orders .order-details .shipping-address address {margin-bottom: 0;}
+#customer-account-orders .order-details .order-actions {margin-bottom: 20px;}
 @media (min-width: 768px) {#customer-account-orders .order-details .actions {margin-bottom: 0;}}
-@media (min-width: 768px) {#customer-account-orders .order-details {border-right: 1px solid #E5E5E5;}}
 #customer-account-orders .order-items {font-size: 75%;}
+@media (min-width: 768px) {#customer-account-orders .order-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
 #customer-account-orders .order-items .item {border-bottom: 1px solid #e5e5e5;margin-bottom: 5px;padding-bottom: 5px;}
 #customer-account-orders .order-items .item .thumbnail {margin-bottom: 0;}
 #customer-account-orders .order-items .item:last-child {border-bottom: none;margin-bottom: 0;padding-bottom: 0;}
-@media (min-width: 768px) {#customer-account-orders .order-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
 #order-details .order-details .return-order {margin: 5px 0;}
-#customer-account-orders .well {background-color: #ffffff;}
-#customer-account-orders .coupon {margin: 20px 0;}
-#customer-account-orders .coupon .discount-line-through {text-decoration: line-through;}
-#customer-account-orders .order-details {font-size: 75%;}
-@media (min-width: 768px) {#customer-account-orders .order-details {border-right: 1px solid #E5E5E5;}}
-#customer-account-orders .order-details .modal {font-size: 85%;}
-#customer-account-orders .order-details .order-info {font-size: 75%;margin-bottom: 20px;}
-#customer-account-orders .order-details .shipping-address {font-size: 75%;margin-bottom: 20px;}
-#customer-account-orders .order-details .shipping-address address {margin-bottom: 0;}
-#customer-account-orders .order-details .shipping-method {font-size: 75%;margin-bottom: 20px;}
-#customer-account-orders .order-details .order-actions {margin-bottom: 20px;}
-#customer-account-orders .order-items {font-size: 75%;}
-@media (min-width: 768px) {#customer-account-orders .order-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
-#customer-account-orders .billing-address {font-size: 75%;margin-bottom: 20px;}
-#customer-account-orders .billing-address address {margin-bottom: 0;}
-#customer-account-orders .billing-method {font-size: 75%;margin-bottom: 20px;}
-#customer-account-orders .order-totals {font-size: 75%;margin-bottom: 20px;}
 #customer-account-registries .header-actions {border-bottom: 1px solid #EEEEEE;padding-bottom: 20px;margin-bottom: 10px;}
 #customer-account-registries .registry-list .registry {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;margin-bottom: 10px;}
 #customer-account-registries .registry-list .registry .actions {text-align: right;}
@@ -598,16 +590,16 @@ table.yiiLog {display: none;}
 #customer-account-returns .return-search {margin-bottom: 10px;}
 @media (min-width: 768px) {#customer-account-returns .return-search {margin-bottom: 0;}}
 #customer-account-returns .return .return-details {font-size: 75%;}
+@media (min-width: 768px) {#customer-account-returns .return .return-details {border-right: 1px solid #E5E5E5;}}
 #customer-account-returns .return .return-details .return-info {margin-bottom: 20px;}
 #customer-account-returns .return .return-details .actions {margin-bottom: 20px;}
 @media (min-width: 768px) {#customer-account-returns .return .return-details .actions {margin-bottom: 0;}}
 #customer-account-returns .return .return-details .modal {font-size: 80%;}
-@media (min-width: 768px) {#customer-account-returns .return .return-details {border-right: 1px solid #E5E5E5;}}
 #customer-account-returns .return .return-items {font-size: 75%;}
+@media (min-width: 768px) {#customer-account-returns .return .return-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
 #customer-account-returns .return .return-items .item {border-bottom: 1px solid #e5e5e5;margin-bottom: 5px;padding-bottom: 5px;}
 #customer-account-returns .return .return-items .item .thumbnail {margin-bottom: 0;}
 #customer-account-returns .return .return-items .item:last-child {border-bottom: none;margin-bottom: 0;padding-bottom: 0;}
-@media (min-width: 768px) {#customer-account-returns .return .return-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
 #slider-promo-main { margin-bottom: 20px;}
 #featured-reviews .well {padding: 40px;}
 #featured-reviews .review .title {font-size: 112%;margin-bottom: 8px;text-transform: capitalize;}
@@ -637,6 +629,7 @@ table.yiiLog {display: none;}
 #order .returns .item .actions {margin-top: 10px;}
 @media (min-width: 768px) {#order .returns .item .actions {margin-bottom: 0;margin-top: 0;}}
 /**** End Account Page Styling   ****/
+
 
 /**** 10-) Variants Styling  ****/
 .color-details{padding-top: 5px;position: relative;}

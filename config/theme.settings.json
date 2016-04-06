@@ -8,55 +8,43 @@
                 },
                 "footer-bg": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "333"
                 }                                  
             },
             "content": {
-                "logo-color": {
-                    "type": "color",
-                    "value": "6a4362"
-                },
                 "text-color": {
                     "type": "color",
                     "value": "555"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "555"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "558c89"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "333"
+                    "value": "555"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "999"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "666666"
-                },
-                "nav-text-hover": {
-                    "type": "color",
-                    "value": "000"
-                },
-                "border-color": {
-                    "type": "color",
-                    "value": "eeeeee"
+                    "value": "555"
                 }
             },
             "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "558c89"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "558c89"
                 },
                 "primary-btn-text": {
                     "type": "color",
@@ -64,42 +52,46 @@
                 },
                 "primary-btn-hover-background": {
                     "type": "color",
-                    "value": "4b2f45"
+                    "value": "365755"
                 },
                 "primary-btn-hover-border": {
                     "type": "color",
-                    "value": "4b2f45"
+                    "value": "365755"
                 },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "c0c0c0"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "777777"
+                    "value": "c0c0c0"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "ffffff"
                 },
                 "secondary-btn-hover-background": {
                     "type": "color",
-                    "value": "444"
+                    "value": "a0a0a0"
                 },
                 "secondary-btn-hover-border": {
                     "type": "color",
-                    "value": "444"
+                    "value": "a0a0a0"
                 }
             },
 
             "footer": {
                 "footer-text-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "e0e0e0"
+                },
+                "footer-text-hover-color": {
+                    "type": "color",
+                    "value": "666"
                 },
                 "footer-header-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "c7c7c7"
                 },
                 "footer-hr": {
                     "type": "color",
@@ -107,7 +99,7 @@
                 },
                 "footer-copy": {
                     "type": "color",
-                    "value": "FAF6F0"
+                    "value": "999999"
                 }
             }
         },
@@ -116,34 +108,6 @@
                 "base-typeface": {
                     "type": "dropdown_group",
                     "value": "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif",
-                    "options": {
-                        "Sans-Serif": {
-                            "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
-                            "Impact, Charcoal, Helvetica, Arial, sans-serif": "Impact",
-                            "Lucida Grande, Lucida Sans Unicode, Lucida Sans, Lucida, Helvetica, Arial, sans-serif": "Lucida Grande",
-                            "Trebuchet MS, sans-serif": "Trebuchet MS",
-                            "Verdana, Helvetica, Arial, sans-serif": "Verdana",
-                            "Open Sans, Lucida Grande, Helvetica, Arial, sans-serif": "Open Sans",
-                            "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif": "Lato"
-                        },
-                        "Serif": {
-                            "Garamond, Baskerville, Caslon, serif": "Garamond",
-                            "Georgia, Utopia, Times New Roman, Times, serif": "Georgia",
-                            "Palatino, Palatino Linotype, Book Antiqua, serif": "Palatino",
-                            "Times New Roman, Times, serif": "Times New Roman",
-                            "Josefin Slab, Georgia, Garamond, Times New Roman, Times, serif": "Josefin Slab"
-                        },
-                        "Monospace": {
-                            "Courier New, Courier, monospace": "Courier new",
-                            "Monaco, Lucida Console, DejaVu Sans Mono, monospace": "Monaco"
-                        }
-                    }
-                }
-            },
-            "nav_styles": {
-                "nav-typeface": {
-                    "type": "dropdown_group",
-                    "value": "Helvetica, Arial, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
@@ -250,10 +214,6 @@
                 }                                  
             },
             "content": {
-                "logo-color": {
-                    "type": "color",
-                    "value": "6a4362"
-                },
                 "text-color": {
                     "type": "color",
                     "value": "555"
