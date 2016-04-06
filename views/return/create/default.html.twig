@@ -17,7 +17,7 @@
     	{% do app.user.setFlash('Order is too old for returns.', 'danger') %}
     	{% do app.redirect('/return') %}
 	{% else %}
-		{% include '/account/return/create/_partials/form.html.twig' %}
+		{% include '/return/create/_partials/form.html.twig' %}
 	{% endif %}
 {% else %}
 	{% do app.user.setFlash('No query submitted.', 'danger') %}
