@@ -1,7 +1,7 @@
 {% include 'email/core/header.html.twig' %}
-{% set order = api.get('/order/' ~ order_id) %}
-{% set return = api.get('/orderreturn/' ~ return_id) %}
-{% set item = api.get('/orderitem/' ~ return.item_id) %}
+{% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {# Variables passed in: order_id, return_id #}
 <tr>
 	<td style="border-bottom:1px solid #e5e5e5;">

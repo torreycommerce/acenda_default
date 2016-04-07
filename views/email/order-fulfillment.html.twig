@@ -56,8 +56,8 @@
 
   </style>
 </head>
-{% set order = api.get('/order/' ~ order_id) %}
-{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id) %}
+{% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
 <body yahoo bgcolor="#fff">
