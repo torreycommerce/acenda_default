@@ -1,6 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/account/_macros/base.html.twig" as account %}
-{% import "/_macros/form-elements.html.twig" as form %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -9,7 +9,7 @@
 
 {% set page_name = 'order' %}
 
-{% block title %}Account - Order Details{% endblock %} 
+{% block title %}Account - Order Details{% endblock %}
 
 {% block breadcrumb %}
     {{ base.breadcrumbs({'Account':'/account','Order History':'/account/orders','Order Details':''}) }}
@@ -27,7 +27,7 @@
         {# End navigation #}
     	<div id="customer-account-order-details">
     	    <div class="col-sm-9 col-md-9 col-lg-10">
-    	        {% include '/order/_partials/details.html.twig' %}
+    	        {% include '/account/order/_partials/details.html.twig' %}
     	    </div>
     	</div>
     </div>

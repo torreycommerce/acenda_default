@@ -1,7 +1,7 @@
 {% include 'email/core/header.html.twig' %}
-{% set order = api.get('/order/' ~ order_id) %}
-{% set items = api.get('/orderitem', {query:{order_id:order_id}}) %}
-{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id) %}
+{% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
 <tr>
@@ -49,10 +49,18 @@
 					{% endif %}
 					<br><br><b>Using:</b> {{ shipping_method.name }}
 					<br><b>Shipping Method:</b> {{ fulfillment.shipping_method }}
-					<br><b>Tracking Number(s):</b>
-					{% for tracking_url in fulfillment.tracking_urls %}
-					<br>{{ tracking_url }}
-					{% endfor %}
+                    <br><b>Tracking Number(s):</b>
+                    {% if fulfillment.tracking_urls is not empty %}
+                        {% for tracking_url in fulfillment.tracking_urls %}
+                            <a href="{{ tracking_url }}" target="_blank">{{ tracking_url }}<a><br/>
+                        {% endfor %}
+                    {% elseif fulfillment.tracking_numbers is not empty %}
+                        {% for tracking_num in fulfillment.tracking_numbers %}
+                            {{ tracking_num }}<br/>
+                        {% endfor %}
+                     {% else %}
+                        There isn't any tracking numbers available for this shipment.
+                     {% endif %}
 				</td>
 			</tr>
 		</table>

@@ -1,7 +1,7 @@
 {% include 'email/core/header.html.twig' %}
-{% set order = api.get('/order/' ~ order_id) %}
-{% set return = api.get('/orderreturn/' ~ return_id) %}
-{% set item = api.get('/orderitem/' ~ return.item_id) %}
+{% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set items = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 <tr>
 	<td style="border-bottom:1px solid #e5e5e5;">
 		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">

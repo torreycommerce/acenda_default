@@ -1,5 +1,5 @@
 {% extends "/_layouts/base.html.twig" %}
-
+{% block content %}
 {% if  app.request.post.checkout %}
     {% set return = api.post('/sessioncart/checkout', app.request.post.checkout) %}
 {% endif %}
@@ -24,23 +24,22 @@
 {% set request = request + app.user.getCheckoutStates('shipping') %}
 {% set request = request + app.user.getCheckoutStates('billing')%}
 {% set request = request + {'test_order' : app.user.getState('test_order')} %}
-{% set response = api.post('/order/place', request) %}
+{% set final_order = api.post('/order/place', request) %}
 
 
 {# data block from checkout/_partials/final.html.twig #}
-{% if response is not empty %}
+{% if final_order is not empty %}
     {% do app.user.clearCheckoutStates('shipping') %}
     {% do app.user.clearCheckoutStates('billing') %}
-    {% set final_order = api.get('/order/' ~ response | integer) %}
-    {% set items = api.get('/orderitem', {query:{'order_id':final_order.id}}) %}
-    {% set coupons = api.get('/ordercoupon', {query:{'order_id':final_order.id}}) %}
+    {% set items = api.get('/orderitem?email=' ~ final_order.email ~ '&order_number=' ~ final_order.order_number, {query:{'order_id':final_order.id}}) %}
+    {% set coupons = api.get('/ordercoupon?email=' ~ final_order.email ~ '&order_number=' ~ final_order.order_number, {query:{'order_id':final_order.id}}) %}
     {% set product_ids = items|values_in('product_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
     {% set col_ = app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8"%}
 {% endif %}
 
 
-{% block content %}
+
 {% include '/checkout/_partials/final.html.twig' %}
 {% endblock %}
 

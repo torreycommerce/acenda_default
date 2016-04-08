@@ -7,7 +7,7 @@
             <li> <a href="{{app.url}}/account/orders">Easy Returns</a> </li>
             {% else %}
             <li> <a href="{{app.url}}/return">Easy Returns</a> </li>
-            {% endif %}           
+            {% endif %}
             {% if app.user.id is null %}
             {# Begin login button #}
             <li>
@@ -16,7 +16,7 @@
                         <i class="fa fa-user"></i>My Account<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{app.url}}/account/login">Sing In / Sign up</a></li>
+                        <li><a href="{{app.url}}/account/login">Sign In / Sign up</a></li>
                         <li><div class="divider"></div></li>
                         {% if app.user.id != '' %}
                         <li> <a href="{{app.url}}/account/orders">Order Status</a> </li>

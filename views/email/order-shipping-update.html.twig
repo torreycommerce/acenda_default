@@ -1,7 +1,7 @@
 {% include 'email/core/header.html.twig' %}
-{% set order = api.get('/order/' ~ order_id) %}
-{% set items = api.get('/orderitem', {query:{order_id:order_id}}) %}
-{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id) %}
+{% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
 <tr>
