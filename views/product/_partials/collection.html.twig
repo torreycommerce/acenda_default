@@ -466,7 +466,16 @@
                                                                     {# Begin collection product details #}
                                                                     <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
                                                                         <div class="details">
-                                                                            <h4 class='name'>{{ product.name }}</h4>
+                                                                            {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
+                                                                            {% set review_score = reviews|average('score') %}
+                                                                            <h4 class='name'><a href="{{app.url}}/product/{{product.slug}}">{{ product.name }}</a></h4>
+                                                                            <div class="reviews">
+                                                                                {% if review_score > 0 %} {{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}
+                                                                                    {% if reviews.num_total %}
+                                                                                        ({{ reviews.num_total }})
+                                                                                    {% endif %}
+                                                                                {% endif %}
+                                                                            </div>
                                                                             {# Begin variation dropdown #}
                                                                                 <div class="price" id="product-price-{{product.id}}"></div>
                                                                             {# End variation dropdown #}
@@ -483,6 +492,7 @@
                                                                             {# Begin estimated shipping #}
                                                                                 <ul class="shipping">
                                                                                     <li class="estimated-time" id="stock-text-{{product.id}}"></li>
+                                                                                     <a class="estimated-time" href="{{ app.url }}/review/id/{{product.id}}"> - Write a Review - </a>
                                                                                 </ul>
                                                                             {# End estimated shipping #}
                                                                             {# Begin product tags #}
