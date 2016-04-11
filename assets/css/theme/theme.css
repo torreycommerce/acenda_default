@@ -47,8 +47,8 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 
 /**** 2-) Button Styling  ****/
 .btn {border-radius:0;transition: all 0.5s ease;}
-.btn-default {font-size: 85%;}
-.btn-primary {color: #fff;background-color: #558C89;border-color: #558C89;}
+/*.btn-default {font-size: 85%;}
+*/.btn-primary {color: #fff;background-color: #558C89;border-color: #558C89;}
 .btn-primary:focus,.btn-primary.focus {color: #fff;background-color: #365755;border-color: #365755;}
 .btn-primary:hover {color: #fff;background-color: #365755;border-color: #365755;}
 .btn-primary:active,.btn-primary.active,.open > .dropdown-toggle.btn-primary {color: #fff;background-color: #286090;border-color: #204d74;}
@@ -594,7 +594,6 @@ table.yiiLog {display: none;}
 #customer-account-returns .return .return-details .return-info {margin-bottom: 20px;}
 #customer-account-returns .return .return-details .actions {margin-bottom: 20px;}
 @media (min-width: 768px) {#customer-account-returns .return .return-details .actions {margin-bottom: 0;}}
-#customer-account-returns .return .return-details .modal {font-size: 80%;}
 #customer-account-returns .return .return-items {font-size: 75%;}
 @media (min-width: 768px) {#customer-account-returns .return .return-items {border-left: 1px solid #E5E5E5;margin-left: -1px;}}
 #customer-account-returns .return .return-items .item {border-bottom: 1px solid #e5e5e5;margin-bottom: 5px;padding-bottom: 5px;}
@@ -797,6 +796,7 @@ h2.section-name{margin-bottom: 20px;}
 .pR0 {padding-right: 0;}
 .pB0 {padding-bottom: 0!important;}
 .pL0 {padding-left: 0;}
+.pL25 {padding-left: 25px;}
 .p8 {padding: 8px;}
 .p10 {padding: 10px;}
 .p16 {padding: 16px;}

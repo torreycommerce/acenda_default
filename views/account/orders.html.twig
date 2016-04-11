@@ -137,14 +137,14 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                                     <div class="item">
                                         <div class="row">
                                             {# Begin item image #}
-                                            <div class="col-xs-4 col-sm-4 col-md-3 col-md-2">
+                                            <div class="col-xs-4 col-sm-4">
                                                 <a href="{{ app.url ~ product.url }}" class="thumbnail">
                                                     <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="img-responsive" src='{{ image_url }}'>
                                                 </a>
                                             </div>
                                             {# End item image #}
                                             {# Begin item details #}
-                                            <div class="col-xs-8 col-sm-8 col-md-9 col-md-10">
+                                            <div class="col-xs-8 col-sm-8">
                                                 <a href="{{ app.url ~ product.url }}">{{ product.title }}</a>
                                             </div>
                                             {# End item details #}

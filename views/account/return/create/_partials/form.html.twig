@@ -14,9 +14,6 @@
         {% set form_error = api.error %}
     {% endif %}
 {% endif %}
-{% block breadcrumb %}
-{{ base.breadcrumbs({'Create a Return':''}) }}
-{% endblock %}
 <div id="return-create">
     <div class="row">
         {# Begin returns #}
@@ -24,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <header>
-                        <h1 class="page-header"><i class="fa fa-reply"></i> Create a Return</h1>
+                        <h3 class="page-header"><i class="fa fa-reply"></i> Create a Return</h3>
                     </header>
                 </div>
             </div>

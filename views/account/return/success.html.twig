@@ -1,4 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
+{% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 
 {% block title %}Return Created{% endblock %}
 
@@ -11,49 +13,72 @@
 {% endblock %}
 
 {% block content %}
-<h1>Return Created</h1>
+<div class="customer-account">
+    <div class="row">
+        {# Begin navigation #}
+        <div class="navigation hidden-xs hidden-sm">
+            <div class="col-sm-4 col-md-3 col-lg-2">
+                {{account.navigation('orders')}}
+            </div>
+        </div>
+        {# End navigation #}
+        <div id="customer-account-order-details">
+            <div class="col-sm-9 col-md-9 col-lg-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <header>
+                            <h3 class="page-header"><i class="fa fa-check-circle-o"></i> Return Created</h3>
+                        </header>
+                    </div>
+                </div>   
+    {% set ids = app.request.get.ids|split(',') %}
+    {% set returns = api.get('/orderreturn?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}
+    {% set orderitem_ids = returns|values_in('item_id') %}
+    {% set items = api.get('/orderitem?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':orderitem_ids}}})|group_by('id') %}
 
-{% set ids = app.request.get.ids|split(',') %}
-{% set returns = api.get('/orderreturn?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}
-{% set orderitem_ids = returns|values_in('item_id') %}
-{% set items = api.get('/orderitem?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':orderitem_ids}}})|group_by('id') %}
+    <p>You have successfully created a return and a copy of the return instructions below have been emailed to you.</p>
+    <legend> In order for us to process your return, your items must meet the following criteria: </legend>
+    <ol>
+        <li>Items must be unused and returned with the original product tags.</li>
+        <li>Items must be returned in their original, undamaged packaging.</li>
+        <li>Please do not place shipping labels on product packaging, only place shipping labels on the cardboard shipping box.</li>
+    </ol>
+    <legend>What happens next:</legend>
+    <ul>
+        <li>Print this page.</li>
+        <li>Place the packing slip inside the box with the items you are returning.</li>
+        <li>Affix the returns address label to the outside of your shipping box.</li>
+        <li> Reprint as necessary for each package.</li>
+        <li>If you do not currently have access to a printer, you can write your Return # and return shipping address on the shipping box. </li>
+        <li> Please ship your items to the specified fulfillment center address below.</li>
+    </ul>
+    <legend>Your RMA numbers and their products are:</legend>
+    {% for return in returns %}
+    <ul class="list-unstyled pL25">
+    <li><strong>RMA #:</strong> {{ return.rma }}</li>
+    <li><strong>Quantity:</strong>  {{ return.quantity }}</li>
+    <li><strong>Product Name:</strong>  {{ items[return.item_id].0.name }}</li>
+    <li><strong>Reason:</strong>  {{ return.reason }}</li>
+    </ul>
+    {% endfor %}
 
-<p>You have successfully created a return and a copy of the return instructions below have been emailed to you. In order for us to process your return, your items must meet the following criteria:
-<ol>
-    <li>Items must be unused and returned with the original product tags.</li>
-    <li>Items must be returned in their original, undamaged packaging.</li>
-    <li>Please do not place shipping labels on product packaging, only place shipping labels on the cardboard shipping box.</li>
-</ol>
-What happens next: Print this page and cut on the dashed lines. Place the packing slip inside the box with the items you are returning. Affix the returns address label to the outside of your shipping box. Reprint as necessary for each package. If you do not currently have access to a printer, you can write your Return # and return shipping address on the shipping box. Please ship your items to the specified fulfillment center address below.
-</p>
+    {% set ret_addr = api.get('/location', {query:{return:true}})|first %}
 
-<p>
-Your RMA numbers and their products are:
-</p>
-{% for return in returns %}
-<p>
-RMA #: <b>{{ return.rma }}</b><br>
-Quantity: {{ return.quantity }}<br>
-Product Name: {{ items[return.item_id].0.name }}<br>
-Reason: {{ return.reason }}<br>
-</p>
-{% endfor %}
-
-{% set ret_addr = api.get('/location', {query:{return:true}})|first %}
-
-{% if ret_addr is not empty %}
-    <p>
-    Please ship your returns to:
-    </p>
-    <p>
-        <address>
-            <strong>{{ app.params['site']['title'] }}</strong><br>
-            {{ ret_addr.street_line1 }} {{ ret_addr.street_line2 }}<br>
-            {{ ret_addr.city }}, {{ ret_addr.state }} {{ ret_addr.zip }}<br>
-            {% if app.params['information']['phone_number'] is defined %}
-                <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
-            {% endif %}
-        </address>
-    </p>
-{% endif %}
+    {% if ret_addr is not empty %}
+        <legend>Please ship your returns to:</legend>
+        <p>
+            <address>
+                <strong>{{ app.params['site']['title'] }}</strong><br>
+                {{ ret_addr.street_line1 }} {{ ret_addr.street_line2 }}<br>
+                {{ ret_addr.city }}, {{ ret_addr.state }} {{ ret_addr.zip }}<br>
+                {% if app.params['information']['phone_number'] is defined %}
+                    <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
+                {% endif %}
+            </address>
+        </p>
+    {% endif %}
+            </div>
+        </div>
+    </div>
+</div> 
 {% endblock %}
