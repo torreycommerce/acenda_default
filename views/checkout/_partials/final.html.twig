@@ -6,7 +6,7 @@
         </hgroup>
     </div>
 </div>
-{% if final_order is not empty %}
+{% if response is not empty %}
     <legend><i class="fa fa-thumbs-o-up"></i> Thank You!</legend>
 {% else %}
     <legend><i class="fa fa-exclamation-circle"></i> Checkout: Order Failed</legend>
@@ -18,10 +18,10 @@
     {% do app.user.setState('order_sent', null) %}
     <div id="order-complete">
         <div class="row">
-            <div class="col-md-12">
+            <div class="{{ app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8" }}">
                 <div id="order-details">
                     <div class="well">
-                        {% if final_order is not empty %}
+                        {% if response is not empty %}
                             <h3>Thank You, Your Order is Complete!</h3>
                             <div>We have sent you an e-mail confirmation.</div>
                             {% if request.customer_id is defined %}
@@ -34,7 +34,7 @@
                                     <input type="hidden" name="order[id]" value="{{ final_order.order_number }}" />
                                     <input type="hidden" name="order[email]" value="{{ final_order.email}}" />
                                     <a href="javascript: $('form#view-order').submit();">{{ final_order.order_number }}</a>
-                                </form>
+                                </form>                                
                             {% endif %}
                             <a href="{{app.url}}">Go back to the store</a>.
                             {% set response = api.delete('/sessioncart') %}
@@ -65,7 +65,7 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if final_order is not empty %}
+                {% if response is not empty %}
                 <h3>Items Ordered</h3>
                 <div id="order-items" class="panel-group">
                     {# LOOP Items #}
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                         </div>
-
+                       
                     </div>
                     {% endfor %}
                     {# End loop items #}
@@ -168,7 +168,7 @@
                 </div>
                 {% endif %}
             </div>
-            {% if col_ == "col-md-8 col-lg-8" %}
+            {% if app.user.isLoggedIn() == false %}
             <div class="col-md-4 col-lg-4">
                 <div class="account-create">
                     <div class="well">
@@ -190,7 +190,7 @@
                                     <div class="form-group">
                                         <label for="input2">Verify Password</label>
                                         {{ forms.password('create[confirm_password]', "", {class:'form-control parsley-validated', placeholder:"Retype Password", required:true}) }}
-                                    </div>
+                                    </div>                            
                                     <div class="form-group">
                                         {{ forms.submit('create[action]', 'create', 'Create Account', {class:'btn btn-primary'})}}
                                     </div>
