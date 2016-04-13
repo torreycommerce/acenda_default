@@ -18,7 +18,7 @@
     {% do app.user.setState('order_sent', null) %}
     <div id="order-complete">
         <div class="row">
-            <div class="{{ col_ }}">
+            <div class="col-md-12">
                 <div id="order-details">
                     <div class="well">
                         {% if final_order is not empty %}
@@ -58,9 +58,9 @@
                             {% endif %}
                             <p></p>
                             {% if request.token is defined %}
-                            <a href="{{app.url}}/checkout/paypal">Please try again.</a>
+                            <a href="{{app.url}}/checkout/paypal" class="danger-link">Please try again.</a>
                             {% else %}
-                            <a href="{{app.url}}/checkout/billing">Please try again.</a>
+                            <a href="{{app.url}}/checkout/billing" class="danger-link">Please try again.</a>
                             {% endif %}
                         {% endif %}
                     </div>

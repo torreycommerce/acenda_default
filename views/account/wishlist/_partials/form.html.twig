@@ -44,7 +44,7 @@
       </fieldset>
     <div class="form-actions">
         <div class="form-group">
-            <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Default wishlist
+            <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Default wish list
             </label>
             <div class="col-sm-9 col-md-5 col-lg-5">
                 {{ forms.checkbox('wishlist[make_default]', 1) }}
@@ -62,7 +62,7 @@
                     {% else %}
                     {{ forms.submit('wishlist[action]', 'save', 'Save', {class:'btn btn-primary'})}}
                     <a class="btn btn-default" href="{{ app.url }}/wishlist/{{ wishlist.id }}">Cancel</a>
-                    <a class="btn btn-link btn-link-nopadding" data-toggle="modal" data-target="#delete-modal">Delete this wishlist</a>
+                    <a class="btn btn-link btn-link-nopadding" data-toggle="modal" data-target="#delete-modal">Delete this wish list</a>
                     {% endif %}
                 </div>
             </div>

@@ -69,7 +69,7 @@ fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[d
 section#toolbar {background-color: transparent; font-size:87.5%; padding:10px 0;text-align: right;}
 section#toolbar .popover-content h5 { width: 300px;}
 section#toolbar ul {padding:0;margin:0;}
-section#toolbar ul li {padding: 0 1px;margin:0;}
+section#toolbar ul li {padding: 0;margin:0;}
 section#toolbar ul li:last-child {padding-right: 0;}
 section#toolbar ul li a {background-color: transparent; color: #999; font-size:85%; margin: 0; padding: 8px; text-decoration: none;}
 section#toolbar ul li a:active,
@@ -142,6 +142,7 @@ only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192
 #branding .brand #logo-img a {background-image: url("../images/store-logo-2x.png");background-size: 100% 100%;}}
 #branding .brand #logo-img a span {position: absolute;visibility: hidden;}
 #branding .brand #logo-txt {text-align: left;text-transform: uppercase;}
+@media (max-width: 991px) {#branding .brand #logo-txt {text-align: center;}}
 #branding .brand #logo-txt a {font-size:300%;font-weight: 600;color:#555;}
 #branding .brand #logo-txt a:hover, #branding .brand #logo-txt a:focus {color: #999;}
 /*@media (max-width: 767px) {
@@ -209,48 +210,49 @@ nav#nav-desktop-main ul li a span.caret {border-top-color: #555;border-bottom-co
  
 
 /**** 5-) Footer Styling  ****/
-footer#main {background-color:#333;color:#999;font-size: 80%;padding: 30px 0;}
-footer#main .logo {padding-top: 40px;}
-@media (max-width: 768px){footer#main .logo {padding-top: 0;}}
-footer#main .logo img {max-height: 50px; -webkit-filter: invert(.8);filter: invert(.8);}
-footer#main h4 {font-size: 90%;color: #c7c7c7;font-weight: 600;text-transform:uppercase;}
-footer#main p {font-size: 80%;margin-top: 10px;}
-footer#main .quicklinks {padding-bottom: 10px;}
-footer#main .quicklinks ul li {margin-bottom: 6px;margin-top: 6px;}
-footer#main .quicklinks ul li a {color: #e0e0e0;padding-bottom: 10px;padding-top: 10px;font-size: 90%}
-footer#main .quicklinks ul li a:hover,
-footer#main .quicklinks ul li a:focus {color: #666;text-decoration: none;}
-footer#main .newsletter {padding-bottom: 10px;}
-footer#main .social a {float: left;padding-bottom: 8px;padding-top: 8px;width: 40px;text-align: center;}
-footer#main .social a.facebook {background-color: #999;color: #555;}
-footer#main .social a.facebook:active,
-footer#main .social a.facebook:hover,
-footer#main .social a.facebook:focus {background-color: #0646cd;color: #fff}
-footer#main .social a.twitter {background-color: #999;color: #555;}
-footer#main .social a.twitter:active,
-footer#main .social a.twitter:hover,
-footer#main .social a.twitter:focus {background-color: #1f9eff;color: #fff}
-footer#main .social a.pinterest {background-color: #999;color: #555;}
-footer#main .social a.pinterest:active,
-footer#main .social a.pinterest:hover,
-footer#main .social a.pinterest:focus { background-color: #cf0000;color: #fff}
-footer#main .social a.google-plus {background-color: #999;color: #555;}
-footer#main .social a.google-plus:active,
-footer#main .social a.google-plus:hover,
-footer#main .social a.google-plus:focus {background-color: #e02500;color: #fff}
-footer#main hr {border-color: #999;}
-footer#main ul.copyright {padding-bottom:10px; margin-bottom: 0;margin-top:10px;}
-footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px;}
+footer#footer {background-color:#333;color:#999;font-size: 80%;padding: 30px 0;}
+footer#footer .logo {padding-top: 40px;}
+@media (max-width: 768px){footer#footer .logo {padding-top: 0;}}
+footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.8);filter: invert(.8);}
+footer#footer h4 {font-size: 90%;color: #c7c7c7;font-weight: 600;text-transform:uppercase;}
+footer#footer p {font-size: 80%;margin-top: 10px;}
+footer#footer .quicklinks {padding-bottom: 10px;}
+footer#footer .quicklinks ul li {margin-bottom: 6px;margin-top: 6px;}
+footer#footer .quicklinks ul li a {color: #e0e0e0;padding-bottom: 10px;padding-top: 10px;font-size: 90%}
+footer#footer .quicklinks ul li a:hover,
+footer#footer .quicklinks ul li a:focus {color: #666;text-decoration: none;}
+footer#footer .newsletter {padding-bottom: 10px;}
+footer#footer .social a {float: left;padding-bottom: 8px;padding-top: 8px;width: 40px;text-align: center;}
+footer#footer .social a.facebook {background-color: #999;color: #555;}
+footer#footer .social a.facebook:active,
+footer#footer .social a.facebook:hover,
+footer#footer .social a.facebook:focus {background-color: #0646cd;color: #fff}
+footer#footer .social a.twitter {background-color: #999;color: #555;}
+footer#footer .social a.twitter:active,
+footer#footer .social a.twitter:hover,
+footer#footer .social a.twitter:focus {background-color: #1f9eff;color: #fff}
+footer#footer .social a.pinterest {background-color: #999;color: #555;}
+footer#footer .social a.pinterest:active,
+footer#footer .social a.pinterest:hover,
+footer#footer .social a.pinterest:focus { background-color: #cf0000;color: #fff}
+footer#footer .social a.google-plus {background-color: #999;color: #555;}
+footer#footer .social a.google-plus:active,
+footer#footer .social a.google-plus:hover,
+footer#footer .social a.google-plus:focus {background-color: #e02500;color: #fff}
+footer#footer hr {border-color: #999;}
+footer#footer ul.copyright {padding-bottom:10px; margin-bottom: 0;margin-top:10px;}
+footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px;}
 /**** End Footer Styling  ****/
 
 
 /**** 6-) Shoping Cart Styling   ****/
 #shopping-cart .well, #order-summary .well {background: none;}
-#shopping-cart .item {border-bottom: 1px solid #EEEEEE;font-size: 90%;line-height: 20px;margin-bottom: 20px;padding-bottom: 10px;}
+#shopping-cart .item {border-bottom: 1px solid #EEEEEE;line-height: 20px;margin-bottom: 20px;padding-bottom: 10px;}
 #shopping-cart .item .thumbnail {margin-bottom: 0;}
 #shopping-cart .item .details .item-label {display: inline;}
 #shopping-cart .item .details .name {color: #333333;font-size: 80%;line-height: 21px;}
-#shopping-cart .item .details .pricing {margin-bottom: 10px;}
+#shopping-cart .item .details .availability {font-size: 80%;color:#558C89;}
+#shopping-cart .item .details .pricing {margin-bottom: 10px;font-size: 80%;}
 #shopping-cart .item .details .remove {margin-bottom: 10px;margin-top: 10px;}
 #shopping-cart .item .details .quantity {float: left;width: 100%;}
 @media (min-width: 992px) {#shopping-cart .item .details .quantity .quantity-input-group {float: right;}}
@@ -355,8 +357,8 @@ footer#main ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px
 .product-grid .product .image {text-align:center; margin-bottom:10px;}
 .product-grid .product .image .thumbnail {border:none;background-color:transparent;padding:0;transition: all 0.5s ease;}
 .product-grid .product .image a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {opacity: .7;}
-.product-grid .product .empty-carousel {display: none;}
-.product-grid .product .color-carousel {float: left;display: block;width: 100%;}
+.product-grid .product .empty-carousel {min-height:35px;}
+.product-grid .product .color-carousel {float: left;display: block;width: 100%;min-height:35px;}
 .product-grid .product .color-carousel .carousel {padding-right: 0;padding-left:0;}
 .product-grid .product .color-carousel .thumbnail {border: none;cursor: pointer;margin-bottom: 0;}
 .product-grid .product .color-carousel .thumbnail .btn {background: #eee;border-color: #eee;padding: .3em .5em;}
@@ -666,7 +668,7 @@ label {font-size:80%! important;}
 legend {font-size: 110%;color: #555;font-weight: 600;}
 .valignT {vertical-align: top! important;}
 .breadcrumb {font-size:75%;background: none;padding-left:0;}
-.quantity-input-group .input-group input {width: 4em! important;font-size:70%;}
+.quantity-input-group .input-group input {min-width: 4em! important;}
 h2.section-name{margin-bottom: 20px;}
 .thumbnail {border:transparent;border-radius: 0;}
 .page-header {padding-bottom: 10px;margin: 0px 0 20px;border-bottom: 1px solid #eee;}
@@ -686,6 +688,7 @@ h2.section-name{margin-bottom: 20px;}
     width: 1px !important;
     overflow: hidden;
 }
+.danger-link {color: #b83311;}
 .modal-footer {text-align: left;}
 .maxW100 {max-width: 100px;}
 .fLeft {float: left}
