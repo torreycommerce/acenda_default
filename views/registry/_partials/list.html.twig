@@ -6,7 +6,7 @@
         <i>Please browse the store to add more items.</i><br /><br />  
         <a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
         {% if registry.customer_id == app.user.id %}
-        <a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage registry</a>
+        <a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage Registry</a>
         {% endif %}
     </div>
 </div>
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <header>
                 <hgroup>
-                    <h2 class="registry-name page-header"><i class="fa fa-gift"></i> {{ registry.name }}</h2>
+                    <h1 class="registry-name page-header"><i class="fa fa-gift"></i> {{ registry.name }}</h1>
                 </hgroup>
             </header>
         </div>
@@ -231,15 +231,17 @@
     {# Begin registry menu #}
     <div class="actions">
         <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-sm-9">
                 {% if registry.privacy == 'public' or registry.privacy == 'unlisted' %}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-share"></i> Share this registry :</span>
                     <input class="form-control" style="cursor: copy;" type="text" onclick="this.select()" value="{{ app.url}}/registry/{{registry.id}}" readonly="readonly">
                 </div>
                 {% endif %}
+            </div>
+            <div class="col-sm-3">
                 {% if registry.customer_id == app.user.id %}
-                <a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage registry</a>
+                <a class="btn btn-default pull-right" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage Registry</a>
                 {% endif %}
             </div>
         </div>       

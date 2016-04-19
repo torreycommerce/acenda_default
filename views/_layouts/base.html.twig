@@ -109,7 +109,7 @@
             </div>
             <![endif]-->
         {# Begin Header #}
-            <header id="main">
+            <header>
                 {{ base.protected_site() }}
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
@@ -149,7 +149,7 @@
             </section>
             {# End Content #}
             {# Begin Footer #}
-            <footer id="main">
+            <footer id="footer">
                 <div class="container">
                     {% block footer %}
                     {%include "/_layouts/footer.html.twig"%}

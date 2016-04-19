@@ -26,7 +26,7 @@
     {% if app.request.post.review is defined %}
         {% set review = app.request.post.review + {'customer_id':app.user.id,'status':'pending'} %}
         {% if api.post('/productreview', review) %}
-            {% do app.redirect('/product/' ~ product.slug, {'success':'Your review has been added and will appear once it has been approved.'}) %}
+            {% do app.redirect('/product/' ~ product.slug, {'success':'Thank you. Your review has been submitted for approval.'}) %}
         {% else %}
             {% set form_errors = api.error() %}
         {% endif %}
@@ -36,7 +36,7 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-8 col-md-9 col-lg-10">
-        <h2> Review Product - {{ product.name }} </h2>
+        <h1> Review Product - {{ product.name }} </h1>
         {% if form_errors is not empty %}
             {{ forms.errorlist(form_errors, 'name') }}
         {% endif %}

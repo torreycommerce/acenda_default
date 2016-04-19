@@ -143,7 +143,7 @@ set in the array in /account/_macros/base.html.twig
                         </div>
                         <div class="panel-body">
                             {% if items is empty %}
-                            No recent wishlist items have been found.
+                            No recent wish list items have been found.
                             {% endif %}
                             {% for item in items %}
                                 {% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
