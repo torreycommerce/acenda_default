@@ -12,6 +12,7 @@
             {% if quantity > 0 %}
                 {% set result = api.post('/sessioncartitem', {"product_id":item, "quantity":quantity}) %}
                 {% set result_add = result_add + {(item):result} %}
+                {% do api.post('/sessioncartdiscount/refresh') %}
             {% endif %}
         {% endfor %}
     {% elseif app.request.post.bundles is not empty %}
@@ -24,6 +25,7 @@
                         {% set result_add = result_add + {(variant.id):result} %}
                     {% endfor %}
                     {% set result = api.post('/sessioncartdiscount', {"type":"bundle", "id":bundle_id}) %}
+                    {% do api.post('/sessioncartdiscount/refresh') %}
                 {% endif %}
             {% endif %}
         {% endfor %}
