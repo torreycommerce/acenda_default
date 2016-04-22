@@ -142,6 +142,7 @@ only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192
 #branding .brand #logo-img a {background-image: url("../images/store-logo-2x.png");background-size: 100% 100%;}}
 #branding .brand #logo-img a span {position: absolute;visibility: hidden;}
 #branding .brand #logo-txt {text-align: left;text-transform: uppercase;}
+.printbranding {visibility:hidden;display:none;font-size:12px;}
 @media (max-width: 991px) {#branding .brand #logo-txt {text-align: center;}}
 #branding .brand #logo-txt a {font-size:300%;font-weight: 600;color:#555;}
 #branding .brand #logo-txt a:hover, #branding .brand #logo-txt a:focus {color: #999;}

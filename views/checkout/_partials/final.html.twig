@@ -1,3 +1,20 @@
+{# Begin Branding for Print Page #}
+<div class="row" id="branding" class="print printbranding">
+    <div class="col-md-12 print printbranding mB16 mT0 mB0">
+        <div class="brand print">
+            {% if app.params.logoimages is not empty %}
+                {% set logo_info = app.params.logoimages | first %}
+                {% set logo = logo_info.url %}
+            {% endif %}
+            {% if logo is not empty %}
+              <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
+            {% else %}
+                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{# End Branding for Print Page #}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 <div class="row">
     <div class="col-md-12">
@@ -11,13 +28,12 @@
 {% else %}
     <legend><i class="fa fa-exclamation-circle"></i> Checkout: Order Failed</legend>
 {% endif %}
-
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
 
     {% do app.user.setState('order_sent', null) %}
     <div id="order-complete">
-        <div class="row">
+        <div class="row print">
             <div class="{{ app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8" }}">
                 <div id="order-details">
                     <div class="well">
@@ -202,10 +218,15 @@
             </div>
             {% endif %}
         </div>
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row mT20">
+            <div class="col-md-6">
                 <div id="continue-shopping">
                     <a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="print-page" class="pull-right">
+                    <a href="#" class="btn btn-primary" onclick="window.print();return false;">Print this page</a>
                 </div>
             </div>
         </div>
