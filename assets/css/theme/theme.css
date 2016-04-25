@@ -347,6 +347,7 @@ footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5
 @media (max-width: 992px){.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: left;}}
 .pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {border-radius: 0;}
 .pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {border-radius: 0;}
+.list-sub-categories {margin:0 0 1em;}
 /**** End Category Page Styling   ****/
 
 
@@ -1110,3 +1111,7 @@ h2.section-name{margin-bottom: 20px;}
 .pTxs160 {padding-top: 160px;}
 }
 /**** End Spacing Styling  ****/
+
+/* leeman */
+.fa-fa-gentle .fa {opacity:.5;}
+/* */
