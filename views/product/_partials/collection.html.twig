@@ -300,7 +300,13 @@
                                                                         {# End pricing #}
                                                                         {# Begin estimated shipping #}
                                                                             <ul class="shipping">
-                                                                                <li class="estimated-time" id="stock-text-{{product.id}}">{{ bundle.shipping_estimate }}</li>
+                                                                                <li class="estimated-time" id="stock-text-{{product.id}}">
+                                                                                    {% if bundle.has_stock == '1' %}
+                                                                                        In Stock
+                                                                                    {% else %}
+                                                                                        Out of stock
+                                                                                    {% endif %}
+                                                                                </li>
                                                                             </ul>
                                                                         {# End estimated shipping #}
                                                                         {# Begin product tags #}
