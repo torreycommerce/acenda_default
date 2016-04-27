@@ -433,7 +433,7 @@ footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5
 #collection .panel-default > .panel-heading {background-color: transparent;}
 #collection .estimated-time {color: #000;font-size: 80%;}
 #collection .tab-content {padding:0;}
-#collection .tab-content .panel {border-top: none;font-size:85%;}
+#collection .tab-content .panel {border-top: none;font-size:100%;}
 #collection .tab-content .panel .panel-heading .btn-toolbar {margin-left: 0;}
 #collection .tab-content .panel .panel-heading .btn-toolbar .actions {margin-bottom: 0;}
 #collection .tab-content .panel .panel-heading .btn-toolbar .btn {padding: 6px 6px;}
@@ -669,7 +669,7 @@ label {font-size:80%! important;}
 legend {font-size: 110%;color: #555;font-weight: 600;}
 .valignT {vertical-align: top! important;}
 .breadcrumb {font-size:75%;background: none;padding-left:0;}
-.quantity-input-group .input-group input {min-width: 4em! important;}
+.quantity-input-group .input-group input {min-width: 3.1em! important;}
 h2.section-name{margin-bottom: 20px;}
 .thumbnail {border:transparent;border-radius: 0;}
 .page-header {padding-bottom: 10px;margin: 0px 0 20px;border-bottom: 1px solid #eee;}
@@ -689,6 +689,7 @@ h2.section-name{margin-bottom: 20px;}
     width: 1px !important;
     overflow: hidden;
 }
+.displayN {display: none! important;}
 .danger-link {color: #b83311;}
 .modal-footer {text-align: left;}
 .maxW100 {max-width: 100px;}
