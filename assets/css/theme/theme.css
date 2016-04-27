@@ -42,6 +42,7 @@ h6 {font-size:100%;}
 img {border:none;}
 img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 .img-thumbnail {border-radius: 0;}
+ul, ol {list-style: none;}
 /**** End Global Styling  ****/
 
 
@@ -213,7 +214,7 @@ nav#nav-desktop-main ul li a span.caret {border-top-color: #555;border-bottom-co
 footer#footer {background-color:#333;color:#999;font-size: 80%;padding: 30px 0;}
 footer#footer .logo {padding-top: 40px;}
 @media (max-width: 768px){footer#footer .logo {padding-top: 0;}}
-footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.8);filter: invert(.5);}
+footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.5);filter: invert(.5);}
 footer#footer h4 {font-size: 90%;color: #c7c7c7;font-weight: 600;text-transform:uppercase;}
 footer#footer p {font-size: 80%;margin-top: 10px;}
 footer#footer .quicklinks {padding-bottom: 10px;}
@@ -346,7 +347,10 @@ footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5
 @media (max-width: 992px){.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: left;}}
 .pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {border-radius: 0;}
 .pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {border-radius: 0;}
-.list-sub-categories {margin:0 0 1em;}
+.list-sub-categories {margin:0 0 1em; padding: 15px;font-size: 90%;border: 1px solid #eeeeee;}
+.list-sub-categories .fa-fa-gentle {padding:0;}
+.list-sub-categories li.current-category {font-weight: bold;}
+.list-sub-categories li.sub-category {font-size:90%;}
 /**** End Category Page Styling   ****/
 
 
