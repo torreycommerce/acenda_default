@@ -1,3 +1,20 @@
+{# Begin Branding for Print Page #}
+<div class="row" id="branding" class="print printbranding">
+    <div class="col-md-12 print printbranding mB16 mT0 mB0">
+        <div class="brand print">
+            {% if app.params.logoimages is not empty %}
+                {% set logo_info = app.params.logoimages | first %}
+                {% set logo = logo_info.url %}
+            {% endif %}
+            {% if logo is not empty %}
+              <img class="img-responsive" src="{{ logo }}">
+            {% else %}
+                <div id="logo-txt">{{ app.params.site.title }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{# End Branding for Print Page #}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 <div class="row">
     <div class="col-md-12">
@@ -11,13 +28,158 @@
 {% else %}
     <legend><i class="fa fa-exclamation-circle"></i> Checkout: Order Failed</legend>
 {% endif %}
-
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
 
     {% do app.user.setState('order_sent', null) %}
     <div id="order-complete">
         <div class="row">
+            {# begin print page #}
+            <div class="print printbranding {{ app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8" }}">
+                <div id="order-details">
+                    <div class="well">
+                        {% if final_order is not empty %}
+                            <h3>Thank You, Your Order is Complete!</h3>
+                            <div>We have sent you an e-mail confirmation.</div>
+                            {% if request.customer_id is defined %}
+                                <div class="order-number">
+                                    Order #{{ final_order.order_number }}.
+                                </div>
+                                <div class="order-placed">Order Placed: {{ final_order.date_created|date("F jS, Y") }}</div>
+                            {% else %}
+                                <form name="order", action="{{app.url}}/order", method="POST", class="form-horizontal" id="view-order">
+                                    <input type="hidden" name="order[id]" value="{{ final_order.order_number }}" />
+                                    <input type="hidden" name="order[email]" value="{{ final_order.email}}" />
+                                    {{ final_order.order_number }}
+                                </form>
+                            {% endif %}
+                            {% set response = api.delete('/sessioncart') %}
+                        {% else %}
+                            Order placement failed with the following error(s):
+                            {% if api.error is iterable %}
+                            <ul>
+                                {% for field, errors in api.error %}
+                                <li>
+                                {{field}}
+                                    <ul>
+                                        {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            {{ api.error }}
+                            {% endif %}
+                            <p></p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if final_order is not empty %}
+                <h3>Items Ordered</h3>
+                <div id="order-items" class="panel-group">
+                    {# LOOP Items #}
+                    {% for id, item in items %}
+                    {% set product = products[item.product_id].0 %}
+                    <div class="item panel panel-default">
+                        <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-8 col-sm-9 col-md-9 col-lg-9">
+                                        <h4 class="panel-title">{{item.quantity}} x {{ product.title }}</h4>
+                                    </div>
+                                    {% set price = product.price * item.quantity %}
+                                    {% set subtotal = subtotal + price %}
+                                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                                        <div class="item-total text-right">Price: ${{ product.price|number_format(2, '.') }}</div>
+                                    </div>
+                                </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                    {# End loop items #}
+                </div>
+                <div id="order-totals">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-8">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                    <div class="shipping-address">
+                                        <div><strong>Shipping Address:</strong></div>
+                                        <div class="address">
+                                            <div class="name">{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
+                                            <div class="address1">{{ final_order.shipping_street_line1 }}</div>
+                                            <div class="city-state">{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                    {% if final_order.billing_first_name is not empty %}
+                                        <div class="billing-address">
+                                            <div><strong>Billing Address:</strong></div>
+                                            <div class="address">
+                                                <div class="name">{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
+                                                <div class="address1">{{ final_order.billing_street_line1 }}</div>
+                                                <div class="city-state">{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
+                                                <div class="billing-method">Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-5 col-lg-4">
+                            <div class="order-totals">
+                                <div class="order-subtotal">
+                                    <div class="row">
+                                        <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Subtotal:</div>
+                                        <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">${{ subtotal|number_format(2, '.') }}</div>
+                                    </div>
+                                </div>
+                                <div class="shipping">
+                                    <div class="row">
+                                        <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Shipping:</div>
+                                        <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">${{ final_order.shipping_rate|number_format(2, '.') }}</div>
+                                    </div>
+                                </div>
+                                {% set discount = 0 %}
+                                {% for dsc in coupons %}
+                                    {% set discount = discount + dsc.discount %}
+                                {% endfor %}
+                                {% if discount > 0 %}
+                                <div class="row">
+                                    <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Discount:</div>
+                                    <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+                                        -${{ discount|number_format(2, '.')}}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="pre-tax-total">
+                                    <div class="row">
+                                        <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Total Before Tax:</div>
+                                        <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">${{ (final_order.subtotal + final_order.shipping_rate)|number_format(2, '.') }}</div>
+                                    </div>
+                                </div>
+                                <div class="tax">
+                                    <div class="row">
+                                        <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Sales Tax:</div>
+                                        <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">${{ final_order.tax|number_format(2, '.')}}</div>
+                                    </div>
+                                </div>
+                                <div class="order-total">
+                                    <div class="row">
+                                        <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Total:</div>
+                                        <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">${{ final_order.total|number_format(2, '.') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {# end print page #}
             <div class="{{ app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8" }}">
                 <div id="order-details">
                     <div class="well">
@@ -164,6 +326,7 @@
                 </div>
                 {% endif %}
             </div>
+
             {% if app.user.isLoggedIn() == false %}
             <div class="col-md-4 col-lg-4">
                 <div class="account-create">
@@ -198,10 +361,15 @@
             </div>
             {% endif %}
         </div>
-        <div class="row">
-            <div class="col-md-8">
+        <div class="row mT20">
+            <div class="col-md-6">
                 <div id="continue-shopping">
                     <a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="print-page" class="pull-right">
+                    <a href="#" class="btn btn-primary" onclick="window.print();return false;">Print this page</a>
                 </div>
             </div>
         </div>

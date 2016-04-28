@@ -47,12 +47,6 @@
 					<br>{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}
 					<br>{{ order.shipping_phone_number }}
 					{% endif %}
-					<br><br><b>Using:</b> {{ shipping_method.name }}
-					<br><b>Shipping Method:</b> {{ fulfillment.shipping_method }}
-					<br><b>Tracking number(s):</b>
-					{% for tracking_url in fulfillment.tracking_urls %}
-					<br>{{ tracking_url }}
-					{% endfor %}
 				</td>
 			</tr>
 		</table>

@@ -25,13 +25,13 @@ html,body {background-color:#fff;border:0; color:#555; font-size:100%; margin:0;
 @media screen and (max-width: 767px){body {font-size: 87.5%;}}
 @media screen and (max-width: 1200px){body {font-size: 90%;}}
 /* Link */
-a {color: #555;transition: all 0.5s ease;}
+a {color: #000;transition: all 0.5s ease;}
 a:hover,a:focus {color: #999;text-decoration: none;}
 a.btn-a {line-height: 210%;}
 /*Title*/
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4 
 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small  
-{color:#555; font-family:Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;}
+{color:#333; font-family:Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif;}
 h1 {font-size:170%;}
 h2 {font-size:160%;}
 h3 {font-size:140%;}
@@ -42,6 +42,7 @@ h6 {font-size:100%;}
 img {border:none;}
 img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 .img-thumbnail {border-radius: 0;}
+ul, ol {list-style: none;}
 /**** End Global Styling  ****/
 
 
@@ -119,16 +120,15 @@ section#toolbar .toolbar-mobile .search-main-mobile {padding-top: 10px;}
 section#toolbar .toolbar-mobile a .text {display: none;}
 section#toolbar .toolbar-mobile a .item-count {padding-left: 4px;}}
 section#toolbar .toolbar-mobile .nav-mobile {min-height: 60px;background-color: transparent;font-weight: normal;white-space: nowrap;line-height: 45px;border: none;z-index: 99; padding:15px;}
-section#toolbar .popover {max-width: 80%;}
 section#toolbar .popover .arrow {display: none;}
-section#toolbar .popover .popover-close {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;font-size: 112%;font-weight: 700;}
+section#toolbar .popover .popover-close {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;font-weight: 700;}
 section#toolbar .popover .product {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
 section#toolbar .popover .product .thumbnail {margin: 0;}
-section#toolbar .popover .product .name {font-size: 90%;font-weight: 600;}
+section#toolbar .popover .product .name {font-weight: 600;}
 section#toolbar .popover .product .price,
 section#toolbar .popover .product .quantity,
 section#toolbar .popover .cart-totals .items,
-section#toolbar .popover .cart-totals .total{font-size: 90%;}
+section#toolbar .popover .cart-totals .total{}
 section#toolbar .popover .cart-totals {padding-bottom: 10px;padding-top: 10px;}
 nav#preview-admin-header.navbar-fixed-top {z-index: 9999;background-color:rgba(0,0,0,0.8); }
 nav#preview-admin-header.navbar-fixed-top p a{color:#fff; }
@@ -142,6 +142,7 @@ only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192
 #branding .brand #logo-img a {background-image: url("../images/store-logo-2x.png");background-size: 100% 100%;}}
 #branding .brand #logo-img a span {position: absolute;visibility: hidden;}
 #branding .brand #logo-txt {text-align: left;text-transform: uppercase;}
+.printbranding {visibility:hidden;display:none;font-size:12px;}
 @media (max-width: 991px) {#branding .brand #logo-txt {text-align: center;}}
 #branding .brand #logo-txt a {font-size:300%;font-weight: 600;color:#555;}
 #branding .brand #logo-txt a:hover, #branding .brand #logo-txt a:focus {color: #999;}
@@ -213,7 +214,7 @@ nav#nav-desktop-main ul li a span.caret {border-top-color: #555;border-bottom-co
 footer#footer {background-color:#333;color:#999;font-size: 80%;padding: 30px 0;}
 footer#footer .logo {padding-top: 40px;}
 @media (max-width: 768px){footer#footer .logo {padding-top: 0;}}
-footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.8);filter: invert(.8);}
+footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.5);filter: invert(.5);}
 footer#footer h4 {font-size: 90%;color: #c7c7c7;font-weight: 600;text-transform:uppercase;}
 footer#footer p {font-size: 80%;margin-top: 10px;}
 footer#footer .quicklinks {padding-bottom: 10px;}
@@ -346,6 +347,10 @@ footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5
 @media (max-width: 992px){.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: left;}}
 .pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {border-radius: 0;}
 .pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {border-radius: 0;}
+.list-sub-categories {margin:0 0 1em; padding: 15px;font-size: 90%;border: 1px solid #eeeeee;}
+.list-sub-categories .fa-fa-gentle {padding:0;}
+.list-sub-categories li.current-category {font-weight: bold;}
+.list-sub-categories li.sub-category {font-size:90%;}
 /**** End Category Page Styling   ****/
 
 
@@ -432,7 +437,7 @@ footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5
 #collection .panel-default > .panel-heading {background-color: transparent;}
 #collection .estimated-time {color: #000;font-size: 80%;}
 #collection .tab-content {padding:0;}
-#collection .tab-content .panel {border-top: none;font-size:85%;}
+#collection .tab-content .panel {border-top: none;font-size:100%;}
 #collection .tab-content .panel .panel-heading .btn-toolbar {margin-left: 0;}
 #collection .tab-content .panel .panel-heading .btn-toolbar .actions {margin-bottom: 0;}
 #collection .tab-content .panel .panel-heading .btn-toolbar .btn {padding: 6px 6px;}
@@ -668,7 +673,7 @@ label {font-size:80%! important;}
 legend {font-size: 110%;color: #555;font-weight: 600;}
 .valignT {vertical-align: top! important;}
 .breadcrumb {font-size:75%;background: none;padding-left:0;}
-.quantity-input-group .input-group input {min-width: 4em! important;}
+.quantity-input-group .input-group input {min-width: 3.1em! important;}
 h2.section-name{margin-bottom: 20px;}
 .thumbnail {border:transparent;border-radius: 0;}
 .page-header {padding-bottom: 10px;margin: 0px 0 20px;border-bottom: 1px solid #eee;}
@@ -688,6 +693,7 @@ h2.section-name{margin-bottom: 20px;}
     width: 1px !important;
     overflow: hidden;
 }
+.displayN {display: none! important;}
 .danger-link {color: #b83311;}
 .modal-footer {text-align: left;}
 .maxW100 {max-width: 100px;}
@@ -1109,3 +1115,29 @@ h2.section-name{margin-bottom: 20px;}
 .pTxs160 {padding-top: 160px;}
 }
 /**** End Spacing Styling  ****/
+
+/* leeman */
+.fa-fa-gentle .fa {opacity:.5;}
+
+.popover {
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 0;
+}
+
+#header .popover {
+    left: auto!important;
+    right: 1em;
+    width: 420px;
+    padding: 0;
+    max-width: none;
+}
+
+@media all and (max-width:991px) {
+#header .popover {width:380px;}
+}
+
+@media all and (max-width:599px) {
+#header .popover {left:1em!important; width:auto;}
+}
+/* */

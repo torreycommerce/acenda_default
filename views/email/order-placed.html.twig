@@ -37,6 +37,7 @@
 					<b>Order ID:</b> {{ order.order_number }}
 					<br><b>Date:</b> {{ order.date_created }}
 					<br><br><b>Subtotal:</b> ${{ order.subtotal|number_format(2) }}
+					<br><b>Shipping:</b> ${{ order.shipping_rate|number_format(2, '.') }}
 					<br><b>Tax:</b> ${{order.tax|number_format(2)}}
 					<br><b>Total:</b> ${{order.total|number_format(2)}}
 				</td>
@@ -47,7 +48,7 @@
 					<br>{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}
 					<br>{{ order.shipping_phone_number }}
 					{% endif %}
-					<br><br><b>Using:</b> {{ shipping_method.name }}
+					<br><b>Using:</b> {{ shipping_method.name }}
 				</td>
 			</tr>
 		</table>

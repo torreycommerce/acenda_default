@@ -144,10 +144,22 @@
 ##  Begin Twig template
 ##
 #}
-<div class="row categoryCol"> {# Begin Row #}
+<div class="row categoryCol">
     {# Begin category filters #}
     <section class="category-filters">
         <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+            {% if categories is not empty %}
+            <section class="list-sub-categories hidden-sm hidden-xs">
+                <ul class="fa-fa-gentle">
+                    <li class="current-category">{{ name|default(category.name) }}</li>
+                    {% for category in categories %}
+                    <li class="sub-category fsd1">
+                        <i class="fa fa-angle-right"></i><a href="{{app.url}}/category/{{category.slug}}">{{ category.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
             {% for name,filter_set in filters %}
                 {% if filter_set|length > 1 %}
                     {% set filter_count = filters %}

@@ -4,7 +4,7 @@
     {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
     {% import _self as this %}
     {% import "/_macros/base.html.twig" as base %}
-    <div class="product">
+    <div class="product" itemscope itemtype="http://schema.org/Product">        
         {% if 'image' in options %}
             {# Grab image based on color facets #}
             {# Old Behavior
@@ -21,7 +21,6 @@
               {% set img_url = img_url | replace({'http:':'https:'}) %}
             {% endif %}
             #}
-
             {% if product.images is not empty %}
                 {% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
             {% else %}
@@ -40,7 +39,7 @@
             {# Begin product image #}               
             <div class="image">
                 <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
-                    <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
+                    <img itemprop="image" alt="Product Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
                     <div class="label">
                     {% for tag in product.tags %}
                         {% if tag == 'new' %}
@@ -69,36 +68,59 @@
             {# Begin product details #}
             <a href="{{app.url}}/product/{{product.slug}}">
                 <header>
-                    <div class="brand">{{product.brand}}</div>
-                    <h5 class="product-name">{{product.name}}</h5>             
+                    <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
+                    <h5 class="product-name"><span itemprop="name">{{product.name}}</span></h5>             
                 </header>
+                <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
                 {% set review_score = reviews|average('score') %}
                 <div class="reviews"> 
-                        {% if review_score > 0 %} {{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}
-                            {% if reviews.num_total %}({{ reviews.num_total }})
-                            {% endif %}
+                        {% if review_score > 0 %}<span itemprop="ratingValue">{{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}</span>                 
+                        {% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
                         {% endif %}
-                    </div>
-                <div class="pricing">
-                    {% if product.attributes.price %}
-                    <div class="price">{{ this.price(product.attributes.price) }}</div>
                     {% endif %}
-                    {# if product.attributes.price.0 >= 100 %}
-                    <div class="price-per-month hidden-xs">
-                        <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
+                </div>    
+                </span>
+                {# Begin product description for google rich snippets, not showing in the preview! #}
+                {% if product.description is not empty %}
+                    {% set full_description = product.description %}
+                        <div class="displayN"><span itemprop="description">{{full_description}}</span></div>
+                        <div class="displayN" id="variant-description-{{product.id}}" ></div>
+                {% endif %}
+
+                {% set id = 0 %}
+                {% for sku in product.variant %}
+                    {% set id = id + 1 %}
+                        <div class="sku-details displayN" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
+                {% endfor %} 
+                {% set id = 0 %}
+                {% for barcode in product.variant %}   
+                        <div class="displayN"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
+                {% endfor %}      
+                {# End product descriptiong for google rich snippets, not showing in the preview! #}      
+
+                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <div class="pricing">
+                        {% if product.attributes.price %}
+                        <div class="price"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
+                        <meta itemprop="priceCurrency" content="USD" />
+                        {% endif %}
+                        {# if product.attributes.price.0 >= 100 %}
+                        <div class="price-per-month hidden-xs">
+                            <span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
+                        </div>
+                        {% endif #}
+                        {% if product.attributes.compare_price|max - product.attributes.price|max > 1  %}
+                        <div class="price-regular hidden-xs">Compare at {{ this.price(product.attributes.compare_price) }}</div>
+                        <div class="percent hidden-xs">
+                            Save up to {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}
+                        </div>
+                        {% endif %}  
                     </div>
-                    {% endif #}
-                    {% if product.attributes.compare_price|max - product.attributes.price|max > 1  %}
-                    <div class="price-regular hidden-xs">Compare at {{ this.price(product.attributes.compare_price) }}</div>
-                    <div class="percent hidden-xs">
-                        Save up to {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}
-                    </div>
-                    {% endif %}                
-                </div>
+                </span>              
                 {% set review_score = product.product|values_in('review_score')|merge([product.review_score])|average() %}
                 {% if review_score > 0 %}
-                <div class="rating">{{ base.rating(review_score) }}</div>
+                    <div class="rating">{ base.rating(review_score) }}</span></div>
                 {% endif %}
             </a>               
             {# End product details #}

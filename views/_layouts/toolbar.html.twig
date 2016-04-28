@@ -1,7 +1,7 @@
 {# Begin desktop toolbar #}
 <div class="row hidden-xs hidden-sm">
     <div class="col-md-12">
-        <ul class="list-inline list-unstyled">
+        <ul class="list-inline list-unstyled" id="tools">
             <li> <a href="{{app.url}}/contact">Contact Us</a> </li>
             {% if app.user.id != '' %}
             <li> <a href="{{app.url}}/account/orders">Easy Returns</a> </li>
@@ -49,149 +49,23 @@
             </li>
             {% endif %}
             {# End my account button #}
-            {# Begin cart section #}
-            <li class="cart" data-content="" data-placement='bottom' rel='popover'>
-                {# Begin ajax cart popover #}
-                <div class="ajaxcart" style="display:none">
-                    <div class="popover-close">
-                        <div class="row">
-                            <div class="col-md-7">
-                                Quickcart
-                            </div>
-                            <div class="col-md-5">
-                                <a onclick="$('li.cart').popover('hide')" id="ajaxcart-close" class="btn btn-danger btn-sm pull-right fa fa-times"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row error">
-                    </div>
-                    {# Begin Popover products #}
-                    <section class="ajaxcart-products">
-                        {# Begin product #}
-                        <div class="ajaxcart-product product">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <div class="thumbnail">
-                                        <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="product-image" src="">
-                                    </div>
-                                </div>
-                                <div class="col-xs-8">
-                                    <div class="name">
-                                        <span class="product-name"></span>
-                                    </div>
-                                    <div class="price"><strong>Price:</strong> $<span class="product-price"></span></div>
-                                    <div class="quantity"><strong>Qty:</strong> <span class="product-quantity"></span></div>
-                                </div>
-                            </div>
-                        </div>
-                        {# Begin product #}
-                    </section>
-                    {# End Popover products #}
-                    {# Begin popover cart totals #}
-                    <div class="row">
-                        <div class="col-xs-8 col-xs-offset-4">
-                            <div class="cart-totals">
-                                <div class="items">Item count: <span class="item-count"></span></div>
-                                <div class="total">Subtotal: $<span class="subtotal">0.00</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    {# End popover cart totals #}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{{ app.url }}/cart" class="btn btn-cart btn-block btn-a">My Cart</a>
-                        </div>
-                    </div>
-                </div>
-                {# End ajax cart popover #}
-                {# Begin cart button #}
+            <li class="cart">
                 <a href="{{app.url}}/cart">
                     <i class="fa fa-shopping-cart"></i>
                     <div class="text">My Cart</div>
                     <div class="item-count">{{ api.get('/sessioncart').item_count }}</div>
                 </a>
-                {# End cart button #}
             </li>
-            {# End cart section #}
         </ul>
-    </div>
-</div>
-{# End deskop toolbar #}
-{# Beging Branding and Search #}
-<div class="row" id="branding">
-    <div class="col-md-9 hidden-sm hidden-xs">
-        <div class="brand">
-            {% if app.params.logoimages is not empty %}
-                {% set logo_info = app.params.logoimages | first %}
-                {% set logo = logo_info.url %}
-            {% endif %}
-            {% if logo is not empty %}
-              <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
-            {% else %}
-                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-            {% endif %}
-        </div>
-    </div>
-    {# Begin search bar #}
-    <div class="search col-lg-3 col-md-3 hidden-sm hidden-xs">
-        <form role="search" class="search-form" method="get" action="{{app.url}}/search">
-            <div class="form-group has-feedback input-group twitter-typeahead">
-                <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
-                <span class="input-group-btn form-control-feedback">
-                    <button class="btn btn-md" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
-    </div>
-    {# End search bar #}
-</div>
-{# End Branding end Search #}
-{# Begin mobile toolbar #}
-<div class="row hidden-md hidden-lg" id="branding">
-    <div class="toolbar-mobile">
-        <div class="col-xs-2 nav-mobile">
-        {# Begin navigation button #}
-            <a href="#nav-mobile-main" class="fLeft">
-                <i class="fa fa-bars fa-2x"></i>
-            </a>
-        {# End navigation button #}
-        </div>
-        {# Begin Mobile Logo button #}
-        <div class="col-xs-8 nav-mobile">
-            <div class="brand">
-            {% if app.params.logoimages is not empty %}
-                {% set logo_info = app.params.logoimages | first %}
-                {% set logo = logo_info.url %}
-            {% endif %}
-            {% if logo is not empty %}
-               <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
-            {% else %}
-                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-            {% endif %}
-            </div>
-        </div>
-        {# End Mobile Logo button #}
-        {# Begin cart button #}
-        <div class="col-xs-2 nav-mobile">
-            <a href="{{app.url}}/cart">
-                <i class="fa fa-shopping-cart fa-2x"></i>
-                <div class="item-count">{{ api.get('/sessioncart').item_count }}</div>
-            </a>
-        </div>
-        {# End cart button #}
-        {# End cart button #}
-        <div class="mobile-popover col-xs-12" data-content="">
-            {# Begin ajax cart popover #}
-            <div class="ajaxcart" style="display:none;">
+        <div class="quickcart" data-content="" data-placement='bottom' rel='popover'>
+            <div class="ajaxcart" style="display:none">
                 <div class="popover-close">
                     <div class="row">
-                        <div class="col-md-7 col-xs-10">
-                                Quickcart
+                        <div class="col-md-7">
+                            Quickcart
                         </div>
-                        <div class="col-md-5 col-xs-2">
-                            <a onclick="$('.mobile-popover').popover('hide')" id="ajaxcart-close" class="btn btn-danger btn-sm pull-right fa fa-times"></a>
+                        <div class="col-md-5">
+                            <a id="ajaxcart-close" class="btn btn-danger btn-sm pull-right fa fa-times"></a>
                         </div>
                     </div>
                 </div>
@@ -219,7 +93,6 @@
                     {# Begin product #}
                 </section>
                 {# End Popover products #}
-                {# Begin popover cart totals #}
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-4">
                         <div class="cart-totals">
@@ -228,15 +101,54 @@
                         </div>
                     </div>
                 </div>
-                {# End popover cart totals #}
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{ app.url }}/cart" class="btn btn-cart btn-block">My Cart</a>
+                        <a href="{{ app.url }}/cart" class="btn btn-cart btn-block btn-a">My Cart</a>
                     </div>
                 </div>
             </div>
-            {# End ajax cart popover #}
         </div>
     </div>
+    </div>
+    {# End deskop toolbar #}
+    {# Beging Branding and Search #}
+    <div class="row" id="branding">
+    <div class="col-md-9 hidden-sm hidden-xs">
+        <div class="brand">
+            {% if app.params.logoimages is not empty %}
+                {% set logo_info = app.params.logoimages | first %}
+                {% set logo = logo_info.url %}
+            {% endif %}
+            {% if logo is not empty %}
+              <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
+            {% else %}
+                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+            {% endif %}
+        </div>
+    </div>
+    {# Begin search bar #}
+    <div class="search col-lg-3 col-md-3 hidden-sm hidden-xs">
+        <form role="search" class="search-form" method="get" action="{{app.url}}/search">
+            <div class="form-group has-feedback input-group twitter-typeahead">
+                <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
+                <span class="input-group-btn form-control-feedback">
+                    <button class="btn btn-md" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    {# End search bar #}
+    <div class="nav-mobile pull-left hidden-md hidden-lg">
+        <a href="#nav-mobile-main">
+            <i class="fa fa-bars fa-2x"></i>
+        </a>
+    </div>
+     <div class="nav-mobile pull-right hidden-md hidden-lg">
+        <a href="{{app.url}}/cart">
+            <i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
+        </a>
+    </div>
 </div>
-{# End mobile toolbar #}
+{# End Branding end Search #}

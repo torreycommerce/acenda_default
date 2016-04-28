@@ -1,3 +1,4 @@
+<div itemscope itemtype="http://schema.org/Product">
 <div class="row">
     {# Beging product images #}
     <div id="product-images" class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
@@ -189,6 +190,7 @@
 {# End Product Details #}
 {# Begin Product Tabs #}
 <section id="collection" class="row">
+
     <div class="col-md-12">
         {# Begin tabs nav #}
         <div class="row">
@@ -467,28 +469,47 @@
                                                                         <a href="{{app.url}}/product/{{product.slug}}">
                                                                             <div class="image thumbnail" id="variant-selected-image-{{product.id}}"></div>
                                                                         </a>
+                                                                        <img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
+                                                                            class="displayN" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                     </div>
                                                                     {# End collection product image #}
                                                                     {# Begin collection product details #}
                                                                     <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
                                                                         <div class="details">
+                                                                            <h4 class='name'>
+                                                                                <a href="{{app.url}}/product/{{product.slug}}">
+                                                                                    <span itemprop="name">{{ product.name }}</span>
+                                                                                </a>
+                                                                            </h4>
+                                                                            <a class="displayN" href="{{app.url}}/brand/{{product.brand|url_encode}}">
+                                                                                <span itemprop="brand">{{product.brand}}</span>
+                                                                            </a>
                                                                             {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
                                                                             {% set review_score = reviews|average('score') %}
-                                                                            <h4 class='name'><a href="{{app.url}}/product/{{product.slug}}">{{ product.name }}</a></h4>
-                                                                            <div class="reviews">
-                                                                                {% if review_score > 0 %} {{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}
-                                                                                    {% if reviews.num_total %}
-                                                                                        ({{ reviews.num_total }})
+
+                                                                            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                                                                <div class="reviews">
+                                                                                    {% if review_score > 0 %}
+                                                                                        <span itemprop="ratingValue">{{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}</span>
+                                                                                        {% if reviews.num_total %}
+                                                                                            (<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
+                                                                                        {% endif %}
                                                                                     {% endif %}
-                                                                                {% endif %}
-                                                                            </div>
+                                                                                </div>
+                                                                            </span>
+
                                                                             {# Begin variation dropdown #}
+                                                                            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                                                                 <div class="price" id="product-price-{{product.id}}"></div>
                                                                             {# End variation dropdown #}
                                                                             {# Begin pricing #}
                                                                                 <ul class="pricing" id="pricing-box-{{product.id}}">
                                                                                     {# Begin regular price #}
                                                                                     <li class="regular" id="product-standard-price-{{product.id}}"></li>
+                                                                                    <div class="price displayN">
+                                                                                        <span itemprop="price">{{ product.variant[0].price }}</span>
+                                                                                    </div> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                                    <meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                                     {# End regular price #}
                                                                                     {# Begin percent off #}
                                                                                     <li class="percent" id="save-pricing-{{product.id}}"></li>
@@ -512,10 +533,26 @@
                                                                                     </ul>
                                                                                 {% endif %}
                                                                             {# End product tags #}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="sku-details" id="div-sku-{{product.id}}">
                                                                             <strong>Item:</strong> #<span id="variant-sku-{{product.id}}"></span>
+                                                                            {% set id = 0 %}
+                                                                            {% for sku in product.variant %}
+                                                                                {% set id = id + 1 %}
+                                                                                <span class="displayN" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                            {% endfor %}
+                                                                            {% set id = 0 %}
+                                                                            {% for barcode in product.variant %}
+                                                                                <span class="displayN" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                            {% endfor %}
                                                                         </div>
+                                                                        {# Begin product description for google rich snippets, not showing in the preview! #}
+                                                                        {% if product.description is not empty %}
+                                                                            {% set full_description = product.description %}
+                                                                            <div class="displayN"><span itemprop="description">{{full_description}}</span></div>
+                                                                            <div class="displayN" id="variant-description-{{product.id}}" ></div>
+                                                                         {% endif %}
                                                                     </div>
                                                                     {# End collection product details #}
                                                                 </div>
@@ -598,3 +635,4 @@
     </div>
 </section>
 {# End Product Tabs #}
+</div>
