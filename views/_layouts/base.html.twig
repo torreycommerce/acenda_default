@@ -115,7 +115,7 @@
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Toolbar #}
-                    <section id="toolbar">
+                    <section class="fsd1" id="toolbar">
                         <div class="container">
                             {% block header %}
                                 {%include "/_layouts/toolbar.html.twig"%}

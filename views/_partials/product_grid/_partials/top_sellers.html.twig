@@ -4,7 +4,7 @@
         {# Begin category name #}
         <div class="row">
             <div class="col-md-12">
-                <h1 class="section-name">Top Sellers</h1>
+                <h2 class="section-name">Top Sellers</h2>
             </div>
         </div> 
         {# End category name #}
@@ -26,7 +26,7 @@
                 {% endif %}
                 {% set product_count = product_count + 1 %}
                 {# Begin product #}
-                <div class="col-xs-12 col-sm-3 proClear">
+                <div class="col-xs-6 col-sm-3 proClear">
                     {{ prod.gridproduct(product, ['image','details']) }}
                 </div>
                 {# End product #}
