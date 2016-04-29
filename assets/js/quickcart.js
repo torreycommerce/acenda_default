@@ -31,7 +31,7 @@ $(function() {
     $('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
 });
 
-$j('html').on("click", "#ajaxcart-close", function() {
+$('html').on("click", "#ajaxcart-close", function() {
     $('.popover-content').popover('hide');
 });
 
