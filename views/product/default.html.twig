@@ -33,13 +33,21 @@
 
     {% set category_link = '' %}
 
-    {% for category in item.category|first|split('/') %}
+    {% set main_category = item.category|first %}
+    {% if not main_category and item.category_id|first %}
+        {% set c = api.get('category/' ~ item.category_id|first) %}
+        {% set main_category = c.slug %}
+    {% endif %}
+
+
+    {% for category in main_category|split('/') %}
         {% if category is not empty %}
             {% set category_link = category_link ~ '/' ~ category %}
             {% set category_title = category|replace('-',' ')|title %}
             {% set crumbs = crumbs|merge({(category_title):('/category' ~ category_link)})%}
         {% endif %}
     {% endfor %}
+
 
     {% set crumbs = crumbs|merge({(title):''}) %}
 
