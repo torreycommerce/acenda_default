@@ -4,98 +4,106 @@
             "background": {
                 "body-bg": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "fff"
                 },
                 "footer-bg": {
                     "type": "color",
-                    "value": "333"
+                    "value": "fff"
                 }                                  
             },
             "content": {
                 "text-color": {
                     "type": "color",
-                    "value": "555"
+                    "value": "666"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "555"
+                    "value": "000"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "558c89"
+                    "value": "000"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "555"
+                    "value": "000"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "999"
+                    "value": "000"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "555"
+                    "value": "000"
                 }
             },
             "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "558c89"
+                    "value": "000"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "558c89"
+                    "value": "000"
                 },
                 "primary-btn-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "fff"
                 },
                 "primary-btn-hover-background": {
                     "type": "color",
-                    "value": "365755"
+                    "value": "000"
                 },
                 "primary-btn-hover-border": {
                     "type": "color",
-                    "value": "365755"
+                    "value": "000"
+                },
+                "primary-btn-hover-text": {
+                    "type": "color",
+                    "value": "fff"
                 },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "c0c0c0"
+                    "value": "fff"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "c0c0c0"
+                    "value": "000"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "000"
                 },
                 "secondary-btn-hover-background": {
                     "type": "color",
-                    "value": "a0a0a0"
+                    "value": "000"
                 },
                 "secondary-btn-hover-border": {
                     "type": "color",
-                    "value": "a0a0a0"
+                    "value": "000"
+                },
+                "secondary-btn-hover-text": {
+                    "type": "color",
+                    "value": "fff"
                 }
             },
 
             "footer": {
                 "footer-text-color": {
                     "type": "color",
-                    "value": "e0e0e0"
+                    "value": "inherit"
                 },
-                "footer-text-hover-color": {
+                "footer-link-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "inherit"
+                },
+                "footer-link-hover-color": {
+                    "type": "color",
+                    "value": "inherit"
                 },
                 "footer-header-text": {
                     "type": "color",
-                    "value": "c7c7c7"
-                },
-                "footer-hr": {
-                    "type": "color",
-                    "value": "999999"
+                    "value": "inherit"
                 },
                 "footer-copy": {
                     "type": "color",
@@ -174,8 +182,11 @@
             "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
-                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
+                    "value": "inherit",
                     "options": {
+                        "inherit": {
+                            "inherit": "inherit"
+                        },
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",
                             "Impact, Charcoal, Helvetica, Arial, sans-serif": "Impact",
@@ -206,7 +217,7 @@
             "background": {
                 "body-bg": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "fff"
                 },
                 "footer-bg": {
                     "type": "color",
@@ -216,27 +227,27 @@
             "content": {
                 "text-color": {
                     "type": "color",
-                    "value": "555"
+                    "value": "666"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "000"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "6a4362"
+                    "value": "000"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "333"
+                    "value": "ff5a5f"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "ff5a5f"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "666666"
+                    "value": "666"
                 },
                 "nav-text-hover": {
                     "type": "color",
@@ -250,58 +261,54 @@
             "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "E7214C"
+                    "value": "ff5a5f"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "E7214C"
+                    "value": "ff5a5f"
                 },
                 "primary-btn-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "fff"
                 },
                 "primary-btn-hover-background": {
                     "type": "color",
-                    "value": "c0153a"
+                    "value": "ff5a5f"
                 },
                 "primary-btn-hover-border": {
                     "type": "color",
-                    "value": "c0153a"
+                    "value": "fff"
                 },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "dee0e3"
+                    "value": "fff"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "dee0e3"
+                    "value": "ff5a5f"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "42464d"
+                    "value": "fff"
                 },
                 "secondary-btn-hover-background": {
                     "type": "color",
-                    "value": "e6e6e6"
+                    "value": "ff5a5f"
                 },
                 "secondary-btn-hover-border": {
                     "type": "color",
-                    "value": "e6e6e6"
+                    "value": "ff5a5f"
                 }
             },
 
             "footer": {
                 "footer-text-color": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "666"
                 },
                 "footer-header-text": {
                     "type": "color",
                     "value": "ffffff"
-                },
-                "footer-hr": {
-                    "type": "color",
-                    "value": "999999"
                 },
                 "footer-copy": {
                     "type": "color",
@@ -408,7 +415,7 @@
             "heading_styles": {
                 "heading-typeface": {
                     "type": "dropdown_group",
-                    "value": "Lato, Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
+                    "value": "Open Sans, Lucida Sans, Lucida Grande, Helvetica, sans-serif",
                     "options": {
                         "Sans-Serif": {
                             "Helvetica, Arial, sans-serif": "Helvetica\/Arial",

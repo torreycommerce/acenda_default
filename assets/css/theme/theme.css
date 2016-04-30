@@ -7,7 +7,7 @@ body {font-size:87.5%;}
 }
 
 ul, ol {list-style:none;}
-a {color:#000; transition:all 0.3s ease;}
+a {color:#000;}
 a:hover, a:focus {}
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4
@@ -61,8 +61,9 @@ p:last-child, ul:last-child, ol:last-child {margin-bottom:0;}
 .thumbnail {margin:0; padding:0;}
 .btn {border-radius:0;}
 
-.list-inline {margin-left:-.5em;}
-.list-inline>li {padding-right:.5em; padding-left:.5em;}
+.list-inline {margin-left:-.75em;}
+.list-inline>li {padding-right:.75em; padding-left:.75em;}
+.list-inline-free>li {padding:.75em;}
 
 .navbar {margin:0;}
 .nav>li>a {padding:.75em 1em;}
@@ -247,8 +248,6 @@ section#toolbar { text-align: right; padding:10px 0;}
 
 
 /**** 3-) Toolbar Styling  ****/
-#toolbar ul li {padding: 0;margin:0;}
-#toolbar ul li:last-child {padding-right: 0;}
 #toolbar ul li a {background-color: transparent; color: #999; font-size:85%; margin: 0; padding: 8px; text-decoration: none;}
 #toolbar ul li a:active,
 #toolbar ul li a:focus,
@@ -286,7 +285,7 @@ section#toolbar { text-align: right; padding:10px 0;}
 #toolbar .f-nav .btn-nav-mobile,
 #toolbar .f-nav .btn-primary {border-radius: 0;}
 #toolbar .toolbar-mobile .mobile-popover {margin: 5px 0;}
-#toolbar .toolbar-mobile a i {display: inline-block;}
+#toolbar .toolbar-mobile a i {display: in#branding .brandline-block;}
 #toolbar .toolbar-mobile a .text {display: inline-block;}
 #toolbar .toolbar-mobile a .item-count {display: inline-block;}
 #toolbar .toolbar-mobile .btn-search {width: 3%;}
@@ -308,7 +307,6 @@ section#toolbar { text-align: right; padding:10px 0;}
 nav#preview-admin-header.navbar-fixed-top {z-index: 9999;background-color:rgba(0,0,0,0.8); }
 nav#preview-admin-header.navbar-fixed-top p a{color:#fff; }
 #branding {position: relative;}/* Logo Branding Style*/
-#branding .brand {padding: 0;}
 #branding .brand img {max-height: 80px;}
 #branding .search {position: absolute;right: 0;top: 25%;}
 #branding .brand #logo-img a {background-image: url("../images/store-logo-1x.png");background-position: 0 0;background-repeat: no-repeat;display: block;max-height: 70px;}
@@ -342,8 +340,6 @@ nav#nav-desktop-main .dropdown ul li a{color: #666! important;font-size: 85%;pad
 nav#nav-desktop-main ul li a span.caret {border-top-color: #555;border-bottom-color: #555;margin:0 8px;}
 .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {background-color:transparent! important;}
 .navbar-nav > li:first-child > a {padding-left:0! important;}
-.navbar {margin-bottom:0;}
-.navbar-nav{margin-top:10px;}
 @media (max-width: 767px) {
     .navbar-nav  {display: inline;}
     .navbar-default .navbar-brand {display: inline;}
@@ -386,16 +382,15 @@ nav#nav-desktop-main ul li a span.caret {border-top-color: #555;border-bottom-co
 
 
 /**** 5-) Footer Styling  ****/
-footer#footer {background-color:#333;color:#999;font-size: 80%;padding: 30px 0;}
-footer#footer .logo {padding-top: 40px;}
+footer#footer {background-color:#333;color:#999;padding: 30px 0;}
 @media (max-width: 768px){footer#footer .logo {padding-top: 0;}}
 footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.5);filter: invert(.5);}
 footer#footer h4 {font-size: 90%;color: #c7c7c7;font-weight: 600;text-transform:uppercase;}
 footer#footer .quicklinks {padding-bottom: 10px;}
 footer#footer .quicklinks ul li {margin-bottom: 6px;margin-top: 6px;}
-footer#footer .quicklinks ul li a {color: #e0e0e0;padding-bottom: 10px;padding-top: 10px;font-size: 90%}
+footer#footer .quicklinks ul li a {color: #e0e0e0;}
 footer#footer .quicklinks ul li a:hover,
-footer#footer .quicklinks ul li a:focus {color: #666;text-decoration: none;}
+footer#footer .quicklinks ul li a:focus {color: #666;}
 footer#footer .newsletter {padding-bottom: 10px;}
 footer#footer .social a {float: left;padding-bottom: 8px;padding-top: 8px;width: 40px;text-align: center;}
 footer#footer .social a.facebook {background-color: #999;color: #555;}
@@ -414,9 +409,7 @@ footer#footer .social a.google-plus {background-color: #999;color: #555;}
 footer#footer .social a.google-plus:active,
 footer#footer .social a.google-plus:hover,
 footer#footer .social a.google-plus:focus {background-color: #e02500;color: #fff}
-footer#footer hr {border-color: #999;}
-footer#footer ul.copyright {padding-bottom:10px; margin-bottom: 0;margin-top:10px;}
-footer#footer ul.copyright li {font-size: 80%;padding-left: 5px;padding-right: 5px;}
+
 /**** End Footer Styling  ****/
 
 

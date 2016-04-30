@@ -51,9 +51,7 @@
             {# End my account button #}
             <li class="cart">
                 <a href="{{app.url}}/cart">
-                    <i class="fa fa-shopping-cart"></i>
-                    <div class="text">My Cart</div>
-                    <div class="item-count">{{ api.get('/sessioncart').item_count }}</div>
+                    <i class="fa fa-shopping-cart"></i><span class="text">My Cart</span><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
                 </a>
             </li>
         </ul>

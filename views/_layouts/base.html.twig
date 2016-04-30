@@ -150,13 +150,9 @@
             </section>
             {# End Content #}
             {# Begin Footer #}
-            <footer id="footer">
-                <div class="container">
-                    {% block footer %}
-                    {%include "/_layouts/footer.html.twig"%}
-                    {% endblock %}
-                </div>
-            </footer>
+                {% block footer %}
+                {%include "/_layouts/footer.html.twig"%}
+                {% endblock %}
             {# End Footer #}
         {% endblock %}
         {% block js %}{% endblock %}
