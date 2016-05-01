@@ -48,10 +48,10 @@
 </li>
 {% endmacro %}
 {% macro breadcrumbs(crumbs=[]) %}
-    <div class="hidden-sm hidden-xs row">
+    <div class="hidden-sm hidden-xs row fsd1">
         <div class="col-md-12">
             <ol class="breadcrumb">
-                <li><a href="{{app.url}}"><span class="fa fa-home"></span><span class="visually-hidden"> Home</span></a></li>
+                <li><a href="{{app.url}}">Home</a></li>
                 {% for name,link in crumbs %}
                     {% if link is empty %}
                         <li class="active">{{name}}</li>

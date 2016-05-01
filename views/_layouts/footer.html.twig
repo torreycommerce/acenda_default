@@ -34,8 +34,8 @@
         {% endfor %}
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-v">
-                    <h4 class="section-header">Shop</h4>
+                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+                    <h3 class="section-header">Shop</h3>
                     <ul class="list-unstyled list-inline list-inline-free fsd1">
                         {% set categories = api.get('/category/sapling') %}
                         {% for main_category,items in categories if main_category != "clearance" %}
@@ -48,8 +48,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-v">
-                    <h4 class="section-header">Quick Links</h4>
+                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+                    <h3 class="section-header">Quick Links</h3>
                     <ul class="list-unstyled list-inline list-inline-free fsd1">
                         <li><a href="{{app.url}}/contact">Contact Us</a></li>
                        {% if app.user.id != '' %}
