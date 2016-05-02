@@ -73,7 +73,7 @@
             <a href="{{app.url}}/product/{{product.slug}}">
                 <header>
                     <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
-                    <h5 class="product-name"><span itemprop="name">{{product.name}}</span></h5>             
+                    <div class="product-name"><span itemprop="name">{{product.name}}</span></div>             
                 </header>
                 <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}

@@ -56,7 +56,12 @@
     </div>
 </div>
 <div class="row" id="branding">
-    <div class="col-md-offset-3 col-md-6 text-center">
+    <div class="col-xs-3 col-v nav-mobile hidden-md hidden-lg">
+        <a class="pull-left" href="#nav-mobile-main">
+            <i class="fa fa-bars fa-2x"></i>
+        </a>
+    </div>
+    <div class="col-md-offset-3 col-md-6 col-xs-6 text-center">
         <div class="brand">
             {% if app.params.logoimages is not empty %}
                 {% set logo_info = app.params.logoimages | first %}
@@ -68,6 +73,11 @@
                 <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
             {% endif %}
         </div>
+    </div>
+    <div class="col-xs-3 col-v nav-mobile hidden-md hidden-lg">
+        <a class="pull-right" href="{{app.url}}/cart">
+            <i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
+        </a>
     </div>
     {# Begin search bar #}
     <div class="search col-lg-3 col-md-3 hidden-sm hidden-xs">
@@ -132,16 +142,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="nav-mobile pull-left hidden-md hidden-lg">
-        <a href="#nav-mobile-main">
-            <i class="fa fa-bars fa-2x"></i>
-        </a>
-    </div>
-     <div class="nav-mobile pull-right hidden-md hidden-lg">
-        <a href="{{app.url}}/cart">
-            <i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
-        </a>
     </div>
 </div>
 {# End Branding end Search #}
