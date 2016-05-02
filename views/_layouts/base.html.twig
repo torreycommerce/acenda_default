@@ -127,11 +127,9 @@
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Navigation #}
-                    <nav id="main">
+                    <nav id="nav">
                         <div class="container">
-                            <div class="row">
-                                {% include "/_layouts/nav.html.twig" %}
-                            </div>
+                            {% include "/_layouts/nav.html.twig" %}
                         </div>
                     </nav>
                     {# End Navigation #}
@@ -157,7 +155,6 @@
         {% endblock %}
         {% block js %}{% endblock %}
     </div>
-</body>
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
@@ -185,22 +182,22 @@
         </div>
     </nav>
 <script>
-    $(document).ready(function() {
-        var timer=0;
-        timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        $('#preview-admin-header').hover(function() {
-            clearTimeout(timer);
-        },function() {
-            if(timer) clearTimeout(timer);
-                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        })
-        $(window).scroll(function() {
-            $('#preview-admin-header').fadeIn('slow');
-            if(timer) clearTimeout(timer);
-                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        });
+$(document).ready(function() {
+    var timer=0;
+    timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+    $('#preview-admin-header').hover(function() {
+        clearTimeout(timer);
+    },function() {
+        if(timer) clearTimeout(timer);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+    })
+    $(window).scroll(function() {
+        $('#preview-admin-header').fadeIn('slow');
+        if(timer) clearTimeout(timer);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
     });
-
+});
 </script>
 {% endif %}
+</body>
 </html>

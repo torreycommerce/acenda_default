@@ -1,40 +1,37 @@
 {% set categories = api.get('/category/sapling') %}
-<!-- NAV -->
 {% spaceless %}
-{# Begin desktop nav #}
-<nav id="nav-desktop-main" class="navbar col-md-12 hidden-sm hidden-xs" role="navigation">            
-    <ul class="nav navbar-nav">
-        {% for main_category,items in categories if main_category != "clearance" %}
-            {% if items.limb|length %}
-                <li class="dropdown">
-                    <a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown">
-                        {{main_category|replace('-',' ')|title}} <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for category,subitems in items.limb %}
-                            {% if subitems.limb|length %}
-                                  {{ base.subcategory(category,subitems) }}
-                            {% else %}
-                                <li>
-                                    <a href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    <div class="row">
-        <div class="col-md-12">
-            <hr>
-        </div>
+<div class="row hidden-sm hidden-xs">
+    <div class="col-md-12">
+        <nav id="nav-desktop-main" class="navbar" role="navigation">            
+            <ul class="nav navbar-nav">
+                {% for main_category,items in categories if main_category != "clearance" %}
+                    {% if items.limb|length %}
+                        <li class="dropdown">
+                            <a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown">
+                                {{main_category|replace('-',' ')|title}} <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for category,subitems in items.limb %}
+                                    {% if subitems.limb|length %}
+                                          {{ base.subcategory(category,subitems) }}
+                                    {% else %}
+                                        <li>
+                                            <a href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
     </div>
-</nav>
+</div>
 {# End desktop nav #}
 
 {# Begin mobile navigation menu #}

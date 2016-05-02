@@ -54,6 +54,7 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 .breadcrumb {padding:0 0 1em; background:none;}
 
+.well {padding:1.5em; background-color:#fefefe; border-radius:0; box-shadow:none;}
 label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 .input-group-btn {/*font-size:100%;*/}
 .btn {/*font-size:87.5%;*/ font-weight:300; text-transform:uppercase; transition:all 0.3s ease;}
@@ -75,13 +76,16 @@ fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[d
 
 .thumbnail {border:transparent;border-radius: 0;}
 
+.dropdown-menu {font-size:inherit; border-radius:0; box-shadow:0 2px 5px rgba(0, 0, 0, .2);}
+.dropdown-menu > li > a {padding:.5em 1em;}
+.dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {color:#000;}
 
 .panel {padding:1em;}
 .tab-content .panel {border-top:none;}
 .panel-body {padding:0;}
 .form-group {margin-bottom:1em;}
 .form-group:last-child {margin-bottom:0;}
-.form-control {border:1px solid #888; border-radius:0;}
+.form-control {border:1px solid #aaa; border-radius:0;}
 textarea.form-control {resize:vertical;}
 .img-thumbnail {border-radius: 0;}
 ul, ol {margin-bottom:1em; padding:0;}
@@ -115,6 +119,8 @@ p:last-child, ul:last-child, ol:last-child {margin-bottom:0;}
 @media (max-width:767px) {
 .container {padding-left:1em; padding-right:1em;}
 
+.well {padding:1.0em;}
+
 }
 /* */
 
@@ -145,6 +151,7 @@ h2.section-name {margin-bottom:2em;}
 #toolbar ul {padding:0; margin:0;}
 #toolbar .tool-a {font-weight:300; text-transform:uppercase;}
 #toolbar .tool-a:active, #toolbar .tool-a:focus, #toolbar .tool-a:hover {}
+#header .dropdown-menu {min-width:0;}
 #header .cart .item-count {display:inline-block; min-width:1.25em; margin:0 0 0 .5em; text-align:center;}
 #header .popover {left:auto!important; right:1em; width:420px; padding:0; max-width:none;}
 #header .popover>.arrow {display:none;}
@@ -156,7 +163,8 @@ h2.section-name {margin-bottom:2em;}
 #header .form-group {margin:0;}
 #branding {position: relative;}
 #branding .brand #logo-txt a {font-size:240%;}
-#branding .brand img {max-height: 80px;}
+#branding .brand img {max-height:80px;}
+
 
 #content {padding:1em 0 2em;}
 
@@ -293,9 +301,6 @@ section#toolbar .btn-group.my-account a:hover span.caret {}
 section#toolbar .btn-group.my-account a:active,
 section#toolbar .btn-group.my-account a:focus,
 section#toolbar .btn-group.my-account a:hover {}
-section#toolbar .btn-group.my-account .dropdown-menu {border-radius: 0 0 4px 4px;}
-section#toolbar .btn-group.my-account .dropdown-menu li {padding: 0;}
-section#toolbar .btn-group.my-account .dropdown-menu li a {background-color: transparent; text-align: center;-webkit-border-radius: 0px;-moz-border-radius: 0px;-ms-border-radius: 0px;-o-border-radius: 0px;border-radius: 0px;}
 section#toolbar .btn-group.my-account .dropdown-menu li a:active,
 section#toolbar .btn-group.my-account .dropdown-menu li a:focus,
 section#toolbar .btn-group.my-account .dropdown-menu li a:hover {background-color:#f5f5f5;}
@@ -341,10 +346,10 @@ nav#preview-admin-header.navbar-fixed-top p a{color:#fff; }
 /**** 4-) Navbar Menu Styling  ****/
 .dropdown-menu > li.kopie > a {padding-left:5px;}
 .dropdown-submenu {position:relative;text-align: left;}
-.dropdown-submenu>.dropdown-menu {top:0;left:100%;margin-left:0;-webkit-border-radius:0 0 4px 4px;-moz-border-radius:0 0 4px 4px;border-radius:0 0 4px 4px;} 
+.dropdown-submenu>.dropdown-menu {top:0;left:100%;margin-left:0;} 
 .dropdown-submenu > a:after {border-color: transparent transparent transparent #333;border-style: solid;border-width: 5px 0 5px 5px;content: " "; display: block;float: right;  height: 0;}
 .dropdown-submenu:hover>a:after {border-left-color:#555;}
-.dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {text-decoration: none;opacity: .7;}  
+
 nav#nav-desktop-main ul li a {color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};}
 nav#nav-desktop-main .dropdown ul li a{color: #666! important;font-size: 85%;padding: 12px;}
 nav#nav-desktop-main ul li a span.caret {border-top-color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};border-bottom-color: #{{ settings["colors"]["content"]["nav-text-color"]["value"] }};margin:0 8px;}
@@ -815,9 +820,8 @@ display: block;font-size: 70%;height: 33px;min-width: 33px;padding-top: 5px;text
 /**** End Variants Styling  ****/
 
 /**** 11-) Other Styling  ****/
-.well {border-radius:0;background-color: #F3F3F3;}
+
 .alert {border-radius: 0;color:#555;}
-legend {font-size: 110%;color: #555;font-weight: 600;}
 .valignT {vertical-align: top! important;}
 
 .cBoth{clear: both;}
