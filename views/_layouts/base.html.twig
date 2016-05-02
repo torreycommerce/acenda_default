@@ -110,12 +110,12 @@
             </div>
             <![endif]-->
         {# Begin Header #}
-            <header>
+            <header id="header">
                 {{ base.protected_site() }}
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Toolbar #}
-                    <section id="toolbar">
+                    <section class="fsd1 text-right" id="toolbar">
                         <div class="container">
                             {% block header %}
                                 {%include "/_layouts/toolbar.html.twig"%}
@@ -127,11 +127,9 @@
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Navigation #}
-                    <nav id="main">
+                    <nav id="nav">
                         <div class="container">
-                            <div class="row">
-                                {% include "/_layouts/nav.html.twig" %}
-                            </div>
+                            {% include "/_layouts/nav.html.twig" %}
                         </div>
                     </nav>
                     {# End Navigation #}
@@ -150,18 +148,13 @@
             </section>
             {# End Content #}
             {# Begin Footer #}
-            <footer id="footer">
-                <div class="container">
-                    {% block footer %}
-                    {%include "/_layouts/footer.html.twig"%}
-                    {% endblock %}
-                </div>
-            </footer>
+                {% block footer %}
+                {%include "/_layouts/footer.html.twig"%}
+                {% endblock %}
             {# End Footer #}
         {% endblock %}
         {% block js %}{% endblock %}
     </div>
-</body>
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
@@ -189,22 +182,22 @@
         </div>
     </nav>
 <script>
-    $(document).ready(function() {
-        var timer=0;
-        timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        $('#preview-admin-header').hover(function() {
-            clearTimeout(timer);
-        },function() {
-            if(timer) clearTimeout(timer);
-                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        })
-        $(window).scroll(function() {
-            $('#preview-admin-header').fadeIn('slow');
-            if(timer) clearTimeout(timer);
-                timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
-        });
+$(document).ready(function() {
+    var timer=0;
+    timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+    $('#preview-admin-header').hover(function() {
+        clearTimeout(timer);
+    },function() {
+        if(timer) clearTimeout(timer);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+    })
+    $(window).scroll(function() {
+        $('#preview-admin-header').fadeIn('slow');
+        if(timer) clearTimeout(timer);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
     });
-
+});
 </script>
 {% endif %}
+</body>
 </html>

@@ -38,8 +38,12 @@
 
             {# Begin product image #}               
             <div class="image">
-                <a class="thumbnail" href="{{app.url}}/product/{{product.slug}}"> 
-                    <img itemprop="image" alt="Product Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
+                <a href="{{app.url}}/product/{{product.slug}}">
+                    <span class="image-space">
+                        <span class="isd">
+                            <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
+                        </span>
+                    </span>
                     <div class="label">
                     {% for tag in product.tags %}
                         {% if tag == 'new' %}

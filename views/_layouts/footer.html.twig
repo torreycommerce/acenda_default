@@ -1,48 +1,62 @@
-{# avoiding the display of the menu when we're in the store-protected template #}
-{% if app.request.url != "store-protected" %}
-    <div class="row">
-        <div class="col-md-12">
-            <hr>
-        </div>
-    </div>
-    <div class="row quicklinks">
-        <div class="col-xs-12 col-sm-3">
-            <div class="logo">
-            {% if app.params.logoimages is not empty %}
-                {% set logo_info = app.params.logoimages | first %}
-                {% set logo = logo_info.url %}
-            {% endif %}
-            {% if logo is not empty %}
-              <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
-            {% else %}
-                <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-            {% endif %}
+<footer class="text-center" id="footer">
+    {% if app.request.url != "store-protected" %}
+    <section class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-xs-12 col-v">
+                    <h2 class="section-header">Sign-Up for Exclusive Offers!</h2>
+                    <p>Be the first to hear about our products and promotions.</p>
+                    <br>
+                    {{ newsletterform.begin('newsletter',app.url ~ '/newsletter') }}
+                        <div class="input-group">
+                            <input id="NewsLInput" type="search" placeholder="Email Address" class="form-control" name="email">
+                            <div class="input-group-btn">
+                                <button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Sign-Up</button>
+                            </div>
+                        </div>
+                    {{ newsletterform.end() }}
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-3">
-            <h4>Quicklinks</h4>
+    </section>
+    <section class="content-list">
+        {# get content available #}
+        {% set contents = api.get('/content',{
+            'query':{
+                'publish':'1'
+                    }    
+            })
+        %}
+        {# Build array with available content slugs #}
+        {% set contents_available = [] %}
+        {% for content in contents %}
+        {% set contents_available = contents_available|merge([content.slug]) %}
+        {% endfor %}
+        <div class="container">
             <div class="row">
-                 {# get content available #}
-                {% set contents = api.get('/content',{
-                        'query':{
-                            'publish':'1'
-                                }    
-                        })
-                %}
-                {# Build array with available content slugs #}
-                {% set contents_available = [] %}
-                {% for content in contents %}
-                {% set contents_available = contents_available|merge([content.slug]) %}
-                 {% endfor %}
-                <div class="col-xs-12">
-                    <ul class="list-unstyled">
-                              <li><a href="{{app.url}}/contact">Contact Us</a></li>
+                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+                    <h3 class="section-header">Shop</h3>
+                    <ul class="list-unstyled list-inline list-inline-free fsd1">
+                        {% set categories = api.get('/category/sapling') %}
+                        {% for main_category,items in categories if main_category != "clearance" %}
+                        <li>
+                            <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
+                        </li>
+                        {% endfor %}
+                        <li><a href="{{app.url}}/cart">Shopping Cart</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+                    <h3 class="section-header">Quick Links</h3>
+                    <ul class="list-unstyled list-inline list-inline-free fsd1">
+                        <li><a href="{{app.url}}/contact">Contact Us</a></li>
                        {% if app.user.id != '' %}
                             <li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
                             {% else %}
                             <li> <a href="{{app.url}}/order">Order Status</a> </li>
                             {% endif %}
-                            <li><a href="{{app.url}}/cart">Shopping Cart</a></li>
                             {% if app.user.id is null %}
                             <li><a href="{{app.url}}/registry/search">Gift Registry</a></li>
                             {% else %}
@@ -60,40 +74,33 @@
                     </ul>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-3">
-        {# Social Network Icons if found in config file #}
-        {# if social settings is not set in the config file, just do nothing #}
-        {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-          {{ social.social_parseConfig(app.params.social_settings) }}
-        {% endif %}
-        {# End Social Network Icons #}
-        </div>
-        
-        <div class="col-xs-8 col-sm-3">
-            <div class="newsletter">
-                <h4>Email Newsletter</h4>
-                {{ newsletterform.begin('newsletter',app.url ~ '/newsletter') }}
-                <div class="input-group">
-                    <input id="NewsLInput" type="search" placeholder="Email Address" class="form-control input-md" name="email">
-                    <div class="input-group-btn">
-                        <button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Subscribe</button>
-                    </div>
+            {# Social Network Icons if found in config file #}
+            {# if social settings is not set in the config file, just do nothing #}
+            {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+            <div class="row">
+                <div class="col-xs-12 col-v">
+                      {{ social.social_parseConfig(app.params.social_settings) }}
                 </div>
-                {{ newsletterform.end() }}
+            </div>
+
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}
+    <section class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <ul class="list-unstyled list-inline list-inline-free fsd1">
+                        <li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}, 12515 Cerise Ave. Hawthorne, CA 90250, USA - Registered in the United States of America.</li>
+                        <li>All Rights Reserved.</li>
+                        <li>Powered by Acenda.</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-{% endif %}
-<div class="row">
-    <div class="col-md-12 text-center">
-        <ul class="copyright list-unstyled list-inline">
-            <li>Copyright &copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
-            <li>All Rights Reserved.</li>
-            <li>Powered by Acenda.</li>
-        </ul>
-    </div>
-</div>
+    </section>
+</footer>
 {% set request = app.request.url | split('/') %}
 {% if request.0 != 'checkout' and app.params['live_chat']['active_chat'] is defined and app.params['live_chat']['active_chat'] == true
 and app.params['live_chat']['chat_licence'] is defined and app.params['live_chat']['chat_licence'] is not empty %}
