@@ -17,9 +17,10 @@
 {% endif %}
 
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% extends "/_layouts/base.html.twig" %}
 
-{% set title = 'Account login' %}
+{% set title = 'Account Login' %}
 
 {% block title %}{{title}}{% endblock %}
 
@@ -32,40 +33,24 @@
 {% endblock %}
 
 {% block content %}
-<div id="account">
-	{# Begin page header #}
-	<div class="row">
-		<div class="col-md-12">
-			<header>
-				<h1 class="page-header"><i class="fa fa-sign-in"></i> {{ title|title }}</h1>
-			</header>
-		</div>
-	</div>
-	{# End page header #}
-	<div class="row">
-		<div class="col-md-6 col-lg-6">
-			<div class="well">
-				{# Begin Login #}
-				<div class="account-login">
-					<h2>Do you have a {{ app.params.site.title }} account?</h2>
-					<hr>
-					{% include "/account/login/_partials/form.html.twig" %}
-				</div>
-				{# End Login #}
-			</div>
-		</div>
-		<div class="col-md-6 col-lg-6">
-			<div class="well">
-				{# Begin create account #}
-				<div class="account-create">
-					<h2>Create a new account</h2>
-					<hr>
-					<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more. </p>
-					<a class="btn btn-primary" href="{{app.url}}/account/create/{{ app.request.path }}">Create Account</a>
-				</div>
-				{# End create account #}
-			</div>
-		</div>
+<div class="row">
+	<div class="col-md-12">
+		<header>
+			<h1 class="page-header">{{ title|title }}</h1>
+		</header>
 	</div>
 </div>
+{{ lonelyform.begin('account-login')}}
+    {{ lonelyform.beginintro() }}
+		<h3>Do you have a {{ app.params.site.title }} account?</h3>
+	{{ lonelyform.endintro() }}
+	{% include "/account/login/_partials/form.html.twig" %}
+{{ lonelyform.end() }}
+{{ lonelyform.begin('account-login')}}
+    {{ lonelyform.beginintro() }}
+		<h3>Create a new account</h3>
+		<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more. </p>
+		<a class="btn btn-lg btn-primary" href="{{app.url}}/account/create/{{ app.request.path }}">Create Account</a>
+	{{ lonelyform.endintro() }}
+{{ lonelyform.end() }}
 {% endblock %}
