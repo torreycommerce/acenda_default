@@ -412,7 +412,7 @@ footer#footer {
     color: inherit;
 }
 @media (max-width: 768px){footer#footer .logo {padding-top: 0;}}
-footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.8);filter: invert(.8);}
+footer#footer .logo img {max-height: 50px; -webkit-filter: invert(.5);filter: invert(.5);}
 footer#footer .title {
     color: #000;
     text-transform:uppercase;
@@ -590,7 +590,7 @@ footer#footer .newsletter {padding-bottom:2em;}
 .notavailable p {height: 29px;width: 29px;background: none;margin: 0;padding-top: 5px;}
 
 
-.quantity-input-group .input-group input {width:4em;}
+.quantity-input-group .input-group input {min-width: 3.1em! important;}
 
 #product-tabs .panel ul {padding:0 1em 0 2em;}
 
@@ -844,6 +844,8 @@ table.yiiLog {display: none;}
     width: 1px !important;
     overflow: hidden;
 }
+.displayN {display: none! important;} /* DONOT touch This*/
+.danger-link {color: #b83311;}
 .modal-footer {text-align: left;}
 .maxW100 {max-width: 100px;}
 /**** End Other Styling   ****/
