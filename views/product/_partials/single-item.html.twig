@@ -130,7 +130,7 @@
                             </li>
                         {% endif %}
                         <li class="submit">
-                            <a href="{{ app.url }}/review/id/{{product.id}}">Write a review</a>
+                            <a class="btn btn-secondary" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
                         </li>
                     </ul>
                 </span>
@@ -165,7 +165,7 @@
                                     <div class="row">
                                        <div class="form-group col-xs-2">
                                             <div class="quantity-input-group">
-                                                <label for="quantity-selector" class="control-label"><strong>Qty</strong></label>
+                                                <label for="variant-input-{{product.id}}" class="control-label">Qty</label>
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>

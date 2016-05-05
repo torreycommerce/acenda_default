@@ -559,19 +559,19 @@ function VariantsManager (product, img, isCollection) {
             //Color styling
             if( selectName.toLowerCase() == "color"){
                 if(_this.isCollection){
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "color-details-collection"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details-collection"});
                 }else{
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "color-details"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details"});
                 }
 
-                var ul = $('<ul>', {"class": "swatches Color"});
+                var ul = $('<ul>', {"class": "swatches swatches-color"});
                 var span = $('<span>', {"class": "selected-color"}).append(
                                 $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
-                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "size-details"});
-                var ul = $('<ul>', {"class": "swatches-size Size"});
+                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details size-details"});
+                var ul = $('<ul>', {"class": "swatches swatches-size"});
                 var span = $('<span>', {"class": "selected-size"}).append(
                                 $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
