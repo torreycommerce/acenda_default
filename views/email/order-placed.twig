@@ -11,8 +11,10 @@ This email is to confirm your recent order.
 
 Order ID: {{ order.order_number }}
 Date: {{ order.date_created }}
-Subtotal: ${{ order.subtotal|number_format(2) }}
+Subtotal: ${{ order.item_subtotal|number_format(2) }}
 Shipping: ${{ order.shipping_rate|number_format(2, '.') }}
+Discount: ${{ order.discount_price|number_format(2) }}
+Total Before Tax : ${{ order.adjusted_subtotal|number_format(2) }}
 Tax: ${{order.tax|number_format(2)}}
 Total: ${{order.total|number_format(2)}}
 
