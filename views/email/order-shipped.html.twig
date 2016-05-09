@@ -38,7 +38,9 @@
 					<br><b>Date:</b> {{ order.date_created }}
 					<br><br><b>Subtotal:</b> ${{ order.item_subtotal|number_format(2) }}
 					<br><b>Shipping:</b> ${{ order.shipping_rate|number_format(2, '.') }}
-                    <br><b>Discount:</b> ${{ order.discount_price|number_format(2, '.') }}
+                    {% if order.discount_price > 0 %}
+                        <br><b>Discount:</b> ${{ order.discount_price|number_format(2, '.') }}
+                    {% endif %}
                     <br><b>Total Before Tax:</b> ${{ order.adjusted_subtotal|number_format(2, '.') }}
 					<br><b>Tax:</b> ${{order.tax|number_format(2)}}
 					<br><b>Total:</b> ${{order.total|number_format(2)}}

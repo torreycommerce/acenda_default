@@ -20,7 +20,13 @@
 		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
 			<tr>
 				<td align="center">
-					<a href="{{app.url}}"><img src="{{logo}}" width="134" height="85" border="0" alt="" style="display:block;"></a>
+					<a href="{{app.url}}">
+                        {% if logo is not empty %}
+                            <img src="{{logo}}" width="134" height="85" border="0" alt="" style="display:block;">
+                        {% else %}
+                            <h1>{{ params['site']['title'] }}</h1>
+                        {% endif %}
+                    </a>
 				</td>
 			</tr>
 		</table>
