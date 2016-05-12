@@ -40,9 +40,7 @@
             <div class="image">
                 <a href="{{app.url}}/product/{{product.slug}}">
                     <span class="image-space">
-                        <span class="isd">
-                            <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive" data-image-source="{{ image_url }}">
-                        </span>
+                        <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}">
                     </span>
                     <div class="label">
                     {% for tag in product.tags %}
