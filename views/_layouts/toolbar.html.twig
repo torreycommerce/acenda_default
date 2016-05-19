@@ -10,7 +10,7 @@
             {% endif %}
             {% if app.user.id is null %}
             <li class="tool">
-                 <div class="btn-group my-account">
+                 <div class="my-account">
                     <a type="button" href="#" id="dropdown-account" class="tool-a dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>My Account<span class="caret"></span>
                     </a>
@@ -30,7 +30,7 @@
             {% else %}
             {% set customer = api.get('/customer/' ~ app.user.id) %}
             <li class="tool">
-                <div class="btn-group my-account">
+                <div class="my-account">
                     <a type="button" href="#" id="dropdown-account" class="tool-a dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>{{ customer.first_name }}<span class="caret"></span>
                     </a>

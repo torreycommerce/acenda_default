@@ -12,7 +12,7 @@ a:hover, a:focus {color:#000;}
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4 
 small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small  {color:#000;}
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {margin-top:1em; margin-bottom:.5em; font-weight:300; text-transform:uppercase;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {margin-top:1em; margin-bottom:.5em; font-weight:300;}
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
 h1 {font-size:200%;}
 h2 {font-size:160%;}
@@ -74,7 +74,6 @@ fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[d
 .btn-link:hover, .btn-link:focus, .btn-link:active {color:#000;}
 
 
-.thumbnail {border:transparent;border-radius: 0;}
 
 .dropdown-menu {font-size:inherit; border-radius:0; box-shadow:0 2px 5px rgba(0, 0, 0, .2);}
 .dropdown-menu > li > a {padding:.5em 1em;}
@@ -91,7 +90,7 @@ textarea.form-control {resize:vertical;}
 ul, ol {margin-bottom:1em; padding:0;}
 p:last-child, ul:last-child, ol:last-child {margin-bottom:0;}
 
-.thumbnail {margin:0; padding:0;}
+.thumbnail {margin:0; padding:0; border:none; border-radius:0;}
 .btn {border-radius:0;}
 
 .list-inline {margin-left:-.75em;}
@@ -151,7 +150,7 @@ h2.section-name {margin-bottom:1em;}
 .pricing .percent {color:red;}
 
 #toolbar ul {padding:0; margin:0;}
-#toolbar .tool-a {font-weight:300; text-transform:uppercase;}
+#toolbar .tool {position:relative;}
 #toolbar .tool-a:active, #toolbar .tool-a:focus, #toolbar .tool-a:hover {}
 #header .dropdown-menu {min-width:0;}
 #header .cart .item-count {display:inline-block; min-width:1.25em; margin:0 0 0 .5em; text-align:center;}
@@ -301,16 +300,13 @@ section#toolbar ul li.cart a:hover {}
 section#toolbar ul li.cart a:hover .text,
 section#toolbar ul li.cart a:hover .item-count {}
 section#toolbar ul li.cart a .item-count {}
-section#toolbar .btn-group.my-account a {}
-section#toolbar .btn-group.my-account a .caret {border-top-color:#000; border-bottom-color:000; margin-left:.5em;}
-section#toolbar .btn-group.my-account a:hover span.caret {}
-section#toolbar .btn-group.my-account a:active,
-section#toolbar .btn-group.my-account a:focus,
-section#toolbar .btn-group.my-account a:hover {}
-section#toolbar .btn-group.my-account .dropdown-menu li a:active,
-section#toolbar .btn-group.my-account .dropdown-menu li a:focus,
-section#toolbar .btn-group.my-account .dropdown-menu li a:hover {background-color:#f5f5f5;}
-section#toolbar .btn-group.my-account .dropdown-menu li .divider {margin: 0;}
+section#toolbar .my-account a {}
+section#toolbar .my-account a .caret {border-top-color:#000; border-bottom-color:000; margin-left:.5em;}
+section#toolbar .my-account a:hover span.caret {}
+section#toolbar .my-account a:active,
+section#toolbar .my-account a:focus,
+section#toolbar .my-account a:hover {}
+section#toolbar .my-account .dropdown-menu li .divider {margin: 0;}
 section#toolbar .f-nav {z-index: 9999;position: fixed;left: 0;top: 0;width: 100%;background-color: rgba(255,255,255,0.8);}
 section#toolbar .f-nav .btn-checkout,
 section#toolbar .f-nav .btn-cart,
@@ -334,8 +330,6 @@ section#toolbar .popover {max-width: 80%;}
 section#toolbar .popover .arrow {display: none;}
 section#toolbar .popover .popover-close {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;font-weight: 700;}
 section#toolbar .popover .product {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-section#toolbar .popover .product .thumbnail {margin: 0;}
-section#toolbar .popover .product .name {font-size: 90%;font-weight: 600;}
 section#toolbar .popover .product .price,
 section#toolbar .popover .product .quantity,
 section#toolbar .popover .cart-totals .items,
@@ -536,7 +530,7 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 8-) Product, Collection Page Styling   ****/
-.product-grid .product .image img {width: 100%;height:auto;}
+.product-grid .product .image {margin:0 0 1em;}
 .product-grid .product a {text-decoration: none;}
 .product-grid .product a:hover, a:focus, a.active {text-decoration: none;}
 .product-grid .product .empty-carousel {min-height:35px;}
