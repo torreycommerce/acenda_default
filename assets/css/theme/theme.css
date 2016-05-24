@@ -11,15 +11,11 @@ a {color:#000;}
 a:hover, a:focus {color:#000;}
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4 
-small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small  {color:#000;}
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {margin-top:1em; margin-bottom:.5em; font-weight:300; text-transform:uppercase;}
+small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small {color:#000;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {margin-top:1em; margin-bottom:.5em; font-weight:300;}
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
 h1 {font-size:200%;}
-h2 {font-size:160%;}
-h3 {font-size:140%;}
-h4 {font-size:120%;}
-h5 {font-size:110%;}
-h6 {font-size:100%;}
+h2, h3, h4, h5, h6 {font-size:140%;}
 /* */
 
 
@@ -537,19 +533,18 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 8-) Product, Collection Page Styling   ****/
-.product-grid .product .image img {width: 100%;height:auto;}
+.product-grid .product .image {margin:0 0 .5em;}
+.product-grid .product .image .img-responsive {width:100%; height:auto;}
 .product-grid .product a {text-decoration: none;}
-.product-grid .product a:hover, a:focus, a.active {text-decoration: none;}
-.product-grid .product .empty-carousel {min-height:35px;}
-.product-grid .product .color-carousel {float: left;display: block;width: 100%;min-height:35px;}
+.product-grid .product .empty-carousel {display:block; padding-top:13.8888888%;}
+.product-grid .product .color-carousel {float: left;display: block;width: 100%;}
 .product-grid .product .color-carousel .carousel {padding-right: 0;padding-left:0;}
-.product-grid .product .color-carousel .thumbnail {border: none;cursor: pointer;margin-bottom: 0;}
+.product-grid .product .color-carousel .thumbnail {}
 .product-grid .product .color-carousel .thumbnail .btn {background: #eee;border-color: #eee;padding: .3em .5em;}
 .product-grid .product .color-carousel .thumbnail .btn:hover {background: #ccc;border-color: #ccc;}
 
-
+#product-images #image-main {float:none; max-width:450px; margin:0 auto 1em; text-align:center;}
 #product-images #image-main.thumbnail .helper {display: inline-block;height: 100%;vertical-align: middle;}
-#product-images #image-main {margin-bottom: 20px;}
 #product-images #image-main .thumbnail .helper {display: inline-block;height: 100%;vertical-align: middle;}
 #product-images #image-main .thumbnail img,
 #product-images #image-main .thumbnail iframe {display: inline-block;text-align: center;vertical-align: middle;}
@@ -572,7 +567,6 @@ footer#footer .newsletter {padding-bottom:2em;}
 #product-details ul.tags li {color: #919191;font-size: 80%;display: inline-block;list-style-type: none;padding: 0;margin-right: 10px;}
 
 
-#product-images #image-main {text-align:center;}
 
 #product-details header {margin:0 0 1em; padding:0 0 1em; border-bottom:1px solid #ddd;}
 
