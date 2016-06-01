@@ -21,13 +21,13 @@
                     <div id="image-carousel-{{product.id}}" class="carousel" style="display:none">
                         <div>
                             <div class="item active" id="variant-image-carousel-copy" style="display:none;">
-                                <div class="col-xs-2" id="variant-image-thumbnail-copy">
+                                <div class="col-xs-2 col-v" id="variant-image-thumbnail-copy">
                                     <div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
                                         <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
                                     </div>
                                 </div>
                                 <img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="displayN" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-                                <div class="col-xs-2" id="variant-video-copy">
+                                <div class="col-xs-2 col-v" id="variant-video-copy">
                                     {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
                                     <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
                                         <i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
@@ -118,9 +118,9 @@
                 {# End Product Heading Group #}
 
                 {# Begin review stars #}
-                <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 {% set review_score = reviews|average('score') %}
-                    <ul class="reviews">
+                    <ul class="list-unstyled list-inline reviews">
                         {% if review_score > 0 %}
                             <li class="stars">
                                 <a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
@@ -130,10 +130,10 @@
                             </li>
                         {% endif %}
                         <li class="submit">
-                            <a class="btn btn-secondary" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
+                            <a class="btn btn-neutral" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
                         </li>
                     </ul>
-                </span>
+                </div>
                 {# End review #}
                 <div id="variation-selector-{{product.id}}">
                 </div>
