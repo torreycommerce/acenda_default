@@ -114,7 +114,10 @@
                             "search_in":search_fields,
                             "sort":sortBy
                       }) %}
+        {% set search_filter_keyword = search_suggestion %}
     {% endif %}
+{% else %}
+    {% set search_filter_keyword = app.request.get.s %}
 {% endif %}
 
 
@@ -125,7 +128,7 @@
 #}
 {% set filters = api.get('/catalog', {
                             "query":default_query,
-                            "search":app.request.get.s,
+                            "search":search_filter_keyword,
                             "search_in":search_fields,
                             "attributes":default_attributes,
                             "format":"attributes"
@@ -312,18 +315,21 @@
             {# Category product grid #}
             {% set items_per_row = 3 %}
             <section class="products-category">
+                {% if search_suggestion is not empty %}
                 <div class="row">
-                    {% if search_suggestion is not empty %}
                     <div class="col-sm-12">
                         <p>Showing results for <strong><i>{{search_suggestion}}</i></strong></p>
                     </div>
+                </div>
                     {% endif %}
                     {% if products.num_total == 0 and categories is empty %}
+                <div class="row">
                     <div class="col-sm-12">
                         No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>
                     </div>
+                </div>
                     {% endif %}
-
+                <div class="row">
                     {% set collection_ids = [] %}
                     {% for row,product in products if product.id not in collection_ids %}
                         {% if product.group == 'product' %}
