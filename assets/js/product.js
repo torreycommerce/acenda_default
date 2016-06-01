@@ -363,10 +363,11 @@ function VariantsManager (product, img, isCollection) {
                 }
             });
             //Gets variant that match the selected values in selectedValues2 { size: "M", material: "leather"}
-            var filteredVariants = _this.getFilteredVariants(selectedValues2);
+            var filteredVariants = _this.getFilteredVariants(selectedValues2, false);
+            var filteredVariantStock = _this.getFilteredVariants(selectedValues2, true);
             //Gets representation of the variant options available in the variant list filteredVariants
             //generatedSelectsData = { size:["M"], color: ["blue", "grey", "black"], material: ["leather"], }
-            var generatedSelectsData = _this.generateSelectsData(filteredVariants);
+            var generatedSelectsData = _this.generateSelectsData(filteredVariantStock);
             //Iterate throught the value available for the current variant option
             //we are at in the loop: optionArray = ["white", "gree", "blue", "grey", "black"]
             //and style each corresponding html chips element 
@@ -404,7 +405,7 @@ function VariantsManager (product, img, isCollection) {
         //Gets the array of variant that match currently selected values : 
         //selectedValues = {color: "blue", "size": "M", material: "leather"}
         //There should only be one variant matching or none if that combinaison is not available
-        var filteredVariants = this.getFilteredVariants(this.selectedValues);
+        var filteredVariants = this.getFilteredVariants(this.selectedValues, false);
         //Set variant description element on teh page of the selected variant
         if(filteredVariants.length == 1){
                 var quantityInput = "#variant-input-"+this.product_id; //Gets quatity input css selector
@@ -421,20 +422,23 @@ function VariantsManager (product, img, isCollection) {
                     $(quantityInput).val(1);
                     $(quantityInputMobile).val(1);
                 }
-            //Enable add to cart buttons accordingly
-            if(this.disabled == true){
+            if(filteredVariants[0].has_stock == '0') {
+                this.disabled = true;
+                this.disableAddToCart(true);
+                //disabled_cart_button++; //increases semaphore value
+            } else if(this.disabled == true){
                 this.disabled = false;
-                disabled_cart_button--; //decreases semaphore value (that represent the add to cart button state on colecion page)
-                if(disabled_cart_button == 0){
-                    this.disableAddToCart(false);
-                }
+                //disabled_cart_button--; //decreases semaphore value (that represent the add to cart button state on colecion page)
+                //if(disabled_cart_button == 0){
+                this.disableAddToCart(false);
+                //}
             }
         }else{ //If no variant exist for teh currently selected chips
             //Disable the add to cart buttons accordingly
             if(this.disabled == false){
                 this.disabled = true;
                 this.disableAddToCart(true);
-                disabled_cart_button++; //increases semaphore value
+               // disabled_cart_button++; //increases semaphore value
             }
         }
     }
@@ -443,8 +447,12 @@ function VariantsManager (product, img, isCollection) {
     */
     this.disableAddToCart = function(boolean){
         $('button[value=cart]').attr('disabled',boolean);
-        $('button[value=registry]').attr('disabled',boolean);
-        $('button[value=wishlist]').attr('disabled',boolean);
+        $('button.btn-remove').attr('disabled',boolean);
+        $('button.btn-add').attr('disabled',boolean);
+        $('input.quantity-selector').attr('disabled',boolean);
+
+        //$('button[value=registry]').attr('disabled',boolean);
+        //$('button[value=wishlist]').attr('disabled',boolean);
     }
     /*
         
@@ -453,7 +461,7 @@ function VariantsManager (product, img, isCollection) {
         if(this.selectedValues[selectName] != optionValue){
             this.selectedValues[selectName] = optionValue;
 
-            var filteredVariants = this.getFilteredVariants(this.selectedValues);
+            var filteredVariants = this.getFilteredVariants(this.selectedValues, false);
 
             if(filteredVariants.length == 0 ){
                 // display the default variant evalable
@@ -496,12 +504,12 @@ function VariantsManager (product, img, isCollection) {
         Returns list of valid variants (with valid price and has_stock is true) that match the given filter:
         selectedValues = {size: "M", color: "blue", ...}
     */
-    this.getFilteredVariants = function(selectedValues){
+    this.getFilteredVariants = function(selectedValues, checkStock){
         var filteredVariants = [];
         var _this = this;
         $.each( this.variants, function(index, variant){
             var passfilter = true;
-            if( _this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
+            if( _this.getNumber(variant.price) > 0 && (variant.has_stock == '1' || checkStock == false)){
                 $.each( selectedValues, function(selectName, selectValue){
                     if(selectValue != ""){
                         if(variant[selectName]){
@@ -583,7 +591,7 @@ function VariantsManager (product, img, isCollection) {
                                 "class": "",
                                 "data-tooltip": "",
                                 "data-toggle": "tooltip",
-                                "title": _this.outOfStock
+                                "data-original-title": _this.outOfStock
                     })
                     .append(
                             _this.getATag(selectName, optionValue)
