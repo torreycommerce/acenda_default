@@ -60,7 +60,6 @@ label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 .btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,
 fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[disabled].focus,fieldset[disabled] .btn-primary.focus {color:#fff; background-color:#000; border-color:#000;}
 .btn-cart, .btn-cart:hover, .btn-cart:focus, .btn-cart:active, .btn-cart.active, .open .dropdown-toggle.btn-cart {color:#fff; background-color:#000; border-color:#000;}
-.badge {background-color:#c0c0c0; border-radius:0;}
 .btn-secondary {color:#000; background-color:#fff; border-color:#000;}
 .btn-secondary:hover,.btn-secondary:focus,.btn-secondary:active,.btn-secondary.active,.open .dropdown-toggle.btn-cart {color:#fff; background-color:#000; border-color:#000;}
 .btn-neutral {color:#000; background-color:#f4f4f4; border-color:#aaa;}
@@ -254,7 +253,6 @@ fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[d
 }
 .btn-primary:active,.btn-primary.active,.open > .dropdown-toggle.btn-primary {color: #fff;background-color: #286090;border-color: #204d74;}
 
-.badge {background-color:#c0c0c0; font-size:75%; border-radius:0;}
 .btn-secondary {
     color: #{{ settings["colors"]["buttons"]["secondary-btn-text"]["value"] }};
     background-color: #{{ settings["colors"]["buttons"]["secondary-btn-background"]["value"] }};
@@ -650,27 +648,20 @@ table.yiiLog {display: none;}
 .star-rating .choosing {color: #558C89;}
 .star-rating .active-choosing {color: #FFC125;}
 .star-rating .disabled-choosing {color: #ccc;}
-.search form .input-group input {border-color: #cccccc;}
-.search form .input-group input:active,
-.search form .input-group input:focus,
-.search form .input-group input:hover {-moz-box-shadow: 0px 0px 0px transparent;-webkit-box-shadow: 0px 0px 0px transparent;box-shadow: 0px 0px 0px transparent;}
-.search form .input-group .btn {background-color: #ffffff; border-color:#ccc;color: #333333;}
-#social {border-bottom: 1px solid #eeeeee;margin-bottom: 15px;padding-bottom: 15px;padding-top: 15px;}
-#social .text {display: inline-block;float: left;font-size: 80%;line-height: 22px;margin-right: 6px;}
-#social .facebook,#social .twitter,#social .pinterest {display: inline-block;float: left;margin-right: 8px;}
-#social .google-plus {display: inline-block;float: left;}
-.label {color:#fff;font-size:65%;font-weight:normal;right: 15px;padding: 0;position: absolute;text-transform: uppercase;top: 0;}
-.label .label-new {background-color: #558C89;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
-.label .label-sale {background-color: #c11818;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
-.label .label-hot {background-color: #365755;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
-.label .label-feat {background-color: #555;display: inline-block;float: right;height: 100%;padding: 8px 10px;margin-left:5px;}
+
+
+.label {position:absolute; right:0; top:0; padding:0; color:#fff; font-weight:normal; text-transform:uppercase;}
+.label span {display:block; float:right; margin:0 0 0 .333em; padding:.5em .75em;}
+.label .label-new {background:#558C89;}
+.label .label-sale {background:#c11818;}
+.label .label-hot {background:#365755;}
+.label .label-feat {background:#555;}
 
 /**** End Product, Collection Page Styling   ****/
 
 
 
  /**** 9-) Account Page Styling   ****/
-#customer-account .panel .panel-body {font-size: 90%! important;}
 #customer-account-center #recent-orders .order {border-bottom: 1px solid #DDDDDD;padding-bottom: 10px;padding-top: 10px;}
 #customer-account-center #recent-orders .order .order-details {padding-bottom: 10px;}
 #customer-account-center #recent-orders .order .order-items {padding-bottom: 10px;}

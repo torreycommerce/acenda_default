@@ -1,17 +1,12 @@
-{# Begin desktop toolbar #}
+{% spaceless %}
 <div class="row hidden-xs hidden-sm">
     <div class="col-md-12 col-v">
         <ul class="list-inline list-unstyled" id="tools">
-            <li class="tool"><a class="tool-a" href="{{app.url}}/contact">Contact Us</a></li>
-            {% if app.user.id != '' %}
-            <li class="tool"><a class="tool-a" href="{{app.url}}/account/orders">Easy Returns</a></li>
-            {% else %}
-            <li class="tool"><a class="tool-a" href="{{app.url}}/return">Easy Returns</a></li>
-            {% endif %}
+            <li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
             {% if app.user.id is null %}
             <li class="tool">
                  <div class="my-account">
-                    <a type="button" href="#" id="dropdown-account" class="tool-a dropdown-toggle" data-toggle="dropdown">
+                    <a type="button" href="#" id="dropdown-account" class="tool-tab dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>My Account<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -31,14 +26,14 @@
             {% set customer = api.get('/customer/' ~ app.user.id) %}
             <li class="tool">
                 <div class="my-account">
-                    <a type="button" href="#" id="dropdown-account" class="tool-a dropdown-toggle" data-toggle="dropdown">
+                    <a type="button" href="#" id="dropdown-account" class="tool-tab dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-user"></i>{{ customer.first_name }}<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{app.url}}/account">My Account</a></li>
                         <li><div class="divider"></div></li>
                         <li><a href="{{app.url}}/account/orders">Orders</a></li>
-                        <li><a href="{{app.url}}/account/wishlists">Wishlists</a></li>
+                        <li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
                         <li><a href="{{app.url}}/account/registries">Registries</a></li>
                         <li><div class="divider"></div></li>
                         <li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? Logout</a></li>
@@ -47,7 +42,7 @@
             </li>
             {% endif %}
             <li class="cart">
-                <a class="tool-a" href="{{app.url}}/cart">
+                <a class="tool-tab" href="{{app.url}}/cart">
                     <i class="fa fa-shopping-cart"></i><span class="text">My Cart</span><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
                 </a>
             </li>
@@ -58,7 +53,7 @@
 <div class="row" id="branding">
     <div class="col-xs-3 col-v nav-mobile hidden-md hidden-lg">
         <a class="pull-left" href="#nav-mobile-main">
-            <i class="fa fa-bars fa-2x"></i>
+            <i class="fa fa-bars"></i>
         </a>
     </div>
     <div class="col-md-offset-3 col-md-6 col-xs-6 text-center">
@@ -68,7 +63,7 @@
                 {% set logo = logo_info.url %}
             {% endif %}
             {% if logo is not empty %}
-              <a  href="{{app.url}}/"><img class="img-responsive" src="{{ logo }}"></a>
+              <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
             {% else %}
                 <div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
             {% endif %}
@@ -85,7 +80,7 @@
             <div class="form-group has-feedback input-group twitter-typeahead">
                 <input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
                 <span class="input-group-btn form-control-feedback">
-                    <button class="btn btn-md" type="submit">
+                    <button class="btn btn-primary" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </span>
@@ -144,4 +139,4 @@
         </div>
     </div>
 </div>
-{# End Branding end Search #}
+{% endspaceless %}

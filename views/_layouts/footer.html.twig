@@ -1,3 +1,4 @@
+{% spaceless %}
 <footer class="text-center" id="footer">
     {% if app.request.url != "store-protected" %}
     <section class="newsletter">
@@ -53,23 +54,28 @@
                     <ul class="list-unstyled list-inline list-inline-free fsd1">
                         <li><a href="{{app.url}}/contact">Contact Us</a></li>
                        {% if app.user.id != '' %}
-                            <li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
-                            {% else %}
-                            <li> <a href="{{app.url}}/order">Order Status</a> </li>
-                            {% endif %}
-                            {% if app.user.id is null %}
-                            <li><a href="{{app.url}}/registry/search">Gift Registry</a></li>
-                            {% else %}
-                            <li><a href="{{app.url}}/account/registries">Registries</a></li>
-                            {% endif %}
+                        <li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
+                        {% else %}
+                        <li> <a href="{{app.url}}/order">Order Status</a> </li>
+                        {% endif %}
+                        {% if app.user.id != '' %}
+                        <li class="tool"><a class="tool-tab" href="{{app.url}}/account/orders">Easy Returns</a></li>
+                        {% else %}
+                        <li class="tool"><a class="tool-tab" href="{{app.url}}/return">Easy Returns</a></li>
+                        {% endif %}
+                        {% if app.user.id is null %}
+                        <li><a href="{{app.url}}/registry/search">Gift Registry</a></li>
+                        {% else %}
+                        <li><a href="{{app.url}}/account/registries">Registries</a></li>
+                        {% endif %}
                         {% if "faq" in contents_available %} 
-                            <li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
-                            {% endif %}
-                            {% if "privacy-policy" in contents_available %} 
-                                <li><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
-                            {% endif %}
-                            {% if "terms-and-conditions" in contents_available %} 
-                            <li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
+                        <li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
+                        {% endif %}
+                        {% if "privacy-policy" in contents_available %} 
+                            <li><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
+                        {% endif %}
+                        {% if "terms-and-conditions" in contents_available %} 
+                        <li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -107,3 +113,4 @@ and app.params['live_chat']['chat_licence'] is defined and app.params['live_chat
 {% import "/_macros/chat.html.twig" as chat %}
   {{ chat.displayLiveChat( app.params['live_chat']['chat_licence']) }}
 {% endif %}
+{% endspaceless %}
