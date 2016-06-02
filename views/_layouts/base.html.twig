@@ -159,19 +159,17 @@
     {% set back_to = request.0 %}
     <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
-            <div class="row pT10">
-                <div class="col-sm-4 pT4">
-                    <img class="maxW100" src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}">
+            <div class="row">
+                <div class="col-xs-12 col-md-2 col-v">
+                    <img class="img-responsive" src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}">
                 </div>
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-md-6 col-v">
                     {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
                     {% if sandboxMode is not empty %}
-                    <div class="row">
-                        <center><p><i class="fa fa-exclamation-triangle fa-2x"></i> <a ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank">Your PayPal PayflowPro account is in test mode (Sandbox)</a></p></center>
-                    </div>
+                    <p class="fsd1"><a ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> Your PayPal PayflowPro account is in test mode (Sandbox)</a></p>
                     {% endif %}
                 </div>
-                <div class="col-sm-4 pull-right">
+                <div class="col-xs-12 col-md-4 col-v">
                     <button class="btn btn-info" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
                     {% if '/preview/' in app.url  %}
                         <button class="btn btn-success" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>

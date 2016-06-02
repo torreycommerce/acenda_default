@@ -91,6 +91,7 @@ p:last-child, ul:last-child, ol:last-child, .table:last-child {margin-bottom:0;}
 
 .list-inline {margin-left:-.75em;}
 .list-inline>li {padding-right:.75em; padding-left:.75em;}
+.list-inline-free {margin-left:0;}
 .list-inline-free>li {padding:.75em;}
 
 .navbar {margin:0;}
@@ -770,18 +771,7 @@ table.yiiLog {display: none;}
 .cateClear:nth-child(3n+1) {clear:left;}
 .proClear:nth-child(4n+1) {clear:left;}
 .img-center {margin:0 auto;}
-.visually-hidden {
-    /*http://developer.yahoo.com/blogs/ydn/posts/2012/10/clip-your-hidden-content-for-better-accessibility/*/
-    position: absolute !important;
-    clip: rect(1px 1px 1px 1px);
-    /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0 !important;
-    border: 0 !important;
-    height: 1px !important;
-    width: 1px !important;
-    overflow: hidden;
-}
+
 .displayN {display: none! important;} /* DONOT touch This*/
 .danger-link {color: #b83311;}
 .modal-footer {text-align: left;}
