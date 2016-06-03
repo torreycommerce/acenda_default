@@ -532,13 +532,13 @@ function VariantsManager (product, img, isCollection) {
         returns html <a> element with option value optionValue set as text
     */
     this.getATag = function(selectName, optionValue){
-        return tag =  $('<a>', {'class': ""}).text(optionValue);
+        return tag =  $('<a>', {'class': "btn btn-neutral"}).text(optionValue);
     }
     /*
         returns html <a> element with style background-color set with given color
     */
     this.getAColorTag = function(selectName, optionValue, color){
-        return tag =  $('<a>', {'class': "", "style":"background-color:"+color});
+        return tag =  $('<a>', {'class': "btn btn-neutral", "style":"background-color:"+color});
     }
     /*
         takes a slug type string and return a good liking one:
@@ -567,19 +567,19 @@ function VariantsManager (product, img, isCollection) {
             //Color styling
             if( selectName.toLowerCase() == "color"){
                 if(_this.isCollection){
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details-collection"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details-collection"});
                 }else{
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details"});
                 }
 
-                var ul = $('<ul>', {"class": "swatches swatches-color"});
+                var ul = $('<ul>', {"class": "list-inline swatches swatches-color"});
                 var span = $('<span>', {"class": "selected-color"}).append(
                                 $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
-                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details size-details"});
-                var ul = $('<ul>', {"class": "swatches swatches-size"});
+                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details size-details"});
+                var ul = $('<ul>', {"class": "list-inline swatches swatches-size"});
                 var span = $('<span>', {"class": "selected-size"}).append(
                                 $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );

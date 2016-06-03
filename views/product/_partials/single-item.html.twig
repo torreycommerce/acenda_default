@@ -58,7 +58,7 @@
                             <div class="brand">
                                 <a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
                             </div>
-                            <h1 class="name"><span itemprop="name">{{product.title}}</span></h1>
+                            <h1 class="product-name"><span itemprop="name">{{product.title}}</span></h1>
                             <div class="sku-details" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
                             {% set id = 0 %}
                             {% for sku in product.variant %}
@@ -165,7 +165,7 @@
                                 <div class="" id="div-quantity-{{product.id}}">
                                    {# Begin product quantity #}
                                     <div class="row">
-                                       <div class="form-group col-xs-2">
+                                       <div class="form-group col-xs-12">
                                             <div class="quantity-input-group">
                                                 <label for="variant-input-{{product.id}}" class="control-label">Qty</label>
                                                 <div class="input-group">
