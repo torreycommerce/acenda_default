@@ -10,10 +10,12 @@
         <div id="image-main">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="thumbnail">
-                        <span class="helper"></span>
-                        <div id="main-product-video" style="display:none"></div>
+                    <div class="image-space no-of">
+                        <div class="isd" id="main-product-video" style="display:none"></div>
+                        <span class="isd">
                             <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
+                        </span>
+                        <span class="helper"></span>
                     </div>
                 </div>
             </div>

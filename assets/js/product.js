@@ -147,10 +147,10 @@ function VariantsManager (product, img, isCollection) {
             clonedImg.attr('src', standard_img_url);
             clonedImg.attr('data-image-zoom', large_img_url);
             clonedImg.attr('alt', img_alt);
-            clonedImg.appendTo( "#variant-selected-image-"+this.product_id);  //Append the new image to the dom
+            clonedImg.appendTo( "#variant-selected-image-"+this.product_id+' span.isd');  //Append the new image to the dom
             if(!this.isCollection) clonedImg.imageZoom(); //Enable zoom effect on teh new image if not on collection page
         }else{
-            clonedImg.appendTo( "#variant-selected-image-"+this.product_id); //Append the new image to the dom
+            clonedImg.appendTo( "#variant-selected-image-"+this.product_id)+' span.isd'; //Append the new image to the dom
         }
     }
     /*
