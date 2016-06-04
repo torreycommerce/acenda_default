@@ -610,9 +610,10 @@ function VariantsManager (product, img, isCollection) {
             if(_this.isCollection){
                 $(_this.selector).append(div);
             }else{
-                var row = $('<div>', {"class": "row col-md-12"});
-                row.append(div);
-                $(_this.selector).append(row);
+                //var row = $('<div>', {"class": "p"});
+                //row.append(div);
+                //$(_this.selector).append(row);
+                $(_this.selector).append(div);
             }
         });
         //Triggers chips updates so they are styled according the displayed variant
