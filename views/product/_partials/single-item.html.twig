@@ -28,7 +28,7 @@
                                     <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
                                 </div>
                             </div>
-                            <img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="displayN" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                            <img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
                             <div class="col-xs-2 col-v" id="variant-video-copy">
                                 {% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
                                 <div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
@@ -61,11 +61,11 @@
                     {% set id = 0 %}
                     {% for sku in product.variant %}
                         {% set id = id + 1 %}
-                        <span class="displayN" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                        <span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
                     {% endfor %} 
                     {% set id = 0 %}
                     {% for barcode in product.variant %}   
-                        <span class="displayN" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                        <span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
                     {% endfor %} 
                     <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <div id="variant-availability-price">
@@ -75,7 +75,7 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="price" id="product-price-{{product.id}}"></div>
-                                            <div class="price displayN"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                            <div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
 
 {#                                                 <div class="stock" id="stock-text-{{product.id}}"></div>
 #}                                            </div>

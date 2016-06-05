@@ -472,7 +472,7 @@
                                                                             <div class="image thumbnail" id="variant-selected-image-{{product.id}}"></div>
                                                                         </a>
                                                                         <img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
-                                                                            class="displayN" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                            class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                     </div>
                                                                     {# End collection product image #}
                                                                     {# Begin collection product details #}
@@ -483,7 +483,7 @@
                                                                                     <span itemprop="name">{{ product.name }}</span>
                                                                                 </a>
                                                                             </h4>
-                                                                            <a class="displayN" href="{{app.url}}/brand/{{product.brand|url_encode}}">
+                                                                            <a class="hidden" href="{{app.url}}/brand/{{product.brand|url_encode}}">
                                                                                 <span itemprop="brand">{{product.brand}}</span>
                                                                             </a>
                                                                             {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
@@ -508,7 +508,7 @@
                                                                                 <ul class="pricing" id="pricing-box-{{product.id}}">
                                                                                     {# Begin regular price #}
                                                                                     <li class="regular" id="product-standard-price-{{product.id}}"></li>
-                                                                                    <div class="price displayN">
+                                                                                    <div class="price hidden">
                                                                                         <span itemprop="price">{{ product.variant[0].price }}</span>
                                                                                     </div> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                                     <meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
@@ -542,18 +542,18 @@
                                                                             {% set id = 0 %}
                                                                             {% for sku in product.variant %}
                                                                                 {% set id = id + 1 %}
-                                                                                <span class="displayN" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                                <span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                             {% endfor %}
                                                                             {% set id = 0 %}
                                                                             {% for barcode in product.variant %}
-                                                                                <span class="displayN" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+                                                                                <span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
                                                                             {% endfor %}
                                                                         </div>
                                                                         {# Begin product description for google rich snippets, not showing in the preview! #}
                                                                         {% if product.description is not empty %}
                                                                             {% set full_description = product.description %}
-                                                                            <div class="displayN"><span itemprop="description">{{full_description}}</span></div>
-                                                                            <div class="displayN" id="variant-description-{{product.id}}" ></div>
+                                                                            <div class="hidden"><span itemprop="description">{{full_description}}</span></div>
+                                                                            <div class="hidden" id="variant-description-{{product.id}}" ></div>
                                                                          {% endif %}
                                                                     </div>
                                                                     {# End collection product details #}
