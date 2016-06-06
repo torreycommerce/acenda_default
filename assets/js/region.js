@@ -1,4 +1,4 @@
-$('.form-horizontal').cascadingDropdown({
+$('.form-region, .form-horizonal').cascadingDropdown({
     selectBoxes: [
     {
         selector: 'select[id$=country]',
