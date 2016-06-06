@@ -19,11 +19,8 @@ Cart
 {% endif %}
 {% if app.request.post.cart.action|split('/')|first == 'removecoupon' %}
     {% set sessioncart  = api.get('/sessioncart') %}
-    {% set coupon_index = app.request.post.cart.action|split('/')|last %}
-    {% set coupon_code = sessioncart.coupons[coupon_index].code %}
-    {% set coupon = api.get('/coupon', {query:{"code":coupon_code}}).0 %}
-    {% set result = api.delete('/sessioncartdiscount/' ~ coupon.id) %}
-    {% set result = api.delete('/sessioncartcoupon/' ~ coupon_index) %}
+    {% set coupon_id = app.request.post.cart.action|split('/')|last %}
+    {% set result = api.delete('/sessioncartdiscount/' ~ coupon_id) %}
 {% endif %}
 {% if app.request.post.cart.coupon_code is not empty %}
     {% set result = api.post('/sessioncartcoupon', {code:app.request.post.cart.coupon_code}) %}
@@ -256,7 +253,7 @@ Cart
                                                     Coupon used for ${{discount.amount}} off
                                                 </div>
                                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                                    {{ forms.submit('cart[action]', "removecoupon/" ~ id, 'Remove', {class:'btn-link btn-block', id: 'cart_Enter Coupon'}) }}
+                                                    {{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:'btn-link btn-block', id: 'cart_Enter Coupon'}) }}
                                                 </div>
                                             </div>
                                         </div>
