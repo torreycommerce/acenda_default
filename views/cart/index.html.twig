@@ -22,7 +22,7 @@ Cart
     {% set coupon_index = app.request.post.cart.action|split('/')|last %}
     {% set coupon_code = sessioncart.coupons[coupon_index].code %}
     {% set coupon = api.get('/coupon', {query:{"code":coupon_code}}).0 %}
-    {% set result = api.delete('/sessioncartdiscount/' ~ coupon.id ~ '?type=coupon&id='~ coupon.id) %}
+    {% set result = api.delete('/sessioncartdiscount/' ~ coupon.id) %}
     {% set result = api.delete('/sessioncartcoupon/' ~ coupon_index) %}
 {% endif %}
 {% if app.request.post.cart.coupon_code is not empty %}
