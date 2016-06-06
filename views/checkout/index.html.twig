@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-12">
             <div id="fade-container">
-                {{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-horizontal' }) }}
+                {{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-horizontal form-region' }) }}
                 {% if app.request.get.test_order %}
                 <div class="row">
                     <div class="col-sm-12">
