@@ -247,8 +247,24 @@ Cart
                                     <div class="validation">{{ forms.errorlist(form_errors, 'coupon_code') }}</div>
                                 </div>
                             </div>
+                            {% for id, discount in cart.discount_collection.discounts %}
+                                {% if discount.type == 'coupon' %}
+                                    <div class="discount">
+                                        <div class="well">
+                                            <div class="row">
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                                    Coupon used for ${{discount.amount}} off
+                                                </div>
+                                                <!--div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                                    {# forms.submit('cart[action]', "removecoupon/" ~ id, 'Remove', {class:'btn-link btn-block', id: 'cart_Enter Coupon'}) #}
+                                                </div-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif  %}
+                            {% endfor %}
                             {# Begin coupon code messages #}
-                            {% for id, coupon in cart.coupons %}
+                            {# for id, coupon in cart.coupons %}
                             <div class="discount">
                                 <div class="well">
                                     <div class="row">
@@ -261,8 +277,8 @@ Cart
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
-                            {% for id, global in cart.globals %}
+                            {% endfor #}
+                            {# for id, global in cart.globals %}
                             <div class="discount">
                                 <div class="well">
                                     <div class="row">
@@ -272,7 +288,7 @@ Cart
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
+                            {% endfor #}
                             {# End coupon code messages #}
                         {# End coupon code #}
                     </div>
