@@ -233,9 +233,8 @@
                                             <div class="row">
                                                 {# Begin add to cart button #}
                                                 <div class="col-sm-4 col-md-3 col-lg-2 col-lg-offset-10 col-md-offset-9 col-sm-offset-8">
-                                                    <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
-                                                        <i class="fa fa-shopping-cart"></i>
-                                                        <span>Add to Cart</span>
+                                                    <button type="submit" class="btn btn-block btn-primary btn-cart" name="action" value="cart">
+                                                        <i class="fa fa-shopping-cart"></i><span>Add to Cart</span>
                                                     </button>
                                                 </div>
                                                 {# End add to cart button #}
@@ -397,40 +396,20 @@
                                         {% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:{'$in':children_ids}}}) %}
                                     {% endif %}
                                 {% endif %}
-                                <div class="panel-heading">
-                                {# Begin desktop buttons #}
-                                    <div class="btn-toolbar hidden-xs">
-                                        <div class="row">
-                                            {% include "/product/_partials/list/actions-collection.html.twig" %}
-                                            {# Begin add to cart button #}
-                                            <div class="col-sm-4 col-md-3 col-lg-2">
-                                                <button type="submit" class="btn btn-block btn-cart" name="action" value="cart">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                            {# End add to cart button #}
-                                        </div>
-                                    </div>
-                                    {# End desktop buttons #}
-                                    {# Begin mobile buttons #}
-                                    <div class="visible-xs btn-toolbar">
-                                        <div class="actions row">
-                                        {# Begin buy button #}
-                                            <div class="col-sm-12 col-xs-12">
-                                                <button type="submit" name="action" value="cart" class="btn btn-cart btn-block">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                    <span>Add to Cart</span>
-                                                </button>
-                                            </div>
-                                            {# End buy button #}
-                                            {% include "/product/_partials/list/buttons-mobile.html.twig" %}
-                                        </div>
-                                    </div>
-                                    {# End mobile buttons #}
-                                </div>
+                                
                                 {# End pane actions #}
                                 <div class="panel-body">
+                                    <div class="row p">
+                                        {# Begin add to cart button #}
+                                        <div class="col-xs-12 col-sm-4 col-lg-3 p pull-right">
+                                            <button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
+                                                <i class="fa fa-shopping-cart"></i><span>Add to Cart</span>
+                                            </button>
+                                        </div>
+                                        {% include "/product/_partials/list/actions-collection.html.twig" %}
+                                        {# End add to cart button #}
+                                    </div>
+
                                     {% set items = product.product %}
                                     {% set layouts = product.layout is not empty ? product.layout : [{'name':'','items':items|values_in('id')}]%}
                                     {% for layout in layouts %}
@@ -598,15 +577,10 @@
                                 {% if children|length > 3 %}
                                     <div class="panel-footer">
                                         {# Begin desktop buttons #}
-                                        <div class="hidden-xs btn-toolbar">
+                                        <div class="btn-toolbar">
                                             {% include "/product/_partials/list/buttons.html.twig" %}
                                         </div>
                                         {# End desktop buttons #}
-                                        {# Begin mobile buttons #}
-                                        <div class="visible-xs btn-toolbar">
-                                            {% include "/product/_partials/list/buttons-mobile.html.twig" %}
-                                        </div>
-                                        {# End mobile buttons #}
                                     </div>
                                 {% endif %}
                             </div>
