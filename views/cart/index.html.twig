@@ -17,23 +17,24 @@ Cart
 {% if app.request.post.cart.action|split('/')|first == 'remove' %}
     {% set result = api.delete('/sessioncartitem/' ~ app.request.post.cart.action|split('/')|last) %}
 {% endif %}
+{# Remove coupon #}
 {% if app.request.post.cart.action|split('/')|first == 'removecoupon' %}
     {% set sessioncart  = api.get('/sessioncart') %}
     {% set coupon_id = app.request.post.cart.action|split('/')|last %}
     {% set result = api.delete('/sessioncartdiscount/' ~ coupon_id) %}
 {% endif %}
+{# Add coupon #}
 {% if app.request.post.cart.coupon_code is not empty %}
-    {% set result = api.post('/sessioncartcoupon', {code:app.request.post.cart.coupon_code}) %}
     {% set result = api.post('/sessioncartdiscount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
 {% endif %}
 {% if api.error is not empty %}
     {% set error = api.error %}
 {% endif %}
 
-{% do api.post('/sessioncartcoupon/refreshCoupons') %}
+{# Refresh discount logic #}
 {% do api.post('/sessioncartdiscount/refresh') %}
+
 {% set cart = api.get('/sessioncart') %}
-{% set cart_coupon = api.get('/sessioncartcoupon') %}
 {% set config = api.get('/config') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
 
@@ -62,10 +63,6 @@ Cart
         {% endif %}
     {% endfor %}
 {% endif %}
-
-{# Calculate subtotal without discounts #}
-{% set subtotal = 0 %}
-
 
 {% block content %}
 {% if error is not empty %}
@@ -152,7 +149,6 @@ Cart
                             {% endif %}
                             <div class="total">
                                 {% set price = product.price * item.quantity %}
-                                {% set subtotal = subtotal + price %}
                                 <div class="item-label"><strong>Total:</strong></div>
                                 <span class="dollar-sign">$</span><span class="amount"><span class="dollars"><strong>{{ price|number_format(2)|split('.')|first }}</strong></span>.<span class="cents"><strong>{{ price|number_format(2)|split('.')|last }}</strong></span></span>
                             </div>
@@ -260,33 +256,6 @@ Cart
                                     </div>
                                 {% endif  %}
                             {% endfor %}
-                            {# Begin coupon code messages #}
-                            {# for id, coupon in cart.coupons %}
-                            <div class="discount">
-                                <div class="well">
-                                    <div class="row">
-                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                            {{ coupon.code }} used for ${{coupon.discount}} off
-                                        </div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                            {{ forms.submit('cart[action]', "removecoupon/" ~ id, 'Remove', {class:'btn-link btn-block', id: 'cart_Enter Coupon'}) }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor #}
-                            {# for id, global in cart.globals %}
-                            <div class="discount">
-                                <div class="well">
-                                    <div class="row">
-                                        <div class="col-sm-9 col-md-9 col-lg-9">
-                                            Global discount {{ global.code.0 }} used for ${{global.discount}} off
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor #}
-                            {# End coupon code messages #}
                         {# End coupon code #}
                     </div>
                 </div>
@@ -309,7 +278,7 @@ Cart
                         <div class="row">
                             <div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Subtotal:</div>
                             <div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
-                                ${{ subtotal|number_format(2)}}
+                                ${{ cart.item_subtotal|number_format(2)}}
                             </div>
                         </div>
                         <div class="row" id="rate-estimate-checkout" style="display:none;">
