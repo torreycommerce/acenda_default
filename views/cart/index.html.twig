@@ -45,7 +45,6 @@ Cart
 {% do api.post('/sessioncartdiscount/refresh') %}
 
 {% set cart = api.get('/sessioncart') %}
-{% set config = api.get('/config') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
 {% set site_payments = api.get('/site/payments') %}
 

@@ -2,10 +2,26 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
 {% import "/_macros/normalizer.html.twig" as normalizer %}
+
+{# Page information #}
+    {#
+        Checkout : Retrieve shipping address
+        Visit api/sessioncart to understand how Cart data is mapped
+    #}
+    {#
+        Most of the address form logic is done is JS see region.js
+        Same for Checkout see checkout.js
+    #}
+    {#
+        The actual address form is stored as a macro in /_macros/form-extras.html.twig
+        and is used at a few different places.
+    #}
+{# end Page information #}
+
 {% set step = 'shipping' %}
 {% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
 {% set cart = api.get('/sessioncart') %}
-{% set config = api.get('/config') %}
+{% set site_payments = api.get('/site/payments') %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
     {% set product_ids = cart.items|values_in('product_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
@@ -14,8 +30,7 @@
 {% block content %}
 {% if cart.items is empty %}
     {{ app.redirect('/') }}
-{% endif %}
-{% if (config.components.payflowpro.enable == false and config.components.stripe.enable == false ) %}
+{% elseif site_payments.has_regular_checkout == false %}
     {{ app.redirect('/cart') }}
 {% endif %}
 {% if app.request.post.shipping %}
