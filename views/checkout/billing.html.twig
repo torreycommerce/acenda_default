@@ -2,20 +2,28 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
 {% import "/_macros/normalizer.html.twig" as normalizer %}
+
 {% set step = 'billing' %}
 {% set cart = api.get('/sessioncart') %}
-{% if cart.items is not empty %} {# Set cart products for acenda object #}
+
+{# Set cart products for acenda object #}
+{% if cart.items is not empty %}
     {% set product_ids = cart.items|values_in('product_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% endif %}
+
 {% block content %}
+
 {% if app.request.get.clear == "same" %}
     {% do app.user.setState('shipping_same_as_billing', null) %}
-    {% do app.user.setState('billing_same_as_billing', null) %}
+    {# Bad copy pasta ?!? #}
+    {# do app.user.setState('billing_same_as_billing', null) #}
 {% endif %}
+
 {% if app.user.getState('shipping_address_id') is null and app.user.getState('shipping_first_name') is null %}
     {{ app.redirect('/checkout') }}
 {% endif %}
+
 {% if cart.items is empty %}
     {{ app.redirect('/') }}
 {% endif %}
