@@ -187,7 +187,10 @@ $(document).ready(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('li.cart a.tool-tab span.item-count').html(data.result.item_count);
         console.log(data);
-    });    
+    });   
+
+    $('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
+
     var timer=0;
     timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
     $('#preview-admin-header').hover(function() {
