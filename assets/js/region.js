@@ -3,16 +3,16 @@ $('.form-region, .form-horizonal').cascadingDropdown({
     {
         selector: 'select[id$=country]',
         source: function(request, response) {
-            $.getJSON(acendaBaseUrl + '/api/region', request, function(data) {
+            $.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
                 var country = $('[name$=\\[country_select\\]]').val();
                 if (country == undefined || country == '') {
                     country = 'US';
                 }
                 response($.map(data.result, function(item, index) {
                     return {
-                        label: item.label,
-                        value: item.value,
-                        selected: item.value.indexOf(country) != -1
+                        label: item.name,
+                        value: item.code,
+                        selected: item.code.indexOf(country) != -1
                     };
                 }));
             });
