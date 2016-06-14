@@ -89,16 +89,17 @@ label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 
 
 .dropdown-menu {font-size:inherit; border-radius:0; box-shadow:0 2px 5px rgba(0, 0, 0, .2);}
-.dropdown-menu > li > a {padding:.5em 1em;}
+.dropdown-menu > li > a {padding:6px 15px;}
 .dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {color:#000;}
 
-.panel {border-radius:0;}
+.panel, .panel-group .panel {border-radius:0;}
+.panel-heading[data-toggle="collapse"] {cursor:pointer;}
 .tab-content .panel {border-top:none;}
 .form-control {border:1px solid #aaa; border-radius:0;}
 textarea.form-control {resize:vertical;}
 .img-thumbnail {border-radius: 0;}
 ul, ol {padding-left:1.6em;}
-.p, p, ul, ol, .table, .form-group {margin-bottom:15px;}
+.p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:15px;}
 
 .thumbnail {margin:0; padding:0; border:none; border-radius:0;}
 
@@ -123,9 +124,11 @@ ul, ol {padding-left:1.6em;}
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:10px; padding-right:10px;}
 .col-v {padding-top:10px; padding-bottom:10px;}
 
-.p, p, ul, ol, .table, .form-group {margin-bottom:10px;}
+.p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:10px;}
 
 .well {padding:14px;}
+
+.text-left-sm {text-align:left;}
 }
 
 @media (max-width:767px) {
@@ -133,7 +136,7 @@ ul, ol {padding-left:1.6em;}
 }
 
 /* final word */
-.panel-body .p:last-child, .panel-body p:last-child, .panel-body ul:last-child, .panel-body ol:last-child, .panel-body .table:last-child, .panel-body .form-group:last-child {margin-bottom:0;}
+.panel-body>.p:last-child, .panel-body>p:last-child, .panel-body>ul:last-child, .panel-body>ol:last-child, .panel-body>.table:last-child, .panel-body>.form-group:last-child {margin-bottom:0;}
 /* */
 
 
@@ -431,45 +434,22 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 7-) Category Page Styling   ****/
-.category-filters .filter {margin-bottom:1em;}
-.category-filters .filter .panel-group {margin-bottom:0;}
-.category-filters .filter .panel-group .panel {border-radius: 0;border-top:none;}
-.category-filters .filter .panel-heading {background:transparent; border-top: 4px solid #000;}
-.category-filters .filter .panel-heading + .panel-collapse .panel-body {border-top: 1px solid #eeeeee;}
-.category-filters .filter .panel-body {border-top: none;}
-.category-filters .filter-clear a {background-color: #558C89;color: #eeeeee;display: block;font-size: 75%;margin: 2px 0px;padding: 10px;}
-.category-filters .filter-clear a i:first-child {padding-right: 5px;}
-.category-filters .filter-clear a:hover {text-decoration: none;background-color: #365755;}
-.checkout-display-address {padding: 5px;}
-@media (max-width: 992px) {.category .page-header {margin-top:20px;}}
-.page-filters {padding-top: 10px;padding-bottom: 10px;}
-.page-filters .search-within {margin-bottom: 10px;}
-@media (min-width: 992px) {.page-filters .search-within {margin-bottom: 0px;}}
-.page-filters .sorting {text-align: right;margin-bottom: 10px;}
-.page-filters .sorting ul.dropdown-menu {min-width: 50px;}
-.page-filters .sorting div#items-per-page {margin-left: 10px;}
-@media (max-width: 768px) {.page-filters .sorting {text-align: left;}}
+.category-filters .filter a {display:block;}
+.category-filters .filter-clear a {display:block; margin:0 0 2px; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
 .pagination {border-radius:0;}
-.page-filters .pagination {margin: 0;}
+.page-filters .pagination {margin:0;}
 .pagination > li > a,
-.pagination > li > span {color: #558C89;}
+.pagination > li > span {color:#000;}
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
-.pagination > li > span:focus {color: #365755;}
+.pagination > li > span:focus {color:#000;}
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
-.pagination > .active > span:focus {color: #fff;background-color: #558C89;border-color: #558C89;}
-.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: center;}
-@media (max-width: 992px){.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: left;}}
-.pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {border-radius: 0;}
-.pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {border-radius: 0;}
-.list-sub-categories {margin:0 0 1em; padding:1em; border: 1px solid #eeeeee;}
-.list-sub-categories .fa-fa-gentle {padding:0;}
-.list-sub-categories li.current-category {font-weight: bold;}
+.pagination > .active > span:focus {color:#fff; background-color:#000; border-color:#000;}
 /**** End Category Page Styling   ****/
 
 

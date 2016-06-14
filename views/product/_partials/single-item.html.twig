@@ -86,7 +86,7 @@
                                     {# Begin pricing #}
                                     <ul class="pricing list-inline">
                                         {# Begin regular price #}
-                                            <li class="regular" id="product-standard-price-{{product.id}}">
+                                            <li class="price-regular" id="product-standard-price-{{product.id}}">
                                             </li>
                                         {# End regular price #}
                                         {# Begin percent off #}
@@ -166,11 +166,11 @@
                                     <label for="variant-input-{{product.id}}" class="control-label">Qty</label>
                                     <div class="input-group quantity-input-group">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                         </div>
                                         <input id="variant-input-{{product.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="1" maxlength="2" placeholder="1" name="">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                            <button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
                                        </div>
                                     </div>
                                 </div>

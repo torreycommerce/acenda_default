@@ -149,14 +149,14 @@
 #}
 <div class="row categoryCol">
     {# Begin category filters #}
-    <section class="category-filters">
-        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+    <section class="category-filters fsd1 fa-fa-balance">
+        <div class="col-md-3 col-xs-12">
             {% if categories is not empty %}
             <section class="list-sub-categories hidden-sm hidden-xs">
                 <ul class="fa-fa-gentle">
                     <li class="current-category">{{ name|default(category.name) }}</li>
                     {% for category in categories %}
-                    <li class="sub-category fsd1">
+                    <li class="sub-category">
                         <i class="fa fa-angle-right"></i><a href="{{app.url}}/category/{{category.slug}}">{{ category.name }}</a>
                     </li>
                     {% endfor %}
@@ -198,7 +198,7 @@
     </section>
     {# End category filters #}
     <section class="product-grid">
-        <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12">        
+        <div class="col-md-9 col-xs-12">        
             {# Begin category header #}            
             {# Begin category name #}
             <div class="row category">
@@ -206,14 +206,10 @@
                     <header>
                         <h1 class="page-header">{{ name|default(category.name) }}</h1>
                     </header>
-                </div>
-            </div>
-            {# End category name #}
-            {# Begin category description #}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-description">
-                        <p class="hidden-xs">{{ description|default(category.description) }}</p>
+                    {# End category name #}
+                    {# Begin category description #}
+                    <div class="section-description hidden-xs">
+                        {{ description|default(category.description) }}
                     </div>
                 </div>
             </div>
@@ -224,9 +220,9 @@
                 <div class="row">
                     {% for category in categories %}
                     {# Begin category #}
-                    <div class="col-md-{{12 / items_per_row}} col-xs-{{18 / items_per_row}}">
+                    <div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} cool-clear">
                         <div class="product">
-                            <div class="image">
+                            <div class="p image">
                                 <a href="{{app.url}}/category/{{category.slug}}">
                                     <span class="image-space">
                                         <span class="isd">
@@ -251,7 +247,7 @@
             <div class="page-filters">
                 <div class="row">                    
                     {# Begin search bar #}
-                    <div class="col-md-3 col-sm-12">
+                    <div class="col-md-3 col-sm-12 p">
                         <div class="search-within">
                             <form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
                                 <div class="input-group twitter-typeahead">
@@ -267,15 +263,15 @@
                     </div>
                     {# End search bar #}
                     {# Begin paging #}
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="pagination-top">
+                    <div class="col-md-4 col-sm-6 col-xs-12 p">
+                        <div class="pagination-top text-center">
                             {{ base.pagination(products.num_total,limit,5) }}
                         </div>
                     </div>
                     {# End paging #}
                     {# Begin filters #}
-                    <div class="col-md-5 col-sm-6 col-xs-12">
-                        <div class="sorting">
+                    <div class="col-md-5 col-sm-6 col-xs-12 p">
+                        <div class="sorting text-right text-left-sm">
                             <div id="sort-by" class="btn-group form-inline">
                                 <form class="form-inline">
                                     <span class="small">Sort By:&nbsp;</span>
@@ -348,8 +344,8 @@
                     <div class="clearfix">
                     </div>
                     {% if products|length == limit or app.request.get.page > 1 %}
-                        <div class="col-md-12">
-                            <div class="pagination-bottom">
+                        <div class="col-md-12 p">
+                            <div class="pagination-bottom text-center">
                                 {{ base.pagination(products.num_total,limit,4) }}
                             </div>
                         </div>
