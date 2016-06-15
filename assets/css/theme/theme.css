@@ -136,7 +136,8 @@ ul, ol {padding-left:1.6em;}
 }
 
 /* final word */
-.panel-body>.p:last-child, .panel-body>p:last-child, .panel-body>ul:last-child, .panel-body>ol:last-child, .panel-body>.table:last-child, .panel-body>.form-group:last-child {margin-bottom:0;}
+.panel-body>.p:last-child, .panel-body>p:last-child, .panel-body>ul:last-child, .panel-body>ol:last-child, .panel-body>.table:last-child, .panel-body>.form-group:last-child,
+.well>.p:last-child {margin-bottom:0;}
 /* */
 
 
@@ -231,7 +232,6 @@ section#toolbar ul li#branding {z-index:1061;}
 .al-btn {line-height:34px;}
 .al-btn-lg {line-height:46px;}
 
-.lonely-intro {padding:0 0 1em; text-align:center;}
 .lonely-form .actions:last-child {margin:0;}
 
 .mT {margin-top:1em;}
