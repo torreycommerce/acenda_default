@@ -1,8 +1,5 @@
 {% extends "/_layouts/base.html.twig" %}
-{% set cache_minutes = 30 %}
-{% set cache_expire = ("now" | date('U'))  + (60*cache_minutes) %}
-{% do app.header.setCache('public',60*cache_minutes) %}
-{% do app.header.setExpires(cache_expire | date('Y-m-d H:i:s T','UTC') ) %}
+{% do app.cache(10) %}
 
 {% set category = api.get('/category',{"query":{"status":"active","slug":app.request.path}})|first %}
 {% if category is empty %}
