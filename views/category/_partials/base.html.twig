@@ -163,8 +163,12 @@
                 </ul>
             </section>
             {% endif %}
+            <button class="btn btn-block btn-primary p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-plus"></i><span>Refine</span></button>
+            <div class="collapse in force-md-lg" id="collapseFilters">
             {% for name,filter_set in filters %}
                 {% if filter_set|length > 1 %}
+                    
+                    
                     {% set filter_count = filters %}
                     {% if filter_set|length %}
                         {% if filters|length %}
@@ -194,6 +198,7 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
+            </div>
         </div>
     </section>
     {# End category filters #}

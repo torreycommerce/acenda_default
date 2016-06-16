@@ -43,6 +43,8 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 /* boots */
 .col-v {padding-top:15px; padding-bottom:15px;}
+.row.row-thin {margin-left:-5px; margin-right:-5px;}
+.col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
 
 .breadcrumb {padding:0 0 12px; background:none;}
 
@@ -249,6 +251,7 @@ section#toolbar ul li#branding {z-index:1061;}
 }
 
 @media (min-width:992px) {
+.force-md-lg {display:block!important;}
 .md-pull-right {float:right !important;}
 .md-pull-left {float:left !important;}
 }
@@ -403,15 +406,12 @@ footer#footer .newsletter {padding-bottom:2em;}
 #shopping-cart #proceed-to-checkout {margin-bottom: 20px;}
 #shopping-cart #paypal {margin-bottom: 20px;text-align: center;}
 #shopping-cart #continue-shopping {margin-bottom: 20px;}
-#order-summary .product {border-bottom: 1px solid #eeeeee;font-size: 80%;margin-bottom: 10px;padding-bottom: 10px;padding-top: 10px;}
+#order-summary .product {border-bottom: 1px solid #eeeeee;margin-bottom: 10px;padding-bottom: 10px;padding-top: 10px;}
 #order-summary .product .thumbnail {margin-bottom: 0;}
 #order-summary .product .actions {text-align: left;}
 #order-summary .subtotal, .shipping, .tax {font-weight: bold;}
-#order-complete #order-details {font-size: 85%;}
 #order-complete #order-items .panel .panel-heading {background-color: #ffffff;border-bottom: 1px solid #e5e5e5;}
 #order-complete #order-items .panel .panel-heading a {color: #333333;}
-#order-complete #order-items .panel .panel-heading a .panel-title {font-size: 80%;}
-#order-complete #order-items .panel .panel-heading a .item-total {font-size: 80%;}
 #order-complete #order-items .panel .panel-body .shipping-address {font-size: 80%;padding-bottom: 10px;}
 #order-complete #order-items .panel .panel-body .billing-address {font-size: 80%;padding-bottom: 10px;}
 #order-complete #order-items .panel .panel-body .item-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-top: 10px;}
@@ -420,8 +420,7 @@ footer#footer .newsletter {padding-bottom:2em;}
 @media (min-width: 768px) {#order-complete #order-items .panel .panel-body .billing-address {padding-bottom: 0;}
 #order-complete #order-items .panel .panel-body .item-totals {border-top: none;padding-top: 0;}
 #order-complete #order-items .panel .panel-body .item-totals .txt-label {text-align: right;}}
-#order-complete #order-totals .shipping-address {font-size: 80%;padding-bottom: 10px;}
-#order-complete #order-totals .billing-address {font-size: 80%;}
+#order-complete #order-totals .shipping-address {padding-bottom: 10px;}
 #order-complete #order-totals .billing-address address {margin-bottom: 10px;}
 #order-complete #order-totals .order-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-bottom: 10px;padding-top: 10px;}
 #order-complete #order-totals .order-totals .txt-label {text-align: left;}
@@ -664,14 +663,10 @@ table.yiiLog {display: none;}
 
 
 /**** 12-) Color Chip Styling  ****/
-.color-chip {border: 1px solid #eee;opacity: 0.7;color: white;font-size: .6em;padding: .8em 1em;margin: .19em .19em;width: 3.5em;height: 3.5em;}
-.color-chip i {font-size: 1.2em;line-height: 1.4em;padding: 0;}
-.color-chip:hover,
-.color-chip:focus {opacity: 1;text-decoration: none;}
-.color-chip.white {color: gray;border: 1px solid #ccc;}
+.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
+.color-chip:hover,.color-chip:focus {opacity:1; text-decoration:none;}
 .color-chip.active {opacity: 1;}
 .color-chip.disabled {opacity: 0.1;}
-.color-chip.disabled i {padding: 0;}
 .color-chip.bright-red {background-color: #ff00cc;}
 .color-chip.red {background-color: #9b1e20;}
 .color-chip.hot-pink {background-color: #ff33cc;}
@@ -695,22 +690,22 @@ table.yiiLog {display: none;}
 .color-chip.black {background-color: #000000;}
 .color-chip.grey {background-color: #aaaaaa;}
 .color-chip.ivory {background-color: #fffff0;}
-.color-chip.white {background-color: #eeeeee;border: 1px solid #999;}
+.color-chip.white {color:#666; background:#fcfcfc; border:1px solid #bbb;}
 .color-chip.multi {background: #88bfe8;
-    background: -moz-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
-    /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #88bfe8), color-stop(27%, #96ffc2), color-stop(53%, #b996ff), color-stop(75%, #ff9698), color-stop(100%, #f1ff96), color-stop(100%, #70b0e0));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
-    /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
-    /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
-    /* IE10+ */
-    background: linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
-    /* W3C */
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#88bfe8', endColorstr='#70b0e0', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
+	background: -moz-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #88bfe8), color-stop(27%, #96ffc2), color-stop(53%, #b996ff), color-stop(75%, #ff9698), color-stop(100%, #f1ff96), color-stop(100%, #70b0e0));
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
+	/* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
+	/* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
+	/* IE10+ */
+	background: linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
+	/* W3C */
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#88bfe8', endColorstr='#70b0e0', GradientType=1);
+	/* IE6-9 fallback on horizontal gradient */
 }
 /**** End Color Chip Styling  ****/
 
