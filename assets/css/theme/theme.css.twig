@@ -102,6 +102,7 @@ textarea.form-control {resize:vertical;}
 .img-thumbnail {border-radius: 0;}
 ul, ol {padding-left:1.6em;}
 .p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:15px;}
+.p-thin {margin-bottom:10px;}
 
 .thumbnail {margin:0; padding:0; border:none; border-radius:0;}
 
@@ -277,14 +278,7 @@ section#toolbar ul li#branding {z-index:1061;}
 
 
 /**** 3-) Toolbar Styling  ****/
-section#toolbar .my-account .dropdown-menu li .divider {margin: 0;}
 section#toolbar .f-nav {z-index: 9999;position: fixed;left: 0;top: 0;width: 100%;background-color: rgba(255,255,255,0.8);}
-section#toolbar .f-nav .btn-checkout,
-section#toolbar .f-nav .btn-cart,
-section#toolbar .f-nav .btn-add-to-cart,
-section#toolbar .f-nav .btn,
-section#toolbar .f-nav .btn-nav-mobile,
-section#toolbar .f-nav .btn-primary {border-radius: 0;}
 section#toolbar .toolbar-mobile .mobile-popover {margin: 5px 0;}
 section#toolbar .toolbar-mobile a i {display: inline-block;}
 section#toolbar .toolbar-mobile a .text {display: inline-block;}
@@ -294,15 +288,12 @@ section#toolbar .toolbar-mobile .search-main-mobile {padding-top: 10px;}
 section#toolbar .toolbar-mobile .nav-mobile {min-height: 60px;background-color: transparent;font-weight: normal;white-space: nowrap;line-height: 45px;border: none;z-index: 99; padding:15px;}
 section#toolbar .popover {max-width: 80%;}
 section#toolbar .popover .arrow {display: none;}
-section#toolbar .popover .popover-close {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;font-weight: 700;}
-section#toolbar .popover .product {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-section#toolbar .popover .cart-totals {padding-bottom: 10px;padding-top: 10px;}
+section#toolbar .popover .popover-close {padding-bottom: 10px;font-weight: 700;}
 /**** End Toolbar Styling  ****/
 
 
 
 /**** 4-) Navbar Menu Styling  ****/
-.dropdown-menu > li.kopie > a {padding-left:5px;}
 .dropdown-submenu {position:relative;text-align: left;}
 .dropdown-submenu>.dropdown-menu {top:0;left:100%;margin-left:0;} 
 .dropdown-submenu > a:after {border-color: transparent transparent transparent #333;border-style: solid;border-width: 5px 0 5px 5px;content: " "; display: block;float: right;  height: 0;}
@@ -651,10 +642,9 @@ table.yiiLog {display: none;}
 
 
 /**** 12-) Color Chip Styling  ****/
-.color-chip {opacity:.9;}
-.color-chip:hover,.color-chip:focus {opacity:1; text-decoration:none;}
-.color-chip.active {opacity: 1;}
-.color-chip.disabled {opacity: 0.1;}
+.color-chips {padding-bottom:5px;}
+.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
+.color-chip.disabled {opacity:.1;}
 .color-chip.bright-red {background-color: #ff00cc;}
 .color-chip.red {background-color: #9b1e20;}
 .color-chip.hot-pink {background-color: #ff33cc;}
@@ -678,7 +668,7 @@ table.yiiLog {display: none;}
 .color-chip.black {background-color: #000000;}
 .color-chip.grey {background-color: #aaaaaa;}
 .color-chip.ivory {background-color: #fffff0;}
-.color-chip.white {color:#666 background:#fcfcfc; border:1px solid #bbb;}
+.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5); background:#fcfcfc; border:1px solid #bbb;}
 .color-chip.multi {background: #88bfe8;
     background: -moz-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
     /* FF3.6+ */
@@ -695,14 +685,12 @@ table.yiiLog {display: none;}
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#88bfe8', endColorstr='#70b0e0', GradientType=1);
     /* IE6-9 fallback on horizontal gradient */
 }
+.color-chip:hover,.color-chip:focus {color:#fff; text-decoration:none; opacity:1; border:1px solid #000;}
+.color-chip.active {border:1px solid #000; opacity:1;}
+.color-chip.white:hover, .color-chip.white:focus {color:#666;}
+
+@media (max-width:991px) {
+.color-chip {font-size:140%;}
+}
 /**** End Color Chip Styling  ****/
 
-
-
-
-
-/* adjust */
-.m0 {margin:0;}
-.mt2 {margin-top:2em;}
-.p0 {padding:0;}
-/* */

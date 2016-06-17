@@ -221,7 +221,7 @@
             {# Sub Category grid #}
             {% if categories is not empty %}
             {% set items_per_row = 3 %}
-            <section class="products-category">
+            <section class="category-grid text-center">
                 <div class="row">
                     {% for category in categories %}
                     {# Begin category #}
@@ -252,7 +252,7 @@
             <div class="page-filters">
                 <div class="row">                    
                     {# Begin search bar #}
-                    <div class="col-md-3 col-sm-12 p">
+                    <div class="col-md-3 col-xs-12 p">
                         <div class="search-within">
                             <form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
                                 <div class="input-group twitter-typeahead">
@@ -315,7 +315,7 @@
             
             {# Category product grid #}
             {% set items_per_row = 3 %}
-            <section class="products-category">
+            <section class="products-category text-center">
                 {% if search_suggestion is not empty %}
                 <div class="row">
                     <div class="col-sm-12">
@@ -341,21 +341,21 @@
                             {% set collection_ids = collection_ids|merge([product.id]) %}
                         {% endif %}
                         {# Begin product #}
-                        <div class="col-sm-4 col-xs-6 cool-clear">
+                        <div class="col-sm-4 col-xs-6 p cool-clear">
                             {{ prod.gridproduct(product) }}
                         </div>
                         {# End product #}
                     {% endfor %}
-                    <div class="clearfix">
                     </div>
                     {% if products|length == limit or app.request.get.page > 1 %}
+                    <div class="row">
                         <div class="col-md-12 p">
                             <div class="pagination-bottom text-center">
                                 {{ base.pagination(products.num_total,limit,4) }}
                             </div>
                         </div>
+                    </div>
                     {% endif %}
-                </div>
             </section>
             {# End Product list #}
         </div>
