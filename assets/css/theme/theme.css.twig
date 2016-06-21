@@ -106,7 +106,8 @@ ul, ol {padding-left:1.6em;}
 
 .thumbnail {margin:0; padding:0; border:none; border-radius:0;}
 
-.list-inline-free {margin-left:0;}
+.list-inline {margin-right:-5px;}
+.list-inline-free {margin-left:0; margin-right:0;}
 .list-inline-free>li {padding:10px;}
 
 .navbar {margin:0;}
@@ -168,19 +169,20 @@ h2.section-name {margin-bottom:18px;}
 .pricing .price-regular {text-decoration:line-through;}
 .pricing .percent {color:red;}
 
-#toolbar ul {padding:0; margin:0;}
+#toolbar ul {}
 #toolbar .tool {position:relative; padding-left:10px; padding-right:10px;}
 #toolbar .tool-a:active, #toolbar .tool-a:focus, #toolbar .tool-a:hover {}
-#header .dropdown-menu {min-width:0;}
+#header .dropdown-menu {margin:0; min-width:0;}
 #header .cart .item-count {display:inline-block; min-width:1.25em; margin:0 0 0 .5em; text-align:center;}
-#header .popover {left:auto!important; right:1em; width:420px; padding:0; max-width:none;}
+#header .popover {left:auto!important; right:15px; width:420px; padding:0; max-width:none;}
 #header .popover>.arrow {display:none;}
-#header .popover .popover-close {padding-bottom:1em; font-weight:700;}
-.ajaxcart-products {max-height:360px; border-top:1px solid #ccc; border-bottom:1px solid #ccc; overflow:hidden; overflow-y:auto;}
+section#toolbar .popover .arrow {display: none;}
+section#toolbar .popover .popover-close {padding-bottom: 10px;font-weight: 700;}
+.ajaxcart-products {max-height:360px; border-bottom:1px solid #ccc; overflow:hidden; overflow-y:auto;}
 #header .form-group {margin:0;}
-#branding {position: relative;}
-#branding .brand #logo-txt a {font-size:200%;}
-#branding .brand img {max-height:80px;}
+#header .brand #logo-txt a {font-size:200%;}
+#header .brand img {max-height:80px;}
+#header .search {width:50%;}
 
 
 #content {padding:1em 0 2em;}
@@ -188,15 +190,16 @@ h2.section-name {margin-bottom:18px;}
 #footer {padding:2em 0;}
 
 
-@media (max-width: 991px) {/**/
-#header .popover {right:0;}
-section#toolbar ul li#branding {z-index:1061;}
-#branding .brand #logo-txt a {font-size:220%;}
+@media (max-width:991px) {/**/
+#header .popover {right:10px;}
 }
 
-@media all and (max-width:767px) {/**/
-#header .popover {left:0!important; width:auto;}
+@media (max-width:767px) {/**/
 .ajaxcart-products {max-height:260px;}
+}
+
+@media (max-width:479px) {/**/
+#header .popover {left:10px!important; width:auto;}
 }
 /* */
 
@@ -240,17 +243,19 @@ section#toolbar ul li#branding {z-index:1061;}
 
 
 @media screen and (min-width:1px){
-.image-space .isd {top:50%; left:50%; transform:translate(-50%, -50%);}
+.image-space .isd {top:50%; left:50%; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
 }
 
 @media (min-width:768px) {
 .col-sm-6.cool-clear:nth-child(2n+1),
 .col-sm-4.cool-clear:nth-child(3n+1),
-.col-sm-3.cool-clear:nth-child(4n+1) {clear:left;}
+.col-sm-3.cool-clear:nth-child(4n+1),
+.col-sm-2.cool-clear:nth-child(6n+1) {clear:left;}
 }
 
 @media (min-width:992px) {
 .force-md-lg {display:block!important;}
+.force-md-lg.collapse {height:auto!important;}
 .md-pull-right {float:right !important;}
 .md-pull-left {float:left !important;}
 }
@@ -269,27 +274,13 @@ section#toolbar ul li#branding {z-index:1061;}
 
 .col-xs-6.cool-clear:nth-child(2n+1),
 .col-xs-4.cool-clear:nth-child(3n+1),
-.col-xs-3.cool-clear:nth-child(4n+1) {clear:left;}
+.col-xs-3.cool-clear:nth-child(4n+1),
+.col-xs-2.cool-clear:nth-child(6n+1) {clear:left;}
 }
 /* */
 
 
 
-
-
-/**** 3-) Toolbar Styling  ****/
-section#toolbar .f-nav {z-index: 9999;position: fixed;left: 0;top: 0;width: 100%;background-color: rgba(255,255,255,0.8);}
-section#toolbar .toolbar-mobile .mobile-popover {margin: 5px 0;}
-section#toolbar .toolbar-mobile a i {display: inline-block;}
-section#toolbar .toolbar-mobile a .text {display: inline-block;}
-section#toolbar .toolbar-mobile a .item-count {display: inline-block;}
-section#toolbar .toolbar-mobile .btn-search {width: 3%;}
-section#toolbar .toolbar-mobile .search-main-mobile {padding-top: 10px;}
-section#toolbar .toolbar-mobile .nav-mobile {min-height: 60px;background-color: transparent;font-weight: normal;white-space: nowrap;line-height: 45px;border: none;z-index: 99; padding:15px;}
-section#toolbar .popover {max-width: 80%;}
-section#toolbar .popover .arrow {display: none;}
-section#toolbar .popover .popover-close {padding-bottom: 10px;font-weight: 700;}
-/**** End Toolbar Styling  ****/
 
 
 
