@@ -53,12 +53,11 @@ fieldset {margin-top:5px;}
 fieldset:first-of-type {margin-top:0;}
 legend {font-size:140%; font-weight:300; text-align:center; border-bottom:1px solid #ccc;}
 label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
-.input-group-btn {/*font-size:100%;*/}
 .quantity-input-group {width:128px;}
 .quantity-input-group.input-group-sm {width:108px;}
 
 .btn {text-transform:uppercase; transition:all 0.3s ease; border-radius:0!important;}
-.btn,.btn-default {color:#333; background-color:#f0f0f0; border-color:#bbb;}
+.btn-default {color:#333; background-color:#f0f0f0; border-color:#bbb;}
 .btn-default:focus,.btn-default.focus,
 .btn-default:hover,
 .btn-default:active,.btn-default.active,.open > .dropdown-toggle.btn-default,
@@ -80,7 +79,7 @@ label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 .btn-secondary:active,.btn-secondary.active,.open > .dropdown-toggle.btn-secondary,
 .btn-secondary:active:hover,.btn-secondary.active:hover,.open > .dropdown-toggle.btn-secondary:hover,.btn-secondary:active:focus,.btn-secondary.active:focus,.open > .dropdown-toggle.btn-secondary:focus,.btn-secondary:active.focus,.btn-secondary.active.focus,.open > .dropdown-toggle.btn-secondary.focus,
 .btn-secondary.disabled:hover,.btn-secondary[disabled]:hover,fieldset[disabled] .btn-secondary:hover,.btn-secondary.disabled:focus,.btn-secondary[disabled]:focus,fieldset[disabled] .btn-secondary:focus,.btn-secondary.disabled.focus,.btn-secondary[disabled].focus,fieldset[disabled] .btn-secondary.focus
-{color:#000; background-color:#f8f8f8; border-color:#aaa;}
+{color:#000; background-color:#fcfcfc; border-color:#aaa;}
 
 .btn-link {color:#000;}
 .btn-link,.btn-link:active,.btn-link.active,.btn-link[disabled],fieldset[disabled] .btn-link {background-color:transparent;}
@@ -168,6 +167,8 @@ h2.section-name {margin-bottom:18px;}
 .pricing .price-range {}
 .pricing .price-regular {text-decoration:line-through;}
 .pricing .percent {color:red;}
+.availability {color:#558C89;}
+
 
 #toolbar ul {}
 #toolbar .tool {position:relative; padding-left:10px; padding-right:10px;}
@@ -355,38 +356,7 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 6-) Shoping Cart Styling   ****/
-#shopping-cart .well, #order-summary .well {background: none;}
-#shopping-cart .item {border-bottom: 1px solid #EEEEEE;font-size: 90%;line-height: 20px;margin-bottom: 20px;padding-bottom: 10px;}
-#shopping-cart .item .thumbnail {margin-bottom: 0;}
-#shopping-cart .item .details .item-label {display: inline;}
-#shopping-cart .item .details .name {color: #333333;font-size: 80%;line-height: 21px;}
-#shopping-cart .item .details .availability {color:#558C89;}
-#shopping-cart .item .details .pricing {margin-bottom: 10px;}
-#shopping-cart .item .details .remove {margin-bottom: 10px;margin-top: 10px;}
-#shopping-cart .item .details .quantity {float: left;width: 100%;}
-@media (min-width: 992px) {body #shopping-cart .item .details .quantity .quantity-input-group {float: right;}}
-#shopping-cart #coupon-code {border-bottom: 1px solid #EEEEEE;margin-bottom: 20px;}
-#shopping-cart #coupon-code .title {font-size: 90%;font-weight: bold;margin-bottom: 10px;}
-#shopping-cart #coupon-code .form-group .control-label {margin-bottom: 10px;text-align: left;}
-#shopping-cart #coupon-code .form-group .form-control {margin-bottom: 10px;}
-@media (min-width: 768px) {%raw%}{#{%endraw%}shopping-cart #coupon-code .form-group .control-label {margin-bottom: 0;}#shopping-cart #coupon-code .form-group .form-control {margin-bottom: 0;}}
-@media (min-width: 768px) {%raw%}{#{%endraw%}shopping-cart #coupon-code .text-label {text-align: right;}}
-#shopping-cart #shipping-estimator {border-bottom: 1px solid #EEEEEE;margin-bottom: 20px;}
-#shopping-cart #shipping-estimator .title {font-size: 90%;font-weight: bold;margin-bottom: 10px;}
-#shopping-cart #shipping-estimator .form-group .control-label {margin-bottom: 10px;text-align: left;}
-#shopping-cart #shipping-estimator .form-group .form-control {margin-bottom: 10px;}
-@media (min-width: 768px) {%raw%}{#{%endraw%}shopping-cart #shipping-estimator .form-group .control-label {margin-bottom: 0;}#shopping-cart #shipping-estimator .form-group .form-control {margin-bottom: 0;}}
-@media (min-width: 768px) {%raw%}{#{%endraw%}shopping-cart #shipping-estimator .text-label {text-align: right;}}
-#shopping-cart #shipping-estimator .rate {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-#shopping-cart #shipping-estimator .arrival {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-#shopping-cart #shipping-estimator .tax {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-#shopping-cart #shipping-estimator .total {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;margin-bottom: 10px;}
-#shopping-cart #subtotal {font-size: 90%;font-weight: bold;margin-bottom: 10px;}
-#shopping-cart #proceed-to-checkout {margin-bottom: 20px;}
-#shopping-cart #paypal {margin-bottom: 20px;text-align: center;}
-#shopping-cart #continue-shopping {margin-bottom: 20px;}
 #order-summary .product {border-bottom: 1px solid #eeeeee;margin-bottom: 10px;padding-bottom: 10px;padding-top: 10px;}
-#order-summary .product .thumbnail {margin-bottom: 0;}
 #order-summary .product .actions {text-align: left;}
 #order-summary .subtotal, .shipping, .tax {font-weight: bold;}
 #order-complete #order-items .panel .panel-heading {background-color: #ffffff;border-bottom: 1px solid #e5e5e5;}
