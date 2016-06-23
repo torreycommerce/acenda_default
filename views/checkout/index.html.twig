@@ -7,211 +7,192 @@
 {% set cart = api.get('/sessioncart') %}
 {% set config = api.get('/config') %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
-    {% set product_ids = cart.items|values_in('product_id') %}
-    {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+	{% set product_ids = cart.items|values_in('product_id') %}
+	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% endif %}
 
 {% block content %}
 {% if cart.items is empty %}
-    {{ app.redirect('/') }}
+	{{ app.redirect('/') }}
 {% endif %}
 {% if (config.components.payflowpro.enable == false and config.components.stripe.enable == false ) %}
-    {{ app.redirect('/cart') }}
+	{{ app.redirect('/cart') }}
 {% endif %}
 {% if app.request.post.shipping %}
-    {% set return = api.post('/sessioncart/checkout', app.request.post.shipping) %}
-    {% if return %}
-        {% do app.redirect(app.url ~ '/checkout/billing') %}
-    {% endif %}
+	{% set return = api.post('/sessioncart/checkout', app.request.post.shipping) %}
+	{% if return %}
+		{% do app.redirect(app.url ~ '/checkout/billing') %}
+	{% endif %}
 {% endif %}
 <section id="checkout">
-    <div class="row">
-        <div class="col-md-12">
-            <hgroup>
-                <h1 class="page-header"><i class="fa fa-map-marker"></i> Checkout: Shipping</h1>
-            </hgroup>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1 class="page-header">Checkout: Shipping</h1>
+		</div>
+	</div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div id="fade-container">
-                {{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-horizontal form-region' }) }}
-                {% if app.request.get.test_order %}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
-                    </div>
-                </div>
-                {% endif %}
-                <div class="row">
-                    <div class="col-sm-8 col-md-8 col-lg-8">
-                        {% if app.user.id is empty %}
-                        <fieldset>
-                            <legend><i class="fa fa-user"></i>Guest &amp; New Customer</legend>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Email
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-sm-9 col-md-9 col-lg-5">
-                                    {{ forms.email('shipping[email]', app.user.getState('email'), {required: true, class: "form-control parsley-validated", placeholder: "Email"}) }}
-                                </div>
-                                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
-                                    <div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Subscribe to our Newsletter</label>
-                              <div class="col-sm-9 col-md-9 col-lg-5">
-                                  {{ forms.checkbox('shipping[newsletter]', true, {}, true) }}
-                              </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-9 col-md-offset-3 col-md-9 col-lg-offset-3 col-lg-5">
-                                    Or: <a href="{{app.url}}/account/login/checkout">log in as an existing customer</a>
-                                </div>
-                            </div>
-                        </fieldset>
-                        {% endif %}
-                        <fieldset>
-                            <legend><i class="fa fa-truck"></i> Shipping Address</legend>
-                            {% set giftlist_present = false %}
-                            {% set address_select = {'':'Use address below'} %}
-                            {% set selected_address = null %}
-                             {% set go = false %}
-                            {% if app.user.id is not empty %}
-                                {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1}, verified:1, customer_id:app.user.id}}) %}
-                                {% for address in addresses %}
-                                    {% set address_select = address_select + {(address.id):address.one_line} %}
-                                {% endfor %}
-                                {% if app.user.getState('shipping_address_id') is not null %}
-                                    {% set selected_address = app.user.getState('shipping_address_id') %}
-                                {% endif %}
-                            {% endif %}
-                            {% for item in api.get('/sessioncartitem') %}
-                                {% if selected_address is empty %} {% set go = true %} {% endif %}
-                                {% if item.wishlist_id is not empty %}
-                                    {% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
-                                    {% set address = api.get('/customeraddress/' ~ wishlist.address_id) %}
-                                    {% if address != false %}
-                                        {% set address_select = address_select + {(wishlist.address_id):'Recipient of wishlist "' ~ wishlist.name ~ '"'} %}
-                                        {% set giftlist_present = true %}
-                                        {% if go and selected_address is null %}
-                                            {% set selected_address = wishlist.address_id %}
-                                        {% endif %}
-                                    {% endif %}
-                                {% endif %}
-                                {% if item.registry_id is not empty %}
-                                    {% set registry = api.get('/registry/' ~ item.registry_id) %}
-                                    {% set address = api.get('/customeraddress/' ~ registry.address_id) %}
-                                        {% if address != false %}
-                                            {% set address_select = address_select + {(registry.address_id):'Recipient of registry "' ~ registry.name ~ '"'} %}
-                                            {% set giftlist_present = true %}
-                                            {% if go and selected_address is null %}
-                                                {% set selected_address = registry.address_id %}
-                                            {% endif %}
-                                        {% endif %}
-                                {% endif %}
-                                {% if selected_address is null %}{% set selected_address = '' %}{% endif %}
-                            {% endfor %}
-                            {% if address_select|length > 1 %}
-                            <div class="form-group">
-                                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-5 col-lg-offset-3">
-                                    {{ forms.select('shipping[shipping_address_id]', selected_address, address_select, {class:'form-control parsley-validated', id: 'checkout_shipping_address_id'}) }}
-                                </div>
-                                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
-                                    <div class="validation">{{ forms.errorlist(form_errors, 'shipping_address_id') }}</div>
-                                </div>
-                            </div>
-                            {% endif %}
-                            <div id="custom-address">
-                                <div id="address-fields">
-                                    {% set addr = {} %}
-                                    {% if selected_address == '' %}
-                                        {% set addr = app.user.getCheckoutStates('shipping') %}
-                                    {% endif %}
-                                    {{ extras.address('shipping', 'shipping', addr) }}
-                                </div>
-                                {% if app.user.id is not empty %}
-                                    <div class="form-group">
-                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-5 col-lg-offset-3">
-                                            <div class="checkbox">
-                                                {% set checked = {} %}
-                                                {% if app.user.getState('shipping_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
-                                                <label>{{ forms.checkbox('shipping[shipping_save]', false, checked) }} Save shipping address</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
-                                            <div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            {% set compiledmethods = {} %}
-                            {% for method in methods %}
-                            {% set compiledmethods = compiledmethods + {(method.id):method.name}%}
-                            {% endfor %}
-                            <div class="form-group">
-                                <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Shipping Method
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-sm-9 col-md-9 col-lg-5">
-                                    {{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated'}) }}
-                                </div>
-                                <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
-                                    <div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
-                                </div>
-                            </div>
-                            {% if giftlist_present != true %}
-                                <div class="form-group">
-                                    <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-5 col-lg-offset-3">
-                                        <div class="checkbox">
-                                            {% set same = {} %}
-                                            {% if app.user.getState('shipping_same_as_billing') is not null and  app.user.getState('shipping_same_as_billing') == '' %} {% set same = {} %} {% endif %}
-                                            <label>{{ forms.checkbox('shipping[shipping_same_as_billing]', false, same+{'id': 'shipping_same_as_billing'}) }} Shipping Address is the same as the Billing Address</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
-                                        <div class="validation">{{ forms.errorlist(form_errors, 'shipping_same_as_billing') }}</div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </fieldset>
-                        {{ normalizer.normalizer() }}
-                        <div class="row">
-                            <div class="col-sm-9 col-sm-offset-3 col-md-4 col-md-offset-3 mB20">
-                                <div class="actions">
-                                    {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
-                                    <input type="hidden" name="step" value="shipping">
-                                    {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <section id="order-summary" class="col-sm-4">
-                        <div class="well">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3><i class="fa fa-history"></i> Order Summary</h3>
-                                </div>
-                            </div>
-                            {% include "/checkout/_partials/summary.html.twig" %}
-                        </div>
-                    <div class="row">
-                        <div class="col-xs-12 hidden-sm hidden-md hidden-lg smT10 mB20">
-                            <div class="actions">
-                                {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
-                                <input type="hidden" name="step" value="shipping">
-                                {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
-                            </div>
-                        </div>
-                    </div>
-                    </section>
-                </div>
-                {{ forms.end() }}
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="fade-container">
+				{{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-region' }) }}
+				{% if app.request.get.test_order %}
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
+					</div>
+				</div>
+				{% endif %}
+				<div class="row">
+					<div class="col-xs-12 col-sm-8">
+						{% if app.user.id is empty %}
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 p">
+								<fieldset>
+									<legend>Guest &amp; New Customer</legend>
+									<div class="form-group">
+										<label class="control-label" for="email">Email <span class="text-danger">*</span></label>
+										{{ forms.email('shipping[email]', app.user.getState('email'), {required: true, class: "form-control parsley-validated", id:'email', placeholder: "Email"}) }}
+										<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
+									</div>
+									<div class="form-group">
+										<div class="checkbox">
+											<label class="control-label" for="subsc">{{ forms.checkbox('shipping[newsletter]', true, {id:'subsc'}, true) }} Subscribe to our Newsletter
+											</label>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<fieldset>
+									<legend>Returning Customer</legend>
+									<div class="form-group">
+										<p>Already have an Account? Welcome back! Simply <a href="{{app.url}}/account/login/checkout">Log In</a> to get started.</p>
+										<p class="text-right"><a class="btn btn-default btn-xs-block" href="{{app.url}}/account/login/checkout">Log In</a></p>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+						
+						{% endif %}
+						<fieldset>
+							<legend>Shipping Address</legend>
+							{% set giftlist_present = false %}
+							{% set address_select = {'':'Use address below'} %}
+							{% set selected_address = null %}
+							{% set go = false %}
+							{% if app.user.id is not empty %}
+								{% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1}, verified:1, customer_id:app.user.id}}) %}
+								{% for address in addresses %}
+									{% set address_select = address_select + {(address.id):address.one_line} %}
+								{% endfor %}
+								{% if app.user.getState('shipping_address_id') is not null %}
+									{% set selected_address = app.user.getState('shipping_address_id') %}
+								{% endif %}
+							{% endif %}
+							{% for item in api.get('/sessioncartitem') %}
+								{% if selected_address is empty %} {% set go = true %} {% endif %}
+								{% if item.wishlist_id is not empty %}
+									{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
+									{% set address = api.get('/customeraddress/' ~ wishlist.address_id) %}
+									{% if address != false %}
+										{% set address_select = address_select + {(wishlist.address_id):'Recipient of wishlist "' ~ wishlist.name ~ '"'} %}
+										{% set giftlist_present = true %}
+										{% if go and selected_address is null %}
+											{% set selected_address = wishlist.address_id %}
+										{% endif %}
+									{% endif %}
+								{% endif %}
+								{% if item.registry_id is not empty %}
+									{% set registry = api.get('/registry/' ~ item.registry_id) %}
+									{% set address = api.get('/customeraddress/' ~ registry.address_id) %}
+										{% if address != false %}
+											{% set address_select = address_select + {(registry.address_id):'Recipient of registry "' ~ registry.name ~ '"'} %}
+											{% set giftlist_present = true %}
+											{% if go and selected_address is null %}
+												{% set selected_address = registry.address_id %}
+											{% endif %}
+										{% endif %}
+								{% endif %}
+								{% if selected_address is null %}{% set selected_address = '' %}{% endif %}
+							{% endfor %}
+							{% if address_select|length > 1 %}
+							<div class="form-group">
+								{{ forms.select('shipping[shipping_address_id]', selected_address, address_select, {class:'form-control parsley-validated', id: 'checkout_shipping_address_id'}) }}
+								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_address_id') }}</div>
+							</div>
+							{% endif %}
+							<div id="custom-address">
+								<div id="address-fields">
+									{% set addr = {} %}
+									{% if selected_address == '' %}
+										{% set addr = app.user.getCheckoutStates('shipping') %}
+									{% endif %}
+									{{ extras.address('shipping', 'shipping', addr) }}
+								</div>
+								{% if app.user.id is not empty %}
+								<div class="form-group">
+									<div class="checkbox">
+										{% set checked = {} %}
+										{% if app.user.getState('shipping_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
+										<label>{{ forms.checkbox('shipping[shipping_save]', false, checked) }} Save shipping address</label>
+									</div>
+									<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
+								</div>
+								{% endif %}
+							</div>
+							{% set compiledmethods = {} %}
+							{% for method in methods %}
+							{% set compiledmethods = compiledmethods + {(method.id):method.name}%}
+							{% endfor %}
+							<div class="form-group">
+								<label class="control-label" for="ship-method">Shipping Method <span class="text-danger">*</span></label>
+								{{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated', id:'ship-method'}) }}
+								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
+							</div>
+							{% if giftlist_present != true %}
+							<div class="form-group">
+								<div class="checkbox">
+									{% set same = {} %}
+									{% if app.user.getState('shipping_same_as_billing') is not null and  app.user.getState('shipping_same_as_billing') == '' %} {% set same = {} %} {% endif %}
+									<label for="shipping_same_as_billing">{{ forms.checkbox('shipping[shipping_same_as_billing]', false, same+{'id': 'shipping_same_as_billing'}) }} Shipping Address is the same as the Billing Address</label>
+								</div>
+								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_same_as_billing') }}</div>
+							</div>
+							{% endif %}
+						</fieldset>
+						{{ normalizer.normalizer() }}
+						<div class="form-group hidden-xs">
+							<div class="actions text-right">
+								{{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
+								<input type="hidden" name="step" value="shipping">
+								{{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-lg btn-xs-block'}) }}
+							</div>
+						</div>
+					</div>
+					<section id="order-summary" class="col-xs-12 col-sm-4">
+						<div class="well">
+							<div class="row">
+								<div class="col-md-12">
+									<h3>Order Summary</h3>
+								</div>
+							</div>
+							{% include "/checkout/_partials/summary.html.twig" %}
+						</div>
+					<div class="row hidden-sm hidden-md hidden-lg">
+						<div class="col-xs-12">
+							<div class="actions">
+								{{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
+								<input type="hidden" name="step" value="shipping">
+								{{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block btn-lg'}) }}
+							</div>
+						</div>
+					</div>
+					</section>
+				</div>
+				{{ forms.end() }}
+			</div>
+		</div>
+	</div>
 </section>
 
 {% endblock %}
@@ -221,10 +202,10 @@
 {% endblock %}
 
 {% block acenda %}
-    {{ parent() }}
-    {% include "/checkout/_partials/acenda.html.twig" %}
+	{{ parent() }}
+	{% include "/checkout/_partials/acenda.html.twig" %}
 {% endblock %}
 {% block dataLayer %}
-    {% include "/checkout/_partials/dataLayer.html.twig" %}
-    {{ parent() }}
+	{% include "/checkout/_partials/dataLayer.html.twig" %}
+	{{ parent() }}
 {% endblock %}

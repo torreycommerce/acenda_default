@@ -125,7 +125,7 @@ Cart
 								</span>
 							{% endif %}
 						</div>
-						<div class="remove"><button class="btn btn-secondary btn-sm" type="submit" name="cart[action]" value="remove/{{ id }}">Remove</button></div>
+						<div class="remove p"><button class="btn btn-secondary btn-xs" type="submit" name="cart[action]" value="remove/{{ id }}">Remove</button></div>
 					</div>
 					{# Begin item prices #}
 					<div class="col-md-3 col-lg-2">
@@ -254,7 +254,7 @@ Cart
 			</div>
 			{# End subtotal / checkout #}
 			{# Begin shipping estimator #}
-			<div class="divide p" id="shipping-estimator">
+			<div class="divide" id="shipping-estimator">
 				<div class="row">
 					<div class="col-xs-12">
 						{% include "/cart/_partials/estimator.html.twig" %}
@@ -343,9 +343,13 @@ Cart
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12">
-			<div id="continue-shopping">
-				<a class="btn btn-secondary" href="{{ app.url }}/">Continue Shopping</a>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-md-8">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4">
+					<a class="btn btn-block btn-secondary" href="{{ app.url }}/">Continue Shopping</a>
+				</div>
 			</div>
 		</div>
 	</div>

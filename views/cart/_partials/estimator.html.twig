@@ -1,33 +1,31 @@
 <div id="estimator-error"></div>
 <div class="title p fa-fa-balance"><i class="fa fa-calculator"></i><b>Shipping and Tax Estimator</b></div>
 <form class="form-region" role="form">        
+	{% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
+	{% set m = {} %}
+	{% for method in methods %}
+	{% set m = m + {(method.id):method.name} %}
+	{% endfor %}
+	{# Begin zip code #}
 	<div class="form-group">
-		{% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
-		{% set m = {} %}
-		{% for method in methods %}
-		{% set m = m + {(method.id):method.name} %}
-		{% endfor %}
-		{# Begin zip code #}
-		<div class="form-group">
-			<label class="control-label" for="cart_zip_code">Shipping Details:</label>
-			<div class="row">
-				<div class="col-xs-6 col-sm-4 p">
-					{{ forms.text('cart[zip_code]', '', {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code'}) }}
-				</div>            
-				{# End zip code #}
-				{# Begin shipping method #}
-				<div class="col-xs-6 col-sm-4 p">
-					{{ forms.select('cart[method]', '', m, {class:'form-control', id:'cart_shipping_method'}) }}
-				</div>
-				{# End shipping method #}
-				{# Begin estimate button #}
-				<div class="col-xs-12 col-sm-4 p">
-					{{ forms.submit('cart[Estimate]', '', 'Estimate', {'class':'btn btn-default btn-block', id: 'cart_Estimate'}) }}
-				</div>
+		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 p">
+				{{ forms.text('cart[zip_code]', '', {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code'}) }}
+			</div>            
+			{# End zip code #}
+			{# Begin shipping method #}
+			<div class="col-xs-6 col-sm-4 p">
+				{{ forms.select('cart[method]', '', m, {class:'form-control', id:'cart_shipping_method'}) }}
 			</div>
-			<div class="validation">{{ forms.errorlist(form_errors, 'zip_code') }}</div>
-			<div class="validation">{{ forms.errorlist(form_errors, 'method') }}</div>
+			{# End shipping method #}
+			{# Begin estimate button #}
+			<div class="col-xs-12 col-sm-4 p">
+				{{ forms.submit('cart[Estimate]', '', 'Estimate', {'class':'btn btn-default btn-block', id: 'cart_Estimate'}) }}
+			</div>
 		</div>
+		<div class="validation">{{ forms.errorlist(form_errors, 'zip_code') }}</div>
+		<div class="validation">{{ forms.errorlist(form_errors, 'method') }}</div>
 	</div>
 </form>
 {# Begin estimates #}
@@ -55,12 +53,12 @@
 				</div>
 				{# End shipping rate modal #}
 				{# Begin shipping rate #}
-				<div class="rate col-v">
+				<div class="rate p">
 					<div class="row">
-						<div class="col-sm-4 col-md-4">
+						<div class="col-xs-9">
 							<b style="cursor: pointer;" data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></b>
 						</div>
-						<div class="col-sm-8 col-md-8">
+						<div class="col-xs-3 text-right">
 							<span id="rate-estimate"></span>
 						</div>
 					</div>
@@ -78,43 +76,43 @@
 							<p>These dates are based on carrier shipping practices, destination and the items you order. (Expected delivery dates are estimates. Orders can be delayed due to verification or time of order being placed. Items that are not regularly stocked cannot be held to the expected delivery dates.)</p>                       
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-neutral" data-dismiss="modal" aria-hidden="true">Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				{# End arival modal #}
 				{# Begin arrival date #}
-				<div class="arrival col-v" id="block-date-estimate">
+				<div class="arrival p" id="block-date-estimate">
 					<div class="row">
-						<div class="col-sm-4 col-md-4">
+						<div class="col-xs-9">
 							<b style="cursor: pointer;" data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></b>
 						</div>
-						<div class="col-sm-8 col-md-8">
+						<div class="col-xs-3 text-right">
 							<span id="date-estimate"></span>&nbsp;(for in stock products)
 						</div>
 					</div>
 				</div>
 				{# End arrival date #}
 				{# Begin estimated tax #}
-				<div class="tax col-v">
+				<div class="tax p">
 					<div class="row">
-						<div class="col-sm-4 col-md-4">
+						<div class="col-xs-9">
 							<b>Estimated Sales Tax</b>
 						</div>
-						<div class="col-sm-8 col-md-8">
+						<div class="col-xs-3 text-right">
 							<span id="tax-estimate"></span>
 						</div>
 					</div>
 				</div>
 				{# End estimated tax #}
 				{# Begin estimated total #}
-				<div class="total col-v p">
+				<div class="total p">
 					<div class="row">
-						<div class="col-sm-4 col-md-4">
+						<div class="col-xs-9">
 							<b>Estimated Total</b>
 						</div>
-						<div class="col-sm-8 col-md-8">
+						<div class="col-xs-3 text-right">
 							<span id="total-estimate"></span>
 						</div>
 					</div>
@@ -123,8 +121,8 @@
 				{# Begin estimator actions #}
 				<div class="actions">
 					<div class="row">
-						<div class="col-md-12">
-							{{ forms.submit('cart[ClearEstimate]', '', 'Clear Estimate', {'class':'btn btn-default btn-mobile', id: 'cart_ClearEstimate'}) }}
+						<div class="col-xs-12">
+							{{ forms.submit('cart[ClearEstimate]', '', 'Clear Estimate', {'class':'btn btn-default', id: 'cart_ClearEstimate'}) }}
 						</div>
 					</div>
 				</div>
