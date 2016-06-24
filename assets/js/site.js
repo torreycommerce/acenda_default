@@ -227,8 +227,8 @@ $(document).ready(function () {
             },
             listeners: {
                 onFieldError: function ( elem, constraints, ParsleyField ) {
-                    if (!elem.parent().parent().hasClass('has-feedback'))
-                        elem.parent().parent().addClass('has-feedback');
+                    if (!elem.parents('.form-group').hasClass('has-feedback'))
+                        elem.parents('.form-group').addClass('has-feedback');
 
                     if ($.inArray(elem[0].type, limit_feed) >= 0){
                       if (elem.parent().find(".glyphicon"))
@@ -240,8 +240,8 @@ $(document).ready(function () {
                     elem.tooltip("show");
                 },
                 onFieldSuccess: function ( elem, constraints, ParsleyField ) {
-                    if (!elem.parent().parent().hasClass('has-feedback'))
-                        elem.parent().parent().addClass('has-feedback');
+                    if (!elem.parents('.form-group').hasClass('has-feedback'))
+                        elem.parents('.form-group').addClass('has-feedback');
                     if ($.inArray(elem[0].type, limit_feed) >= 0){
                       if (elem.parent().find(".glyphicon"))
                           elem.parent().find(".glyphicon").remove();

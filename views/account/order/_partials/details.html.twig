@@ -15,11 +15,11 @@
     <div class="well">
         <div class="row">
             {# Begin order details #}
-            <div class="order-details col-sm-4 col-md-4 col-lg-3">
+            <div class="order-details col-sm-4 col-md-4 col-lg-3 fsd1">
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                         {# Begin order details #}
-                        <div class="order-info">
+                        <div class="order-info p">
                             <div><strong>Order Info</strong></div>
                             <div>Order #{{ order.order_number }}</div>
                             <div>{{ order.date_created }}</div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12">
                         {# Begin shipping Address #}
-                        <div class="shipping-address">
+                        <div class="shipping-address p">
                             <div><strong>Shipping Address</strong></div>
                             <address>
                                 <div>{{ order.shipping_first_name}} {{ order.shipping_last_name}}</div>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12">
                         {# Begin shipment details #}
-                        <div class="shipping-method">
+                        <div class="shipping-method p">
                             {% set method = api.get('/shippingmethod/' ~ order.shipping_method) %}
                             <div><strong>Shipping Method</strong></div>
                             <div>Shipping Method: ({{method.name}})</div>
@@ -58,7 +58,7 @@
                 {# Begin order actions #}
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="order-actions">
+                        <div class="order-actions p">
                             {% if order.status == 'pending' %}
                             <a class="btn btn-neutral btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel order</a>
                             <div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
@@ -92,7 +92,7 @@
                 {# End order actions #}
             </div>
             {# End order details #}
-            <div class="order-items col-sm-8 col-md-8 col-lg-9">
+            <div class="order-items col-sm-8 col-md-8 col-lg-9 fsd1">
                 {# Begin order items #}
                 {% set items = api.get('/orderitem?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
                 {% set product_ids = items|values_in('product_id') %}
@@ -103,7 +103,7 @@
                 {% set product = products[item.product_id].0 %}
                 {% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
                 {% set subtotal = subtotal + (product.price * item.quantity) %}
-                <div class="order-item">
+                <div class="order-item col-v divide">
                     <div class="row">
                         {# Begin product image #}
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
@@ -187,7 +187,7 @@
                 <div class="row">
                     {# Begin billing address #}
                     <div class="col-sm-6 col-md-4 col-lg-4">
-                        <div class="billing-address">
+                        <div class="billing-address p">
                             <div><strong>Billing Address</strong></div>
                             {% if order.transaction_type == 'PayPal' %}
                             <address>
@@ -203,7 +203,7 @@
                             Express order
                             {% endif %}
                         </div>
-                        <div class="billing-method">
+                        <div class="billing-method p">
                             <div><strong>Billing Method</strong></div>
                             {% if order.transaction_type == 'PayPal Express' %} {# Express order #}
                             <div>
@@ -219,7 +219,7 @@
                     {# End billing address #}
                     {# Begin order totals #}
                     <div class="col-sm-6 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                        <div class="order-totals">
+                        <div class="order-totals p">
                             <div class="shipping">
                                 <div class="row">
                                     <div class="col-md-6">Subtotal:</div>
@@ -298,7 +298,7 @@
                     {% if return.status =='pending' %}
                     {# Begin actions #}
                     <div class="col-sm-2">
-                        <div class="actions">
+                        <div class="actions p">
                             {{ forms.begin('cancel-return',app.request.path) }}
                                 <input type="submit" name="cancel" value="Cancel" class="btn btn-neutral btn-sm btn-block" />
                                 <input type="hidden" name="id" value="{{item.id}}">

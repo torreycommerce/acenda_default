@@ -22,12 +22,12 @@
 	</div>
 	<div class="form-group normalizable">
 		<label class="control-label" for="addr-1">Address 1 <span class="text-danger">*</span></label>
-		{{ forms.text(form ~ '[' ~ name ~ 'street_line1]', address[name ~ 'street_line1'], {class:'form-control parsley-validated', id:'addr-1', placeholder:"Street Line 1", required:true}) }}
+		{{ forms.text(form ~ '[' ~ name ~ 'street_line1]', address[name ~ 'street_line1'], {class:'form-control parsley-validated', id:'addr-1', placeholder:"Address 1", required:true}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
 	</div>
 	<div class="form-group normalizable">
 		<label class="control-label" for="addr-2">Address 2</label>
-		{{ forms.text(form ~ '[' ~ name ~ 'street_line2]', address[name ~ 'street_line2'], {class:'form-control parsley-validated', id:'addr-2', placeholder:"Street Line 2"}) }}
+		{{ forms.text(form ~ '[' ~ name ~ 'street_line2]', address[name ~ 'street_line2'], {class:'form-control parsley-validated', id:'addr-2', placeholder:"Address 2"}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 	</div>
 	<div class="row">

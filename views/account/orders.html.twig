@@ -46,7 +46,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                 <div class="page-filters">
                     <div class="row">
                         {# Begin order filter #}
-                        <div class="col-sm-4 col-md-3 col-lg-2">
+                        <div class="col-sm-4 col-md-3 col-lg-2 p">
                             <div class="order-filter">
                                 {{ forms.begin('ordersearch', app.url ~ '/account/orders', 'get') }}
                                 {{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control'}) }}
@@ -54,7 +54,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                         </div>
                         {# End order filter #}
                         {# Begin order search #}
-                        <div class="col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-6">
+                        <div class="col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-6 p">
                             <div class="search-within">
                                 <div class="input-group">
                                     <input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control input-sm" placeholder="Search">
@@ -80,7 +80,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
                 </div>
                 {# End pagination #}
                 {% if orders is empty %}
-                There are no orders.
+                <p>There are no orders.</p>
                 {% endif %}
                 {% for order in orders %}
                 {# Begin order #}
