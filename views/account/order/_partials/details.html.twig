@@ -275,13 +275,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <header>
-                        <h4>Returns</h4>
+                        <h2 class="section-header">Returns</h2>
                     </header>
                 </div>
             </div>
             {% for return in returns %}
             {% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
-            <div class="item">
+            <div class="item col-v divide fsd1">
                 <div class="row">
                     <div class="col-sm-2">
                         <div>RMA: {{ return.rma }}</div>

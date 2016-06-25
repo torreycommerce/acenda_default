@@ -1,24 +1,6 @@
 {% spaceless %}
 <div class="row col-v">
-	<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-		<a class="pull-left" href="#nav-mobile-main">
-			<i class="fa fa-bars fa-2x"></i>
-		</a>
-	</div>
-	<div class="col-xs-6 col-md-4 text-left tCsm">
-		<div class="brand">
-			{% if app.params.logoimages is not empty %}
-				{% set logo_info = app.params.logoimages | first %}
-				{% set logo = logo_info.url %}
-			{% endif %}
-			{% if logo is not empty %}
-			  <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
-			{% else %}
-				<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
-			{% endif %}
-		</div>
-	</div>
-	<div class="col-xs-3 col-md-8">
+	<div class="col-xs-12 col-md-8 pull-right">
 		<ul class="list-inline list-unstyled hidden-xs hidden-sm" id="tools">
 			<li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
 			<li class="tool">
@@ -31,31 +13,12 @@
 				</a>
 			</li>
 		</ul>
-		<div class="search pull-right hidden-sm hidden-xs">
-			<form role="search" class="search-form" method="get" action="{{app.url}}/search">
-				<div class="form-group has-feedback input-group twitter-typeahead">
-					<input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
-					<span class="input-group-btn form-control-feedback">
-						<button class="btn btn-primary" type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="nav-mobile hidden-md hidden-lg">
-			<a class="pull-right" href="{{app.url}}/cart">
-				<i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
-			</a>
-		</div>
-	</div>
-	<div class="col-xs-12">
 		<div class="quickcart" data-content="" data-placement='bottom' rel='popover'>
 			<div class="ajaxcart" style="display:none">
 				<div class="popover-close divide">
-					<div class="row">
+					<div class="row p">
 						<div class="col-xs-7">
-							Quick Cart
+							<h2 class="al-btn-sm">Quick Cart</h2>
 						</div>
 						<div class="col-xs-5">
 							<a id="ajaxcart-close" class="btn btn-secondary btn-sm pull-right"><i class="fa fa-times"></i></a>
@@ -65,13 +28,15 @@
 				<div class="row error">
 				</div>
 				{# Begin Popover products #}
-				<section class="ajaxcart-products">
+				<section class="ajaxcart-products divide">
 					{# Begin product #}
 					<div class="ajaxcart-product product col-v divide">
 						<div class="row">
 							<div class="col-xs-3 col-md-4">
 								<div class="thumbnail">
-									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="product-image" src="">
+									<div class="image-space">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="img-responsive isd" src="">
+									</div>
 								</div>
 							</div>
 							<div class="col-xs-9 col-md-8">
@@ -79,7 +44,7 @@
 									<span class="product-name"></span>
 								</div>
 								<div class="price"><strong>Price:</strong> $<span class="product-price"></span></div>
-								<div class="quantity"><strong>Qty:</strong> <span class="product-quantity"></span></div>
+								<div class="quantity"><strong>Qty:</strong>&nbsp;<span class="product-quantity"></span></div>
 							</div>
 						</div>
 					</div>
@@ -107,6 +72,44 @@
 				</div>
 			</div>
 		</div>
+		<div class="search pull-right hidden-sm hidden-xs">
+			<form role="search" class="search-form" method="get" action="{{app.url}}/search">
+				<div class="form-group has-feedback input-group twitter-typeahead">
+					<input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
+					<span class="input-group-btn form-control-feedback">
+						<button class="btn btn-primary" type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+					</span>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
+		<a class="pull-left" href="#nav-mobile-main">
+			<i class="fa fa-bars fa-2x"></i>
+		</a>
+	</div>
+	<div class="col-xs-6 col-md-4 text-left tCsm">
+		<div class="brand">
+			{% if app.params.logoimages is not empty %}
+				{% set logo_info = app.params.logoimages | first %}
+				{% set logo = logo_info.url %}
+			{% endif %}
+			{% if logo is not empty %}
+			  <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
+			{% else %}
+				<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
+		<a class="pull-right" href="{{app.url}}/cart">
+			<i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
+		</a>
+	</div>
+	<div class="col-xs-12">
+		
 	</div>
 </div>
 {% endspaceless %}
