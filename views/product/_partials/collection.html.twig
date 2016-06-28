@@ -259,7 +259,7 @@
 												<div class="variations divide">
 													<div class="product">
 														<div class="row">
-															
+
 																{# Begin collection product image #}
 																<div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
 																	<div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
@@ -318,7 +318,7 @@
 																	</div>
 																</div>
 																{# End collection product details #}
-															
+
 
 															<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
 																<div class="details">
@@ -344,7 +344,7 @@
 																					</div>
 																					<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
 																					<div class="input-group-btn">
-																						<button class="btn btn-primarybtn-add" type="button"><i class="fa fa-plus"></i></button>
+																						<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
 																					</div>
 																				</div>
 																			</div>
@@ -390,7 +390,7 @@
 										{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:{'$in':children_ids}}}) %}
 									{% endif %}
 								{% endif %}
-								
+
 								{# End pane actions #}
 								<div class="panel-body">
 									<div class="row p">
@@ -433,7 +433,7 @@
 													<div class="variations p divide">
 														<div class="product">
 															<div class="row">
-																
+
 																{# Begin collection product image #}
 																<div class="col-xs-4 col-md-2 p">
 																	<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" width="250" class="img-responsive" alt="" style="display:none"/>
@@ -543,7 +543,7 @@
 																				<div id="variation-selector-{{product.id}}" class="input-group"></div>
 																			</div>
 																		</div>
-																					
+
 																		<div class="col-xs-12 col-md-3 p">
 																			{# Begin collection product actions #}
 																				<div class="actions">
@@ -562,7 +562,7 @@
 																				</div>
 																			{# End collection product actions #}
 																		</div>
-																		
+
 
 																		{# End variation block of product #}
 																	</div>

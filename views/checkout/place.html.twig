@@ -26,7 +26,6 @@
 {% set request = request + {'test_order' : app.user.getState('test_order')} %}
 {% set final_order = api.post('/order/place', request) %}
 
-
 {# data block from checkout/_partials/final.html.twig #}
 {% if final_order is not empty %}
     {% do app.user.clearCheckoutStates('shipping') %}
