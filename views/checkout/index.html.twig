@@ -52,13 +52,6 @@
         <div class="col-md-12">
             <div id="fade-container">
                 {{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-horizontal form-region' }) }}
-                {% if app.request.get.test_order %}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
-                    </div>
-                </div>
-                {% endif %}
                 <div class="row">
                     <div class="col-sm-8 col-md-8 col-lg-8">
                         {% if app.user.id is empty %}
@@ -145,7 +138,121 @@
                                     {% if selected_address == '' %}
                                         {% set addr = app.user.getCheckoutStates('shipping') %}
                                     {% endif %}
-                                    {{ extras.address('shipping', 'shipping', addr) }}
+                                    {# Shipping form #}
+                                    {# extras.address('shipping', 'shipping', addr) #}
+                                    {% set name = 'shipping' ~ '_' %}
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">First Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'first_name]', address[name ~ 'first_name'], {class:'form-control parsley-validated', placeholder:"First Name", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Last Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'last_name]', address[name ~ 'last_name'], {class:'form-control parsley-validated', placeholder:"Last Name", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'last_name') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Country
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.select(form ~ '[' ~ name ~ 'country]', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'country'}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'country') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Street Line 1
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'street_line1]', address[name ~ 'street_line1'], {class:'form-control parsley-validated', placeholder:"Street Line 1", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Street Line 2
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'street_line2]', address[name ~ 'street_line2'], {class:'form-control parsley-validated', placeholder:"Street Line 2"}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">City
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'city]', address[name ~ 'city'], {class:'form-control parsley-validated', placeholder:"City", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group normalizable" id="state_select">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">State
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.select(form ~ '[' ~ name ~ 'state]', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'state'}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable" id="state_input">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">State
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'state]', address[name ~ 'state'], {class:'form-control parsley-validated', placeholder:"State"}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Zip Code
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text(form ~ '[' ~ name ~ 'zip]', address[name ~ 'zip'], {class:'form-control parsley-validated', placeholder:"Zip", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3">Phone Number
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                                {{ forms.phone(form ~ '[' ~ name ~ 'phone_number]', address[name ~ 'phone_number'], {class:'form-control parsley-validated', placeholder:"Phone Number", required: true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'phone_number') }}</div>
+                                        </div>
+                                    </div>
+                                    {# END Shipping form #}
                                 </div>
                                 {% if app.user.id is not empty %}
                                     <div class="form-group">
@@ -171,7 +278,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9 col-md-9 col-lg-5">
-                                    {{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated'}) }}
+                                    {{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated shipping-method-dropdown'}) }}
                                 </div>
                                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
                                     <div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
@@ -196,9 +303,8 @@
                         <div class="row">
                             <div class="col-sm-9 col-sm-offset-3 col-md-4 col-md-offset-3 mB20">
                                 <div class="actions">
-                                    {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
                                     <input type="hidden" name="step" value="shipping">
-                                    {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
+                                    {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block shipping-continue'}) }}
                                 </div>
                             </div>
                         </div>
@@ -215,9 +321,8 @@
                     <div class="row">
                         <div class="col-xs-12 hidden-sm hidden-md hidden-lg smT10 mB20">
                             <div class="actions">
-                                {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
                                 <input type="hidden" name="step" value="shipping">
-                                {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
+                                {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block shipping-continue'}) }}
                             </div>
                         </div>
                     </div>
