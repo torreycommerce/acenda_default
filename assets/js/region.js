@@ -36,7 +36,7 @@ $('.form-region, .form-horizonal').cascadingDropdown({
                 dropdown.empty();
                 if (typeof data.result !== 'undefined' && data.result.length > 0) {
                     $.each(data.result, function( index, method ) {
-                        var option = $('<option></option>').attr("value", method.id).text(method.name);
+                        var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
                         dropdown.append(option);
                     });
                     $(".shipping-continue").prop("disabled",false);
@@ -90,7 +90,7 @@ $('.form-region, .form-horizonal').cascadingDropdown({
                     dropdown.empty();
                     if (typeof data.result !== 'undefined' && data.result.length > 0) {
                         $.each(data.result, function( index, method ) {
-                            var option = $('<option></option>').attr("value", method.id).text(method.name);
+                            var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
                             dropdown.append(option);
                         });
                         $(".shipping-continue").prop("disabled",false);
