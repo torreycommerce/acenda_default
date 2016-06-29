@@ -19,7 +19,7 @@ $('.form-region, .form-horizonal').cascadingDropdown({
         }
     },
     {
-        selector: 'select[id$=state]',
+        selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         onChange: function(event, allValues) {
             var state = $('[name$=\\[state_select\\]]').val();
