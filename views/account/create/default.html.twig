@@ -18,7 +18,6 @@
 {% endif %}
 {% endif %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
-{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% extends "/_layouts/base.html.twig" %}
 {% set title = 'Create An Account' %}
 {% block title %}{{title}}{% endblock %}
@@ -31,71 +30,150 @@
 {% endblock %}
 {% block content %}
 
+{{dump(create)}}
+
 <div class="row">
     <div class="col-md-12">
-        <header>
-            <h1 class="page-header">{{title|title}}</h1>
-        </header>
+        <div class="row">
+            <div class="col-md-12">
+                <header>
+                    <h1 class="page-header">{{title|title}}</h1>
+                    <p>New to {{ app.params.site.title }}? Create an account by filling out the form below.</p>
+                </header>
+            </div>
+        </div>
+        {{ forms.begin('create','','post', {class:'form-horizontal'}) }}
+        <fieldset>
+            <legend>Login Information</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Email
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.email('create[email]',create.email, {class:'form-control parsley-validated', placeholder:"Email", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
+                </div>
+            </div>
+            <div class="clear: both"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Retype Email
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.email('create[confirm_email]',create.confirm_email, {class:'form-control parsley-validated', placeholder:"Retype Email", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'confirm_email') }}</div>
+                </div>
+            </div>
+            <div class="clear: both"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Password
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.password('create[password]',create.password, {class:'form-control parsley-validated', placeholder:"Password", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
+                </div>
+            </div>
+            <div class="clear: both"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Retype Password
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.password('create[confirm_password]',create.confirm_password, {class:'form-control parsley-validated', placeholder:"Retype Password", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'confirm_password') }}</div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Contact Information</legend>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">First Name
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.text('create[first_name]',create.first_name, {class:'form-control parsley-validated', placeholder:"First Name", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
+                </div>
+            </div>
+            <div class="clear: both"></div>
+            <div class="form-group">
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Last Name
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-9 col-md-5 col-lg-5">
+                    {{ forms.text('create[last_name]',create.last_name, {class:'form-control parsley-validated', placeholder:"Last Name", required:true}) }}
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
+                </div>
+            </div>
+            <div class="clear: both"></div>
+
+
+
+            <div class="form-group" >
+                <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Phone Number
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                    <!--{{ forms.phone('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', placeholder:"Phone Number", required:true}) }} -->
+                    {{ forms.phoneInt('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', placeholder:"Phone Number", required:true}) }}
+
+
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-7 col-md-offset-0 col-lg-8">
+                    <div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
+                </div>
+
+
+
+
+
+                <!--input type="tel" id="phone">
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                <script src="{{app.url_asset}}/intl-tel-input/build/js/intlTelInput.js"></script>
+                <script>
+                  $("#phone").intlTelInput({
+                    utilsScript: "{{app.url_asset}}/intl-tel-input/build/js/utils.js"
+                  });
+                </script-->
+
+
+
+
+            </div>
+            <div class="clear: both"></div>
+            <div class="form-group">
+              <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Subscribe to our Newsletter
+              </label>
+              <div class="col-sm-9 col-md-5 col-lg-5">
+                  {{ forms.checkbox('create[newsletter]', true, {}, true) }}
+              </div>
+            </div>
+
+            <div class="clear: both"></div>
+        </fieldset>
+        {# Begin actions #}
+        <div class="actions">
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+                    {{ forms.submit('create[action]', 'create', 'Submit', {class:'btn btn-primary'})}}
+                </div>
+            </div>
+        </div>
+        {# End actions #}
+        {{ forms.end() }}
     </div>
 </div>
-{{ lonelyform.begin('account-create')}}
-    {{ lonelyform.beginintro() }}
-        <p>New to {{ app.params.site.title }}? Create an account by filling out the form below.</p>
-    {{ lonelyform.endintro() }}
-    {{ forms.begin('create','','post') }}
-    <fieldset>
-        <legend>Login Information</legend>
-        <div class="form-group">
-            <label class="control-label" for="create-email">Email <span class="text-danger">*</span></label>
-            {{ forms.email('create[email]',create.email, {class:'form-control parsley-validated', id:'create-email', placeholder:"Email", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="create-email-confirm">Repeat Email <span class="text-danger">*</span></label>
-            {{ forms.email('create[confirm_email]',create.confirm_email, {class:'form-control parsley-validated', id:'create-email-confirm', placeholder:"Repeat Email", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'confirm_email') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="create-password">Password <span class="text-danger">*</span></label>
-            {{ forms.password('create[password]',create.password, {class:'form-control parsley-validated', id:'create-password', placeholder:"Password", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="create-password-confirm">Repeat Password <span class="text-danger">*</span></label>
-            {{ forms.password('create[confirm_password]',create.confirm_password, {class:'form-control parsley-validated', id:'create-password-confirm', placeholder:"Repeat Password", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'confirm_password') }}</div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Contact Information</legend>
-        <div class="form-group">
-            <label class="control-label" for="first-name">First Name <span class="text-danger">*</span></label>
-            {{ forms.text('create[first_name]',create.first_name, {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="last-name">Last Name <span class="text-danger">*</span></label>
-            {{ forms.text('create[last_name]',create.last_name, {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
-            <div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="phone-number">Phone Number <span class="text-danger">*</span></label>
-            <div class="row">
-            <div class="col-xs-6 col-md-4">
-                {{ forms.phone('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', id:'phone-number', placeholder:"Phone Number", required:true}) }}
-            </div>
-            </div>
-            <div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="create-subscribe">{{ forms.checkbox('create[newsletter]', true, {id:'create-subscribe'}, true) }} Subscribe to our Newsletter</label>
-        </div>
-    </fieldset>
-    {# Begin actions #}
-    <div class="form-group actions">
-        {{ forms.submit('create[action]', 'create', 'Submit', {class:'btn btn-lg btn-primary'})}}
-    </div>
-    {# End actions #}
-    {{ forms.end() }}
-{{ lonelyform.end() }}
 {% endblock %}

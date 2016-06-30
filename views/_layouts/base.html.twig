@@ -52,6 +52,8 @@
 
         <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
 
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/intl-tel-input/build/css/intlTelInput.css" />
+
         <link rel="sitemap" href="{{app.url}}/api/sitemap" />
         <link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
 
@@ -186,7 +188,7 @@
 $(document).ready(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('li.cart a.tool-tab span.item-count').html(data.result.item_count);
-    });   
+    });
     $('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 
     var timer=0;

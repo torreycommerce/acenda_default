@@ -183,6 +183,21 @@
     {{ elements.input('tel', name, value, attributes, "phone") }}
 {% endmacro %}
 
+{% macro phoneInt(name, value='', attributes=[]) %}
+
+    {# set attributes = attributes | merge({'id':'phone'}) #}
+    {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+    {% import _self as elements %}
+    <input type="tel" id="phone" name="{{ name }}" value="{{ value}}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{app.url_asset}}/intl-tel-input/build/js/intlTelInput.js"></script>
+    <script>
+      $("#phone").intlTelInput({
+        utilsScript: "{{app.url_asset}}/intl-tel-input/build/js/utils.js"
+      });
+    </script>
+{% endmacro %}
+
 {% macro phonenumber(name, value='', attributes=[]) %}
     {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
     {% import _self as elements %}
