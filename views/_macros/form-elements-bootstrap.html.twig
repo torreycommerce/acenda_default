@@ -211,13 +211,15 @@
            }
        </SCRIPT>
 
-    
+
     {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
     {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
     {% import _self as elements %}
 
     <!--input id = "phone" type = "number" name="phone"-->
+    <div>
     {{ elements.input('tel', name, value, attributes2, "")}}
+    </div>
     {{ elements.input('hidden', name, value, attributes1, "")}}
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
