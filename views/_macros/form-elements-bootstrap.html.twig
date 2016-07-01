@@ -177,23 +177,64 @@
     {{ elements.input('password',name, value, attributes) }}
 {% endmacro %}
 
-{% macro phone(name, value='', attributes=[]) %}
+{% macro phoneInt(name, value='', attributes=[]) %}
     {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
     {% import _self as elements %}
     {{ elements.input('tel', name, value, attributes, "phone") }}
 {% endmacro %}
 
-{% macro phoneInt(name, value='', attributes=[]) %}
-
-    {# set attributes = attributes | merge({'id':'phone'}) #}
+{% macro phone(name, value='', attributes=[]) %}
     {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
+
+    <SCRIPT TYPE="text/javascript">
+       <!-- // copyright 1999 Idocs, Inc. http://www.idocs.com // Distribute this script freely but keep this notice in place
+       function numbersonly(myfield, e, dec) {
+           var key;
+           var keychar;
+           if (window.event)
+               key = window.event.keyCode;
+           else if (e)
+               key = e.which;
+           else return true;
+               keychar = String.fromCharCode(key);
+           // control keys
+           if ((key==null) || (key==0) || (key==8) || (key==9) || (key==13) || (key==27) )
+               return true;
+           // numbers
+           else if ((("0123456789").indexOf(keychar) > -1)) return true;
+           // decimal point jump
+           else if (dec && (keychar == ".")) {
+               myfield.form.elements[dec].focus(); return false;
+           }
+           else
+               return false;
+           }
+       </SCRIPT>
+
+    
+    {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
+    {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
     {% import _self as elements %}
-    <input type="tel" id="phone" name="{{ name }}" value="{{ value}}">
+
+    <!--input id = "phone" type = "number" name="phone"-->
+    {{ elements.input('tel', name, value, attributes2, "")}}
+    {{ elements.input('hidden', name, value, attributes1, "")}}
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{app.url_asset}}/intl-tel-input/build/js/intlTelInput.js"></script>
     <script>
-      $("#phone").intlTelInput({
-        utilsScript: "{{app.url_asset}}/intl-tel-input/build/js/utils.js"
+
+      var input = $("#phone");
+      input.intlTelInput({
+        utilsScript: "{{app.url_asset}}/intl-tel-input/build/js/utils.js",
+        nationalMode: true
+
+      });
+
+
+
+      input.on("keyup change", function() {
+        $("#intlPhone").val(input.intlTelInput("getNumber"));
       });
     </script>
 {% endmacro %}
