@@ -217,10 +217,17 @@
     {% import _self as elements %}
 
     <!--input id = "phone" type = "number" name="phone"-->
-    <div>
     {{ elements.input('tel', name, value, attributes2, "")}}
-    </div>
     {{ elements.input('hidden', name, value, attributes1, "")}}
+
+    <style>
+         div.intl-tel-input span.glyphicon.glyphicon-remove {
+            right:0px;
+         }
+         div.intl-tel-input span.glyphicon.glyphicon-ok {
+            right:0px;
+         }
+    </style>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{app.url_asset}}/intl-tel-input/build/js/intlTelInput.js"></script>
