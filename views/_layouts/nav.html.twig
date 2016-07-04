@@ -39,7 +39,7 @@
 	{# Begin nav list #}
 	<ul class="nav navbar-nav fa-fa-balance">
 		<!-- <li><a id="mobile-nav-menu-close" href="javascript: $('#nav-mobile-main').trigger('close');">Close</li> -->
-		<li class="close-menu">
+		<li class="close-menu clearfix">
 			<span>Close</span><i class="fa fa-angle-left"></i>
 		</li>
 		
@@ -60,7 +60,7 @@
 		</li>
 		{% else %}
 		<li>
-			<a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i> Log in</a>
+			<a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i>Log in</a>
 		</li>
 		<li>
 			<a href="{{app.url}}/return"><i class="fa fa-exchange"></i>Easy Returns</a>

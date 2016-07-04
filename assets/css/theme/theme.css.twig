@@ -439,25 +439,10 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 
-#registry .product, #wishlist .product {border-bottom: 1px solid #eeeeee;margin-bottom: 20px;padding-bottom: 20px;}
-
-#registry .product .pricing .price,
-#registry .product .pricing .price-range, #wishlist .product .pricing .price,
-#wishlist .product .pricing .price-range  {display: inline-block;margin-right: 10px;font-size: 85%;}
-#registry .product .pricing .stock, #wishlist .product .pricing .stock {display: inline-block;color: #009900;font-size: 75%;}
-#registry .product .pricing .price-regular, #wishlist .product .pricing .price-regular {display: block;font-size: 75%;text-decoration: line-through;}
-
-#registry .product .quantities .qty-purchased, #wishlist .product .quantities .qty-purchased {display: inline-block;font-size: 80%;margin-right: 10px;}
-#registry .product .quantities .qty-wanted, #wishlist .product .quantities .qty-wanted {display: inline-block;font-size: 80%;margin-right: 10px;}
-@media (min-width: 768px) {
-    #registry .product .quantities .qty-purchased, #wishlist .product .quantities .qty-purchased {margin-bottom: 4px;}
-    #registry .product .quantities .qty-wanted, #wishlist .product .quantities .qty-wanted {margin-bottom: 4px;}
-    }
 
 #registry .product .fg-red {color: #CC0000;}
 #registry .product .fg-green {color: #009900;}
-#registry_search .registry, #wishlist_search .wishlist {border-bottom: 1px solid #ccc;padding-bottom: 10px;padding-top: 10px;}
-#registry_search .registry:last-child, #wishlist_search .wishlist:last-child {border-bottom: none;}
+
 
 /*Carousel Control*/
 .carousel-control.left {
@@ -471,12 +456,11 @@ background-image: linear-gradient(to right, rgba(54, 190, 217, 0) 0%, rgba(54, 1
 background-repeat: repeat-x;
 filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0036bed9', endColorstr='#4036bed9', GradientType=1);}
 .carousel-indicators li {border: 1px solid #0f8299;background-color: #ffc859;}
-table.yiiLog {display: none;}
-@media (min-width: 768px) {table.yiiLog {display: block;}}
 
-.star-rating {position:relative; display:inline-block;}
+
+.star-rating {position:relative; display:inline-block; height:1em; overflow:hidden;}
 .star-rating .disabled {color:#ccc;}
-.star-rating .active {position:absolute; left:0; color:#FFC125;}
+.star-rating .active {position:absolute; left:0; top:0; color:#FFC125; white-space:nowrap; overflow:hidden;}
 .star-rating-input {font-size:200%;}
 .star-rating .choosing {color:#e6c678;}
 .star-rating .active-choosing {color:#FFC125;}

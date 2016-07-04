@@ -70,10 +70,10 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				{# Begin wishlists #}
 				<div class="row">
 					{% for wishlist in wishlists %}
-					<div class="col-lg-4 col-md-4 col-sm-6">
+					<div class="col-md-4 col-sm-6 cool-clear">
 						<div class="panel panel-default panel-info ">
 							<div class="panel-heading">
-								<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}{{ wishlist.name }}</strong>
+								<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 							</div>
 							<div class="panel-body">
 								<div class="item-count">{{ wishlist.item_count }} items</div>
@@ -81,7 +81,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 								<div class="default">{% if wishlist.default %}default wishlist{% endif %}</div>
 							</div>
 							<div class="panel-footer">
-								<a class="btn btn-neutral" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>
+								<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				<div class="row">
 					<div class="col-md-12">
 						<div class="actions-footer">
-							<a class="btn btn-primary" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i>&nbsp;Create a new wishlist</a>
+							<a class="btn btn-primary" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i>&nbsp;Create a new Wish List</a>
 						</div>
 					</div>
 				</div>

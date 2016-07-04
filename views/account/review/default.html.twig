@@ -1,5 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% import "/account/_macros/base.html.twig" as account %}
 
 {# Redirect to the login page if user is not logged in. #}
@@ -49,19 +50,18 @@ set in the array in /account/_macros/base.html.twig
         {% endif %}
         {% endif %}
 
-        <div class="col-sm-8 col-md-9 col-lg-10">            
-            <div class="row">
-                <div class="col-md-12">
-                    <header>
-                        <h3 class="page-header"><i class="fa fa-pencil-square-o"></i> Edit Review</h3>
-                    </header>
-                </div>
-            </div>
-        
-
-            {% include "/account/review/_form.html.twig" %}
+        <div class="col-md-12">
+            <header>
+                <h3 class="page-header"><i class="fa fa-pencil-square-o"></i> Edit Review</h3>
+            </header>
         </div>
-
+        
+        {{ lonelyform.begin('edit-review')}}
+            {{ lonelyform.beginintro() }}
+            {{ lonelyform.endintro() }}
+            {% include "/account/review/_form.html.twig" %}
+        {{ lonelyform.end() }}
+        
     </div>
 </div>
 {% endblock %}
