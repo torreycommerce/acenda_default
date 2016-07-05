@@ -1,13 +1,13 @@
 {# Begin Branding for Print Page #}
-<div class="row" id="branding" class="print printbranding">
-    <div class="col-md-12 print printbranding mB16 mT0 mB0">
-        <div class="brand print">
+<div class="row" id="branding" class="visible-print">
+    <div class="col-xs-12 p">
+        <div class="brand">
             {% if app.params.logoimages is not empty %}
                 {% set logo_info = app.params.logoimages | first %}
                 {% set logo = logo_info.url %}
             {% endif %}
             {% if logo is not empty %}
-              <img class="img-responsive" src="{{ logo }}">
+              <img class="img-responsive" src="{{ logo }}" alt="">
             {% else %}
                 <div id="logo-txt">{{ app.params.site.title }}</div>
             {% endif %}
@@ -18,9 +18,7 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 <div class="row">
     <div class="col-md-12">
-        <hgroup>
-            <h1 class="page-header"><i class="fa fa-shopping-cart"></i> Checkout: Final</h1>
-        </hgroup>
+        <h1 class="page-header">Checkout: Final</h1>
     </div>
 </div>
 {% if final_order is not empty %}
@@ -32,7 +30,7 @@
 {% set subtotal = 0 %}
 
     {% do app.user.setState('order_sent', null) %}
-    <div id="order-complete">
+    <div class="p" id="order-complete">
         <div class="row">
             {# begin print page #} 
             <div class="{{ app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8" }}">
@@ -216,15 +214,15 @@
             </div>
             {% endif %}
         </div>
-        <div class="row mT20">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
                 <div id="continue-shopping">
                     <a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-xs-12 col-sm-6">
                 <div id="print-page" class="pull-right">
-                    <a href="#" class="btn btn-primary" onclick="window.print();return false;">Print this page</a>
+                    <a href="#" class="btn btn-default" onclick="window.print();return false;">Print Page</a>
                 </div>
             </div>
         </div>

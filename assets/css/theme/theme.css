@@ -48,7 +48,7 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 .breadcrumb {padding:0 0 12px; background:none;}
 
-.well {margin-bottom:15px; padding:24px; background-color:#fefefe; border-color:#ccc; border-radius:0; box-shadow:none;}
+.well {margin-bottom:15px; background-color:#fefefe; border-color:#ccc; border-radius:0; box-shadow:none;}
 fieldset {margin-top:5px;}
 fieldset:first-of-type {margin-top:0;}
 legend {font-size:140%; font-weight:300; text-align:center; border-bottom:1px solid #ccc;}
