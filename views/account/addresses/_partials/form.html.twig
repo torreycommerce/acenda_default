@@ -1,4 +1,4 @@
-    {{ forms.begin('address','','post',{ class:'form-region' }) }}
+    {{ forms.begin('address','','post',{ class:'form-region-customer' }) }}
         <fieldset>
             <legend>Address Information</legend>
             <div id="custom-address">
@@ -73,7 +73,7 @@
                 {% else %}
                 {{ forms.submit('address[action]', 'save', 'Save', {class:'btn btn-lg btn-primary'})}}
                 {% endif %}
-            </div>            
+            </div>
             {{ normalizer.normalizer() }}
         </fieldset>
     {{ form.end() }}
