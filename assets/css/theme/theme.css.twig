@@ -46,7 +46,7 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 .row.row-thin {margin-left:-5px; margin-right:-5px;}
 .col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
 
-.breadcrumb {padding:0 0 12px; background:none;}
+.breadcrumb {padding:0; background:none;}
 
 .well {margin-bottom:15px; background-color:#fefefe; border-color:#ccc; border-radius:0; box-shadow:none;}
 fieldset {margin-top:5px;}
@@ -130,6 +130,8 @@ ul, ol {padding-left:1.6em;}
 .p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:10px;}
 
 .well {padding:14px;}
+
+.text-left-sm {text-align:left;}
 }
 
 @media (max-width:767px) {
@@ -233,13 +235,15 @@ h2.section-name {margin-bottom:18px;}
 .divide {border-bottom:1px solid #ccc;}
 .divide:last-child {border-bottom:none;}
 
-.btn-sq-sm {width:28px; height:28px; padding:0;}
+.btn-sq-xs {width:22px; height:22px; padding:0;}
+.btn-sq-sm {width:30px; height:30px; padding:0;}
 .btn-sq {width:34px; height:34px; padding:0;}
 .btn-sq-lg {width:46px; height:46px; padding:0;}
 
-.al-btn-sm {line-height:28px;}
-.al-btn {line-height:34px;}
-.al-btn-lg {line-height:46px;}
+.al-btn-xs {margin-top:0; margin-bottom:0; line-height:22px;}
+.al-btn-sm {margin-top:0; margin-bottom:0; line-height:30px;}
+.al-btn {margin-top:0; margin-bottom:0; line-height:34px;}
+.al-btn-lg {margin-top:0; margin-bottom:0; line-height:46px;}
 
 .lonely-form .actions:last-child {margin:0;}
 
@@ -250,6 +254,9 @@ h2.section-name {margin-bottom:18px;}
 
 @media screen and (min-width:1px){
 .image-space .isd {top:50%; left:50%; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
+
+.flash-notifications-container {position:absolute; z-index:1071; top:50%; left:1em; right:1em; text-align:center; transform:translate(0,-50%);}
+.flash-notifications-container .alert {display:inline-block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
 }
 
 @media (min-width:768px) {
@@ -278,7 +285,8 @@ h2.section-name {margin-bottom:18px;}
 .fsd1 {font-size:85.714285%;}
 .fsi1 {font-size:114.285714%;}
 
-.lonely-form .btn {display:block; width:100%;}
+.lonely-form .btn {display:block; width:100%; margin-bottom:10px;}
+.lonely-form .btn:last-child {margin-bottom:0;}
 
 .col-xs-6.cool-clear:nth-child(2n+1),
 .col-xs-4.cool-clear:nth-child(3n+1),
@@ -363,22 +371,6 @@ footer#footer .newsletter {padding-bottom:2em;}
 /**** 6-) Shoping Cart Styling   ****/
 #order-complete #order-items .panel .panel-heading {background-color: #ffffff;border-bottom: 1px solid #e5e5e5;}
 #order-complete #order-items .panel .panel-heading a {color: #333333;}
-#order-complete #order-items .panel .panel-body .shipping-address {font-size: 80%;padding-bottom: 10px;}
-#order-complete #order-items .panel .panel-body .billing-address {font-size: 80%;padding-bottom: 10px;}
-#order-complete #order-items .panel .panel-body .item-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-top: 10px;}
-#order-complete #order-items .panel .panel-body .item-totals .txt-label {text-align: left;}
-#order-complete #order-items .panel .panel-body .item-totals .amount {text-align: right;}
-@media (min-width: 768px) {%raw%}{#{%endraw%}order-complete #order-items .panel .panel-body .billing-address {padding-bottom: 0;}
-#order-complete #order-items .panel .panel-body .item-totals {border-top: none;padding-top: 0;}
-#order-complete #order-items .panel .panel-body .item-totals .txt-label {text-align: right;}}
-#order-complete #order-totals .shipping-address {padding-bottom: 10px;}
-#order-complete #order-totals .billing-address address {margin-bottom: 10px;}
-#order-complete #order-totals .order-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-bottom: 10px;padding-top: 10px;}
-#order-complete #order-totals .order-totals .txt-label {text-align: left;}
-#order-complete #order-totals .order-totals .amount {text-align: right;}
-@media (min-width: 768px) {%raw%}{#{%endraw%}order-complete #order-totals .billing-address {padding-bottom: 0;}
-#order-complete #order-totals .order-totals {border-top: none;padding-top: 0;}
-#order-complete #order-totals .order-totals .txt-label {text-align: right;}}
 /**** End Shoping Cart Styling   ****/
 
 
