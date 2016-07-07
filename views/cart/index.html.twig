@@ -69,6 +69,9 @@ Cart
 
 {% block content %}
 {# DISPLAY CART LOGIC #}
+    {#
+        Creates a 'display_cart' array that contains bundles as line items
+    #}
     {% set display_cart = [] %}
     {% set new_quantities = [] %}
     {% set count = 0 %}
