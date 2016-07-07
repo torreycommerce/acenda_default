@@ -177,16 +177,10 @@
     {{ elements.input('password',name, value, attributes) }}
 {% endmacro %}
 
-{% macro phoneInt(name, value='', attributes=[]) %}
-    {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
-    {% import _self as elements %}
-    {{ elements.input('tel', name, value, attributes, "phone") }}
-{% endmacro %}
-
 {% macro phone(name, value='', attributes=[]) %}
     {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
 
-    <SCRIPT TYPE="text/javascript">
+    <script type="text/javascript">
        <!-- // copyright 1999 Idocs, Inc. http://www.idocs.com // Distribute this script freely but keep this notice in place
        function numbersonly(myfield, e, dec) {
            var key;
@@ -209,7 +203,7 @@
            else
                return false;
            }
-       </SCRIPT>
+       </script>
 
 
     {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
@@ -229,23 +223,19 @@
          }
     </style>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{app.url_asset}}/intl-tel-input/build/js/intlTelInput.js"></script>
     <script>
 
       var input = $("#phone");
       input.intlTelInput({
-        utilsScript: "{{app.url_asset}}/intl-tel-input/build/js/utils.js",
+        utilsScript: "{{app.url_asset}}/assets/intl-tel-input/build/js/utils.js",
         nationalMode: true
-
       });
-
-
 
       input.on("keyup change", function() {
         $("#intlPhone").val(input.intlTelInput("getNumber"));
       });
     </script>
+    
 {% endmacro %}
 
 {% macro phonenumber(name, value='', attributes=[]) %}
