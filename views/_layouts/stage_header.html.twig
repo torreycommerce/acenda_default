@@ -1,10 +1,4 @@
 <div class="flash-notifications-container">
-    {% for row,message in app.user.getFlashes() %}
-    <div class="alert alert-dismissable alert-block alert-{{row}} flash-notification flash-notification-{{row}}" id="flash-notification-{{row}}">
-     <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
-     {{message}}
-   </div>
-   {% endfor %}
 </div>
 {% if app.user.id > 0 and 'addresses' not in app.request.url %}
   {% set invalid_addresses = api.get('/customeraddress', {query:{customer_id:app.user.id,verified:0,deleted:{'$ne':1}}}) %}
