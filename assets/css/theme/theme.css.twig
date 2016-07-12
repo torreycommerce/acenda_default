@@ -43,6 +43,8 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 /* boots */
 .col-v {padding-top:15px; padding-bottom:15px;}
+.row.row-thin {margin-left:-5px; margin-right:-5px;}
+.col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
 
 .breadcrumb {padding:0 0 12px; background:none;}
 
@@ -78,7 +80,7 @@ label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 .btn-secondary:active,.btn-secondary.active,.open > .dropdown-toggle.btn-secondary,
 .btn-secondary:active:hover,.btn-secondary.active:hover,.open > .dropdown-toggle.btn-secondary:hover,.btn-secondary:active:focus,.btn-secondary.active:focus,.open > .dropdown-toggle.btn-secondary:focus,.btn-secondary:active.focus,.btn-secondary.active.focus,.open > .dropdown-toggle.btn-secondary.focus,
 .btn-secondary.disabled:hover,.btn-secondary[disabled]:hover,fieldset[disabled] .btn-secondary:hover,.btn-secondary.disabled:focus,.btn-secondary[disabled]:focus,fieldset[disabled] .btn-secondary:focus,.btn-secondary.disabled.focus,.btn-secondary[disabled].focus,fieldset[disabled] .btn-secondary.focus
-{color:#000; background-color:#fcfcfc; border-color:#aaa;}
+{color:#000; background-color:#f8f8f8; border-color:#aaa;}
 
 .btn-link {color:#000;}
 .btn-link,.btn-link:active,.btn-link.active,.btn-link[disabled],fieldset[disabled] .btn-link {background-color:transparent;}
@@ -89,16 +91,18 @@ label {margin-bottom:2px; font-weight:300; text-transform:uppercase;}
 
 
 .dropdown-menu {font-size:inherit; border-radius:0; box-shadow:0 2px 5px rgba(0, 0, 0, .2);}
-.dropdown-menu > li > a {padding:.5em 1em;}
+.dropdown-menu > li > a {padding:6px 15px;}
 .dropdown-menu > li > a:hover, .dropdown-menu > .active > a:hover {color:#000;}
 
-.panel {border-radius:0;}
+.panel, .panel-group .panel {border-radius:0;}
+.panel-heading[data-toggle="collapse"] {cursor:pointer;}
 .tab-content .panel {border-top:none;}
-.form-control {border:1px solid #bbb; border-radius:0;}
+.form-control {border:1px solid #aaa; border-radius:0;}
 textarea.form-control {resize:vertical;}
 .img-thumbnail {border-radius: 0;}
 ul, ol {padding-left:1.6em;}
-.p, p, ul, ol, .table, .form-group {margin-bottom:15px;}
+.p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:15px;}
+.p-thin {margin-bottom:10px;}
 
 .thumbnail {margin:0; padding:0; border:none; border-radius:0;}
 
@@ -123,7 +127,7 @@ ul, ol {padding-left:1.6em;}
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:10px; padding-right:10px;}
 .col-v {padding-top:10px; padding-bottom:10px;}
 
-.p, p, ul, ol, .table, .form-group {margin-bottom:10px;}
+.p, p, ul, ol, .table, .form-group, .panel-group {margin-bottom:10px;}
 
 .well {padding:14px;}
 }
@@ -133,7 +137,8 @@ ul, ol {padding-left:1.6em;}
 }
 
 /* final word */
-.panel-body .p:last-child, .panel-body p:last-child, .panel-body ul:last-child, .panel-body ol:last-child, .panel-body .table:last-child, .panel-body .form-group:last-child {margin-bottom:0;}
+.panel-body>.p:last-child, .panel-body>p:last-child, .panel-body>ul:last-child, .panel-body>ol:last-child, .panel-body>.table:last-child, .panel-body>.form-group:last-child,
+.well>.p:last-child {margin-bottom:0;}
 /* */
 
 
@@ -228,7 +233,6 @@ section#toolbar ul li#branding {z-index:1061;}
 .al-btn {line-height:34px;}
 .al-btn-lg {line-height:46px;}
 
-.lonely-intro {padding:0 0 1em; text-align:center;}
 .lonely-form .actions:last-child {margin:0;}
 
 .mT {margin-top:1em;}
@@ -246,6 +250,7 @@ section#toolbar ul li#branding {z-index:1061;}
 }
 
 @media (min-width:992px) {
+.force-md-lg {display:block!important;}
 .md-pull-right {float:right !important;}
 .md-pull-left {float:left !important;}
 }
@@ -273,14 +278,7 @@ section#toolbar ul li#branding {z-index:1061;}
 
 
 /**** 3-) Toolbar Styling  ****/
-section#toolbar .my-account .dropdown-menu li .divider {margin: 0;}
 section#toolbar .f-nav {z-index: 9999;position: fixed;left: 0;top: 0;width: 100%;background-color: rgba(255,255,255,0.8);}
-section#toolbar .f-nav .btn-checkout,
-section#toolbar .f-nav .btn-cart,
-section#toolbar .f-nav .btn-add-to-cart,
-section#toolbar .f-nav .btn,
-section#toolbar .f-nav .btn-nav-mobile,
-section#toolbar .f-nav .btn-primary {border-radius: 0;}
 section#toolbar .toolbar-mobile .mobile-popover {margin: 5px 0;}
 section#toolbar .toolbar-mobile a i {display: inline-block;}
 section#toolbar .toolbar-mobile a .text {display: inline-block;}
@@ -290,15 +288,12 @@ section#toolbar .toolbar-mobile .search-main-mobile {padding-top: 10px;}
 section#toolbar .toolbar-mobile .nav-mobile {min-height: 60px;background-color: transparent;font-weight: normal;white-space: nowrap;line-height: 45px;border: none;z-index: 99; padding:15px;}
 section#toolbar .popover {max-width: 80%;}
 section#toolbar .popover .arrow {display: none;}
-section#toolbar .popover .popover-close {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;font-weight: 700;}
-section#toolbar .popover .product {border-bottom: 1px solid #EEEEEE;padding-bottom: 10px;padding-top: 10px;}
-section#toolbar .popover .cart-totals {padding-bottom: 10px;padding-top: 10px;}
+section#toolbar .popover .popover-close {padding-bottom: 10px;font-weight: 700;}
 /**** End Toolbar Styling  ****/
 
 
 
 /**** 4-) Navbar Menu Styling  ****/
-.dropdown-menu > li.kopie > a {padding-left:5px;}
 .dropdown-submenu {position:relative;text-align: left;}
 .dropdown-submenu>.dropdown-menu {top:0;left:100%;margin-left:0;} 
 .dropdown-submenu > a:after {border-color: transparent transparent transparent #333;border-style: solid;border-width: 5px 0 5px 5px;content: " "; display: block;float: right;  height: 0;}
@@ -399,15 +394,12 @@ footer#footer .newsletter {padding-bottom:2em;}
 #shopping-cart #proceed-to-checkout {margin-bottom: 20px;}
 #shopping-cart #paypal {margin-bottom: 20px;text-align: center;}
 #shopping-cart #continue-shopping {margin-bottom: 20px;}
-#order-summary .product {border-bottom: 1px solid #eeeeee;font-size: 80%;margin-bottom: 10px;padding-bottom: 10px;padding-top: 10px;}
+#order-summary .product {border-bottom: 1px solid #eeeeee;margin-bottom: 10px;padding-bottom: 10px;padding-top: 10px;}
 #order-summary .product .thumbnail {margin-bottom: 0;}
 #order-summary .product .actions {text-align: left;}
-#order-summary .subtotal, .shipping, .tax {font-weight: bold;font-size: 90%;}
-#order-complete #order-details {font-size: 85%;}
+#order-summary .subtotal, .shipping, .tax {font-weight: bold;}
 #order-complete #order-items .panel .panel-heading {background-color: #ffffff;border-bottom: 1px solid #e5e5e5;}
 #order-complete #order-items .panel .panel-heading a {color: #333333;}
-#order-complete #order-items .panel .panel-heading a .panel-title {font-size: 80%;}
-#order-complete #order-items .panel .panel-heading a .item-total {font-size: 80%;}
 #order-complete #order-items .panel .panel-body .shipping-address {font-size: 80%;padding-bottom: 10px;}
 #order-complete #order-items .panel .panel-body .billing-address {font-size: 80%;padding-bottom: 10px;}
 #order-complete #order-items .panel .panel-body .item-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-top: 10px;}
@@ -416,8 +408,7 @@ footer#footer .newsletter {padding-bottom:2em;}
 @media (min-width: 768px) {%raw%}{#{%endraw%}order-complete #order-items .panel .panel-body .billing-address {padding-bottom: 0;}
 #order-complete #order-items .panel .panel-body .item-totals {border-top: none;padding-top: 0;}
 #order-complete #order-items .panel .panel-body .item-totals .txt-label {text-align: right;}}
-#order-complete #order-totals .shipping-address {font-size: 80%;padding-bottom: 10px;}
-#order-complete #order-totals .billing-address {font-size: 80%;}
+#order-complete #order-totals .shipping-address {padding-bottom: 10px;}
 #order-complete #order-totals .billing-address address {margin-bottom: 10px;}
 #order-complete #order-totals .order-totals {border-top: 1px solid #e5e5e5;font-size: 80%;padding-bottom: 10px;padding-top: 10px;}
 #order-complete #order-totals .order-totals .txt-label {text-align: left;}
@@ -430,45 +421,22 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 7-) Category Page Styling   ****/
-.category-filters .filter {margin-bottom:1em;}
-.category-filters .filter .panel-group {margin-bottom:0;}
-.category-filters .filter .panel-group .panel {border-radius: 0;border-top:none;}
-.category-filters .filter .panel-heading {background: transparent;border-top: 4px solid #558C89;border-radius: 0;}
-.category-filters .filter .panel-heading + .panel-collapse .panel-body {border-top: 1px solid #eeeeee;}
-.category-filters .filter .panel-body {border-top: none;}
-.category-filters .filter-clear a {background-color: #558C89;color: #eeeeee;display: block;font-size: 75%;margin: 2px 0px;padding: 10px;}
-.category-filters .filter-clear a i:first-child {padding-right: 5px;}
-.category-filters .filter-clear a:hover {text-decoration: none;background-color: #365755;}
-.checkout-display-address {padding: 5px;}
-@media (max-width: 992px) {.category .page-header {margin-top:20px;}}
-.page-filters {padding-top: 10px;padding-bottom: 10px;}
-.page-filters .search-within {margin-bottom: 10px;}
-@media (min-width: 992px) {.page-filters .search-within {margin-bottom: 0px;}}
-.page-filters .sorting {text-align: right;margin-bottom: 10px;}
-.page-filters .sorting ul.dropdown-menu {min-width: 50px;}
-.page-filters .sorting div#items-per-page {margin-left: 10px;}
-@media (max-width: 768px) {.page-filters .sorting {text-align: left;}}
+.category-filters .filter a {display:block;}
+.category-filters .filter-clear a {display:block; margin:0 0 2px; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
 .pagination {border-radius:0;}
-.page-filters .pagination {margin: 0;}
+.page-filters .pagination {margin:0;}
 .pagination > li > a,
-.pagination > li > span {color: #558C89;}
+.pagination > li > span {color:#000;}
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
-.pagination > li > span:focus {color: #365755;}
+.pagination > li > span:focus {color:#000;}
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
-.pagination > .active > span:focus {color: #fff;background-color: #558C89;border-color: #558C89;}
-.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: center;}
-@media (max-width: 992px){.pagination-bottom,.pagination-top {margin-bottom: 10px;text-align: left;}}
-.pagination-sm > li:first-child > a, .pagination-sm > li:first-child > span {border-radius: 0;}
-.pagination-sm > li:last-child > a, .pagination-sm > li:last-child > span {border-radius: 0;}
-.list-sub-categories {margin:0 0 1em; padding:1em; border: 1px solid #eeeeee;}
-.list-sub-categories .fa-fa-gentle {padding:0;}
-.list-sub-categories li.current-category {font-weight: bold;}
+.pagination > .active > span:focus {color:#fff; background-color:#000; border-color:#000;}
 /**** End Category Page Styling   ****/
 
 
@@ -674,14 +642,9 @@ table.yiiLog {display: none;}
 
 
 /**** 12-) Color Chip Styling  ****/
-.color-chip {border: 1px solid #eee;opacity: 0.7;color: white;font-size: .6em;padding: .8em 1em;margin: .19em .19em;width: 3.5em;height: 3.5em;}
-.color-chip i {font-size: 1.2em;line-height: 1.4em;padding: 0;}
-.color-chip:hover,
-.color-chip:focus {opacity: 1;text-decoration: none;}
-.color-chip.white {color: gray;border: 1px solid #ccc;}
-.color-chip.active {opacity: 1;}
-.color-chip.disabled {opacity: 0.1;}
-.color-chip.disabled i {padding: 0;}
+.color-chips {padding-bottom:5px;}
+.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
+.color-chip.disabled {opacity:.1;}
 .color-chip.bright-red {background-color: #ff00cc;}
 .color-chip.red {background-color: #9b1e20;}
 .color-chip.hot-pink {background-color: #ff33cc;}
@@ -705,7 +668,7 @@ table.yiiLog {display: none;}
 .color-chip.black {background-color: #000000;}
 .color-chip.grey {background-color: #aaaaaa;}
 .color-chip.ivory {background-color: #fffff0;}
-.color-chip.white {background-color: #eeeeee;border: 1px solid #999;}
+.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5); background:#fcfcfc; border:1px solid #bbb;}
 .color-chip.multi {background: #88bfe8;
     background: -moz-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
     /* FF3.6+ */
@@ -722,14 +685,12 @@ table.yiiLog {display: none;}
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#88bfe8', endColorstr='#70b0e0', GradientType=1);
     /* IE6-9 fallback on horizontal gradient */
 }
+.color-chip:hover,.color-chip:focus {color:#fff; text-decoration:none; opacity:1; border:1px solid #000;}
+.color-chip.active {border:1px solid #000; opacity:1;}
+.color-chip.white:hover, .color-chip.white:focus {color:#666;}
+
+@media (max-width:991px) {
+.color-chip {font-size:140%;}
+}
 /**** End Color Chip Styling  ****/
 
-
-
-
-
-/* adjust */
-.m0 {margin:0;}
-.mt2 {margin-top:2em;}
-.p0 {padding:0;}
-/* */

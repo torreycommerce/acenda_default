@@ -4,7 +4,7 @@
     {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
     {% import _self as this %}
     {% import "/_macros/base.html.twig" as base %}
-    <div class="product text-center" itemscope itemtype="http://schema.org/Product">        
+    <div class="product" itemscope itemtype="http://schema.org/Product">        
         {% if 'image' in options %}
             {# Grab image based on color facets #}
             {# Old Behavior

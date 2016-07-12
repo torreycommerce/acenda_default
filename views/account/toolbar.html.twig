@@ -1,0 +1,26 @@
+{# these are the toolbar items that can not be cached when a customer is logged in #}
+{% if app.user.id is not null  %}
+{% set customer = api.get('/customer/' ~ app.user.id) %}
+
+<a type="button" href="#" id="dropdown-account" class="btn btn-secondary tool-tab dropdown-toggle" data-toggle="dropdown">
+	<i class="fa fa-user"></i>{{ customer.first_name }} <span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+	<li class="divide"><a href="{{app.url}}/account">My Account</a></li>
+	<li><a href="{{app.url}}/account/orders">Orders</a></li>
+	<li class="divide"><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
+	<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? Logout</a></li>
+</ul>
+{% else %}
+<a type="button" href="#" id="dropdown-account" class="btn btn-secondary tool-tab dropdown-toggle" data-toggle="dropdown">
+	<i class="fa fa-user"></i>My Account <span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+	<li class="divide"><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
+	{% if app.user.id != '' %}
+	<li> <a href="{{app.url}}/account/orders">Order Status</a></li>
+	{% else %}
+	<li> <a href="{{app.url}}/order">Order Status</a></li>
+	{% endif %}
+</ul>
+{% endif %}
