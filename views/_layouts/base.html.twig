@@ -12,7 +12,7 @@
 {% endif %}
 {# End Config Seo #}
 {# Scripts #}
-{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.1.4.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.1.4.min.js', 0) }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap/bootstrap.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/google_map_normalizer.js') }}
@@ -27,6 +27,10 @@
 {{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.maskedinput.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/typeahead.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/intl-tel-input/build/js/intlTelInput.js', 0) }}
+
+
+
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/acendaAnalytics.js') }}
 {% endif %}
@@ -35,6 +39,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     {% block head %}
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -51,6 +56,8 @@
         <link rel="stylesheet" type="text/css" media="print" href="{{app.url_asset}}/assets/css/theme/print.css" />
 
         <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
+
+        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/intl-tel-input/build/css/intlTelInput.css" />
 
         <link rel="sitemap" href="{{app.url}}/api/sitemap" />
         <link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
@@ -186,7 +193,7 @@
 $(document).ready(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('li.cart a.tool-tab span.item-count').html(data.result.item_count);
-    });   
+    });
     $('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 
     var timer=0;
