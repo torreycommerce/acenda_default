@@ -207,7 +207,7 @@
 
 
     {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
-    {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
+    {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16', pattern:'\\d*'}) %}
     {% import _self as elements %}
 
     <!--input id = "phone" type = "number" name="phone"-->
@@ -235,7 +235,7 @@
         $("#intlPhone").val(input.intlTelInput("getNumber"));
       });
     </script>
-    
+
 {% endmacro %}
 
 {% macro phonenumber(name, value='', attributes=[]) %}
