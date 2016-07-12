@@ -2,10 +2,26 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
 {% import "/_macros/normalizer.html.twig" as normalizer %}
+
+{# Page information #}
+    {#
+        Checkout : Retrieve shipping address
+        Visit api/sessioncart to understand how Cart data is mapped
+    #}
+    {#
+        Most of the address form logic is done is JS see region.js
+        Same for Checkout see checkout.js
+    #}
+    {#
+        The actual address form is stored as a macro in /_macros/form-extras.html.twig
+        and is used at a few different places.
+    #}
+{# end Page information #}
+
 {% set step = 'shipping' %}
 {% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
 {% set cart = api.get('/sessioncart') %}
-{% set config = api.get('/config') %}
+{% set site_payments = api.get('/site/payments') %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
     {% set product_ids = cart.items|values_in('product_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
@@ -14,8 +30,7 @@
 {% block content %}
 {% if cart.items is empty %}
     {{ app.redirect('/') }}
-{% endif %}
-{% if (config.components.payflowpro.enable == false and config.components.stripe.enable == false ) %}
+{% elseif site_payments.has_regular_checkout == false %}
     {{ app.redirect('/cart') }}
 {% endif %}
 {% if app.request.post.shipping %}
@@ -37,13 +52,6 @@
         <div class="col-md-12">
             <div id="fade-container">
                 {{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-horizontal form-region' }) }}
-                {% if app.request.get.test_order %}
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
-                    </div>
-                </div>
-                {% endif %}
                 <div class="row">
                     <div class="col-sm-8 col-md-8 col-lg-8">
                         {% if app.user.id is empty %}
@@ -130,7 +138,111 @@
                                     {% if selected_address == '' %}
                                         {% set addr = app.user.getCheckoutStates('shipping') %}
                                     {% endif %}
-                                    {{ extras.address('shipping', 'shipping', addr) }}
+                                    {# Shipping form #}
+                                    {# extras.address('shipping', 'shipping', addr) #}
+                                    {% set name = 'shipping' ~ '_' %}
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">First Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_first_name]', address[name ~ 'first_name'], {class:'form-control parsley-validated', placeholder:"First Name", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Last Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_last_name]', address[name ~ 'last_name'], {class:'form-control parsley-validated', placeholder:"Last Name", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'last_name') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Country
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.select('shipping[shipping_country]', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'country'}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'country') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Street Line 1
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_street_line1]', address[name ~ 'street_line1'], {class:'form-control parsley-validated', placeholder:"Street Line 1", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">Street Line 2
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_street_line2]', address[name ~ 'street_line2'], {class:'form-control parsley-validated', placeholder:"Street Line 2"}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">City
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_city]', address[name ~ 'city'], {class:'form-control parsley-validated', placeholder:"City", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1">State
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.select('shipping[shipping_state]', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'state_select'}) }}
+                                            {{ forms.text('shipping[shipping_state]', address[name ~ 'state'], {class:'form-control parsley-validated', placeholder:"State", id:'state_input'}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group normalizable">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" for="input1"><span id="zip_field">Zip Code</span>
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                            {{ forms.text('shipping[shipping_zip]', address[name ~ 'zip'], {class:'form-control parsley-validated', placeholder:"Zip", required:true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3">Phone Number
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-9 col-md-9 col-lg-5">
+                                                {{ forms.text('shipping[shipping_phone_number]', address[name ~ 'phone_number'], {class:'form-control parsley-validated', placeholder:"Phone Number", required: true}) }}
+                                        </div>
+                                        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
+                                            <div class="validation">{{ forms.errorlist(form_errors, name ~ 'phone_number') }}</div>
+                                        </div>
+                                    </div>
+                                    {# END Shipping form #}
                                 </div>
                                 {% if app.user.id is not empty %}
                                     <div class="form-group">
@@ -156,7 +268,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9 col-md-9 col-lg-5">
-                                    {{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated'}) }}
+                                    {{ forms.select('shipping[shipping_method]', app.user.getState('shipping_method'), compiledmethods, {class:'form-control parsley-validated shipping-method-dropdown'}) }}
                                 </div>
                                 <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-4">
                                     <div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
@@ -181,9 +293,8 @@
                         <div class="row">
                             <div class="col-sm-9 col-sm-offset-3 col-md-4 col-md-offset-3 mB20">
                                 <div class="actions">
-                                    {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
                                     <input type="hidden" name="step" value="shipping">
-                                    {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
+                                    {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block shipping-continue'}) }}
                                 </div>
                             </div>
                         </div>
@@ -200,9 +311,8 @@
                     <div class="row">
                         <div class="col-xs-12 hidden-sm hidden-md hidden-lg smT10 mB20">
                             <div class="actions">
-                                {{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
                                 <input type="hidden" name="step" value="shipping">
-                                {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block'}) }}
+                                {{ forms.submit('continue', '', 'Continue', {'class':'btn btn-primary btn-block shipping-continue'}) }}
                             </div>
                         </div>
                     </div>

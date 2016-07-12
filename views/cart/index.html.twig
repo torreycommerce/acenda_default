@@ -7,6 +7,16 @@ Cart
 {{ base.breadcrumbs({'Cart':''}) }}
 {% endblock %}
 
+{# Page information #}
+    {#
+        Visit api/sessioncart to understand how Cart data is mapped
+    #}
+    {#
+        Shipping and Tax estimates are handled via JS, see "block js" at
+        the bottom of this page.
+    #}
+{# end Page information #}
+
 {% for item, quantity in app.request.post.cart.quantity %}
     {% if quantity <= 0 %}
         {% set result = api.delete('/sessioncartitem/' ~ item) %}
@@ -35,11 +45,8 @@ Cart
 {% do api.post('/sessioncartdiscount/refresh') %}
 
 {% set cart = api.get('/sessioncart') %}
-
-
-
-{% set config = api.get('/config') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
+{% set site_payments = api.get('/site/payments') %}
 
 {% if (cart.items is not empty) %}
     {% set product_ids = cart.items|values_in('product_id') %}
@@ -396,14 +403,14 @@ Cart
                             </div>
                         </div>
                     </div>
-                    {% if (config.components.payflowpro.enable == true or config.components.stripe.enable == true ) %}
+                    {% if site_payments.has_regular_checkout == true %}
                         <div class="col-md-12">
                             <div id="proceed-to-checkout">
                                 <a class="btn btn-block btn-primary" href="{{ app.url }}/checkout">Proceed To Checkout</a>
                             </div>
                         </div>
                     {% endif %}
-                    {% if config.components.nvp.enable == true %}
+                    {% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
                         <div class="col-md-12">
                             <div id="paypal">
                                 <a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
