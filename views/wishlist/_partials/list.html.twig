@@ -6,7 +6,7 @@
         <i>Please browse the store to add more items.</i><br /><br />        
         <a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
         {% if wishlist.customer_id == app.user.id %}
-        <a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage wishlist</a>
+        <a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
         {% endif %}
     </div>
 </div>
@@ -55,27 +55,20 @@
             {# Begin product #}
             <div class="product">
                 <div class="row">
-                    {# Begin product header - Mobile #}
-                    <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-                        <header class="mobile">
-                            <div class="name"><a href="{{app.url}}{{ product.url }}">{{ product.title }}</a></div>
-                        </header>
-                    </div>
-                    {# End product header - Mobile #}
                     {# Begin product image #}
-                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
-                        <div class="images">
-                            <div class="thumbnail">
-                                <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
-                            </div>
+                    <div class="col-xs-3 col-lg-2">
+                        <div class="image-space">
+                            <img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
                         </div>
                     </div>
                     {# End product image #}
                     {# Begin product details #}
-                    <div class="col-xs-12 col-sm-3 col-md-5 col-lg-5">
+                    <div class="col-xs-9 col-lg-10">
+                    <div class="row">
+                    <div class="col-xs-12 col-sm-8">
                         {# Begin desktop product header#}
-                        <header class="desktop hidden-xs hidden-sm">
-                            <div class="name"><a href="{{app.url}}{{ product.url }}">{{ product.title }}</a></div>
+                        <header class="">
+                            <div class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.title }}</a></div>
                         </header>
                         {# End desktop product header #}
                         {# Begin pricing #}
@@ -102,10 +95,10 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <ul class="list-inline">
                             {% if wishlist.customer_id == app.user.id %}
-                                <div class="qty-update">
+                                <li class="qty-update">
                                     <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Quantity</a>
-                                </div>
                                 {# Begin quantity modal #}
                                 <div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
                                     <div class="modal-dialog modal-sm">
@@ -151,7 +144,7 @@
                                                                     <div class="input-group-btn">
                                                                         <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                                     </div>
-                                                                    <input class="form-control quantity-selector" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
+                                                                    <input class="form-control quantity-selector text-center" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
                                                                     <div class="input-group-btn">
                                                                         <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                                     </div>
@@ -164,12 +157,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                </li>
                             {% endif %}
                             {# End quantity modal #}
                             {% if wishlist.customer_id == app.user.id %}
-                                <div class="qty-remove">
-                                    <a class="btn btn-default btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#">Remove</a>
-                                </div>
+                                <li class="qty-remove">
+                                    <a class="btn btn-secondary btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#">Remove</a>
                                 {# Begin remove modal #}
                                 <div class="modal fade modal_list_quantity" id="modal_remove_{{ product.id }}">
                                     <div class="modal-dialog modal-sm">
@@ -190,42 +183,44 @@
                                     </div>
                                 </div>
                                 {# End remove modal #}
+                                </li>
                             {% endif %}
+                            </ul>
                         </div>
                         {# End quantities #}                        
                     </div>
                     {# End product details #}
                     {# Begin product quantity and actions #}
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5">
+                    <div class="col-xs-12 col-sm-4">
                         <div class="actions">
-                            <div class="row">
-                                {# Begin product quantity #}
-                                <div class="col-xs-2 col-sm-5 col-md-8 col-md-offset-1 col-lg-3 col-lg-offset-0">
-                                    <div class="quantity">
-                                        <div class="quantity-input-group">
-                                            <label for="quantity-selector" class="control-label">Qty</label>
-                                            <div class="input-group">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
-                                                </div>
-                                                <input type="text" value="1" maxlength="2" placeholder="1" class="form-control quantity-selector" name="add_to_cart[{{ item.id }}]">
-                                                <div class="input-group-btn">
-                                                    <button type="button" class="btn btn-neutral btn-add"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            
+                            {# Begin product quantity #}
+                            
+                            <div class="form-group">
+                                <label for="quantity-selector-{{ item.id }}" class="control-label">Qty</label>
+                                <div class="input-group input-group-sm quantity-input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                    </div>
+                                    <input type="text" value="1" maxlength="2" placeholder="1" class="form-control quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-neutral btn-add"><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
-                                {# End product quantity #}
-                                {# Begin add to cart button #}
-                                <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-12 col-sm-offset-0 col-lg-5 col-lg-offset-4 pull-right">
-                                    <div class="add-to-cart">
-                                        <button class="btn btn-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart</button>
-                                    </div>                                    
-                                </div>
-                                {# End add to cart button #}
                             </div>
+                            
+                            {# End product quantity #}
+                            {# Begin add to cart button #}
+                            
+                            <div class="p">
+                                <button class="btn btn-primary btn-cart" name="action" value="add/{{ item.id }}">Add to Cart</button>
+                            </div>                                    
+                            
+                            {# End add to cart button #}
+                            
                         </div>
+                    </div>
+                    </div>
                     </div>
                     {# End product quantity and actions #}                    
                 </div>

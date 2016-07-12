@@ -210,7 +210,8 @@ $(document).ready(function() {
 
 // Parsley settings
 $(document).ready(function () {
-    $("input[data-metatype='phone']").mask("(999) 999-9999");
+    // See international phone number field trello card
+    //$("input[data-metatype='phone']").mask("(999) 999-9999");
 
     var limit_feed = ["text", "tel", "email", "password", "url", "datetime", "time", "number"];
 

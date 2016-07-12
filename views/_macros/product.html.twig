@@ -37,23 +37,23 @@
             {% endif %}
 
             {# Begin product image #}               
-            <div class="image">
+            <div class="p">
                 <a href="{{app.url}}/product/{{product.slug}}">
-                    <span class="image-space">
+                    <div class="image-space">
                         <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}">
-                    </span>
-                    <div class="label">
-                    {% for tag in product.tags %}
-                        {% if tag == 'new' %}
-                            <span class="label-new">{{ tag|capitalize }}</span>
-                        {% elseif tag == 'sale' %}
-                            <span class="label-sale">{{ tag|capitalize }}</span>
-                        {% elseif tag == 'popular' %}
-                            <span class="label-hot">{{ tag|capitalize }}</span>
-                        {% else %}
-                            <span class="label-feat">{{ tag|capitalize }}</span>
-                        {% endif %}
-                    {% endfor %}
+                        <div class="label">
+                        {% for tag in product.tags %}
+                            {% if tag == 'new' %}
+                                <span class="label-new">{{ tag|capitalize }}</span>
+                            {% elseif tag == 'sale' %}
+                                <span class="label-sale">{{ tag|capitalize }}</span>
+                            {% elseif tag == 'popular' %}
+                                <span class="label-hot">{{ tag|capitalize }}</span>
+                            {% else %}
+                                <span class="label-feat">{{ tag|capitalize }}</span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
                     </div>
                 </a>
             </div>                            
@@ -68,10 +68,12 @@
         {% endif %}
         {% if 'details' in options %}
             {# Begin product details #}
-            <a href="{{app.url}}/product/{{product.slug}}">
+            <div class="product-details">
                 <header>
-                    <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
-                    <div class="product-name"><span itemprop="name">{{product.name}}</span></div>             
+                    <a href="{{app.url}}/product/{{product.slug}}">
+                        <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
+                        <div class="product-name"><span itemprop="name">{{product.name}}</span></div>
+                    </a>
                 </header>
                 <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
@@ -86,18 +88,18 @@
                 {# Begin product description for google rich snippets, not showing in the preview! #}
                 {% if product.description is not empty %}
                     {% set full_description = product.description %}
-                        <div class="displayN"><span itemprop="description">{{full_description}}</span></div>
-                        <div class="displayN" id="variant-description-{{product.id}}" ></div>
+                        <div class="hidden"><span itemprop="description">{{full_description}}</span></div>
+                        <div class="hidden" id="variant-description-{{product.id}}" ></div>
                 {% endif %}
 
                 {% set id = 0 %}
                 {% for sku in product.variant %}
                     {% set id = id + 1 %}
-                        <div class="sku-details displayN" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
+                        <div class="sku-details hidden" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
                 {% endfor %} 
                 {% set id = 0 %}
                 {% for barcode in product.variant %}   
-                        <div class="displayN"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
+                        <div class="hidden"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
                 {% endfor %}      
                 {# End product descriptiong for google rich snippets, not showing in the preview! #}      
 
@@ -124,7 +126,7 @@
                 {% if review_score > 0 %}
                     <div class="rating">{ base.rating(review_score) }}</span></div>
                 {% endif %}
-            </a>               
+            </div>
             {# End product details #}
         {% endif %}
     </div>

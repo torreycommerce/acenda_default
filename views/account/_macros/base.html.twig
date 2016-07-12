@@ -7,17 +7,17 @@
 
 {% macro navigation(current_page = '') %}
 {% set tabs = {
-    '':'<i class="fa fa-user"></i> Account Center',
-    'notifications':'<i class="fa fa-exclamation-circle"></i> Notifications',
-    'addresses':'<i class="fa fa-map-marker"></i> Addresses',
-    'orders':'<i class="fa fa-shopping-bag"></i> Orders',
-    'wishlists':'<i class="fa fa-gift"></i> Wish Lists',
-    'registries':'<i class="fa fa-gift"></i> Registries',
-    'reviews':'<i class="fa fa-star"></i> Reviews',
-    'returns':'<i class="fa fa-reply"></i> Returns',
-    'account-settings':'<i class="fa fa-cogs"></i> Account Settings',
+    '':'<i class="fa fa-user"></i><span>Account Center</span>',
+    'notifications':'<i class="fa fa-exclamation-circle"></i><span>Notifications</span>',
+    'addresses':'<i class="fa fa-map-marker"></i><span>Addresses</span>',
+    'orders':'<i class="fa fa-shopping-bag"></i><span>Orders</span>',
+    'wishlists':'<i class="fa fa-gift"></i><span>Wish Lists</span>',
+    'registries':'<i class="fa fa-gift"></i><span>Registries</span>',
+    'reviews':'<i class="fa fa-star"></i><span>Reviews</span>',
+    'returns':'<i class="fa fa-reply"></i><span>Returns</span>',
+    'account-settings':'<i class="fa fa-cogs"></i><span>Account Settings</span>',
 } %}
-<div class="navbar navbar-default">
+<div class="navbar navbar-default fsd1 fa-fa-balance">
     {# Begin mobile menu button #}
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -38,7 +38,7 @@
         </ul>        
     </div>
     <div class="logout">
-        <a class="btn btn-danger btn-block" href="{{app.url}}/account/logout">Log out</a>
+        <a class="btn btn-danger btn-block" href="{{app.url}}/account/logout">Log Out</a>
     </div>
     {# End menu #}
 </div>

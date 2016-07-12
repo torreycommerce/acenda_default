@@ -4,87 +4,87 @@
             "background": {
                 "body-bg": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "footer-bg": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 }                                  
             },
             "content": {
                 "text-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "#666"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 }
             },
             "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "primary-btn-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "primary-btn-hover-background": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "primary-btn-hover-border": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "primary-btn-hover-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "secondary-btn-hover-background": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "secondary-btn-hover-border": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "secondary-btn-hover-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 }
             },
 
@@ -107,7 +107,7 @@
                 },
                 "footer-copy": {
                     "type": "color",
-                    "value": "999999"
+                    "value": "#999"
                 }
             }
         },
@@ -217,102 +217,102 @@
             "background": {
                 "body-bg": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "footer-bg": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 }                                  
             },
             "content": {
                 "text-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "#666"
                 },
                 "title-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "price-color": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "link-color": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "link-hover-color": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "nav-text-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "#666"
                 },
                 "nav-text-hover": {
                     "type": "color",
-                    "value": "000"
+                    "value": "#000"
                 },
                 "border-color": {
                     "type": "color",
-                    "value": "eeeeee"
+                    "value": "#eee"
                 }
             },
             "buttons": {
                 "primary-btn-background": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "primary-btn-border": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "primary-btn-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "primary-btn-hover-background": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "primary-btn-hover-border": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "secondary-btn-background": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "secondary-btn-border": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "secondary-btn-text": {
                     "type": "color",
-                    "value": "fff"
+                    "value": "#fff"
                 },
                 "secondary-btn-hover-background": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 },
                 "secondary-btn-hover-border": {
                     "type": "color",
-                    "value": "ff5a5f"
+                    "value": "#ff5a5f"
                 }
             },
 
             "footer": {
                 "footer-text-color": {
                     "type": "color",
-                    "value": "666"
+                    "value": "#666"
                 },
                 "footer-header-text": {
                     "type": "color",
-                    "value": "ffffff"
+                    "value": "#fff"
                 },
                 "footer-copy": {
                     "type": "color",
-                    "value": "FAF6F0"
+                    "value": "#FAF6F0"
                 }
             }
         },

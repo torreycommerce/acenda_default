@@ -157,41 +157,45 @@
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
-    <nav id="preview-admin-header" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav id="preview-admin-header" class="navbar navbar-fixed-top hidden-xs" role="navigation">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-md-2 col-v">
-                    <img class="img-responsive" src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-grey.png'}}">
-                </div>
-                <div class="col-xs-12 col-md-6 col-v">
+            <div class="btn-group">
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-white.png'}}"> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu fsd1 fa-fa-balance" role="menu">
                     {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
                     {% if sandboxMode is not empty %}
-                    <p class="fsd1"><a ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> Your PayPal PayflowPro account is in test mode (Sandbox)</a></p>
+                    <li class="divide">
+                        <a href="#" ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> <span>PayPal <span class="hidden">PayflowPro</span> is in Test Mode (Sandbox)</span></a>
+                    </li>
                     {% endif %}
-                </div>
-                <div class="col-xs-12 col-md-4 col-v">
-                    <button class="btn btn-info" onClick="window.location.href='{{ back_to }}'; return false;" >Visit the admin</button>
+                    <li>
+                        <a href="#" onClick="window.location.href='{{ back_to }}'; return false;" ><i class="fa fa-cog"></i> <span>Visit Your Admin</span></a>
+                    </li>
+                    <li>
                     {% if '/preview/' in app.url  %}
-                        <button class="btn btn-success" onClick="window.location.href='{{ app.params.url.live }}'; return false;" >Visit your Live Site</button>
+                        <a href="#" onClick="window.location.href='{{ app.params.url.live }}'; return false;" ><i class="fa fa-rocket"></i> <span>Visit Your Live Site</span></a>
                     {% endif %}
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 <script>
 $(document).ready(function() {
     var timer=0;
-    timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+    timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
     $('#preview-admin-header').hover(function() {
         clearTimeout(timer);
     },function() {
         if(timer) clearTimeout(timer);
-            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
     })
     $(window).scroll(function() {
         $('#preview-admin-header').fadeIn('slow');
         if(timer) clearTimeout(timer);
-            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },1000);
+            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
     });
 });
 </script>
