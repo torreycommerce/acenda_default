@@ -54,8 +54,10 @@ $('.form-region, .form-horizonal').cascadingDropdown({
                 }
                 if ($('select[id$=country]').val() == "US") {
                     $("#zip_field").html("Zip Code");
+                    $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
                 } else {
                     $("#zip_field").html("Postal Code");
+                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
                 }
 
                 if (typeof data.result !== 'undefined') {
@@ -141,8 +143,10 @@ $('.form-billing-region, .form-horizonal').cascadingDropdown({
                 }
                 if ($('select[id$=country]').val() == "US") {
                     $("#zip_field").html("Zip Code");
+                   $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
                 } else {
                     $("#zip_field").html("Postal Code");
+                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
                 }
 
                 if (typeof data.result !== 'undefined') {
@@ -208,8 +212,10 @@ $('.form-region-customer, .form-horizonal').cascadingDropdown({
                 }
                 if ($('select[id$=country]').val() == "US") {
                     $("#zip_field").html("Zip Code");
+                    $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
                 } else {
                     $("#zip_field").html("Postal Code");
+                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
                 }
 
                 if (typeof data.result !== 'undefined') {
