@@ -52,6 +52,11 @@ $('.form-region, .form-horizonal').cascadingDropdown({
                 if (state == undefined || state == '') {
                     state = 'CA';
                 }
+                if ($('select[id$=country]').val() == "US") {
+                    $("#zip_field").html("Zip Code");
+                } else {
+                    $("#zip_field").html("Postal Code");
+                }
 
                 if (typeof data.result !== 'undefined') {
 
@@ -134,6 +139,11 @@ $('.form-billing-region, .form-horizonal').cascadingDropdown({
                 if (state == undefined || state == '') {
                     state = 'CA';
                 }
+                if ($('select[id$=country]').val() == "US") {
+                    $("#zip_field").html("Zip Code");
+                } else {
+                    $("#zip_field").html("Postal Code");
+                }
 
                 if (typeof data.result !== 'undefined') {
 
@@ -196,6 +206,12 @@ $('.form-region-customer, .form-horizonal').cascadingDropdown({
                 if (state == undefined || state == '') {
                     state = 'CA';
                 }
+                if ($('select[id$=country]').val() == "US") {
+                    $("#zip_field").html("Zip Code");
+                } else {
+                    $("#zip_field").html("Postal Code");
+                }
+
                 if (typeof data.result !== 'undefined') {
                     //If State array is empty, then show state as a text input.
                     if ($.isArray(data.result) && data.result.length == 0) {
