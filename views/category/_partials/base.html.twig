@@ -234,13 +234,11 @@
 							<div class="p image">
 								<a href="{{app.url}}/category/{{category.slug}}">
 									<span class="image-space">
-										<span class="isd">
-											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{category.thumbnail}}" class="img-responsive" data-image-source="{{category.thumbnail}}">
-										</span>
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{category.thumbnail}}" class="img-responsive isd" data-image-source="{{category.thumbnail}}">
 									</span>
 								</a>
 							</div>
-							<a href="{{app.url}}/category/{{category.slug}}"><header><div class="category-name">{{ category.name }}</div></header></a>
+							<div class="category-name"><a href="{{app.url}}/category/{{category.slug}}">{{ category.name }}</a></div>
 						</div>
 					</div>
 					{# End category #}

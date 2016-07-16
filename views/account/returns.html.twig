@@ -48,7 +48,7 @@
                     <div class="row">
                         {# Begin return filter #}
                         <div class="col-sm-4 col-md-3 col-lg-2">
-                            <div class="return-filter">
+                            <div class="return-filter p">
                                 {{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
                                 {{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control input-sm'}) }}
                             </div>
@@ -88,15 +88,15 @@
                     <div class="well">
                         <div class="row">
                             {# Begin return details #}
-                            <div class="return-details col-sm-4 col-md-4 col-lg-3">
-                                <div class="return-info">
+                            <div class="return-details col-sm-4 col-md-4 col-lg-3 fsd1">
+                                <div class="return-info p">
                                     <div><strong>Return Information</strong></div>
                                     <div class="return-rma">RMA # {{ return.rma }}</div>
                                     <div class="return-date">Created on: {{ return.date_created }}</div>
                                     <div class="return-status">Status: {{ return.status }}</div>
                                 </div>
                                 {# Begin actions #}
-                                <div class="actions">
+                                <div class="actions p">
                                     <div class="row">
                                         <div class="col-md-12">
                                             {% if return.status == 'pending' %}
@@ -127,10 +127,10 @@
                             </div>
                             {# End return details #}
                             {# Begin return items #}
-                            <div class="return-items col-sm-8 col-md-8 col-lg-9">
+                            <div class="return-items col-sm-8 col-md-8 col-lg-9 fsd1">
                                 {% set item = api.get('/orderitem/' ~ return.item_id) %}
                                 {% set product = api.get('/variant/' ~ item.product_id) %}
-                                <div class="row">
+                                <div class="row col-v divide">
                                     <div class="col-xs-4 col-sm-4 col-md-3">
                                         <img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="img-thumbnail" src='{{ product.thumbnail }}'>
                                     </div>
