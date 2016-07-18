@@ -50,19 +50,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{# Begin wishlists #}
 		<div id="customer-account-wishlists">
 			<div class="col-sm-12 col-md-9 col-lg-10">
-				{# Begin header #}
-				<header>
-					<div class="row">
-						<div class="col-md-12">
-							<header>
-								<h3 class="page-header">Your Wish Lists</h3>
-							</header>
-						</div>
-					</div>
-				</header>
-				{# End header #}
+				<h1 class="page-header">Your Wish Lists</h1>
 				{# Begin wishlist #}
-				{{ forms.begin('wishlist','','post',{ class:'form-horizontal' }) }}
+				{{ forms.begin('wishlist','','post',{ class:'' }) }}
 				{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 				{% if wishlists is empty %}
 				<p>There are no wishlists.</p>
@@ -90,12 +80,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				{# End wishlists #}
 				{% endif %}
 				{# Begin actions #}
-				<div class="row">
-					<div class="col-md-12">
-						<div class="actions-footer p">
-							<a class="btn btn-primary" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i>&nbsp;Create a new Wish List</a>
-						</div>
-					</div>
+				<div class="form-group actions">
+					<a class="btn btn-primary" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i><span>Create a New Wish List</span></a>
 				</div>
 				{# End actions #}
 				{{ forms.end() }}

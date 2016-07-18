@@ -54,13 +54,13 @@
 						{# End shipment details #}
 					</div>
 				</div>
-				{#<a href="#" class="btn"><i class="icon-print"></i> Print</a>#}
+				{#<a href="#" class="btn"><i class="icon-print"></i><span>Print</span></a>#}
 				{# Begin order actions #}
 				<div class="row">
 					<div class="col-md-12">
 						<div class="order-actions p">
 							{% if order.status == 'pending' %}
-							<a class="btn btn-neutral btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel order</a>
+							<a class="btn btn-neutral btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel Order</a>
 							<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -85,7 +85,7 @@
 								<div class="actions">
 									{% set email = app.request.post.order.email is not empty ? app.request.post.order.email : order.email %}
 									{% set order_number = app.request.post.order.number is not empty ? app.request.post.order.number : order.order_number %}
-									{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:'form-horizontal'}) }}
+									{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:'form-region'}) }}
 										{{ forms.hidden('guestreturn[email]', email) }}
 										{{ forms.hidden('guestreturn[order_number]', order_number) }}
 										{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-neutral btn-mobile'}) }}

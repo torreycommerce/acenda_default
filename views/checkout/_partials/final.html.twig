@@ -46,7 +46,7 @@
 									</div>
 									<div class="order-placed">Order Placed: {{ final_order.date_created|date("F jS, Y") }}</div>
 								{% else %}
-									<form name="order", action="{{app.url}}/order", method="POST", class="form-horizontal" id="view-order">
+									<form name="order", action="{{app.url}}/order", method="POST", class="" id="view-order">
 										<input type="hidden" name="order[id]" value="{{ final_order.order_number }}" />
 										<input type="hidden" name="order[email]" value="{{ final_order.email}}" />
 										<a href="javascript: $('form#view-order').submit();">{{ final_order.order_number }}</a>

@@ -229,9 +229,9 @@
 				<div class="row">
 					{% for category in categories %}
 					{# Begin category #}
-					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} cool-clear">
+					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} cool-clear p">
 						<div class="product">
-							<div class="p image">
+							<div class="p">
 								<a href="{{app.url}}/category/{{category.slug}}">
 									<span class="image-space">
 										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{category.thumbnail}}" class="img-responsive isd" data-image-source="{{category.thumbnail}}">
@@ -243,7 +243,6 @@
 					</div>
 					{# End category #}
 					{% endfor %}
-					<div class="clearfix"></div>
 				</div>
 			</section>
 			{% endif %}
