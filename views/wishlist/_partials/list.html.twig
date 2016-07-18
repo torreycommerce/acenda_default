@@ -111,11 +111,11 @@
 														<label for="quantity_purchased[{{ item.id }}]">Qty Purchased</label>
 														<div class="input-group quantity-input-group">
 															<div class="input-group-btn">
-																<button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+																<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
 															</div>
 															<input class="form-control quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
 															<div class="input-group-btn">
-																<button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+																<button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
 															</div>
 														</div>
 													</div>
@@ -128,11 +128,11 @@
 														<label for="wishlistitem_quantity[{{ item.id }}]">Qty Wanted</label>
 														<div class="input-group quantity-input-group">
 															<div class="input-group-btn">
-																<button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+																<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
 															</div>
 															<input class="form-control quantity-selector text-center" id="wishlistitem_quantity[{{ item.id }}]" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
 															<div class="input-group-btn">
-																<button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+																<button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
 															</div>
 														</div>
 													</div>
@@ -160,7 +160,7 @@
 												<b>{{ product.title }}</b>
 											</div>
 											<div class="modal-footer">
-												<a href="" class="btn btn-neutral" data-dismiss="modal">Cancel</a>
+												<a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>
 												<a href="{{app.url}}/wishlist/item/{{ item.id }}/delete" class="btn btn-danger">Delete</a>                                                
 											</div>
 										</div>
@@ -184,11 +184,11 @@
 								<label for="quantity-selector-{{ item.id }}" class="control-label">Qty</label>
 								<div class="input-group input-group-sm quantity-input-group">
 									<div class="input-group-btn">
-										<button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+										<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
 									</div>
 									<input type="text" value="1" maxlength="2" placeholder="1" class="form-control quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-neutral btn-add"><i class="fa fa-plus"></i></button>
+										<button type="button" class="btn btn-default btn-add"><i class="fa fa-plus"></i></button>
 									</div>
 								</div>
 							</div>

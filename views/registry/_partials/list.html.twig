@@ -121,11 +121,11 @@
                                                 <div class="quantity">
                                                     <div class="input-group">
                                                         <div class="input-group-btn">
-                                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                                            <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                         </div>
                                                         <input class="form-control quantity-selector" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
                                                         <div class="input-group-btn">
-                                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                                            <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -146,11 +146,11 @@
                                                 <div class="quantity">
                                                     <div class="input-group">
                                                         <div class="input-group-btn">
-                                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                                            <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                         </div>
                                                         <input class="form-control quantity-selector" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="registryitem_quantity[{{ item.id }}]">
                                                         <div class="input-group-btn">
-                                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                                            <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,7 +179,7 @@
                                     <b>{{ product.title }}</b>                                            
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="" class="btn btn-neutral" data-dismiss="modal">Cancel</a>
+                                    <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>
                                     <a href="{{app.url}}/registry/item/{{ item.id }}/delete" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>
@@ -200,11 +200,11 @@
                                 <label for="quantity-selector" class="control-label">Qty</label>
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-remove" type="button"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                         </div>
                                         <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="add_to_cart[{{ item.id }}]">
                                         <div class="input-group-btn">
-                                            <button class="btn btn-neutral btn-add" type="button"><i class="fa fa-plus"></i></button>
+                                            <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
                                 </div>

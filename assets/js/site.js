@@ -74,11 +74,11 @@ $.fn.imageZoom = function(options)
 $(document).ready(function() {
   var startHeight;
 
-  $("#toolbar .btn-group").hover(function(){
+  /*$("#toolbar .btn-group").hover(function(){
     $(this).find("ul.dropdown-menu").slideDown("fast");
   }, function(){
     $(this).find("ul.dropdown-menu").slideUp("fast");
-  });
+  });*/
 
   //get customer navbar
   $('#headerMenu').load(acendaBaseUrl+'/account/navbar');

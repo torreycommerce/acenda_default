@@ -32,7 +32,7 @@
                     Only the guest who created the registry can access it.<br /><i>The registry is not searchable and not accessible to other guests.</i>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-neutral" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
                 </div>
             </div>
         </div>
@@ -158,10 +158,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
             {% if create %}
             {{ forms.submit('registry[action]', 'create', 'Create', {class:'btn btn-primary'})}}
-            <a class="btn btn-neutral" href="{{ app.url }}/account/registries">Cancel</a>
+            <a class="btn btn-default" href="{{ app.url }}/account/registries">Cancel</a>
             {% else %}
             {{ forms.submit('registry[action]', 'save', 'Save', {class:'btn btn-primary'})}}
-            <a class="btn btn-neutral" href="{{ app.url }}/account/registries">Cancel</a>
+            <a class="btn btn-default" href="{{ app.url }}/account/registries">Cancel</a>
             <a class="btn btn-link btn-link-nopadding" data-toggle="modal" data-target="#delete-modal">Delete this registry</a>
             {% endif %}
         </div>
@@ -180,7 +180,7 @@
             <div class="modal-body">Are you sure you want to delete "{{ registry.name }}"?</div>
             <div class="modal-footer">
                 {{ forms.begin('registry') }}
-                <a class="btn btn-neutral" data-dismiss="modal">Cancel</a> 
+                <a class="btn btn-default" data-dismiss="modal">Cancel</a> 
                 <button type="submit" class="btn btn-danger" name="registry[action]" value="delete">Delete</button>
                 {{ forms.end() }}
             </div>

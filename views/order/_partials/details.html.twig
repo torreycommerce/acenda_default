@@ -60,7 +60,7 @@
 					<div class="col-md-12">
 						<div class="order-actions p">
 							{% if order.status == 'pending' %}
-							<a class="btn btn-neutral btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel Order</a>
+							<a class="btn btn-default btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel Order</a>
 							<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -88,7 +88,7 @@
 									{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:'form-region'}) }}
 										{{ forms.hidden('guestreturn[email]', email) }}
 										{{ forms.hidden('guestreturn[order_number]', order_number) }}
-										{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-neutral btn-mobile'}) }}
+										{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-default btn-mobile'}) }}
 									{{ forms.end()}}
 								</div>
 							{% endif %}
@@ -306,7 +306,7 @@
 					<div class="col-sm-2">
 						<div class="actions p">
 							{{ forms.begin('cancel-return',app.request.path) }}
-								<input type="submit" name="cancel" value="Cancel" class="btn btn-neutral btn-sm btn-block" />
+								<input type="submit" name="cancel" value="Cancel" class="btn btn-default btn-sm btn-block" />
 								<input type="hidden" name="id" value="{{item.id}}">
 								<input type="hidden" name="return" value="{{return.id}}">
 								<input type="hidden" name="order[email]" value="{{ app.request.post.order.email }}">
