@@ -20,47 +20,37 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    {# Begin navigation #}
-    <div class="navigation hidden-xs hidden-sm">
-        <div class="col-sm-4 col-md-3 col-lg-2">
-            {{account.navigation('addresses')}}
-        </div>
-    </div>
-    {# End navigation #}
-    <div class="col-sm-12 col-md-9 col-lg-10">
-        <header>
-            <div class="row">
-                <div class="col-md-12">
-                     <header>
-                        <h1 class="page-header">Edit Address</h1>
-                    </header>
-                </div>
-            </div>
-        </header>
-        {{ lonelyform.begin('account-edit-address')}}
-            {{ lonelyform.beginintro() }}
-                <p>Edit a previously stored address.</p>
-            {{ lonelyform.endintro() }}          
-            {% if app.request.post.address is defined %}
-                {% if app.request.post.address.make_default %}
-                    {% set result = api.post('/customeraddress/' ~ address.id ~ '/makeDefault') %}
-                    {% if result %}
-                        {% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
-                    {% else %}
-                        {% set form_errors = api.error() %}
-                        {% set address = app.request.post.address %}
-                    {% endif %}
-                {% endif %}
-                {% if api.put('/customeraddress/' ~ address.id, app.request.post.address) %}
-                    {% do app.user.setFlash('Your address has been successfully saved.', 'success') %}
-                    {% do app.redirect('/account/addresses') %}
-                {% else %}
-                    {% set form_errors = api.error() %}
-                {% endif %}
-            {% endif %}
-            {% include "/account/addresses/_partials/form.html.twig" %}
-        {{ lonelyform.end() }}
-    </div>
+<div id="customer-account">
+	{# Begin navigation #}
+	
+	{{account.navigation('addresses')}}
+	
+	{# End navigation #}
+	
+	<div class="customer-account-address-new">	
+		<h1 class="page-header">Edit Address</h1>
+		<p>Edit a previously stored address.</p>
+
+		{% if app.request.post.address is defined %}
+			{% if app.request.post.address.make_default %}
+				{% set result = api.post('/customeraddress/' ~ address.id ~ '/makeDefault') %}
+				{% if result %}
+					{% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
+				{% else %}
+					{% set form_errors = api.error() %}
+					{% set address = app.request.post.address %}
+				{% endif %}
+			{% endif %}
+			{% if api.put('/customeraddress/' ~ address.id, app.request.post.address) %}
+				{% do app.user.setFlash('Your address has been successfully saved.', 'success') %}
+				{% do app.redirect('/account/addresses') %}
+			{% else %}
+				{% set form_errors = api.error() %}
+			{% endif %}
+		{% endif %}
+		{% include "/account/addresses/_partials/form.html.twig" %}
+
+	</div>
+	{{account.navigatend()}}
 </div>
 {% endblock %}

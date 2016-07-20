@@ -48,7 +48,7 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 .breadcrumb {padding:0; background:none;}
 
-.well {margin-bottom:15px; background-color:#fefefe; border-color:#ccc; border-radius:0; box-shadow:none;}
+.well {margin-bottom:15px; padding:20px; background-color:#fefefe; border-color:#ccc; border-radius:0; box-shadow:none;}
 fieldset {margin-top:5px;}
 fieldset:first-of-type {margin-top:0;}
 legend {font-size:140%; font-weight:300; text-align:center; border-bottom:1px solid #ccc;}
@@ -82,11 +82,8 @@ label {margin-bottom:2px; font-weight:300;}
 {color:#000; background-color:#fefefe; border-color:#999;}
 
 .btn-link {color:#000;}
-.btn-link,.btn-link:active,.btn-link.active,.btn-link[disabled],fieldset[disabled] .btn-link {background-color:transparent;}
-.btn-link,.btn-link:hover,.btn-link:focus,.btn-link:active {border-color:transparent;}
-.btn-link:hover,.btn-link:focus {color:#000; text-decoration:underline; background-color:transparent;}
-.btn-link[disabled]:hover,fieldset[disabled] .btn-link:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:focus
-{color:#777; text-decoration:none;}
+.btn-link:hover,.btn-link:focus {color:#000;}
+.btn-link[disabled]:hover,fieldset[disabled] .btn-link:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:focus{color:#777;}
 
 
 .dropdown-menu {min-width:0; font-size:inherit; border-radius:0; box-shadow:0 2px 5px rgba(0, 0, 0, .2);}
@@ -132,8 +129,6 @@ ul, ol {padding-left:1.6em;}
 
 .p, p, ul, ol, .table, .form-group, .panel, .panel-group {margin-bottom:10px;}
 
-.well {padding:14px;}
-
 .text-left-sm {text-align:left;}
 }
 
@@ -143,7 +138,7 @@ ul, ol {padding-left:1.6em;}
 }
 
 /* final word */
-.panel-body>*:last-child, .well>*:last-child, form>*:last-child {margin-bottom:0;}
+.panel-body>*:last-child, .well>*:last-child, form>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}
 /* */
 
 
@@ -244,8 +239,6 @@ h2.section-name {margin-bottom:18px;}
 .al-btn-sm {margin-top:0; margin-bottom:0; line-height:30px;}
 .al-btn {margin-top:0; margin-bottom:0; line-height:34px;}
 .al-btn-lg {margin-top:0; margin-bottom:0; line-height:46px;}
-
-.lonely-form .actions:last-child {margin:0;}
 
 .mT {margin-top:1em;}
 .mT2 {margin-top:2em;}

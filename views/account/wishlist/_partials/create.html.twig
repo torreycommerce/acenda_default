@@ -33,8 +33,6 @@
     <h1 class="page-header">Create a New Wish List</h1>
     <div id="wishlist-create">
     {{ lonelyform.begin('create-wish-list')}}
-        {{ lonelyform.beginintro() }}
-        {{ lonelyform.endintro() }}
         {% include '/account/wishlist/_partials/form.html.twig' %}
     {{ lonelyform.end() }}
     </div>

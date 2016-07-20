@@ -34,76 +34,66 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {% endif %}
 <div id="customer-account">
-    <div class="row">
-        {# Begin navigation #}
-        <div class="navigation hidden-xs hidden-sm">
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                {{account.navigation('registries')}}
-            </div>
-        </div>
-        {# End navigation #}
-        {# Begin registries #}
-        <div id="customer-account-registries">
-            <div class="col-sm-12 col-md-9 col-lg-10">
-                {# Begin header #}
-                <header>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <header>
-                                <h3 class="page-header"><i class="fa fa-gift"></i> Your Registries</h3>
-                            </header>
-                        </div>
-                    </div>
-                </header>
-                {# End header #}
-                {# Begin registries #}
-                <div class="row">
-                    {{ form.begin('registry') }}
-                    {% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
-                    {% if registries is empty %}
-                    <div class="col-md-12">
-                    There are no registries.
-                    </div>
-                    {% else %}
-                    {% for registry in registries %}
-                    {# Begin registry #}
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="panel panel-default panel-info ">
-                            {# Begin registry details #}
-                            <div class="panel-heading">
-                                {% if registry.default %}<i class="fa fa-star"></i>{% endif %} <strong>{{ registry.name }}</strong>
-                            </div>
-                            <div class="panel-body">
-                                <div class="item-count">{{ registry.item_count }} item(s)</div>
-                                <div class="registry-privacy">{{ registry.privacy }}</div>
-                                <div class="privacy">{% if registry.default %}default registry{% endif %}</div>
-                            </div>
-                            {# End registry details #}
-                            {# Begin registry actions #}
-                            <div class="panel-footer">
-                                <a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
-                            </div>
-                            {# End registry actions #}
-                        </div>
-                    </div>
-                    {# End registry #}
-                    {% endfor %}
-                    {% endif %}
-                    {{ form.end() }}                
-                </div>
-                {# End registries #}
-                {# Begin bottom actions #}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="actions-footer p">
-                            <a class="btn btn-primary" href="{{app.url}}/account/registry/create"><i class="fa fa-plus"></i><span>Create a New Registry</span></a>
-                        </div>
-                    </div>                
-                </div>
-                {# End bottom actions #}
-            </div>
-        </div>
-        {# End registries #}
-    </div>
+
+	{# Begin navigation #}
+
+	{{account.navigation('registries')}}
+
+	{# End navigation #}
+	{# Begin registries #}
+	<div id="customer-account-registries">
+		{# Begin header #}
+			
+		<h1 class="page-header">Registries</h1>
+						
+		{# End header #}
+		{# Begin registries #}
+		<div class="row">
+			{{ form.begin('registry') }}
+			{% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
+			{% if registries is empty %}
+			<div class="col-md-12">
+			<p>There are no registries.</p>
+			</div>
+			{% else %}
+			{% for registry in registries %}
+			{# Begin registry #}
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="panel panel-default panel-info ">
+					{# Begin registry details #}
+					<div class="panel-heading">
+						{% if registry.default %}<i class="fa fa-star"></i>{% endif %} <strong>{{ registry.name }}</strong>
+					</div>
+					<div class="panel-body">
+						<div class="item-count">{{ registry.item_count }} item(s)</div>
+						<div class="registry-privacy">{{ registry.privacy }}</div>
+						<div class="privacy">{% if registry.default %}default registry{% endif %}</div>
+					</div>
+					{# End registry details #}
+					{# Begin registry actions #}
+					<div class="panel-footer">
+						<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
+					</div>
+					{# End registry actions #}
+				</div>
+			</div>
+			{# End registry #}
+			{% endfor %}
+			{% endif %}
+			{{ form.end() }}                
+		</div>
+		{# End registries #}
+		{# Begin bottom actions #}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="actions-footer p">
+					<a class="btn btn-primary" href="{{app.url}}/account/registry/create"><i class="fa fa-plus"></i><span>Create a New Registry</span></a>
+				</div>
+			</div>                
+		</div>
+		{# End bottom actions #}
+	</div>
+	{# End registries #}
+	{{account.navigatend()}}
 </div>
 {% endblock %}

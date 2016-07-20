@@ -7,23 +7,21 @@
 {% block title %}Account - Registry{% endblock %} 
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Account':'/account','Registries':'/account/registries','Registry':''}) }}
+	{{ base.breadcrumbs({'Account':'/account','Registries':'/account/registries','Registry':''}) }}
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-    	{# Begin navigation #}
-	    <div class="navigation hidden-xs hidden-sm">
-	        <div class="col-md-3 col-lg-2">
-	            {{account.navigation('registries')}}
-	        </div>
-	    </div>
-	    {# End navigation #}
-        {# Begin content #}
-        <div class="content">
-            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-                {% include '/registry/_partials/list.html.twig' %}
-            </div>
-        </div>
-    </div>
+<div id="customer-account">
+	{# Begin navigation #}
+	
+	{{account.navigation('registries')}}
+
+	{# End navigation #}
+	{# Begin content #}
+	<div id="customer-account-registry">
+	
+		{% include '/registry/_partials/list.html.twig' %}
+	</div>
+	{{account.navigatend()}}
+</div>
 {% endblock %}

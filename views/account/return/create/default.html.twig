@@ -8,37 +8,35 @@
 {% block title %}Account - Order Return{% endblock %}
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Account':'/account','Returns':'/account/returns','Return Item(s)':''}) }}
+	{{ base.breadcrumbs({'Account':'/account','Returns':'/account/returns','Return Item(s)':''}) }}
 {% endblock %}
 
 {% block content %}
 {% set page_name = 'return' %}
 {% set order = api.get('/order',{query:{order_number: app.request.path}})|first %}
 {% if order.id is null %}
-    {% do app.user.setFlash('Order was not found.', 'danger') %}
-    {% do app.redirect('/account/orders') %}
+	{% do app.user.setFlash('Order was not found.', 'danger') %}
+	{% do app.redirect('/account/orders') %}
 {% endif %}
 
 {% set orderitems = api.get('/orderitem', {query:{order_id:order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
 {% set returns = api.get('/orderreturn', {query:{order_id: order.id, status: {'$in': ['pending','returned']}}}) %}
 {% if order.date_created|strtotime > app.params.returnTime|strtotime %}
-    {% do app.redirect('/account/orders', {'error':'Order is too old for returns.x' ~ app.request.path ~ 'x'}) %}
+	{% do app.redirect('/account/orders', {'error':'Order is too old for returns.x' ~ app.request.path ~ 'x'}) %}
 {% endif %}
 
 <div class="customer-account">
-    <div class="row">
-    	{# Begin navigation #}
-        <div class="navigation hidden-xs hidden-sm">
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                {{account.navigation('orders')}}
-            </div>
-        </div>
-        {# End navigation #}
-    	<div id="customer-account-order-details">
-    	    <div class="col-sm-9 col-md-9 col-lg-10">
-    	        {% include '/account/return/create/_partials/form.html.twig' %}
-    	    </div>
-    	</div>
-    </div>
+	
+	{# Begin navigation #}
+	
+	{{account.navigation('orders')}}
+	
+	{# End navigation #}
+	<div id="customer-account-order-details">
+
+	{% include '/account/return/create/_partials/form.html.twig' %}
+
+	</div>
+	{{account.navigatend()}}
 </div>
 {% endblock %}

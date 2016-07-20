@@ -24,166 +24,159 @@ Load in the tabs for the page, pass in the name of this page, and make sure it's
 set in the array in /account/_macros/base.html.twig
 #}
 <div id="customer-account">
-	<div class="row">
-		{# Begin navigation #}
-		<div class="navigation hidden-xs hidden-sm">
-			<div class="col-md-3 col-lg-2">
-				{{account.navigation()}}
-			</div>
-		</div>
-		{# End navigation #}
-		{# Begin account center #}
-		<div id="customer-account-center">
-			<div class="col-sm-12 col-md-9 col-lg-10">
-				{# Begin page header #}
-				<header>
+
+	{# Begin navigation #}
+
+	{{account.navigation()}}
+
+	{# End navigation #}
+	{# Begin account center #}
+	<div id="customer-account-center">
+		
+		{# Begin page header #}
+		
+		<h1 class="page-header"><i class="fa fa-user"></i><span>Hi, {{ app.user.first_name|title }}!</span></h1>
+		<p>Welcome to your account.</p>
+
+		{# End page header #}            
+		{# Begin notifications #}
+		<div id="recent-notifications">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title"><i class="fa fa-exclamation-circle"></i><span>Notifications</span></div>
+					{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
+				</div>
+				<div class="panel-body">
+					{% if notifications is empty %}
+					No notifications have been found.
+					{% endif %}
 					<div class="row">
 						<div class="col-md-12">                    
-							<h1 class="page-header"><i class="fa fa-user"></i><span>Hi, {{ app.user.first_name|title }}!</span></h1>
-							<p>Welcome to your account.</p>
-						</div>
-					</div>
-				</header>
-				{# End page header #}            
-				{# Begin notifications #}
-				<div id="recent-notifications">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3><i class="fa fa-exclamation-circle"></i><span>Notifications</span></h3>
-							{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
-						</div>
-						<div class="panel-body">
-							{% if notifications is empty %}
-							No notifications have been found.
-							{% endif %}
-							<div class="row">
-								<div class="col-md-12">                    
-									<div class="panel">
-										<div class="table-responsive">
-											<table class="table table-hover table-striped tablesorter">
-												<tbody>
-													{% for notif in notifications %}
-														<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
-															<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
-															<td>{{ notif.subject}}</td>
-															<!-- March 30th 9:06pm -->
-															<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
-														</tr>
-													{% endfor %}
-												</tbody>
-											</table>
-										</div>
-									</div>
+							<div class="panel">
+								<div class="table-responsive">
+									<table class="table table-hover table-striped tablesorter">
+										<tbody>
+											{% for notif in notifications %}
+												<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
+													<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
+													<td>{{ notif.subject}}</td>
+													<!-- March 30th 9:06pm -->
+													<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
+												</tr>
+											{% endfor %}
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
-						<div class="panel-footer">
-							<a href="{{app.url}}/account/notifications" class="btn btn-default">View All Notifications</a>
-						</div>
 					</div>
 				</div>
-				{# End notifications #}
-				{# Begin recent orders #}
-				<div class="divide p" id="recent-orders">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3><i class="fa fa-shopping-bag"></i><span>Recent Orders</span></h3>
-							{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
-						</div>
-						{# Begin order #}
-						<div class="panel-body">
-							{% if orders is empty %}
-							<p>No recent orders have been found.</p>
-							{% endif %}
-							{% for order in orders %}
-							<div class="order col-v divide">
-								<div class="row">
-									<div class="order-details col-sm-4 col-md-4 col-lg-3 p">
-										<div class="order-info">                    
-											<div class="order-id">Order #{{ order.order_number }}</div>
-											<div class="order-status">Status: {{order.status}}</div>
-											<div class="order-date">Ordered: {{ order.date_created}}</div>
-										</div>
-									</div>
-									<div class="order-items col-sm-5 col-md-5 col-lg-6 p">
-										{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
-										{% for item in items %}
-										<div class="item">
-											<div class="row">
-												<div class="col-md-12">{{ item.name }}</div>
-											</div>
-										</div>
-										{% endfor %}
-									</div>
-									<div class="actions col-sm-3 col-md-3 col-lg-3 text-right">                                        
-										<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>                                        
-									</div>
-								</div>
-							</div>
-							{% endfor %}
-						</div>
-						{# End order #}
-						{# Begin order #}
-						<div class="panel-footer">
-							<a class="btn btn-default" href="{{ app.url }}/account/orders">View All Orders</a>
-						</div>
-						{# End order #}
-					</div>
+				<div class="panel-footer">
+					<a href="{{app.url}}/account/notifications" class="btn btn-default">View All Notifications</a>
 				</div>
-				{# End recent orders #}
-				{# Begin recent favorites #}
-				<div id="recent-wishlist">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3><i class="fa fa-gift"></i><span>Recent Wish List Items</span></h3>
-							{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
-							{% set _in = [] %}
-							{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
-							{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
-						</div>
-						<div class="panel-body">
-							{% if items is empty %}
-							<p>No recent wish list items have been found.</p>
-							{% endif %}
-							<div class="row">
-							{% for item in items %}
-								{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
-								<div class="col-xs-6 col-sm-4 cool-clear p">
-									<div class="product col-v divide">
-										<div class="p">
-											<a href="{{ app.url ~ product.url }}" class="thumbnail">
-												<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" data-image-source="{{ product.thumbnail }}" class="img-responsive" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}">
-											</a>
-										</div>
-										<header>
-											<div class="product-name">{{ product.title }}</div>
-											<div class="brand">{{ product.brand }}</div>
-										</header>
-										<div class="pricing">
-											<div class="price">
-												{% if product.save_percent %}
-													<span class="lineT">${{ product.compare_price }}</span> now 
-												{% endif %}
-												${{ product.price }}
-											</div>
-										</div>
-										{% set it = api.get('/wishlistitem', {query:{'product_id': product.id}})[0] %}
-										{% set wi = api.get('/wishlist',{query:{"customer_id":app.user.id, "id": it.wishlist_id}})[0] %}
-										<a href="{{ app.url }}/account/wishlist/{{ wi.id }}">{{ wi.name }}</a>
-									</div>
-								</div>
-							{% endfor %}
-							</div>
-						</div>
-						<div class="panel-footer">
-							<a href="{{ app.url }}/account/wishlists" class="btn btn-default">View Wish Lists</a>
-						</div>
-					</div>
-				</div>
-				{# End recent favorites #}
 			</div>
 		</div>
-		{# End account center #}
+		{# End notifications #}
+		{# Begin recent orders #}
+		<div id="recent-orders">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title"><i class="fa fa-shopping-bag"></i><span>Recent Orders</span></div>
+					{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
+				</div>
+				{# Begin order #}
+				<div class="panel-body">
+					{% if orders is empty %}
+					<p>No recent orders have been found.</p>
+					{% endif %}
+					{% for order in orders %}
+					<div class="order col-v divide">
+						<div class="row">
+							<div class="order-details col-sm-4 col-md-4 col-lg-3 p">
+								<div class="order-info">                    
+									<div class="order-id">Order #{{ order.order_number }}</div>
+									<div class="order-status">Status: {{order.status}}</div>
+									<div class="order-date">Ordered: {{ order.date_created}}</div>
+								</div>
+							</div>
+							<div class="order-items col-sm-5 col-md-5 col-lg-6 p">
+								{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+								{% for item in items %}
+								<div class="item">
+									<div class="row">
+										<div class="col-md-12">{{ item.name }}</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+							<div class="actions col-sm-3 col-md-3 col-lg-3 text-right">                                        
+								<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>                                        
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				{# End order #}
+				{# Begin order #}
+				<div class="panel-footer">
+					<a class="btn btn-default" href="{{ app.url }}/account/orders">View All Orders</a>
+				</div>
+				{# End order #}
+			</div>
+		</div>
+		{# End recent orders #}
+		{# Begin recent favorites #}
+		<div id="recent-wishlist">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="panel-title"><i class="fa fa-gift"></i><span>Recent Wish List Items</span></div>
+					{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
+					{% set _in = [] %}
+					{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
+					{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
+				</div>
+				<div class="panel-body">
+					{% if items is empty %}
+					<p>No recent wish list items have been found.</p>
+					{% endif %}
+					<div class="row">
+					{% for item in items %}
+						{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
+						<div class="col-xs-6 col-sm-4 cool-clear p">
+							<div class="product col-v divide">
+								<div class="p">
+									<a href="{{ app.url ~ product.url }}" class="thumbnail">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" data-image-source="{{ product.thumbnail }}" class="img-responsive" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}">
+									</a>
+								</div>
+								<header>
+									<div class="product-name">{{ product.title }}</div>
+									<div class="brand">{{ product.brand }}</div>
+								</header>
+								<div class="pricing">
+									<div class="price">
+										{% if product.save_percent %}
+											<span class="lineT">${{ product.compare_price }}</span> now 
+										{% endif %}
+										${{ product.price }}
+									</div>
+								</div>
+								{% set it = api.get('/wishlistitem', {query:{'product_id': product.id}})[0] %}
+								{% set wi = api.get('/wishlist',{query:{"customer_id":app.user.id, "id": it.wishlist_id}})[0] %}
+								<a href="{{ app.url }}/account/wishlist/{{ wi.id }}">{{ wi.name }}</a>
+							</div>
+						</div>
+					{% endfor %}
+					</div>
+				</div>
+				<div class="panel-footer">
+					<a href="{{ app.url }}/account/wishlists" class="btn btn-default">View Wish Lists</a>
+				</div>
+			</div>
+		</div>
+		{# End recent favorites #}
 	</div>
+	{# End account center #}
+	{{account.navigatend()}}
 </div>
 {% endblock %}
