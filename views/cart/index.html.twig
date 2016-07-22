@@ -75,6 +75,55 @@ Cart
 {% endif %}
 
 {% block content %}
+
+{# DISPLAY CART LOGIC #}
+    {% set display_cart = [] %}
+    {% set new_quantities = [] %}
+    {% set count = 0 %}
+    {# 1) Add bundles to display cart #}
+    {% for discount in cart.discount_collection.discounts %}
+        {% if discount.type == "bundle" %}
+            {% set display_cart = display_cart|merge(
+                { (count) :
+                    {
+                        'is_bundle': true,
+                        'name': discount.model.name,
+                        'description': discount.model.description,
+                        'discount_value' : discount.model.discount_value,
+                        'items': discount.affected_items,
+                        'quantity' : discount.quantity
+                    }
+                }
+                )
+            %}
+            {% set count = count + 1 %}
+        {% endif %}
+        {# 1.a) Recompute item quantities #}
+        {% for variant in discount.model.variant_id %}
+            {% set new_quantities = new_quantities|merge(
+                    { ('_'~variant.id): variant.quantity * discount.quantity }
+                )
+            %}
+        {% endfor %}
+    {% endfor %}
+    {# 2) Add items with new quantities #}
+    {%  for item in cart.items %}
+        {% if (item.quantity - new_quantities['_'~item.product_id]) > 0 %}
+            {% set display_cart = display_cart|merge(
+                { (count) :
+                    {
+                        'product_id': item.product_id,
+                        'quantity': item.quantity - new_quantities['_'~item.product_id]
+                    }
+                }
+                )
+            %}
+            {% set count = count + 1 %}
+        {% endif %}
+
+    {% endfor %}
+{# END DISPLAY CART LOGIC #}
+
 {% if error is not empty %}
 	<div class="alert alert-warning">{{ error }}</div>
 {% endif %}
