@@ -1,5 +1,5 @@
 {% extends "/_layouts/base.html.twig" %}
-
+{% do app.cache(1) %}
 {% set request = app.request.path | split('/') %}
 {% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}
 {% if item.id is empty %}

@@ -1,16 +1,15 @@
-{% if reviews is empty %}
-    There are currently no reviews for this item.<br />
-    <a href="{{ app.url }}/review/id/{{product.id}}">Be the first to add one.</a>
+{% if reviews is empty %}	
+	<p>There are currently no reviews for this item.</p>
+	<a href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
 {% else %}
-    <h4>Product Reviews</h4>
-    <a href="{{ app.url }}/review/id/{{product.id}}">Submit a review</a>
-    <hr>
-    {% for review in reviews %}
-       <div>
-            {{ base.rating(review.score, {'id':'star-rating-' ~ loop.index}) }}<small> {{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} <i> on {{ review.date_created|strtotime|date("m-d-Y") }} </i></small>
-            <h5 id="review-title">{{ review.title }}</h5>
-            <p>{{ review.comment|unescape }}</p>
-       </div>
-       <hr>
-    {% endfor %}
+	<div class="divide p">
+		<p><a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a></p>
+	</div>
+	{% for review in reviews %}
+	   <div class="review divide p">
+			{{ base.rating(review.score, {'id':'star-rating-' ~ loop.index}) }} <span class="fsd1">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_created|strtotime|date("m-d-Y") }}</span>
+			<h4 id="review-title">{{ review.title }}</h4>
+			<p>{{ review.comment|unescape }}</p>
+	   </div>
+	{% endfor %}
 {% endif %}

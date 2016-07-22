@@ -7,26 +7,23 @@
 {% block title %}Account - Wish List{% endblock %} 
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Account':'/account','Wish Lists':'/account/wishlists','Wish List':''}) }}
+	{{ base.breadcrumbs({'Account':'/account','Wish Lists':'/account/wishlists','Wish List':''}) }}
 {% endblock %}
 
 {% block content %}
 <div id="customer-account">
-    <div class="row">
-        {# Begin navigation #}
-        <div class="navigation hidden-xs hidden-sm">
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                {{account.navigation('wishlists')}}
-            </div>
-        </div>
-        {# End navigation #}
-        {# Begin content #}
-        <div class="customer-account-wishlist">
-            <div class="col-sm-12 col-md-9 col-lg-10">
-                {% include '/wishlist/_partials/list.html.twig' %}
-            </div>
-        </div>
-        {# End content #}
-    </div>
+
+	{# Begin navigation #}
+
+	{{account.navigation('wishlists')}}
+
+	{# End navigation #}
+	{# Begin content #}
+	<div class="customer-account-wishlist">
+		
+		{% include '/wishlist/_partials/list.html.twig' %}
+		
+	</div>
+	{{account.navigatend()}}
 </div>
 {% endblock %}

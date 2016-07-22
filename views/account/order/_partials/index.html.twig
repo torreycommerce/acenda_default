@@ -12,24 +12,20 @@
 {% block title %}Account - Order Details{% endblock %}
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Account':'/account','Order History':'/account/orders','Order Details':''}) }}
+	{{ base.breadcrumbs({'Account':'/account','Order History':'/account/orders','Order Details':''}) }}
 {% endblock %}
 
 {% block content %}
 <div class="customer-account">
-    <div class="row">
-    	{# Begin navigation #}
-        <div class="navigation hidden-xs hidden-sm">
-            <div class="col-sm-4 col-md-3 col-lg-2">
-                {{account.navigation('orders')}}
-            </div>
-        </div>
-        {# End navigation #}
-    	<div id="customer-account-order-details">
-    	    <div class="col-sm-9 col-md-9 col-lg-10">
-    	        {% include '/account/order/_partials/details.html.twig' %}
-    	    </div>
-    	</div>
-    </div>
+
+	{# Begin navigation #}
+	{{account.navigation('orders')}}
+
+	{# End navigation #}
+	<div id="customer-account-order-details">
+		{% include '/account/order/_partials/details.html.twig' %}
+	</div>
+
+	{{account.navigatend()}}
 </div>
 {% endblock %}

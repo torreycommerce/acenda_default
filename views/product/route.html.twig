@@ -46,7 +46,7 @@
     {% endif %}
     {# This user has no wishlists; store items in holding #}
     {% if wishlist == false %}
-        {% do app.user.setFlash('Please create a wishlist first.', 'danger') %}
+        {% do app.user.setFlash('Please create a wish list first.', 'danger') %}
         {% do app.user.setState('wishlist', app.request.post.items) %}
         {% do app.redirect('/account/wishlists') %}
     {% endif %}

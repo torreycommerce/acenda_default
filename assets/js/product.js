@@ -532,13 +532,13 @@ function VariantsManager (product, img, isCollection) {
         returns html <a> element with option value optionValue set as text
     */
     this.getATag = function(selectName, optionValue){
-        return tag =  $('<a>', {'class': "btn btn-neutral"}).text(optionValue);
+        return tag =  $('<a>', {'class': "btn btn-default"}).text(optionValue);
     }
     /*
         returns html <a> element with style background-color set with given color
     */
     this.getAColorTag = function(selectName, optionValue, color){
-        return tag =  $('<a>', {'class': "btn btn-neutral", "style":"background-color:"+color});
+        return tag =  $('<a>', {'class': "btn btn-default", "style":"background-color:"+color});
     }
     /*
         takes a slug type string and return a good liking one:
@@ -574,14 +574,14 @@ function VariantsManager (product, img, isCollection) {
 
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-color"});
                 var span = $('<span>', {"class": "selected-color"}).append(
-                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
+                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
                 var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details size-details"});
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-size"});
                 var span = $('<span>', {"class": "selected-size"}).append(
-                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
+                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
                             );
             }
             //Builds a chip html elemtn for each available value available for the option, and appends it to its parent element (previously built) 
@@ -601,7 +601,7 @@ function VariantsManager (product, img, isCollection) {
                 );
             });
             //Build the span html elemtn where will be displayed the value of the currently selected option
-            var span_selected = $('<span>', {"class": "", "id": _this.getVariationSelectedId(selectName)}).text("");
+            var span_selected = $('<span>', {"class": "selected-value", "id": _this.getVariationSelectedId(selectName)}).text("");
             //Appends built element to their proper parents
             div.append(span);
             div.append(span_selected);

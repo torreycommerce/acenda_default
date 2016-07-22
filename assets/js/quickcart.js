@@ -179,8 +179,8 @@ function ajaxCart(data, r) {
                 }
 
             }
-            $('.cart .item-count').html(cart_item_count);
-            $('.quickcart .ajaxcart .item-count').html(cart_item_count);
+            $('#header .item-count').html(cart_item_count);
+            //$('.quickcart .ajaxcart .item-count').html(cart_item_count);
             $('.quickcart .ajaxcart .subtotal').html(cart_subtotal);
 
             if (show_all) {

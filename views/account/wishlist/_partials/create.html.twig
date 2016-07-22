@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/account/_macros/base.html.twig" as account %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {% do account.login() %}
 
@@ -29,8 +30,10 @@
         {% endif %}
     {% endif %}
     {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-    <h3 class="page-header"><i class="fa fa-gift"></i> Create New Wishlisht</h3>
+    <h1 class="page-header">Create a New Wish List</h1>
     <div id="wishlist-create">
+    {{ lonelyform.begin('create-wish-list')}}
         {% include '/account/wishlist/_partials/form.html.twig' %}
+    {{ lonelyform.end() }}
     </div>
 {% endblock %}

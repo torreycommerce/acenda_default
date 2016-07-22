@@ -74,11 +74,11 @@ $.fn.imageZoom = function(options)
 $(document).ready(function() {
   var startHeight;
 
-  $("#toolbar .my-account").hover(function(){
+  /*$("#toolbar .btn-group").hover(function(){
     $(this).find("ul.dropdown-menu").slideDown("fast");
   }, function(){
     $(this).find("ul.dropdown-menu").slideUp("fast");
-  });
+  });*/
 
   //get customer navbar
   $('#headerMenu').load(acendaBaseUrl+'/account/navbar');
@@ -228,8 +228,8 @@ $(document).ready(function () {
             },
             listeners: {
                 onFieldError: function ( elem, constraints, ParsleyField ) {
-                    if (!elem.parent().parent().hasClass('has-feedback'))
-                        elem.parent().parent().addClass('has-feedback');
+                    if (!elem.parents('.form-group').hasClass('has-feedback'))
+                        elem.parents('.form-group').addClass('has-feedback');
 
                     if ($.inArray(elem[0].type, limit_feed) >= 0){
                       if (elem.parent().find(".glyphicon"))
@@ -241,8 +241,8 @@ $(document).ready(function () {
                     elem.tooltip("show");
                 },
                 onFieldSuccess: function ( elem, constraints, ParsleyField ) {
-                    if (!elem.parent().parent().hasClass('has-feedback'))
-                        elem.parent().parent().addClass('has-feedback');
+                    if (!elem.parents('.form-group').hasClass('has-feedback'))
+                        elem.parents('.form-group').addClass('has-feedback');
                     if ($.inArray(elem[0].type, limit_feed) >= 0){
                       if (elem.parent().find(".glyphicon"))
                           elem.parent().find(".glyphicon").remove();

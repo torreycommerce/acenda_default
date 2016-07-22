@@ -8,7 +8,7 @@ $(function() {
         // Validate the form
         console.log(form.normalized);
         console.log($("#custom-address").is(":hidden"));
-        if (!$('.form-horizontal').parsley('isValid')) {
+        if (!$('.form-region').parsley('isValid')) {
             return false;
         }else{
             if (form.normalized && !$("#custom-address").is(":hidden")) {
