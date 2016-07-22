@@ -261,7 +261,14 @@ Cart
 	{{ forms.end() }}
 	{{ forms.begin('cart','','post', {class:'form-region divide p'}) }}
 	<div class="row">
+        {% set has_bundle = false %}
+        {% for index, discount in cart.discount_collection.discounts %}
+            {% if discount.type == 'bundle' and discount.affected_items is not empty %}
+                {% set has_bundle = true %}
+            {% endif %}
+        {% endfor %}
 		<div class="col-xs-12 col-md-8">
+            {% if has_bundle %}
 			<div class="p divide" id="bundles">
 				<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
 				<div class="form-group">
@@ -273,6 +280,7 @@ Cart
 					{% endfor %}
 				</div>
 			</div>
+            {% endif %}
 			{# Begin subtotal / checkout #}
 			<div class="p divide" id="coupon-code">
 				<div class="row">
