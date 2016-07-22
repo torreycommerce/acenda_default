@@ -28,7 +28,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div id="fade-container">
-				{{ forms.begin('checkout', app.url ~ '/checkout/place', 'post', { class:'form-region' }) }}
+				{{ forms.begin('checkout', app.url ~ '/checkout/place', 'post', { class:'form-billing-region' }) }}
 				{% if app.user.getState('test_order') %}
 					<div class="row">
 						<div class="col-sm-12">
@@ -159,7 +159,7 @@
 									{% endif %}
 								</div>
 							{% else %}
-								
+
 								<div class="checkout-display-address p" id="display_billing_address">
 									<p>{{ shipping_address }}</p>
 									<a class="btn btn-sm btn-secondary" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>

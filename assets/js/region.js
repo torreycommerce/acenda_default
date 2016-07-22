@@ -133,7 +133,7 @@ $('.form-billing-region, .form-horizonal').cascadingDropdown({
         }
     },
     {
-        selector: 'select[id$=state]',
+        selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         source: function(request, response) {
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
