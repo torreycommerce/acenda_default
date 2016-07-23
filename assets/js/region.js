@@ -64,16 +64,18 @@ $('.form-region, .form-horizonal').cascadingDropdown({
 
                     //If State array is empty, then show state as a text input.
                     if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
+                        $("#state_input").removeClass('hidden');
                         $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
+                        $("#state_select").addClass('hidden');
                         $("#state_select").prop( "disabled", true );
+                        $('#state-label').attr('for','state_input');
                     }
                     else {
-                        $("#state_input").hide();
+                        $("#state_input").addClass('hidden');
                         $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
+                        $("#state_select").removeClass('hidden');
                         $("#state_select").prop( "disabled", false );
+                        $('#state-label').attr('for','state_select');
                     }
 
                     response($.map(data.result, function(item, index) {
@@ -153,16 +155,18 @@ $('.form-billing-region, .form-horizonal').cascadingDropdown({
 
                     //If State array is empty, then show state as a text input.
                     if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
+                        $("#state_input").removeClass('hidden');
                         $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
+                        $("#state_select").addClass('hidden');
                         $("#state_select").prop( "disabled", true );
+                        $('#state-label').attr('for','state_input');
                     }
                     else {
-                        $("#state_input").hide();
+                        $("#state_input").addClass('hidden');
                         $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
+                        $("#state_select").removeClass('hidden');
                         $("#state_select").prop( "disabled", false );
+                        $('#state-label').attr('for','state_select');
                     }
 
                     response($.map(data.result, function(item, index) {
@@ -221,16 +225,18 @@ $('.form-region-customer, .form-horizonal').cascadingDropdown({
                 if (typeof data.result !== 'undefined') {
                     //If State array is empty, then show state as a text input.
                     if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
+                        $("#state_input").removeClass('hidden');
                         $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
+                        $("#state_select").addClass('hidden');
                         $("#state_select").prop( "disabled", true );
+                        $('#state-label').attr('for','state_input');
                     }
                     else {
-                        $("#state_input").hide();
+                        $("#state_input").addClass('hidden');
                         $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
+                        $("#state_select").removeClass('hidden');
                         $("#state_select").prop( "disabled", false );
+                        $('#state-label').attr('for','state_select');
                     }
                 }
 

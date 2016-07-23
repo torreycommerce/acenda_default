@@ -117,7 +117,8 @@
 							{% endfor %}
 							{% if address_select|length > 1 %}
 							<div class="form-group">
-								{{ forms.select('shipping[shipping_address_id]', selected_address, address_select, {class:'form-control parsley-validated', id: 'checkout_shipping_address_id'}) }}
+								<label for="checkout_shipping_address_id">Select an Address:</label>
+								{{ forms.select('shipping[shipping_address_id]', selected_address, address_select, {class:'form-control parsley-validated', id:'checkout_shipping_address_id'}) }}
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_address_id') }}</div>
 							</div>
 							{% endif %}
@@ -176,10 +177,10 @@
                                 		</div>
                                 		<div class="col-xs-6">
                                 			<div class="form-group normalizable">
-                                				<label class="control-label" for="state">State <span class="text-danger">*</span></label>
+                                				<label class="control-label" id="state-label" for="state">State <span class="text-danger">*</span></label>
                                 				{# forms.select(form ~ '[' ~ name ~ 'state]', address[name ~ 'state'], {}, {class:'form-control parsley-validated', id:'state', placeholder:"State", id:'state'}) #}
                                                 {{ forms.select('shipping[shipping_state]', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'state_select'}) }}
-                                                {{ forms.text('shipping[shipping_state]', address[name ~ 'state'], {class:'form-control parsley-validated', placeholder:"State", id:'state_input'}) }}
+                                                {{ forms.text('shipping[shipping_state]', address[name ~ 'state'], {class:'form-control parsley-validated hidden', placeholder:"State", id:'state_input'}) }}
                                 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
                                 			</div>
                                 		</div>

@@ -44,9 +44,9 @@
 					</div>
 					<div class="col-xs-6">
 						<div class="form-group normalizable">
-							<label class="control-label" for="state">State/Province <span class="text-danger">*</span></label>
+							<label class="control-label" id="state-label" for="state">State/Province <span class="text-danger">*</span></label>
                             {{ forms.select('address[state]', address.state, {}, {required:true, class:'form-control parsley-validated', id:'state_select' }) }}
-                            {{ forms.text('address[state]', address.state, {class:'form-control parsley-validated', placeholder:"State", id:'state_input'}) }}
+                            {{ forms.text('address[state]', address.state, {class:'form-control parsley-validated hidden', placeholder:"State", id:'state_input'}) }}
 							{{ forms.hidden('address[state_select]', address.state) }}
 							<div class="validation">{{ forms.errorlist(form_errors, 'state') }}</div>
 						</div>
