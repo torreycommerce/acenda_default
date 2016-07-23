@@ -46,6 +46,7 @@ Cart
 
 {% set cart = api.get('/sessioncart') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
+{% set shipping_countries = api.get('/shippingmethod/country') %}
 {% set site_payments = api.get('/site/payments') %}
 
 {% if (cart.items is not empty) %}
@@ -128,10 +129,10 @@ Cart
 	<div class="alert alert-warning">{{ error }}</div>
 {% endif %}
 
-{% if shipping_methods is empty %}
+{% if shipping_methods is empty or shipping_countries is empty %}
 	<div class="row">
 		<div class="col-md-12">
-			<p>Acenda is not properly set up for checkout. Please add an active shipping method.</p>
+			<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
 		</div>
 	</div>
 {% else %}
