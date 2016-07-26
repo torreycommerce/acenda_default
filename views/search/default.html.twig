@@ -11,8 +11,18 @@
 {% if app.request.get.s|length < 2 %}
 	{% do app.redirect('/',[],'404') %}
 {% endif %}
+
+
+{% set response = api.get('redirect/resolve', {path: app.request.get.s, searchterm: true}) %}
+{% if response and response[0].destination %}
+   {% do app.redirect(response[0].destination ,response[0].code) %}
+{% endif %}
+
+
 {% block content %}
+
     {% set default_query = {"status":"active"} %}
     {% set default_attributes = "color,category_id,gender,size,price,review_score" %}
     {%include "/category/_partials/base.html.twig"%}
+
 {% endblock %}

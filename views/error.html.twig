@@ -2,7 +2,7 @@
 {% block title %}Page not found{% endblock %}
 {% block content %}
 <div class="content">
-    {% set response = api.get('redirect/resolve',{path: app.request.url}) %}
+    {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
     {% if response and response[0].destination %}
        {% do app.redirect(response[0].destination ,response[0].code) %}
     {% endif %}
