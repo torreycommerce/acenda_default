@@ -25,7 +25,7 @@
         {% set contents = api.get('/content',{
             'query':{
                 'publish':'1'
-                    }    
+                    }
             })
         %}
         {# Build array with available content slugs #}
@@ -68,13 +68,13 @@
                         {% else %}
                         <li><a href="{{app.url}}/account/registries">Registries</a></li>
                         {% endif %}
-                        {% if "faq" in contents_available %} 
+                        {% if "faq" in contents_available %}
                         <li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
                         {% endif %}
-                        {% if "privacy-policy" in contents_available %} 
+                        {% if "privacy-policy" in contents_available %}
                             <li><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
                         {% endif %}
-                        {% if "terms-and-conditions" in contents_available %} 
+                        {% if "terms-and-conditions" in contents_available %}
                         <li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
                         {% endif %}
                     </ul>
@@ -106,11 +106,7 @@
             </div>
         </div>
     </section>
+
 </footer>
-{% set request = app.request.url | split('/') %}
-{% if request.0 != 'checkout' and app.params['live_chat']['active_chat'] is defined and app.params['live_chat']['active_chat'] == true
-and app.params['live_chat']['chat_licence'] is defined and app.params['live_chat']['chat_licence'] is not empty %}
-{% import "/_macros/chat.html.twig" as chat %}
-  {{ chat.displayLiveChat( app.params['live_chat']['chat_licence']) }}
-{% endif %}
+
 {% endspaceless %}
