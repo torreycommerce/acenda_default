@@ -120,13 +120,9 @@
                 {# avoiding the display of the menu when we're in the store-protected template #}
                 {% if app.request.url != "store-protected" %}
                     {# Begin Toolbar #}
-                    <section class="fsd1 text-right" id="toolbar">
-                        <div class="container">
-                            {% block header %}
-                                {%include "/_layouts/toolbar.html.twig"%}
-                            {% endblock %}
-                        </div>
-                    </section>
+                    {% block header %}
+                        {%include "/_layouts/toolbar.html.twig"%}
+                    {% endblock %}
                     {# End Toolbar #}
                 {% endif %}
                 {# avoiding the display of the menu when we're in the store-protected template #}
@@ -142,7 +138,7 @@
             </header>
             {# End Header #}
             {# Begin Content #}
-            <section id="content">
+            <section class="pad-h pad-b-2x" id="content">
                 <div class="container">
                     {% block breadcrumb %}{% endblock %}
                     {% block stage %}

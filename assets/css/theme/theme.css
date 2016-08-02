@@ -26,20 +26,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 
 
 /* boots */
-.row.row-thin {margin-left:-5px; margin-right:-5px;}
-.col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
-
 .quantity-input-group {width:128px;}
 .quantity-input-group.input-group-sm {width:108px;}
 
-.btn {text-transform:uppercase; transition:all 0.3s ease; border-radius:0!important;}
-.btn-default {color:#333; background-color:#f0f0f0; border-color:#aaa;}
-.btn-default:focus,.btn-default.focus,
-.btn-default:hover,
-.btn-default:active,.btn-default.active,.open > .dropdown-toggle.btn-default,
-.btn-default:active:hover,.btn-default.active:hover,.open > .dropdown-toggle.btn-default:hover,.btn-default:active:focus,.btn-default.active:focus,.open > .dropdown-toggle.btn-default:focus,.btn-default:active.focus,.btn-default.active.focus,.open > .dropdown-toggle.btn-default.focus,
-.btn-default.disabled:hover,.btn-default[disabled]:hover,fieldset[disabled] .btn-default:hover,.btn-default.disabled:focus,.btn-default[disabled]:focus,fieldset[disabled] .btn-default:focus,.btn-default.disabled.focus,.btn-default[disabled].focus,fieldset[disabled] .btn-default.focus
-{background-color:#e8e8e8; border-color:#aaa;}
+.btn {text-transform:uppercase; transition:all 0.3s ease;}
+.btn-default {background-color:#f0f0f0; border-color:#aaa;}
 
 .btn-primary {color:#fff; font-weight:bold; background-color:#000; border-color:#000;}
 .btn-primary:focus,.btn-primary.focus,
@@ -57,29 +48,14 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 .btn-secondary.disabled:hover,.btn-secondary[disabled]:hover,fieldset[disabled] .btn-secondary:hover,.btn-secondary.disabled:focus,.btn-secondary[disabled]:focus,fieldset[disabled] .btn-secondary:focus,.btn-secondary.disabled.focus,.btn-secondary[disabled].focus,fieldset[disabled] .btn-secondary.focus
 {color:#000; background-color:#fefefe; border-color:#999;}
 
-.btn-link {color:#000;}
-.btn-link:hover,.btn-link:focus {color:#000;}
-.btn-link[disabled]:hover,fieldset[disabled] .btn-link:hover,.btn-link[disabled]:focus,fieldset[disabled] .btn-link:focus{color:#777;}
 
-.panel-heading[data-toggle="collapse"] {cursor:pointer;}
-.tab-content .panel {border-top:none;}
-.form-control {border-radius:0;}
-.p-thin {margin-bottom:10px;}
+.list-inline-free>li {padding-top:10px; padding-bottom:10px;}
 
-.list-inline-free {margin-left:0; margin-right:0;}
-.list-inline-free>li {padding:10px;}
-
-.btn-group.btn-block>.dropdown-menu {width:100%; text-align:center;}
 
 @media (max-width:991px) {
 
 .text-left-sm {text-align:left;}
 }
-
-@media (max-width:767px) {
-.btn-xs-block {display:block; width:100%;}
-}
-
 
 
 
@@ -111,7 +87,7 @@ h2.section-name {margin-bottom:18px;}
 .availability {color:#558C89;}
 
 
-#toolbar .tool {position:relative; padding-left:10px; padding-right:10px;}
+#toolbar .tool {position:relative;}
 #header .cart .item-count {display:inline-block; min-width:1.25em; margin:0 0 0 .5em; text-align:center;}
 #header .popover {left:auto!important; right:15px; width:420px; margin:0; padding:0; max-width:none;}
 #header .popover>.arrow {display:none;}
@@ -121,16 +97,9 @@ h2.section-name {margin-bottom:18px;}
 #header .search {width:50%;}
 
 
-#content {padding:15px 0 30px;}
-#footer {padding:30px 0;}
-
-
 @media (max-width:991px) {/**/
 #header .popover {right:10px;}
 #header .brand img {max-height:36px;}
-
-#content {padding:10px 0 20px;}
-#footer {padding:20px 0;}
 }
 
 @media (max-width:767px) {/**/
@@ -180,8 +149,6 @@ h2.section-name {margin-bottom:18px;}
 .al-btn {margin-top:0; margin-bottom:0; line-height:34px;}
 .al-btn-lg {margin-top:0; margin-bottom:0; line-height:46px;}
 
-.mT {margin-top:1em;}
-.mT2 {margin-top:2em;}
 
 .text-center .img-center {margin-left:auto; margin-right:auto;}
 
@@ -193,24 +160,14 @@ h2.section-name {margin-bottom:18px;}
 .flash-notifications-container .alert {display:block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
 }
 
-@media (min-width:768px) {
-.col-sm-6.cool-clear:nth-child(2n+1),
-.col-sm-4.cool-clear:nth-child(3n+1),
-.col-sm-3.cool-clear:nth-child(4n+1),
-.col-sm-2.cool-clear:nth-child(6n+1) {clear:left;}
-}
-
 @media (min-width:992px) {
 .force-md-lg {display:block!important;}
 .force-md-lg.collapse {height:auto!important;}
-.md-pull-right {float:right !important;}
-.md-pull-left {float:left !important;}
 }
 
 
 @media (max-width:991px) {
 .tCsm {text-align:center;}
-.mTsm {margin-top:1em;}
 
 .tCsm .img-center {margin-left:auto; margin-right:auto;}
 }
@@ -221,11 +178,6 @@ h2.section-name {margin-bottom:18px;}
 
 .lonely-form .btn {display:block; width:100%; margin-bottom:10px;}
 .lonely-form .btn:last-child {margin-bottom:0;}
-
-.col-xs-6.cool-clear:nth-child(2n+1),
-.col-xs-4.cool-clear:nth-child(3n+1),
-.col-xs-3.cool-clear:nth-child(4n+1),
-.col-xs-2.cool-clear:nth-child(6n+1) {clear:left;}
 
 .flash-notifications-container {left:20px; right:20px; width:auto; transform:translate(0,-50%);}
 }
@@ -285,21 +237,6 @@ nav#nav-desktop-main ul li a {
 
 
 
-/**** 5-) Footer Styling  ****/
-footer#footer {
-    background-color: #fff;
-    color: inherit;
-}
-
-footer#footer .title {
-    color: #000;
-    text-transform:uppercase;
-}
-
-footer#footer .newsletter {padding-bottom:2em;}
-
-/**** End Footer Styling  ****/
-
 
 
 /**** 6-) Shoping Cart Styling   ****/
@@ -330,14 +267,9 @@ footer#footer .newsletter {padding-bottom:2em;}
 
 
 /**** 8-) Product, Collection Page Styling   ****/
-.product-grid .product .img-responsive {width:100%; height:auto;}
-.product-grid .product a {text-decoration: none;}
 .product-grid .product .empty-carousel {display:block; padding-top:13.8888888%;}
 .product-grid .product .color-carousel {float: left;display: block;width: 100%;}
 .product-grid .product .color-carousel .carousel {padding-right: 0;padding-left:0;}
-.product-grid .product .color-carousel .thumbnail {}
-.product-grid .product .color-carousel .thumbnail .btn {background: #eee;border-color: #eee;padding: .3em .5em;}
-.product-grid .product .color-carousel .thumbnail .btn:hover {background: #ccc;border-color: #ccc;}
 
 #product-images {max-width:450px; margin-left:auto; margin-right:auto; text-align:center;}
 #product-images #image-main .thumbnail .helper {display: inline-block;height: 100%;vertical-align: middle;}

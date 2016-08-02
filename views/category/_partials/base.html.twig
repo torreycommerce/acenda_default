@@ -226,10 +226,10 @@
 			{% if categories is not empty %}
 			{% set items_per_row = 3 %}
 			<section class="category-grid text-center">
-				<div class="row">
+				<div class="row cool-clear">
 					{% for category in categories %}
 					{# Begin category #}
-					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} cool-clear p">
+					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} p">
 						<div class="product">
 							<div class="p">
 								<a href="{{app.url}}/category/{{category.slug}}">
