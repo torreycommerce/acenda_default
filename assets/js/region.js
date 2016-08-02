@@ -366,6 +366,8 @@ $('.form-estimate').cascadingDropdown({
                                 var option = $('<option></option>').attr("value", method.id).text(method.name);
                                 dropdown.append(option);
                             });
+
+                            dropdown.prop("disabled",false);
                         }
                     });
                 }
