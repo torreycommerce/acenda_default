@@ -8,6 +8,7 @@ $('.form-region').cascadingDropdown({
                 $.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
                     var search_string = "country="+data.result.country;
                         search_string = search_string + '&state=' + data.result.state;
+                    $("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
                     $(".shipping-continue").prop("disabled",true);
                     $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
                         var dropdown = $( "#shipping_method" );
@@ -31,6 +32,7 @@ $('.form-region').cascadingDropdown({
                 $.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
                     var search_string = "country="+data.result.country;
                         search_string = search_string + '&state=' + data.result.state;
+                    $("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
                     $(".shipping-continue").prop("disabled",true);
                     $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
                         var dropdown = $( "#shipping_method" );
@@ -64,6 +66,9 @@ $('.form-region').cascadingDropdown({
                 if ((country == undefined || country == '') && data.result.length > 0) {
                     country = data.result[0].value;
                 }
+
+                $("#phone").intlTelInput("setCountry", country.toLowerCase());
+
                 response($.map(data.result, function(item, index) {
                     return {
                         label: item.label,
@@ -86,6 +91,7 @@ $('.form-region').cascadingDropdown({
             var search_string = "country="+$('select[id$=country]').val();
                 search_string = search_string + '&state=' + state;
             $(".shipping-continue").prop("disabled",true);
+            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
             $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
                 var dropdown = $( ".shipping-method-dropdown" );
                 dropdown.empty();
@@ -101,6 +107,9 @@ $('.form-region').cascadingDropdown({
             });
         },
         source: function(request, response) {
+
+            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
                 var state = $('[id$=\\[state_select\\]]').val();
                 if ((state == undefined || state == '') && data.result.length > 0) {
@@ -172,6 +181,8 @@ $('.form-billing-region').cascadingDropdown({
                 var country = $('[name$=\\[country_select\\]]').val();
                 if (data.result !== undefined && data.result.length > 0){ country = data.result[0].code; }
 
+                $("#phone").intlTelInput("setCountry", country.toLowerCase());
+
                 response($.map(data.result, function(item, index) {
                     return {
                         label: item.name,
@@ -186,6 +197,9 @@ $('.form-billing-region').cascadingDropdown({
         selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         source: function(request, response) {
+            console.log($('select[id$=country]').val());
+            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
                 var state = $('[id$=\\[state_select\\]]').val();
                 if ((state == undefined || state == '') && data.result.length > 0) {
@@ -255,7 +269,7 @@ $('.form-region-customer').cascadingDropdown({
                     if ((country == undefined || country == '') && data.result.length > 0) {
                         country = countries[0].value;
                     }
-
+                    $("#phone").intlTelInput("setCountry", country.toLowerCase());
                     response($.map(countries, function(item, index) {
                         return {
                             label: item.label,
@@ -271,6 +285,7 @@ $('.form-region-customer').cascadingDropdown({
         selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         source: function(request, response) {
+            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
                 var state = $('[name$=\\[state_select\\]]').val();
                 if ((state == undefined || state == '') && data.result.length > 0) {
