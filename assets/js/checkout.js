@@ -3,12 +3,9 @@ $(function() {
     var formName = form.attr('name');
     var stepName = $('input[name=step]').val(); // Gets the form prefix
     form.attachNormalizer({formPrefix:stepName});
-    
+
     form.submit(function() {
-        // Validate the form
-        console.log(form.normalized);
-        console.log($("#custom-address").is(":hidden"));
-        if (!$('.form-region').parsley('isValid')) {
+        if ($('.form-region').parsley('isValid') === false) {
             return false;
         }else{
             if (form.normalized && !$("#custom-address").is(":hidden")) {
@@ -20,7 +17,7 @@ $(function() {
     });
 
     // Remove constraints if address IDs are not set or undefined
-    if (($('#checkout_shipping_address_id').val() != '' && 
+    if (($('#checkout_shipping_address_id').val() != '' &&
         $('#checkout_shipping_address_id').val() != undefined) ||
         ($('#checkout_billing_address_id').val() != '' &&
         $('#checkout_billing_address_id').val() != undefined) ||
@@ -30,7 +27,7 @@ $(function() {
         $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function(index, elm) {
             $(this).parsley('removeConstraint','required');
         });
-    }   
+    }
 
     // Add/remove constraints based on selected address
     $('#checkout_shipping_address_id, #checkout_billing_address_id, #express_shipping_address_id').change(function() {

@@ -123,7 +123,9 @@
 							<legend>Billing Address {% if app.user.getState('shipping_same_as_billing') is empty %}{% endif %}</legend>
 							{% if app.user.getState('shipping_same_as_billing') is empty %}
 								{% if app.user.id is not empty %}
-									{% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1}, verified:1, customer_id:app.user.id}}) %}
+									{% set billing_authorized_countries = [] %}
+									{% set billing_countries = api.get('/payment/country') %}
+									{% for sc in billing_countries %}{% set billing_authorized_countries = billing_authorized_countries|merge([sc.code]) %}{% endfor %}
 									{% set address_select = {'':'Use address below'} %}
 									{% for address in addresses %}
 										{% set address_select = address_select + {(address.id):address.one_line} %}
