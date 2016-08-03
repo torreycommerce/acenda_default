@@ -139,7 +139,7 @@ set in the array in /account/_macros/base.html.twig
 					{% if items is empty %}
 					<p>No recent wish list items have been found.</p>
 					{% endif %}
-					<div class="row cool-clear">
+					<div class="row c-c">
 					{% for item in items %}
 						{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
 						<div class="col-xs-6 col-sm-4 p">

@@ -1,112 +1,107 @@
 {% spaceless %}
 <footer class="pad-h-2x text-center" id="footer">
-    {% if app.request.url != "store-protected" %}
-    <section class="newsletter pad-b-2x">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 col-xs-12 col-v">
-                    <h2 class="section-header">Sign-Up for Exclusive Offers!</h2>
-                    <p>Be the first to hear about our products and promotions.</p>
-                    <br>
-                    {{ newsletterform.begin('newsletter',app.url ~ '/newsletter') }}
-                        <div class="input-group">
-                            <input id="NewsLInput" type="search" placeholder="Email Address" class="form-control" name="email">
-                            <div class="input-group-btn">
-                                <button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Sign-Up</button>
-                            </div>
-                        </div>
-                    {{ newsletterform.end() }}
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="content-list">
-        {# get content available #}
-        {% set contents = api.get('/content',{
-            'query':{
-                'publish':'1'
-                    }
-            })
-        %}
-        {# Build array with available content slugs #}
-        {% set contents_available = [] %}
-        {% for content in contents %}
-        {% set contents_available = contents_available|merge([content.slug]) %}
-        {% endfor %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
-                    <h3 class="section-header">Shop</h3>
-                    <ul class="list-unstyled list-inline list-inline-free fsd1">
-                        {% set categories = api.get('/category/sapling') %}
-                        {% for main_category,items in categories if main_category != "clearance" %}
-                        <li>
-                            <a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
-                        </li>
-                        {% endfor %}
-                        <li><a href="{{app.url}}/cart">Shopping Cart</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
-                    <h3 class="section-header">Quick Links</h3>
-                    <ul class="list-unstyled list-inline list-inline-free fsd1">
-                        <li><a href="{{app.url}}/contact">Contact Us</a></li>
-                       {% if app.user.id != '' %}
-                        <li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
-                        {% else %}
-                        <li> <a href="{{app.url}}/order">Order Status</a> </li>
-                        {% endif %}
-                        {% if app.user.id != '' %}
-                        <li class="tool"><a class="tool-tab" href="{{app.url}}/account/orders">Easy Returns</a></li>
-                        {% else %}
-                        <li class="tool"><a class="tool-tab" href="{{app.url}}/return">Easy Returns</a></li>
-                        {% endif %}
-                        {% if app.user.id is null %}
-                        <li><a href="{{app.url}}/registry/search">Gift Registry</a></li>
-                        {% else %}
-                        <li><a href="{{app.url}}/account/registries">Registries</a></li>
-                        {% endif %}
-                        {% if "faq" in contents_available %}
-                        <li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
-                        {% endif %}
-                        {% if "privacy-policy" in contents_available %}
-                            <li><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
-                        {% endif %}
-                        {% if "terms-and-conditions" in contents_available %}
-                        <li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            {# Social Network Icons if found in config file #}
-            {# if social settings is not set in the config file, just do nothing #}
-            {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-            <div class="row">
-                <div class="col-xs-12 col-v">
-                      {{ social.social_parseConfig(app.params.social_settings) }}
-                </div>
-            </div>
-
-            {% endif %}
-        </div>
-    </section>
-    {% endif %}
-    <section class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <ul class="list-unstyled list-inline list-inline-free fsd1">
-                        <li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
-                        <li>All Rights Reserved.</li>
-                        <li>Powered by <a target=_blank href="http://acenda.com/">Acenda</a>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
+	{% if app.request.url != "store-protected" %}
+	<section class="newsletter pad-b-2x">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6 col-xs-12 col-v">
+					<h2 class="section-header">Sign-Up for Exclusive Offers!</h2>
+					<p>Be the first to hear about our products and promotions.</p>
+					<br>
+					{{ newsletterform.begin('newsletter',app.url ~ '/newsletter') }}
+						<div class="input-group">
+							<input id="NewsLInput" type="search" placeholder="Email Address" class="form-control" name="email">
+							<div class="input-group-btn">
+								<button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Sign-Up</button>
+							</div>
+						</div>
+					{{ newsletterform.end() }}
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="content-list">
+		{# get content available #}
+		{% set contents = api.get('/content',{
+			'query':{
+				'publish':'1'
+					}
+			})
+		%}
+		{# Build array with available content slugs #}
+		{% set contents_available = [] %}
+		{% for content in contents %}
+		{% set contents_available = contents_available|merge([content.slug]) %}
+		{% endfor %}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+					<h3 class="section-header">Shop</h3>
+					<ul class="list-unstyled list-inline list-inline-free fsd1">
+						{% set categories = api.get('/category/sapling') %}
+						{% for main_category,items in categories if main_category != "clearance" %}
+						<li><a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a></li>
+						{% endfor %}
+						<li><a href="{{app.url}}/cart">Shopping Cart</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-2 col-md-8 col-xs-12 col-v">
+					<h3 class="section-header">Quick Links</h3>
+					<ul class="list-unstyled list-inline list-inline-free fsd1">
+						<li><a href="{{app.url}}/contact">Contact Us</a></li>
+					   {% if app.user.id != '' %}
+						<li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
+						{% else %}
+						<li> <a href="{{app.url}}/order">Order Status</a> </li>
+						{% endif %}
+						{% if app.user.id != '' %}
+						<li><a href="{{app.url}}/account/orders">Easy Returns</a></li>
+						{% else %}
+						<li><a href="{{app.url}}/return">Easy Returns</a></li>
+						{% endif %}
+						{% if app.user.id is null %}
+						<li><a href="{{app.url}}/registry/search">Gift Registry</a></li>
+						{% else %}
+						<li><a href="{{app.url}}/account/registries">Registries</a></li>
+						{% endif %}
+						{% if "faq" in contents_available %}
+						<li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
+						{% endif %}
+						{% if "privacy-policy" in contents_available %}
+						<li><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
+						{% endif %}
+						{% if "terms-and-conditions" in contents_available %}
+						<li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			{# Social Network Icons if found in config file #}
+			{# if social settings is not set in the config file, just do nothing #}
+			{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+			<div class="row">
+				<div class="col-xs-12 col-v">
+					  {{ social.social_parseConfig(app.params.social_settings) }}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</section>
+	{% endif %}
+	<section class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<ul class="list-unstyled list-inline list-inline-free fsd1">
+						<li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
+						<li>All Rights Reserved.</li>
+						<li>Powered by <a target=_blank href="http://acenda.com/">Acenda</a>.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
 </footer>
-
 {% endspaceless %}

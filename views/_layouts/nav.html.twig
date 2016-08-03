@@ -15,17 +15,13 @@
 									{% if subitems.limb|length %}
 										  {{ base.subcategory(category,subitems) }}
 									{% else %}
-										<li>
-											<a href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a>
-										</li>
+										<li><a href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a></li>
 									{% endif %}
 								{% endfor %}
 							</ul>
 						</li>
 					{% else %}
-						<li>
-							<a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a>
-						</li>
+						<li><a href="{{app.url}}/category/{{items.slug}}">{{main_category|replace('-',' ')|title}}</a></li>
 					{% endif %}
 				{% endfor %}
 			</ul>
@@ -80,9 +76,7 @@
 		
 		<li><h2>Categories</h2></li>
 		<li>
-			<a href="{{app.url}}" class="sub_c">
-				<i class="fa fa-home"></i>Home
-			</a>
+			<a href="{{app.url}}" class="sub_c"><i class="fa fa-home"></i>Home</a>
 		</li>
 
 		<!-- TESTING -->
@@ -106,9 +100,7 @@
 							{{ base.subcategory_mobile(category, subitems, subid) }}
 						{% else %}
 							<li>
-								<a href="{{app.url}}/category/{{subitems.slug}}">
-									<i class="fa fa-star-o"></i>{{category|replace('-',' ')|title}}
-								</a>
+								<a href="{{app.url}}/category/{{subitems.slug}}"><i class="fa fa-star-o"></i>{{category|replace('-',' ')|title}}</a>
 							</li>
 						{% endif %}
 					{% endfor %}

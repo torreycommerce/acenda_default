@@ -1,36 +1,28 @@
 <section class="product-grid">
-    {# Begin category header #}
-    <header>
-        {# Begin category name #}
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="section-name">Top Sellers</h2>
-            </div>
-        </div> 
-        {# End category name #}
-    </header>
-    {# End category header #}
-    <section class="products text-center">
-        <div class="row cool-clear">
-            {% set items_per_row = 4 %}
-            {% set collection_ids = [] %}
-            {% set product_count = 1 %}
-            {% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:20}) %}
-            {% for row,product in products if  product.id not in collection_ids and product_count < 5 %}
-                {% if product.group == 'product' %}
-                    {% for id in product.product[0].collection_id %}
-                        {% set collection_ids = collection_ids|merge([id]) %}
-                    {% endfor %}
-                {% else %}
-                    {% set collection_ids = collection_ids|merge([product.id]) %}
-                {% endif %}
-                {% set product_count = product_count + 1 %}
-                {# Begin product #}
-                <div class="col-xs-6 col-sm-3 p">
-                    {{ prod.gridproduct(product, ['image','details']) }}
-                </div>
-                {# End product #}
-            {% endfor %}
-        </div>
-    </section>
+
+	<h2 class="section-name">Top Sellers</h2>
+
+	<section class="products text-center">
+		<div class="row c-c">
+			{% set items_per_row = 4 %}
+			{% set collection_ids = [] %}
+			{% set product_count = 1 %}
+			{% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:20}) %}
+			{% for row,product in products if  product.id not in collection_ids and product_count < 5 %}
+				{% if product.group == 'product' %}
+					{% for id in product.product[0].collection_id %}
+						{% set collection_ids = collection_ids|merge([id]) %}
+					{% endfor %}
+				{% else %}
+					{% set collection_ids = collection_ids|merge([product.id]) %}
+				{% endif %}
+				{% set product_count = product_count + 1 %}
+				{# Begin product #}
+				<div class="col-xs-6 col-sm-3 p">
+					{{ prod.gridproduct(product, ['image','details']) }}
+				</div>
+				{# End product #}
+			{% endfor %}
+		</div>
+	</section>
 </section>
