@@ -126,6 +126,7 @@
 									{% set billing_authorized_countries = [] %}
 									{% set billing_countries = api.get('/payment/country') %}
 									{% for sc in billing_countries %}{% set billing_authorized_countries = billing_authorized_countries|merge([sc.code]) %}{% endfor %}
+									{% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1}, verified:1, customer_id:app.user.id, country:{'$in':billing_authorized_countries}}}) %}
 									{% set address_select = {'':'Use address below'} %}
 									{% for address in addresses %}
 										{% set address_select = address_select + {(address.id):address.one_line} %}

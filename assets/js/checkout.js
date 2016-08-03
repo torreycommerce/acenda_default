@@ -5,13 +5,16 @@ $(function() {
     form.attachNormalizer({formPrefix:stepName});
 
     form.submit(function() {
-        if ($('.form-region').parsley('isValid') === false) {
+        if (form.parsley('isValid') === false) {
+            $(this).find('button[type="submit"]').attr('disabled', false);
             return false;
         }else{
-            if (form.normalized && !$("#custom-address").is(":hidden")) {
+            if (form.normalized === true && !$("#custom-address").is(":hidden")) {
                 $(this).find('button[type="submit"]').attr('disabled', true);
+                return true;
             }else if (form.normalized == undefined && ($("#custom-address").is(":hidden") || !$("#custom-address").length)){
                 $(this).find('button[type="submit"]').attr('disabled', true);
+                return true;
             }
         }
     });
