@@ -126,17 +126,12 @@ $('.form-region').cascadingDropdown({
                 if (typeof data.result !== 'undefined') {
 
                     //If State array is empty, then show state as a text input.
-                    if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
-                        $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
-                        $("#state_select").prop( "disabled", true );
-                    }
-                    else {
-                        $("#state_input").hide();
-                        $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
-                        $("#state_select").prop( "disabled", false );
+                    if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
+                        $("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+                        $("#state_select").addClass('hidden').prop( "disabled", true ).hide();
+                    } else {
+                        $("#state_input").addClass('hidden').hide().prop( "disabled", true );
+                        $("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
                     }
 
                     response($.map(data.result, function(item, index) {
@@ -216,17 +211,12 @@ $('.form-billing-region').cascadingDropdown({
                 if (typeof data.result !== 'undefined') {
 
                     //If State array is empty, then show state as a text input.
-                    if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
-                        $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
-                        $("#state_select").prop( "disabled", true );
-                    }
-                    else {
-                        $("#state_input").hide();
-                        $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
-                        $("#state_select").prop( "disabled", false );
+                    if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
+                        $("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+                        $("#state_select").addClass('hidden').prop( "disabled", true ).hide();
+                    } else {
+                        $("#state_input").addClass('hidden').hide().prop( "disabled", true );
+                        $("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
                     }
 
                     response($.map(data.result, function(item, index) {
