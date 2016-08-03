@@ -37,7 +37,7 @@
             {% endif %}
 
             {# Begin product image #}               
-            <div class="p">
+            <div class="max-250 p-thin">
                 <a href="{{app.url}}/product/{{product.slug}}">
                     <div class="image-space">
                         <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}">
@@ -69,12 +69,12 @@
         {% if 'details' in options %}
             {# Begin product details #}
             <div class="product-details">
-                <header>
-                    <a href="{{app.url}}/product/{{product.slug}}">
-                        <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
-                        <div class="product-name"><span itemprop="name">{{product.name}}</span></div>
-                    </a>
-                </header>
+                
+                <a href="{{app.url}}/product/{{product.slug}}">
+                    <div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
+                    <div class="product-name"><span itemprop="name">{{product.name}}</span></div>
+                </a>
+                
                 <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                 {% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
                 {% set review_score = reviews|average('score') %}

@@ -17,8 +17,7 @@ a {
 a:hover,a:focus {
     color: {{ settings["colors"]["content"]["link-hover-color"]["value"] }};
 }
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,h1 small,h2 small,h3 small,h4 
-small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 small {
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
     color: {{ settings["colors"]["content"]["title-color"]["value"] }}; 
     font-family: {{ settings["typography"]["heading_styles"]["heading-typeface"]["value"] }};
 }
@@ -31,15 +30,9 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 .quantity-input-group.input-group-sm {width:108px;}
 
 .btn {text-transform:uppercase; transition:all 0.3s ease;}
-.btn-default {color:#333; background-color:#f0f0f0; border-color:#aaa;}
+.btn-default {background-color:#f0f0f0; border-color:#aaa;}
 
-.btn-primary {color:#fff; font-weight:bold; background-color:#000; border-color:#000;}
-.btn-primary:focus,.btn-primary.focus,
-.btn-primary:hover,
-.btn-primary:active,.btn-primary.active,.open > .dropdown-toggle.btn-primary,
-.btn-primary:active:hover,.btn-primary.active:hover,.open > .dropdown-toggle.btn-primary:hover,.btn-primary:active:focus,.btn-primary.active:focus,.open > .dropdown-toggle.btn-primary:focus,.btn-primary:active.focus,.btn-primary.active.focus,.open > .dropdown-toggle.btn-primary.focus,
-.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled.focus,.btn-primary[disabled].focus,fieldset[disabled] .btn-primary.focus
-{color:#fff; background-color:#000; border-color:#000;}
+
 
 .btn-secondary {color:#000; background-color:#fcfcfc; border-color:#aaa;}
 .btn-secondary:focus,.btn-secondary.focus,
@@ -51,7 +44,7 @@ small,h5 small,h6 small,.h1 small,.h2 small,.h3 small,.h4 small,.h5 small,.h6 sm
 
 
 
-.list-inline-free>li {padding-top:10px; padding-bottom:10px;}
+.list-inline-free>li {padding-top:6px; padding-bottom:6px;}
 
 
 @media (max-width:991px) {
@@ -127,7 +120,6 @@ h2.section-name {margin-bottom:18px;}
 .image-space.is25 {padding-top:25%;}
 .image-space.is20 {padding-top:20%;}
 .image-space .isd {position:absolute; top:0;}
-.is-no-of .image-space {overflow:hidden;}
 .image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
 .image-space .isd .img-responsive {margin:0 auto;}
 .fsd1 {font-size:87.5%;}
@@ -191,30 +183,16 @@ h2.section-name {margin-bottom:18px;}
 
 
 /**** 4-) Navbar Menu Styling  ****/
-.dropdown-submenu>.dropdown-menu {top:0;left:100%;margin-left:0;} 
-.dropdown-submenu > a:after {content:'\f0da'; display:inline-block; margin-left:.5em; font:normal normal normal 14px/1 FontAwesome; font-size:inherit; text-rendering:auto; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+.dropdown-submenu>.dropdown-menu {top:0;left:100%;} 
 
 nav#nav-desktop-main ul li a {
     color: {{ settings["colors"]["content"]["nav-text-color"]["value"] }};
 }
 
-.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {background-color:transparent! important;}
+.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {background-color:transparent;}
 .navbar-nav > li:first-child > a {padding-left:0! important;}
-@media (max-width: 767px) {
-    .navbar-nav  {display: inline;}
-    .navbar-default .navbar-brand {display: inline;}
-    .navbar-default .navbar-toggle .icon-bar {background-color: #fff;}
-    .navbar-default .navbar-nav .dropdown-menu > li > a {background-color: #ccc;border-radius: 4px;margin-top: 2px;   }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {color: #555;}
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {background-color: #ccc;}
-    .navbar-nav .open .dropdown-menu {border-bottom: 1px solid #fff; border-radius: 0;}
-    .dropdown-menu {padding-left: 10px;}
-    .dropdown-menu .dropdown-menu {padding-left: 20px;}
-    .dropdown-menu .dropdown-menu .dropdown-menu {padding-left: 30px;}}
-@media (min-width: 768px) {
-    ul.nav li:hover > ul.dropdown-menu {display: block;}
-    }
+
+
 .navigation .navbar .sidebar .nav > li > a:active,
 .navigation .navbar .sidebar .nav > li > a:focus,
 .navigation .navbar .sidebar .nav > li > a:hover {background-color:#f5f5f5;}
@@ -250,20 +228,7 @@ nav#nav-desktop-main ul li a {
 /**** 7-) Category Page Styling   ****/
 .category-filters .filter a {display:block;}
 .category-filters .filter-clear a {display:block; margin:0 0 2px; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
-.pagination {border-radius:0;}
 .page-filters .pagination {margin:0;}
-.pagination > li > a,
-.pagination > li > span {color:#000;}
-.pagination > li > a:hover,
-.pagination > li > span:hover,
-.pagination > li > a:focus,
-.pagination > li > span:focus {color:#000;}
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {color:#fff; background-color:#000; border-color:#000;}
 /**** End Category Page Styling   ****/
 
 
@@ -272,7 +237,6 @@ nav#nav-desktop-main ul li a {
 .product-grid .product .color-carousel .carousel {padding-right: 0;padding-left:0;}
 
 
-#product-images {max-width:450px; margin-left:auto; margin-right:auto; text-align:center;}
 #product-images #image-main .thumbnail .helper {display: inline-block;height: 100%;vertical-align: middle;}
 
 
@@ -302,18 +266,6 @@ nav#nav-desktop-main ul li a {
 
 
 
-/*Carousel Control*/
-.carousel-control.left {
-background-image: -webkit-linear-gradient(left, color-stop(rgba(54, 190, 217, 0.25) 0%), color-stop(rgba(54, 190, 217, 0) 100%));
-background-image: linear-gradient(to right, rgba(54, 190, 217, 0.25) 0%, rgba(54, 190, 217, 0) 100%);
-background-repeat: repeat-x;
-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#4036bed9', endColorstr='#0036bed9', GradientType=1);}
-.carousel-control.right {
-background-image: -webkit-linear-gradient(left, color-stop(rgba(54, 190, 217, 0) 0%), color-stop(rgba(54, 190, 217, 0.25) 100%));
-background-image: linear-gradient(to right, rgba(54, 190, 217, 0) 0%, rgba(54, 190, 217, 0.25) 100%);
-background-repeat: repeat-x;
-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0036bed9', endColorstr='#4036bed9', GradientType=1);}
-.carousel-indicators li {border: 1px solid #0f8299;background-color: #ffc859;}
 
 
 .star-rating {position:relative; display:inline-block; height:1em; overflow:hidden;}
