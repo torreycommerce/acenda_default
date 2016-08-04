@@ -14,7 +14,7 @@ function estimator() {
         .done(function(method_data) {
             $.post(acendaBaseUrl + '/api/taxdata/calculate',{
                 shipping_rate:method_data.result.rate,
-                subtotal:cart_data.result.subtotal,
+                subtotal:cart_data.result.taxableSubtotal,
                 shipping_country:shipping_country,
                 shipping_state:shipping_state,
                 shipping_zip:zip_code
