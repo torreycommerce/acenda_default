@@ -37,22 +37,22 @@
 		<h1 class="page-header">Returns</h1>
 		
 		{# End header #}
-		<div class="page-filters">
+		<div class="page-filters divide p">
 			<div class="row">
 				{# Begin return filter #}
-				<div class="col-sm-4 col-md-3 col-lg-2">
-					<div class="return-filter p">
+				<div class="col-sm-4 col-md-3 col-lg-2 p">
+					<div class="return-filter">
 						{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
-						{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control input-sm'}) }}
+						{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control'}) }}
 					</div>
 				</div>
 				{# End return filter #}
 				{# Begin return search #}
-				<div class="col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-6">
+				<div class="col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-6 p">
 					<div class="search-within"> 
 						<div class="input-group">
-							<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control input-sm" placeholder="Search" />
-							<span class="input-group-btn"><button type="submit" class="btn btn-sm btn-default"><i class="fa fa-search"></i></button></span>
+							<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search" />
+							<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
 						</div>
 					</div>
 				</div>
@@ -68,12 +68,12 @@
 		{% set returns = api.get('/orderreturn', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
 		<div class="row">
 			<div class="col-md-12">
-					{{ base.pagination(returns.num_total,limit) }}
+				{{ base.pagination(returns.num_total,limit) }}
 			</div>
 		</div>
 		{# End pagination #}
 		{% if returns is empty %}
-		There are no returns.
+		<p>There are no returns.</p>
 		{% endif %}
 		{% for return in returns %}
 		{# Begin return #}
@@ -81,7 +81,7 @@
 			<div class="well">
 				<div class="row">
 					{# Begin return details #}
-					<div class="return-details col-sm-4 col-md-4 col-lg-3 fsd1">
+					<div class="return-details col-xs-12 col-sm-4 col-lg-3 fsd1 p-xs-2x">
 						<div class="return-info p">
 							<div><strong>Return Information</strong></div>
 							<div class="return-rma">RMA # {{ return.rma }}</div>
@@ -94,7 +94,7 @@
 								<div class="col-md-12">
 									{% if return.status == 'pending' %}
 									{# FIXME: This should be a post request and a modal #}
-										<a class="btn btn-default btn-mobile" data-toggle="modal" data-target="#cancel-modal">Cancel return</a>
+										<a class="btn btn-default" data-toggle="modal" data-target="#cancel-modal">Cancel Return</a>
 										<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
 											<div class="modal-dialog">
 												<div class="modal-content">
@@ -120,7 +120,7 @@
 					</div>
 					{# End return details #}
 					{# Begin return items #}
-					<div class="return-items col-sm-8 col-md-8 col-lg-9 fsd1">
+					<div class="return-items col-xs-12 col-sm-8 col-lg-9 fsd1">
 						{% set item = api.get('/orderitem/' ~ return.item_id) %}
 						{% set product = api.get('/variant/' ~ item.product_id) %}
 						<div class="row col-v divide">

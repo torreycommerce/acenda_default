@@ -20,7 +20,7 @@
 						<div class="popover-close divide">
 							<div class="row p">
 								<div class="col-xs-7">
-									<h2 class="al-btn-sm">Quick Cart</h2>
+									<h3 class="al-btn-sm">Quick Cart</h3>
 								</div>
 								<div class="col-xs-5">
 									<a id="ajaxcart-close" class="btn btn-secondary btn-sm pull-right"><i class="fa fa-times"></i></a>
@@ -32,16 +32,12 @@
 						{# Begin Popover products #}
 						<section class="ajaxcart-products divide">
 							{# Begin product #}
-							<div class="ajaxcart-product product col-v divide">
-								<div class="row">
-									<div class="col-xs-3 col-md-4">
-										<div class="thumbnail">
-											<div class="image-space">
-												<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="img-responsive isd" src="">
-											</div>
-										</div>
+							<div class="ajaxcart-product product col-v divide g">
+								<div class="media">
+									<div class="media-left">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src="">
 									</div>
-									<div class="col-xs-9 col-md-8">
+									<div class="media-body">
 										<div class="name">
 											<span class="product-name"></span>
 										</div>
@@ -53,25 +49,11 @@
 							{# Begin product #}
 						</section>
 						{# End Popover products #}
-						<div class="row cart-totals col-v">
-							<div class="col-xs-6 col-xs-offset-3 col-md-5 col-md-offset-4">
-								<div class="items">Item count:</div>
-							</div>
-							<div class="col-xs-3 text-right">
-								<div class="items"><span class="item-count"></span></div>
-							</div>
-							<div class="col-xs-6 col-xs-offset-3 col-md-5 col-md-offset-4">
-								<div class="total">Subtotal:</div>
-							</div>
-							<div class="col-xs-3 text-right">
-								<div class="total">$<span class="subtotal">0.00</span></div>
-							</div>
+						<div class="cart-totals col-v">
+							<div class="items">You have <b><span class="item-count"></span></b> Item(s) in your Cart.</div>
+							<div class="total"><b>Subtotal:</b> $<span class="subtotal">0.00</span></div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
-							</div>
-						</div>
+						<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
 					</div>
 				</div>
 				<div class="search pull-right hidden-sm hidden-xs">
@@ -99,9 +81,9 @@
 						{% set logo = logo_info.url %}
 					{% endif %}
 					{% if logo is not empty %}
-					  <a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
+					<a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
 					{% else %}
-						<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+					<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
 					{% endif %}
 				</div>
 			</div>

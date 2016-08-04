@@ -3,8 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#filter-navigation-{{ name }}-items">
             <a>
-                Customer Reviews
-                <i class="fa fa-caret-down"></i>
+                <span>Customer Reviews</span><i class="fa fa-caret-down"></i>
             </a>
         </div>
         {% set selected = app.request.get.f.review_score.range|split(',')|last %}
@@ -20,7 +19,7 @@
     </div>
     <div class="filter-clear">
 	{% if selected is not empty %}
-	    <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i>Clear Review Stars</a>
+	    <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i><span>Clear Review Stars</span></a>
 	{% endif %}
 	</div>
 </div>

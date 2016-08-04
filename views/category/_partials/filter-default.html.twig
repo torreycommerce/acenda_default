@@ -3,8 +3,7 @@
         <div class="panel-heading" data-toggle="collapse" data-target="#filter-navigation-{{ name }}-items">
             <a>
                 {% set title = name[:6] == 'group_' ? name[6:] : name %}
-                {{ title|replace({'_':' '})|title }}
-                <i class="fa fa-caret-down"></i>
+                <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-caret-down"></i>
             </a>
         </div>
         <div id="filter-navigation-{{ name }}-items" class="panel-collapse collapse out">
@@ -32,7 +31,7 @@
                 </ul>
             </div>
         </div>
-        <div class="filter-clear fsd1">
+        <div class="filter-clear">
         {% for item,key in filter_request[(name)] if item in filter_set|keys %}
             {% set link = [] %}
             {% for key,i in app.request.get.f[(name)] if key != item %}

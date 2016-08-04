@@ -1382,18 +1382,17 @@ ol ol {
 }
 .list-inline {
   padding-left: 0;
-  margin-right: -6px;
-  margin-left: -6px;
+  margin-right: -7px;
+  margin-left: -7px;
   list-style: none;
 }
 .list-inline > li {
   display: inline-block;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 7px;
+  padding-left: 7px;
 }
 dl {
   margin-top: 0;
-  margin-bottom: 20px;
 }
 dt,
 dd {
@@ -3005,8 +3004,8 @@ fieldset[disabled] a.btn {
 }
 .btn-default {
   color: #333;
-  background-color: #fff;
-  border-color: #ccc;
+  background-color: #f0f0f0;
+  border-color: #aaa;
 }
 .btn-default:focus,
 .btn-default.focus {
@@ -4916,7 +4915,6 @@ a.badge:focus {
   display: block;
   line-height: 1.42857143;
   background-color: #fff;
-  border: 1px solid #ddd;
   -webkit-transition: border .2s ease-in-out;
        -o-transition: border .2s ease-in-out;
           transition: border .2s ease-in-out;
@@ -4929,7 +4927,7 @@ a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #337ab7;
+  
 }
 .thumbnail .caption {
   padding: 9px;
@@ -4939,7 +4937,6 @@ a.thumbnail.active {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: 4px;
 }
 .alert h4 {
   margin-top: 0;
@@ -5104,12 +5101,7 @@ a.thumbnail.active {
   background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
-.media {
-  margin-top: 15px;
-}
-.media:first-child {
-  margin-top: 0;
-}
+
 .media,
 .media-body {
   overflow: hidden;
@@ -5725,8 +5717,8 @@ button.list-group-item-danger.active:focus {
   padding-bottom: 75%;
 }
 .well {
-  min-height: 20px;
-  padding: 20px;
+  min-height: 15px;
+  padding: 15px;
   background-color: #fefefe;
   border: 1px solid #ccc;
 }
@@ -5735,12 +5727,10 @@ button.list-group-item-danger.active:focus {
   border-color: rgba(0, 0, 0, .15);
 }
 .well-lg {
-  padding: 24px;
-  border-radius: 6px;
+  padding: 20px;
 }
 .well-sm {
-  padding: 9px;
-  border-radius: 3px;
+  padding: 10px;
 }
 .close {
   float: right;
@@ -6058,7 +6048,7 @@ button.close {
   border-radius: 5px 5px 0 0;
 }
 .popover-content {
-  padding: 15px;
+  padding: 10px;
 }
 .popover > .arrow,
 .popover > .arrow:after {
@@ -6661,7 +6651,7 @@ button.close {
 /* final word */
 .panel-heading[data-toggle="collapse"] {cursor:pointer;}
 .tab-content .panel {border-top:none;}
-.btn-group.btn-block>.dropdown-menu {width:100%; text-align:center;}
+.btn-group.btn-block>.dropdown-menu {min-width:100%; text-align:center;}
 
 .mar {margin:10px;}
 .mar-2x {margin:20px;}
@@ -6686,14 +6676,16 @@ button.close {
 .pad-t-2x {padding-top:20px;}
 .col-v {padding-top:10px; padding-bottom:10px;}
 
-.p, address, p, ul, ol, .table, .form-group, .panel, .panel-group, .well {margin-bottom:10px;}
+.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel, .panel-group, .well {margin-bottom:10px;}
 
 .row.row-thin {margin-left:-5px; margin-right:-5px;}
 .col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
 .p-thin {margin-bottom:10px;}
 
 .d-b {display:block!important;}
+.pos-a {position:absolute;}
 .pos-r {position:relative;}
+.list-inline-free>li {padding-top:6px; padding-bottom:6px;}
 
 .max-250,.max-450 {max-width:250px; margin-right:auto; margin-left:auto;}
 .max-450 {max-width:450px;}
@@ -6737,7 +6729,11 @@ button.close {
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:15px; padding-right:15px;}
 .col-v {padding-top:15px; padding-bottom:15px;}
 
-.p, address, p, ul, ol, .table, .form-group, .panel-group, .well {margin-bottom:15px;}
+.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel-group, .well {margin-bottom:15px;}
+.media-right, .media > .pull-right {padding-left:15px;}
+.media-left, .media > .pull-left {padding-right:15px;}
+.popover-content {padding:15px;}
+.well {min-height:20px; padding:20px;}
 
 .c-c .col-xs-6.col-md-6,.c-c .col-xs-6.col-md-4,.c-c .col-xs-6.col-md-3,.c-c .col-xs-6.col-md-2,
 .c-c .col-xs-4.col-md-6,.c-c .col-xs-4.col-md-4,.c-c .col-xs-4.col-md-3,.c-c .col-xs-4.col-md-2,
@@ -6772,9 +6768,12 @@ body {font-size:87.5%;}
 
 @media (max-width:767px){
 .btn-xs-block {display:block; width:100%;}
+
+.p-xs {margin-bottom:10px;}
+.p-xs-2x {margin-bottom:20px;}
 }
 
 
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
-blockquote>*:last-child, .panel-body>*:last-child, .well>*:last-child, form>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}
+blockquote>*:last-child, .g>*:last-child, .panel-body>*:last-child, .well>*:last-child, form>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}
 /* */

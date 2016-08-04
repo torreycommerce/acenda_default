@@ -3,8 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" data-target="#filter-navigation-{{ name }}-items">
             <a>
-                Category
-                <i class="fa fa-caret-down"></i>
+                <span>Category</span><i class="fa fa-caret-down"></i>
             </a>
         </div>
         <div id="filter-navigation-{{ name }}-items" class="panel-collapse collapse out">
@@ -39,7 +38,7 @@
                 {% set link = link + {(key):i} %}
             {% endfor %}
             {% set link = filter_request|merge({(name):link}) %}
-            <a href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i>{{category[item][0].name}}</a>
+            <a href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{category[item][0].name}}</span></a>
         {% endfor %}
         </div>
     </div>
