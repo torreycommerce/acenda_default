@@ -81,6 +81,9 @@ h2.section-name {margin-bottom:15px;}
 
 .media-left, .media-object {width:100px; height:100px;}
 
+@media (min-width:992px) {
+.media-cart .media-left, .media-cart .media-object {width:150px; height:150px;}
+}
 
 @media (max-width:991px) {/**/
 #header .popover {right:10px;}
@@ -229,11 +232,6 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .product-grid .product .color-carousel .carousel {padding-right: 0;padding-left:0;}
 
 #product-images #image-main .thumbnail .helper {display: inline-block;height: 100%;vertical-align: middle;}
-
-
-#product-images .thumbnail.video {cursor: pointer;}
-#product-images .thumbnail.video .video-icon {display: block;margin-top: 5px;margin-left: 6px;opacity: .5;position: absolute;}
-#product-images .thumbnail.video:hover .video-icon {opacity: 1;}
 
 
 #product-details header .brand {margin:0 0 5px;}

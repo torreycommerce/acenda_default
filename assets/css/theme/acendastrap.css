@@ -2459,7 +2459,6 @@ label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 2px;
-  font-weight: 300;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
@@ -6685,7 +6684,7 @@ button.close {
 .d-b {display:block!important;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
-.list-inline-free>li {padding-top:6px; padding-bottom:6px;}
+.list-inline-free>li {padding-top:7px; padding-bottom:7px;}
 
 .max-250,.max-450 {max-width:250px; margin-right:auto; margin-left:auto;}
 .max-450 {max-width:450px;}

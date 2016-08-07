@@ -147,116 +147,107 @@ Cart
 <section id="shopping-cart">
 	<div class="row">
 		<div class="col-md-12">
-			<header>
-				<hgroup>
-					<h1 class="page-header">Shopping Cart</h1>
-				</hgroup>
-			</header>
+			<h1 class="page-header">Shopping Cart</h1>
 		</div>
 	</div>
 	{{ forms.begin('cart','','post', {class:'form-region p divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
 	{% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
-	<div class="item col-v divide">
-		<div class="row">
-			{# Begin item image #}
-			<div class="image col-xs-4 col-md-2 col-lg-2">
-				<div class="thumbnail">
-					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ image_url }}" />
-				</div>
-			</div>
-			{# End item image #}
-			{# Begin item details #}
-			<div class="details col-xs-8 col-md-10 col-lg-10">
-				<div class="row">
-					<div class="col-md-5">
-						<div class="name"><a href="{{ app.url ~ product.url }}">{{ product.title }}</a></div>
-						<div class="availability p">
-							{% if product.has_stock %}
-								In Stock
-							{% elseif variation.inventory_shipping_estimate is not empty %}
-								<span class="text-danger">
-									{{ variation.inventory_shipping_estimate }}
-								</span>
-							{% else %}
-								<span class="text-danger">
-									Out of Stock
-								</span>
-							{% endif %}
-						</div>
-						<div class="remove p"><button class="btn btn-secondary btn-xs" type="submit" name="cart[action]" value="remove/{{ id }}">Remove</button></div>
-					</div>
-					{# Begin item prices #}
-					<div class="col-md-3 col-lg-2">
-						<div class="pricing p">
-							<div class="regular">
-								{% if product.compare_price is not empty and product.compare_price > product.price %}
-								<strike>
-									<spam class="item-label">Reg:</span>
-									<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
-								</strike>
-								{% else %}
-								<span class="item-label">Price:</span>
-								<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
-								{% endif %}
-							</div>
-							{% if product.compare_price is not empty and product.compare_price > product.price%}
-							<div class="sale">
-								<span class="item-label">Sale:</span>
-								<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
-							</div>
-							{% endif %}
-							<div class="total">
-								{% set price = product.price * item.quantity %}
-								<span class="item-label"><strong>Total:</strong></span>
-								<span class="dollar-sign">$</span><span class="amount"><span class="dollars"><strong>{{ price|number_format(2)|split('.')|first }}</strong></span>.<span class="cents"><strong>{{ price|number_format(2)|split('.')|last }}</strong></span></span>
-							</div>
-							<div class="error alert alert-danger" style="display:none">
-							</div>
-						</div>
-					</div>
-					{# End item prices #}
-					{# Begin wishlist / registry #}
-					<div class="col-md-2">
-						{# Begin wishlist #}
-						{% if (item.wishlist_id is not empty) %}
-						{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
-						<div class="wishlist">
-							<a href="{{ app.url }}/wishlist/{{ wishlist.id }}"><i class="fa fa-list"></i> For {{ wishlist.name }}</a>
-						</div>
-						{% endif %}
-						{# End wishlist #}
-						{# Begin registry #}
-						{% if (item.registry_id is not empty) %}
-						{% set registry = api.get('/registry/' ~ item.registry_id) %}
-						<div class="registry">
-							<a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i> For {{ registry.name}}</a>
-						</div>
-						{% endif %}
-						{# End registry #}
-					</div>
-					{# End wishlist / registry #}
-					{# Begin quantity #}
-					<div class="col-xs-3 col-lg-2">
-						<div class="quantity">
-							<label for="quantity-selector-{{id}}" class="control-label m0 p0">Qty</label>
-							<div class="input-group quantity-input-group input-group-sm">
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>
-								</div>
-								<input type="text" class="form-control quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="sessioncartitem" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i></button>
-								</div>
-							</div>
-						</div>
-					</div>
-					{# End quantity #}
-				</div>
-			</div>
-			{# End item details #}
+	
+	<div class="col-v divide g">
+	<div class="media media-cart">
+		{# Begin item image #}
+		<div class="media-left">
+			<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src="{{ image_url }}" width="250" height="250" alt="">
 		</div>
+		{# End item image #}
+		{# Begin item details #}
+		<div class="media-body">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="name"><a href="{{ app.url ~ product.url }}">{{ product.title }}</a></div>
+					<div class="availability p">
+						{% if product.has_stock %}
+							In Stock
+						{% elseif variation.inventory_shipping_estimate is not empty %}
+							<span class="text-danger">
+								{{ variation.inventory_shipping_estimate }}
+							</span>
+						{% else %}
+							<span class="text-danger">
+								Out of Stock
+							</span>
+						{% endif %}
+					</div>
+					{# Begin wishlist #}
+					{% if (item.wishlist_id is not empty) %}
+					{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
+					<div class="wishlist p">
+						<a href="{{ app.url }}/wishlist/{{ wishlist.id }}"><i class="fa fa-list"></i><span>For {{ wishlist.name }}</span></a>
+					</div>
+					{% endif %}
+					{# End wishlist #}
+					{# Begin registry #}
+					{% if (item.registry_id is not empty) %}
+					{% set registry = api.get('/registry/' ~ item.registry_id) %}
+					<div class="registry p">
+						<a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a>
+					</div>
+					{% endif %}
+					{# End registry #}
+					<div class="remove p"><button class="btn btn-secondary btn-xs" type="submit" name="cart[action]" value="remove/{{ id }}">Remove</button></div>
+				</div>
+				{# Begin item prices #}
+				<div class="col-md-3 col-lg-2">
+					<div class="pricing p">
+						<div class="regular">
+							{% if product.compare_price is not empty and product.compare_price > product.price %}
+							<strike>
+								<spam class="item-label">Reg:</span>
+								<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
+							</strike>
+							{% else %}
+							<span class="item-label">Price:</span>
+							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
+							{% endif %}
+						</div>
+						{% if product.compare_price is not empty and product.compare_price > product.price%}
+						<div class="sale">
+							<span class="item-label">Sale:</span>
+							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
+						</div>
+						{% endif %}
+						<div class="total">
+							{% set price = product.price * item.quantity %}
+							<span class="item-label">Total:</span>
+							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ price|number_format(2)|split('.')|last }}</span></span>
+						</div>
+						<div class="error alert alert-danger" style="display:none">
+						</div>
+					</div>
+				</div>
+				{# End item prices #}
+				{# Begin quantity #}
+				<div class="col-xs-3 col-lg-2">
+					<div class="quantity">
+						<label for="quantity-selector-{{id}}" class="control-label m0 p0">Qty</label>
+						<div class="input-group quantity-input-group input-group-sm">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>
+							</div>
+							<input type="text" class="form-control quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="sessioncartitem" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{# End quantity #}
+			</div>
+		</div>
+		{# End item details #}
+	</div>
 	</div>
 	{% endfor %}
 	{{ forms.end() }}
@@ -275,8 +266,7 @@ Cart
 				<div class="form-group">
 					{% for index, discount in cart.discount_collection.discounts %}
 						{% if discount.type == 'bundle' %}
-							<div class="col-xs-10"><p><i class="fa fa-caret-square-o-right"></i> A few of your items are part of the bundle "{{ discount.model.name }}" that
-							gives you ${{ discount.amount }} off your total cart amount.</p></div>
+							<p><i class="fa fa-caret-square-o-right"></i><span>A few of your items are part of the bundle "{{ discount.model.name }}" that gives you ${{ discount.amount }} off your total cart amount.</span></p>
 						{% endif %}
 					{% endfor %}
 				</div>
@@ -302,18 +292,18 @@ Cart
 							</div>
 							{% for id, discount in cart.discount_collection.discounts %}
 								{% if discount.type == 'coupon' %}
-									<div class="discount">
-										<div class="well">
-											<div class="row">
-												<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-													Coupon used for ${{discount.amount}} off
-												</div>
-												<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-													{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:'btn-link btn-block', id: 'cart_Enter Coupon'}) }}
-												</div>
+								<div class="discount">
+									<div class="well">
+										<div class="row">
+											<div class="col-xs-9">
+												Coupon used for ${{discount.amount}} off
+											</div>
+											<div class="col-xs-3">
+												{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:'btn-link btn-block btn-xs', id: 'cart_Enter Coupon'}) }}
 											</div>
 										</div>
 									</div>
+								</div>
 								{% endif  %}
 							{% endfor %}
 						{# End coupon code #}
@@ -337,16 +327,16 @@ Cart
 				<div class="row">
 					<div class="col-md-12 p" id="subtotal">
 						<div class="row">
-							<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Subtotal:</div>
-							<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+							<div class="txt-label col-xs-7">Subtotal:</div>
+							<div class="amount col-xs-5 text-right">
 								${{ cart.subtotal|number_format(2)}}
 							</div>
 						</div>
 						<div class="row" id="rate-estimate-checkout" style="display:none;">
-							<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated shipping rate.">
+							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated shipping rate.">
 								Shipping*:
 							</div>
-							<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right"></div>
+							<div class="amount col-xs-5 text-right"></div>
 						</div>
 						{% set coupon_discount = 0 %}
 						{% set bundle_discount = 0 %}
@@ -361,36 +351,32 @@ Cart
 
 						{% if coupon_discount > 0 %}
 							<div class="row">
-								<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Coupons:</div>
-								<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+								<div class="txt-label col-xs-7">Coupons:</div>
+								<div class="amount col-xs-5 text-right">
 									-${{ coupon_discount|number_format(2)}}
 								</div>
 							</div>
 						{% endif %}
 						{% if bundle_discount > 0 %}
 							<div class="row">
-								<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Bundles:</div>
-								<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+								<div class="txt-label col-xs-7">Bundles:</div>
+								<div class="amount col-xs-5 text-right">
 									-${{ bundle_discount|number_format(2)}}
 								</div>
 							</div>
 						{% endif %}
 						<div class="row" id="total-before-tax" style="display:none;">
-							<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8">Total Before Tax:</div>
-							<div  class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+							<div class="txt-label col-xs-7">Total Before Tax:</div>
+							<div  class="amount col-xs-5 text-right">
 							</div>
 						</div>
 						<div class="row" id="tax-estimate-checkout" style="display:none;">
-							<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated Sales Tax.">
-								Sales Tax*:
-							</div>
-							<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right"></div>
+							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated Sales Tax.">Sales Tax*:</div>
+							<div class="amount col-xs-5 text-right"></div>
 						</div>
 						<div class="row" id="estimate-total">
-							<div class="txt-label col-xs-8 col-sm-8 col-md-7 col-lg-8" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">
-								Total*:
-							</div>
-							<div class="amount col-xs-4 col-sm-4 col-md-5 col-lg-4 text-right">
+							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">Total*:</div>
+							<div class="amount col-xs-5 text-right">
 								${{ cart.adjusted_subtotal|number_format(2) }}
 							</div>
 						</div>
@@ -413,7 +399,7 @@ Cart
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	{#<div class="row">
         <hr class="divide"/>
 		<div class="col-xs-12 col-md-8">
 			<div class="row">
@@ -422,7 +408,7 @@ Cart
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>#}
 	{# Begin third party payments #}
 	{# End third party payments #}
 	{% endif %}
