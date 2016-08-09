@@ -75,21 +75,29 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 						<div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
 					</div>
 				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="form-group">
+						<label class="control-label" for="account_settings[phone_number]">Phone Number <span class="text-danger">*</span></label>
+						{{ forms.phone('account_settings[phone_number]',app.user.phone_number, {class:'form-control parsley-validated', id:'account_settings[phone_number]', required:true}) }}
+						<div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label class="control-label" for="account_settings[phone_number]">Phone Number <span class="text-danger">*</span></label>
-				{{ forms.phone('account_settings[phone_number]',app.user.phone_number, {class:'form-control parsley-validated', id:'account_settings[phone_number]', required:true}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="account_settings[email]">Email <span class="text-danger">*</span></label>
-				{{ forms.email('account_settings[email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[email]', required:true, placeholder: "Email"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label" for="account_settings[confirm_email]">Confirm Email <span class="text-danger">*</span></label>
-				{{ forms.email('account_settings[confirm_email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[confirm_email]', required:true, placeholder: "Confirm Email"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'confirm_email') }}</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="control-label" for="account_settings[email]">Email <span class="text-danger">*</span></label>
+						{{ forms.email('account_settings[email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[email]', required:true, placeholder: "Email"}) }}
+						<div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="control-label" for="account_settings[confirm_email]">Confirm Email <span class="text-danger">*</span></label>
+						{{ forms.email('account_settings[confirm_email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[confirm_email]', required:true, placeholder: "Confirm Email"}) }}
+						<div class="validation">{{ forms.errorlist(form_errors, 'confirm_email') }}</div>
+					</div>
+				</div>
 			</div>
 			{# Begin submit button #}
 			<div class="form-group actions">
@@ -103,25 +111,36 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		<fieldset>
 			<legend>Authentication</legend>
 			{# Begin current password address #}
-			<div class="form-group">
-				<label class="control-label" for="change_password[current_password]">Current Password <span class="text-danger">*</span></label>
-				{{ forms.password('change_password[current_password]','', {class:'form-control parsley-validated', id:'change_password[current_password]', required:true, placeholder: "Current Password"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'current_password') }}</div>
+			<div class="divide p">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label" for="change_password[current_password]">Current Password <span class="text-danger">*</span></label>
+							{{ forms.password('change_password[current_password]','', {class:'form-control parsley-validated', id:'change_password[current_password]', required:true, placeholder: "Current Password"}) }}
+							<div class="validation">{{ forms.errorlist(form_errors, 'current_password') }}</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			{# End current password address #}
-			<hr />
 			{# Begin password address #}
-			<div class="form-group">
-				<label class="control-label" for="change_password[password]">New Password <span class="text-danger">*</span></label>
-				{{ forms.password('change_password[password]', '', {class:'form-control parsley-validated', id:'change_password[password]', required:true, placeholder: "New Password"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
-			</div>
-			{# End password address #}
-			{# Begin confirm_password address #}
-			<div class="form-group">
-				<label class="control-label" for="change_password[confirm_password]">Confirm Password <span class="text-danger">*</span></label>
-				{{ forms.password('change_password[confirm_password]', '', {class:'form-control parsley-validated', id:'change_password[confirm_password]', required:true, placeholder: "Confirm Password"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, 'confirm_password') }}</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="control-label" for="change_password[password]">New Password <span class="text-danger">*</span></label>
+						{{ forms.password('change_password[password]', '', {class:'form-control parsley-validated', id:'change_password[password]', required:true, placeholder: "New Password"}) }}
+						<div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
+					</div>
+				</div>
+					{# End password address #}
+					{# Begin confirm_password address #}
+				<div class="col-xs-6">
+					<div class="form-group">
+						<label class="control-label" for="change_password[confirm_password]">Confirm Password <span class="text-danger">*</span></label>
+						{{ forms.password('change_password[confirm_password]', '', {class:'form-control parsley-validated', id:'change_password[confirm_password]', required:true, placeholder: "Confirm Password"}) }}
+						<div class="validation">{{ forms.errorlist(form_errors, 'confirm_password') }}</div>
+					</div>
+				</div>
 			</div>
 			{# End confirm_password address #}
 			{# Begin submit button #}

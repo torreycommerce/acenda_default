@@ -35,13 +35,17 @@
     {% endif %}
 {% endif %}
 
+{% block breadcrumb %}
+{{ base.breadcrumbs({'Write a Review':''}) }}
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">Create a Review</h1>
+        <h1 class="page-header">Write a Review</h1>
         {{ lonelyform.begin('review-product')}}
             {{ lonelyform.beginintro() }}
-                <p>Leave a review about this product, and share your experience with others.</p>
+                <p>Write a Review about this product, and share your experience with others.</p>
             {{ lonelyform.endintro() }}
         {% if form_errors is not empty %}
             {{ forms.errorlist(form_errors, 'name') }}

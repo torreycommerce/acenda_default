@@ -6,7 +6,7 @@
 {% do account.login() %} 
 
 {# Set the page_name - used for the page title, heading, tab selection, and breadcrumb in this page. #}
-{% set page_name = 'wishlists' %}
+{% set page_name = 'Wish Lists' %}
 
 {# Set the html head title #}
 {% block title %}Account - {{page_name|title}}{% endblock %} 
@@ -57,15 +57,15 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{# Begin wishlists #}
 		<div class="row c-c">
 			{% for wishlist in wishlists %}
-			<div class="col-md-4 col-sm-6">
-				<div class="panel panel-default panel-info ">
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="panel panel-default{% if wishlist.default %} panel-success{% endif %}">
 					<div class="panel-heading">
 						<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 					</div>
 					<div class="panel-body">
-						<div class="item-count">{{ wishlist.item_count }} items</div>
-						<div class="privacy">{{ wishlist.privacy }}</div>
-						<div class="default">{% if wishlist.default %}default wishlist{% endif %}</div>
+						<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
+						<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
+						{% if wishlist.default %}<div class="fsd1 mar-t"><u>Default Wish List</u></div>{% endif %}
 					</div>
 					<div class="panel-footer">
 						<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>

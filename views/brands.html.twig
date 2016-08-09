@@ -1,0 +1,48 @@
+{% set brands = api.get("/catalog",{attributes:"brand",format:"attributes"}).brand %}
+{% extends "/content/_partials/templates/basic.html.twig" %}
+
+{% block dynamicclasses %}
+    view-all-brands-{{app.request.path}}
+{% endblock %}
+
+{% block title %}
+    View All Brands
+{% endblock %}
+
+{% block meta_description %}
+    
+{% endblock %}
+
+{% block meta_keywords %}
+    
+{% endblock %}
+
+{% block page_title %}
+    View All Brands
+{% endblock %}
+
+{% block breadcrumb %}
+{{ base.breadcrumbs({'View All Brands':''}) }}
+{% endblock %}
+
+{% block page_content %}
+<div id="brands">
+	{% set last_letter = "" %}
+	{% if brands is empty %}
+		<p>There are no brands.</p>
+	{% endif %}
+	{% for brand in brands|keys %}
+		{% set letter = brand[0:1] %}
+		{% if last_letter != letter %}
+			<h3>{{letter|upper}}</h3>
+			<ul>
+		{% endif %}
+		<li><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}">{{brand|title}}</a></li>
+		{% if last_letter != letter %}
+			</ul>
+			{% set last_letter = letter %}
+		{% endif %}
+	{% endfor %}
+	</ul>
+</div>
+{% endblock %}

@@ -6,19 +6,17 @@
 	<div class="col-xs-12">
 		{% for item in cartitems %}
 		{% set product = api.get('/variant/' ~ item.product_id) %}
-		<div class="product col-v divide">
-			<div class="row">
+		<div class="col-v divide g">
+			<div class="media">
 				{# Begin product image #}
-				<div class="col-xs-3 col-md-4">
-					<div class="thumbnail">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
-					</div>
+				<div class="media-left">
+					<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 				</div>
 				{# End product image #}
 				{% set subtotal = subtotal + product.price * item.quantity %}
 				{# Begin product description #}
 
-				<div class="description col-xs-9 col-md-8">
+				<div class="media-body">
 					<div class="name">{{ product.title }}</div>
 						<div class="availability">
 						  {% if product.has_stock %}
@@ -34,16 +32,16 @@
 						  {% endif %}
 						</div>
 					<div class="qty">Qty: {{ item.quantity }}</div>
-					<div class="amount"><span class="price">Price:</span> <span class="dollar-sign">$</span>{{ product.price|number_format(2, '.') }} <span class="each">each</span></div>
+					<div class="pricing"><div class="price">Price: <span class="dollar-sign">$</span>{{ product.price|number_format(2, '.') }} <span class="each">each</span></div></div>
 					{% if item.wishlist_id is not empty %}
 						{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
-						<div class="wishlist">
+						<div class="wishlist p">
 							<a href="{{ app.url }}/wishlist/{{ item.wishlist_id }}"><i class="icon icon-list"></i> For {{ wishlist.name }}</a>
 						</div>
 					{% endif %}
 					{% if item.registry_id is not empty %}
 						{% set registry = api.get('/registry/' ~ item.registry_id) %}
-						<div class="registry">
+						<div class="registry p">
 							<a href="{{ app.url }}/registry/{{ item.registry_id }}"><i class="icon icon-gift"></i> For {{ registry.name }}</a>
 						</div>
 					{% endif %}

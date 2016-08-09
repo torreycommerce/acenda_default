@@ -1131,8 +1131,8 @@ img {
   border-radius: 50%;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 0;
   border-top: 1px solid #eee;
 }
@@ -3924,7 +3924,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
+  background-color: #fcfcfc;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -5117,11 +5117,11 @@ a.thumbnail.active {
 }
 .media-right,
 .media > .pull-right {
-  padding-left: 10px;
+  padding-left: 20px;
 }
 .media-left,
 .media > .pull-left {
-  padding-right: 10px;
+  padding-right: 20px;
 }
 .media-left,
 .media-right,
@@ -5716,8 +5716,8 @@ button.list-group-item-danger.active:focus {
   padding-bottom: 75%;
 }
 .well {
-  min-height: 15px;
-  padding: 15px;
+  min-height: 10px;
+  padding: 10px;
   background-color: #fefefe;
   border: 1px solid #ccc;
 }
@@ -5726,10 +5726,10 @@ button.list-group-item-danger.active:focus {
   border-color: rgba(0, 0, 0, .15);
 }
 .well-lg {
-  padding: 20px;
+  padding: 15px;
 }
 .well-sm {
-  padding: 10px;
+  padding: 5px;
 }
 .close {
   float: right;
@@ -6728,6 +6728,8 @@ button.close {
 .pad-b-3x {padding-bottom:45px;}
 .pad-t-2x {padding-top:30px;}
 
+hr {margin-top:15px; margin-bottom:15px;}
+
 .container {padding-right:15px; padding-left:15px;}
 .row {margin-right:-15px; margin-left:-15px;}
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:15px; padding-right:15px;}
@@ -6737,9 +6739,9 @@ button.close {
 .list-inline > li {padding-right:7.5px; padding-left:7.5px;}
 .list-inline-free>li {padding-top:7.5px; padding-bottom:7.5px;}
 
-.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel-group, .well {margin-bottom:15px;}
-.media-right, .media > .pull-right {padding-left:15px;}
-.media-left, .media > .pull-left {padding-right:15px;}
+.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel, .panel-group, .well {margin-bottom:15px;}
+.media-right, .media > .pull-right {padding-left:30px;}
+.media-left, .media > .pull-left {padding-right:30px;}
 .popover-content {padding:15px;}
 .well {min-height:20px; padding:20px;}
 

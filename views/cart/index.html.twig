@@ -130,43 +130,36 @@ Cart
 {% endif %}
 
 {% if shipping_methods is empty or shipping_countries is empty %}
-	<div class="row">
-		<div class="col-md-12">
-			<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
-		</div>
-	</div>
+
+	<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
+	
 {% else %}
 {% if (cart.items is empty) %}
-<div class="row">
-	<div class="col-md-12">
-		<p><i>The cart is empty.</i></p>
-		<a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
-	</div>
-</div>
+
+	<p>Your Shopping Cart is empty.</p>
+	<a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
+
 {% else %}
 <section id="shopping-cart">
-	<div class="row">
-		<div class="col-md-12">
-			<h1 class="page-header">Shopping Cart</h1>
-		</div>
-	</div>
+	
+	<h1 class="page-header">Shopping Cart</h1>
+	
 	{{ forms.begin('cart','','post', {class:'form-region p divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
-	{% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
 	
 	<div class="col-v divide g">
 	<div class="media media-cart">
 		{# Begin item image #}
 		<div class="media-left">
-			<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src="{{ image_url }}" width="250" height="250" alt="">
+			<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 		</div>
 		{# End item image #}
 		{# Begin item details #}
 		<div class="media-body">
 			<div class="row">
-				<div class="col-md-5">
-					<div class="name"><a href="{{ app.url ~ product.url }}">{{ product.title }}</a></div>
+				<div class="col-xs-12 col-md-5 p">
+					<div class="name"><a href="{{ app.url ~ product.url }}">{{ product.name }}</a></div>
 					<div class="availability p">
 						{% if product.has_stock %}
 							In Stock
@@ -199,19 +192,19 @@ Cart
 					<div class="remove p"><button class="btn btn-default btn-sec btn-xs" type="submit" name="cart[action]" value="remove/{{ id }}">Remove</button></div>
 				</div>
 				{# Begin item prices #}
-				<div class="col-md-3 col-lg-2">
+				<div class="col-xs-12 col-md-4 p">
 					<div class="pricing p">
+						{% if product.compare_price is not empty and product.compare_price > product.price %}
 						<div class="regular">
-							{% if product.compare_price is not empty and product.compare_price > product.price %}
-							<strike>
-								<spam class="item-label">Reg:</span>
-								<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
-							</strike>
-							{% else %}
+							<spam class="item-label">Reg:</span>
+							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
+						</div>
+						{% else %}
+						<div class="price">
 							<span class="item-label">Price:</span>
 							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
-							{% endif %}
 						</div>
+						{% endif %}
 						{% if product.compare_price is not empty and product.compare_price > product.price%}
 						<div class="sale">
 							<span class="item-label">Sale:</span>
@@ -229,9 +222,9 @@ Cart
 				</div>
 				{# End item prices #}
 				{# Begin quantity #}
-				<div class="col-xs-3 col-lg-2">
+				<div class="col-xs-12 col-md-3 p">
 					<div class="quantity">
-						<label for="quantity-selector-{{id}}" class="control-label m0 p0">Qty</label>
+						<label for="quantity-selector-{{id}}" class="control-label">Qty</label>
 						<div class="input-group quantity-input-group input-group-sm">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>

@@ -28,13 +28,9 @@ Contact Us
         {% do app.redirect('/', {'success':'Your comment has been submitted. Thank you.'}) %}
     {% endif %}
 {% endif %}
-<div class="row">
-    <div class="col-md-12">
-        <header>
-            <h1 class="page-header">Contact Us</h1>
-        </header>
-    </div>
-</div>
+
+<h1 class="page-header">Contact Us</h1>
+
 {{ lonelyform.begin('contact')}}
     {{ lonelyform.beginintro() }}
         <h3>We are here to help!</h3><p>For questions or comments, please complete the form below.</p>
