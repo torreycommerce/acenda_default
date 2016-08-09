@@ -1,6 +1,6 @@
 {% if reviews is empty %}	
 	<p>There are currently no reviews for this item.</p>
-	<a href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
+	<a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
 {% else %}
 	<div class="divide p">
 		<p><a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a></p>

@@ -8,7 +8,7 @@
 {% endif %}
 {% if registries is empty %}
 <div class="col-xs-12 col-md-6 p">
-	<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-secondary">
+	<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default btn-sec">
 		{% if added %}
 		<i class="fa fa-check"></i>
 		{% else %}
@@ -18,7 +18,7 @@
 </div>
 {% else %}
 <div class="col-xs-12 col-md-6 p">
-	<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-secondary dropdown-toggle" data-toggle="dropdown">
+	<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default btn-sec dropdown-toggle" data-toggle="dropdown">
 		{% if added %}
 		<i class="fa fa-check"></i>
 		{% else %}
@@ -42,7 +42,7 @@
 {% endif %}
 {% if wishlists is empty %}
 <div class="col-xs-12 col-md-6 p">
-	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-lg btn-secondary">
+	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-lg btn-default btn-sec">
 		{% if added %}
 		<i class="fa fa-check"></i>{% else %}<i class="fa fa-star"></i>{% endif %}<span>Add to Wish List</span>
 	</button>
@@ -50,12 +50,13 @@
 {% else %}
 <div class="col-xs-12 col-md-6 p">
 	<div class="btn-group btn-block">
-		<button type="submit" name="action" value="wishlist" class="btn btn-block btn-lg btn-secondary dropdown-toggle" data-toggle="dropdown">
+		<button type="submit" name="action" value="wishlist" class="btn btn-block btn-lg btn-default btn-sec dropdown-toggle" data-toggle="dropdown">
 			{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-star"></i>{% endif %}<span>Add to Wish list</span>
 		</button>
 		<ul class="dropdown-menu" role="menu">
+			<li class="dropdown-header">Add to:</li>
 			{% for wishlist in wishlists %}
-			<li><button type="submit" class="btn btn-block btn-link" name="action" value="wishlist/{{wishlist.id}}">Add to '{{wishlist.name}}'</button></li>
+			<li><button type="submit" class="btn btn-block btn-link" name="action" value="wishlist/{{wishlist.id}}">'{{wishlist.name}}'</button></li>
 			{% endfor %}
 		</ul>
 	</div>

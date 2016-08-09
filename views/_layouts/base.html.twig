@@ -169,9 +169,10 @@
                 <ul class="dropdown-menu fsd1 fa-fa-balance" role="menu">
                     {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
                     {% if sandboxMode is not empty %}
-                    <li class="divide">
+                    <li>
                         <a href="#" ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> <span>PayPal <span class="hidden">PayflowPro</span> is in Test Mode (Sandbox)</span></a>
                     </li>
+                    <li role="separator" class="divider"></li>
                     {% endif %}
                     <li>
                         <a href="#" onClick="window.location.href='{{ back_to }}'; return false;" ><i class="fa fa-cog"></i> <span>Visit Your Admin</span></a>

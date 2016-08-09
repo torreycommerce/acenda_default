@@ -138,9 +138,9 @@
 		{# Begin short description #}
 		{% if product.description is not empty %}
 			{% set description = product.description|slice(0,300) %}
-			<section id="collection-short-description-desktop" class="hidden-xs">
+			<section id="collection-short-description-desktop" class="hhidden-xs">
 				<div class="description-content">
-					{{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read more)</a>{% endif %}
+					{{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read More)</a>{% endif %}
 				</div>
 			</section>
 		{% endif %}
@@ -170,18 +170,7 @@
 	</section>
 {# End Product Details #}
 </div>
-{% if product.description is not empty %}
-	<section id="collection-short-description-mobile" class="hidden-sm hidden-md hidden-lg">
-		<div class="row">
-			<div class="col-sm-12 col-xs-12">
-				<div class="description-content">
-					{{ description }}
-				</div>
-			</div>
-		</div>
-	</section>
-{% endif %}
-{# End Product Details #}
+
 {# Begin Product Tabs #}
 <section id="collection" class="row">
 
@@ -272,50 +261,51 @@
 																{# End collection product image #}
 																{# Begin collection product details #}
 																<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
-																	<div class="details">
-																		<div class="product-name">{{ bundle.name }}</div>
-																		{# Begin variation dropdown #}
+																	
+																	<div class="product-name">{{ bundle.name }}</div>
+																	{# Begin variation dropdown #}
+																		<div class="pricing">
 																			<div class="price" id="product-price-{{bundle.id}}">${{ bundle.price }}</div>
-																		{# End variation dropdown #}
-																		{# Begin pricing #}
-																			<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
-																				{# Begin regular price #}
-																				<li class="price-regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
-																				{# End regular price #}
-																				{# Begin percent off #}
-																				{% if bundle.discount_type == 'dollar'%}
-																					<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
-																				{% elseif bundle.discount_type == 'percentage' %}
-																					<li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
-																				{% elseif bundle.discount_type == 'fixed' %}
-																					<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
-																				{% endif %}
-																				{# End percent off #}
-																			</ul>
-																		{# End pricing #}
-																		{# Begin estimated shipping #}
-																			<ul class="shipping">
-																				<li class="estimated-time" id="stock-text-{{product.id}}">
-																					{% if bundle.has_stock == '1' %}
-																						In Stock
-																					{% else %}
-																						Out of stock
-																					{% endif %}
-																				</li>
-																			</ul>
-																		{# End estimated shipping #}
-																		{# Begin product tags #}
-																				<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
-																					<li>
-																						{% for item in bundle.items %}
-																							{% for tag in item.tags %}
-																								<span class="label label-info">{{tag|title}}</span>
-																							{% endfor %}
-																						{% endfor %}
-																					</li>
-																				</ul>
-																		{# End product tags #}
-																	</div>
+																		</div>
+																	{# End variation dropdown #}
+																	{# Begin pricing #}
+																		<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
+																			{# Begin regular price #}
+																			<li class="price-regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
+																			{# End regular price #}
+																			{# Begin percent off #}
+																			{% if bundle.discount_type == 'dollar'%}
+																				<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
+																			{% elseif bundle.discount_type == 'percentage' %}
+																				<li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
+																			{% elseif bundle.discount_type == 'fixed' %}
+																				<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
+																			{% endif %}
+																			{# End percent off #}
+																		</ul>
+																	{# End pricing #}
+																	{# Begin estimated shipping #}
+
+																		<div class="p availability" id="stock-text-{{product.id}}">
+																			{% if bundle.has_stock == '1' %}
+																				In Stock
+																			{% else %}
+																				Out of Stock
+																			{% endif %}
+																		</div>
+
+																	{# End estimated shipping #}
+																	{# Begin product tags #}
+																		<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
+																			<li>
+																				{% for item in bundle.items %}
+																					{% for tag in item.tags %}
+																						<span class="label label-info">{{tag|title}}</span>
+																					{% endfor %}
+																				{% endfor %}
+																			</li>
+																		</ul>
+																	{# End product tags #}
 																</div>
 																{# End collection product details #}
 															
@@ -430,146 +420,149 @@
 												{# End collection group header #}
 												{# Begin collection product $(this).parentsUntil('.product').hide(); #}
 												{% for product in children %}
-													<div class="variations p divide">
-														<div class="product">
-															<div class="row">
-																
-																{# Begin collection product image #}
-																<div class="col-xs-4 col-md-2 p">
-																	<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" width="250" class="img-responsive" alt="" style="display:none"/>
-																	<a href="{{app.url}}/product/{{product.slug}}">
-																		<div class="image thumbnail" id="variant-selected-image-{{product.id}}"></div>
-																	</a>
-																	<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
-																		class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																</div>
-																{# End collection product image #}
-																{# Begin collection product details #}
-																<div class="col-xs-8 col-md-10 p">
-																	<div class="row">
-																		<div class="col-xs-12 col-md-5 p">
-																			<div class="details">
-																				<div class="product-name">
-																					<a href="{{app.url}}/product/{{product.slug}}">
-																						<span itemprop="name">{{ product.name }}</span>
-																					</a>
-																				</div>
-																				<a class="hidden" href="{{app.url}}/brand/{{product.brand|url_encode}}">
-																					<span itemprop="brand">{{product.brand}}</span>
+													<div class="variations col-v g divide">
+														<div class="media media-cart">
+															
+															{# Begin collection product image #}
+															<div class="media-left">
+																<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" width="250" height="250" class="media-object" alt="" style="display:none"/>
+																<a href="{{app.url}}/product/{{product.slug}}">
+																	<span class="" id="variant-selected-image-{{product.id}}">
+																		<span class="isd"></span>
+																	</span>
+																</a>
+																<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
+																	class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
+															</div>
+															{# End collection product image #}
+															{# Begin collection product details #}
+															<div class="media-body">
+																<div class="row">
+																	<div class="col-xs-12 col-md-5 p">
+																		<div class="details">
+																			<div class="product-name">
+																				<a href="{{app.url}}/product/{{product.slug}}">
+																					<span itemprop="name">{{ product.name }}</span>
 																				</a>
+																			</div>
+																			<a class="hidden" href="{{app.url}}/brand/{{product.brand|url_encode}}">
+																				<span itemprop="brand">{{product.brand}}</span>
+																			</a>
 
-																				{# Begin variation dropdown #}
+
+
+																			<div class="pricing">
 																				<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 																					<div class="price" id="product-price-{{product.id}}"></div>
-																				{# End variation dropdown #}
-																				{# Begin pricing #}
-																					<ul class="pricing list-unstyled list-inline" id="pricing-box-{{product.id}}">
-																						{# Begin regular price #}
-																						<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
-																						<li class="price hidden">
-																							<span itemprop="price">{{ product.variant[0].price }}</span>
-																						</li> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																						<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																						{# End regular price #}
-																						{# Begin percent off #}
-																						<li class="percent" id="save-pricing-{{product.id}}"></li>
-																						{# End percent off #}
-																					</ul>
-																				{# End pricing #}
-																				{# Begin estimated shipping #}
-																					<ul class="shipping list-unstyled list-inline">
-																						<li class="estimated-time" id="stock-text-{{product.id}}"></li>
-																					</ul>
-																				{# End estimated shipping #}
-																				{# Begin product tags #}
-																					{% if product.tags is not empty %}
-																					{#}
-																					<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
-																						<li>
-																							{% for tag in product.tags %}
-																							<!-- <span class="label label-info">{{tag|title}}</span> -->
-																							{% endfor %}
-																						</li>
-																					</ul>
-																					#}
-																					{% endif %}
-																				{# End product tags #}
 																				</span>
 																			</div>
-																			<div class="sku-details p" id="div-sku-{{product.id}}">
-																				<strong>Item:</strong> #<span id="variant-sku-{{product.id}}"></span>
-																				{% set id = 0 %}
-																				{% for sku in product.variant %}
-																					{% set id = id + 1 %}
-																					<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																				{% endfor %}
-																				{% set id = 0 %}
-																				{% for barcode in product.variant %}
-																					<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																				{% endfor %}
-																			</div>
 
-																			{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
-																			{% set review_score = reviews|average('score') %}
-
-																			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-																				<ul class="list-unstyled list-inline reviews">
-																					{% if review_score > 0 %}
-																					<li class="stars"><span itemprop="ratingValue">{{ base.rating( review_score ) }}</span></li>
-																					<li class="average">
-																					{% if reviews.num_total %}
-																						{{ (review_score * 5)|number_format(1) }} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
-																					{% endif %}
-																					</li>
-																					<li class="submit">
-																						<a class="btn btn-sm btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
-																					</li>
-																					{% endif %}
+																			{# End variation dropdown #}
+																			{# Begin pricing #}
+																				<ul class="pricing list-unstyled list-inline" id="pricing-box-{{product.id}}">
+																					{# Begin regular price #}
+																					<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
+																					<li class="price hidden">
+																						<span itemprop="price">{{ product.variant[0].price }}</span>
+																					</li> {# Rich Snippets for Search Engines, not showing on the preview! #}
+																					<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
+																					{# End regular price #}
+																					{# Begin percent off #}
+																					<li class="percent" id="save-pricing-{{product.id}}"></li>
+																					{# End percent off #}
 																				</ul>
-																			</div>
-
-
-																			{# Begin product description for google rich snippets, not showing in the preview! #}
-																			{% if product.description is not empty %}
-																				{% set full_description = product.description %}
-																				<div class="hidden"><span itemprop="description">{{full_description}}</span></div>
-																				<div class="hidden" id="variant-description-{{product.id}}" ></div>
-																			 {% endif %}
+																			{# End pricing #}
+																			{# Begin estimated shipping #}
+																				<div class="availability p" id="stock-text-{{product.id}}">
+																				</div>
+																			{# End estimated shipping #}
+																			{# Begin product tags #}
+																				{% if product.tags is not empty %}
+																				{#
+																				<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
+																					<li>
+																						{% for tag in product.tags %}
+																						<!-- <span class="label label-info">{{tag|title}}</span> -->
+																						{% endfor %}
+																					</li>
+																				</ul>
+																				#}
+																				{% endif %}
+																			{# End product tags #}
+																			</span>
+																		</div>
+																		<div class="sku-details p" id="div-sku-{{product.id}}">
+																			<strong>Item:</strong> #<span id="variant-sku-{{product.id}}"></span>
+																			{% set id = 0 %}
+																			{% for sku in product.variant %}
+																				{% set id = id + 1 %}
+																				<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+																			{% endfor %}
+																			{% set id = 0 %}
+																			{% for barcode in product.variant %}
+																				<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+																			{% endfor %}
 																		</div>
 
-																		<div class="col-xs-12 col-md-4 p">
+																		{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
+																		{% set review_score = reviews|average('score') %}
 
-																			<div class="variation-selection">
-																				<div id="variation-selector-{{product.id}}" class="input-group"></div>
-																			</div>
+																		<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+																			<ul class="list-unstyled list-inline reviews">
+																				{% if review_score > 0 %}
+																				<li class="stars"><span itemprop="ratingValue">{{ base.rating( review_score ) }}</span></li>
+																				<li class="average">
+																				{% if reviews.num_total %}
+																					{{ (review_score * 5)|number_format(1) }} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
+																				{% endif %}
+																				</li>
+																				<li class="submit">
+																					<a class="btn btn-sm btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
+																				</li>
+																				{% endif %}
+																			</ul>
 																		</div>
-																					
-																		<div class="col-xs-12 col-md-3 p">
-																			{# Begin collection product actions #}
-																				<div class="actions">
-																					<div class="quantity" id="div-quantity-{{product.id}}">
-																						<label for="variant-input-{{product.id}}"" class="control-label">Qty</label>
-																						<div class="input-group input-group-sm quantity-input-group">
-																							<div class="input-group-btn">
-																								<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-																							</div>
-																							<input id="variant-input-{{product.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="">
-																							<div class="input-group-btn">
-																								<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
-																							</div>
+
+
+																		{# Begin product description for google rich snippets, not showing in the preview! #}
+																		{% if product.description is not empty %}
+																			{% set full_description = product.description %}
+																			<div class="hidden"><span itemprop="description">{{full_description}}</span></div>
+																			<div class="hidden" id="variant-description-{{product.id}}" ></div>
+																		 {% endif %}
+																	</div>
+
+																	<div class="col-xs-12 col-md-4 p">
+
+																		<div class="variation-selection">
+																			<div id="variation-selector-{{product.id}}" class="input-group"></div>
+																		</div>
+																	</div>
+																				
+																	<div class="col-xs-12 col-md-3 p">
+																		{# Begin collection product actions #}
+																			<div class="actions">
+																				<div class="quantity" id="div-quantity-{{product.id}}">
+																					<label for="variant-input-{{product.id}}"" class="control-label">Qty</label>
+																					<div class="input-group input-group-sm quantity-input-group">
+																						<div class="input-group-btn">
+																							<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
+																						</div>
+																						<input id="variant-input-{{product.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="">
+																						<div class="input-group-btn">
+																							<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
 																						</div>
 																					</div>
 																				</div>
-																			{# End collection product actions #}
-																		</div>
-																		
-
-																		{# End variation block of product #}
+																			</div>
+																		{# End collection product actions #}
 																	</div>
-																</div>
-																{# End collection product details #}
+																	
 
+																	{# End variation block of product #}
+																</div>
 															</div>
+															{# End collection product details #}
 														</div>
 													</div>
 												{% endfor %}

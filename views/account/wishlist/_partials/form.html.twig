@@ -33,11 +33,11 @@
 	<div class="form-actions actions">
 		{% if action == 'create' %}
 		{{ forms.submit('wishlist[action]', 'create', 'Create', {class:'btn btn-lg btn-primary'})}}
-		<a class="btn btn-lg btn-secondary" href="{{ app.url }}/account/wishlists">Cancel</a>
+		<a class="btn btn-lg btn-default btn-sec" href="{{ app.url }}/account/wishlists">Cancel</a>
 		{% else %}
 		{{ forms.submit('wishlist[action]', 'save', 'Save', {class:'btn btn-lg btn-primary'})}}
-		<a class="btn btn-lg btn-secondary" href="{{ app.url }}/wishlist/{{ wishlist.id }}">Cancel</a>
-		<a class="btn btn-lg btn-secondary" data-toggle="modal" data-target="#delete-modal">Delete this Wish List</a>
+		<a class="btn btn-lg btn-default btn-sec" href="{{ app.url }}/wishlist/{{ wishlist.id }}">Cancel</a>
+		<a class="btn btn-lg btn-default btn-sec" data-toggle="modal" data-target="#delete-modal">Delete this Wish List</a>
 		{% endif %}
 	</div>
 	{{ forms.end() }}

@@ -2,7 +2,7 @@
 <section class="fsd1 text-right" id="toolbar">
 	<div class="container">
 		<div class="row col-v">
-			<div class="col-xs-12 col-md-8 pull-right">
+			<div class="col-xs-12 col-md-8 no-arrow pull-right">
 				<ul class="list-inline list-unstyled hidden-xs hidden-sm" id="tools">
 					<li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
 					<li class="tool">
@@ -23,7 +23,7 @@
 									<h3 class="al-btn-sm">Quick Cart</h3>
 								</div>
 								<div class="col-xs-5">
-									<a id="ajaxcart-close" class="btn btn-secondary btn-sm pull-right"><i class="fa fa-times"></i></a>
+									<a id="ajaxcart-close" class="btn btn-default btn-sec btn-sm pull-right"><i class="fa fa-times"></i></a>
 								</div>
 							</div>
 						</div>
@@ -56,7 +56,7 @@
 						<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
 					</div>
 				</div>
-				<div class="search pull-right hidden-sm hidden-xs">
+				<div class="search w-50p pull-right hidden-sm hidden-xs">
 					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
 						<div class="form-group has-feedback input-group twitter-typeahead">
 							<input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
@@ -74,14 +74,14 @@
 					<i class="fa fa-bars fa-2x"></i>
 				</a>
 			</div>
-			<div class="col-xs-6 col-md-4 text-left tCsm">
-				<div class="brand">
+			<div class="col-xs-6 col-md-4 text-center txt-md-lg-l">
+				<div class="logo">
 					{% if app.params.logoimages is not empty %}
 						{% set logo_info = app.params.logoimages | first %}
 						{% set logo = logo_info.url %}
 					{% endif %}
 					{% if logo is not empty %}
-					<a  href="{{app.url}}/"><img class="img-responsive img-center" src="{{ logo }}"></a>
+					<a href="{{app.url}}/"><img class="img-responsive img-c" src="{{ logo }}" alt=""></a>
 					{% else %}
 					<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
 					{% endif %}

@@ -2,7 +2,7 @@
 {% if app.user.id is not null  %}
 {% set customer = api.get('/customer/' ~ app.user.id) %}
 
-<a type="button" href="#" id="dropdown-account" class="btn btn-secondary tool-tab dropdown-toggle" data-toggle="dropdown">
+<a type="button" href="#" id="dropdown-account" class="btn btn-default btn-sec tool-tab dropdown-toggle" data-toggle="dropdown">
 	<i class="fa fa-user"></i><span>Hi, <u>{{ customer.first_name }}</u></span><i class="fa fa-caret-down"></i>
 </a>
 <ul class="dropdown-menu pull-right">
@@ -14,7 +14,7 @@
 	<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
 </ul>
 {% else %}
-<a type="button" href="#" id="dropdown-account" class="btn btn-secondary tool-tab dropdown-toggle" data-toggle="dropdown">
+<a type="button" href="#" id="dropdown-account" class="btn btn-default btn-sec tool-tab dropdown-toggle" data-toggle="dropdown">
 	<i class="fa fa-user"></i><span>My Account</span><i class="fa fa-caret-down"></i>
 </a>
 <ul class="dropdown-menu pull-right">

@@ -73,7 +73,9 @@
 						{# Begin Product Prices #}
 							<div class="row">
 								<div class="col-xs-12">
-									<div class="price" id="product-price-{{product.id}}"></div>
+									<div class="pricing">
+										<div class="price" id="product-price-{{product.id}}"></div>
+									</div>
 									<div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
 
 {#                                   <div class="stock" id="stock-text-{{product.id}}"></div>#}
