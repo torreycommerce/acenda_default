@@ -115,9 +115,9 @@
                         </div>
                         {% endif #}
                         {% if product.attributes.compare_price|max - product.attributes.price|max > 1  %}
-                        <div class="price-regular hidden-xs">Compare at {{ this.price(product.attributes.compare_price) }}</div>
+                        <div class="price-regular hidden-xs">{{ this.price(product.attributes.compare_price) }}</div>
                         <div class="percent hidden-xs">
-                            Save up to {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}
+                            Save {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}
                         </div>
                         {% endif %}  
                     </div>

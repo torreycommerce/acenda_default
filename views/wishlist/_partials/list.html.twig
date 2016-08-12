@@ -12,13 +12,7 @@
 </div>
 {% else %}
 <div id="wishlist">
-	<div class="row">
-		<div class="col-md-12">
-			<header>
-				<h1 class="page-header">{{ wishlist.name }}</h1>
-			</header>
-		</div>
-	</div>
+	<h1 class="page-header">{{ wishlist.name }}</h1>
 
 	{{ forms.begin('wishlist-form', app.url ~ '/wishlist/' ~ wishlist.id ~ '/route') }}   
 	{% set product_ids = wishlist_items|values_in('product_id') %}
@@ -51,24 +45,18 @@
 		{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 		{% set product = products[item.product_id][0] %}
 			{# Begin product #}
-			<div class="product col-v divide">
-				<div class="row">
-					{# Begin product image #}
-					<div class="col-xs-3 col-lg-2">
-						<div class="image-space">
-							<img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" />
-						</div>
+			<div class="col-v divide g">
+				<div class="media media-cart">
+					<div class="media-left">
+						<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 					</div>
-					{# End product image #}
-					{# Begin product details #}
-					<div class="col-xs-9 col-lg-10">
+
+					<div class="media-body">
 					<div class="row">
 					<div class="col-xs-12 col-sm-8">
-						{# Begin desktop product header#}
-						
-						<div class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.title }}</a></div>
-						
-						{# End desktop product header #}
+
+						<div class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></div>
+
 						{# Begin pricing #}
 						<ul class="list-inline pricing fsd1">
 							<li class="price">
@@ -96,7 +84,7 @@
 							<ul class="list-inline">
 							{% if wishlist.customer_id == app.user.id %}
 								<li class="qty-update">
-									<a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Quantity</a>
+									<a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
 								{# Begin quantity modal #}
 								<div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
 									<div class="modal-dialog modal-sm">
@@ -157,7 +145,7 @@
 											</div>
 											<div class="modal-body">
 												<p>Remove this item from your wish list?</p>
-												<b>{{ product.title }}</b>
+												<b>{{ product.name }}</b>
 											</div>
 											<div class="modal-footer">
 												<a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>

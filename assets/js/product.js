@@ -26,6 +26,9 @@ var disabled_cart_button = 0;
 function VariantsManager (product, img, isCollection) {
     this.product = product; //Product object as stored in elastic search 
     this.variants = this.product.variants; //Array of variants object
+    this.clonedMainImageSource = $('#main-product-image-copy').clone();
+    this.clonedThumbnailImageSource = $('#variant-image-thumbnail-copy').clone();
+    this.clonedVideoSource = $('#variant-video-copy').clone();
     /*
         Array of variant options:
         [ {name: "size", position: 1, values: ["S","M","L"]}, ... ]
@@ -139,10 +142,11 @@ function VariantsManager (product, img, isCollection) {
         Sets the image for the selected variant
     */
     this.setSelectImage = function(standard_img_url,large_img_url,img_alt) {
-        var clonedImg = $('#main-product-image-copy').clone(); //Retrieve a copy of the hidden html element of the image
+        var clonedImg = this.clonedMainImageSource.clone(); //Retrieve a copy of the hidden html element of the image
         img = $('#variant-selected-image-'+this.product_id+' img'); // Retrive the currently displayed html image elemtn 
         clonedImg.attr("id", "main-product-image"); //Set the html id of the cloned html element
         img.remove(); //remove the currently displayed image html element from the dom
+
         if(standard_img_url){
             clonedImg.attr('src', standard_img_url);
             clonedImg.attr('data-image-zoom', large_img_url);
@@ -150,14 +154,14 @@ function VariantsManager (product, img, isCollection) {
             clonedImg.appendTo( "#variant-selected-image-"+this.product_id+' span.isd');  //Append the new image to the dom
             if(!this.isCollection) clonedImg.imageZoom(); //Enable zoom effect on teh new image if not on collection page
         }else{
-            clonedImg.appendTo( "#variant-selected-image-"+this.product_id)+' span.isd'; //Append the new image to the dom
+            clonedImg.appendTo( "#variant-selected-image-"+this.product_id+' span.isd'); //Append the new image to the dom
         }
     }
     /*
         Adds image to the carousel element of the page, according to the urls provided
     */
     this.addImageToCarousel = function(variant_image_id,standard_img_url,large_img_url,img_alt) {
-        var clonedDiv = $('#variant-image-thumbnail-copy').clone();
+        var clonedDiv = this.clonedThumbnailImageSource.clone();
         clonedDiv.attr("id", variant_image_id);
         clonedDiv.appendTo( "#variant-image-carousel-"+this.product_id );
         $('#'+variant_image_id+" img").attr("src", standard_img_url);
@@ -172,7 +176,7 @@ function VariantsManager (product, img, isCollection) {
     this.addVideosToCarousel = function(videos) {
         var _this = this;
         $.each(videos, function(index, video){
-            var clonedDiv = $('#variant-video-copy').clone();
+            var clonedDiv = this.clonedVideoSource.clone();
             var id = "product-video-"+_this.product_id+"-"+index;
             clonedDiv.attr("id", id);
             clonedDiv.appendTo( "#variant-image-carousel-"+_this.product_id );
@@ -306,7 +310,7 @@ function VariantsManager (product, img, isCollection) {
             //If variant has a valid save price
             if (typeof obj_variant.save_price != 'undefined' && this.getNumber(obj_variant.save_price) > 1) {
                 $('#save-pricing-'+this.product_id).show();
-                $('#save-pricing-'+this.product_id).html('Save up to '+'$'+this.formatPrice(obj_variant.save_price)+' ('+obj_variant.save_percent+'%'+')');
+                $('#save-pricing-'+this.product_id).html('Save '+'$'+this.formatPrice(obj_variant.save_price)+' ('+obj_variant.save_percent+'%'+')');
             }
             //Updates In Stock text
             var stock_text = this.getStockDescription(obj_variant);
@@ -567,21 +571,21 @@ function VariantsManager (product, img, isCollection) {
             //Color styling
             if( selectName.toLowerCase() == "color"){
                 if(_this.isCollection){
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details-collection"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details-collection mB"});
                 }else{
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details mB"});
                 }
 
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-color"});
                 var span = $('<span>', {"class": "selected-color"}).append(
-                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
+                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
-                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details size-details"});
+                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details size-details mB"});
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-size"});
                 var span = $('<span>', {"class": "selected-size"}).append(
-                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
+                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
                             );
             }
             //Builds a chip html elemtn for each available value available for the option, and appends it to its parent element (previously built) 
@@ -601,7 +605,7 @@ function VariantsManager (product, img, isCollection) {
                 );
             });
             //Build the span html elemtn where will be displayed the value of the currently selected option
-            var span_selected = $('<span>', {"class": "selected-value", "id": _this.getVariationSelectedId(selectName)}).text("");
+            var span_selected = $('<span>', {"class": "", "id": _this.getVariationSelectedId(selectName)}).text("");
             //Appends built element to their proper parents
             div.append(span);
             div.append(span_selected);
@@ -610,10 +614,9 @@ function VariantsManager (product, img, isCollection) {
             if(_this.isCollection){
                 $(_this.selector).append(div);
             }else{
-                //var row = $('<div>', {"class": "p"});
-                //row.append(div);
-                //$(_this.selector).append(row);
-                $(_this.selector).append(div);
+                var row = $('<div>', {"class": "row col-md-12"});
+                row.append(div);
+                $(_this.selector).append(row);
             }
         });
         //Triggers chips updates so they are styled according the displayed variant

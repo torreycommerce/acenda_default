@@ -22,9 +22,9 @@
 	</div>
 </div>
 {% if final_order is not empty %}
-	<legend><i class="fa fa-thumbs-o-up"></i> Thank You!</legend>
+	<legend><i class="fa fa-thumbs-o-up"></i><span>Thank You!</span></legend>
 {% else %}
-	<legend><i class="fa fa-exclamation-circle"></i> Checkout: Order Failed</legend>
+	<legend><i class="fa fa-exclamation-circle"></i><span>Checkout: Order Failed</span></legend>
 {% endif %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
@@ -92,7 +92,7 @@
 						<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-8 col-sm-9">
-										<h4 class="panel-title">{{item.quantity}} x {{ product.title }}</h4>
+										<h4 class="panel-title">{{item.quantity}} x {{ product.name }}</h4>
 									</div>
 									{% set price = product.price * item.quantity %}
 									{% set subtotal = subtotal + price %}

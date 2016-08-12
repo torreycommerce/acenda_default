@@ -48,27 +48,22 @@ set in the array in /account/_macros/base.html.twig
 				</div>
 				<div class="panel-body">
 					{% if notifications is empty %}
-					No notifications have been found.
+					<p>No notifications have been found.</p>
 					{% endif %}
-					<div class="row">
-						<div class="col-md-12">                    
-							<div class="panel">
-								<div class="table-responsive">
-									<table class="table table-hover table-striped tablesorter">
-										<tbody>
-											{% for notif in notifications %}
-												<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
-													<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
-													<td>{{ notif.subject}}</td>
-													<!-- March 30th 9:06pm -->
-													<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
-												</tr>
-											{% endfor %}
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
+
+					<div class="table-responsive">
+						<table class="table table-hover table-striped tablesorter">
+							<tbody>
+								{% for notif in notifications %}
+									<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
+										<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
+										<td>{{ notif.subject}}</td>
+										<!-- March 30th 9:06pm -->
+										<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
 					</div>
 				</div>
 				<div class="panel-footer">
@@ -92,25 +87,21 @@ set in the array in /account/_macros/base.html.twig
 					{% for order in orders %}
 					<div class="order col-v divide">
 						<div class="row">
-							<div class="order-details col-sm-4 col-md-4 col-lg-3 p">
+							<div class="order-details col-xs-12 col-sm-5 p">
 								<div class="order-info">                    
-									<div class="order-id">Order #{{ order.order_number }}</div>
-									<div class="order-status">Status: {{order.status}}</div>
-									<div class="order-date">Ordered: {{ order.date_created}}</div>
+									<div class="order-id"><b>Order:</b> #{{ order.order_number }}</div>
+									<div class="order-date"><b>Ordered:</b> {{ order.date_created}}</div>
+									<div class="order-status mar-t"><b>Status:</b> {{order.status}}</div>
 								</div>
 							</div>
-							<div class="order-items col-sm-5 col-md-5 col-lg-6 p">
+							<div class="order-items col-xs-12 col-sm-4 p">
 								{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
 								{% for item in items %}
-								<div class="item">
-									<div class="row">
-										<div class="col-md-12">{{ item.name }}</div>
-									</div>
-								</div>
+								<div class="item">{{ item.name }}</div>
 								{% endfor %}
 							</div>
-							<div class="actions col-sm-3 col-md-3 col-lg-3 text-right">                                        
-								<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>                                        
+							<div class="actions col-xs-12 col-sm-3 text-right">                                        
+								<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>
 							</div>
 						</div>
 					</div>
@@ -138,36 +129,34 @@ set in the array in /account/_macros/base.html.twig
 				<div class="panel-body">
 					{% if items is empty %}
 					<p>No recent wish list items have been found.</p>
-					{% endif %}
-					<div class="row c-c">
+					{% else %}
+					
 					{% for item in items %}
 						{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
-						<div class="col-xs-6 col-sm-4 p">
-							<div class="product col-v divide">
-								<div class="p">
-									<a href="{{ app.url ~ product.url }}" class="thumbnail">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" data-image-source="{{ product.thumbnail }}" class="img-responsive" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}">
-									</a>
-								</div>
-								<header>
-									<div class="product-name">{{ product.title }}</div>
-									<div class="brand">{{ product.brand }}</div>
-								</header>
-								<div class="pricing">
+						<div class="col-v divide g">
+						<div class="media media-cart">
+							<div class="media-left">
+								<a href="{{ app.url ~ product.url }}">
+									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" data-image-source="{{ product.thumbnail }}" class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">
+								</a>
+							</div>
+							<div class="media-body">	
+								<div class="brand">{{ product.brand }}</div>
+								<div class="product-name">{{ product.name }}</div>
+								
+								<div class="pricing p">
 									<div class="price">
-										{% if product.save_percent %}
-											<span class="lineT">${{ product.compare_price }}</span> now 
-										{% endif %}
-										${{ product.price }}
+										<span class="dollar-sign">$</span>{{ product.price }}
 									</div>
 								</div>
 								{% set it = api.get('/wishlistitem', {query:{'product_id': product.id}})[0] %}
 								{% set wi = api.get('/wishlist',{query:{"customer_id":app.user.id, "id": it.wishlist_id}})[0] %}
-								<a href="{{ app.url }}/account/wishlist/{{ wi.id }}">{{ wi.name }}</a>
+								<a href="{{ app.url }}/account/wishlist/{{ wi.id }}"><i><u>{{ wi.name }}</u></i></a>
 							</div>
 						</div>
+						</div>
 					{% endfor %}
-					</div>
+					{% endif %}
 				</div>
 				<div class="panel-footer">
 					<a href="{{ app.url }}/account/wishlists" class="btn btn-default">View Wish Lists</a>

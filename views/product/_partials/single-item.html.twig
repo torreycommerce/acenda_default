@@ -57,7 +57,7 @@
 					<div class="brand">
 						<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
 					</div>
-					<h1 class="product-name"><span itemprop="name">{{product.title}}</span></h1>
+					<h1 class="product-name"><span itemprop="name">{{product.name}}</span></h1>
 					<div class="sku-details" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
 					{% set id = 0 %}
 					{% for sku in product.variant %}
