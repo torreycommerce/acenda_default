@@ -3924,7 +3924,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #fcfcfc;
+  background-color: #ececec;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -6671,6 +6671,7 @@ button.close {
 .pad-h {padding-top:10px; padding-bottom:10px;}
 .pad-h-2x {padding-top:20px; padding-bottom:20px;}
 .pad-h-3x {padding-top:30px; padding-bottom:30px;}
+.pad-b {padding-bottom:10px;}
 .pad-b-2x {padding-bottom:20px;}
 .pad-b-3x {padding-bottom:30px;}
 .pad-t-2x {padding-top:20px;}
@@ -6724,6 +6725,7 @@ button.close {
 .pad-h {padding-top:15px; padding-bottom:15px;}
 .pad-h-2x {padding-top:30px; padding-bottom:30px;}
 .pad-h-3x {padding-top:45px; padding-bottom:45px;}
+.pad-b {padding-bottom:15px;}
 .pad-b-2x {padding-bottom:30px;}
 .pad-b-3x {padding-bottom:45px;}
 .pad-t-2x {padding-top:30px;}

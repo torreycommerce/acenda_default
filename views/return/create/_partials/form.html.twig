@@ -21,13 +21,9 @@
     <div class="row">
         {# Begin returns #}
         <div class="col-sm-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <header>
-                        <h1 class="page-header"><i class="fa fa-reply"></i> Create a Return</h1>
-                    </header>
-                </div>
-            </div>
+            
+            <h1 class="page-header">Create a Return</h1>
+            
             <div class="row">
                 <div class="col-md-12">Return items for <strong>Order #{{ order.order_number }}</strong></div>
                 <div class="col-md-12">
@@ -128,7 +124,7 @@
                 {% if ret == 0 %}
                     <div class="row">
                         <div class="col-md-12">
-                            <i>No item available for return.</i>
+                            <p><i>No item available for return.</i></p>
                         </div>
                     </div>
                     <div class="row">

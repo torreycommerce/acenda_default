@@ -571,21 +571,21 @@ function VariantsManager (product, img, isCollection) {
             //Color styling
             if( selectName.toLowerCase() == "color"){
                 if(_this.isCollection){
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details-collection mB"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details-collection"});
                 }else{
-                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details color-details mB"});
+                    var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details color-details"});
                 }
 
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-color"});
                 var span = $('<span>', {"class": "selected-color"}).append(
-                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
+                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
                             );
 
             }else{//size (default) styling
-                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "selector-details size-details mB"});
+                var div = $('<div>', {"id": _this.getVariationOptionId(selectName), "class": "p selector-details size-details"});
                 var ul = $('<ul>', {"class": "list-inline swatches swatches-size"});
                 var span = $('<span>', {"class": "selected-size"}).append(
-                                $('<strong>', {}).text(_this.unslugify(selectName) + ":  ")
+                                $('<span>', {"class": "selected-name"}).text(_this.unslugify(selectName) + ":  ")
                             );
             }
             //Builds a chip html elemtn for each available value available for the option, and appends it to its parent element (previously built) 
@@ -605,7 +605,7 @@ function VariantsManager (product, img, isCollection) {
                 );
             });
             //Build the span html elemtn where will be displayed the value of the currently selected option
-            var span_selected = $('<span>', {"class": "", "id": _this.getVariationSelectedId(selectName)}).text("");
+            var span_selected = $('<span>', {"class": "selected-value", "id": _this.getVariationSelectedId(selectName)}).text("");
             //Appends built element to their proper parents
             div.append(span);
             div.append(span_selected);
@@ -614,9 +614,10 @@ function VariantsManager (product, img, isCollection) {
             if(_this.isCollection){
                 $(_this.selector).append(div);
             }else{
-                var row = $('<div>', {"class": "row col-md-12"});
-                row.append(div);
-                $(_this.selector).append(row);
+                //var row = $('<div>', {"class": "p"});
+                //row.append(div);
+                //$(_this.selector).append(row);
+                $(_this.selector).append(div);
             }
         });
         //Triggers chips updates so they are styled according the displayed variant

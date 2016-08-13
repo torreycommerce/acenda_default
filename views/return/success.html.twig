@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block content %}
-<header>
-    <h1 class="page-header"><i class="fa fa-check-circle-o"></i> Return Created</h1>
-</header>
+
+<h1 class="page-header">Return Created</h1>
+
 
 {% set ids = app.request.get.ids|split(',') %}
 {% set returns = api.get('/orderreturn?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}
