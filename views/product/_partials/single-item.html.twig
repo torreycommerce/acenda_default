@@ -78,7 +78,7 @@
 									</div>
 									<div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
 
-{#                                   <div class="stock" id="stock-text-{{product.id}}"></div>#}
+									{#<div class="stock" id="stock-text-{{product.id}}"></div>#}
 								</div>
 
 								<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
@@ -125,7 +125,7 @@
 					<li class="stars">
 						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
 					</li>
-					<li class="average">
+					<li class="average fsd1">
 						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}</a>
 					</li>
 				{% endif %}
@@ -256,7 +256,7 @@
 								<div id="description-desktop" class="tab-pane fade in active">
 									<div class="panel panel-default">
 										<div class="panel-body">
-											<div itemprop="description">{{full_description}}</div>
+											<div class="g" itemprop="description">{{full_description}}</div>
 											<div id="variant-description-{{product.id}}" ></div>
 										</div>
 									</div>

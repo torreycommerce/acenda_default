@@ -51,7 +51,7 @@ set in the array in /account/_macros/base.html.twig
 					<p>No notifications have been found.</p>
 					{% endif %}
 
-					<div class="table-responsive">
+					<div class="table-responsive g">
 						<table class="table table-hover table-striped tablesorter">
 							<tbody>
 								{% for notif in notifications %}
@@ -85,7 +85,7 @@ set in the array in /account/_macros/base.html.twig
 					<p>No recent orders have been found.</p>
 					{% endif %}
 					{% for order in orders %}
-					<div class="order col-v divide">
+					<div class="order divide p">
 						<div class="row">
 							<div class="order-details col-xs-12 col-sm-5 p">
 								<div class="order-info">                    
@@ -100,7 +100,7 @@ set in the array in /account/_macros/base.html.twig
 								<div class="item">{{ item.name }}</div>
 								{% endfor %}
 							</div>
-							<div class="actions col-xs-12 col-sm-3 text-right">                                        
+							<div class="actions col-xs-12 col-sm-3 text-right p">                                        
 								<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>
 							</div>
 						</div>
@@ -133,7 +133,7 @@ set in the array in /account/_macros/base.html.twig
 					
 					{% for item in items %}
 						{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
-						<div class="col-v divide g">
+						<div class="pad-b divide p g">
 						<div class="media media-cart">
 							<div class="media-left">
 								<a href="{{ app.url ~ product.url }}">

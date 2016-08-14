@@ -73,7 +73,7 @@
 					<a href="{{ params['url']['current']}}{{products[item.product_id].0.url}}" style="color:#000; text-decoration:none;">{{ item.name }}</a>
 					<br><b>SKU:</b> {{item.sku}}
 					<br><b>Price:</b> ${{ item.price|number_format(2) }}
-					<br><b>Quantity:</b> {{ item.quantity }}
+					<br><b>Qty:</b> {{ item.quantity }}
 				</td>
 			</tr>
 			{% endfor %}

@@ -134,7 +134,7 @@
 									{% if address_select|length > 1 %}
 
 									<div class="form-group">
-										<label class="control-label" for="checkout_billing_address_id"></label>
+										<label class="control-label" for="checkout_billing_address_id">Select a Billing Address:</label>
 										{{ forms.select('checkout[billing_address_id]', app.user.getState('billing_address_id'), address_select, {class:'form-control parsley-validated', id: 'checkout_billing_address_id'}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'billing_address_id') }}</div>
 									</div>
@@ -180,10 +180,10 @@
 									</div>
 								</div>
 						</fieldset>
+						
+						</div>
+						</div>
 						{{ normalizer.normalizer() }}
-						</div>
-						</div>
-
 						<div class="actions text-right hidden-xs">
 							<input type="hidden" name="step" value="billing">
 							{% set works = {} %}

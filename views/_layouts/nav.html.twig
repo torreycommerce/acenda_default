@@ -38,11 +38,14 @@
 		<li class="close-menu clearfix">
 			<span>Close</span><i class="fa fa-angle-left"></i>
 		</li>
+		<li>
+			<a href="{{app.url}}" class="sub_c"><i class="fa fa-home"></i>Home</a>
+		</li>
 		
 		{% if app.user.id %}
 		<li>
 			<a href="javascript: void(0);" id="acc_btn"><i class="fa fa-user"></i>My Account</a>
-			<ul id="account">
+			<ul>
 				<li><a href="{{ app.url }}/account/notifications"><i class="fa fa-bell"></i>Notifications</a></li>
 				<li><a href="{{ app.url }}/account/addresses"><i class="fa fa-truck"></i>Addresses</a></li>
 				<li><a href="{{ app.url }}/account/orders"><i class="fa fa-credit-card"></i>Orders</a></li>
@@ -56,15 +59,15 @@
 		</li>
 		{% else %}
 		<li>
-			<a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i>Log in</a>
+			<a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i>Sign In / Sign Up</a>
 		</li>
 		<li>
-			<a href="{{app.url}}/return"><i class="fa fa-exchange"></i>Easy Returns</a>
+			<a href="{{app.url}}/contact"><i class="fa fa-comment"></i>Contact</a>
 		</li>
 		{% endif %}
 		
 		<li><span>
-			<form id="mobile-search-form" role="search" action="{{ app.url }}/search" method="get">
+			<form role="search" action="{{ app.url }}/search" method="get">
 				<div class="input-group">
 					<input id="mobile-search-input" class="form-control" type="text" value="" name="s" placeholder="Enter search terms">
 					<div class="input-group-btn">
@@ -75,11 +78,7 @@
 		</span></li>
 		
 		<li><h2>Categories</h2></li>
-		<li>
-			<a href="{{app.url}}" class="sub_c"><i class="fa fa-home"></i>Home</a>
-		</li>
 
-		<!-- TESTING -->
 		{% set id = 0 %}
 		{% for main_category,items in categories %}
 			{% set id = id + 1 %}

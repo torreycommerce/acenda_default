@@ -320,13 +320,13 @@ Cart
 				<div class="row">
 					<div class="col-md-12 p" id="subtotal">
 						<div class="row">
-							<div class="txt-label col-xs-7">Subtotal:</div>
+							<div class="col-xs-7">Subtotal:</div>
 							<div class="amount col-xs-5 text-right">
 								${{ cart.subtotal|number_format(2)}}
 							</div>
 						</div>
 						<div class="row" id="rate-estimate-checkout" style="display:none;">
-							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated shipping rate.">
+							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated shipping rate.">
 								Shipping*:
 							</div>
 							<div class="amount col-xs-5 text-right"></div>
@@ -344,7 +344,7 @@ Cart
 
 						{% if coupon_discount > 0 %}
 							<div class="row">
-								<div class="txt-label col-xs-7">Coupons:</div>
+								<div class="col-xs-7">Coupons:</div>
 								<div class="amount col-xs-5 text-right">
 									-${{ coupon_discount|number_format(2)}}
 								</div>
@@ -352,23 +352,23 @@ Cart
 						{% endif %}
 						{% if bundle_discount > 0 %}
 							<div class="row">
-								<div class="txt-label col-xs-7">Bundles:</div>
+								<div class="col-xs-7">Bundles:</div>
 								<div class="amount col-xs-5 text-right">
 									-${{ bundle_discount|number_format(2)}}
 								</div>
 							</div>
 						{% endif %}
 						<div class="row" id="total-before-tax" style="display:none;">
-							<div class="txt-label col-xs-7">Total Before Tax:</div>
+							<div class="col-xs-7">Total Before Tax:</div>
 							<div  class="amount col-xs-5 text-right">
 							</div>
 						</div>
 						<div class="row" id="tax-estimate-checkout" style="display:none;">
-							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated Sales Tax.">Sales Tax*:</div>
+							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated Sales Tax.">Sales Tax*:</div>
 							<div class="amount col-xs-5 text-right"></div>
 						</div>
 						<div class="row" id="estimate-total">
-							<div class="txt-label col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">Total*:</div>
+							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="left" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">Total*:</div>
 							<div class="amount col-xs-5 text-right">
 								${{ cart.adjusted_subtotal|number_format(2) }}
 							</div>

@@ -40,7 +40,7 @@
     {% for return in returns %}
     <ul class="list-unstyled pL25">
     <li><strong>RMA #:</strong> {{ return.rma }}</li>
-    <li><strong>Quantity:</strong>  {{ return.quantity }}</li>
+    <li><strong>Qty:</strong>  {{ return.quantity }}</li>
     <li><strong>Product Name:</strong>  {{ items[return.item_id].0.name }}</li>
     <li><strong>Reason:</strong>  {{ return.reason }}</li>
     </ul>

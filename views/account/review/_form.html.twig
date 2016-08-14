@@ -35,7 +35,7 @@
 	<legend>Review Text</legend>
 	<div class="form-group">
 		<label class="control-label" for="title">Title <span class="text-danger">*</span></label>
-		{{ forms.text('review[title]',review.title, {class:'form-control parsley-validated', id:'title', placeholder:"Title", required:true}) }}
+		{{ forms.text('review[title]',review.title, {class:'form-control parsley-validated', id:'title', placeholder:"Review Title", required:true}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, 'title') }}</div>
 	</div>
 	
