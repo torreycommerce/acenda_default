@@ -53,7 +53,7 @@ set in the array in /account/_macros/base.html.twig
 	{{ forms.begin('address','','post', {class:'form-region'}) }}
 	<div id="customer-account-addresses">
 
-		<h1 class="page-header">Addresses</h1>
+		<h1>Addresses</h1>
 
 		{% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
 		{% if addresses is empty %}

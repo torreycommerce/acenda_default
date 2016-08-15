@@ -160,7 +160,7 @@
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
-    <nav id="preview-admin-header" class="navbar navbar-fixed-top hidden-xs" role="navigation">
+    <nav id="admin-bar" class="navbar navbar-fixed-top hidden-xs" role="navigation">
         <div class="container-fluid">
             <div class="btn-group">
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -194,17 +194,17 @@ $(document).ready(function() {
     $('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 
     var timer=0;
-    timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
-    $('#preview-admin-header').hover(function() {
+    timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
+    $('#admin-bar').hover(function() {
         clearTimeout(timer);
     },function() {
         if(timer) clearTimeout(timer);
-            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
+            timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
     })
     $(window).scroll(function() {
-        $('#preview-admin-header').fadeIn('slow');
+        $('#admin-bar').fadeIn('slow');
         if(timer) clearTimeout(timer);
-            timer = setTimeout(function() {  $('#preview-admin-header').fadeOut('slow'); timer=0; },2000);
+            timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
     });
 });
 </script>

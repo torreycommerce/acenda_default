@@ -21,7 +21,7 @@
 
 	{# End navigation #}
 	<div id="customer-account-order-details">
-		<h1 class="page-header">Return Created</h1>
+		<h1>Return Created</h1>
 						 
 	{% set ids = app.request.get.ids|split(',') %}
 	{% set returns = api.get('/orderreturn?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':app.request.get.ids|split(',')}}}) %}

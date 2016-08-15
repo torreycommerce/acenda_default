@@ -34,7 +34,7 @@ set in the array in /account/_macros/base.html.twig
 	{# End navigation #}
 	{# Begin notification #}
 	<div id="customer-notification">
-		<h1 class="page-header">View Notification</h1>
+		<h1>View Notification</h1>
 		
 		{% set notification = api.get('/customernotification/' ~ id) %}
 		{% if notification.date_viewed == '' %}

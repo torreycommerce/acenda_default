@@ -30,7 +30,7 @@
         {% endif %}
     {% endif %}
     {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-    <h1 class="page-header">Create a New Wish List</h1>
+    <h1>Create a New Wish List</h1>
     <div id="wishlist-create">
     {{ lonelyform.begin('create-wish-list')}}
         {% include '/account/wishlist/_partials/form.html.twig' %}

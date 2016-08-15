@@ -142,13 +142,13 @@ Cart
 {% else %}
 <section id="shopping-cart">
 	
-	<h1 class="page-header">Shopping Cart</h1>
+	<h1>Shopping Cart</h1>
 	
 	{{ forms.begin('cart','','post', {class:'form-region p divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
 	
-	<div class="col-v divide g">
+	<div class="divide p pad-b g">
 	<div class="media media-cart">
 		{# Begin item image #}
 		<div class="media-left">

@@ -39,7 +39,7 @@
     {% endif %}
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-<h1 class="page-header">Edit {{ wishlist.name }}</h1>
+<h1>Edit {{ wishlist.name }}</h1>
 <div id="wishlist-edit">
 {{ lonelyform.begin('edit-wish-list')}}
     {{ lonelyform.beginintro() }}

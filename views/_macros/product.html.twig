@@ -40,7 +40,7 @@
             <div class="max-250 p-thin">
                 <a href="{{app.url}}/product/{{product.slug}}">
                     <div class="image-space">
-                        <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}">
+                        <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}" width="250" height="250">
                         <div class="label">
                         {% for tag in product.tags %}
                             {% if tag == 'new' %}
@@ -89,7 +89,6 @@
                 {% if product.description is not empty %}
                     {% set full_description = product.description %}
                         <div class="hidden"><span itemprop="description">{{full_description}}</span></div>
-                        <div class="hidden" id="variant-description-{{product.id}}" ></div>
                 {% endif %}
 
                 {% set id = 0 %}
@@ -124,7 +123,7 @@
                 </span>              
                 {% set review_score = product.product|values_in('review_score')|merge([product.review_score])|average() %}
                 {% if review_score > 0 %}
-                    <div class="rating">{ base.rating(review_score) }}</span></div>
+                    <div class="rating">{ base.rating(review_score) }}</div>
                 {% endif %}
             </div>
             {# End product details #}

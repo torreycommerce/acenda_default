@@ -39,7 +39,7 @@ setCustomerNotification = function(type,message,id) {
   notifier.append(btn);
   notifier.append(message);
   notifier.append(confirmBtn);
-  $('.flash-notifications-container').last().append(notifier);
+  $('.flash-note').last().append(notifier);
 
   if(type == 'confirm' || type == 'error') {
     notifier.fadeIn();

@@ -10,7 +10,7 @@
 						<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 							<div class="isd" id="main-product-video" style="display:none"></div>
 							<span class="isd">
-								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-zoom="" alt="" style="display:none"/>
+								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-zoom="" width="450" height="450" alt="" style="display:none">
 							</span>
 							<span class="helper"></span>
 						</div>
@@ -26,7 +26,7 @@
 							<div class="item active" id="variant-image-carousel-copy" style="display:none;">
 								<div class="col-xs-2 col-thin p-thin" id="variant-image-thumbnail-copy">
 									<div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-swap="main-product-image" data-image-swap-src=""  data-image-swap-zoom="" alt="" />
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="450" height="450" alt="">
 									</div>
 								</div>
 								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
@@ -57,8 +57,8 @@
 					<div class="brand">
 						<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
 					</div>
-					<h1 class="product-name"><span itemprop="name">{{product.name}}</span></h1>
-					<div class="sku-details" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
+					<h1 class="product-name text-left"><span itemprop="name">{{product.name}}</span></h1>
+					<div class="sku-details p-thin" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
 					{% set id = 0 %}
 					{% for sku in product.variant %}
 						{% set id = id + 1 %}
@@ -83,32 +83,28 @@
 
 								<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
 							</div>
-							<div class="row">
-								<div class="col-xs-12" id="pricing-box-{{product.id}}">
-									{# Begin pricing #}
-									<ul class="pricing list-inline">
-										{# Begin regular price #}
-											<li class="price-regular" id="product-standard-price-{{product.id}}">
-											</li>
-										{# End regular price #}
-										{# Begin percent off #}
-											{# <li class="percent" id="save-pricing-{{product.id}}">
-											</li> #}
-										{# End percent off #}
-										{# Begin price per month #}
-										{# if variation.price >= 100 %}
-											<li class="per-month">
-												<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
-													{{ prod.billmelater(variation.price) }}
-												</span>
-											</li>
-										{% endif #}
-										{# End price per month #}
-									</ul>
-									{# End pricing #}
-								</div>
+							
+							<div id="pricing-box-{{product.id}}">
+								{% spaceless %}
+								<ul class="pricing list-inline">
+									{# Begin regular price #}
+										<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
+									{# End regular price #}
+									{# Begin percent off #}
+										<li class="percent" id="save-pricing-{{product.id}}"></li>
+									{# End percent off #}
+									{# Begin price per month #}
+									{# if variation.price >= 100 %}
+										<li class="per-month">
+											<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
+												{{ prod.billmelater(variation.price) }}
+											</span>
+										</li>
+									{% endif #}
+								</ul>
+								{% endspaceless %}
 							</div>
-							   
+							
 						{# End Product Prices #}
 						</div>
 					</span>
@@ -120,6 +116,7 @@
 		{# Begin review stars #}
 		<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 		{% set review_score = reviews|average('score') %}
+			{% spaceless %}
 			<ul class="list-unstyled list-inline reviews">
 				{% if review_score > 0 %}
 					<li class="stars">
@@ -133,6 +130,7 @@
 					<a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
 				</li>
 			</ul>
+			{% endspaceless %}
 		</div>
 		{# End review #}
 		<div id="variation-selector-{{product.id}}">

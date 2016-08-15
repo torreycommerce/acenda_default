@@ -245,7 +245,7 @@
 									{% for dsc in coupons %}
 										{% set discount = discount + dsc.discount %}
 									{% endfor %}
-									<div class="col-md-6">Discount:</div><div class="col-md-6 discount-line-through text-right">-${{ discount|number_format(2, '.') }}</div>
+									<div class="col-md-6">Discount:</div><div class="col-md-6 price-discount text-right">-${{ discount|number_format(2, '.') }}</div>
 								{% endif %}
 								</div>
 							</div>
