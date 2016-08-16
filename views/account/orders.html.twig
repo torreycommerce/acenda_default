@@ -38,7 +38,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		<div class="page-filters divide p">
 			<div class="row">
 				{# Begin order filter #}
-				<div class="col-sm-4 col-md-3 col-lg-2 p">
+				<div class="col-xs-6 col-sm-4 p">
 					<div class="order-filter">
 						{{ forms.begin('ordersearch', app.url ~ '/account/orders', 'get') }}
 						{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control'}) }}
@@ -46,7 +46,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				</div>
 				{# End order filter #}
 				{# Begin order search #}
-				<div class="col-sm-6 col-sm-offset-2 col-md-5 col-md-offset-4 col-lg-4 col-lg-offset-6 p">
+				<div class="col-xs-6 col-sm-4 p pull-right">
 					<div class="search-within">
 						<div class="input-group">
 							<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search">
@@ -66,7 +66,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{% endif %}
 		{% set orders = api.get('/order', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-xs-12 text-center">
 				{{ base.pagination(orders.num_total,limit) }}
 			</div>
 		</div>
@@ -90,7 +90,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 						{% if order.hide_shipping != true %}
 						<div class="shipping-address">
 							<div><strong>Shipping Address</strong></div>
-							<address class="shipping-address">
+							<address>
 								{{ order.shipping_street_line1 }}<br>
 								{% if order.shipping_street_line2 %}{{ order.shipping_street_line2 }}<br>{% endif %}
 								{% if order.shipping_company %}{{ order.shipping_company }}<br>{% endif %}
@@ -147,7 +147,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{% endfor %}
 		{# Begin pagination #}
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-xs-12 text-center">
 				{{ base.pagination(orders.num_total,limit) }}
 			</div>
 		</div>

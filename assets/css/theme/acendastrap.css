@@ -1175,7 +1175,7 @@ h6,
   font-family: inherit;
   font-size: 140%;
   font-weight: 300;
-  line-height: 1.1;
+  line-height: 1.2;
   color: #000;
 }
 h1,.h1 {
@@ -4644,7 +4644,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination {
   display: inline-block;
   padding-left: 0;
-  margin: 15px 0;
+  margin: 0;
 }
 .pagination > li {
   display: inline;
@@ -6677,7 +6677,8 @@ button.close {
 .pad-t-2x {padding-top:20px;}
 .col-v {padding-top:10px; padding-bottom:10px;}
 
-.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel, .panel-group, .well {margin-bottom:10px;}
+.p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
+.p-mini {margin-bottom:5px;}
 
 .row.row-thin {margin-left:-5px; margin-right:-5px;}
 .col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
@@ -6694,6 +6695,9 @@ button.close {
 
 .img-c {margin-left:auto; margin-right:auto;}
 
+.dib {display:inline-block; min-width:1.25em; margin-right:.5em; margin-left:.5em; text-align:center;}
+.dib:last-child {margin-right:0;}
+.dib:first-child {margin-left:0;}
 
 .c-c .col-xs-6:nth-child(2n+1),.c-c .col-xs-4:nth-child(3n+1),.c-c .col-xs-3:nth-child(4n+1),.c-c .col-xs-2:nth-child(6n+1) {clear:left;}
 
@@ -6741,7 +6745,8 @@ hr {margin-top:15px; margin-bottom:15px;}
 .list-inline > li {padding-right:7.5px; padding-left:7.5px;}
 .list-inline-free>li {padding-top:7.5px; padding-bottom:7.5px;}
 
-.p, address, dl, p, ul, ol, .table, .form-group, .media, .panel, .panel-group, .well {margin-bottom:15px;}
+.p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:15px;}
+.p-mini {margin-bottom:7.5px;}
 .media-right, .media > .pull-right {padding-left:30px;}
 .media-left, .media > .pull-left {padding-right:30px;}
 .popover-content {padding:15px;}

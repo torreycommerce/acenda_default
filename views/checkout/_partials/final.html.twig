@@ -1,17 +1,15 @@
 {# Begin Branding for Print Page #}
 <div class="row visible-print">
 	<div class="col-xs-12 p">
-		<div class="brand">
-			{% if app.params.logoimages is not empty %}
-				{% set logo_info = app.params.logoimages | first %}
-				{% set logo = logo_info.url %}
-			{% endif %}
-			{% if logo is not empty %}
-			 	<img class="img-responsive" src="{{ logo }}" alt="">
-			{% else %}
-				<div id="logo-txt">{{ app.params.site.title }}</div>
-			{% endif %}
-		</div>
+		{% if app.params.logoimages is not empty %}
+			{% set logo_info = app.params.logoimages | first %}
+			{% set logo = logo_info.url %}
+		{% endif %}
+		{% if logo is not empty %}
+		 	<img class="img-responsive" src="{{ logo }}" alt="">
+		{% else %}
+			<div id="logo-txt">{{ app.params.site.title }}</div>
+		{% endif %}
 	</div>
 </div>
 {# End Branding for Print Page #}

@@ -37,7 +37,7 @@ set in the array in /account/_macros/base.html.twig
 	<div id="customer-account-notifications">
 
 		{# Begin header #}
-		<h1><span>Your Notifications</span></h1>
+		<h1>Your Notifications</h1>
 					
 		{# End header #}
 		<div class="page-filters divide p">
@@ -53,13 +53,19 @@ set in the array in /account/_macros/base.html.twig
 				{% set search = '' %}
 				{% endif %}
 				{% set notifications = api.get('/customernotification',{'sort':sort,'page':app.request.get.page,'query':query + {customer_id:app.user.id},'search':search,'attributes':columns,'limit':  limit }) %}
-				<div class="col-md-4 col-md-offset-4">{{ base.pagination(notifications.num_total , limit ) }}</div>
-				<div class="search-within col-md-4 p">
-					<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
-						<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
-						<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
-					</form>
+				<div class="col-xs-12 col-sm-4 p pull-right">
+					<div class="search-within">
+						<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
+							<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
+							<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
+						</form>
+					</div>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				{{ base.pagination(notifications.num_total , limit ) }}
 			</div>
 		</div>
 		<div class="row">

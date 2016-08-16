@@ -54,7 +54,6 @@ h2.section-name {margin-bottom:15px;}
 .availability {color:#558C89;}
 
 
-#header .cart .item-count {display:inline-block; min-width:1.25em; margin:0 0 0 .5em; text-align:center;}
 #header .popover {left:auto!important; right:15px; width:420px; margin:0; padding:0; max-width:none;}
 .ajaxcart-products {max-height:350px; overflow:hidden; overflow-y:auto;}
 #header .logo {font-size:200%;}
@@ -151,7 +150,7 @@ h1 {margin:0 0 15px; padding:0 0 9px;}
 
 
 /**** 4-) Navbar Menu Styling  ****/
-.dropdown-submenu>.dropdown-menu {top:0;left:100%;} 
+.dropdown-submenu>.dropdown-menu {top:-8px; left:100%;}
 
 @media (min-width: 768px) {
 ul.nav li:hover > ul.dropdown-menu {display:block;}
@@ -166,6 +165,9 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 .navigation .navbar .sidebar .nav > li.active > a {background-color:#000; color:#fff;}
+
+
+
 .twitter-typeahead .hint-small {height: 30px;padding: 5px 10px;font-size: 12px;border-radius: 3px;line-height: 1.5;}/*  Tt Auto Search Style*/
 .twitter-typeahead .hint-large {height: 45px;padding: 10px 16px;font-size: 18px;border-radius: 6px;line-height: 1.33;}
 .twitter-typeahead, .tt-dropdown-menu, .tt-hint {width:100%;}
@@ -175,10 +177,9 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .input-group .form-control.tt-input:focus,.tt-hint:focus {/*border-color:#ddd;*/}
 .tt-menu {padding:5px 0; width:100%; background-color: #fff;border: 1px solid #ccc;border: 1px solid rgba(0, 0, 0, 0.2);box-shadow: 0 5px 10px rgba(0,0,0,.2);}
 .tt-suggestion {padding: 3px 20px;cursor: pointer;text-align: left;}
-.tt-suggestion.tt-cursor { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */color: #fff;background-color: #0097cf;}
+.tt-suggestion.tt-cursor {color: #fff;background-color: #0097cf;}
 .tt-suggestion p {margin: 0;}
-.tt-cursor {background-color: #0097cf;}/*  End Tt Auto Search Style*/ 
-/**** End Navbar Menu Styling  ****/
+.tt-cursor {background-color: #0097cf;}
  
 
 
@@ -189,15 +190,12 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 /**** 7-) Category Page Styling   ****/
 .category-filters .filter a {display:block;}
 .category-filters .filter-clear a {display:block; margin:2px 0; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
-.page-filters .pagination {margin:0;}
 /**** End Category Page Styling   ****/
 
 
-.product-grid .empty-carousel {display:block; padding-top:13.8888888%;}
-.product-grid .color-carousel {float: left;display: block;width: 100%;}
-.product-grid .color-carousel .carousel {padding-right: 0;padding-left:0;}
-
-#product-details header .brand {margin:0 0 5px;}
+.empty-carousel {display:block; padding-top:13.8888888%;}
+.color-carousel {float: left;display: block;width: 100%;}
+.color-carousel .carousel {padding-right: 0;padding-left:0;}
 
 
 .swatches {margin-right:-1px; margin-left:-1px;}
