@@ -252,8 +252,8 @@ Cart
             {% endif %}
         {% endfor %}
 		<div class="col-xs-12 col-md-8">
-            {% if has_bundle %}
             {{ forms.begin('cart','','post', {class:'form-region divide p'}) }}
+            {% if has_bundle %}
             <div class="p divide" id="bundles">
 				<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
 				<div class="form-group">
