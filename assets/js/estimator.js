@@ -23,7 +23,7 @@ function estimator() {
                 // It is probably more efficient to make this into one API call with SessionCart
                 $('#form').hide();
                 $('#estimate').show();
-                $('#rate-estimate').html('€' + method_data.result.rate);
+                $('#rate-estimate').html('$' + method_data.result.rate);
                 setRateEstimatedShipping(method_data.result.rate);
                 var total_before_tax = parseFloat(cart_data.result.subtotal) + parseFloat(method_data.result.rate);
                 var total_before_tax = total_before_tax.toFixed(2).toLocaleString();
@@ -34,10 +34,10 @@ function estimator() {
                 }else{
                     $('#block-date-estimate').hide();
                 }
-                $('#tax-estimate').html('€' + tax_data.result.tax);
+                $('#tax-estimate').html('$' + tax_data.result.tax);
                 setTaxEstimated(tax_data.result.tax);
                 var total = parseFloat(cart_data.result.subtotal) + parseFloat(tax_data.result.tax) + parseFloat(method_data.result.rate);
-                $('#total-estimate').html('€' + total.toFixed(2).toLocaleString());
+                $('#total-estimate').html('$' + total.toFixed(2).toLocaleString());
                 setTotalEstimated(total.toFixed(2).toLocaleString());
             });
         });
@@ -57,20 +57,20 @@ $('#cart_ClearEstimate').click(function(e) {
     $('#form').show();
 });
 function setRateEstimatedShipping(rate){
-    $('#rate-estimate-checkout').find('.amount').text('€'+rate);
+    $('#rate-estimate-checkout').find('.amount').text('$'+rate);
     $('#rate-estimate-checkout').show();
 }
 function setTaxEstimated(tax){
-    $('#tax-estimate-checkout').find('.amount').text('€'+tax);
+    $('#tax-estimate-checkout').find('.amount').text('$'+tax);
     $('#tax-estimate-checkout').show();
 }
 function setTotalEstimated(total){
     var estimate_total = $('#estimate-total').find('.amount');
     estimate_total.data("old-value", estimate_total.text());
-    estimate_total.text('€'+total);
+    estimate_total.text('$'+total);
 }
 function setTotalBeforeTax(total){
-    $('#total-before-tax').find('.amount').text('€'+total);
+    $('#total-before-tax').find('.amount').text('$'+total);
     $('#total-before-tax').show();
 }
 function clearEstimated(){

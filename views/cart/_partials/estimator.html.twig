@@ -24,7 +24,7 @@
 		</div>
 	</div>
 {{ forms.end() }}
-<div id="estimate" style="display:none">
+<div class="fsd1" id="estimate" style="display:none">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well">
@@ -79,13 +79,13 @@
 				{# End shipping rate #}
 				
 				{# Begin arrival date #}
-				<div class="arrival" id="block-date-estimate">
+				<div class="arrival p" id="block-date-estimate">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-xs-5">
 							<b style="cursor: pointer;" data-target="#modal-arrival-date" data-toggle="modal">Arrives</b><i class="fa fa-question-circle"></i>
 						</div>
-						<div class="col-xs-6 text-right">
-							<span id="date-estimate"></span>&nbsp;(for in stock products)
+						<div class="col-xs-7 text-right">
+							<span id="date-estimate"></span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
 						</div>
 					</div>
 				</div>
@@ -103,7 +103,7 @@
 				</div>
 				{# End estimated tax #}
 				{# Begin estimated total #}
-				<div class="total p">
+				<div class="total divide p pad-b">
 					<div class="row">
 						<div class="col-xs-9">
 							<b>Estimated Total</b>
@@ -116,11 +116,7 @@
 				{# End estimated total #}
 				{# Begin estimator actions #}
 				<div class="actions">
-					<div class="row">
-						<div class="col-xs-12">
-							{{ forms.submit('cart[ClearEstimate]', '', 'Clear Estimate', {'class':'btn btn-default', id: 'cart_ClearEstimate'}) }}
-						</div>
-					</div>
+					{{ forms.submit('cart[ClearEstimate]', '', 'Clear Estimate', {'class':'btn btn-default', id: 'cart_ClearEstimate'}) }}
 				</div>
 				{# End estimator actions #}
 			</div>

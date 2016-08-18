@@ -92,28 +92,33 @@
 		</header>
 		{# End product header #}
 		{# Begin review stars #}
+		{% spaceless %}
 		{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
-		
-		<ul class="list-inline reviews">
-			{% if review_score > 0 %}
-			<li class="stars">
-				<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
-			</li>
-			<li class="average">
-				<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
-			</li>
-			{% endif %}
-			<li class="submit">
-				<a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
-			</li>
-		</ul>
-			
-		{# End review stars #}
+		{% if review_score > 0 %}
+		<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		{% endif %}
+			<ul class="list-inline reviews">
+		{% if review_score > 0 %}
+				<li>
+					<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
+				</li>
+				<li class="fsd1">
+					<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
+				</li>
+		{% endif %}
+				<li>
+					<a class="btn btn-sm btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
+				</li>
+			</ul>
+		{% if review_score > 0 %}
+		</div>
+		{% endif %}
+		{% endspaceless %}
 		{# Begin add to cart / actions area #}
 		{% if prices.price is not empty %}
 		<div class="p">
 			<a class="btn btn-lg btn-primary btn-cart" href="#collection">
-				<i class="fa fa-shopping-cart"></i>&nbsp;<span class="text">Add to Cart Below</span>
+				<i class="fa fa-shopping-cart"></i><span class="text">Add to Cart Below</span>
 			</a>
 		</div>
 		{% endif %}
@@ -121,11 +126,9 @@
 		{# Begin short description #}
 		{% if product.description is not empty %}
 			{% set description = product.description|slice(0,300) %}
-			<section id="collection-short-description-desktop" class="hhidden-xs">
-				<div class="description-content">
-					{{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read More)</a>{% endif %}
-				</div>
-			</section>
+		<section class="description-content">
+			{{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read More)</a>{% endif %}
+		</section>
 		{% endif %}
 		{# End short description #}
 
@@ -187,104 +190,102 @@
 							{% for bundle in bundles %}
 								{# Begin collection product #}
 								<div class="variations divide">
-									<div class="product">
-										<div class="row">
+									<div class="row">
+										
+										{# Begin collection product image #}
+										<div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
+											<div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
+												<img id="main-product-image-copy"
+													onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'"
+													src="{{app.image.getImageUrl("product","standard",bundle.items[0].images[0].id) }}"
+													width="250" class="img-responsive" alt="" />
+											</div>
+										</div>
+										{# End collection product image #}
+										{# Begin collection product details #}
+										<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
 											
-												{# Begin collection product image #}
-												<div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
-													<div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
-														<img id="main-product-image-copy"
-															onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'"
-															src="{{app.image.getImageUrl("product","standard",bundle.items[0].images[0].id) }}"
-															width="250" class="img-responsive" alt="" />
+											<div class="product-name">{{ bundle.name }}</div>
+											{# Begin variation dropdown #}
+												<div class="pricing">
+													<div class="price" id="product-price-{{bundle.id}}">${{ bundle.price }}</div>
+												</div>
+											{# End variation dropdown #}
+											{# Begin pricing #}
+												<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
+													{# Begin regular price #}
+													<li class="price-regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
+													{# End regular price #}
+													{# Begin percent off #}
+													{% if bundle.discount_type == 'dollar'%}
+														<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
+													{% elseif bundle.discount_type == 'percentage' %}
+														<li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
+													{% elseif bundle.discount_type == 'fixed' %}
+														<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
+													{% endif %}
+													{# End percent off #}
+												</ul>
+											{# End pricing #}
+											{# Begin estimated shipping #}
+
+												<div class="p availability" id="stock-text-{{product.id}}">
+													{% if bundle.has_stock == '1' %}
+														In Stock
+													{% else %}
+														Out of Stock
+													{% endif %}
+												</div>
+
+											{# End estimated shipping #}
+											{# Begin product tags #}
+												<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
+													<li>
+														{% for item in bundle.items %}
+															{% for tag in item.tags %}
+																<span class="label label-info">{{tag|title}}</span>
+															{% endfor %}
+														{% endfor %}
+													</li>
+												</ul>
+											{# End product tags #}
+										</div>
+										{# End collection product details #}
+										
+
+										<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+											<div class="details">
+												<div class="col-md-8 row">
+													<div class="variation-selection">
+														{{ bundle.description }}<br/>
+														<ul>
+															{% for item in bundle.items %}
+																<li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
+															{% endfor %}
+														</ul>
 													</div>
 												</div>
-												{# End collection product image #}
-												{# Begin collection product details #}
-												<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
-													
-													<div class="product-name">{{ bundle.name }}</div>
-													{# Begin variation dropdown #}
-														<div class="pricing">
-															<div class="price" id="product-price-{{bundle.id}}">${{ bundle.price }}</div>
-														</div>
-													{# End variation dropdown #}
-													{# Begin pricing #}
-														<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
-															{# Begin regular price #}
-															<li class="price-regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
-															{# End regular price #}
-															{# Begin percent off #}
-															{% if bundle.discount_type == 'dollar'%}
-																<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
-															{% elseif bundle.discount_type == 'percentage' %}
-																<li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
-															{% elseif bundle.discount_type == 'fixed' %}
-																<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
-															{% endif %}
-															{# End percent off #}
-														</ul>
-													{# End pricing #}
-													{# Begin estimated shipping #}
-
-														<div class="p availability" id="stock-text-{{product.id}}">
-															{% if bundle.has_stock == '1' %}
-																In Stock
-															{% else %}
-																Out of Stock
-															{% endif %}
-														</div>
-
-													{# End estimated shipping #}
-													{# Begin product tags #}
-														<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
-															<li>
-																{% for item in bundle.items %}
-																	{% for tag in item.tags %}
-																		<span class="label label-info">{{tag|title}}</span>
-																	{% endfor %}
-																{% endfor %}
-															</li>
-														</ul>
-													{# End product tags #}
-												</div>
-												{# End collection product details #}
-											
-
-											<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
-												<div class="details">
-													<div class="col-md-8 row">
-														<div class="variation-selection">
-															{{ bundle.description }}<br/>
-															<ul>
-																{% for item in bundle.items %}
-																	<li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
-																{% endfor %}
-															</ul>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-12 col-md-3">
-													{# Begin collection product actions #}
-														<div class="actions">
-															<div class="quantity-input-group quantity" id="div-quantity-{{product.id}}">
-																<label for="variant-input-{{bundle.id}} class="control-label pT0">Qty</label>
-																<div class="input-group">
-																	<div class="input-group-btn">
-																		<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-																	</div>
-																	<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
-																	<div class="input-group-btn">
-																		<button class="btn btn-primarybtn-add" type="button"><i class="fa fa-plus"></i></button>
-																	</div>
+											</div>
+											<div class="col-xs-12 col-md-3">
+												{# Begin collection product actions #}
+													<div class="actions">
+														<div class="quantity-input-group quantity" id="div-quantity-{{product.id}}">
+															<label for="variant-input-{{bundle.id}} class="control-label pT0">Qty</label>
+															<div class="input-group">
+																<div class="input-group-btn">
+																	<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
+																</div>
+																<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
+																<div class="input-group-btn">
+																	<button class="btn btn-primarybtn-add" type="button"><i class="fa fa-plus"></i></button>
 																</div>
 															</div>
 														</div>
-													{# End collection product actions #}
-												</div>
+													</div>
+												{# End collection product actions #}
 											</div>
-											{# End variation block of product #}
 										</div>
+										{# End variation block of product #}
 									</div>
 								</div>
 							{% endfor %}
@@ -372,7 +373,7 @@
 															<span class="isd"></span>
 														</span>
 													</a>
-													<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
+													<img itemprop="image" alt="" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
 														class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
 												</div>
 												{# End collection product image #}
