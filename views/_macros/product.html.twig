@@ -37,7 +37,7 @@
             {% endif %}
 
             {# Begin product image #}               
-            <div class="max-250 p-thin">
+            <div class="max-250 p-mini">
                 <a href="{{app.url}}/product/{{product.slug}}">
                     <div class="image-space">
                         <img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}" width="250" height="250">

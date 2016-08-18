@@ -55,14 +55,14 @@ $('button[value=cart]').click(function(event) {
     }
 
     // Disable submit button
-    $('button[value=cart]').attr('disabled',true);
+    $('button[value=cart]').addClass('wait').attr('disabled',true);
     //console.log("Add to cart");
     //console.log(form.serialize());
     $.post(acendaBaseUrl + '/product/route',
         form.serialize())
     .always(function(data) {
         // Make sure to reenable it, success or failure
-        $('button[value=cart]').attr('disabled',false);
+        $('button[value=cart]').addClass('wait').attr('disabled',false);
         $("html, body").animate({ scrollTop: 0 }, 600);
     })
     .fail(function() {
