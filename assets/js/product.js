@@ -382,11 +382,11 @@ function VariantsManager (product, img, isCollection) {
                     //If the option value (chip) is currently selected
                     if(_this.selectedValues[name] == value){
                         //Then the chip is in the state selected, not available
-                        $(_this.getVariationSelector(name, value)).attr("class", "notavailable-selected"); //Set chip class corresponding to its current state
+                        $(_this.getVariationSelector(name, value)).attr("class", "not-avail-sel disabled"); //Set chip class corresponding to its current state
                         $(_this.getVariationSelector(name, value)).tooltip(); //Set tooltip to display since the option value corresponding to the chip is not available
                     }else{
                         //not selected not available
-                        $(_this.getVariationSelector(name, value)).attr("class", "notavailable");
+                        $(_this.getVariationSelector(name, value)).attr("class", "not-avail disabled");
                         $(_this.getVariationSelector(name, value)).tooltip();
                     }
                 }else{

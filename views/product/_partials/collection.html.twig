@@ -72,7 +72,7 @@
 			{# Begin product prices #}
 			{% set prices =  product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
 			{% if prices.price|first > 0 %}
-			<div class="pricing">
+			<div class="pricing g p">
 				<div class="price price-range">{{ prod.price(prices.price) }}</div>
 				{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
 					{% spaceless %}

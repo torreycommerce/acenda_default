@@ -41,16 +41,16 @@
 				<a href="{{app.url}}/product/{{product.slug}}">
 					<div class="image-space">
 						<img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}" width="250" height="250">
-						<div class="label">
+						<div class="labels">
 						{% for tag in product.tags %}
 							{% if tag == 'new' %}
-								<span class="label-new">{{ tag|capitalize }}</span>
+								<span class="label label-new">{{ tag|capitalize }}</span>
 							{% elseif tag == 'sale' %}
-								<span class="label-sale">{{ tag|capitalize }}</span>
+								<span class="label label-sale">{{ tag|capitalize }}</span>
 							{% elseif tag == 'popular' %}
-								<span class="label-hot">{{ tag|capitalize }}</span>
+								<span class="label label-hot">{{ tag|capitalize }}</span>
 							{% else %}
-								<span class="label-feat">{{ tag|capitalize }}</span>
+								<span class="label label-feat">{{ tag|capitalize }}</span>
 							{% endif %}
 						{% endfor %}
 						</div>
@@ -93,7 +93,7 @@
 				{# End product descriptiong for google rich snippets, not showing in the preview! #}      
 
 				<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					<div class="pricing">
+					<div class="pricing g">
 						{% if product.attributes.price %}
 						<div class="price"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
 						<meta itemprop="priceCurrency" content="USD" />
@@ -137,10 +137,11 @@
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
 		{% set carouselHasNext = false %}
-		<div class="color-carousel hidden-sm hidden-xs">
-			<div id="color-image-carousel-{{product.id}}" class="col-xs-6 col-sm-10 carousel slide" data-ride="carousel">
+		<div class="color-carousel row row-thin hidden-sm hidden-xs">
+			<div id="color-image-carousel-{{product.id}}" class="col-xs-10 col-thin carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="item active">
+						<div class="row row-thin">
 						{% set colors = [] %}
 						{% for item,child in product.variant if 
 							child.status == 'active' 
@@ -156,16 +157,19 @@
 							{% set carouselblock = carouselblock + 1 %}
 							{% if carouselblock is divisibleby(6) and product.variant[(item + 1)] is defined %}
 								{% set carouselHasNext = true %}
+									</div>
 								</div>
 								<div class="item">
+									<div class="row row-thin">
 							{% endif %}
 						{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>
 			{% if carouselHasNext == true %}
-			<div class="col-xs-1">
-				<a class="btn btn-sm btn-default" href="#color-image-carousel-{{product.id}}" data-slide="next">
+			<div class="col-xs-2 col-thin">
+				<a class="btn btn-xs btn-default" href="#color-image-carousel-{{product.id}}" data-slide="next">
 					<span class="glyphicon glyphicon-chevron-right"></span>
 				</a>
 			</div>

@@ -4757,15 +4757,15 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .label {
   display: inline;
-  padding: .2em .6em .3em;
+  padding:6px 9px;
   font-size: 75%;
-  font-weight: bold;
   line-height: 1;
   color: #fff;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .25em;
+  border-radius: 1px;
+  background: #00a8e8;
 }
 a.label:hover,
 a.label:focus {
@@ -4822,6 +4822,9 @@ a.label:focus {
 .label-danger[href]:focus {
   background-color: #c9302c;
 }
+.label-new {background:#5cca88;}
+.label-sale {background:#c11818;}
+.label-hot {background:#f55;}
 .badge {
   display: inline-block;
   min-width: 10px;
@@ -6681,10 +6684,6 @@ button.close {
 .p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
 .p-mini {margin-bottom:5px;}
 
-.row.row-thin {margin-left:-5px; margin-right:-5px;}
-.col-thin.col-xs-1, .col-thin.col-sm-1, .col-thin.col-md-1, .col-thin.col-lg-1, .col-thin.col-xs-2, .col-thin.col-sm-2, .col-thin.col-md-2, .col-thin.col-lg-2, .col-thin.col-xs-3, .col-thin.col-sm-3, .col-thin.col-md-3, .col-thin.col-lg-3, .col-thin.col-xs-4, .col-thin.col-sm-4, .col-thin.col-md-4, .col-thin.col-lg-4, .col-thin.col-xs-5, .col-thin.col-sm-5, .col-thin.col-md-5, .col-thin.col-lg-5, .col-thin.col-xs-6, .col-thin.col-sm-6, .col-thin.col-md-6, .col-thin.col-lg-6, .col-thin.col-xs-7, .col-thin.col-sm-7, .col-thin.col-md-7, .col-thin.col-lg-7, .col-thin.col-xs-8, .col-thin.col-sm-8, .col-thin.col-md-8, .col-thin.col-lg-8, .col-thin.col-xs-9, .col-thin.col-sm-9, .col-thin.col-md-9, .col-thin.col-lg-9, .col-thin.col-xs-10, .col-thin.col-sm-10, .col-thin.col-md-10, .col-thin.col-lg-10, .col-thin.col-xs-11, .col-thin.col-sm-11, .col-thin.col-md-11, .col-thin.col-lg-11, .col-thin.col-xs-12, .col-thin.col-sm-12, .col-thin.col-md-12, .col-thin.col-lg-12 {padding-left:5px; padding-right:5px;}
-.p-thin {margin-bottom:10px;}
-
 .d-b {display:block!important;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
@@ -6699,6 +6698,11 @@ button.close {
 .dib {display:inline-block; min-width:1.25em; margin-right:.5em; margin-left:.5em; text-align:center;}
 .dib:last-child {margin-right:0;}
 .dib:first-child {margin-left:0;}
+.divide {border-bottom:1px solid #ccc;}
+.divide:last-child {border-bottom:none;}
+.no-of {overflow:hidden;}
+.uc {text-transform:uppercase;}
+.wsnw {white-space:nowrap;}
 
 .c-c .col-xs-6:nth-child(2n+1),.c-c .col-xs-4:nth-child(3n+1),.c-c .col-xs-3:nth-child(4n+1),.c-c .col-xs-2:nth-child(6n+1) {clear:left;}
 
@@ -6795,6 +6799,9 @@ body {font-size:87.5%;}
 .p-xs-2x {margin-bottom:20px;}
 }
 
+.row.row-thin {margin-left:-5px; margin-right:-5px;}
+.col-thin {padding-left:5px; padding-right:5px;}
+.p-thin {margin-bottom:10px;}
 
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
 blockquote>*:last-child, .g>*:last-child, .panel-body>*:last-child, .well>*:last-child, form>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}

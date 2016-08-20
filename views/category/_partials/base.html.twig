@@ -242,7 +242,7 @@
 			{# End Sub Category grid #}
 			{# End category description #}
 			{# Begin category sorting #}
-			{% if products.num_total > 2 %}
+			{% if products.num_total > 24 %}
 			<div class="page-filters divide p">
 				<div class="row">                    
 					{# Begin search bar #}
@@ -270,31 +270,36 @@
 					{# End paging #}
 					{# Begin filters #}
 					<div class="col-md-5 col-sm-6 col-xs-12 p">
-						<div class="sorting text-center txt-md-lg-r">
-							<div id="sort-by" class="btn-group form-inline mar-w">
-								<form class="form-inline">
-									<span class="dib small">Sort:</span><button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
-										<span>{{ sortByTitle }}</span><i class="fa fa-caret-down"></i>
-									</button>
-									<ul class="dropdown-menu fsd1 text-left pull-right">
-										{% for name,sort in sort_options %}
-										<li><a href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
-										{% endfor %}
-									</ul>
-								</form>
-							</div>
-							<div id="items-per-page" class="btn-group">
-								<form class="form-inline">
-									<span class="dib small">View:</span><button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"><span>{{ limit }}</span><i class="fa fa-caret-down"></i>
-									</button>
-									<ul class="dropdown-menu fsd1 pull-right text-left">                                
-										<li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
-										<li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
-										<li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
-										<li><a href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a></li>
-									</ul>
-								</form>
-							</div>  
+						<div class="g text-center txt-md-lg-r">
+							<ul class="list-inline">
+								<li>
+									<div class="btn-group">
+										<form class="form-inline">
+											<span class="dib small">Sort:</span><button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#">
+												<span>{{ sortByTitle }}</span><i class="fa fa-caret-down"></i>
+											</button>
+											<ul class="dropdown-menu fsd1 text-left pull-right">
+												{% for name,sort in sort_options %}
+												<li><a href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
+												{% endfor %}
+											</ul>
+										</form>
+									</div>
+								</li><li>
+									<div class="btn-group">
+										<form class="form-inline">
+											<span class="dib small">View:</span><button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"><span>{{ limit }}</span><i class="fa fa-caret-down"></i>
+											</button>
+											<ul class="dropdown-menu fsd1 pull-right text-left">                                
+												<li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
+												<li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
+												<li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
+												<li><a href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a></li>
+											</ul>
+										</form>
+									</div>
+								</li>
+							</ul>
 						</div>                  
 					</div>
 					{# End filters #}

@@ -1,3 +1,5 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
 /* pure with values */
 html,body {
     color: {{ settings["colors"]["content"]["text-color"]["value"] }};
@@ -50,12 +52,12 @@ h2.section-name {margin-bottom:15px;}
 
 .pricing .price {color: {{ settings["colors"]["content"]["price-color"]["value"] }}; }
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
-.pricing .percent {color:#ff4466;}
+.pricing .percent {color:#f55;}
 .availability {color:#558C89;}
 
 
 #header .popover {left:auto!important; right:15px; width:420px; margin:0; padding:0; max-width:none;}
-.ajaxcart-products {max-height:350px; overflow:hidden; overflow-y:auto;}
+.ajaxcart-products {max-height:320px; overflow:hidden; overflow-y:auto;}
 #header .logo {font-size:200%;}
 #header .logo img {max-height:80px;}
 
@@ -68,12 +70,9 @@ h1 {margin:0 0 15px; padding:0 0 9px;}
 }
 
 @media (max-width:991px) {/**/
-#header .popover {right:10px;}
 #header .logo img {max-height:36px;}
-}
-
-@media (max-width:767px) {/**/
-.ajaxcart-products {max-height:260px;}
+#header .popover {right:10px;}
+.ajaxcart-products {max-height:280px;}
 }
 
 @media (max-width:479px) {/**/
@@ -97,16 +96,7 @@ h1 {margin:0 0 15px; padding:0 0 9px;}
 .image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
 .image-space .isd .img-responsive {margin:0 auto;}
 .fsd1 {font-size:87.5%;}
-.fsi1 .fsd1 {font-size:88.888888%;}
 .fsi1 {font-size:112.5%;}
-.fsd1 .fsi1 {font-size:114.285714%;}
-
-.wsnw {white-space:nowrap;}
-.no-of {overflow:hidden;}
-.uc {text-transform:uppercase;}
-
-.divide {border-bottom:1px solid #ccc;}
-.divide:last-child {border-bottom:none;}
 
 .btn-sq-xs {width:22px; height:22px; padding:0;}
 .btn-sq-sm {width:30px; height:30px; padding:0;}
@@ -189,23 +179,15 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 /**** 7-) Category Page Styling   ****/
 .category-filters .filter a {display:block;}
-.category-filters .filter-clear a {display:block; margin:2px 0; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
-/**** End Category Page Styling   ****/
-
-
-.empty-carousel {display:block; padding-top:13.8888888%;}
-.color-carousel {float: left;display: block;width: 100%;}
-.color-carousel .carousel {padding-right: 0;padding-left:0;}
+.category-filters .filter-clear a {margin:2px 0; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
 
 
 .swatches {margin-right:-1px; margin-left:-1px;}
 .swatches li {padding:2px 1px 0;}
 .swatches .selected a, .swatches li:hover a {border:1px solid #000;}
 .swatches .selected a {background:#f8f8f8;}
-.swatches .notavailable {opacity:.5;}
-.swatches .notavailable a {background:none; border:1px dashed #aaa; cursor:not-allowed;}
-.swatches .notavailable-selected {opacity:.5;}
-.swatches .notavailable-selected a {background:none; border:1px dashed red; cursor:not-allowed;}
+.swatches .not-avail a {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
+.swatches .not-avail-sel a {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
 
 
 
@@ -224,12 +206,8 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .star-rating .disabled-choosing {color:#ccc;}
 
 
-.label {position:absolute; right:0; top:0; padding:0; color:#fff; font-weight:normal; text-transform:uppercase;}
-.label span {display:block; float:right; margin:0 0 0 5px; padding:6px 9px;}
-.label .label-new {background:#558C89;}
-.label .label-sale {background:#c11818;}
-.label .label-hot {background:#365755;}
-.label .label-feat {background:#555;}
+.labels {position:absolute; right:0; top:0; padding:0; text-transform:uppercase;}
+.labels .label {float:right; margin:0 0 0 5px; text-shadow:0 0 1px rgba(0,0,0,.2); box-shadow:0 0 1px rgba(0,0,0,.2);}
 
 
 

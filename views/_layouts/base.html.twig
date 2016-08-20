@@ -30,7 +30,6 @@
 {{ app.asset.js(app.url_asset ~ '/assets/intl-tel-input/build/js/intlTelInput.js', 0) }}
 
 
-
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/acendaAnalytics.js') }}
 {% endif %}
@@ -40,46 +39,43 @@
 <html>
 <head>
 
-    {% block head %}
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
-        <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
-        <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}"
-            type="image/x-icon" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/datepicker.css" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/acendastrap.css" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/theme.css" />
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/fonts/font-awesome/css/font-awesome.min.css" />
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/jquery.mmenu.css" media="all" />
-        <link rel="stylesheet" type="text/css" media="print" href="{{app.url_asset}}/assets/css/theme/print.css" />
+{% block head %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
+<link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/acendastrap.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/theme.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/fonts/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/jquery.mmenu.css" media="all" />
+<link rel="stylesheet" type="text/css" media="print" href="{{app.url_asset}}/assets/css/theme/print.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/intl-tel-input/build/css/intlTelInput.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
 
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
 
-        <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/intl-tel-input/build/css/intlTelInput.css" />
+<link rel="sitemap" href="{{app.url}}/api/sitemap" />
+<link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
 
-        <link rel="sitemap" href="{{app.url}}/api/sitemap" />
-        <link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url }}"/>
+{% block css %}
+{% endblock %}
 
-        {% block css %}
-        {% endblock %}
+<title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
-        <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
+{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+    {{ social.get_metatags(app.params.social_settings, seo) }}
+{% endif %}
 
-        {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-            {{ social.get_metatags(app.params.social_settings, seo) }}
-        {% endif %}
-
-        <script>
-                var acendaBaseUrl = '{{app.url}}'
-                var acendaBaseThemeUrl = '{{app.url_asset}}'
-        </script>
-        <script>
-            {% block acenda %}
-                {% include '/_partials/analytics/acenda.html.twig' %}
-            {% endblock %}
-        </script>
+<script>
+        var acendaBaseUrl = '{{app.url}}'
+        var acendaBaseThemeUrl = '{{app.url_asset}}'
+</script>
+<script>
+    {% block acenda %}
+        {% include '/_partials/analytics/acenda.html.twig' %}
+    {% endblock %}
+</script>
 
 
     {% endblock %}
@@ -156,7 +152,6 @@
         {% endblock %}
         {% block js %}{% endblock %}
     </div>
-</body>
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
@@ -209,5 +204,5 @@ $(document).ready(function() {
 });
 </script>
 {% endif %}
-
+</body>
 </html>
