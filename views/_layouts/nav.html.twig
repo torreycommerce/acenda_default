@@ -32,9 +32,9 @@
 {# End desktop nav #}
 
 {# Begin mobile navigation menu #}
-<nav id="nav-mobile-main" class="mobile-nav hidden-md hidden-lg" style="display:none" data-navi="mobile-nav-main" data-navi-type="root">
+<nav id="nav-mobile-main" class="hidden-md hidden-lg" style="display:none" data-navi="mobile-nav-main" data-navi-type="root">
 	{# Begin nav list #}
-	<ul class="nav navbar-nav fa-fa-balance">
+	<ul class="fa-fa-balance">
 		<li class="close-menu clearfix">
 			<span>Close</span><i class="fa fa-angle-left"></i>
 		</li>
@@ -45,7 +45,7 @@
 		{% if app.user.id %}
 		<li>
 			<a href="javascript: void(0);" id="acc_btn"><i class="fa fa-user"></i>My Account</a>
-			<ul>
+			<ul class="fa-fa-balance">
 				<li><a href="{{ app.url }}/account/notifications"><i class="fa fa-bell"></i>Notifications</a></li>
 				<li><a href="{{ app.url }}/account/addresses"><i class="fa fa-truck"></i>Addresses</a></li>
 				<li><a href="{{ app.url }}/account/orders"><i class="fa fa-credit-card"></i>Orders</a></li>
@@ -69,7 +69,7 @@
 		<li><span>
 			<form role="search" action="{{ app.url }}/search" method="get">
 				<div class="input-group">
-					<input id="mobile-search-input" class="form-control" type="text" value="" name="s" placeholder="Enter search terms">
+					<input class="form-control" type="text" value="" name="s" placeholder="Enter search term(s)">
 					<div class="input-group-btn">
 						<button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 					</div>
@@ -90,7 +90,7 @@
 					<i class="fa fa-star-o"></i>{{main_category}}
 				</a>
 				{% if items.limb|length %}
-				<ul id="submenu-{{ id }}">
+				<ul class="fa-fa-balance" id="submenu-{{ id }}">
 					{% set i = 0 %}
 					{% for category,subitems in items.limb %}
 						{% set i = i + 1 %}

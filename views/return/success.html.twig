@@ -38,7 +38,7 @@
     </ul>
     <legend>Your RMA numbers and their products are:</legend>
     {% for return in returns %}
-    <ul class="list-unstyled pL25">
+    <ul class="list-unstyled">
     <li><strong>RMA #:</strong> {{ return.rma }}</li>
     <li><strong>Qty:</strong>  {{ return.quantity }}</li>
     <li><strong>Product Name:</strong>  {{ items[return.item_id].0.name }}</li>

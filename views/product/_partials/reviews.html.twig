@@ -6,7 +6,7 @@
 		<p><a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a></p>
 	</div>
 	{% for review in reviews %}
-	   <div class="review divide p">
+	   <div class="review divide g p">
 			{{ base.rating(review.score, {'id':'star-rating-' ~ loop.index}) }} <span class="fsd1">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_created|strtotime|date("m-d-Y") }}</span>
 			<div id="review-title"><b>{{ review.title }}</b></div>
 			<p>{{ review.comment|unescape }}</p>

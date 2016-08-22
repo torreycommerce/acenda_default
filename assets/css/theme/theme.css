@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 /* acenda global */
 img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 
-h1 {margin:0 0 10px; padding:0 0 6px; text-align:center; border-bottom:1px solid #ddd;}
+h1 {padding:0 0 6px; text-align:center; border-bottom:1px solid #ccc;}
 h2.section-name {margin-bottom:15px;}
 
 #admin-bar {z-index:9999; right:auto; top:15px; opacity:.8;}
@@ -56,23 +56,21 @@ h2.section-name {margin-bottom:15px;}
 .availability {color:#558C89;}
 
 
-#header .popover {left:auto!important; right:15px; width:420px; margin:0; padding:0; max-width:none;}
-.ajaxcart-products {max-height:320px; overflow:hidden; overflow-y:auto;}
-#header .logo {font-size:200%;}
-#header .logo img {max-height:80px;}
+#header .popover {left:auto!important; right:10px; width:420px; margin:0; max-width:none;}
+.ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
+#header .logo {font-size:140%;}
+#header .logo img {max-height:36px;}
 
 .media-left, .media-object {width:100px; height:100px;}
 
 
 @media (min-width:992px) {
-h1 {margin:0 0 15px; padding:0 0 9px;}
+h1 {padding:0 0 9px;}
+#header .popover {right:15px;}
+.ajaxcart-products {max-height:320px;}
+#header .logo {font-size:200%;}
+#header .logo img {max-height:80px;}
 .media-cart .media-left, .media-cart .media-object {width:150px; height:150px;}
-}
-
-@media (max-width:991px) {/**/
-#header .logo img {max-height:36px;}
-#header .popover {right:10px;}
-.ajaxcart-products {max-height:280px;}
 }
 
 @media (max-width:479px) {/**/

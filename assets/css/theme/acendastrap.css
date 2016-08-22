@@ -1171,11 +1171,10 @@ h6,
 .h5,
 .h6 {
   margin-top: 15px;
-  margin-bottom: 10px;
   font-family: inherit;
   font-size: 140%;
   font-weight: 300;
-  line-height: 1.2;
+  line-height: 1.1;
   color: #000;
 }
 h1,.h1 {
@@ -6005,7 +6004,6 @@ button.close {
   z-index: 1060;
   display: none;
   max-width: 276px;
-  padding: 1px;
   font-style: normal;
   font-weight: normal;
   line-height: 1.42857143;
@@ -6024,7 +6022,6 @@ button.close {
           background-clip: padding-box;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, .2);
-  /*border-radius: 6px;*/
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 
@@ -6681,7 +6678,7 @@ button.close {
 .pad-t-2x {padding-top:20px;}
 .col-v {padding-top:10px; padding-bottom:10px;}
 
-.p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
 .p-mini {margin-bottom:5px;}
 
 .d-b {display:block!important;}
@@ -6750,7 +6747,7 @@ hr {margin-top:15px; margin-bottom:15px;}
 .list-inline > li {padding-right:7.5px; padding-left:7.5px;}
 .list-inline-free>li {padding-top:7.5px; padding-bottom:7.5px;}
 
-.p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:15px;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, dl, p, ul, ol, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:15px;}
 .p-mini {margin-bottom:7.5px;}
 .media-right, .media > .pull-right {padding-left:30px;}
 .media-left, .media > .pull-left {padding-right:30px;}
