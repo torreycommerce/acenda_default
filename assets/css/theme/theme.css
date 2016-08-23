@@ -61,7 +61,7 @@ h2.section-name {margin-bottom:15px;}
 #header .logo {font-size:140%;}
 #header .logo img {max-height:36px;}
 
-.media-left, .media-object {width:100px; height:100px;}
+.media-left, .media-object {width:80px; height:80px;}
 
 
 @media (min-width:992px) {
@@ -70,7 +70,7 @@ h1 {padding:0 0 9px;}
 .ajaxcart-products {max-height:320px;}
 #header .logo {font-size:200%;}
 #header .logo img {max-height:80px;}
-.media-cart .media-left, .media-cart .media-object {width:150px; height:150px;}
+.media-cart .media-left, .media-cart .media-object {width:128px; height:128px;}
 }
 
 @media (max-width:479px) {/**/

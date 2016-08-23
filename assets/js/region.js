@@ -56,6 +56,7 @@ $('.form-region').cascadingDropdown({
     {
         selector: 'select[id$=country]',
         source: function(request, response) {
+            //console.log('1 really')
             $("#state_input").show();
             $('#state-label').prop('for','state_input');
             $("#state_input").prop( "disabled", false );
@@ -65,6 +66,7 @@ $('.form-region').cascadingDropdown({
             $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
                 var country = $('[name$=\\[country_select\\]]').val();
                 if ((country == undefined || country == '') && data.result.length > 0) {
+                    data.result.sort(function(a, b) { return a.value > b.value});
                     country = data.result[0].value;
                 }
 
@@ -84,7 +86,7 @@ $('.form-region').cascadingDropdown({
         selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         onChange: function(event, allValues) {
-
+            //console.log('2')
             var state = $('[id$=\\[state_select\\]]').val();
             if (state == undefined || state == '') {
                 state = 'CA';
@@ -108,7 +110,7 @@ $('.form-region').cascadingDropdown({
             });
         },
         source: function(request, response) {
-
+            //console.log('3')
             $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
@@ -195,7 +197,7 @@ $('.form-billing-region').cascadingDropdown({
         selector: 'select[id$=state_select]',
         requires: ['select[id$=country]'],
         source: function(request, response) {
-            console.log($('select[id$=country]').val());
+            //console.log($('select[id$=country]').val());
             $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
             $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
@@ -245,7 +247,9 @@ $('.form-region-customer').cascadingDropdown({
         selector: 'select[id$=country]',
         source: function(request, response) {
             $.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
+                data.result.sort(function(a, b) { return a.name > b.name});
                 var billing_countries = $.map(data.result, function(item, index) {
+                    //console.log('returning bc: '+item.name)
                     return {
                         label: item.name,
                         value: item.code,
@@ -253,6 +257,7 @@ $('.form-region-customer').cascadingDropdown({
                 });
                 $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
                     var countries = data.result.concat(billing_countries);
+                    countries.sort(function(a, b) { return a.value > b.value});
                     for(var i=0; i<countries.length; ++i) {
                         for(var j=i+1; j<countries.length; ++j) {
                             if(countries[i].value === countries[j].value)
@@ -266,6 +271,8 @@ $('.form-region-customer').cascadingDropdown({
                     }
                     $("#phone").intlTelInput("setCountry", country.toLowerCase());
                     response($.map(countries, function(item, index) {
+                        countries.sort(function(a, b) { return a.label > b.label});
+                        //console.log('returning c: '+item.label)
                         return {
                             label: item.label,
                             value: item.value,
@@ -332,6 +339,7 @@ $('.form-estimate').cascadingDropdown({
         source: function(request, response) {
             $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
                 if (data.result.length > 0){
+                    data.result.sort(function(a, b) { return a.value > b.value});
                     country = data.result[0].value;
                     response($.map(data.result, function(item, index) {
                         return {
