@@ -85,7 +85,7 @@
 								<div class="actions">
 									{% set email = app.request.post.order.email is not empty ? app.request.post.order.email : order.email %}
 									{% set order_number = app.request.post.order.number is not empty ? app.request.post.order.number : order.order_number %}
-									{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:'form-region'}) }}
+									{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:''}) }}
 										{{ forms.hidden('guestreturn[email]', email) }}
 										{{ forms.hidden('guestreturn[order_number]', order_number) }}
 										{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-default btn-mobile'}) }}
@@ -280,9 +280,7 @@
 		<div class="well">
 			<div class="row">
 				<div class="col-md-12">
-					<header>
-						<h2 class="section-header">Returns</h2>
-					</header>
+					<h2 class="section-header">Returns</h2>
 				</div>
 			</div>
 			{% for return in returns %}

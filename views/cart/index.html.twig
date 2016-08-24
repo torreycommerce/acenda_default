@@ -144,7 +144,7 @@ Cart
 	
 	<h1>Shopping Cart</h1>
 	
-	{{ forms.begin('cart','','post', {class:'form-region p divide'}) }}
+	{{ forms.begin('cart','','post', {class:'form-cart p divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
 	
@@ -252,7 +252,7 @@ Cart
             {% endif %}
         {% endfor %}
 		<div class="col-xs-12 col-md-8">
-            {{ forms.begin('cart','','post', {class:'form-region divide p'}) }}
+            {{ forms.begin('cart','','post', {class:'form-coupon divide p'}) }}
             {% if has_bundle %}
             <div class="p divide" id="bundles">
 				<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>

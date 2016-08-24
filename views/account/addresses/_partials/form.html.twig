@@ -55,8 +55,8 @@
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group normalizable">
-							<label class="control-label" for="zip">Zip Code <span class="text-danger">*</span></label>
-							{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip", id:"zip", required:true}) }}
+							<label class="control-label" for="zip"><span class="postziplang">Zip Code</span> <span class="text-danger">*</span></label>
+							{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip Code", id:"zip", required:true}) }}
 							<div class="validation">{{ forms.errorlist(form_errors, 'zip') }}</div>
 						</div>
 					</div>

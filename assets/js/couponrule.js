@@ -1,6 +1,6 @@
 $('[id^=couponrule_values]').parents('.form-group').hide();
 $('#couponrule_operation').parents('.form-group').hide();
-$('.form-region').cascadingDropdown({
+$('.form-coupon').cascadingDropdown({
     onReady: function(event, allValues) {
         var rule_id = $('[name=couponrule\\[id\\]').val();
         if (rule_id == '') {

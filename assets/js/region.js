@@ -1,418 +1,501 @@
+function initCountryOpts() {
+	//
+	console.log('sCO()')
+	var saveValue = $('#country').val()
+	console.log('Is set to: '+saveValue)
+	if (firstRun) {
+		$("#country").html($("#country option").sort(function (a, b) {
+			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+		}))
+	}
+	$('#country').val(saveValue)
+	//
+	if (newCountry) {
+		$('#country').prepend('<option disabled selected value>Select a Country</option>')
+	}
+	if (newState) {
+		$('#state_select').prepend('<option disabled selected value>Select a State</option>')
+	}
+	//
+	firstRun = 0;
+	newCountry = 0;
+	newState = 0;
+}
+var firstRun = 1;
+var newCountry = 0;
+var newState = 0;
 
-$('.form-region').cascadingDropdown({
-    selectBoxes: [
-    {
-        selector: 'select[id$=checkout_shipping_address_id]',
-        onChange: function(event, id) {
-            if (id !== undefined && id !== ""){
-                $.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
-                    var search_string = "country="+data.result.country;
-                        search_string = search_string + '&state=' + data.result.state;
-                    $("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
-                    $(".shipping-continue").prop("disabled",true);
-                    $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-                        var dropdown = $( "#shipping_method" );
-                        dropdown.empty();
-                        if (typeof data.result !== 'undefined' && data.result.length > 0) {
-                            $.each(data.result, function( index, method ) {
-                                var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-                                dropdown.append(option);
-                            });
-                            $("select[id$=checkout_shipping_address_id]").prop("disabled",false);
-                        } else {
-                            $("select[id$=checkout_shipping_address_id]").prop("disabled",true);
-                        }
-                    });
-                });
-            }
-        },
-        source: function(request, response) {
-            var id = $('select[id$=checkout_shipping_address_id]').val();
-            if (id !== "" && id !== undefined){
-                $.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
-                    var search_string = "country="+data.result.country;
-                        search_string = search_string + '&state=' + data.result.state;
-                    $("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
-                    $(".shipping-continue").prop("disabled",true);
-                    $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-                        var dropdown = $( "#shipping_method" );
-                        dropdown.empty();
-                        if (typeof data.result !== 'undefined' && data.result.length > 0) {
-                            $.each(data.result, function( index, method ) {
-                                var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-                                dropdown.append(option);
-                            });
-                            $("select[id$=checkout_shipping_address_id]").prop("disabled",false);
-                        } else {
-                            $("select[id$=checkout_shipping_address_id]").prop("disabled",true);
-                        }
-                    });
-                });
-            }else{
-                $("select[id$=checkout_shipping_address_id]").prop("disabled",false);
-            }
-        }
-    },
-    {
-        selector: 'select[id$=country]',
-        source: function(request, response) {
-            //console.log('1 really')
-            $("#state_input").show();
-            $('#state-label').prop('for','state_input');
-            $("#state_input").prop( "disabled", false );
-            $("#state_select").hide();
-            $("#state_select").prop( "disabled", true );
+// ---- //
 
-            $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
-                var country = $('[name$=\\[country_select\\]]').val();
-                if ((country == undefined || country == '') && data.result.length > 0) {
-                    data.result.sort(function(a, b) { return a.value > b.value});
-                    country = data.result[0].value;
-                }
+if ($('.form-region').length) {
+	$('.form-region').cascadingDropdown({
+		selectBoxes: [
+		{
+			selector: 'select[id$=checkout_shipping_address_id]',
+			onChange: function(event, id) {
+				if (id !== undefined && id !== ""){
+					$.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
+						var search_string = "country="+data.result.country;
+							search_string = search_string + '&state=' + data.result.state;
+						$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
+						$(".shipping-continue").prop("disabled",true);
+						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
+							var dropdown = $( "#shipping_method" );
+							dropdown.empty();
+							if (typeof data.result !== 'undefined' && data.result.length > 0) {
+								$.each(data.result, function( index, method ) {
+									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+									dropdown.append(option);
+								});
+								$("select[id$=checkout_shipping_address_id]").prop("disabled",false);
+							} else {
+								$("select[id$=checkout_shipping_address_id]").prop("disabled",true);
+							}
+						});
+					});
+				}
+			},
+			source: function(request, response) {
+				var id = $('select[id$=checkout_shipping_address_id]').val();
+				if (id !== "" && id !== undefined){
+					$.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
+						var search_string = "country="+data.result.country;
+							search_string = search_string + '&state=' + data.result.state;
+						$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
+						$(".shipping-continue").prop("disabled",true);
+						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
+							var dropdown = $( "#shipping_method" );
+							dropdown.empty();
+							if (typeof data.result !== 'undefined' && data.result.length > 0) {
+								$.each(data.result, function( index, method ) {
+									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+									dropdown.append(option);
+								});
+								$("select[id$=checkout_shipping_address_id]").prop("disabled",false);
+							} else {
+								$("select[id$=checkout_shipping_address_id]").prop("disabled",true);
+							}
+						});
+					});
+				}else{
+					$("select[id$=checkout_shipping_address_id]").prop("disabled",false);
+				}
+			}
+		},
+		{
+			selector: 'select[id$=country]',
+			source: function(request, response) {
+				$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+				$('#state-label').prop('for','state_input');
+				$("#state_select").addClass('hidden').prop( "disabled", true )
 
-                $("#phone").intlTelInput("setCountry", country.toLowerCase());
+				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
+					var country = $('[name$=\\[country_select\\]]').val();
+					if ((country == undefined || country == '') && data.result.length > 0) {
+						data.result.sort(function(a, b) { return a.value > b.value});
+						console.log('no default Country')
+						newCountry = 1;
+						//country = data.result[0].value;
+					}
 
-                response($.map(data.result, function(item, index) {
-                    return {
-                        label: item.label,
-                        value: item.value,
-                        selected: item.value.indexOf(country) != -1
-                    };
-                }));
-            });
-        }
-    },
-    {
-        selector: 'select[id$=state_select]',
-        requires: ['select[id$=country]'],
-        onChange: function(event, allValues) {
-            //console.log('2')
-            var state = $('[id$=\\[state_select\\]]').val();
-            if (state == undefined || state == '') {
-                state = 'CA';
-            }
-            var search_string = "country="+$('select[id$=country]').val();
-                search_string = search_string + '&state=' + state;
-            $(".shipping-continue").prop("disabled",true);
-            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
-            $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-                var dropdown = $( ".shipping-method-dropdown" );
-                dropdown.empty();
-                if (typeof data.result !== 'undefined' && data.result.length > 0) {
-                    $.each(data.result, function( index, method ) {
-                        var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-                        dropdown.append(option);
-                    });
-                    $(".shipping-continue").prop("disabled",false);
-                } else {
-                    $(".shipping-continue").prop("disabled",true);
-                }
-            });
-        },
-        source: function(request, response) {
-            //console.log('3')
-            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+					if (country) {
+						$("#phone").intlTelInput("setCountry", country.toLowerCase());
+					}
 
-            $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
-                var state = $('[id$=\\[state_select\\]]').val();
-                if ((state == undefined || state == '') && data.result.length > 0) {
-                    state = data.result[0].value;
-                }
-                if ($('select[id$=country]').val() == "US") {
-                    $("#zip_field").html("Zip Code");
-                    $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
-                } else {
-                    $("#zip_field").html("Postal Code");
-                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
-                }
+					response($.map(data.result, function(item, index) {
+						return {
+							label: item.label,
+							value: item.value,
+							selected: item.value.indexOf(country) != -1
+						};
+					}));
+					//
+					console.log('call sCO() from form-region')
+					initCountryOpts()
+					//
+				});
+			}
+		},
+		{
+			selector: 'select[id$=state_select]',
+			requires: ['select[id$=country]'],
+			onChange: function(event, allValues) {
+				//console.log('2')
+				var state = $('[id$=\\[state_select\\]]').val();
+				if (state == undefined || state == '') {
+					state = 'CA';
+				}
+				var search_string = "country="+$('select[id$=country]').val();
+					search_string = search_string + '&state=' + state;
+				$(".shipping-continue").prop("disabled",true);
+				$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
+					var dropdown = $( ".shipping-method-dropdown" );
+					dropdown.empty();
+					if (typeof data.result !== 'undefined' && data.result.length > 0) {
+						$.each(data.result, function( index, method ) {
+							var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+							dropdown.append(option);
+						});
+						$(".shipping-continue").prop("disabled",false);
+					} else {
+						$(".shipping-continue").prop("disabled",true);
+					}
+				});
+			},
+			source: function(request, response) {
+				//console.log('3')
+				$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
-                if (typeof data.result !== 'undefined') {
+				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
+					var state = $('[id$=\\[state_select\\]]').val();
+					if ((state == undefined || state == '') && data.result.length > 0) {
+						console.log('no default State')
+						newState = 1;
+						//state = data.result[0].value;
+					}
+					if ($('select[id$=country]').val() == "US") {
+						$(".postziplang").html("Zip Code");
+						$('input[placeholder="Postal Code"]').attr('placeholder','Zip');
+					} else {
+						$(".postziplang").html("Postal Code");
+						$('input[placeholder="Zip"]').attr('placeholder','Postal Code');
+					}
 
-                    //If State array is empty, then show state as a text input.
-                    if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-                        $("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-                        $('#state-label').prop('for','state_input');
-                        $("#state_select").addClass('hidden').prop( "disabled", true ).hide();
-                    } else {
-                        $("#state_input").addClass('hidden').hide().prop( "disabled", true );
-                        $('#state-label').prop('for','state_select');
-                        $("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-                    }
+					if (typeof data.result !== 'undefined') {
 
-                    response($.map(data.result, function(item, index) {
-                        return {
-                            label: item.label,
-                            value: item.value,
-                            selected: item.value.indexOf(state) != -1
-                        };
-                    }));
-                }
-                var search_string = "country="+$('select[id$=country]').val();
-                if ($('#state').val()) {
-                    search_string = search_string + '&state=' + $('#state').val();
-                }
-                $(".shipping-continue").prop("disabled",true);
-                $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-                    var dropdown = $( "#shipping_method" );
-                    dropdown.empty();
-                    if (typeof data.result !== 'undefined' && data.result.length > 0) {
-                        $.each(data.result, function( index, method ) {
-                            var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-                            dropdown.append(option);
-                        });
-                        $(".shipping-continue").prop("disabled",false);
-                    } else {
-                        $(".shipping-continue").prop("disabled",true);
-                    }
-                });
-            });
-        },
-    }
-    ]
-});
+						//If State array is empty, then show state as a text input.
+						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
+							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$('#state-label').prop('for','state_input');
+							$("#state_select").addClass('hidden').prop( "disabled", true )
+						} else {
+							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$('#state-label').prop('for','state_select');
+							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+						}
+
+						response($.map(data.result, function(item, index) {
+							return {
+								label: item.label,
+								value: item.value,
+								selected: item.value.indexOf(state) != -1
+							};
+						}));
+					}
+					var search_string = "country="+$('select[id$=country]').val();
+					if ($('#state').val()) {
+						search_string = search_string + '&state=' + $('#state').val();
+					}
+					$(".shipping-continue").prop("disabled",true);
+					$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
+						var dropdown = $( "#shipping_method" );
+						dropdown.empty();
+						if (typeof data.result !== 'undefined' && data.result.length > 0) {
+							$.each(data.result, function( index, method ) {
+								var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+								dropdown.append(option);
+							});
+							$(".shipping-continue").prop("disabled",false);
+						} else {
+							$(".shipping-continue").prop("disabled",true);
+						}
+						//
+						console.log('call sCO() from form-region STATE')
+						initCountryOpts()
+						//
+					});
+				});
+			},
+		}
+		]
+	});
+}
+
 
 // Billing address form
-$('.form-billing-region').cascadingDropdown({
-    selectBoxes: [
-    {
-        selector: 'select[id$=country]',
-        source: function(request, response) {
-            $.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
-                var country = $('[name$=\\[country_select\\]]').val();
-                if (data.result !== undefined && data.result.length > 0){ country = data.result[0].code; }
+if ($('.form-billing-region').length) {
+	$('.form-billing-region').cascadingDropdown({
+		selectBoxes: [
+		{
+			selector: 'select[id$=country]',
+			source: function(request, response) {
+				$.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
+					var country = $('[name$=\\[country_select\\]]').val();
+					if (data.result !== undefined && data.result.length > 0){
+						console.log('no default Country')
+						newCountry = 1;
+						//country = data.result[0].code;
+					}
+					if (country) {
+						$("#phone").intlTelInput("setCountry", country.toLowerCase());
+					}
 
-                $("#phone").intlTelInput("setCountry", country.toLowerCase());
+					response($.map(data.result, function(item, index) {
+						return {
+							label: item.name,
+							value: item.code,
+							selected: item.code.indexOf(country) != -1
+						};
+					}));
+					//
+					console.log('call sCO() from form-billing-region')
+					initCountryOpts()
+					//
+				});
+			}
+		},
+		{
+			selector: 'select[id$=state_select]',
+			requires: ['select[id$=country]'],
+			source: function(request, response) {
+				//console.log($('select[id$=country]').val());
+				$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
-                response($.map(data.result, function(item, index) {
-                    return {
-                        label: item.name,
-                        value: item.code,
-                        selected: item.code.indexOf(country) != -1
-                    };
-                }));
-            });
-        }
-    },
-    {
-        selector: 'select[id$=state_select]',
-        requires: ['select[id$=country]'],
-        source: function(request, response) {
-            //console.log($('select[id$=country]').val());
-            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
+					var state = $('[id$=\\[state_select\\]]').val();
+					if ((state == undefined || state == '') && data.result.length > 0) {
+						console.log('no default State')
+						newState = 1;
+						//state = data.result[0].value;
+					}
+					if ($('select[id$=country]').val() == "US") {
+						$(".postziplang").html("Zip Code");
+					   $('input[placeholder="Postal Code"]').attr('placeholder','Zip Code');
+					} else {
+						$(".postziplang").html("Postal Code");
+						$('input[placeholder="Zip Code"]').attr('placeholder','Postal Code');
+					}
 
-            $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
-                var state = $('[id$=\\[state_select\\]]').val();
-                if ((state == undefined || state == '') && data.result.length > 0) {
-                    state = data.result[0].value;
-                }
-                if ($('select[id$=country]').val() == "US") {
-                    $("#zip_field").html("Zip Code");
-                   $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
-                } else {
-                    $("#zip_field").html("Postal Code");
-                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
-                }
+					if (typeof data.result !== 'undefined') {
 
-                if (typeof data.result !== 'undefined') {
+						//If State array is empty, then show state as a text input.
+						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
+							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$('#state-label').prop('for','state_input');
+							$("#state_select").addClass('hidden').prop( "disabled", true )
+						} else {
+							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$('#state-label').prop('for','state_select');
+							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+						}
 
-                    //If State array is empty, then show state as a text input.
-                    if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-                        $("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-                        $('#state-label').prop('for','state_input');
-                        $("#state_select").addClass('hidden').prop( "disabled", true ).hide();
-                    } else {
-                        $("#state_input").addClass('hidden').hide().prop( "disabled", true );
-                        $('#state-label').prop('for','state_select');
-                        $("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-                    }
+						response($.map(data.result, function(item, index) {
+							return {
+								label: item.label,
+								value: item.value,
+								selected: item.value.indexOf(state) != -1
+							};
+						}));
+					}
+					//
+					console.log('call sCO() from form-billing-region STATE')
+					initCountryOpts()
+					//
+				});
+			},
+		}
+		]
+	});
+}
 
-                    response($.map(data.result, function(item, index) {
-                        return {
-                            label: item.label,
-                            value: item.value,
-                            selected: item.value.indexOf(state) != -1
-                        };
-                    }));
-                }
-            });
-        },
-    }
-    ]
-});
 
 // Customer address
-$('.form-region-customer').cascadingDropdown({
-    selectBoxes: [
-    {
-        selector: 'select[id$=country]',
-        source: function(request, response) {
-            $.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
-                data.result.sort(function(a, b) { return a.name > b.name});
-                var billing_countries = $.map(data.result, function(item, index) {
-                    //console.log('returning bc: '+item.name)
-                    return {
-                        label: item.name,
-                        value: item.code,
-                    };
-                });
-                $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
-                    var countries = data.result.concat(billing_countries);
-                    countries.sort(function(a, b) { return a.value > b.value});
-                    for(var i=0; i<countries.length; ++i) {
-                        for(var j=i+1; j<countries.length; ++j) {
-                            if(countries[i].value === countries[j].value)
-                                countries.splice(j--, 1);
-                        }
-                    }
+if ($('.form-region-customer').length) {
+	$('.form-region-customer').cascadingDropdown({
+		selectBoxes: [
+		{
+			selector: 'select[id$=country]',
+			source: function(request, response) {
+				$.getJSON(acendaBaseUrl + '/api/payment/country', request, function(data) {
+					var billing_countries = $.map(data.result, function(item, index) {
+						return {
+							label: item.name,
+							value: item.code,
+						};
+					});
+					$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
+						var countries = data.result.concat(billing_countries);
+						for(var i=0; i<countries.length; ++i) {
+							for(var j=i+1; j<countries.length; ++j) {
+								if(countries[i].value === countries[j].value)
+									countries.splice(j--, 1);
+							}
+						}
 
-                    var country = $('[name$=\\[country_select\\]]').val();
-                    if ((country == undefined || country == '') && data.result.length > 0) {
-                        country = countries[0].value;
-                    }
-                    $("#phone").intlTelInput("setCountry", country.toLowerCase());
-                    response($.map(countries, function(item, index) {
-                        countries.sort(function(a, b) { return a.label > b.label});
-                        //console.log('returning c: '+item.label)
-                        return {
-                            label: item.label,
-                            value: item.value,
-                            selected: item.value.indexOf(country) != -1
-                        };
-                    }));
-                });
-            });
-        }
-    },
-    {
-        selector: 'select[id$=state_select]',
-        requires: ['select[id$=country]'],
-        source: function(request, response) {
-            $("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
-            $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
-                var state = $('[name$=\\[state_select\\]]').val();
-                if ((state == undefined || state == '') && data.result.length > 0) {
-                    state = data.result[0].value;
-                }
-                if ($('select[id$=country]').val() == "US") {
-                    $("#zip_field").html("Zip Code");
-                    $('input[placeholder="Postal Code"]').attr('placeholder','Zip');
-                } else {
-                    $("#zip_field").html("Postal Code");
-                    $('input[placeholder="Zip"]').attr('placeholder','Postal Code');
-                }
+						var country = $('[name$=\\[country_select\\]]').val();
+						if ((country == undefined || country == '') && data.result.length > 0) {
+							console.log('no default Country')
+							newCountry = 1;
+							//country = countries[0].value;
+						}
+						$("#phone").intlTelInput("setCountry", country.toLowerCase());
+						response($.map(countries, function(item, index) {
+							return {
+								label: item.label,
+								value: item.value,
+								selected: item.value.indexOf(country) != -1
+								//selected: item.value.indexOf(country)
+							};
+						}));
+						//
+						console.log('call sCO() from form-region-customer')
+						initCountryOpts();
+						//
+					});
+				});
+			}
+		},
+		{
+			selector: 'select[id$=state_select]',
+			requires: ['select[id$=country]'],
+			source: function(request, response) {
+				console.log('now state does its thing')
+				$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
+					var state = $('[name$=\\[state_select\\]]').val();
+					if ((state == undefined || state == '') && data.result.length > 0) {
+						console.log('no default State')
+						newState = 1;
+						//state = data.result[0].value;
+					}
+					if ($('select[id$=country]').val() == "US") {
+						$(".postziplang").html("Zip Code");
+						$('input[placeholder="Postal Code"]').attr('placeholder','Zip Code');
+					} else {
+						$(".postziplang").html("Postal Code");
+						$('input[placeholder="Zip Code"]').attr('placeholder','Postal Code');
+					}
 
-                if (typeof data.result !== 'undefined') {
-                    //If State array is empty, then show state as a text input.
-                    if ($.isArray(data.result) && data.result.length == 0) {
-                        $("#state_input").show();
-                        $('#state-label').prop('for','state_input');
-                        $("#state_input").prop( "disabled", false );
-                        $("#state_select").hide();
-                        $("#state_select").prop( "disabled", true );
-                    }
-                    else {
-                        $("#state_input").hide();
-                        $("#state_input").prop( "disabled", true );
-                        $("#state_select").show();
-                        $('#state-label').prop('for','state_select');
-                        $("#state_select").prop( "disabled", false );
-                    }
-                }
+					if (typeof data.result !== 'undefined') {
+						//If State array is empty, then show state as a text input.
+						if ($.isArray(data.result) && data.result.length == 0) {
+							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$('#state-label').prop('for','state_input');
+							$("#state_select").addClass('hidden').prop( "disabled", true )
+						} else {
+							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$('#state-label').prop('for','state_select');
+							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+						}
+					}
 
-                response($.map(data.result, function(item, index) {
-                    return {
-                        label: item.label,
-                        value: item.value,
-                        selected: item.value.indexOf(state) != -1
-                    };
-                }));
-            });
-        },
-    }
-    ]
-});
+					response($.map(data.result, function(item, index) {
+						return {
+							label: item.label,
+							value: item.value,
+							selected: item.value.indexOf(state) != -1
+						};
+					}));
+					//
+					console.log('call sCO() from form-region-customer STATE')
+					initCountryOpts();
+					//
+				});
+			},
+		}
+		]
+	});
+}
 
-$('.form-estimate').cascadingDropdown({
-    selectBoxes: [
-    {
-        selector: 'select[id$=cart_shipping_country]',
-        source: function(request, response) {
-            $.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
-                if (data.result.length > 0){
-                    data.result.sort(function(a, b) { return a.value > b.value});
-                    country = data.result[0].value;
-                    response($.map(data.result, function(item, index) {
-                        return {
-                            label: item.label,
-                            value: item.value,
-                            selected: item.value.indexOf(country) != -1
-                        };
-                    }));
-                }
-            });
-        }
-    },
-    {
-        selector: 'select[id$=cart_shipping_state]',
-        requires: ['select[id$=cart_shipping_country]'],
-        source: function(request, response) {
-            $.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=cart_shipping_country]').val(), request, function(data) {
 
-                if (data.result.length > 0){
-                    if ($("select[id$=cart_shipping_country]").parent().hasClass('col-md-8')){
-                        $("select[id$=cart_shipping_country]").parent().removeClass('col-md-8').addClass('col-md-4');
-                        $("select[id$=cart_shipping_state]").parent().show();
-                    }
-                    state = data.result[0].value;
-                    response($.map(data.result, function(item, index) {
-                        return {
-                            label: item.label,
-                            value: item.value,
-                            selected: item.value.indexOf(state) != -1
-                        };
-                    }));
-                }else{
-                    $("select[id$=cart_shipping_state]").parent().hide();
-                    $("select[id$=cart_shipping_country]").parent().removeClass('col-md-4').addClass('col-md-8');
+if ($('.form-estimate').length) {
+	$('.form-estimate').cascadingDropdown({
+		selectBoxes: [
+		{
+			selector: 'select[id$=country]',
+			source: function(request, response) {
+				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
+					if (data.result.length > 0){
+						data.result.sort(function(a, b) { return a.value > b.value});
+						console.log('no default Country')
+						newCountry = 1;
+						//country = data.result[0].value;
+						response($.map(data.result, function(item, index) {
+							return {
+								label: item.label,
+								value: item.value,
+								selected: item.value.indexOf(country) != -1
+							};
+						}));
+					}
+					//
+					console.log('call sCO() from form-estimate')
+					initCountryOpts()
+					//
+				});
+			}
+		},
+		{
+			selector: 'select[id$=state_select]',
+			requires: ['select[id$=country]'],
+			source: function(request, response) {
+				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
 
-                    $("select[id$=cart_shipping_state]").val("");
+					if (data.result.length > 0){
 
-                    var search_string = "country="+$('select[id$=cart_shipping_country]').val();
-                    $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-                        var dropdown = $( "#cart_shipping_method" );
-                        dropdown.empty();
-                        if (typeof data.result !== 'undefined' && data.result.length > 0) {
-                            $.each(data.result, function( index, method ) {
-                                var option = $('<option></option>').attr("value", method.id).text(method.name);
-                                dropdown.append(option);
-                            });
+						$("select[id$=state_select]").removeClass('hidden')
 
-                            dropdown.prop("disabled",false);
-                        }
-                    });
-                }
-            });
-        }
-    },
-    {
-        selector: 'select[id$=cart_shipping_method]',
-        requires: ['select[id$=cart_shipping_state]'],
-        source: function(request, response) {
-            var search_string = "country="+$('select[id$=cart_shipping_country]').val();
-            if ($('select[id$=cart_shipping_state]').val() !== undefined){
-                search_string += '&state=' + $('select[id$=cart_shipping_state]').val();
-            }
-            $.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, request, function(data) {
-                shipping_method = data.result[0].id;
+						console.log('no default State')
+						newState = 1;
+						state = data.result[0].value;
+						response($.map(data.result, function(item, index) {
+							return {
+								label: item.label,
+								value: item.value,
+								selected: item.value.indexOf(state) != -1
+							};
+						}));
+					}else{
+						$("select[id$=state_select]").addClass('hidden')
 
-                response($.map(data.result, function(item, index) {
-                    return {
-                        label: item.name,
-                        value: item.id
-                    };
-                }));
-            });
-        }
-    }
-    ]
-});
+						$("select[id$=state_select]").val("");
+
+						var search_string = "country="+$('select[id$=country]').val();
+						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
+							var dropdown = $( "#cart_shipping_method" );
+							dropdown.empty();
+							if (typeof data.result !== 'undefined' && data.result.length > 0) {
+								$.each(data.result, function( index, method ) {
+									var option = $('<option></option>').attr("value", method.id).text(method.name);
+									dropdown.append(option);
+								});
+
+								dropdown.prop("disabled",false);
+							}
+						});
+					}
+					//
+					console.log('call sCO() from form-estimate STATE')
+					initCountryOpts()
+					//
+				});
+			}
+		},
+		{
+			selector: 'select[id$=cart_shipping_method]',
+			requires: ['select[id$=state_select]'],
+			source: function(request, response) {
+				var search_string = "country="+$('select[id$=country]').val();
+				if ($('select[id$=state_select]').val() !== undefined){
+					search_string += '&state=' + $('select[id$=state_select]').val();
+				}
+				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, request, function(data) {
+					shipping_method = data.result[0].id;
+
+					response($.map(data.result, function(item, index) {
+						return {
+							label: item.name,
+							value: item.id
+						};
+					}));
+					//
+					console.log('call sCO() from form-estimate METHOD')
+					initCountryOpts()
+					//
+				});
+			}
+		}
+		]
+	});
+}
