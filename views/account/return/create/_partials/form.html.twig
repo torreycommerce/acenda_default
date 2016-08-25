@@ -58,8 +58,8 @@
 							<div class="row">
 								{# Begin return quantity #}
 								<div class="col-xs-6 col-md-4">
-									<div class="form-group">
-										<label class="control-label" for="return-qty[{{item.id}}]">Qty <span class="text-danger">*</span></label>
+									<div class="form-group fgq">
+										<label class="control-label" for="return-qty[{{item.id}}]">Qty</label>
 										{{ forms.select('createreturn[quantity][' ~ item.id ~ ']', '0', range(0,available), {class:'form-control parsley-validated', id:'return-qty[' ~ item.id ~']', label:'Quantity', required:true, 'parsley-min':0,'parsley-max':available}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'quantity[' ~ item.id ~ ']') }}</div>
 									</div>

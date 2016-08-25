@@ -80,7 +80,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			<div class="well">
 				<div class="row">
 					{# Begin order details #}
-					<div class="order-details col-xs-12 col-sm-4 col-lg-3 fsd1 p-xs-2x">
+					<div class="order-details col-xs-12 col-sm-4 fsd1 p-xs-2x">
 						<div class="order-info p">
 							<div><strong>Order Info</strong></div>
 							<div>Order: #{{ order.order_number }}</div>
@@ -110,7 +110,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					</div>
 					{# End order details #}
 					{# Begin order items #}
-					<div class="order-items col-xs-12 col-sm-8 col-lg-9 fsd1 g">
+					<div class="col-xs-12 col-sm-8 fsd1 g">
 						{% if order.fraud_check is not empty %}
 						<div class="alert alert-warning">
 							Please call customer service for faster processing on this order.

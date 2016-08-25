@@ -36,32 +36,24 @@ Contact Us
         <h3>We are here to help!</h3><p>For questions or comments, please complete the form below.</p>
     {{ lonelyform.endintro() }}
     {{ forms.begin('contact','','post') }}
-    <div class="form-group">
-        <label class="control-label" for="contact-name">Name
-            <span class="text-danger">*</span>
-        </label>
+    <div class="form-group fgq">
+        <label class="control-label" for="contact-name">Name</label>
         {{ forms.text('contact[name]', contact.name|default(app.user.full_name), {class:'form-control parsley-validated', id:'contact-name', placeholder:"Name", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'name') }}</div>
     </div>
-    <div class="form-group">
-        <label class="control-label" for="contact-email">Email
-            <span class="text-danger">*</span>
-        </label>
+    <div class="form-group fgq">
+        <label class="control-label" for="contact-email">Email</label>
         {{ forms.email('contact[email]', contact.email|default(app.user.email), {class:'form-control parsley-validated', id:'contact-email', placeholder:"Email", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label" for="contact-subject">Subject
-            <span class="text-danger">*</span>
-        </label>
+    <div class="form-group fgq">
+        <label class="control-label" for="contact-subject">Subject</label>
         {{ forms.select('contact[subject]', contact.subject, subjects, {class:'form-control parsley-validated', id:'contact-subject', placeholder:"Subject", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'subject') }}</div>
     </div>
-    <div class="form-group">
-        <label class="control-label" for="contact-message">Message
-            <span class="text-danger">*</span>
-        </label>
+    <div class="form-group fgq">
+        <label class="control-label" for="contact-message">Message</label>
         {{ forms.textarea('contact[message]', contact.message, {class:'form-control parsley-validated', id:'contact-message', placeholder:"Message", rows:"3", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'message') }}</div>
     </div>

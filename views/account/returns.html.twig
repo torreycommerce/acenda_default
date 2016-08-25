@@ -81,15 +81,15 @@
 			<div class="well">
 				<div class="row">
 					{# Begin return details #}
-					<div class="return-details col-xs-12 col-sm-4 col-lg-3 fsd1 p-xs-2x">
+					<div class="return-details col-xs-12 col-sm-4 fsd1 p-xs-2x">
 						<div class="return-info p">
 							<div><strong>Return Information</strong></div>
-							<div class="return-rma">RMA # {{ return.rma }}</div>
-							<div class="return-date">Created on: {{ return.date_created }}</div>
-							<div class="return-status">Status: {{ return.status }}</div>
+							<div>RMA # {{ return.rma }}</div>
+							<div>Created on: {{ return.date_created }}</div>
+							<div>Status: {{ return.status }}</div>
 						</div>
 						{# Begin actions #}
-						<div class="actions p">
+						<div class="actions p-xs">
 							<div class="row">
 								<div class="col-md-12">
 									{% if return.status == 'pending' %}
@@ -120,15 +120,17 @@
 					</div>
 					{# End return details #}
 					{# Begin return items #}
-					<div class="return-items col-xs-12 col-sm-8 col-lg-9 fsd1">
+					<div class="col-xs-12 col-sm-8 fsd1 g">
 						{% set item = api.get('/orderitem/' ~ return.item_id) %}
 						{% set product = api.get('/variant/' ~ item.product_id) %}
-						<div class="row col-v divide">
-							<div class="col-xs-4 col-sm-4 col-md-3">
-								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="img-thumbnail" src='{{ product.thumbnail }}'>
-							</div>
-							<div class="col-xs-8 col-sm-8 col-md-9">
-								<a href="{{ app.url ~ product.url }}">{{ item.name }}</a>
+						<div class="divide g p pad-b">
+							<div class="media">
+								<div class="media-left">
+									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src='{{ product.thumbnail }}' width="250" height="250" alt="">
+								</div>
+								<div class="media-body">
+									<a href="{{ app.url ~ product.url }}">{{ item.name }}</a>
+								</div>
 							</div>
 						</div>
 					</div>

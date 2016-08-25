@@ -81,36 +81,7 @@ h1 {padding:0 0 9px;}
 
 
 /* coolguy */
-.image-space {display:block; position:relative; padding-top:100%;}
-.image-space.is80 {padding-top:80%;}
-.image-space.is75 {padding-top:75%;}
-.image-space.is60 {padding-top:60%;}
-.image-space.is50 {padding-top:50%;}
-.image-space.is40 {padding-top:40%;}
-.image-space.is30 {padding-top:30%;}
-.image-space.is25 {padding-top:25%;}
-.image-space.is20 {padding-top:20%;}
-.image-space .isd {position:absolute; top:0;}
-.image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
-.image-space .isd .img-responsive {margin:0 auto;}
-.fsd1 {font-size:87.5%;}
-.fsi1 {font-size:112.5%;}
-
-.btn-sq-xs {width:22px; height:22px; padding:0;}
-.btn-sq-sm {width:30px; height:30px; padding:0;}
-.btn-sq {width:34px; height:34px; padding:0;}
-.btn-sq-lg {width:46px; height:46px; padding:0;}
-
-.al-btn-xs {margin-top:0; margin-bottom:0; line-height:22px;}
-.al-btn-sm {margin-top:0; margin-bottom:0; line-height:30px;}
-.al-btn {margin-top:0; margin-bottom:0; line-height:34px;}
-.al-btn-lg {margin-top:0; margin-bottom:0; line-height:46px;}
-
-
-
 @media (min-width:1px){
-.image-space .isd {top:50%; left:50%; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
-
 .flash-note {position:absolute; z-index:1071; top:50%; left:50%; width:50%; text-align:center; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
 .flash-note .alert {display:block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
 }
@@ -121,16 +92,12 @@ h1 {padding:0 0 9px;}
 }
 
 @media (max-width:767px){
-.fsd1 {font-size:85.714285%;}
-.fsi1 {font-size:114.285714%;}
-
 .lonely-form .btn {display:block; width:100%; margin-bottom:10px;}
 .lonely-form .btn:last-child {margin-bottom:0;}
 
 .flash-note {left:20px; right:20px; width:auto; -moz-transform:translate(0, -50%); -ms-transform:translate(0, -50%); -o-transform:translate(0, -50%); -webkit-transform:translate(0, -50%); transform:translate(0,-50%);}
 }
 /* */
-
 
 
 
@@ -263,4 +230,3 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .color-chip {font-size:140%;}
 }
 /**** End Color Chip Styling  ****/
-

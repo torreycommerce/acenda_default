@@ -55,25 +55,25 @@
 			{{ form.hidden('review[product_id]', product_id) }}
 			<fieldset>
 				<legend>Identity</legend>
-				<div class="form-group">
-					<label class="control-label" for="first-name">First Name <span class="text-danger">*</span></label>
+				<div class="form-group fgq">
+					<label class="control-label" for="first-name">First Name</label>
 					{{ form.text('review[first_name]',review.first_name|default(app.user.first_name), {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'first_name') }}</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label" for="email">Email <span class="text-danger">*</span></label>
+				<div class="form-group fgq">
+					<label class="control-label" for="email">Email</label>
 					{{ form.email('review[email]',review.email|default(app.user.email), {class:'form-control parsley-validated', id:'email', placeholder:"Email", required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'email') }}</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label" for="city">City <span class="text-danger">*</span></label>
+				<div class="form-group fgq">
+					<label class="control-label" for="city">City</label>
 					{{ form.text('review[city]',review.city|default(address.city), {class:'form-control parsley-validated', id:'city', placeholder:"City", required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'city') }}</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label" id="state-label" for="state_select">State <span class="text-danger">*</span></label>
+						<div class="form-group fgq">
+							<label class="control-label" id="state-label" for="state_select">State</label>
 							{{ form.select('review[state]',review.state|default(review.state), {}, {class:'form-control parsley-validated', id:'state_select', placeholder:"State"}) }}
 							{{ form.text('review[state]', review.state|default(review.state), {class:'form-control parsley-validated', placeholder:"State", id:'state_input'}) }}
 							<div class="validation">{{ form.errorlist(form_errors, 'state') }}</div>
@@ -81,8 +81,8 @@
 					</div>
 					
 					<div class="col-xs-6">
-						<div class="form-group">
-							<label class="control-label" for="country">Country <span class="text-danger">*</span></label>
+						<div class="form-group fgq">
+							<label class="control-label" for="country">Country</label>
 							{{ form.select('review[country]',review.country|default(address.country), {}, {class:'form-control parsley-validated', id:'country', placeholder:"Country", required:true}) }}
 							<div class="validation">{{ form.errorlist(form_errors, 'country') }}</div>
 						</div>
@@ -91,13 +91,13 @@
 			</fieldset>
 			<fieldset>
 				<legend>Review - <small>{{ product.name }}</small></legend>
-				<div class="form-group">
-					<label class="control-label" for="review-title">Review Title <span class="text-danger">*</span></label>
+				<div class="form-group fgq">
+					<label class="control-label" for="review-title">Review Title</label>
 					{{ form.text('review[title]',review.title, {class:'form-control parsley-validated', placeholder:"Review Title", id:'review-title', required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'title') }}</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label" for="review-description">Comment <span class="text-danger">*</span></label>
+				<div class="form-group fgq">
+					<label class="control-label" for="review-description">Comment</label>
 					{{ form.textarea('review[comment]',review.comment, {class:'form-control parsley-validated', id:'review-description', placeholder:"Comment", required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'comment') }}</div>
 				</div>
