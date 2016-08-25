@@ -15,7 +15,9 @@
 {% if cart.items is empty %}
 	{{ app.redirect('/') }}
 {% endif %}
-{% if (config.components.payflowpro.enable == false and config.components.stripe.enable == false ) %}
+{% set site_payments = api.get('/site/payments') %}
+
+{% if site_payments.has_regular_checkout != true %}
 	{{ app.redirect('/cart') }}
 {% endif %}
 {% if app.request.post.shipping %}
