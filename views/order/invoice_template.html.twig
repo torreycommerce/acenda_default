@@ -1,0 +1,87 @@
+ <div class="invoice-container">
+    <div class="row">
+        <div class="col-xs-6">
+            <img ng-if="main.config.params.logoimages[0]" style="max-height: 50px; width: auto" ng-src="{{ '{{main.config.params.logoimages[0].url}}' }}' }}' }}"/>
+            <p ng-if="!main.config.params.logoimages[0]">{{ '{{main.config.params.site.title}}' }}</p>
+        </div>
+        <div class="col-xs-6 text-right">
+            <p class="size-h2"> Order #{{ '{{singleOrder.order_number}}' }}</p>
+            <p>Return: {{ '{{returnAddress.street_line1}}' }} {{ '{{returnAddress.street_line2}}' }}, {{ '{{returnAddress.city}}' }}, {{ '{{returnAddress.state}}' }}{{ '{{returnAddress.zip}}' }}</p>
+            <p><span class="icon fa fa-envelope"></span> {{ '{{main.config.params[\'contact-us\'][\'to\']}}' }}</p>
+            <p><span class="icon glyphicon glyphicon-earphone"></span>{{ '{{main.config.params.information.phone_number | phoneNumber}}' }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <p><strong>Order Details</strong></p>
+            <strong>Date:</strong> {{ '{{singleOrder.date_modified}}' }} <br>
+            <strong>ID:</strong> {{ '{{ID}}' }} <br>
+            <strong>Shipping Name:</strong> {{ '{{ singleOrder.shipping[0].name}}' }}<br/>
+            <strong>Carrier Method:</strong> {{ '{{ singleOrder.shipping[0].carrier_method}}' }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Shipping Address</label>
+            <address>
+                <strong>{{ '{{singleOrder.shipping_first_name}}' }} {{ '{{singleOrder.shipping_last_name}}' }}</strong><br>
+                {{ '{{singleOrder.shipping_street_line1}}' }} {{ '{{singleOrder.shipping_street_line2}}' }}<br>
+                {{ '{{singleOrder.shipping_city}}' }}, {{ '{{singleOrder.shipping_state}}' }} {{ '{{singleOrder.shipping_zip}}' }}<br>
+                {{ '{{singleOrder.shipping_country}}' }}<br>
+            </address>
+        </div>
+
+        <div class="col-xs-6">
+            <label>Billing Address</label>
+            <address>
+                <strong>{{ '{{singleOrder.billing_first_name}}' }} {{ '{{singleOrder.billing_last_name}}' }}</strong><br>
+                {{ '{{singleOrder.billing_street_line1}}' }} {{ '{{singleOrder.billing_street_line2}}' }}<br>
+                {{ '{{singleOrder.billing_city}}' }}, {{ '{{singleOrder.billing_state}}' }} {{ '{{singleOrder.billing_zip}}' }}<br>
+                {{ '{{singleOrder.billing_country}}' }}<br>
+            </address>
+        </div>
+
+    </div>
+
+    <div class="divider divider-lg"></div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="bg-dark">
+                <th class="text-center">#</th>
+                <th>Product</th>
+                <th class="text-center">Unit Cost</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(index_item, item) in items">
+                <td class="text-center">{{ '{{item.id}}' }}</td>
+                <td>{{ '{{item.name}}' }} - {{ '{{item.sku}}' }}</td>
+                <td class="text-center">{{ '{{item.price}}' }}</td>
+                <td class="text-center">{{ '{{item.quantity}}' }}</td>
+                <td class="text-center">{{ '{{item.price * item.quantity | currency}}' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <p class="size-h3">Thanks for your business</p>
+        </div>
+        <div class="col-sm-4 invoice-sum text-right">
+            <ul class="list-unstyled">
+                <li>Sub Total : {{ '{{singleOrder.item_subtotal | currency}}' }}</li>
+                <li>Shipping : {{ '{{singleOrder.shipping_rate | currency }}' }}</li>
+                <li>Discount: {{ '{{ singleOrder.discount_price | currency }}' }}</li>
+                <li>Tax: ${{ '{{singleOrder.tax}}' }}</li>
+                <li><strong>Total: ${{ '{{singleOrder.total}}' }}</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>
