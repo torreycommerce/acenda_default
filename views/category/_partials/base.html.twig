@@ -147,7 +147,7 @@
 ##  Begin Twig template
 ##
 #}
-<div class="row categoryCol">
+<div class="row">
 	{# Begin category filters #}
 	<section class="category-filters fsd1">
 		<div class="col-md-3 col-xs-12">
@@ -312,19 +312,15 @@
 			{% set items_per_row = 3 %}
 			<section class="products-category text-center">
 				{% if search_suggestion is not empty %}
-				<div class="row">
-					<div class="col-sm-12">
-						<p>Showing results for <strong><i>{{search_suggestion}}</i></strong></p>
-					</div>
-				</div>
-					{% endif %}
-					{% if products.num_total == 0 and categories is empty %}
-				<div class="row">
-					<div class="col-sm-12">
-						<p>No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>.</p>p>
-					</div>
-				</div>
-					{% endif %}
+				
+				<p>Showing results for <strong><i>{{search_suggestion}}</i></strong></p>
+				
+				{% endif %}
+				{% if products.num_total == 0 and categories is empty %}
+				
+				<p>No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>.</p>p>
+				
+				{% endif %}
 				<div class="row c-c">
 					{% set collection_ids = [] %}
 					{% for row,product in products if product.id not in collection_ids %}
@@ -341,16 +337,15 @@
 						</div>
 						{# End product #}
 					{% endfor %}
-					</div>
+				</div>
 					{% if products|length == limit or app.request.get.page > 1 %}
-					<div class="row">
-						<div class="col-md-12 p">
-							<div class="pagination-bottom g text-center">
-								{{ base.pagination(products.num_total,limit,4) }}
-							</div>
-						</div>
+					
+				<div class="p">
+					<div class="pagination-bottom g text-center">
+						{{ base.pagination(products.num_total,limit,4) }}
 					</div>
-					{% endif %}
+				</div>
+				{% endif %}
 			</section>
 			{# End Product list #}
 		</div>

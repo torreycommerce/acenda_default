@@ -46,7 +46,7 @@ set in the array in /account/_macros/base.html.twig
 					<div class="panel-title"><i class="fa fa-exclamation-circle"></i><span>Notifications</span></div>
 					{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
 				</div>
-				<div class="panel-body">
+				<div class="panel-body fsd1">
 					{% if notifications is empty %}
 					<p>No notifications have been found.</p>
 					{% endif %}
@@ -76,11 +76,11 @@ set in the array in /account/_macros/base.html.twig
 		<div id="recent-orders">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<div class="panel-title"><i class="fa fa-shopping-bag"></i><span>Recent Orders</span></div>
+					<div class="panel-title"><span>Recent Orders</span></div>
 					{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
 				</div>
 				{# Begin order #}
-				<div class="panel-body">
+				<div class="panel-body fsd1">
 					{% if orders is empty %}
 					<p>No recent orders have been found.</p>
 					{% endif %}
@@ -120,13 +120,13 @@ set in the array in /account/_macros/base.html.twig
 		<div id="recent-wishlist">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<div class="panel-title"><i class="fa fa-gift"></i><span>Recent Wish List Items</span></div>
+					<div class="panel-title"><span>Recent Wish List Items</span></div>
 					{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 					{% set _in = [] %}
 					{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
 					{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
 				</div>
-				<div class="panel-body">
+				<div class="panel-body fsd1">
 					{% if items is empty %}
 					<p>No recent wish list items have been found.</p>
 					{% else %}

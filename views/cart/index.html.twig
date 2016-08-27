@@ -225,7 +225,7 @@ Cart
 				<div class="col-xs-12 col-md-3 p">
 					<div class="quantity">
 						<label for="quantity-selector-{{id}}" class="control-label">Qty</label>
-						<div class="input-group quantity-input-group input-group-sm">
+						<div class="input-group input-group-qty input-group-sm">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>
 							</div>
@@ -286,15 +286,9 @@ Cart
 							{% for id, discount in cart.discount_collection.discounts %}
 								{% if discount.type == 'coupon' %}
 								<div class="discount">
-									<div class="well">
-										<div class="row">
-											<div class="col-xs-9">
-												Coupon used for ${{discount.amount}} off
-											</div>
-											<div class="col-xs-3">
-												{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:'btn-link btn-block btn-xs', id: 'cart_Enter Coupon'}) }}
-											</div>
-										</div>
+									<div class="alert alert-info">
+										{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' pull-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
+										<p>Coupon used for <b>${{discount.amount}}</b> off!</p>
 									</div>
 								</div>
 								{% endif  %}
