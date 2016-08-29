@@ -12,7 +12,7 @@
 {% endif %}
 {# End Config Seo #}
 {# Scripts #}
-{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.1.4.min.js', 0) }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.1.4.min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap/bootstrap.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/google_map_normalizer.js') }}
@@ -27,7 +27,7 @@
 {{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.maskedinput.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/typeahead.js') }}
-{{ app.asset.js(app.url_asset ~ '/assets/intl-tel-input/build/js/intlTelInput.js', 0) }}
+{{ app.asset.js(app.url_asset ~ '/assets/intl-tel-input/build/js/intlTelInput.js') }}
 
 
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
@@ -91,6 +91,29 @@
     {% if url_based_array.0 | trim == ''%}
         {% set url_based_class = 'store-home-page' %}
     {% endif %}
+    <script>
+        function numbersonly(myfield, e, dec) {
+            var key;
+            var keychar;
+            if (window.event)
+                key = window.event.keyCode;
+            else if (e)
+                key = e.which;
+            else return true;
+                keychar = String.fromCharCode(key);
+            // control keys
+            if ((key==null) || (key==0) || (key==8) || (key==9) || (key==13) || (key==27) )
+                return true;
+            // numbers
+            else if ((("0123456789").indexOf(keychar) > -1)) return true;
+            // decimal point jump
+            else if (dec && (keychar == ".")) {
+                myfield.form.elements[dec].focus(); return false;
+            }
+            else
+                return false;
+        }
+    </script>
     <div id="body" class="dynamic-classes {% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
         {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
             <!-- Google Tag Manager DataLayer -->
@@ -152,6 +175,8 @@
         {% endblock %}
         {% block js %}{% endblock %}
     </div>
+</body>
+
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
     {% set back_to = request.0 %}
@@ -201,8 +226,16 @@ $(document).ready(function() {
         if(timer) clearTimeout(timer);
             timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
     });
+    var input = $("#phone");
+    input.intlTelInput({
+        utilsScript: "{{app.url_asset}}/assets/intl-tel-input/build/js/utils.js",
+        nationalMode: true
+    });
+
+    input.on("keyup change", function() {
+        $("#intlPhone").val(input.intlTelInput("getNumber"));
+    });
 });
 </script>
 {% endif %}
-</body>
 </html>
