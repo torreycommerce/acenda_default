@@ -37,7 +37,8 @@ if ($('.form-region').length) {
 					$.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
 						var search_string = "country="+data.result.country;
 							search_string = search_string + '&state=' + data.result.state;
-						//$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
+						if(telReady)
+							$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
 						$(".shipping-continue").prop("disabled",true);
 						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 							var dropdown = $( "#shipping_method" );
@@ -61,7 +62,8 @@ if ($('.form-region').length) {
 					$.getJSON(acendaBaseUrl + '/api/customeraddress/'+id, function(data) {
 						var search_string = "country="+data.result.country;
 							search_string = search_string + '&state=' + data.result.state;
-						//$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
+						if(telReady)
+							$("#phone").intlTelInput("setCountry", data.result.country.toLowerCase());
 						$(".shipping-continue").prop("disabled",true);
 						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 							var dropdown = $( "#shipping_method" );
@@ -98,9 +100,9 @@ if ($('.form-region').length) {
 						//country = data.result[0].value;
 					}
 
-					/*if (country) {
+					if (telReady && country) {
 						$("#phone").intlTelInput("setCountry", country.toLowerCase());
-					}*/
+					}
 
 					response($.map(data.result, function(item, index) {
 						return {
@@ -128,7 +130,8 @@ if ($('.form-region').length) {
 				var search_string = "country="+$('select[id$=country]').val();
 					search_string = search_string + '&state=' + state;
 				$(".shipping-continue").prop("disabled",true);
-				//$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				if(telReady)
+					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 					var dropdown = $( ".shipping-method-dropdown" );
 					dropdown.empty();
@@ -145,7 +148,8 @@ if ($('.form-region').length) {
 			},
 			source: function(request, response) {
 				//console.log('3')
-				//$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				if(telReady)
+					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
 					var state = $('[id$=\\[state_select\\]]').val();
@@ -227,9 +231,9 @@ if ($('.form-billing-region').length) {
 						newCountry = 1;
 						//country = data.result[0].code;
 					}
-					/*if (country) {
+					if (telReady && country) {
 						$("#phone").intlTelInput("setCountry", country.toLowerCase());
-					}*/
+					}
 
 					response($.map(data.result, function(item, index) {
 						return {
@@ -250,7 +254,8 @@ if ($('.form-billing-region').length) {
 			requires: ['select[id$=country]'],
 			source: function(request, response) {
 				//console.log($('select[id$=country]').val());
-				//$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				if(telReady)
+					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
 					var state = $('[id$=\\[state_select\\]]').val();
@@ -329,7 +334,8 @@ if ($('.form-region-customer').length) {
 							newCountry = 1;
 							//country = countries[0].value;
 						}
-						//$("#phone").intlTelInput("setCountry", country.toLowerCase());
+						if(telReady)
+							$("#phone").intlTelInput("setCountry", country.toLowerCase());
 						response($.map(countries, function(item, index) {
 							return {
 								label: item.label,
@@ -351,7 +357,8 @@ if ($('.form-region-customer').length) {
 			requires: ['select[id$=country]'],
 			source: function(request, response) {
 				console.log('now state does its thing')
-				//$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
+				if(telReady)
+					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
 					var state = $('[name$=\\[state_select\\]]').val();
 					if ((state == undefined || state == '') && data.result.length > 0) {

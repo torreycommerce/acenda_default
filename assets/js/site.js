@@ -1,5 +1,6 @@
 /* Options: maybe controlled through Admin at some point */
 var useIntTel = 1;
+var telReady = 0;
 /* */
 
 
@@ -572,6 +573,7 @@ if (useIntTel) {
 	}
 
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/intl-tel-input/build/js/intlTelInput.js",function(){
+    telReady = 1;
 		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/intl-tel-input/build/css/intlTelInput.css">');
 		var input = $("#phone");
 		input.intlTelInput({
