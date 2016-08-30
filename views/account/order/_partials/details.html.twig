@@ -149,7 +149,7 @@
 									{% endfor %}
 								</ul>
 							{% else %}
-								without tracking number.</p>
+								without a tracking number.</p>
 							{% endif %}
 					{% endfor %}
 				</div>
@@ -194,30 +194,25 @@
 							
 							<div class="row">
 								<div class="col-xs-6">Subtotal:</div>
-								<div class="col-xs-6 text-right">${{subtotal|number_format(2, '.')}}</div>
+								<div class="col-xs-6 text-right">${{order.item_subtotal|number_format(2, '.')}}</div>
 							</div>
 							<div class="row">
 								<div class="col-xs-6">Shipping:</div>
 								<div class="col-xs-6 text-right">${{order.shipping_rate|number_format(2, '.')}}</div>
 							</div>
+							{% if order.discount_price > 0 %}
 							{# Begin coupons #}
 							<div class="coupon">
 								<div class="row">
-								{% set coupons = api.get('/ordercoupon?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
-								{% if coupons is not empty %}
-									{% set discount = 0 %}
-									{% for dsc in coupons %}
-										{% set discount = discount + dsc.discount %}
-									{% endfor %}
 									<div class="col-xs-6">Discount:</div>
-									<div class="col-xs-6 price-discount text-right">-${{ discount|number_format(2, '.') }}</div>
-								{% endif %}
+									<div class="col-xs-6 price-discount text-right">-${{ order.discount_price|number_format(2, '.')}}</div>
 								</div>
 							</div>
 							{# End coupons #}
+							{% endif %}
 							<div class="sales-tax">
 								<div class="row">
-									{% set total_before_tax = subtotal + order.shipping_rate %}
+									{% set total_before_tax = order.item_subtotal - order.discount_price + order.shipping_rate %}
 									<div class="col-xs-8">Total Before Tax:</div>
 									<div class="col-xs-4 text-right">${{total_before_tax|number_format(2, '.')}}</div>
 								</div>

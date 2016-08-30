@@ -56,7 +56,7 @@
 	{# End product actions #}
 	{# Begin subtotal #}
 	<div class="subtotal row">
-		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ cart.subtotal|number_format(2, '.') }}</span></div>
+		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ cart.item_subtotal|number_format(2, '.') }}</span></div>
 	</div>
 	{# End subtotal #}
 	{% if step == 'billing' %}
