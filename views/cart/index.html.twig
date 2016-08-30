@@ -316,7 +316,7 @@ Cart
 						<div class="row">
 							<div class="col-xs-7">Subtotal:</div>
 							<div class="amount col-xs-5 text-right">
-								${{ cart.subtotal|number_format(2)}}
+								${{ cart.item_subtotal|number_format(2)}}
 							</div>
 						</div>
 						<div class="row" id="rate-estimate-checkout" style="display:none;">
@@ -339,7 +339,7 @@ Cart
 						{% if coupon_discount > 0 %}
 							<div class="row">
 								<div class="col-xs-7">Coupons:</div>
-								<div class="amount col-xs-5 text-right">
+								<div class="amount price-discount col-xs-5 text-right">
 									-${{ coupon_discount|number_format(2)}}
 								</div>
 							</div>
@@ -347,7 +347,7 @@ Cart
 						{% if bundle_discount > 0 %}
 							<div class="row">
 								<div class="col-xs-7">Bundles:</div>
-								<div class="amount col-xs-5 text-right">
+								<div class="amount price-discount col-xs-5 text-right">
 									-${{ bundle_discount|number_format(2)}}
 								</div>
 							</div>
