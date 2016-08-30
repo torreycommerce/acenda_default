@@ -15,9 +15,9 @@ setCustomerNotification = function(type,message,id) {
   var bs_class = type;
   if($.inArray(type, css_alert_types) == -1) bs_class = 'info';
   var notifier = $("<div />",{
-    'class':'alert alert-block alert-'+bs_class+' flash-notification flash-notification-'+type,
+    'class':'alert alert-block alert-'+bs_class+' flash-note flash-note-'+type,
     'style':'display:none;',
-    'id':'flash-notification-' + id
+    'id':'flash-note-' + id
   });
   var btn = $("<button />",{
     'type':'button',
@@ -26,7 +26,7 @@ setCustomerNotification = function(type,message,id) {
   });
   btn.html('&times;');
   if(type == 'confirm') {
-    notifier.addClass('flash-notification-confirm');
+    notifier.addClass('flash-note-confirm');
     btn.attr('data-flashid',id);
     var confirmBtn = btn.clone();
     confirmBtn.attr('class','btn btn-info');

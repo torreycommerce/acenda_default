@@ -1,6 +1,6 @@
 {% if (app.request.post and app.request.post.return) %}
 	{% if (api.put('/orderreturn/' ~ app.request.post.return ~ '/cancel?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number)) %}
-		<div class="alert alert-dismissable alert-block alert-success flash-notification flash-notification-success" id="flash-notification-success">
+		<div class="alert alert-dismissable alert-block alert-success flash-note flash-note-success" id="flash-note-success">
 			<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
 			Return successfully cancelled
 		</div>
@@ -105,7 +105,7 @@
 					<div class="order-item pad-b divide g p">
 					<div class="media">
 						<div class="media-left">
-							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="media-object" src="{{ product.thumbnail }}"" width="250" height="250" alt="">
+							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src="{{ product.thumbnail }}"" width="250" height="250" alt="">
 						</div>
 						<div class="media-body">
 							<div class="product-name">

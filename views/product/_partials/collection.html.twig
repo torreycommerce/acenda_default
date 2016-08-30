@@ -12,7 +12,7 @@
 			<div class="image-space no-of">
 				<div class="isd" id="main-product-video" style="display:none"></div>
 				<span class="isd">
-					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
+					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
 				</span>
 				<span class="helper"></span>
 			</div>
@@ -28,7 +28,7 @@
 								{% set name = image.name is not empty ? image.name : product.name %}
 								<div class="col-xs-2 col-thin p-thin">
 									<div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.id }}" />
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.id }}" />
 									</div>
 								</div>
 							{% endfor %}
@@ -38,7 +38,7 @@
 									{% set name = image.name is not empty ? image.name : item.name %}
 									<div class="col-xs-2 col-thin p-thin">
 										<div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.alt }}" />
+											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.alt }}" />
 										</div>
 									</div>
 								{% endfor %}
@@ -48,7 +48,7 @@
 								{% for video in product.videos %}
 									<div class="col-xs-2 col-thin p-thin">
 										<div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-											<i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="">
+											<i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="">
 										</div>
 									</div>
 								{% endfor %}
@@ -196,7 +196,7 @@
 										<div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
 											<div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
 												<img id="main-product-image-copy"
-													onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'"
+													onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'"
 													src="{{app.image.getImageUrl("product","standard",bundle.items[0].images[0].id) }}"
 													width="250" class="img-responsive" alt="" />
 											</div>
@@ -367,7 +367,7 @@
 												
 												{# Begin collection product image #}
 												<div class="media-left">
-													<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.jpg'" src="{{ app.url_asset }}/assets/images/product/image-250x250.jpg" width="250" height="250" class="media-object" alt="" style="display:none"/>
+													<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" width="250" height="250" class="media-object" alt="" style="display:none"/>
 													<a href="{{app.url}}/product/{{product.slug}}">
 														<span class="" id="variant-selected-image-{{product.id}}">
 															<span class="isd"></span>
