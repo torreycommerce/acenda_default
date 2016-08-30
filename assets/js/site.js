@@ -570,7 +570,7 @@ if (useIntTel) {
 		else
 			return false;
 	}
-	//
+
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/intl-tel-input/build/js/intlTelInput.js",function(){
 		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/intl-tel-input/build/css/intlTelInput.css">');
 		var input = $("#phone");
