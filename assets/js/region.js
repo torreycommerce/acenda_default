@@ -73,7 +73,6 @@ if ($('.form-region').length) {
 							var dropdown = $( "#shipping_method" );
 							dropdown.empty();
 							var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
-							sessionStorage.setItem('selected_shipping_method_checkout', null);
 							if (typeof data.result !== 'undefined' && data.result.length > 0) {
 								$.each(data.result, function( index, method ) {
 									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
@@ -134,6 +133,7 @@ if ($('.form-region').length) {
 			onChange: function(event, allValues) {
 				//console.log('2')
 				var state = $('[id$=\\[state_select\\]]').val();
+				//var state = $('[id$=state_select]').val();
 				if (state == undefined || state == '') {
 					state = 'CA';
 				}
@@ -144,8 +144,10 @@ if ($('.form-region').length) {
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 					var dropdown = $( ".shipping-method-dropdown" );
+					//var dropdown = $( "#shipping_method" );
+
 					dropdown.empty();
-					sessionStorage.setItem('selected_shipping_method_checkout', null);
+					var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 					if (typeof data.result !== 'undefined' && data.result.length > 0) {
 						$.each(data.result, function( index, method ) {
 							var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
@@ -214,7 +216,7 @@ if ($('.form-region').length) {
 					$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 						var dropdown = $( "#shipping_method" );
 						dropdown.empty();
-						sessionStorage.setItem('selected_shipping_method_checkout', null);
+						var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 						if (typeof data.result !== 'undefined' && data.result.length > 0) {
 							$.each(data.result, function( index, method ) {
 								var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
@@ -449,6 +451,7 @@ if ($('.form-estimate').length) {
 							};
 						}));
 					}
+					$('#cart_shipping_method').change();
 					//
 					console.log('call sCO() from form-estimate')
 					initCountryOpts()
@@ -494,6 +497,8 @@ if ($('.form-estimate').length) {
 							}
 						});
 					}
+					$('#cart_shipping_method').change();
+
 					//
 					console.log('call sCO() from form-estimate STATE')
 					initCountryOpts()
