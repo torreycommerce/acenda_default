@@ -68,10 +68,16 @@ if ($('.form-region').length) {
 						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 							var dropdown = $( "#shipping_method" );
 							dropdown.empty();
+							var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
+							sessionStorage.setItem('selected_shipping_method_checkout', null);
 							if (typeof data.result !== 'undefined' && data.result.length > 0) {
 								$.each(data.result, function( index, method ) {
 									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
 									dropdown.append(option);
+									if(shippingMethod && method.id == shippingMethod){
+										dropdown.val(shippingMethod);
+									};
+
 								});
 								$("select[id$=checkout_shipping_address_id]").prop("disabled",false);
 							} else {
@@ -147,11 +153,19 @@ if ($('.form-region').length) {
 				});
 			},
 			source: function(request, response) {
+				if (($('#checkout_shipping_address_id').val() != '' &&
+			        $('#checkout_shipping_address_id').val() != undefined) ||
+			        ($('#checkout_billing_address_id').val() != '' &&
+			        $('#checkout_billing_address_id').val() != undefined) ||
+			        ($('#express_shipping_address_id').val() != '' &&
+			        $('#express_shipping_address_id').val() != undefined)) {
+						return;
+					}
 				//console.log('3')
 				if(telReady)
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
-
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
+
 					var state = $('[id$=\\[state_select\\]]').val();
 					if ((state == undefined || state == '') && data.result.length > 0) {
 						console.log('no default State')
@@ -187,6 +201,7 @@ if ($('.form-region').length) {
 							};
 						}));
 					}
+
 					var search_string = "country="+$('select[id$=country]').val();
 					if ($('#state').val()) {
 						search_string = search_string + '&state=' + $('#state').val();

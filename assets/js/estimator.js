@@ -7,6 +7,7 @@ function estimator() {
     .fail(function(error) {
     })
     .then(function(cart_data) {
+        sessionStorage.setItem('selected_shipping_method_checkout', shipping_method);
         $.post(acendaBaseUrl + '/api/shippingmethod/' + shipping_method + '/rate',{
             total:cart_data.result.subtotal,
             quantity:cart_data.result.item_count
