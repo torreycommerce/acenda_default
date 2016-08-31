@@ -482,7 +482,6 @@ if ($('.form-estimate').length) {
 									var option = $('<option></option>').attr("value", method.id).text(method.name);
 									dropdown.append(option);
 								});
-
 								dropdown.prop("disabled",false);
 							}
 						});
@@ -511,6 +510,7 @@ if ($('.form-estimate').length) {
 							value: item.id
 						};
 					}));
+					$('#cart_shipping_method').change();
 					//
 					console.log('call sCO() from form-estimate METHOD')
 					initCountryOpts()

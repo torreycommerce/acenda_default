@@ -3,11 +3,11 @@ function estimator() {
     var shipping_method = $('#cart_shipping_method').val();
     var shipping_country = $('#cart_shipping_country').val();
     var shipping_state = $('#cart_shipping_state').val();
+
     $.getJSON(acendaBaseUrl + '/api/sessioncart')
     .fail(function(error) {
     })
     .then(function(cart_data) {
-        sessionStorage.setItem('selected_shipping_method_checkout', shipping_method);
         $.post(acendaBaseUrl + '/api/shippingmethod/' + shipping_method + '/rate',{
             total:cart_data.result.subtotal,
             quantity:cart_data.result.item_count
@@ -45,6 +45,9 @@ function estimator() {
     });
     return false;
 }
+$('#cart_shipping_method').change(function(e){
+    sessionStorage.setItem('selected_shipping_method_checkout', $('#cart_shipping_method').val());
+});
 
 $('#cart_Estimate').click(function(e) {
     e.preventDefault();
