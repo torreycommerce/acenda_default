@@ -43,10 +43,14 @@ if ($('.form-region').length) {
 						$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 							var dropdown = $( "#shipping_method" );
 							dropdown.empty();
+							var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 							if (typeof data.result !== 'undefined' && data.result.length > 0) {
 								$.each(data.result, function( index, method ) {
 									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
 									dropdown.append(option);
+									if(shippingMethod && method.id == shippingMethod){
+										dropdown.val(shippingMethod);
+									};
 								});
 								$("select[id$=checkout_shipping_address_id]").prop("disabled",false);
 							} else {
@@ -141,10 +145,14 @@ if ($('.form-region').length) {
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 					var dropdown = $( ".shipping-method-dropdown" );
 					dropdown.empty();
+					sessionStorage.setItem('selected_shipping_method_checkout', null);
 					if (typeof data.result !== 'undefined' && data.result.length > 0) {
 						$.each(data.result, function( index, method ) {
 							var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
 							dropdown.append(option);
+							if(shippingMethod && method.id == shippingMethod){
+								dropdown.val(shippingMethod);
+							};
 						});
 						$(".shipping-continue").prop("disabled",false);
 					} else {
@@ -206,10 +214,14 @@ if ($('.form-region').length) {
 					$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 						var dropdown = $( "#shipping_method" );
 						dropdown.empty();
+						sessionStorage.setItem('selected_shipping_method_checkout', null);
 						if (typeof data.result !== 'undefined' && data.result.length > 0) {
 							$.each(data.result, function( index, method ) {
 								var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
 								dropdown.append(option);
+								if(shippingMethod && method.id == shippingMethod){
+									dropdown.val(shippingMethod);
+								};
 							});
 							$(".shipping-continue").prop("disabled",false);
 						} else {
