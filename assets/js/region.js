@@ -153,12 +153,8 @@ if ($('.form-region').length) {
 				});
 			},
 			source: function(request, response) {
-				if (($('#checkout_shipping_address_id').val() != '' &&
-			        $('#checkout_shipping_address_id').val() != undefined) ||
-			        ($('#checkout_billing_address_id').val() != '' &&
-			        $('#checkout_billing_address_id').val() != undefined) ||
-			        ($('#express_shipping_address_id').val() != '' &&
-			        $('#express_shipping_address_id').val() != undefined)) {
+				if ($('#checkout_shipping_address_id').val() != '' &&
+			        $('#checkout_shipping_address_id').val() != undefined) {
 						return;
 					}
 				//console.log('3')
