@@ -16,13 +16,9 @@
     {% set registries = api.get('/registry', {query:params}) %}
 {% endif %}
 <div id="registry_search">
-<div class="row">
-    <div class="col-md-12">
-        <header>
-            <h1>Gift Registry</h1>
-        </header>
-    </div>
-</div>
+
+<h1>Gift Registry</h1>
+
 {{ lonelyform.begin('registry-find')}}
     {{ lonelyform.beginintro() }}
         <h3>Find a Registry</h3>
