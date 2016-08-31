@@ -46,20 +46,12 @@
     <div class="row">
     	{# Begin content #}
     	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-10">
-            <header>
-        		<div class="row">
-        			<div class="col-md-12">
-        				<h3 class="page-header"><i class="fa fa-gift"></i> Create a Registry</h3>
-        			</div>
-        		</div>
-            </header>
-    		<div class="row">
-    			<div class="col-md-12">
-    				{% set create = true %}
-    				{% include '/account/registry/_partials/form.html.twig' %}
-    			</div>
-    		</div>
-    	</div>	
+            
+        	<h1 class="page-header"><i class="fa fa-gift"></i><span>Create a Registry</span></h1>
+        	
+			{% set create = true %}
+			{% include '/account/registry/_partials/form.html.twig' %}
+    	</div>
     	{# End content #}
     </div>
 </div>

@@ -42,20 +42,10 @@
     <div class="row">
         {# Begin content #}    
         <div class="col-sm-8 col-md-9 col-lg-10">
-            <header>
-                <div class="row">
-                    <div class="col-md-12">
-                        <header>
-                            <h3 class="page-header"><i class="fa fa-pencil-square-o"></i> Edit {{ registry.name }}</h3>
-                        </header>
-                    </div>
-                </div>
-            </header>
-            <div class="row">
-                <div class="col-md-12">
-                    {% include '/account/registry/_partials/form.html.twig' %}
-                </div>
-            </div>
+            
+            <h1><i class="fa fa-pencil-square-o"></i><span>Edit {{ registry.name }}</span></h1>
+
+            {% include '/account/registry/_partials/form.html.twig' %}
         </div>    
         {# End content #}
     </div>

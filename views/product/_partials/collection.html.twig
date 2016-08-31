@@ -64,33 +64,30 @@
 	{# End product images #}
 	{# Begin Product Details #}
 	<section id="product-details" class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
-		<header>
-			<div class="brand p-mini">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
-			</div>
-			<h1 class="product-name text-left">{{product.name}}</h1>
-			{# Begin product prices #}
-			{% set prices =  product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
-			{% if prices.price|first > 0 %}
-			<div class="pricing g p">
-				<div class="price price-range">{{ prod.price(prices.price) }}</div>
-				{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
-					{% spaceless %}
-					<ul class="pricing list-inline">
-						{% if prices.compare_price is not empty and prices.compare_price != prices.price %}
-						<li class="price-regular">{{ prod.price(prices.compare_price) }}</li>
-						{% endif %}
-						{% if prices.save_price is not empty and prices.save_percent is not empty %}
-						<li class="percent">Save {{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
+		<div class="brand p-mini">
+			<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
+		</div>
+		<h1 class="product-name text-left">{{product.name}}</h1>
+		{# Begin product prices #}
+		{% set prices =  product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
+		{% if prices.price|first > 0 %}
+		<div class="pricing g p">
+			<div class="price price-range">{{ prod.price(prices.price) }}</div>
+			{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
+				{% spaceless %}
+				<ul class="pricing list-inline">
+					{% if prices.compare_price is not empty and prices.compare_price != prices.price %}
+					<li class="price-regular">{{ prod.price(prices.compare_price) }}</li>
 					{% endif %}
-					</ul>
-					{% endspaceless %}
+					{% if prices.save_price is not empty and prices.save_percent is not empty %}
+					<li class="percent">Save {{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
 				{% endif %}
-			</div>
+				</ul>
+				{% endspaceless %}
 			{% endif %}
-			{# End product prices #}
-		</header>
-		{# End product header #}
+		</div>
+		{% endif %}
+		{# End product prices #}
 		{# Begin review stars #}
 		{% spaceless %}
 		{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}

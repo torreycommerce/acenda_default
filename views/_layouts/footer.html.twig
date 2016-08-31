@@ -1,7 +1,7 @@
 {% spaceless %}
-<footer class="pad-h-2x text-center" id="footer">
+<footer class="text-center" id="footer">
 	{% if app.request.url != "store-protected" %}
-	<section class="newsletter pad-b-2x">
+	<section class="newsletter pad-h-2x">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-3 col-md-6 col-xs-12 col-v">
@@ -81,16 +81,16 @@
 			{# Social Network Icons if found in config file #}
 			{# if social settings is not set in the config file, just do nothing #}
 			{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-			<div class="row">
+			{#<div class="row">
 				<div class="col-xs-12 col-v">
 					  {{ social.social_parseConfig(app.params.social_settings) }}
 				</div>
-			</div>
+			</div>#}
 			{% endif %}
 		</div>
 	</section>
 	{% endif %}
-	<section class="copyright">
+	<section class="pad-h copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 text-center">

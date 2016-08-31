@@ -3,13 +3,8 @@
 {% if reviews|length > 0 %}
 <section id="featured-reviews" class="product-grid">
 	{# Category Header (Page #, Items / page, Sort by, Search) #}
-	<header>
-		<div class="row">
-			<div class="col-xs-12">
-				<h2 class="section-name">Featured Reviews</h2>
-			</div>
-		</div>
-	</header>
+	<h2 class="section-name">Featured Reviews</h2>
+
 	<section class="products">
 		{% set counter = 0 %}
 		{% for row,review in reviews if products[review.product_id].0.id is defined and counter < 3 %}
