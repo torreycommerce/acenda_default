@@ -1,0 +1,6 @@
+{% if app.user.isLoggedIn() %}
+		{% do app.redirect('/cart') %}
+{% else %}
+  {% do app.user.setState('login_referer', '/cart') %}
+	{% do app.redirect('/account/login') %}
+{% endif %}
