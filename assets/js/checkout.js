@@ -11,9 +11,11 @@ $(function() {
         }else{
             if (form.normalized === true && !$("#custom-address").is(":hidden")) {
                 $(this).find('button[type="submit"]').attr('disabled', true);
+                sessionStorage.setItem('selected_shipping_method_checkout', null);
                 return true;
             }else if (form.normalized == undefined && ($("#custom-address").is(":hidden") || !$("#custom-address").length)){
                 $(this).find('button[type="submit"]').attr('disabled', true);
+                sessionStorage.setItem('selected_shipping_method_checkout', null);
                 return true;
             }
         }
@@ -68,7 +70,9 @@ $(function() {
             return false;
         }
     }
-
+    $('#shipping_method').change(function(){
+        sessionStorage.setItem('selected_shipping_method_checkout', $('#shipping_method').val());
+    })
     $('#checkout_card_number').keyup(function() {
         var type = cardtype($(this).val());
         $('.cc-visa,.cc-mastercard,.cc-amex,.cc-discover').fadeTo(0, 0.4);
