@@ -132,8 +132,8 @@ if ($('.form-region').length) {
 			requires: ['select[id$=country]'],
 			onChange: function(event, allValues) {
 				//console.log('2')
-				var state = $('[id$=\\[state_select\\]]').val();
-				//var state = $('[id$=state_select]').val();
+				//var state = $('[id$=\\[state_select\\]]').val();
+				var state = $('[id$=state_select]').val();
 				if (state == undefined || state == '') {
 					state = 'CA';
 				}
@@ -143,8 +143,8 @@ if ($('.form-region').length) {
 				if(telReady)
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-					var dropdown = $( ".shipping-method-dropdown" );
-					//var dropdown = $( "#shipping_method" );
+					//var dropdown = $( ".shipping-method-dropdown" );
+					var dropdown = $( "#shipping_method" );
 
 					dropdown.empty();
 					var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
