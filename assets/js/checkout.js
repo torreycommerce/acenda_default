@@ -70,7 +70,9 @@ $(function() {
             return false;
         }
     }
-
+    $('#shipping_method').change(function(){
+        sessionStorage.setItem('selected_shipping_method_checkout', $('#shipping_method').val());
+    })
     $('#checkout_card_number').keyup(function() {
         var type = cardtype($(this).val());
         $('.cc-visa,.cc-mastercard,.cc-amex,.cc-discover').fadeTo(0, 0.4);
