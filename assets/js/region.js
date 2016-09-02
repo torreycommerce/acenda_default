@@ -15,7 +15,11 @@ function initCountryOpts() {
 	}
 	if (newState) {
 		$('#state_select').prepend('<option disabled selected value>Select a State</option>')
+		if(!$('#country').val()){
+			$('#state_select').prop("disabled", true)
+		}
 	}
+
 	//
 	firstRun = 0;
 	newCountry = 0;
@@ -96,6 +100,7 @@ if ($('.form-region').length) {
 		{
 			selector: 'select[id$=country]',
 			source: function(request, response) {
+
 				$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
 				$('#state-label').prop('for','state_input');
 				$("#state_select").addClass('hidden').prop( "disabled", true )
@@ -131,6 +136,7 @@ if ($('.form-region').length) {
 			selector: 'select[id$=state_select]',
 			requires: ['select[id$=country]'],
 			onChange: function(event, allValues) {
+
 				//console.log('2')
 				//var state = $('[id$=\\[state_select\\]]').val();
 				var state = $('[id$=state_select]').val();
@@ -145,7 +151,6 @@ if ($('.form-region').length) {
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 					//var dropdown = $( ".shipping-method-dropdown" );
 					var dropdown = $( "#shipping_method" );
-
 					dropdown.empty();
 					var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 					if (typeof data.result !== 'undefined' && data.result.length > 0) {
@@ -163,10 +168,6 @@ if ($('.form-region').length) {
 				});
 			},
 			source: function(request, response) {
-				if ($('#checkout_shipping_address_id').val() != '' &&
-			        $('#checkout_shipping_address_id').val() != undefined) {
-						return;
-					}
 				//console.log('3')
 				if(telReady)
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
@@ -185,7 +186,6 @@ if ($('.form-region').length) {
 						$(".postziplang").html("Postal Code");
 						$('input[placeholder="Zip"]').attr('placeholder','Postal Code');
 					}
-
 					if (typeof data.result !== 'undefined') {
 
 						//If State array is empty, then show state as a text input.
@@ -193,10 +193,12 @@ if ($('.form-region').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -213,25 +215,31 @@ if ($('.form-region').length) {
 						search_string = search_string + '&state=' + $('#state').val();
 					}
 					$(".shipping-continue").prop("disabled",true);
+
 					$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
-						var dropdown = $( "#shipping_method" );
-						dropdown.empty();
-						var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
-						if (typeof data.result !== 'undefined' && data.result.length > 0) {
-							$.each(data.result, function( index, method ) {
-								var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-								dropdown.append(option);
-								if(shippingMethod && method.id == shippingMethod){
-									dropdown.val(shippingMethod);
-								};
-							});
-							$(".shipping-continue").prop("disabled",false);
-						} else {
-							$(".shipping-continue").prop("disabled",true);
+						if ($('#checkout_shipping_address_id').val() == '' ||
+					        $('#checkout_shipping_address_id').val() == undefined) {
+
+							var dropdown = $( "#shipping_method" );
+							dropdown.empty();
+							var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
+							if (typeof data.result !== 'undefined' && data.result.length > 0) {
+								$.each(data.result, function( index, method ) {
+									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+									dropdown.append(option);
+									if(shippingMethod && method.id == shippingMethod){
+										dropdown.val(shippingMethod);
+									};
+								});
+								$(".shipping-continue").prop("disabled",false);
+							} else {
+								$(".shipping-continue").prop("disabled",true);
+							}
 						}
 						//
 						console.log('call sCO() from form-region STATE')
 						initCountryOpts()
+
 						//
 					});
 				});
@@ -304,10 +312,12 @@ if ($('.form-billing-region').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -405,10 +415,12 @@ if ($('.form-region-customer').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 					}
 
