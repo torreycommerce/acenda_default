@@ -193,12 +193,12 @@ if ($('.form-region').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
-							$('#state-label').parent().attr('class', 'form-group normalizable');
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
-							$('#state-label').parent().attr('class', 'form-group fgq normalizable');
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -312,12 +312,12 @@ if ($('.form-billing-region').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
-							$('#state-label').parent().attr('class', 'form-group normalizable');
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-							$('#state-label').parent().attr('class', 'form-group fgq normalizable');
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -415,12 +415,12 @@ if ($('.form-region-customer').length) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden').prop( "disabled", true )
-							$('#state-label').parent().attr('class', 'form-group normalizable');
+							//$('#state-label').parent().attr('class', 'form-group normalizable');
 						} else {
 							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
-							$('#state-label').parent().attr('class', 'form-group fgq normalizable');
+							//$('#state-label').parent().attr('class', 'form-group fgq normalizable');
 						}
 					}
 
