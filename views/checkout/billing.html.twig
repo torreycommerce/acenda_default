@@ -154,7 +154,7 @@
 			{% else %}
 
 				<div class="checkout-display-address p" id="display_billing_address">
-					<p>{{ shipping_address }}</p>
+					<address>{{ shipping_address }}</address>
 					<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>
 				</div>
 			{% endif %}
@@ -163,12 +163,10 @@
 		<div class="col-xs-12 col-md-6">
 		<fieldset>
 			<legend>Shipping Address</legend>
-				<div id="row">
-					<div class="checkout-display-address p" id="display_shipping_address">
-						<p>{{ shipping_address }}</p>
-						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Address</a>
-					</div>
-				</div>
+			<div class="checkout-display-address p" id="display_shipping_address">
+				<address>{{ shipping_address }}</address>
+				<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Address</a>
+			</div>
 		</fieldset>
 		
 		</div>

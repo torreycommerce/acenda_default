@@ -140,11 +140,11 @@ Cart
 	<a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
 
 {% else %}
-<section id="shopping-cart">
+
 
 	<h1>Shopping Cart</h1>
 
-	{{ forms.begin('cart','','post', {class:'form-cart p divide'}) }}
+	{{ forms.begin('cart','','post', {class:'form-cart p pad-b divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
 
@@ -311,78 +311,75 @@ Cart
 		</div>
 		<div class="col-xs-12 col-md-4">
 			<div class="well">
-				<div class="row">
-					<div class="col-md-12 p" id="subtotal">
-						<div class="row">
-							<div class="col-xs-7">Subtotal:</div>
-							<div class="amount col-xs-5 text-right">
-								${{ cart.item_subtotal|number_format(2)}}
-							</div>
-						</div>
-						<div class="row" id="rate-estimate-checkout" style="display:none;">
-							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">
-								Shipping*:
-							</div>
-							<div class="amount col-xs-5 text-right"></div>
-						</div>
-						{% set coupon_discount = 0 %}
-						{% set bundle_discount = 0 %}
-						{% for dsc in cart.discount_collection.discounts %}
-							{% if dsc.type == "coupon" %}
-								{% set coupon_discount = coupon_discount + dsc.amount %}
-							{% elseif dsc.type == "bundle" %}
-								{% set bundle_discount = bundle_discount + dsc.amount %}
-							{% endif %}
-						{% endfor %}
-
-
-						{% if coupon_discount > 0 %}
-							<div class="row">
-								<div class="col-xs-7">Coupons:</div>
-								<div class="amount price-discount col-xs-5 text-right">
-									-${{ coupon_discount|number_format(2)}}
-								</div>
-							</div>
-						{% endif %}
-						{% if bundle_discount > 0 %}
-							<div class="row">
-								<div class="col-xs-7">Bundles:</div>
-								<div class="amount price-discount col-xs-5 text-right">
-									-${{ bundle_discount|number_format(2)}}
-								</div>
-							</div>
-						{% endif %}
-						<div class="row" id="total-before-tax" style="display:none;">
-							<div class="col-xs-7">Total Before Tax:</div>
-							<div  class="amount col-xs-5 text-right">
-							</div>
-						</div>
-						<div class="row" id="tax-estimate-checkout" style="display:none;">
-							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">Sales Tax*:</div>
-							<div class="amount col-xs-5 text-right"></div>
-						</div>
-						<div class="row" id="estimate-total">
-							<div class="col-xs-7" data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">Total*:</div>
-							<div class="amount col-xs-5 text-right">
-								${{ cart.adjusted_subtotal|number_format(2) }}
-							</div>
+				<div class="fsd1 p" id="subtotal">
+					<div class="row">
+						<div class="col-xs-7">Subtotal:</div>
+						<div class="amount col-xs-5 text-right">
+							${{ cart.item_subtotal|number_format(2)}}
 						</div>
 					</div>
-					{% if site_payments.has_regular_checkout == true %}
-						<div class="col-md-12">
-							<div class="p" id="proceed-to-checkout">
-								<a class="btn btn-block btn-lg btn-primary btn-cart" href="{{ app.url }}/checkout">Proceed To Checkout</a>
+					<div class="row" id="rate-estimate-checkout" style="display:none;">
+						<div class="col-xs-7">
+							Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
+						</div>
+						<div class="amount col-xs-5 text-right"></div>
+					</div>
+					{% set coupon_discount = 0 %}
+					{% set bundle_discount = 0 %}
+					{% for dsc in cart.discount_collection.discounts %}
+						{% if dsc.type == "coupon" %}
+							{% set coupon_discount = coupon_discount + dsc.amount %}
+						{% elseif dsc.type == "bundle" %}
+							{% set bundle_discount = bundle_discount + dsc.amount %}
+						{% endif %}
+					{% endfor %}
+
+
+					{% if coupon_discount > 0 %}
+						<div class="row">
+							<div class="col-xs-7">Coupons:</div>
+							<div class="amount price-discount col-xs-5 text-right">
+								-${{ coupon_discount|number_format(2)}}
 							</div>
 						</div>
 					{% endif %}
-					{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
-						<div class="col-md-12">
-							<div class="text-center" id="paypal">
-								<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out"></a>
+					{% if bundle_discount > 0 %}
+						<div class="row">
+							<div class="col-xs-7">Bundles:</div>
+							<div class="amount price-discount col-xs-5 text-right">
+								-${{ bundle_discount|number_format(2)}}
 							</div>
 						</div>
 					{% endif %}
+					<div class="row" id="total-before-tax" style="display:none;">
+						<div class="col-xs-7">Total Before Tax:</div>
+						<div class="amount col-xs-5 text-right">
+						</div>
+					</div>
+					<div class="row" id="tax-estimate-checkout" style="display:none;">
+						<div class="col-xs-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
+						<div class="amount col-xs-5 text-right"></div>
+					</div>
+					<div class="row" id="estimate-total">
+						<div class="col-xs-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+						<div class="amount col-xs-5 text-right">
+							${{ cart.adjusted_subtotal|number_format(2) }}
+						</div>
+					</div>
 				</div>
+				{% if site_payments.has_regular_checkout == true %}
+
+					<div class="p" id="proceed-to-checkout">
+						<a class="btn btn-block btn-lg btn-primary btn-cart" href="{{ app.url }}/checkout">Proceed To Checkout</a>
+					</div>
+
+				{% endif %}
+				{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
+
+					<div class="text-center" id="paypal">
+						<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out" width="145" height="42"></a>
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

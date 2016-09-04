@@ -1,6 +1,15 @@
 /* Options: maybe controlled through Admin at some point */
-var useIntTel = 1;
+//
+var useDatePicker = 0; // use date input calendar art?
+//
+var useGMapNorm = 0; // use google map normalizer?
+//
+var useIntTel = 1; // use InternationlTel flag art?
 var telReady = 0;
+//
+var useMMenu = 1; // use default mobile menu?
+//
+var useTypeAhead = 0; // use Twitter TypeAhead?
 /* */
 
 
@@ -122,23 +131,7 @@ $(document).ready(function() {
 	$('#account').trigger('open');
   });
 
-  $(".close-menu").click(function(){
-	$('#nav-mobile-main').trigger('close');
-  });
-
-	$("#nav-mobile-main").attr("style", "");
-	$("#nav-mobile-main").mmenu({
-		zposition: "front",
-		position: "left",
-		classes: "mm-light",
-		dragOpen: true,
-		moveBackground: true,
-		onClick: {
-		  preventDefault: false,
-		  close:true
-		}
-	},{
-	}).trigger("open.btn-nav-mobile");
+  
 
 	$("#acc_btn").click(function(){$('#account').trigger('open');});
 	$(".sub_c").click(function(){$('#'+$(this).attr("ref")).trigger('open');});
@@ -252,12 +245,6 @@ $(document).ready(function () {
 	});
 });
 
-// Datepicker
-$(document).ready(function() {
-	$('input[datepicker=1]').datepicker({
-		format: 'yyyy-mm-dd'
-	});
-});
 
 function findBootstrapEnvironment() {
 	var envs = ['xs', 'sm', 'md', 'lg'];
@@ -451,58 +438,8 @@ $(document).ready(function() {
   });
 });
 
-//Search Autocomplete
-$(document).ready(function() {
-  var searchCompleterCategory = new Bloodhound({
-	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-	queryTokenizer: Bloodhound.tokenizers.whitespace,
-	prefetch: {
-	  url: acendaBaseUrl+'/api/category/tree',
-	  ttl: 300000, //5 min cache
-	  transform: function (response) {
-		res = [];
-		for(var k in response.result) {
-			var v = k.replace('-',' ').replace('/',' > ').replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-			res.push({'value':v, 'url':acendaBaseUrl+'/category/'+k});
-		  }
-		return res;
-	  }
-	}
-  });
 
-  var searchCompleterProduct = new Bloodhound({
-	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-	queryTokenizer: Bloodhound.tokenizers.whitespace,
-	remote: {
-	  url: acendaBaseUrl+'/api/catalog/autocomplete?query=%QUERY',
-	  wildcard: '%QUERY',
-	  transform: function (response) {
-		res = [];
-		for (var i = 0, len = response.result.length; i < len; i++) {
-		  res.push({'value':response.result[i]});
-		}
-		return res;
-	  }
-	}
-  });
 
-  $('.search-autocomplete').typeahead(null,
-	{
-	  name: 'search',
-	  display: 'value',
-	  source: searchCompleterCategory
-	},
-	{
-	  name: 'search',
-	  display: 'value',
-	  source: searchCompleterProduct
-	}
-  ).on('typeahead:selected', function(event, selection) {
-	if('url' in selection) {
-	  window.location=selection.url;
-	}
-  });
-});
 
 function validateEmail(email) {
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -549,6 +486,20 @@ function IncludeJavaScript(jsFile, onLoadCallback) {
 }
 
 
+if (useDatePicker) {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/bootstrap-datepicker.js",function(){
+		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/datepicker.css">');
+		$('input[datepicker=1]').datepicker({
+			format: 'yyyy-mm-dd'
+		});
+	});
+}
+//
+if (useGMapNorm) {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/google_map_normalizer.js",function(){
+	});
+}
+//
 if (useIntTel) {
 	function numbersonly(myfield, e, dec) {
 		var key;
@@ -573,7 +524,7 @@ if (useIntTel) {
 	}
 
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/intl-tel-input/build/js/intlTelInput.js",function(){
-    telReady = 1;
+    	telReady = 1;
 		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/intl-tel-input/build/css/intlTelInput.css">');
 		var input = $("#phone");
 		input.intlTelInput({
@@ -582,6 +533,84 @@ if (useIntTel) {
 		});
 		input.on("keyup change", function() {
 			$("#intlPhone").val(input.intlTelInput("getNumber"));
+		});
+	});
+}
+//
+if (useMMenu) {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.js",function(){
+		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.css">');
+		$(".close-menu").click(function(){
+			$('#nav-mobile-main').trigger('close');
+		});
+
+		$("#nav-mobile-main").attr("style", "");
+		$("#nav-mobile-main").mmenu({
+			zposition: "front",
+			position: "left",
+			classes: "mm-light",
+			dragOpen: true,
+			moveBackground: true,
+			onClick: {
+				preventDefault: false,
+				close:true
+			}
+		},{
+		}).trigger("open.btn-nav-mobile");
+	});
+}
+//
+
+if (useTypeAhead) {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/typeahead.js",function(){
+		var searchCompleterCategory = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		prefetch: {
+		  url: acendaBaseUrl+'/api/category/tree',
+		  ttl: 300000, //5 min cache
+		  transform: function (response) {
+			res = [];
+			for(var k in response.result) {
+				var v = k.replace('-',' ').replace('/',' > ').replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+				res.push({'value':v, 'url':acendaBaseUrl+'/category/'+k});
+			  }
+			return res;
+		  }
+		}
+		});
+
+		var searchCompleterProduct = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		remote: {
+		  url: acendaBaseUrl+'/api/catalog/autocomplete?query=%QUERY',
+		  wildcard: '%QUERY',
+		  transform: function (response) {
+			res = [];
+			for (var i = 0, len = response.result.length; i < len; i++) {
+			  res.push({'value':response.result[i]});
+			}
+			return res;
+		  }
+		}
+		});
+		//
+		$('.search-autocomplete').typeahead(null,
+			{
+				name: 'search',
+				display: 'value',
+				source: searchCompleterCategory
+			},
+			{
+				name: 'search',
+				display: 'value',
+				source: searchCompleterProduct
+			}
+		).on('typeahead:selected', function(event, selection) {
+			if('url' in selection) {
+				window.location=selection.url;
+			}
 		});
 	});
 }

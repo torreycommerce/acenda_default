@@ -6642,7 +6642,7 @@ button.close {
 
 
 /* final word */
-.panel-heading[data-toggle="collapse"] {cursor:pointer;}
+.panel-heading[data-toggle="collapse"], *[data-toggle="modal"] {cursor:pointer;}
 .tab-content .panel {border-top:none;}
 .btn-group.btn-block>.dropdown-menu {min-width:100%; text-align:center;}
 .fgq .control-label:after {content:'*'; margin-left:.25em; color:#f55;}

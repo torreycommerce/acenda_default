@@ -5,7 +5,7 @@
 <div class="fsd1">
 	{% for item in cartitems %}
 	{% set product = api.get('/variant/' ~ item.product_id) %}
-	<div class="col-v divide g">
+	<div class="divide g p pad-b">
 		<div class="media">
 			{# Begin product image #}
 			<div class="media-left">
@@ -50,7 +50,7 @@
 	</div>
 	{% endfor %}
 	{# Begin product actions #}
-	<div class="actions text-right col-v">
+	<div class="actions text-right pad-b">
 		<a class="btn btn-default btn-sec btn-xs" href="{{ app.url }}/cart">Edit Cart</a>
 	</div>
 	{# End product actions #}

@@ -1,6 +1,5 @@
 $(document).ready(function() { 
    $('[data-tooltip]').tooltip();
-   $('input[datepicker=1]').datepicker();
     if ($('.multi-select:checked').length > 0) {
         $('#actions').show();
     } else {
