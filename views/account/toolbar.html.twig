@@ -1,29 +1,123 @@
-{# these are the toolbar items that can not be cached when a customer is logged in #}
-{% if app.user.id is not null  %}
-{% set customer = api.get('/customer/' ~ app.user.id) %}
-
-<a type="button" href="#" id="dropdown-account" class="btn btn-default btn-sec tool-tab dropdown-toggle" data-toggle="dropdown">
-	<i class="fa fa-user"></i><span>Hi, <u>{{ customer.first_name }}</u></span><i class="fa fa-caret-down"></i>
-</a>
-<ul class="dropdown-menu pull-right">
-	<li><a href="{{app.url}}/account">My Account</a></li>
-	<li role="separator" class="divider"></li>
-	<li><a href="{{app.url}}/account/orders">Orders</a></li>
-	<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
-	<li role="separator" class="divider"></li>
-	<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
-</ul>
-{% else %}
-<a type="button" href="#" id="dropdown-account" class="btn btn-default btn-sec tool-tab dropdown-toggle" data-toggle="dropdown">
-	<i class="fa fa-user"></i><span>My Account</span><i class="fa fa-caret-down"></i>
-</a>
-<ul class="dropdown-menu pull-right">
-	<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
-	<li role="separator" class="divider"></li>
-	{% if app.user.id != '' %}
-	<li> <a href="{{app.url}}/account/orders">Order Status</a></li>
-	{% else %}
-	<li> <a href="{{app.url}}/order">Order Status</a></li>
-	{% endif %}
-</ul>
-{% endif %}
+{% block toolbar %}
+{% spaceless %}
+<section class="fsd1 text-right" id="toolbar">
+	<div class="container">
+		<div class="row col-v">
+			<div class="col-xs-12 col-md-8 no-arrow pull-right">
+				<ul class="list-inline list-unstyled hidden-xs hidden-sm" id="tools">
+					<li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
+					<li class="tool">
+					{% if app.user.id is null or not app.request.isAjaxRequest() %}
+					{# Begin login button #}
+						<div class="btn-group my-account">
+							<a target="_new" type="button" id="dropdown-account" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-user"></i><span>My Account</span><i class="fa fa-caret-down"></i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
+								<li role="separator" class="divider"></li>
+								<li> <a href="{{app.url}}/order">Order Status</a></li>
+							</ul>
+						</div>
+					{# End login button #}
+					{% else %}
+					{% set customer = api.get('/customer/' ~ app.user.id) %}
+						<div class="btn-group my-account">
+							<a type="button" id="dropdown-account" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-user"></i><span>{{ customer.first_name }}</span><i class="fa fa-caret-down"></i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="{{app.url}}/account">My Account</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="{{app.url}}/account/orders">Orders</a></li>
+								<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
+							</ul>
+						</div>
+					{% endif %}
+					</li>
+					<li class="cart">
+						<a class="btn btn-primary tool-tab" href="{{app.url}}/cart">
+							<i class="fa fa-shopping-cart"></i><span class="text">My Cart</span><span class="dib item-count"></span>
+						</a>
+					</li>
+				</ul>
+				<div class="quickcart" data-content="" data-placement='bottom' rel='popover'>
+					<div class="ajaxcart" style="display:none">
+						<div class="popover-close divide">
+							<div class="row p">
+								<div class="col-xs-12">
+									<a id="ajaxcart-close" class="btn btn-default btn-sec btn-sm pull-right"><i class="fa fa-times"></i></a>
+									<h3 class="al-btn-sm">Quick Cart</h3>
+								</div>
+							</div>
+						</div>
+						<div class="row error">
+						</div>
+						{# Begin Popover products #}
+						<section class="ajaxcart-products divide">
+							{# Begin product #}
+							<div class="ajaxcart-product col-v divide g">
+								<div class="media">
+									<div class="media-left">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object product-image" src="" width="250" height="250" alt="">
+									</div>
+									<div class="media-body">
+										<div class="product-name"></div>
+										<div class="price"><strong>Price:</strong> $<span class="product-price"></span></div>
+										<div class="quantity"><strong>Qty:</strong>&nbsp;<span class="product-quantity"></span></div>
+									</div>
+								</div>
+							</div>
+							{# Begin product #}
+						</section>
+						{# End Popover products #}
+						<div class="cart-totals col-v">
+							<div class="items">You have <b><span class="item-count"></span></b> Item(s) in your Cart.</div>
+							<div class="total"><b>Subtotal:</b> $<span class="subtotal">0.00</span></div>
+						</div>
+						<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
+					</div>
+				</div>
+				<div class="search w-50p pull-right hidden-sm hidden-xs">
+					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
+						<div class="form-group has-feedback input-group twitter-typeahead">
+							<input class="form-control input-md typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search">
+							<span class="input-group-btn form-control-feedback">
+								<button class="btn btn-primary" type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
+				<a class="pull-left" href="#nav-mobile-main">
+					<i class="fa fa-bars fa-2x"></i>
+				</a>
+			</div>
+			<div class="col-xs-6 col-md-4 text-center txt-md-lg-l">
+				<div class="logo">
+					{% if app.params.logoimages is not empty %}
+						{% set logo_info = app.params.logoimages | first %}
+						{% set logo = logo_info.url %}
+					{% endif %}
+					{% if logo is not empty %}
+					<a href="{{app.url}}/"><img class="img-responsive img-c" src="{{ logo }}" alt=""></a>
+					{% else %}
+					<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
+				<a class="pull-right" href="{{app.url}}/cart">
+					<i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+{% endspaceless %}
+{% endblock %}

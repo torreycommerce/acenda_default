@@ -451,7 +451,7 @@ $(document).ready(function() {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
 		$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
 	});
-	$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
+	//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 
 	var timer=0;
 	timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
@@ -537,29 +537,42 @@ if (useIntTel) {
 	});
 }
 //
-if (useMMenu) {
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.js",function(){
-		$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.css">');
-		$(".close-menu").click(function(){
-			$('#nav-mobile-main').trigger('close');
-		});
 
-		$("#nav-mobile-main").attr("style", "");
-		$("#nav-mobile-main").mmenu({
-			zposition: "front",
-			position: "left",
-			classes: "mm-light",
-			dragOpen: true,
-			moveBackground: true,
-			onClick: {
-				preventDefault: false,
-				close:true
+$(document).ready(function() {
+	$.get(acendaBaseUrl+'/account/toolbar', function(data) {
+		$('.toolbarajax').replaceWith(data);
+		//
+		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
+		//
+		$('.navajax').load(acendaBaseUrl+'/account/nav', function() {
+			//alert( "Load was performed." );
+			if (useMMenu) {
+				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.js",function(){
+					$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.css">');
+					$(".close-menu").click(function(){
+						$('#nav-mobile-main').trigger('close');
+					});
+
+					$("#nav-mobile-main").attr("style", "");
+					$("#nav-mobile-main").mmenu({
+						zposition: "front",
+						position: "left",
+						classes: "mm-light",
+						dragOpen: true,
+						moveBackground: true,
+						onClick: {
+							preventDefault: false,
+							close:true
+						}
+					},{
+					}).trigger("open.btn-nav-mobile");
+				});
 			}
-		},{
-		}).trigger("open.btn-nav-mobile");
+		});
 	});
-}
-//
+});
+
+
 
 if (useTypeAhead) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/typeahead.js",function(){

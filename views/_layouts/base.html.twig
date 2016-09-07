@@ -144,7 +144,6 @@
         {% endblock %}
         {% block js %}{% endblock %}
     </div>
-</body>
 
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
     {% set request = app.url | split('/preview/') %}
@@ -175,8 +174,7 @@
             </div>
         </div>
     </nav>
-<script>
 
-</script>
 {% endif %}
+</body>
 </html>
