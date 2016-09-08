@@ -6,11 +6,11 @@
 {% endfor %}
 
 {% if app.user.id > 0 and 'addresses' not in app.request.url %}
-{% set invalid_addresses = api.get('/customeraddress', {query:{customer_id:app.user.id,verified:0,deleted:{'$ne':1}}}) %}
+{% set invalid_addresses = api.get('/customeraddress', {query:{customer_id:app.user.id,verified:{'$ne':1},deleted:{'$ne':1}}}) %}
 {% if invalid_addresses.num_total > 0 %}
 <div class="alert alert-block alert-danger alert-dismissable">
 <button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"></i></button>
-Some of your addresses are invalid and may need additional details. Please update your addresses in your <a href="{{app.url}}/account/addresses">address book</a>.
+Some of your addresses are invalid and may need additional details. Please update your addresses in your <a class="alert-link" href="{{app.url}}/account/addresses">address book</a>.
 </div>
 {% endif %}
 {% endif %}

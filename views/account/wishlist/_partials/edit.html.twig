@@ -42,8 +42,6 @@
 <h1>Edit {{ wishlist.name }}</h1>
 <div id="wishlist-edit">
 {{ lonelyform.begin('edit-wish-list')}}
-    {{ lonelyform.beginintro() }}
-    {{ lonelyform.endintro() }}
     {% include '/account/wishlist/_partials/form.html.twig' %}
 {{ lonelyform.end() }}
 </div>

@@ -102,7 +102,7 @@ set in the array in /account/_macros/base.html.twig
 									
 								</li>
 								<li>
-									{{ forms.submit('address[action]', 'primary/' ~  (row + 1), '<i class="fa fa-star"></i><span>Use as primary address</span>', {class:'btn btn-link'})}}
+									{{ forms.submit('address[action]', 'primary/' ~  (row + 1), '<i class="fa fa-star"></i><span>Use as default address</span>', {class:'btn btn-link'})}}
 								</li>
 								<li>
 									{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), '<i class="fa fa-times"></i><span>Delete</span>', {class:'btn btn-link'})}}
@@ -119,7 +119,9 @@ set in the array in /account/_macros/base.html.twig
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="actions-footer p">
+					{% if addresses is not empty %}
 					<p>Click the edit button to adjust, set as default, or remove an address.</p>
+					{% endif %}
 					<a href="{{app.url}}/account/addresses/new" class="btn btn-default"><i class="fa fa-plus"></i><span>Add New Address</span></a>
 				</div>
 			</div>

@@ -87,7 +87,6 @@ $(document).ready(function() {
   var startHeight;
 
   //get customer navbar
-  $('#headerMenu').load(acendaBaseUrl+'/account/navbar');
 
   var pagebody = $(".wrapper");
   var themenu = $(".navbar");
@@ -132,9 +131,6 @@ $(document).ready(function() {
   });
 
   
-
-	$("#acc_btn").click(function(){$('#account').trigger('open');});
-	$(".sub_c").click(function(){$('#'+$(this).attr("ref")).trigger('open');});
 
 
 
@@ -448,24 +444,7 @@ function validateEmail(email) {
 
 
 $(document).ready(function() {
-	$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
-		$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
-	});
-	//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
-
-	var timer=0;
-	timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
-	$('#admin-bar').hover(function() {
-		clearTimeout(timer);
-	},function() {
-		if(timer) clearTimeout(timer);
-			timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
-	})
-	$(window).scroll(function() {
-		$('#admin-bar').fadeIn('slow');
-		if(timer) clearTimeout(timer);
-			timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
-	});
+	
 });
 
 function IncludeJavaScript(jsFile, onLoadCallback) {
@@ -552,8 +531,6 @@ $(document).ready(function() {
 					$(".close-menu").click(function(){
 						$('#nav-mobile-main').trigger('close');
 					});
-
-					$("#nav-mobile-main").attr("style", "");
 					$("#nav-mobile-main").mmenu({
 						zposition: "front",
 						position: "left",
@@ -567,7 +544,27 @@ $(document).ready(function() {
 					},{
 					}).trigger("open.btn-nav-mobile");
 				});
+				//
 			}
+		});
+		//
+		$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
+			$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
+		});
+		//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
+
+		var timer=0;
+		timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
+		$('#admin-bar').hover(function() {
+			clearTimeout(timer);
+		},function() {
+			if(timer) clearTimeout(timer);
+				timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
+		})
+		$(window).scroll(function() {
+			$('#admin-bar').fadeIn('slow');
+			if(timer) clearTimeout(timer);
+				timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
 		});
 	});
 });

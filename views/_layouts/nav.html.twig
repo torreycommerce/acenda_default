@@ -1,35 +1,37 @@
 {% set categories = api.get('/category/sapling') %}
-{% set more_info = api.get(‘category’,{slug: item.slug}) %}
+{#{% set more_info = api.get(‘category’,{slug: item.slug}) %}#}
 {% spaceless %}
 <div class="hidden-sm hidden-xs">
 	<nav id="nav-desktop-main" class="navbar" role="navigation">            
 		<ul class="nav navbar-nav">
-			{% for main_category,items in categories if main_category != "clearance" %}
-				{% if items.limb|length %}
-					<li class="dropdown">
-						<a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown">
-							<span>{{main_category}}</span><i class="fa fa-caret-down"></i>
-						</a>
-						<ul class="dropdown-menu">
-							{% for category,subitems in items.limb %}
-								{% if subitems.limb|length %}
-									  {{ base.subcategory(category,subitems) }}
-								{% else %}
-									<li><a href="{{app.url}}/category/{{subitems.slug}}">{{category}}</a></li>
-								{% endif %}
-							{% endfor %}
-						</ul>
-					</li>
-				{% else %}
-					<li><a href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
-				{% endif %}
-			{% endfor %}
+		{% for main_category,items in categories if main_category != "clearance" %}
+			{% if items.limb|length %}
+				<li class="dropdown">
+					<a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown">
+						<span>{{main_category}}</span><i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu">
+						{% for category,subitems in items.limb %}
+							{% if subitems.limb|length %}
+								  {{ base.subcategory(category,subitems) }}
+							{% else %}
+								<li><a href="{{app.url}}/category/{{subitems.slug}}">{{category}}</a></li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+			{% else %}
+				<li><a href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
+			{% endif %}
+		{% endfor %}
 		</ul>
 	</nav>
 </div>
 {# End desktop nav #}
 
 {# Begin mobile navigation menu #}
-<nav id="nav-mobile-main" class="hidden-md hidden-lg navajax" style="display:none" data-navi="mobile-nav-main" data-navi-type="root"></nav>
+<nav id="nav-mobile-main" class="hidden-md hidden-lg navajax" data-navi="mobile-nav-main" data-navi-type="root">
+	
+</nav>
 {# End mobile navigation menu #}
 {% endspaceless %}

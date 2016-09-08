@@ -1,4 +1,6 @@
+{%- import "/_macros/base.html.twig" as base -%}
 {% set categories = api.get('/category/sapling') %}
+
 {% spaceless %}
 <ul class="fa-fa-balance">
 	<li class="close-menu clearfix">
@@ -10,7 +12,7 @@
 	
 	{% if app.user.id %}
 	<li>
-		<a href="javascript: void(0);" id="acc_btn"><i class="fa fa-user"></i>My Account</a>
+		<a href="javascript: void(0);"><i class="fa fa-user"></i>My Account</a>
 		<ul class="fa-fa-balance">
 			<li><a href="{{ app.url }}/account/notifications"><i class="fa fa-bell"></i>Notifications</a></li>
 			<li><a href="{{ app.url }}/account/addresses"><i class="fa fa-truck"></i>Addresses</a></li>
@@ -25,7 +27,7 @@
 	</li>
 	{% else %}
 	<li>
-		<a href="{{app.url}}/account/login" id="acc_btn"><i class="fa fa-user"></i>Sign In / Sign Up</a>
+		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i>Sign In / Sign Up</a>
 	</li>
 	<li>
 		<a href="{{app.url}}/contact"><i class="fa fa-comment"></i>Contact</a>
@@ -49,9 +51,7 @@
 	{% for main_category,items in categories %}
 		{% set id = id + 1 %}
 		<li>
-			{#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="submenu-{{ id }}">
-				<i class="fa fa-star-o"></i>{{main_category}}
-			</a>#}
+			
 			<a href="{{app.url}}/category/{{ items.slug }}" class="sub_c" ref="submenu-{{ id }}">
 				<i class="fa fa-star-o"></i>{{main_category}}
 			</a>
@@ -73,5 +73,6 @@
 			{% endif %}
 		</li>
 	{% endfor %}
+	
 </ul>
 {% endspaceless %}
