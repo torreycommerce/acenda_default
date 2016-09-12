@@ -18,7 +18,6 @@
 			<li><a href="{{ app.url }}/account/addresses"><i class="fa fa-truck"></i>Addresses</a></li>
 			<li><a href="{{ app.url }}/account/orders"><i class="fa fa-credit-card"></i>Orders</a></li>
 			<li><a href="{{ app.url }}/account/wishlists"><i class="fa fa-check-square-o"></i>Wish Lists</a></li>
-			<li><a href="{{ app.url }}/account/registries"><i class="fa fa-book"></i>Registries</a></li>
 			<li><a href="{{ app.url }}/account/reviews"><i class="fa fa-comments"></i>Reviews</a></li>
 			<li><a href="{{ app.url }}/account/returns"><i class="fa fa-exchange"></i>Returns</a></li>
 			<li><a href="{{ app.url }}/account/account-settings"><i class="fa fa-cogs"></i>Settings</a></li>
@@ -29,10 +28,10 @@
 	<li>
 		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i>Sign In / Sign Up</a>
 	</li>
+	{% endif %}
 	<li>
 		<a href="{{app.url}}/contact"><i class="fa fa-comment"></i>Contact</a>
 	</li>
-	{% endif %}
 	
 	<li><span>
 		<form role="search" action="{{ app.url }}/search" method="get">

@@ -137,7 +137,7 @@
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
 		{% set carouselHasNext = false %}
-		<div class="color-carousel row row-thin hidden-sm hidden-xs">
+		<div class="color-carousel p-mini row row-thin hidden-sm hidden-xs">
 			<div id="color-image-carousel-{{product.id}}" class="col-xs-10 col-thin carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="item active">

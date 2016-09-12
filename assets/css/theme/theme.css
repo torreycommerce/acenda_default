@@ -173,7 +173,8 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .labels .label {float:right; margin:0 0 0 5px; text-shadow:0 0 1px rgba(0,0,0,.2); box-shadow:0 0 1px rgba(0,0,0,.2);}
 
 
-
+#checkout-cards img {max-height:34px; width:auto;}
+.checkout-card {max-width:56px; height:34px;}
 
 
 /**** 12-) Color Chip Styling  ****/
