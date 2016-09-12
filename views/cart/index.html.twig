@@ -9,7 +9,7 @@ Cart
 
 {# Page information #}
     {#
-        Visit api/sessioncart to understand how Cart data is mapped
+        Visit api/cart to understand how Cart data is mapped
     #}
     {#
         Shipping and Tax estimates are handled via JS, see "block js" at
@@ -19,32 +19,32 @@ Cart
 
 {% for item, quantity in app.request.post.cart.quantity %}
 	{% if quantity <= 0 %}
-		{% set result = api.delete('/sessioncartitem/' ~ item) %}
+		{% set result = api.delete('/cart/item/' ~ item) %}
 	{% else %}
-		{% set result = api.put('/sessioncartitem/' ~ item, {quantity:quantity}) %}
+		{% set result = api.put('/cart/item/' ~ item, {quantity:quantity}) %}
 	{% endif %}
 {% endfor %}
 {% if app.request.post.cart.action|split('/')|first == 'remove' %}
-	{% set result = api.delete('/sessioncartitem/' ~ app.request.post.cart.action|split('/')|last) %}
+	{% set result = api.delete('/cart/item/' ~ app.request.post.cart.action|split('/')|last) %}
 {% endif %}
 {# Remove coupon #}
 {% if app.request.post.cart.action|split('/')|first == 'removecoupon' %}
-	{% set sessioncart  = api.get('/sessioncart') %}
+	{% set cart  = api.get('/cart') %}
 	{% set coupon_id = app.request.post.cart.action|split('/')|last %}
-	{% set result = api.delete('/sessioncartdiscount/' ~ coupon_id) %}
+	{% set result = api.delete('/cart/discount/' ~ coupon_id) %}
 {% endif %}
 {# Add coupon #}
 {% if app.request.post.cart.coupon_code is not empty %}
-	{% set result = api.post('/sessioncartdiscount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
+	{% set result = api.post('/cart/discount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
 {% endif %}
 {% if api.error is not empty %}
 	{% set error = api.error %}
 {% endif %}
 
 {# Refresh discount logic #}
-{% do api.post('/sessioncartdiscount/refresh') %}
+{% do api.post('/cart/discount/refresh') %}
 
-{% set cart = api.get('/sessioncart') %}
+{% set cart = api.get('/cart') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
 {% set shipping_countries = api.get('/shippingmethod/country') %}
 {% set site_payments = api.get('/site/payments') %}
@@ -59,7 +59,7 @@ Cart
 	{% for id, item in cart.items %}
 		{% set product = products[item.product_id].0 %}
 		{% if product.status != 'active' %}
-			{% do api.delete('/sessioncartitem/' ~ id) %}
+			{% do api.delete('/cart/item/' ~ id) %}
 			{% if product.title is defined %}
 				{# This product is disabled or removed #}
 				{% do app.user.setFlash(product.title ~ ' is no longer available.', 'info') %}
@@ -229,7 +229,7 @@ Cart
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>
 							</div>
-							<input type="text" class="form-control quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="sessioncartitem" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
+							<input type="text" class="form-control quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i></button>
 							</div>
