@@ -1,5 +1,5 @@
-{% set cart = api.get('/sessioncart') %}
-{% set cartitems = api.get('/sessioncartitem') %}
+{% set cart = api.get('/cart') %}
+{% set cartitems = api.get('/cart/item') %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
 <div class="fsd1">
@@ -103,7 +103,7 @@
 			{% else %}
 				{% set zip = app.user.getState('shipping_zip') %}
 			{% endif %}
-			{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxableSubtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
+			{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxable_subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
 			<div class="amount col-xs-5 text-right">
 				<span class="dollar-sign">$</span><span class="price">{{ tax.tax|number_format(2, '.') }}</span>
 			</div>

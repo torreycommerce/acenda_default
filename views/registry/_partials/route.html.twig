@@ -17,7 +17,7 @@
 {% elseif app.request.post.action|split('/')|first == 'add' %}
     {% set registry_item = api.get('/registryitem/' ~ app.request.post.action|split('/')|last) %}
     {% if registry_item.registry_id == registry.id %} {# prevent people hacking this from adding random registry items #}
-        {% set result = api.post('/sessioncartitem/', {product_id:registry_item.product_id, registry_id:registry_item.registry_id, quantity:app.request.post.add_to_cart[app.request.post.action|split('/')|last]}) %}
+        {% set result = api.post('/cart/item/', {product_id:registry_item.product_id, registry_id:registry_item.registry_id, quantity:app.request.post.add_to_cart[app.request.post.action|split('/')|last]}) %}
         {{ dump(result) }}
     {% endif %}
     {% set redirect = '/cart' %}

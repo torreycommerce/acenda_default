@@ -4,7 +4,7 @@
 {% import "/_macros/normalizer.html.twig" as normalizer %}
 {% set step = 'shipping' %}
 {% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
-{% set cart = api.get('/sessioncart') %}
+{% set cart = api.get('/cart') %}
 {% set config = api.get('/config') %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
 	{% set product_ids = cart.items|values_in('product_id') %}
@@ -21,7 +21,7 @@
 	{{ app.redirect('/cart') }}
 {% endif %}
 {% if app.request.post.shipping %}
-	{% set return = api.post('/sessioncart/checkout', app.request.post.shipping) %}
+	{% set return = api.post('/cart/checkout', app.request.post.shipping) %}
 	{% if return %}
 		{% do app.redirect(app.url ~ '/checkout/billing') %}
 	{% endif %}
@@ -91,7 +91,7 @@
 									{% set selected_address = app.user.getState('shipping_address_id') %}
 								{% endif %}
 							{% endif %}
-							{% for item in api.get('/sessioncartitem') %}
+							{% for item in api.get('/cart/item') %}
 								{% if selected_address is empty %} {% set go = true %} {% endif %}
 								{% if item.wishlist_id is not empty %}
 									{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
