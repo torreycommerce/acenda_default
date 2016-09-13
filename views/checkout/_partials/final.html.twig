@@ -48,7 +48,7 @@
 				{% endif %}
 			</div>
 		</div>
-		{% set response = api.delete('/cart') %}
+		{% set response = api.delete('/sessioncart') %}
 		{% else %}
 		<p>Order placement failed with the following error(s):</p>
 		{% if api.error is iterable %}

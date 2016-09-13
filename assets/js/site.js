@@ -301,7 +301,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 	  }
 	}
 
-	// Because of our situation with OAuth, we need to use the form to update wishlist and registry items; however, we can use the api to update cart items.
+	// Because of our situation with OAuth, we need to use the form to update wishlist and registry items; however, we can use the api to update sessioncart items.
 	if (typeof id !== 'undefined') { // We need to submit the updated quantity to the server
 		var form = qtyField.parents('form');
 		var formData = form.serialize(); // We must serialize our form data here because disabled fields are not submitted
@@ -330,14 +330,14 @@ function adjustQuantity(qtyField, increment, postForm) {
 			}).fail(function(e) {
 				data = $.parseJSON(e.responseText);
 				qtyField.val(previousValue -= increment);
-				if (data.code === 400 && model === 'cart/item') { // Bad request for the cart - not enough inventory
+				if (data.code === 400 && model === 'sessioncartitem') { // Bad request for the cart - not enough inventory
 					qtyField.parents('.item').find('.error').html('Not enough inventory to add more items!');
 				} else { // Probably a connection failure
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}
 				qtyField.parents('.item').find('.error').show();
 			}).done(function(e) {
-				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
+				if (model === 'sessioncartitem') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
 				}
 			});
@@ -347,7 +347,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 
 // Updates the subtotal and current item total.
 function updateCartTotals(qtyField, cartItemId) {
-	$.getJSON(acendaBaseUrl + '/api/cart')
+	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
 		$('#subtotal').css({'opacity':1});
 	})
@@ -496,7 +496,7 @@ $(document).ready(function() {
 			}
 		});
 		//
-		$.getJSON(acendaBaseUrl + '/api/cart', function(data) {
+		$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
 			$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
 		});
 		//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');

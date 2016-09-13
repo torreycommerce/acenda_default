@@ -17,7 +17,7 @@
 {% elseif app.request.post.action|split('/')|first == 'add' %}
     {% set wishlist_item = api.get('/wishlistitem/' ~ app.request.post.action|split('/')|last) %}
     {% if wishlist_item.wishlist_id == wishlist.id %} {# prevent people hacking this from adding random wishlist items #}
-        {% set result = api.post('/cart/item/', {product_id:wishlist_item.product_id, wishlist_id:wishlist_item.wishlist_id, quantity:app.request.post.add_to_cart[app.request.post.action|split('/')|last]}) %}
+        {% set result = api.post('/sessioncartitem/', {product_id:wishlist_item.product_id, wishlist_id:wishlist_item.wishlist_id, quantity:app.request.post.add_to_cart[app.request.post.action|split('/')|last]}) %}
     {% endif %}
 
     {% set redirect = '/cart' %}

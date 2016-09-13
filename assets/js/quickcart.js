@@ -25,7 +25,7 @@ $(function() {
     }, function(){q = false;});
 
 
-    $.getJSON(acendaBaseUrl + '/api/cart', function(data) {
+    $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('.quickcart .item-count').html(data.result.item_count);
     });
     $('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
@@ -85,7 +85,7 @@ function ajaxCart(data, r) {
 
     $.ajax({
         dataType: "json",
-        url: acendaBaseUrl + '/api/cart'
+        url: acendaBaseUrl + '/api/sessioncart'
     })
     .done(function(data) {
         // Update cart count and create popover
