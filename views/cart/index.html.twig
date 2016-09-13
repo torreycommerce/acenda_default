@@ -41,9 +41,6 @@ Cart
 	{% set error = api.error %}
 {% endif %}
 
-{# Refresh discount logic #}
-{% do api.post('/cart/discount/refresh') %}
-
 {% set cart = api.get('/cart') %}
 {% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
 {% set shipping_countries = api.get('/shippingmethod/country') %}
@@ -288,7 +285,13 @@ Cart
 								<div class="discount">
 									<div class="alert alert-info">
 										{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' pull-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
-										<p>Coupon used for <b>${{discount.amount}}</b> off!</p>
+										
+										<p>
+										<b>Coupon: {{ discount.code }}</b>
+										{% if discount.description is not empty %}<br>{% endif %}
+										{{ discount.description }}
+										</p>
+
 									</div>
 								</div>
 								{% endif  %}
