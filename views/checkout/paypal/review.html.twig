@@ -1,7 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
-{% set cart = api.get('/cart') %}
+{% set cart = api.get('/sessioncart') %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
 	{% set product_ids = cart.items|values_in('product_id') %}
 	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
@@ -44,7 +44,7 @@
 								{% set address_select = address_select + {(address.id):address.one_line} %}
 							{% endfor %}
 						{% endif %}
-						{% for item in api.get('/cart/item') %}
+						{% for item in api.get('/sessioncartitem') %}
 							{% if item.wishlist_id is not empty %}
 								{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
 								{% set address = api.get('/customeraddress/' ~ wishlist.address_id) %}
