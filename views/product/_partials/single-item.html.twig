@@ -1,7 +1,7 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 <div id="singleProduct" class="row" itemscope itemtype="http://schema.org/Product">    
 	{# Beging product images #}
-	<div class="col-xs-12 col-sm-6 p">
+	<div class="col-xs-12 col-sm-7 p">
 		<div class="max-450" id="product-images">
 		{# Begin main image #}
 			<div class="p-thin" id="image-main">
@@ -45,7 +45,7 @@
 	{# End product images #}
 
 	{# Begin Product Details #}
-	<section id="product-details" class="col-xs-12 col-sm-6">
+	<section id="product-details" class="col-xs-12 col-sm-5">
 		<div class="brand p-mini">
 			<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
 		</div>
@@ -161,9 +161,9 @@
 				   {# Begin add to cart button #}
 					<div class="add-to-cart">
 						<div class="row">
-						   <div class="col-xs-12 col-md-6 p">
+						   <div class="col-xs-12 p">
 							   <button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
-								   <i class="fa fa-shopping-cart"></i><span>Add to Cart</span>
+								   <span>Add to Cart</span>
 							   </button>
 						   </div>
 						   {% include "/product/_partials/list/actions-single.html.twig" %}

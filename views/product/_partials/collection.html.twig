@@ -1,7 +1,7 @@
 <div itemscope itemtype="http://schema.org/Product">
 <div class="row">
 	{# Beging product images #}
-	<div class="col-xs-12 col-sm-6 p">
+	<div class="col-xs-12 col-sm-7 p">
 		<div class="max-450" id="product-images">
 		{# Begin main image #}
 		{% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
@@ -63,7 +63,7 @@
 	</div>
 	{# End product images #}
 	{# Begin Product Details #}
-	<section id="product-details" class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+	<section id="product-details" class="col-xs-12 col-sm-5">
 		<div class="brand p-mini">
 			<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
 		</div>
@@ -115,7 +115,7 @@
 		{% if prices.price is not empty %}
 		<div class="p">
 			<a class="btn btn-lg btn-primary btn-cart" href="#collection">
-				<i class="fa fa-shopping-cart"></i><span class="text">Add to Cart Below</span>
+				<span class="text">Add to Cart Below</span>
 			</a>
 		</div>
 		{% endif %}
@@ -174,7 +174,7 @@
 								{# Begin add to cart button #}
 								<div class="col-sm-4 col-md-3 col-lg-2 col-lg-offset-10 col-md-offset-9 col-sm-offset-8">
 									<button type="submit" class="btn btn-block btn-primary btn-cart" name="action" value="cart">
-										<i class="fa fa-shopping-cart"></i><span>Add to Cart</span>
+										<span>Add to Cart</span>
 									</button>
 								</div>
 								{# End add to cart button #}
@@ -326,7 +326,7 @@
 							{# Begin add to cart button #}
 							<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 p pull-right">
 								<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
-									<i class="fa fa-shopping-cart"></i><span>Add to Cart</span>
+									<span>Add to Cart</span>
 								</button>
 							</div>
 							{% include "/product/_partials/list/actions-collection.html.twig" %}
