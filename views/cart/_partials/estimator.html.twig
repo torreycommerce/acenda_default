@@ -5,26 +5,27 @@
 		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
 		<div class="row">
 			<div class="col-xs-6 p">
-				{{ forms.select('cart[country]', '', {}, {class:'form-control', id:'country', name:'cart_shipping_country'}) }}
+				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country}) }}
 			</div>
 			<div class="col-xs-6 p">
-				{{ forms.select('cart[state]', '', {}, {class:'form-control', id:'state_select', name:'cart_shipping_state'}) }}
+				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state}) }}
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6 col-sm-4 p">
-				{{ forms.text('cart[zip_code]', '', {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', name:'cart_zip_code'}) }}
+				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip}) }}
 			</div>
 			<div class="col-xs-6 col-sm-4 p">
-				{{ forms.select('cart[method]', '', {}, {class:'form-control', id:'cart_shipping_method', name:'cart_shipping_method'}) }}
+				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method}) }}
 			</div>
 			<div class="col-xs-12 col-sm-4 p">
-				{{ forms.submit('cart[action]', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
+				{{ forms.submit('action', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
 			</div>
 		</div>
 	</div>
 {{ forms.end() }}
-<div class="fsd1" id="estimate" style="display:none">
+{% if cart.shipping_rate > 0 %}
+<div class="fsd1" id="estimate">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well">
@@ -72,7 +73,7 @@
 							<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
 						</div>
 						<div class="col-xs-4 text-right">
-							<span id="rate-estimate"></span>
+							<span id="rate-estimate" class="amount">${{cart.shipping_rate|number_format(2)}}</span>
 						</div>
 					</div>
 				</div>
@@ -85,7 +86,7 @@
 							<span data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></span>:
 						</div>
 						<div class="col-xs-7 text-right">
-							<span id="date-estimate"></span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
+							<span id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
 						</div>
 					</div>
 				</div>
@@ -97,7 +98,7 @@
 							Estimated Sales Tax:
 						</div>
 						<div class="col-xs-4 text-right">
-							<span id="tax-estimate"></span>
+							<span id="tax-estimate" class="amount">${{cart.tax_rate|number_format(2)}}</span>
 						</div>
 					</div>
 				</div>
@@ -109,19 +110,15 @@
 							Estimated Total:
 						</div>
 						<div class="col-xs-4 text-right">
-							<span id="total-estimate"></span>
+							<span id="total-estimate" class="amount">${{cart.total|number_format(2)}}</span>
 						</div>
 					</div>
 				</div>
 				{# End estimated total #}
-				{# Begin estimator actions #}
-				<div class="actions">
-					{{ forms.submit('cart[ClearEstimate]', '', 'Clear Estimate', {'class':'btn btn-default', id: 'cart_ClearEstimate'}) }}
-				</div>
-				{# End estimator actions #}
 			</div>
 		</div>
 	</div>
 </div>
+{% endif %}
 {# End estimates #}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}

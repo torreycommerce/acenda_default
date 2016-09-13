@@ -37,6 +37,9 @@ Cart
 {% if app.request.post.cart.coupon_code is not empty %}
 	{% set result = api.post('/cart/discount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
 {% endif %}
+{% if app.request.post.cart.shipping_country is not empty %}
+	{% set result = api.post('/cart', app.request.post.cart) %}
+{% endif %}
 {% if api.error is not empty %}
 	{% set error = api.error %}
 {% endif %}
@@ -73,7 +76,6 @@ Cart
 {% endif %}
 
 {% block content %}
-
 {# DISPLAY CART LOGIC #}
     {% set display_cart = [] %}
     {% set new_quantities = [] %}
@@ -321,12 +323,14 @@ Cart
 							${{ cart.item_subtotal|number_format(2)}}
 						</div>
 					</div>
-					<div class="row" id="rate-estimate-checkout" style="display:none;">
+					{% if cart.shipping_rate != null %}
+					<div class="row" id="rate-estimate-checkout">
 						<div class="col-xs-7">
 							Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 						</div>
-						<div class="amount col-xs-5 text-right"></div>
+						<div class="amount col-xs-5 text-right">${{ cart.shipping_rate|number_format(2)}}</div>
 					</div>
+					{% endif %}
 					{% set coupon_discount = 0 %}
 					{% set bundle_discount = 0 %}
 					{% for dsc in cart.discount_collection.discounts %}
@@ -337,36 +341,41 @@ Cart
 						{% endif %}
 					{% endfor %}
 
-
-					{% if coupon_discount > 0 %}
-						<div class="row">
-							<div class="col-xs-7">Coupons:</div>
-							<div class="amount price-discount col-xs-5 text-right">
-								-${{ coupon_discount|number_format(2)}}
-							</div>
+					{% if coupon_discount > 0 %} 
+					<div class="row" id="estimate-coupons">
+						<div class="col-xs-7">Coupons:</div>
+						<div class="amount price-discount col-xs-5 text-right">
+							-${{ coupon_discount|number_format(2)}}
 						</div>
+					</div>
 					{% endif %}
+					
 					{% if bundle_discount > 0 %}
-						<div class="row">
-							<div class="col-xs-7">Bundles:</div>
-							<div class="amount price-discount col-xs-5 text-right">
-								-${{ bundle_discount|number_format(2)}}
-							</div>
+					<div class="row">
+						<div class="col-xs-7">Bundles:</div>
+						<div class="amount price-discount col-xs-5 text-right">
+							-${{ bundle_discount|number_format(2)}}
 						</div>
+					</div>
 					{% endif %}
-					<div class="row" id="total-before-tax" style="display:none;">
+					{% if cart.tax_rate != null %}
+					<div class="row" id="total-before-tax">
 						<div class="col-xs-7">Total Before Tax:</div>
 						<div class="amount col-xs-5 text-right">
+							${{ (cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)}}
 						</div>
 					</div>
-					<div class="row" id="tax-estimate-checkout" style="display:none;">
+					<div class="row" id="tax-estimate-checkout">
 						<div class="col-xs-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
-						<div class="amount col-xs-5 text-right"></div>
+						<div class="amount col-xs-5 text-right">
+							${{ cart.tax_rate|number_format(2)}}
+						</div>
 					</div>
+					{% endif %}
 					<div class="row" id="estimate-total">
 						<div class="col-xs-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
 						<div class="amount col-xs-5 text-right">
-							${{ cart.adjusted_subtotal|number_format(2) }}
+							${{ cart.total|number_format(2) }}
 						</div>
 					</div>
 				</div>
@@ -400,10 +409,6 @@ Cart
 	{# End third party payments #}
 	{% endif %}
 	{% endif %}
-	{% endblock %}
-
-	{% block js %}
-	{{ app.asset.js(app.url_asset ~ '/assets/js/estimator.js') }}
 	{% endblock %}
 
 	{% block acenda %}

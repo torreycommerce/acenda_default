@@ -1,15 +1,10 @@
 function initCountryOpts() {
-	//
-	console.log('sCO()')
-	var saveValue = $('#country').val()
-	console.log('Is set to: '+saveValue)
+	var saveValue = $('#country').attr('data-value');
 	if (firstRun) {
 		$("#country").html($("#country option").sort(function (a, b) {
 			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 		}))
 	}
-	$('#country').val(saveValue)
-	//
 	if (newCountry) {
 		$('#country').prepend('<option disabled selected value>Select a Country</option>')
 	}
@@ -19,8 +14,14 @@ function initCountryOpts() {
 			$('#state_select').prop("disabled", true)
 		}
 	}
+	if(firstRun) {
+		if(saveValue) {
+			$('#country option[value="'+saveValue+'"]').prop('selected', true);
+		} else if ($("#country option").size() == 2) {
+			$('#country option:eq(1)').prop('selected', true);
+		}
+	}
 
-	//
 	firstRun = 0;
 	newCountry = 0;
 	newState = 0;
@@ -457,11 +458,9 @@ if ($('.form-estimate').length) {
 							};
 						}));
 					}
+					initCountryOpts();
 					$('#cart_shipping_method').change();
-					//
-					console.log('call sCO() from form-estimate')
-					initCountryOpts()
-					//
+					$('#country').change();
 				});
 			}
 		},
@@ -474,17 +473,24 @@ if ($('.form-estimate').length) {
 					if (data.result.length > 0){
 
 						$("select[id$=state_select]").removeClass('hidden')
-
-						console.log('no default State')
+						
+						saveValue = null;
+						if(typeof($('select[id$=state_select]').attr('data-value')) != 'undefined') {
+							saveValue = $('select[id$=state_select]').attr('data-value');
+						}
 						newState = 1;
 						state = data.result[0].value;
 						response($.map(data.result, function(item, index) {
 							return {
 								label: item.label,
 								value: item.value,
-								selected: item.value.indexOf(state) != -1
+								selected: item.value.indexOf(state) != -1 && saveValue == null
 							};
 						}));
+
+						if(saveValue != null) {
+							$('select[id$=state_select] option[value="'+saveValue+'"]').prop('selected', true);
+						}
 					}else{
 						$("select[id$=state_select]").addClass('hidden')
 
@@ -503,12 +509,10 @@ if ($('.form-estimate').length) {
 							}
 						});
 					}
+					$('#state_select').change();
 					$('#cart_shipping_method').change();
 
-					//
-					console.log('call sCO() from form-estimate STATE')
-					initCountryOpts()
-					//
+					//initCountryOpts();
 				});
 			}
 		},
@@ -529,10 +533,16 @@ if ($('.form-estimate').length) {
 							value: item.id
 						};
 					}));
+
+					if(typeof($('select[id$=cart_shipping_method]').attr('data-value')) != 'undefined') {
+						saveValue = $('select[id$=cart_shipping_method]').attr('data-value');
+						$('select[id$=cart_shipping_method] option[value="'+saveValue+'"]').prop('selected', true);
+					}
+					
 					$('#cart_shipping_method').change();
 					//
 					console.log('call sCO() from form-estimate METHOD')
-					initCountryOpts()
+					//initCountryOpts()
 					//
 				});
 			}
