@@ -21,15 +21,15 @@
 						<div class="row row-thin">
 							<div class="item active" id="variant-image-carousel-copy" style="display:none;">
 								<div class="col-xs-2 col-thin p-thin" id="variant-image-thumbnail-copy">
-									<div class="thumbnail" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="450" height="450" alt="">
+									<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="250" height="250" alt="">
 									</div>
 								</div>
 								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
 								<div class="col-xs-2 col-thin p-thin" id="variant-video-copy">
 									{% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
 									<div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-										<i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="">
+										<i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt="">
 									</div>
 								</div>
 							</div>

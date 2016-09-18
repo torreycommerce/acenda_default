@@ -6682,7 +6682,8 @@ button.close {
 .is20 {padding-top:20%;}
 .image-space .isd {position:absolute; top:0;}
 .image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
-.image-space .isd .img-responsive {margin:0 auto;}
+.image-space .isd .img-responsive {width:auto; margin:0 auto;}
+.image-space .img-responsive.isd {width:auto; max-width:100%; height:auto; max-height:100%;}
 
 .fsd1 {font-size:87.5%;}
 .fsi1 {font-size:112.5%;}
