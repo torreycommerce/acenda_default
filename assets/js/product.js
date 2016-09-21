@@ -536,13 +536,13 @@ function VariantsManager (product, img, isCollection) {
         returns html <a> element with option value optionValue set as text
     */
     this.getATag = function(selectName, optionValue){
-        return tag =  $('<a>', {'class': "btn btn-default"}).text(optionValue);
+        return tag =  $('<a>', {'class': "btn btn-default btn-lg"}).text(optionValue);
     }
     /*
         returns html <a> element with style background-color set with given color
     */
     this.getAColorTag = function(selectName, optionValue, color){
-        return tag =  $('<a>', {'class': "btn btn-default", "style":"background-color:"+color});
+        return tag =  $('<a>', {'class': "btn btn-default btn-lg", "style":"background-color:"+color});
     }
     /*
         takes a slug type string and return a good liking one:

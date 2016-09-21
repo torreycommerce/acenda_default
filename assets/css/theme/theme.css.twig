@@ -24,10 +24,17 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 /* boots */
 .input-group-qty {width:128px;}
 .input-group-qty.input-group-sm {width:108px;}
+.igq-mod {width:auto;}
+.igq-mod .form-control {width:64px; margin-right:10px;}
+.igq-mod .input-group-btn {width:100%;}
 
 .btn {text-transform:uppercase; transition:all 0.3s ease;}
 
 
+@media (min-width:992px) {
+.igq-mod .form-control {margin-right:15px;}
+}
+/* */
 
 
 /* fa */
@@ -43,14 +50,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 /* acenda global */
 img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 
-h1 {padding:0 0 6px; text-align:center; border-bottom:1px solid #ccc;}
-h2.section-name {margin-bottom:15px;}
-
 #admin-bar {z-index:9999; right:auto; top:15px; opacity:.8;}
 #admin-bar:hover {opacity:1;}
 #admin-bar .btn img {max-width:80px;}
 
-.pricing .price {color: {{ settings["colors"]["content"]["price-color"]["value"] }}; }
+.pricing .price {color: {{ settings["colors"]["content"]["price-color"]["value"] }}; font-size:150%; font-weight:bold;}
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}
@@ -65,7 +69,6 @@ h2.section-name {margin-bottom:15px;}
 
 
 @media (min-width:992px) {
-h1 {padding:0 0 9px;}
 #header .popover {right:15px;}
 .ajaxcart-products {max-height:320px;}
 #header .logo {font-size:200%;}

@@ -1178,8 +1178,7 @@ h6,
   color: #000;
 }
 h1,.h1 {
-  margin-top:0;
-  font-size:200%;
+  margin-top:0; padding:0 0 6px; font-size:200%; text-align:center; border-bottom:1px solid #ccc;
 }
 h1 small,
 h2 small,
@@ -6653,10 +6652,11 @@ button.close {
 .mar-w-2x {margin-right:20px; margin-left:20px;}
 .mar-h {margin-top:10px; margin-bottom:10px;}
 .mar-h-2x {margin-top:20px; margin-bottom:20px;}
-.mar-b-2x {margin-bottom:20px;}
 .mar-t {margin-top:10px;}
 .mar-t-2x {margin-top:20px;}
 .mar-t-3x {margin-top:30px;}
+.p-2x {margin-bottom:20px;}
+.p-3x {margin-bottom:30px;}
 .pad {padding:10px;}
 .pad-2x {padding:20px;}
 .pad-w {padding-right:10px; padding-left:10px;}
@@ -6743,10 +6743,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, dl, p, ul, ol, .alert, .
 .mar-w-2x {margin-right:30px; margin-left:30px;}
 .mar-h {margin-top:15px; margin-bottom:15px;}
 .mar-h-2x {margin-top:30px; margin-bottom:30px;}
-.mar-b-2x {margin-bottom:30px;}
 .mar-t {margin-top:15px;}
 .mar-t-2x {margin-top:30px;}
 .mar-t-3x {margin-top:45px;}
+.p-2x {margin-bottom:30px;}
+.p-3x {margin-bottom:45px;}
 .pad {padding:15px;}
 .pad-2x {padding:30px;}
 .pad-w {padding-right:15px; padding-left:15px;}
@@ -6760,6 +6761,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, dl, p, ul, ol, .alert, .
 .pad-b-3x {padding-bottom:45px;}
 .pad-t-2x {padding-top:30px;}
 
+h1 {padding:0 0 9px;}
 hr {margin-top:15px; margin-bottom:15px;}
 
 .container {padding-right:15px; padding-left:15px;}

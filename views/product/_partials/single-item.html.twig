@@ -1,7 +1,31 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 <div id="singleProduct" class="row" itemscope itemtype="http://schema.org/Product">    
+	<section id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
+		<div class="max-450">
+			<div class="brand p-mini">
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
+			</div>
+			<h1 class="product-name"><span itemprop="name">{{product.name}}</span></h1>
+			{# Begin review stars #}
+			{% spaceless %}
+			{% set review_score = reviews|average('score') %}
+			{% if review_score > 0 %}
+			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<ul class="list-inline reviews">
+					<li>
+						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
+					</li>
+					<li class="fsd1">
+						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}</a>
+					</li>
+				</ul>
+			</div>
+			{% endif %}
+			{% endspaceless %}
+		</div>
+	</section>
 	{# Beging product images #}
-	<div class="col-xs-12 col-sm-7 p">
+	<div class="col-xs-12 col-sm-7 p-2x">
 		<div class="max-450" id="product-images">
 		{# Begin main image #}
 			<div class="p-thin" id="image-main">
@@ -45,212 +69,108 @@
 	{# End product images #}
 
 	{# Begin Product Details #}
-	<section id="product-details" class="col-xs-12 col-sm-5">
-		<div class="brand p-mini">
-			<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
-		</div>
-		<h1 class="product-name text-left"><span itemprop="name">{{product.name}}</span></h1>
-		<div class="sku-details p-mini" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
-		{% set id = 0 %}
-		{% for sku in product.variant %}
-			{% set id = id + 1 %}
-			<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-		{% endfor %} 
-		{% set id = 0 %}
-		{% for barcode in product.variant %}   
-			<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-		{% endfor %} 
-		<div class="p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-			{# Begin Product Prices #}
-			<div class="pricing">
-				<div class="price" id="product-price-{{product.id}}"></div>
-			</div>
-			<div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
+	<section id="product-details" class="col-xs-12 col-sm-5 p-2x text-center">
+		<div class="max-450">
+			<div class="sku-details p-mini" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
+			{% set id = 0 %}
+			{% for sku in product.variant %}
+				{% set id = id + 1 %}
+				<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+			{% endfor %} 
+			{% set id = 0 %}
+			{% for barcode in product.variant %}   
+				<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
+			{% endfor %}
 
-			{#<div class="stock" id="stock-text-{{product.id}}"></div>#}
-			
-			<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-			
-			<div class="g" id="pricing-box-{{product.id}}">
-				{% spaceless %}
-				<ul class="pricing list-inline">
-					{# Begin regular price #}
-						<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
-					{# End regular price #}
-					{# Begin percent off #}
-						<li class="percent" id="save-pricing-{{product.id}}"></li>
-					{# End percent off #}
-					{# Begin price per month #}
-					{# if variation.price >= 100 %}
-						<li class="per-month">
-							<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
-								{{ prod.billmelater(variation.price) }}
-							</span>
-						</li>
-					{% endif #}
-				</ul>
-				{% endspaceless %}
-			</div>
-			{# End Product Prices #}
-		</div>
-		{# End Product Heading Group #}
-
-		{# Begin review stars #}
-		{% spaceless %}
-		{% set review_score = reviews|average('score') %}
-		{% if review_score > 0 %}
-		<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-		{% endif %}
-			<ul class="list-inline reviews">
-		{% if review_score > 0 %}
-				<li>
-					<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
-				</li>
-				<li class="fsd1">
-					<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}</a>
-				</li>
-		{% endif %}
-				<li>
-					<a class="btn btn-sm btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
-				</li>
-			</ul>
-		{% if review_score > 0 %}
-		</div>
-		{% endif %}
-		{% endspaceless %}
-
-		<div id="variation-selector-{{product.id}}"></div>
-		{# Begin actions desktop #}
-		{% if app.user.id is not empty %}
-			{% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
-			{% if registries is not empty %}
-				{% set registry_ids = [] %}
-				{% for registry in registries %}
-					{% set registry_ids = registry_ids|merge([registry.id]) %}
-				{% endfor %}
-				{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
-			{% endif %}
-			{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
-			{% if wishlists is not empty %}
-				{% set wishlist_ids = [] %}
-				{% for wishlist in wishlists %}
-					{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
-				{% endfor %}
-				{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
-			{% endif %}
-		{% endif %}
-
-		
-		<form method="post" id="productForm" action="{{ app.url }}/product/route">
-			<div class="actions">
-				<div class="" id="div-quantity-{{product.id}}">
-				   {# Begin product quantity #}
-					<div class="form-group">
-						<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
-						<div class="input-group input-group-qty">
-							<div class="input-group-btn">
-								<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-							</div>
-							<input id="variant-input-{{product.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="1" maxlength="2" placeholder="1" name="">
-							<div class="input-group-btn">
-								<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
-						   </div>
-						</div>
-					</div>
-				   {# End product quantity #}
-				   {# Begin add to cart button #}
-					<div class="add-to-cart">
-						<div class="row">
-						   <div class="col-xs-12 p">
-							   <button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
-								   <span>Add to Cart</span>
-							   </button>
-						   </div>
-						   {% include "/product/_partials/list/actions-single.html.twig" %}
-						</div>
-					</div>
-			   </div>
-			</div>
-		</form>
-		{# End actions desktop #}
-		
-		{# End product details #}
-		{# Begin product tabs - desktop #}
-		<div id="product-tabs" class="row">
-			<div class="col-md-12">
-				{# Begin tabs nav #}
-				<div class="row">
-					<div class="col-md-12">
-						<div class="panel-tabs">
-							<ul class="nav nav-tabs">
-								{% if product.description is not empty %}
-								<li class="active">
-									<a href="#description-desktop" data-toggle="tab">Description</a>
-								</li>
-								{% endif %}
-								{% if product.dynamic_attributes is not empty %}
-									<li {% if product.description is empty %} class="active"{% endif %}>
-										<a href="#features-desktop" data-toggle="tab">Features</a>
-									</li>
-								{% endif %}
-								<li {% if product.description is empty and product.dynamic_attributes is empty %} class="active"{% endif %}>
-									<a href="#reviews-desktop" data-toggle="tab">Reviews</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+			<div class="p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				{# Begin Product Prices #}
+				<div class="pricing">
+					<div class="price" id="product-price-{{product.id}}"></div>
 				</div>
-				{# End tabs nav #}
-				{# Begin tab pane #}
-				<div class="row">
-					<div class="col-md-12">
-						<div class="tab-content">
-							{# Begin product description #}
-							{% if product.description is not empty %}
-								{% set full_description = product.description %}
-								<div id="description-desktop" class="tab-pane fade in active">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<div class="g" itemprop="description">{{full_description}}</div>
-											<div id="variant-description-{{product.id}}" ></div>
-										</div>
-									</div>
-								</div>
-							{% endif %}
-							{# Begin features #}
-							{% if product.dynamic_attributes is not empty %}
-								<div id="features-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
-									<div class="panel panel-default">
-										<div class="panel-body">
-											<ul>
-												{% for feature in product.dynamic_attributes %}
-												   <li>
-													   {{feature}}: {{product[feature]}}
-												   </li>
-												{% endfor %}
-											</ul>
-										</div>
-									</div>
-								</div>
-							{% endif %}
-							{# Begin reviews #}
-							<div id="reviews-desktop" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										{% include "/product/_partials/reviews.html.twig" %}
-									</div>
-								</div>
-							</div>
-							{# End reviews #}
-							{# End product description #}
-						</div>
-					</div>
+				<div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
+
+				{#<div class="stock" id="stock-text-{{product.id}}"></div>#}
+				
+				<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
+				
+				<div class="g" id="pricing-box-{{product.id}}">
+					{% spaceless %}
+					<ul class="pricing list-inline">
+						{# Begin regular price #}
+							<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
+						{# End regular price #}
+						{# Begin percent off #}
+							<li class="percent" id="save-pricing-{{product.id}}"></li>
+						{# End percent off #}
+						{# Begin price per month #}
+						{# if variation.price >= 100 %}
+							<li class="per-month">
+								<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
+									{{ prod.billmelater(variation.price) }}
+								</span>
+							</li>
+						{% endif #}
+					</ul>
+					{% endspaceless %}
 				</div>
-				{# End tab pane #}
+				{# End Product Prices #}
 			</div>
+
+			<div id="variation-selector-{{product.id}}"></div>
+			{# Begin actions desktop #}
+			{% if app.user.id is not empty %}
+				{% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
+				{% if registries is not empty %}
+					{% set registry_ids = [] %}
+					{% for registry in registries %}
+						{% set registry_ids = registry_ids|merge([registry.id]) %}
+					{% endfor %}
+					{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+				{% endif %}
+				{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
+				{% if wishlists is not empty %}
+					{% set wishlist_ids = [] %}
+					{% for wishlist in wishlists %}
+						{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
+					{% endfor %}
+					{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+				{% endif %}
+			{% endif %}
+
+			
+			<form method="post" class="text-left" id="productForm" action="{{ app.url }}/product/route">
+				<div class="actions">
+					<div class="" id="div-quantity-{{product.id}}">
+					   {# Begin product quantity #}
+						<div class="form-group divide pad-b">
+							<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
+							<div class="input-group input-group-qty igq-mod">
+								{#<div class="input-group-btn">
+									<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
+								</div>#}
+								<input id="variant-input-{{product.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="1" maxlength="2" placeholder="1" name="">
+								{#<div class="input-group-btn">
+									<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
+								</div>#}
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
+									   <span>Add to Cart</span>
+								   </button>
+							   </div>
+							</div>
+						</div>
+					   {# End product quantity #}
+					   {# Begin add to cart button #}
+					   {% include "/product/_partials/list/actions-single.html.twig" %}
+				   </div>
+				</div>
+			</form>
+			{# End actions desktop #}
 		</div>
-		{# Begin product tabs - desktop #}
 	</section>
 	{# End Product Details #}
+	{# Begin product tabs - desktop #}
+	{% include "/product/_partials/single-item-product-tabs-v2.html.twig" %}
+	{# End tab pane #}
 </div> 
 {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
