@@ -54,7 +54,8 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 #admin-bar:hover {opacity:1;}
 #admin-bar .btn img {max-width:80px;}
 
-.pricing .price {color:#000; font-size:150%; font-weight:bold;}
+.pricing .price {color:#000; font-weight:bold;}
+#product-details .pricing .price {font-size:150%;}
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}
