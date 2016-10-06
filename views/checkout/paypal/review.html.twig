@@ -28,7 +28,10 @@
 							  'shipping_city':expressdetails.SHIPTOCITY,
 							  'shipping_zip':expressdetails.SHIPTOZIP,
 							  'state_select':expressdetails.SHIPTOSTATE,
-							  'country_select':expressdetails.SHIPTOCOUNTRYCODE} %}
+							  'country_select':expressdetails.SHIPTOCOUNTRYCODE,
+							  'shipping_state':expressdetails.SHIPTOSTATE,
+							  'shipping_country':expressdetails.SHIPTOCOUNTRYCODE
+							} %}
 			{{ forms.begin('express', app.url ~ '/checkout/paypal/place','post', {'class':'form-region'}) }}
 			{{ forms.hidden('express[token]', token) }}
 			<div class="row">
@@ -71,12 +74,19 @@
 						</div>
 						{% endif %}
 						<div id="custom-address">
+			
 							<div id="address-fields">
 								{% if state_select is not empty %}
 									{{ forms.hidden('express[shipping_state_select]',address.shipping_state_select) }}
 									{{ forms.hidden('express[shipping_country_select]',address.shipping_country_select) }}
 								{% endif %}
-								{{ extras.address('express', 'shipping', address) }}
+								{{ extras.address('express', 'shipping', address) }}								
+								{% do app.asset.script('forcecountry',"
+										setTimeout(function() {
+										     $('#country').trigger('change');
+										 },500);
+								") %}
+
 							</div>
 						{% if app.user.id is not empty %}
 						<div class="form-group">
