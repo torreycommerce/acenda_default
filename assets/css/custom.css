@@ -1,2 +1,20 @@
-/*      Custom CSS Updates          */
-/*      Do not modify theme.css     */
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+html,body {color:#666; font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif; background-color:#fff;}
+
+a {color:#000;}
+a:hover, a:focus {color:#000;
+}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
+
+.btn {text-transform:uppercase; transition:all 0.3s ease;}
+/* */
+
+
+/* acenda global */
+.pricing .price {color:#000; font-weight:bold;}
+#product-details .pricing .price {font-size:150%;}
+.pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
+.pricing .percent {color:#f55;}
+.availability {color:#558C89;}
+/* */

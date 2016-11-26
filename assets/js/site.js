@@ -598,7 +598,7 @@ if (useTypeAhead) {
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
 		remote: {
-		  url: acendaBaseUrl+'/api/catalog/autocomplete?query=%QUERY',
+		  url: acendaBaseUrl+'/api/catalog/autocomplete?search=%QUERY',
 		  wildcard: '%QUERY',
 		  transform: function (response) {
 			res = [];
