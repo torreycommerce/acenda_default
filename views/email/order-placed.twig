@@ -1,7 +1,7 @@
 {# Variables passed in: order_id #}
 {% set order = api.get('/order/' ~ order_id) %}
 {% set items = api.get('/orderitem', {query:{order_id:order_id}}) %}
-{% set product_ids = items|values_in('product_id') %}
+{% set product_ids = items|values_in('variant_id') %}
 {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 
