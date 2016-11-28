@@ -174,7 +174,7 @@ if ($('.form-region').length) {
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
 
-					var state = $('[id$=\\[state_select\\]]').val();
+					var state = $('[name$=\\[state_select\\]]').val();
 					if ((state == undefined || state == '') && data.result.length > 0) {
 						console.log('no default State')
 						newState = 1;
@@ -261,7 +261,9 @@ if ($('.form-billing-region').length) {
 					if (data.result !== undefined && data.result.length > 0){
 						console.log('no default Country')
 						newCountry = 1;
-						//country = data.result[0].code;
+						if(data.result.length < 2) {
+                            country = data.result[0].code;
+                        }
 					}
 					if (telReady && country) {
 						$("#phone").intlTelInput("setCountry", country.toLowerCase());
@@ -290,7 +292,7 @@ if ($('.form-billing-region').length) {
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 
 				$.getJSON(acendaBaseUrl + '/api/region/states/'+$('select[id$=country]').val(), request, function(data) {
-					var state = $('[id$=\\[state_select\\]]').val();
+					var state = $('[name$=\\[state_select\\]]').val();
 					if ((state == undefined || state == '') && data.result.length > 0) {
 						console.log('no default State')
 						newState = 1;
