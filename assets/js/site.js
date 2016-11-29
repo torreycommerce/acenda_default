@@ -491,6 +491,10 @@ $(document).ready(function() {
 						}
 					},{
 					}).trigger("open.btn-nav-mobile");
+					//
+					$(document).on( "click", $('a[href$="#nav-mobile-main"]'), function() {
+						$('#nav-mobile-main').removeClass('hidden');
+					});
 				});
 				//
 			}
