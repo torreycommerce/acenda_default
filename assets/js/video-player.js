@@ -44,7 +44,8 @@ function initVideoPlayer (){
 
             window.onYouTubePlayerAPIReady = function() {
                 player = new YT.Player('main-product-video', {
-                    width: '100%'
+                    width: '100%',
+                    playerVars: { 'rel': 0, 'showinfo': 0 }
                 });
             };
             el.find('img').first().attr('src', 'http://img.youtube.com/vi/'+id+'/default.jpg');

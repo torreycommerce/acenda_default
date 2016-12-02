@@ -25,12 +25,12 @@
 		</div>
 	</section>
 	{# Beging product images #}
-	<div class="col-xs-12 col-sm-7 p-2x">
-		<div class="max-450" id="product-images">
+	<div class="col-xs-12 col-sm-7 p-2x" id="product-images">
+		<div class="max-450">
 		{# Begin main image #}
 			<div class="p-thin" id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
-					<div class="isd" id="main-product-video" style="display:none"></div>
+					<div class="isd btn-block"><div id="main-product-video" style="display:none"></div></div>
 					<span class="isd">
 						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" data-image-zoom="" width="450" height="450" alt="" style="display:none">
 					</span>
@@ -52,8 +52,8 @@
 								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
 								<div class="col-xs-2 col-thin p-thin" id="variant-video-copy">
 									{% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
-									<div class="thumbnail video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-										<i class="video-icon fa fa-play-circle"></i><img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt="">
+									<div class="image-space video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
+										<img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 									</div>
 								</div>
 							</div>

@@ -176,7 +176,7 @@ function VariantsManager (product, img, isCollection) {
     this.addVideosToCarousel = function(videos) {
         var _this = this;
         $.each(videos, function(index, video){
-            var clonedDiv = this.clonedVideoSource.clone();
+            var clonedDiv = _this.clonedVideoSource.clone();
             var id = "product-video-"+_this.product_id+"-"+index;
             clonedDiv.attr("id", id);
             clonedDiv.appendTo( "#variant-image-carousel-"+_this.product_id );
