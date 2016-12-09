@@ -466,6 +466,10 @@ function IncludeJavaScript(jsFile, onLoadCallback) {
 
 
 $(document).ready(function() {
+	$.ajaxSetup ({
+   	 // Disable caching of AJAX responses
+	    cache: false
+	});	
 	$.get(acendaBaseUrl+'/account/toolbar', function(data) {
 		$('.toolbarajax').replaceWith(data);
 		//
