@@ -95,11 +95,11 @@
 				{# Begin order items #}
 				{% set items = api.get('/orderitem?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
 				{% set product_ids = items|values_in('product_id') %}
-				{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+				{% set products = api.get('/variant',{query:{product_id:{'$in':product_ids}}})|group_by('id') %}
 				{% if items is not empty %}
 				{% set subtotal = 0 %}
 				{% for item in items %}
-				{% set product = products[item.product_id].0 %}
+				{% set product = products[item.variant_id].0 %}
 				{% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
 				{% set subtotal = subtotal + (product.price * item.quantity) %}
 					<div class="order-item pad-b divide g p">
