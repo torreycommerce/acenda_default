@@ -31,26 +31,27 @@
 {{ forms.hidden('createreturn[email]', order.email) }}
 {{ forms.hidden('createreturn[order_number]', order.order_number) }}
 {% set product_ids = orderitems|values_in('product_id') %}
-{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+{% set products = api.get('/variant',{query:{product_id:{'$in':product_ids}}})|group_by('id') %}
+
 {% set ret = 0 %}
 {% for item in orderitems %}
 	{% set q = item.fulfilled_quantity %}
 	{% for r in returns %}
 		{% if item.id == r.item_id %} {% set q = q - r.quantity %} {% endif %}
 	{% endfor %}
-	{% if products[item.product_id][0].inventory_returnable == "1" and q > 0 %}
+	{% if products[item.variant_id][0].inventory_returnable == "1" and q > 0 %}
 		{% set ret = ret + 1 %}
 		{% set available = q %}
 		<div class="divide g p pad-b">
 			<div class="media media-cart">
 				<div class="media-left">
-					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src="{{ products[item.product_id][0].thumbnail }}" width="250" height="250" alt="">
+					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src="{{ products[item.variant_id][0].thumbnail }}" width="250" height="250" alt="">
 				</div>
 				{# Begin item details #}
 				<div class="media-body">
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
-							<a href="{{ app.url ~ products[item.product_id][0].url }}">{{ item.name }}</a>
+							<a href="{{ app.url ~ products[item.variant_id][0].url }}">{{ item.name }}</a>
 							<p class="help-block"><u><b>{{ available }}</b> available for return</u></p>
 						</div>
 					{# End item detials #}
