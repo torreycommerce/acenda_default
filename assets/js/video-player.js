@@ -45,6 +45,7 @@ function initVideoPlayer (){
             window.onYouTubePlayerAPIReady = function() {
                 player = new YT.Player('main-product-video', {
                     width: '100%',
+                    height: '300',
                     playerVars: { 'rel': 0, 'showinfo': 0 }
                 });
             };
@@ -69,14 +70,14 @@ function initVideoPlayer (){
             el.click(function() {
                     $("#main-product-video").show();
                     $("#main-product-image").hide();
-                    $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
+                    $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
                     $("[data-image-swap]").click(function() {
                         $("#main-product-video").hide();
                         $("#main-product-image").show();
                         $('.main-product-video').html('');
                     });
             });
-            $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
+            $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
         }
     });
 }

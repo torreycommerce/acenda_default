@@ -1,15 +1,15 @@
 {% macro subcategory(main_category, items) %}
 <li class="dropdown dropdown-submenu">
-	<a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown"><span>{{main_category|replace('-',' ')|title}}</span><i class="fa fa-caret-right"></i></a>
-	<ul class="dropdown-menu">
-	    {% for category,subitems in items.limb %}
-	        {% if subitems.limb|length %}
-	            {{ _self.subcategory(category, subitems) }}
-	        {% else %}
-			<li><a href="{{app.url}}/category/{{subitems.slug}}">{{category|replace('-',' ')|title}}</a></li>
-	        {% endif %}
-	    {% endfor %}
-	</ul>
+    <a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown"><span>{{main_category}}</span><i class="fa fa-caret-right"></i></a>
+    <ul class="dropdown-menu">
+        {% for category,subitems in items.limb %}
+            {% if subitems.limb|length %}
+                {{ _self.subcategory(category, subitems) }}
+            {% else %}
+            <li><a href="{{app.url}}/category/{{subitems.slug}}">{{category}}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 </li>
 {% endmacro %}
 
@@ -18,11 +18,11 @@
 <li>
     {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
         <i class="fa fa-star-o"></i>
-        {{main_category|replace('-',' ')|title}}
+        {{main_category}}
     </a>#}
     <a href="{{app.url}}/category/{{ items.slug }}" class="sub_c" ref="{{ id }}">
         <i class="fa fa-star-o"></i>
-        {{main_category|replace('-',' ')|title}}
+        {{main_category}}
     </a>
     {% if items.limb|length %}
     <ul id="{{ id }}">
@@ -35,7 +35,7 @@
                 <li>
                     <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">
                         <i class="fa fa-star-o"></i>
-                        {{category|replace('-',' ')|title}}
+                        {{category}}
                     </a>
                 </li>
             {% endif %}
