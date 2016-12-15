@@ -101,12 +101,16 @@
 ##
 #}
 {% set search_suggestion = '' %}
-{% if products.num_total == 0 and app.request.get.s is not empty %}
-	{% set search_suggestion = api.get('/catalog/suggest', {'query':app.request.get.s})|first %}
+{% set product_suggest = [] %}
+
+{% if products.num_total < 2 and app.request.get.s is not empty %}
+	{% set search_filter_keyword = app.request.get.s %}
+	
+	{% set search_suggestion = api.get('/catalog/suggest', {'search':app.request.get.s})|first %}
 	{% if search_suggestion == app.request.get.s %}
 		{% set search_suggestion = '' %}
 	{% else %}
-		{% set products = api.get('/catalog', {
+		{% set product_suggest = api.get('/catalog', {
 							"query":default_query|merge(filter_query),
 							"page":app.request.get.page,
 							"limit":limit,
@@ -116,8 +120,6 @@
 					  }) %}
 		{% set search_filter_keyword = search_suggestion %}
 	{% endif %}
-{% else %}
-	{% set search_filter_keyword = app.request.get.s %}
 {% endif %}
 
 
@@ -133,7 +135,6 @@
 							"attributes":default_attributes,
 							"format":"attributes"
 					  }) %}
-
 {#
 ##
 ##  Redirection rules (if category or request is not found)
@@ -209,7 +210,13 @@
 	<section class="product-grid">
 		<div class="col-md-9 col-xs-12">        
 
-			<h1>{{ name|default(category.name) }}</h1>
+			<h1>
+			{% if category.display_name is empty %}
+			    {{ name|default(category.name) }}
+			{% else %}
+			    {{ category.display_name }}
+			{% endif %}
+			</h1>
 			{# Begin category description #}
 			<div class="section-description hidden-xs">
 				{{ description|default(category.description) }}
@@ -311,14 +318,9 @@
 			{# Category product grid #}
 			{% set items_per_row = 3 %}
 			<section class="products-category text-center">
-				{% if search_suggestion is not empty %}
-				
-				<p>Showing results for <strong><i>{{search_suggestion}}</i></strong></p>
-				
-				{% endif %}
 				{% if products.num_total == 0 and categories is empty %}
 				
-				<p>No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>.</p>p>
+				<p>No products found. <a href="{{app.url}}/{{ app.request.url}}">Go back</a>.</p>
 				
 				{% endif %}
 				<div class="row c-c">
@@ -347,6 +349,40 @@
 				</div>
 				{% endif %}
 			</section>
+			{% if product_suggest is not empty and product_suggest.num_total > 1 %}
+			<section class="products-category text-center">
+				{% if search_suggestion is not empty %}
+				
+				<p>Results for <strong><i>{{search_suggestion}}</i></strong></p>
+				
+				{% endif %}
+				<div class="row c-c">
+					{% set collection_ids = [] %}
+					{% for row,product in product_suggest if product.id not in collection_ids %}
+						{% if product.group == 'product' %}
+							{% for id in product.product[0].collection_id %}
+								{% set collection_ids = collection_ids|merge([id]) %}
+							{% endfor %}
+						{% else %}
+							{% set collection_ids = collection_ids|merge([product.id]) %}
+						{% endif %}
+						{# Begin product #}
+						<div class="col-xs-6 col-sm-4 p">
+							{{ prod.gridproduct(product) }}
+						</div>
+						{# End product #}
+					{% endfor %}
+				</div>
+					{% if product_suggest|length == limit or app.request.get.page > 1 %}
+					
+				<div class="p">
+					<div class="pagination-bottom g text-center">
+						{{ base.pagination(product_suggest.num_total,limit,4) }}
+					</div>
+				</div>
+				{% endif %}
+			</section>
+			{% endif %}
 			{# End Product list #}
 		</div>
 	</section>
