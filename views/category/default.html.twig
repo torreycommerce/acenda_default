@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block title %}{{ (category.name|default(title))|default(seo_title) }}{% endblock %}
-{% block meta_keywords %}{{ category.keywords|join(',')|default(seo_keywords) }}{% endblock %}
+{% block meta_keywords %}{{ category.meta_keywords|default(seo_keywords) }}{% endblock %}
 {% set image = app.url ~ '/../../..' ~ category.thumbnail|default(app.url ~ '/../../..' ~ category.thumbnail) %}
 {% set meta_description = category.meta_description|default(category.meta_description) %}
 {% block meta_description %}{{ meta_description|default(seo_description) }}{% endblock %}
