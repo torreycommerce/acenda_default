@@ -55,7 +55,7 @@
 {% endblock %}
 
 {% block title %}{{ title|default(seo['title']) }}{% endblock %}
-{% block meta_keywords %}{{ item.keywords|join(',')|default(seo['keywords']) }}{% endblock %}
+{% block meta_keywords %}{{ item.meta_keywords|default(seo['keywords']) }}{% endblock %}
 {% set meta_description = item.meta_description|default(item.meta_description) %}
 {% block meta_description %}{{ meta_description|default(seo['description']) }}{% endblock %}
 

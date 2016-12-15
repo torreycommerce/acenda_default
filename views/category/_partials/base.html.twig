@@ -41,7 +41,7 @@
 } %}
 
 {% if app.request.get.s is not empty %}
-	{% set search_fields = ['name^2','type^2','color^2','brand^2','tags^2','keywords^2','_all'] %}
+	{% set search_fields = ['name^2','type^2','color^2','brand^2','tags^2','_all'] %}
 	{% set sort_options = {'Search Relevance':'_score:-1,product.variant.popularity:-1'}|merge(sort_options) %}
 {% endif %}
 

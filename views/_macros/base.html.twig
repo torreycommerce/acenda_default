@@ -150,7 +150,7 @@
     {% if app.request.path is integer %}{% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
     {% else %}{% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}{% endif %}
 
-    <meta property="og:keywords" content="{{ item.keywords|default(default_tags['description']) }}"/>
+    <meta property="og:keywords" content="{{ item.meta_keywords|default(default_tags['description']) }}"/>
 
     <meta property="og:title" content="{{ app.params.site.title }} - {{ (item.name|title)|default(default_tags['title']) }}" />
 
