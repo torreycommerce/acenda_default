@@ -166,9 +166,9 @@
 			{% endif %}
 
 			{% if filters.category_id %}
-			<button class="btn btn-block btn-primary p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-plus"></i><span>Refine</span></button>
+			<button class="btn btn-block btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
 			{% endif %}
-			<div class="collapse in force-md-lg fa-fa-balance" id="collapseFilters">
+			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
 
 			{% for name,filter_set in filters %}
 				{% if filter_set|length > 1 %}
