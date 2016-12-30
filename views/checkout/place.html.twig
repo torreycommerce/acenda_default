@@ -1,5 +1,5 @@
 {% extends "/_layouts/base.html.twig" %}
-{% block content %}
+
 {% if  app.request.post.checkout %}
     {% set return = api.post('/sessioncart/checkout', app.request.post.checkout) %}
 {% endif %}
@@ -39,7 +39,7 @@
 {% endif %}
 
 
-
+{% block content %}
 {% include '/checkout/_partials/final.html.twig' %}
 {% endblock %}
 
