@@ -1,9 +1,13 @@
 function initCountryOpts() {
 	var saveValue = $('#country').attr('data-value');
 	if (firstRun) {
+		var selected = $("#country").val();
+	    
 		$("#country").html($("#country option").sort(function (a, b) {
 			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-		}))
+		}));
+		
+		$("#country").val(selected);
 	}
 
 
@@ -16,7 +20,7 @@ function initCountryOpts() {
 			$('#state_select').prop("disabled", true)
 		}
 	}
-	
+
 	firstRun = 0;
 	newCountry = 0;
 	newState = 0;
