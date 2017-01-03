@@ -53,6 +53,11 @@ jQuery.fn.attachNormalizer = function(options) {
             return true;
         }
 
+        //International currently not supported
+        if (typeof form.processed.country !== 'undefined' && form.processed.country != 'US') {
+            return true;
+        }
+
         // Check if we're using a saved address, and if the form's normalized already
         if ((form.processed.address_id == '' || typeof form.processed.address_id === 'undefined') && !form.normalized) {
             $(options.normalizerLoader).show();

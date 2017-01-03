@@ -5,6 +5,8 @@ function initCountryOpts() {
 			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
 		}))
 	}
+
+
 	if (newCountry) {
 		$('#country').prepend('<option disabled selected value>Select a Country</option>')
 	}
@@ -14,14 +16,7 @@ function initCountryOpts() {
 			$('#state_select').prop("disabled", true)
 		}
 	}
-	if(firstRun) {
-		if(saveValue) {
-			$('#country option[value="'+saveValue+'"]').prop('selected', true);
-		} else if ($("#country option").size() == 2) {
-			$('#country option:eq(1)').prop('selected', true);
-		}
-	}
-
+	
 	firstRun = 0;
 	newCountry = 0;
 	newState = 0;
@@ -143,11 +138,12 @@ if ($('.form-region').length) {
 				var state = $('[id$=state_select]').val();
 				if (state == undefined || state == '') {
 					state = 'CA';
+					newState = 1;
 				}
 				var search_string = "country="+$('select[id$=country]').val();
 					search_string = search_string + '&state=' + state;
 				$(".shipping-continue").prop("disabled",true);
-				if(telReady)
+				if(telReady && $('select[id$=country]').val())
 					$("#phone").intlTelInput("setCountry", $('select[id$=country]').val().toLowerCase());
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/byregion?'+search_string, function(data) {
 					//var dropdown = $( ".shipping-method-dropdown" );
