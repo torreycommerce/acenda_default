@@ -423,7 +423,7 @@ $('.btn-add-to-cart').click(function (e) {
 //Newsletter Validator
 $(document).ready(function() {
   $('#NewsLSub').click(function () {
-	var email = $(this).parent().prev('input').val();
+	var email = $(this).parents('form').find('.form-control').val();
 	if (email == 'undefined' || email == '' || !validateEmail(email)) {
 	  event.preventDefault();
 	  $("#NewsLInput").parent().addClass('has-error');
