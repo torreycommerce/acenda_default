@@ -18,7 +18,7 @@
 {% if final_order is not empty %}
 	<h1>Checkout Complete!</h1>
 {% else %}
-	<h1><i class="fa fa-exclamation-circle"></i><span>Order Failed!</span></h1>
+	<h1><i class="fa fa-exclamation-circle"></i><span>Please check to make sure the Billing Address you entered matching the address associated with your credit card statement.</span></h1>
 {% endif %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
