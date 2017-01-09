@@ -1,46 +1,31 @@
 {% extends "/_layouts/base.html.twig" %}
 
-{% if  app.request.post.checkout %}
-    {% set return = api.post('/sessioncart/checkout', app.request.post.checkout) %}
-{% endif %}
-{% do api.post('/sessioncartcoupon/refreshCoupons') %}
-{% if app.user.id is not empty %}
-    {% set customer = api.get('/customer/' ~ app.user.id) %}
-    {% set request = {customer_id:app.user.id, email:customer.email, ip:app.request.ip} %} {# don't forget the customer ID #}
-{% else %}
-    {% set request = {ip:app.request.ip} %}
+{% if app.request.post.api_unique_token is not empty %}
+    {% set final_order = api.post('/order/place', {'api_unique_token': app.request.post.api_unique_token}) %}
+{% elseif app.request.post.order_number is not empty %}
+    {% set final_order = api.get('/order?email=' ~ app.request.post.email ~ '&order_number=' ~ app.request.post.order_number)|first %}
 {% endif %}
 
-{% do app.user.setState('order_sent', true) %}
-{# Concatenation of the different request during the checkout tunnel #}
-{% set post = app.request.post.checkout %}
-{% set request = request + {
-	'card_number': post.card_number,
-	'card_cvv2': post.card_cvv2,
-	'card_exp_month': post.card_exp_month,
-	'card_exp_year': post.card_exp_year,
-	'total_verify': post.total_verify
-} %}
-{% set request = request + app.user.getCheckoutStates('shipping') %}
-{% set request = request + app.user.getCheckoutStates('billing')%}
-{% set request = request + {'test_order' : app.user.getState('test_order')} %}
-{% set final_order = api.post('/order/place', request) %}
-
+{% if app.request.post.error is not empty %}
+    {% set error = app.request.post.error|json_decode %}
+{% elseif api.error is not empty %}
+    {% set error = api.error %}
+{% endif %}
 
 {# data block from checkout/_partials/final.html.twig #}
 {% if final_order is not empty %}
-    {% do app.user.clearCheckoutStates('shipping') %}
-    {% do app.user.clearCheckoutStates('billing') %}
     {% set items = api.get('/orderitem?email=' ~ final_order.email ~ '&order_number=' ~ final_order.order_number, {query:{'order_id':final_order.id}}) %}
     {% set coupons = api.get('/ordercoupon?email=' ~ final_order.email ~ '&order_number=' ~ final_order.order_number, {query:{'order_id':final_order.id}}) %}
     {% set product_ids = items|values_in('variant_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
     {% set col_ = app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8"%}
+    {% do app.user.clearCheckoutStates('shipping') %}
+    {% do app.user.clearCheckoutStates('billing') %}
 {% endif %}
 
 
 {% block content %}
-{% include '/checkout/_partials/final.html.twig' %}
+    {% include '/checkout/_partials/final.html.twig' %}
 {% endblock %}
 
 {% block acenda %}
