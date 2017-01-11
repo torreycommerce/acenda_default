@@ -8,16 +8,17 @@
 					<h2 class="section-header">Sign-Up for Exclusive Offers!</h2>
 					<p>Be the first to hear about our products and promotions.</p>
 					<br>
-					{{ newsletterform.begin('newsletter',app.url ~ '/newsletter') }}
+					 <form>
 						<div class="input-group">
-							<input id="NewsLInput" type="search" placeholder="Email Address" class="form-control" name="email">
+							<input id="SignupInput" type="search" placeholder="Email Address" class="form-control" name="email">
 							<div class="input-group-btn">
-								<button id="NewsLSub" class="btn btn-primary btn-responsive" type="submit">Sign-Up</button>
+								<button id="SignupButton" class="btn btn-primary btn-responsive" onclick="return false;" type="submit">Sign-Up</button>
 							</div>
 						</div>
-					{{ newsletterform.end() }}
+	    				<div id="error"></div>						
+					</form>
 				</div>
-			</div>
+			</div>		
 		</div>
 	</section>
 	<section class="content-list">

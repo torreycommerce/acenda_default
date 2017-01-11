@@ -58,7 +58,7 @@ Contact Us
         <div class="validation">{{ forms.errorlist(form_errors, 'message') }}</div>
     </div>
     <div class="actions">
-        {{ forms.submit('submit', 'create', 'Send Message', {class:'btn btn-lg btn-primary'})}}
+        {{ forms.submit('submit', 'create', 'Send Message', {class:'btn btn-lg btn-primary',onclick: 'console.log("disabling button");$(this).prop("disabled",true); return true;'})}}
     </div>
     {{ forms.end() }}
 {{ lonelyform.end() }}
