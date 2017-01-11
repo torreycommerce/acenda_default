@@ -50,7 +50,7 @@
 		</div>
 		{% set response = api.delete('/sessioncart') %}
 		{% else %}
-		<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please contact us for assistance.</p>
+			<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="{{app.url}}/contact" target="_blank">contact us</a> for assistance.</p>
 		<p>Order placement failed with the following error(s):</p>
 		{% if api.error is iterable %}
 		<ul>
