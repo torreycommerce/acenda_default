@@ -18,7 +18,7 @@
 {% if final_order is not empty %}
 	<h1>Checkout Complete!</h1>
 {% else %}
-	<h1><i class="fa fa-exclamation-circle"></i><span>Order Failed!</span></h1>
+	<h1><i class="fa fa-exclamation-circle"></i><span>We Were Unable to Process Your Order </span></h1>
 {% endif %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
@@ -50,23 +50,27 @@
 		</div>
 		{% set response = api.delete('/sessioncart') %}
 		{% else %}
-		<p>Order placement failed with the following error(s):</p>
-		{% if error is iterable %}
-		<ul>
-			{% for field, errors in error %}
-			<li>
-			{{field}}
+			<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="{{app.url}}/contact" target="_blank">contact us</a> for assistance.</p>
+
+			{% if error is not empty %}
+				<p>Order placement failed with the following error(s):</p>
+				{% if error is iterable %}
 				<ul>
-					{% for error in errors %}
-					<li>{{ error }}</li>
+					{% for field, errors in error %}
+					<li>
+					{{field}}
+						<ul>
+							{% for error_message in errors %}
+							<li>{{ error_message }}</li>
+							{% endfor %}
+						</ul>
+					</li>
 					{% endfor %}
 				</ul>
-			</li>
-			{% endfor %}
-		</ul>
-		{% else %}
-		<ul><li>{{ error }}</li></ul>
-		{% endif %}
+				{% else %}
+				<ul><li>{{ error }}</li></ul>
+				{% endif %}
+			{% endif %}
 		<div class="mar-t">
 			{% if request.token is defined %}
 			<a class="btn btn-primary" href="{{app.url}}/checkout/paypal">Please Try Again</a>
