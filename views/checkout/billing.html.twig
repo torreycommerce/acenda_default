@@ -22,7 +22,8 @@
 
 <h1>Checkout: Billing</h1>
 
-{{ forms.begin('checkout', app.url ~ '/checkout/place', 'post', { class:'form-billing-region' }) }}
+{{ forms.begin('checkout', app.url ~ '/checkout/process', 'post', { class:'form-billing-region' }) }}
+{{ forms.hidden('checkout[unique_token]',random(99999999)~'-'~random(99999999)~'-'~random(99999999)~'-'~random(99999999)) }}
 {% if app.user.getState('test_order') %}
 	<div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
 {% endif %}
