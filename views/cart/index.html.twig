@@ -58,6 +58,8 @@ Cart
 	{% set items_deleted = false %}
 	{% for id, item in cart.items %}
 		{% set product = products[item.product_id].0 %}
+
+
 		{% if product.status != 'active' %}
 			{% do api.delete('/cart/item/' ~ id) %}
 			{% if product.title is defined %}
@@ -146,6 +148,7 @@ Cart
 	{{ forms.begin('cart','','post', {class:'form-cart p pad-b divide'}) }}
 	{% for id, item in cart.items %}
 	{% set product = products[item.product_id].0 %}
+	{% set parent = api.get('product/' ~ product.product_id)%}
 
 	<div class="divide p pad-b g">
 	<div class="media media-cart">
@@ -158,7 +161,7 @@ Cart
 		<div class="media-body">
 			<div class="row">
 				<div class="col-xs-12 col-md-5 p">
-					<div class="name"><a href="{{ app.url ~ product.url }}">{{ product.name }}</a></div>
+					<div class="name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></div>
 					<div class="availability p">
 						{% if product.has_stock %}
 							In Stock
