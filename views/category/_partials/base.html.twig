@@ -20,7 +20,11 @@
 
 {% set default_attributes = default_attributes is not defined ? "color,category_id,brand,type,gender,size,price,review_score": default_attributes %}
 {% if category.facets is not empty %}
-	{% set default_attributes = category.facets %}
+	{% set tmpfacets = [] %}
+	{% for facet in category.facets %}
+		{% set tmpfacets = tmpfacets | merge([facet | lower]) %}
+    {% endfor %}
+	{% set default_attributes = tmpfacets %}
 {% endif %}
 {% set limit = app.request.get.limit|default(24) %}
 
