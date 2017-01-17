@@ -77,14 +77,12 @@
 			
 							<div id="address-fields">
 								{% if state_select is not empty %}
-									{{ forms.hidden('express[shipping_state_select]',address.shipping_state_select) }}
-									{{ forms.hidden('express[shipping_country_select]',address.shipping_country_select) }}
+									{{ forms.hidden('express[shipping_state_select]',address.state_select) }}
+									{{ forms.hidden('express[shipping_country_select]',address.country_select) }}
 								{% endif %}
 								{{ extras.address('express', 'shipping', address) }}								
 								{% do app.asset.script('forcecountry',"
-										setTimeout(function() {
-										     $('#country').trigger('change');
-										 },500);
+								        var countrySelect = '" ~ address.country_select ~ "';
 								") %}
 
 							</div>

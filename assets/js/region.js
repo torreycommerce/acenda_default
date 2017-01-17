@@ -106,7 +106,7 @@ if ($('.form-region').length) {
 				$("#state_select").addClass('hidden').prop( "disabled", true )
 
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
-					var country = $('[name$=\\[country_select\\]]').val();
+					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
 					if ((country == undefined || country == '') && data.result.length > 0) {
 						data.result.sort(function(a, b) { return a.value > b.value});
 						console.log('no default Country')

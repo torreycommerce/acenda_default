@@ -7,7 +7,7 @@
 {% endif %}
 
 {% set final_order = api.post('/order/paypalExpressFinalize', request) %}
-
+{% set error = api.error %}
 {# data block from checkout/_partials/final.html.twig #}
 {% if final_order is not empty %}
     {% do app.user.clearCheckoutStates('shipping') %}
