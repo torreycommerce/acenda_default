@@ -156,6 +156,14 @@ function VariantsManager (product, img, isCollection) {
         }else{
             clonedImg.appendTo( "#variant-selected-image-"+this.product_id+' span.isd'); //Append the new image to the dom
         }
+        
+        clonedImg.show();
+    }
+    
+    this.showImage = function() {
+        img = $('#variant-selected-image-'+this.product_id+' img');
+        img.css('visibility','visible');
+        img.css('display','block');
     }
     /*
         Adds image to the carousel element of the page, according to the urls provided
@@ -240,9 +248,13 @@ function VariantsManager (product, img, isCollection) {
         var _this = this;
         //The first time the page load and the images are set, wait for
         //the main product image to be loaded before showing it with carousel
+        
         $('#variant-selected-image-'+this.product_id+' img').on("load", function() {
-            $('#variant-selected-image-'+_this.product_id+' img').show();
+            _this.showImage();
             $('#image-carousel-'+_this.product_id).show();
+        });
+        $( window ).load(function() {
+            _this.showImage();
         });
     }
     /*
@@ -657,6 +669,7 @@ function VariantsManager (product, img, isCollection) {
     this.init = function(){
         //Orders options
         this.variant_options = this.orderOptions(this.variant_options);
+        
         //Builds selectsData (representation of the available variant options): { size: ["S","M","L"], color: ...}
         var _this = this
         $.each( this.variant_options, function(index, option){
