@@ -4,7 +4,7 @@ var useDatePicker = 0; // use date input calendar art?
 //
 var useGMapNorm = 0; // use google map normalizer?
 //
-var useIntTel = 1; // use InternationlTel flag art?
+var useIntTel = 0; // use InternationlTel flag art?
 var telReady = 0;
 //
 var useMMenu = 1; // use default mobile menu?
