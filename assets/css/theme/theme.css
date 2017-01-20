@@ -53,7 +53,7 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 
 /* coolguy */
 @media (min-width:1px){
-.flash-note {position:absolute; z-index:1071; top:50%; left:50%; width:50%; text-align:center; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
+.flash-note {position:absolute; z-index:1071; top:50%; left:50%; width:75%; text-align:center; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
 .flash-note .alert {display:block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
 }
 

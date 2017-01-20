@@ -6427,7 +6427,7 @@ button.close {
   display: none !important;
 }
 .affix {
-  position: fixed;
+  position: fixed !important;
 }
 @-ms-viewport {
   width: device-width;

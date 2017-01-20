@@ -420,32 +420,7 @@ $('.btn-add-to-cart').click(function (e) {
 //   } );
 // } );
 
-//Newsletter Validator
-$(document).ready(function() {
-  $('#NewsLSub').click(function () {
-	var email = $(this).parents('form').find('.form-control').val();
-	if (email == 'undefined' || email == '' || !validateEmail(email)) {
-	  event.preventDefault();
-	  $("#NewsLInput").parent().addClass('has-error');
-	}
-  });
-  $("#NewsLInput").keyup(function(){
-	  $(this).parent().removeClass('has-error');
-  });
-});
 
-
-
-
-function validateEmail(email) {
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return re.test(email);
-}
-
-
-$(document).ready(function() {
-	
-});
 
 function IncludeJavaScript(jsFile, onLoadCallback) {
 	var head = document.getElementsByTagName('head')[0] || document.documentElement;
@@ -527,6 +502,8 @@ $(document).ready(function() {
 		});
 	});
 	//
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
+	});
 });
 
 

@@ -6,15 +6,15 @@ $(function() {
 
     form.submit(function() {
         if (form.parsley('isValid') === false) {
-            $(this).find('button[type="submit"]').attr('disabled', false);
+            $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
             return false;
         }else{
             if (form.normalized === true && !$("#custom-address").is(":hidden")) {
-                $(this).find('button[type="submit"]').attr('disabled', true);
+                $(this).find('button[type="submit"]').attr('disabled', true).addClass('wait');
                 sessionStorage.setItem('selected_shipping_method_checkout', null);
                 return true;
             }else if (form.normalized == undefined && ($("#custom-address").is(":hidden") || !$("#custom-address").length)){
-                $(this).find('button[type="submit"]').attr('disabled', true);
+                $(this).find('button[type="submit"]').attr('disabled', true).addClass('wait');
                 sessionStorage.setItem('selected_shipping_method_checkout', null);
                 return true;
             }
