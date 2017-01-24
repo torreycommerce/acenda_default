@@ -34,7 +34,7 @@
 ##
 #}
 {% set sort_options = {
-	'Popularity':'product.variant.popularity:-1',
+	'Popularity':'product.popularity:-1',
 	'Product Name':'name:1',
 	'Price: Lowest First':'product.variant.price:1',
 	'Price: Highest First':'product.variant.price:-1',
@@ -46,7 +46,7 @@
 
 {% if app.request.get.s is not empty %}
 	{% set search_fields = ['name^2','type^2','color^2','brand^2','tags^2','_all'] %}
-	{% set sort_options = {'Search Relevance':'_score:-1,product.variant.popularity:-1'}|merge(sort_options) %}
+	{% set sort_options = {'Search Relevance':'_score:-1,product.popularity:-1'}|merge(sort_options) %}
 {% endif %}
 
 {% if app.request.get.sf is not empty %}
