@@ -217,9 +217,9 @@ $(document).ready(function () {
 						elem.parents('.form-group').addClass('has-feedback');
 
 					if ($.inArray(elem[0].type, limit_feed) >= 0){
-					  if (elem.parent().find(".glyphicon"))
-						  elem.parent().find(".glyphicon").remove();
-					  elem.after('<span class="glyphicon glyphicon-remove form-control-feedback"></span>');
+					  if (elem.parent().find(".fa"))
+						  elem.parent().find(".fa").remove();
+					  elem.after('<span class="fa fa-remove form-control-feedback"></span>');
 					}
 
 					elem.attr("data-original-title", elem[0].validationMessage);
@@ -229,9 +229,9 @@ $(document).ready(function () {
 					if (!elem.parents('.form-group').hasClass('has-feedback'))
 						elem.parents('.form-group').addClass('has-feedback');
 					if ($.inArray(elem[0].type, limit_feed) >= 0){
-					  if (elem.parent().find(".glyphicon"))
-						  elem.parent().find(".glyphicon").remove();
-					  elem.after('<span class="glyphicon glyphicon-ok form-control-feedback"></span>');
+					  if (elem.parent().find(".fa"))
+						  elem.parent().find(".fa").remove();
+					  elem.after('<span class="fa fa-ok form-control-feedback"></span>');
 					}
 
 					elem.tooltip("destroy");

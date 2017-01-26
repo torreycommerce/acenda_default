@@ -8,7 +8,7 @@
             <p class="size-h2"> Order #{{ '{{singleOrder.order_number}}' }}</p>
             <p>Return: {{ '{{returnAddress.street_line1}}' }} {{ '{{returnAddress.street_line2}}' }}, {{ '{{returnAddress.city}}' }}, {{ '{{returnAddress.state}}' }}{{ '{{returnAddress.zip}}' }}</p>
             <p><span class="icon fa fa-envelope"></span> {{ '{{main.config.params[\'contact-us\'][\'to\']}}' }}</p>
-            <p><span class="icon glyphicon glyphicon-earphone"></span>{{ '{{main.config.params.information.phone_number | phoneNumber}}' }}</p>
+            <p><span class="icon fa fa-phone"></span>{{ '{{main.config.params.information.phone_number | phoneNumber}}' }}</p>
         </div>
     </div>
 
