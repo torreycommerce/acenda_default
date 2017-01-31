@@ -88,7 +88,7 @@
 			</div>
 			<div class="form-group fgq">
 				<label class="control-label" for="phone">Phone Number</label>
-				{{ forms.phone('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', id:'phone', required:true})  }}
+				{{ forms.text('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', id:'phonenumber', required:true})  }}
 				<div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
 			</div>
 			<div class="form-group">

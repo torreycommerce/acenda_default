@@ -180,8 +180,8 @@
 {% macro phone(name, value='', attributes=[]) %}
     {# {{ element.phonenumber('field_name','default_value',{'placeholder':'Name','class':'some-style'}) }} #}
 
-    {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
-    {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'onKeyPress':'return numbersonly(this, event)', 'maxlength':'16'}) %}
+    {% set attributes1 = attributes | merge({'id':'intlPhone', 'placeholder':'', 'maxlength':'16'}) %}
+    {% set attributes2 = attributes | merge({'id':'phone', 'placeholder':'', 'maxlength':'16'}) %}
     {% import _self as elements %}
 
     <!--input id = "phone" type = "number" name="phone"-->
