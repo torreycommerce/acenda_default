@@ -1,15 +1,5 @@
 function initCountryOpts() {
 	var saveValue = $('#country').attr('data-value');
-	if (firstRun) {
-		var selected = $("#country").val();
-	    
-		$("#country").html($("#country option").sort(function (a, b) {
-			return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-		}));
-		
-		$("#country").val(selected);
-	}
-
 
 	if (newCountry) {
 		$('#country').prepend('<option disabled selected value>Select a Country</option>')
@@ -108,7 +98,7 @@ if ($('.form-region').length) {
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
 					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
 					if ((country == undefined || country == '') && data.result.length > 0) {
-						data.result.sort(function(a, b) { return a.value > b.value});
+						//data.result.sort(function(a, b) { return a.value > b.value});
 						console.log('no default Country')
 						newCountry = 1;
 						//country = data.result[0].value;
@@ -448,7 +438,7 @@ if ($('.form-estimate').length) {
 			source: function(request, response) {
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
 					if (data.result.length > 0){
-						data.result.sort(function(a, b) { return a.value > b.value});
+						//data.result.sort(function(a, b) { return a.value > b.value});
 						console.log('no default Country')
 						newCountry = 1;
 						//country = data.result[0].value;
