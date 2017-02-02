@@ -502,7 +502,7 @@ $(document).ready(function() {
 		});
 	});
 	//
-	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome/css/font-awecenda.min.css">');
+	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome-4.7.0/css/font-awecenda.min.css">');
 	//
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
 	});

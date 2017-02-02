@@ -1,13 +1,12 @@
 {%- import "/_macros/base.html.twig" as base -%}
 {%- import "/_macros/product.html.twig" as prod -%}
-{%- import "/_macros/form-elements-bootstrap.html.twig" as newsletterform -%}
 {% spaceless %}
 
 {# Getting Seo from config.mode.json #}
 {% if app.params.seo is defined and app.params.seo is not empty %}
-    {% set seo = app.params.seo %}
+	{% set seo = app.params.seo %}
 {% else %}
-    {% set seo = { img: "", description: "", keywords: "", title: "Home" } %}
+	{% set seo = { img: "", description: "", keywords: "", title: "Home" } %}
 {% endif %}
 {# End Config Seo #}
 {# Scripts #}
@@ -28,8 +27,19 @@
 {% endif %}
 {# End Scripts #}
 {% endspaceless %}
+
+{% set url_based_class = app.request.url|split('/')|last %}
+{% set url_based_array = app.request.url|split('/') %}
+{% set url_based_class = '' %}
+{% for part in url_based_array %}
+	{% set url_based_class = url_based_class ~ ' url-' ~ loop.index ~ '-' ~ part %}
+{% endfor %}
+{% if url_based_array.0 | trim == ''%}
+	{% set url_based_class = 'store-home-page' %}
+{% endif %}
+
 <!DOCTYPE html>
-<html>
+<html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
 <head>
 
 {% block head %}
@@ -52,124 +62,116 @@
 <title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
 
 {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-    {{ social.get_metatags(app.params.social_settings, seo) }}
+	{{ social.get_metatags(app.params.social_settings, seo) }}
 {% endif %}
 
 <script>
-        var acendaBaseUrl = '{{app.url}}'
-        var acendaBaseThemeUrl = '{{app.url_asset}}'
+		var acendaBaseUrl = '{{app.url}}'
+		var acendaBaseThemeUrl = '{{app.url_asset}}'
 </script>
 <script>
-    {% block acenda %}
-        {% include '/_partials/analytics/acenda.html.twig' %}
-    {% endblock %}
+	{% block acenda %}
+		{% include '/_partials/analytics/acenda.html.twig' %}
+	{% endblock %}
 </script>
 
 
-    {% endblock %}
+	{% endblock %}
 </head>
 <body>
-    {% include "/_layouts/stage_header.html.twig" %}
-    {% set url_based_class = app.request.url|split('/')|last %}
-    {% set url_based_array = app.request.url|split('/') %}
-    {% set url_based_class = '' %}
-    {% for part in url_based_array %}
-        {% set url_based_class = url_based_class ~ ' url-' ~ loop.index ~ '-' ~ part %}
-    {% endfor %}
-    {% if url_based_array.0 | trim == ''%}
-        {% set url_based_class = 'store-home-page' %}
-    {% endif %}
-    <div id="body" class="dynamic-classes {% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
-        {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
-            <!-- Google Tag Manager DataLayer -->
-            <script>
-                var dataLayer = [];
-                {% block dataLayer %}
-                    {% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
-                {% endblock %}
-            </script>
-            <!-- Google Tag Manager DataLayer End -->
-        {% endif %}
+	{% include "/_layouts/stage_header.html.twig" %}
+	
+	<div id="body">
+		{% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
+			<!-- Google Tag Manager DataLayer -->
+			<script>
+				var dataLayer = [];
+				{% block dataLayer %}
+					{% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
+				{% endblock %}
+			</script>
+			<!-- Google Tag Manager DataLayer End -->
+		{% endif %}
 
-        {% block body %}
-            <!--[if lte IE 8]>
-            <div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-note flash-note-danger">
-            <h4>Please upgrade your browser!</h4><br>
-            <p>Please upgrade to <a href="http://getfirefox.com" class="alert-link">Firefox</a>, <a href="http://www.google.com/chrome" class="alert-link">Chrome</a> or <a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx" class="alert-link">Internet Explorer 9 or 10</a>. Thank you!</p>
-            </div>
-            <![endif]-->
-        {# Begin Header #}
-            <header id="header">
-                {{ base.protected_site() }}
-                {# avoiding the display of the menu when we're in the store-protected template #}
-                {% if app.request.url != "store-protected" %}
-                    {# Begin Toolbar #}
-                    {% block header %}
-                        {%include "/_layouts/toolbar.html.twig"%}
-                    {% endblock %}
-                    {# End Toolbar #}
-                {% endif %}
-                {# avoiding the display of the menu when we're in the store-protected template #}
-                {% if app.request.url != "store-protected" %}
-                    {# Begin Navigation #}
-                    <nav id="nav">
-                        <div class="container">
-                            {% include "/_layouts/nav.html.twig" %}
-                        </div>
-                    </nav>
-                    {# End Navigation #}
-                {% endif %}
-            </header>
-            {# End Header #}
-            {# Begin Content #}
-            <section class="pad-h pad-b-2x" id="content">
-                <div class="container">
-                    {% block breadcrumb %}{% endblock %}
-                    {% block stage %}
-                        {% block content %}
-                        {% endblock %}
-                    {% endblock %}
-                </div>
-            </section>
-            {# End Content #}
-            {# Begin Footer #}
-                {% block footer %}
-                {%include "/_layouts/footer.html.twig"%}
-                {% endblock %}
-            {# End Footer #}
-        {% endblock %}
-        {% block js %}{% endblock %}
-    </div>
+		{% block body %}
+			<!--[if lte IE 8]>
+			<div id="outdated-warning" class="alert alert-dismissable alert-block alert-danger flash-note flash-note-danger">
+			<h4>Please upgrade your browser!</h4><br>
+			<p>Please upgrade to <a href="http://getfirefox.com" class="alert-link">Firefox</a>, <a href="http://www.google.com/chrome" class="alert-link">Chrome</a> or <a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx" class="alert-link">Internet Explorer 9 or 10</a>. Thank you!</p>
+			</div>
+			<![endif]-->
+		{# Begin Header #}
+			<header id="header">
+				{{ base.protected_site() }}
+				{# avoiding the display of the menu when we're in the store-protected template #}
+				{% if app.request.url != "store-protected" %}
+					{# Begin Toolbar #}
+					{% block header %}
+						{%include "/_layouts/toolbar.html.twig"%}
+					{% endblock %}
+					{# End Toolbar #}
+				{% endif %}
+				{# avoiding the display of the menu when we're in the store-protected template #}
+				{% if app.request.url != "store-protected" %}
+					{# Begin Navigation #}
+					<nav id="nav">
+						<div class="container">
+							{% include "/_layouts/nav.html.twig" %}
+						</div>
+					</nav>
+					{# End Navigation #}
+				{% endif %}
+			</header>
+			{# End Header #}
+			{# Begin Content #}
+			<section class="pad-h pad-b-2x" id="content">
+				<div class="container">
+					{% block breadcrumb %}{% endblock %}
+					{% block stage %}
+						{% block content %}
+						{% endblock %}
+					{% endblock %}
+				</div>
+			</section>
+			{# End Content #}
+			{# Begin Footer #}
+				{% block footer %}
+				{%include "/_layouts/footer.html.twig"%}
+				{% endblock %}
+			{# End Footer #}
+		{% endblock %}
+		{% block js %}{% endblock %}
+	</div>
 
 {% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
-    {% set request = app.url | split('/preview/') %}
-    {% set back_to = request.0 %}
-    <nav id="admin-bar" class="navbar navbar-fixed-top hidden-xs" role="navigation">
-        <div class="container-fluid">
-            <div class="btn-group">
-                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-white.png'}}"> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu fsd1 fa-fa-balance" role="menu">
-                    {% set  sandboxMode = api.get('site/ispaypalsandbox') %}
-                    {% if sandboxMode is not empty %}
-                    <li>
-                        <a href="#" ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> <span>PayPal <span class="hidden">PayflowPro</span> is in Test Mode (Sandbox)</span></a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    {% endif %}
-                    <li>
-                        <a href="#" onClick="window.location.href='{{ back_to }}'; return false;" ><i class="fa fa-cog"></i> <span>Visit Your Admin</span></a>
-                    </li>
-                    <li>
-                    {% if '/preview/' in app.url  %}
-                        <a href="#" onClick="window.location.href='{{ app.params.url.live }}'; return false;" ><i class="fa fa-rocket"></i> <span>Visit Your Live Site</span></a>
-                    {% endif %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	{% set request = app.url | split('/preview/') %}
+	{% set back_to = request.0 %}
+	<nav id="admin-bar" class="navbar navbar-fixed-top hidden-xs" role="navigation">
+		<div class="container-fluid">
+			<div class="btn-group">
+				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					<img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-white.png'}}"><i class="fa fa-caret-down"></i>
+				</button>
+				<ul class="dropdown-menu fsd1 fa-fa-balance" role="menu">
+					{% set  sandboxMode = api.get('site/ispaypalsandbox') %}
+					{% if sandboxMode is not empty %}
+					<li>
+						<a href="#" ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> <span>PayPal <span class="hidden">PayflowPro</span> is in Test Mode (Sandbox)</span></a>
+					</li>
+					<li role="separator" class="divider"></li>
+					{% endif %}
+					<li>
+						<a href="#" onClick="window.location.href='{{ back_to }}'; return false;" ><i class="fa fa-cog"></i> <span>Visit Your Admin</span></a>
+					</li>
+					<li>
+					{% if '/preview/' in app.url  %}
+						<a href="#" onClick="window.location.href='{{ app.params.url.live }}'; return false;" ><i class="fa fa-rocket"></i> <span>Visit Your Live Site</span></a>
+					{% endif %}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 {% endif %}
 </body>
