@@ -192,21 +192,39 @@
 				</div>
 			{% endif %}
 		</fieldset>
-		
-		<fieldset>
-			<legend>Shipping Address</legend>
-			<div class="checkout-display-address p" id="display_shipping_address">
-				<address>{{ shipping_address }}</address>
-				<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Address</a>
+		<div class="row">
+			<div class="col-md-6">
+				<fieldset>
+					<legend>Shipping Address</legend>
+					<div class="checkout-display-address p" id="display_shipping_address">
+						<address>{{ shipping_address }}</address>
+						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Address</a>
+					</div>
+				</fieldset>
+
 			</div>
-		</fieldset>
+			<div class="col-md-6">
+				{% set method = api.get('shippingmethod/' ~ cart.shipping_method )%}
+				<fieldset>
+					<legend>Shipping Method</legend>
+					<div class="checkout-display-address p" id="display_shipping_address">
+						<address>
+						<b>Method: </b>{{ method.name }}<br/>
+						<b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )<br/>						
+						{% if method.top_days_range %}<b>Delivery Estimate: </b>{{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.{% endif %}<br/><br/><br/>
+    					</address>
+					</div>
+						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Method</a>				
+				</fieldset>				
+			</div>
+		</div>
 		{{ normalizer.normalizer() }}
 		<div class="actions text-right hidden-xs">
 			<input type="hidden" name="step" value="billing">
 			{% set works = {} %}
 			{% if app.user.getState('order_sent') == true %} {% set works = {'disabled': true } %} {% endif %}
 			{{ forms.submit('place_order', '', 'Place Order', {'class':'btn btn-lg btn-primary btn-block'}|merge(works)) }}
-		</div>
+		</div>		
 
 	</div>
 	<section id="order-summary" class="col-xs-12 col-sm-5 col-md-4">
