@@ -331,7 +331,7 @@ Cart
 						<div class="col-xs-7">
 							Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 						</div>
-						<div class="amount col-xs-5 text-right">${{ cart.shipping_rate|number_format(2)}}</div>
+						<div id="total-estimate" class="amount col-xs-5 text-right">${{ cart.shipping_rate|number_format(2)}}</div>
 					</div>
 					{% endif %}
 					{% set coupon_discount = 0 %}

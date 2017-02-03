@@ -14,12 +14,29 @@ function initCountryOpts() {
 	firstRun = 0;
 	newCountry = 0;
 	newState = 0;
+
+	updateEstimates();
 }
 var firstRun = 1;
 var newCountry = 0;
 var newState = 0;
 
 // ---- //
+
+
+function updateEstimates() {
+	console.log('shipping method changed');
+	$('[name="cart[zip_code]"]').val( $('[name="shipping[shipping_zip]"]').val() );
+	$('[name="cart[country]"]').val( $('[name="shipping[shipping_country]"]').val() );
+	$('[name="cart[state]"]').val( $('[name="shipping[shipping_state]"]').val() );
+	$('[name="cart[method]"]').val( $('[name="shipping[shipping_method]"]').val() );										
+	if(typeof estimator !== 'undefined') estimator('');	
+}
+
+$('[name="shipping[shipping_zip]"]').change(function() {
+	updateEstimates();
+});
+
 
 if ($('.form-region').length) {
 	$('.form-region').cascadingDropdown({
@@ -115,10 +132,6 @@ if ($('.form-region').length) {
 							selected: item.value.indexOf(country) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-region')
-					initCountryOpts()
-					//
 				});
 			}
 		},
@@ -225,11 +238,7 @@ if ($('.form-region').length) {
 								$(".shipping-continue").prop("disabled",true);
 							}
 						}
-						//
-						console.log('call sCO() from form-region STATE')
 						initCountryOpts()
-
-						//
 					});
 				});
 			},
@@ -266,10 +275,7 @@ if ($('.form-billing-region').length) {
 							selected: item.code.indexOf(country) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-billing-region')
 					initCountryOpts()
-					//
 				});
 			}
 		},
@@ -317,10 +323,7 @@ if ($('.form-billing-region').length) {
 							};
 						}));
 					}
-					//
-					console.log('call sCO() from form-billing-region STATE')
 					initCountryOpts()
-					//
 				});
 			},
 		}
@@ -368,10 +371,8 @@ if ($('.form-region-customer').length) {
 								//selected: item.value.indexOf(country)
 							};
 						}));
-						//
-						console.log('call sCO() from form-region-customer')
+
 						initCountryOpts();
-						//
 					});
 				});
 			}
@@ -418,10 +419,7 @@ if ($('.form-region-customer').length) {
 							selected: item.value.indexOf(state) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-region-customer STATE')
 					initCountryOpts();
-					//
 				});
 			},
 		}
@@ -528,14 +526,9 @@ if ($('.form-estimate').length) {
 
 					if(typeof($('select[id$=cart_shipping_method]').attr('data-value')) != 'undefined') {
 						saveValue = $('select[id$=cart_shipping_method]').attr('data-value');
-						$('select[id$=cart_shipping_method] option[value="'+saveValue+'"]').prop('selected', true);
+						$('select[id$=cart_shipping_method] option[value="'+saveValue+'"]').prop('selected', true);					
 					}
-					
 					$('#cart_shipping_method').change();
-					//
-					console.log('call sCO() from form-estimate METHOD')
-					//initCountryOpts()
-					//
 				});
 			}
 		}
