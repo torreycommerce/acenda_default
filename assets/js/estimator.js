@@ -10,8 +10,16 @@ function estimator(currency) {
           $('#summary-shipping,#summary-before-tax,#summary-tax').hide();
           return;
     } else {
-           $('#summary-shipping,#summary-before-tax,#summary-tax').show();       
+           $('#summary-shipping').show();       
     }
+    if(!zip_code) {
+        $('#summary-before-tax,#summary-tax').hide();
+    } else {
+
+        $('#summary-before-tax,#summary-tax').show();
+    }
+
+
     $.post(acendaBaseUrl + '/api/cart',{
         shipping_method:shipping_method,
         shipping_country:shipping_country,

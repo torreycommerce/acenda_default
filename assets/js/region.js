@@ -25,12 +25,21 @@ var newState = 0;
 
 
 function updateEstimates() {
-	console.log('shipping method changed');
 	$('[name="cart[zip_code]"]').val( $('[name="shipping[shipping_zip]"]').val() );
 	$('[name="cart[country]"]').val( $('[name="shipping[shipping_country]"]').val() );
 	$('[name="cart[state]"]').val( $('[name="shipping[shipping_state]"]').val() );
 	$('[name="cart[method]"]').val( $('[name="shipping[shipping_method]"]').val() );										
 	if(typeof estimator !== 'undefined') estimator('');	
+
+    if(!$('[name="shipping[shipping_country]"]').val()) {
+        $('select#shipping_method').prop("disabled",true);
+		$('select#shipping_method').children().remove().end()        
+
+    } else {
+        $('select#shipping_method').prop("disabled",false);    
+    }
+
+
 }
 
 $('[name="shipping[shipping_zip]"]').change(function() {
@@ -108,9 +117,9 @@ if ($('.form-region').length) {
 			selector: 'select[id$=country]',
 			source: function(request, response) {
 
-				$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+				$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 				$('#state-label').prop('for','state_input');
-				$("#state_select").addClass('hidden').prop( "disabled", true )
+				$("#state_select").addClass('hidden-x').prop( "disabled", true )
 
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
 					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
@@ -194,13 +203,13 @@ if ($('.form-region').length) {
 
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -306,13 +315,13 @@ if ($('.form-billing-region').length) {
 
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -402,13 +411,13 @@ if ($('.form-region-customer').length) {
 					if (typeof data.result !== 'undefined') {
 						//If State array is empty, then show state as a text input.
 						if ($.isArray(data.result) && data.result.length == 0) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 						}
 					}
 
@@ -462,7 +471,7 @@ if ($('.form-estimate').length) {
 
 					if (data.result.length > 0){
 
-						$("select[id$=state_select]").removeClass('hidden')
+						$("select[id$=state_select]").removeClass('hidden-x')
 						
 						saveValue = null;
 						if(typeof($('select[id$=state_select]').attr('data-value')) != 'undefined') {
@@ -482,7 +491,7 @@ if ($('.form-estimate').length) {
 							$('select[id$=state_select] option[value="'+saveValue+'"]').prop('selected', true);
 						}
 					}else{
-						$("select[id$=state_select]").addClass('hidden')
+						$("select[id$=state_select]").addClass('hidden-x')
 
 						$("select[id$=state_select]").val("");
 

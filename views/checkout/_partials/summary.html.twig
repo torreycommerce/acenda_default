@@ -82,19 +82,19 @@
 
 
 	{% if step == 'shipping' %}
-		<div class="shipping row" id="summary-shipping">
+		<div class="shipping row" style="display:none;" id="summary-shipping">
 			<div class="col-xs-7">Shipping:</div>
 			{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
 			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span></div>
 		</div>
-		<div class="tax row" id="summary-before-tax">
+		<div class="tax row" style="display:none;"  id="summary-before-tax">
 			<div class="col-xs-7">Total Before Tax:</div>
 			{% set total_before_tax = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) %}
 			<div class="amount col-xs-5 text-right">
 				<span class="dollar-sign">$</span><span class="price" id="total-before-tax">{{ total_before_tax|number_format(2, '.') }}</span>
 			</div>
 		</div>
-		<div class="tax row" id="summary-tax">
+		<div class="tax row" style="display:none;" id="summary-tax">
 			<div class="col-xs-7">Sales Tax:</div>
 			{% if app.user.getState('shipping_zip') is empty %}
 				{% set zip = api.get('/customeraddress/' ~ app.user.getState('shipping_address_id')).zip %}
