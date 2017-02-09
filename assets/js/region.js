@@ -45,6 +45,9 @@ function updateEstimates() {
 $('[name="shipping[shipping_zip]"]').change(function() {
 	updateEstimates();
 });
+$('select#shipping_method').change(function() {
+	updateEstimates();
+});
 
 
 if ($('.form-region').length) {
