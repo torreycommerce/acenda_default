@@ -14,12 +14,41 @@ function initCountryOpts() {
 	firstRun = 0;
 	newCountry = 0;
 	newState = 0;
+
+	updateEstimates();
 }
 var firstRun = 1;
 var newCountry = 0;
 var newState = 0;
 
 // ---- //
+
+
+function updateEstimates() {
+	$('[name="cart[zip_code]"]').val( $('[name="shipping[shipping_zip]"]').val() );
+	$('[name="cart[country]"]').val( $('[name="shipping[shipping_country]"]').val() );
+	$('[name="cart[state]"]').val( $('[name="shipping[shipping_state]"]').val() );
+	$('[name="cart[method]"]').val( $('[name="shipping[shipping_method]"]').val() );										
+	if(typeof estimator !== 'undefined') estimator('');	
+
+    if(!$('[name="shipping[shipping_country]"]').val()) {
+        $('select#shipping_method').prop("disabled",true);
+		$('select#shipping_method').children().remove().end()        
+
+    } else {
+        $('select#shipping_method').prop("disabled",false);    
+    }
+
+
+}
+
+$('[name="shipping[shipping_zip]"]').change(function() {
+	updateEstimates();
+});
+$('select#shipping_method').change(function() {
+	updateEstimates();
+});
+
 
 if ($('.form-region').length) {
 	$('.form-region').cascadingDropdown({
@@ -91,9 +120,9 @@ if ($('.form-region').length) {
 			selector: 'select[id$=country]',
 			source: function(request, response) {
 
-				$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+				$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 				$('#state-label').prop('for','state_input');
-				$("#state_select").addClass('hidden').prop( "disabled", true )
+				$("#state_select").addClass('hidden-x').prop( "disabled", true )
 
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
 					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
@@ -115,10 +144,6 @@ if ($('.form-region').length) {
 							selected: item.value.indexOf(country) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-region')
-					initCountryOpts()
-					//
 				});
 			}
 		},
@@ -181,13 +206,13 @@ if ($('.form-region').length) {
 
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -225,11 +250,7 @@ if ($('.form-region').length) {
 								$(".shipping-continue").prop("disabled",true);
 							}
 						}
-						//
-						console.log('call sCO() from form-region STATE')
 						initCountryOpts()
-
-						//
 					});
 				});
 			},
@@ -266,10 +287,7 @@ if ($('.form-billing-region').length) {
 							selected: item.code.indexOf(country) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-billing-region')
 					initCountryOpts()
-					//
 				});
 			}
 		},
@@ -300,13 +318,13 @@ if ($('.form-billing-region').length) {
 
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -317,10 +335,7 @@ if ($('.form-billing-region').length) {
 							};
 						}));
 					}
-					//
-					console.log('call sCO() from form-billing-region STATE')
 					initCountryOpts()
-					//
 				});
 			},
 		}
@@ -368,10 +383,8 @@ if ($('.form-region-customer').length) {
 								//selected: item.value.indexOf(country)
 							};
 						}));
-						//
-						console.log('call sCO() from form-region-customer')
+
 						initCountryOpts();
-						//
 					});
 				});
 			}
@@ -401,13 +414,13 @@ if ($('.form-region-customer').length) {
 					if (typeof data.result !== 'undefined') {
 						//If State array is empty, then show state as a text input.
 						if ($.isArray(data.result) && data.result.length == 0) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('hidden-x').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 						}
 					}
 
@@ -418,10 +431,7 @@ if ($('.form-region-customer').length) {
 							selected: item.value.indexOf(state) != -1
 						};
 					}));
-					//
-					console.log('call sCO() from form-region-customer STATE')
 					initCountryOpts();
-					//
 				});
 			},
 		}
@@ -464,7 +474,7 @@ if ($('.form-estimate').length) {
 
 					if (data.result.length > 0){
 
-						$("select[id$=state_select]").removeClass('hidden')
+						$("select[id$=state_select]").removeClass('hidden-x')
 						
 						saveValue = null;
 						if(typeof($('select[id$=state_select]').attr('data-value')) != 'undefined') {
@@ -484,7 +494,7 @@ if ($('.form-estimate').length) {
 							$('select[id$=state_select] option[value="'+saveValue+'"]').prop('selected', true);
 						}
 					}else{
-						$("select[id$=state_select]").addClass('hidden')
+						$("select[id$=state_select]").addClass('hidden-x')
 
 						$("select[id$=state_select]").val("");
 
@@ -528,14 +538,9 @@ if ($('.form-estimate').length) {
 
 					if(typeof($('select[id$=cart_shipping_method]').attr('data-value')) != 'undefined') {
 						saveValue = $('select[id$=cart_shipping_method]').attr('data-value');
-						$('select[id$=cart_shipping_method] option[value="'+saveValue+'"]').prop('selected', true);
+						$('select[id$=cart_shipping_method] option[value="'+saveValue+'"]').prop('selected', true);					
 					}
-					
 					$('#cart_shipping_method').change();
-					//
-					console.log('call sCO() from form-estimate METHOD')
-					//initCountryOpts()
-					//
 				});
 			}
 		}
