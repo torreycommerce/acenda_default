@@ -1,8 +1,24 @@
-function estimator() {
+function estimator(currency) {
+    if(typeof currency === 'undefined') {
+        var currency = '$';
+    }
     var zip_code = $('[name="cart[zip_code]"]').val();
     var shipping_method = $('[name="cart[method]').val();
     var shipping_country = $('[name="cart[country]"]').val();
     var shipping_state = $('[name="cart[state]"]').val();
+    if(!shipping_method || !shipping_country ) {  
+          $('#summary-shipping,#summary-before-tax,#summary-tax').hide();
+          return;
+    } else {
+           $('#summary-shipping').show();       
+    }
+    if(!zip_code) {
+        $('#summary-before-tax,#summary-tax').hide();
+    } else {
+
+        $('#summary-before-tax,#summary-tax').show();
+    }
+
 
     $.post(acendaBaseUrl + '/api/cart',{
         shipping_method:shipping_method,
@@ -17,7 +33,7 @@ function estimator() {
             cart_data = response.result;
             $('#form').hide();
             $('#estimate').show();
-            $('#rate-estimate').html('$' +  cart_data.shipping_rate);
+            $('#rate-estimate').html(currency +  cart_data.shipping_rate);
             setRateEstimatedShipping(cart_data.shipping_rate);
             var total_before_tax = parseFloat(cart_data.subtotal) + parseFloat(cart_data.shipping_rate);
             var total_before_tax = total_before_tax.toFixed(2).toLocaleString();
@@ -28,10 +44,11 @@ function estimator() {
             }else{
                 $('#block-date-estimate').hide();
             }
-            $('#tax-estimate').html('$' + cart_data.tax_rate);
+            $('#tax-estimate').html(currency + cart_data.tax_rate);
             setTaxEstimated(cart_data.tax_rate);
             var total = parseFloat(cart_data.subtotal) + parseFloat(cart_data.tax_rate) + parseFloat(cart_data.shipping_rate);
-            $('#total-estimate').html('$' + total.toFixed(2).toLocaleString());
+            $('#total-estimate').html(currency + total.toFixed(2).toLocaleString());
+            console.log('setting total estimate to ' +  total.toFixed(2).toLocaleString());
             setTotalEstimated(total.toFixed(2).toLocaleString());
         });
     });

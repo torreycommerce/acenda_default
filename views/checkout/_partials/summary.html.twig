@@ -60,10 +60,10 @@
 	</div>
 	{# End subtotal #}
 	{% if step == 'billing' %}
-		<div class="shipping row">
+		<div class="shipping row" id="summary-shipping">
 			<div class="col-xs-7">Shipping:</div>
 			{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ shipping.rate|number_format(2, '.') }}</span></div>
+			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span></div>
 		</div>
 	{% endif %}
 	{% if step == 'express' %}
@@ -82,10 +82,34 @@
 
 
 	{% if step == 'shipping' %}
-		<div class="total row">
+		<div class="shipping row" style="display:none;" id="summary-shipping">
+			<div class="col-xs-7">Shipping:</div>
+			{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
+			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span></div>
+		</div>
+		<div class="tax row" style="display:none;"  id="summary-before-tax">
+			<div class="col-xs-7">Total Before Tax:</div>
+			{% set total_before_tax = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) %}
+			<div class="amount col-xs-5 text-right">
+				<span class="dollar-sign">$</span><span class="price" id="total-before-tax">{{ total_before_tax|number_format(2, '.') }}</span>
+			</div>
+		</div>
+		<div class="tax row" style="display:none;" id="summary-tax">
+			<div class="col-xs-7">Sales Tax:</div>
+			{% if app.user.getState('shipping_zip') is empty %}
+				{% set zip = api.get('/customeraddress/' ~ app.user.getState('shipping_address_id')).zip %}
+			{% else %}
+				{% set zip = app.user.getState('shipping_zip') %}
+			{% endif %}
+			{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxable_subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
+			<div class="amount col-xs-5 text-right">
+				<span class="dollar-sign">$</span><span class="price" id="tax-estimate">{{ tax.tax|number_format(2, '.') }}</span>
+			</div>
+		</div>		
+		<div class="total row" id="summary-total">
 			<div class="col-xs-7"><strong>Total:</strong></div>
-			{% set total = cart.subtotal|replace({',':''}) %}
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign"><strong>$</strong></span><span class="price"><strong>{{ total|number_format(2, '.') }}</strong></span></div>
+			{% set total = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) + tax.tax|replace({',':''}) %}
+			<div class="amount col-xs-5 text-right"><span class="dollar-sign"><strong>$</strong></span><span class="price"><strong><span id="total-estimate">{{ total|number_format(2, '.') }}</span></strong></span></div>
 		</div>
 	{% endif %}
 	{% if step == 'billing' %}
@@ -96,7 +120,7 @@
 				<span class="dollar-sign">$</span><span class="price">{{ total_before_tax|number_format(2, '.') }}</span>
 			</div>
 		</div>
-		<div class="tax row">
+		<div class="tax row" id="summary-tax">
 			<div class="col-xs-7">Sales Tax:</div>
 			{% if app.user.getState('shipping_zip') is empty %}
 				{% set zip = api.get('/customeraddress/' ~ app.user.getState('shipping_address_id')).zip %}
@@ -105,13 +129,13 @@
 			{% endif %}
 			{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxable_subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
 			<div class="amount col-xs-5 text-right">
-				<span class="dollar-sign">$</span><span class="price">{{ tax.tax|number_format(2, '.') }}</span>
+				<span class="dollar-sign">$</span><span class="price" id="tax-estimate">{{ tax.tax|number_format(2, '.') }}</span>
 			</div>
 		</div>
 		<div class="total row">
 			<div class="col-xs-7"><strong>Total:</strong></div>
 			{% set total = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) + tax.tax|replace({',':''}) %}
-			<div class="amount col-sm-5 text-right"><span class="dollar-sign"><strong>$</strong></span><span class="price"><strong>{{ total|number_format(2, '.') }}</strong></span></div>
+			<div class="amount col-sm-5 text-right"><span class="dollar-sign"><strong>$</strong></span><span class="price"><strong><span id="total-estimate">{{ total|number_format(2, '.') }}</span></strong></span></div>
 			<input type="hidden" name="checkout[total_verify]" value="{{ total }}">
 		</div>
 	{% endif %}
@@ -141,3 +165,10 @@
 		</div>
 	{% endif %}
 </div>
+<form>
+<input type="hidden" name="cart[zip_code]">
+<input type="hidden" name="cart[country]">
+<input type="hidden" name="cart[state]">
+<input type="hidden" name="cart[method]">
+</form>
+
