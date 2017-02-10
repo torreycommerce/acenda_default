@@ -82,11 +82,11 @@ jQuery.fn.attachNormalizer = function(options) {
                 form.previousAddress = data.result;
                 $(options.addressFieldSelector).html(addressHtml);
                 // Only show the normalized address well if the address has changed and if it's not equal to the normalized version
-                if (form.processed.street_line1.toUpperCase() == data.result.street_line1 &&
-                    form.processed.street_line2.toUpperCase() == data.result.street_line2 &&
-                    form.processed.city.toUpperCase() == data.result.city &&
-                    form.processed.state.toUpperCase() == data.result.state &&
-                    form.processed.zip == data.result.zip) {
+                if (form.processed.street_line1.toUpperCase().trim() == data.result.street_line1 &&
+                    form.processed.street_line2.toUpperCase().trim() == data.result.street_line2 &&
+                    form.processed.city.toUpperCase().trim() == data.result.city &&
+                    form.processed.state.toUpperCase().trim() == data.result.state &&
+                    form.processed.zip.trim() == data.result.zip) {
                         form.submit();
                     } else {
                         $(options.addressFoundSelector).show();
