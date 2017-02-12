@@ -234,7 +234,7 @@
 
 											{# End estimated shipping #}
 											{# Begin product tags #}
-												<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
+												<ul class="tags list-inline hidden-xs hidden-sm">
 													<li>
 														{% for item in bundle.items %}
 															{% for tag in item.tags %}
@@ -408,7 +408,7 @@
 
 																{# End variation dropdown #}
 																{# Begin pricing #}
-																	<ul class="pricing list-unstyled list-inline" id="pricing-box-{{product.id}}">
+																	<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
 																		{# Begin regular price #}
 																		<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
 																		<li class="price hidden">
@@ -428,7 +428,7 @@
 																{# Begin product tags #}
 																	{% if product.tags is not empty %}
 																	{#
-																	<ul class="tags list-unstyled list-inline hidden-xs hidden-sm">
+																	<ul class="tags list-inline hidden-xs hidden-sm">
 																		<li>
 																			{% for tag in product.tags %}
 																			<!-- <span class="label label-info">{{tag|title}}</span> -->
@@ -444,7 +444,7 @@
 															{% set review_score = reviews|average('score') %}
 
 															<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-																<ul class="list-unstyled list-inline reviews">
+																<ul class="list-inline reviews">
 																	{% if review_score > 0 %}
 																	<li class="stars"><span itemprop="ratingValue">{{ base.rating( review_score ) }}</span></li>
 																	<li class="average">

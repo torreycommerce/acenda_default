@@ -1,6 +1,7 @@
 {% set categories = api.get('/category/sapling') %}
 {#{% set more_info = api.get(‘category’,{slug: item.slug}) %}#}
 {% spaceless %}
+<nav id="nav"><div class="container">
 <div class="hidden-sm hidden-xs">
 	<nav id="nav-desktop-main" class="navbar" role="navigation">            
 		<ul class="nav navbar-nav">
@@ -33,5 +34,6 @@
 <nav id="nav-mobile-main" class="hidden-md hidden-lg hidden navajax" data-navi="mobile-nav-main" data-navi-type="root">
 	
 </nav>
+</div></nav>
 {# End mobile navigation menu #}
 {% endspaceless %}

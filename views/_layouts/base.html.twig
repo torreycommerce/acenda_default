@@ -66,8 +66,8 @@
 {% endif %}
 
 <script>
-		var acendaBaseUrl = '{{app.url}}'
-		var acendaBaseThemeUrl = '{{app.url_asset}}'
+var acendaBaseUrl = '{{app.url}}'
+var acendaBaseThemeUrl = '{{app.url_asset}}'
 </script>
 <script>
 	{% block acenda %}
@@ -114,11 +114,7 @@
 				{# avoiding the display of the menu when we're in the store-protected template #}
 				{% if app.request.url != "store-protected" %}
 					{# Begin Navigation #}
-					<nav id="nav">
-						<div class="container">
-							{% include "/_layouts/nav.html.twig" %}
-						</div>
-					</nav>
+						{% include "/_layouts/nav.html.twig" %}
 					{# End Navigation #}
 				{% endif %}
 			</header>

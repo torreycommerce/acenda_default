@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h4>Connect With Us</h4>
-          <ul class="social list-unstyled list-inline">
+          <ul class="social list-inline">
             {% for key, item in array_config %}
               {% if item.active_follow_page_button is defined and item.active_follow_page_button == true
                 and item[key ~ '_page'] is defined and item[key ~ '_page'] is not empty %}
