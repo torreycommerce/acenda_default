@@ -400,23 +400,31 @@ $(document).ready(function() {
 		$('.navajax').load(acendaBaseUrl+'/account/nav', function() {
 			//alert( "Load was performed." );
 			if (useMMenu) {
-				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.js",function(){
-					$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.css">');
-					$(".close-menu").click(function(){
-						$('#nav-mobile-main').trigger('close');
-					});
+				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.min.js",function(){
+					$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.all.css">');
+					
 					$("#nav-mobile-main").mmenu({
-						zposition: "front",
-						position: "left",
-						classes: "mm-light",
-						dragOpen: true,
-						moveBackground: true,
-						onClick: {
-							preventDefault: false,
-							close:true
-						}
-					},{
-					}).trigger("open.btn-nav-mobile");
+						extensions: [
+							'effect-slide-menu',
+							'shadow-page',
+							'shadow-panels'
+						],
+						keyboardNavigation	: true,
+						screenReader		: true,
+						counters: true,
+						navbar	: {
+							title: acendaBaseName
+						},
+						navbars	: [
+						{
+							position	: 'top',
+							content	: [
+								'prev',
+								'title',
+								'close'
+							]
+						}]
+		            });
 					//
 					$(document).on( "click", $('a[href$="#nav-mobile-main"]'), function() {
 						$('#nav-mobile-main').removeClass('hidden');
