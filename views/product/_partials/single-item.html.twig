@@ -32,7 +32,7 @@
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div id="main-product-video" style="display:none"></div></div>
 					<span class="isd">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" data-image-zoom="" width="450" height="450" alt="" style="display:none">
+						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/spacer.gif" data-image-zoom="" width="450" height="450" alt="" style="display:none">
 					</span>
 					<span class="helper"></span>
 				</div>
@@ -46,7 +46,7 @@
 							<div class="item active" id="variant-image-carousel-copy" style="display:none;">
 								<div class="col-xs-2 col-thin p-thin" id="variant-image-thumbnail-copy">
 									<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="250" height="250" alt="">
+										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="250" height="250" alt="">
 									</div>
 								</div>
 								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}

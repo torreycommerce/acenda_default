@@ -7,7 +7,7 @@ var useGMapNorm = 0; // use google map normalizer?
 var useIntTel = 0; // use InternationlTel flag art?
 var telReady = 0;
 //
-var useMMenu = 1; // use default mobile menu?
+var useMMenu = 0; // use default mobile menu?
 //
 var useTypeAhead = 0; // use Twitter TypeAhead?
 /* */
@@ -431,6 +431,10 @@ $(document).ready(function() {
 					});
 				});
 				//
+			} else {
+				$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/ytamenu.css">');
+				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
+				});
 			}
 		});
 		//

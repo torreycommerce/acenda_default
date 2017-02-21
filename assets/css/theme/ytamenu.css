@@ -1,0 +1,23 @@
+
+.yta-toggle {cursor:pointer;}
+
+.yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:3; top:-100px; bottom:-100px; left:0; right:0; background:rgba(0,0,0,.25); transition:all 300ms ease;}
+.yta-open .yta-mask {visibility:visible; opacity:1;}
+
+.yta-art {position:fixed; z-index:4; top:-100px; bottom:-100px; left:-280px; width:280px; background:#fbfbfb; opacity:0; transition:all 300ms ease;}
+.yta-open .yta-art {left:0; box-shadow:0 0 20px rgba(0,0,0,.25); opacity:1;}
+
+#yta-menu {position:fixed; z-index:4; top:0; left:-280px; width:280px; height:100%; font-size:14px; background:#fbfbfb; overflow-y:auto; opacity:0; transition:all 300ms ease;}
+.yta-open #yta-menu  {left:0; opacity:1;}
+#yta-menu .yta-getsub, #yta-menu .yta-toggle {width:48px; margin:0; cursor:pointer;}
+.yta-head {height:48px; line-height:48px; text-align:right;}
+.yta-head .fa {line-height:48px;}
+#yta-menu ul {list-style:none; margin:0; padding:10px 0;}
+#yta-menu ul ul {padding:0; font-size:12px; /* */ height:0; visibility:hidden; opacity:0; overflow:hidden; transition:all 200ms ease;}
+#yta-menu ul ul.active {/* */ height:auto; padding:0 0 5px 10px; visibility:visible; opacity:1;}
+#yta-menu li {position:relative;}
+#yta-menu li>a, #yta-menu li>span {display:block; padding:0 20px; color:#333; line-height:32px; text-decoration:none; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#yta-menu li>.fa {position:absolute; top:0; right:0; height:32px; line-height:32px;}
+#yta-menu li li>a {line-height:30px;}
+#yta-menu li li>.fa {height:30px; line-height:30px;}
+.yta-bg {background:#fff; box-shadow:0 0 1px rgba(0,0,0,.3);}
