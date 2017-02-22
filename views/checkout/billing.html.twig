@@ -51,6 +51,8 @@
 		{% endif %}
 	{% endif %}
 	{% else %}
+		{% if app.user.getState('shipping_first_name') %}{{ app.user.getState('shipping_first_name') }} {% endif %}
+	    {% if app.user.getState('shipping_last_name') %}{{ app.user.getState('shipping_last_name') }}<br />{% endif %}
 		{% if app.user.getState('shipping_street_line1') %}{{ app.user.getState('shipping_street_line1') }}<br />{% endif %}
 		{% if app.user.getState('shipping_street_line2') %}{{ app.user.getState('shipping_street_line2') }}<br />{% endif %}
 		{% if app.user.getState('shipping_company') %}{{ app.user.getState('shipping_company') }}<br />{% endif %}

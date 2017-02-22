@@ -3,7 +3,7 @@ function estimator(currency) {
         var currency = '$';
     }
     var zip_code = $('[name="cart[zip_code]"]').val();
-    var shipping_method = $('[name="cart[method]').val();
+    var shipping_method = $('[name="cart[method]"]').val();
     var shipping_country = $('[name="cart[country]"]').val();
     var shipping_state = $('[name="cart[state]"]').val();
     if(!shipping_method || !shipping_country ) {  
