@@ -242,10 +242,11 @@
 						</div>
 					</div>
 					<section id="order-summary" class="col-xs-12 col-sm-5 col-md-4">
-						<div class="well">
-							<h3>Order Summary</h3>
+						<div class="well" id="summary-well">
 							{% include "/checkout/_partials/summary.html.twig" %}
 						</div>
+						{% include "/checkout/_partials/entercoupon.html.twig" %}									
+
 					<div class="row hidden-sm hidden-md hidden-lg">
 						<div class="col-xs-12">
 							<div class="actions">

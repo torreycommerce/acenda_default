@@ -80,4 +80,39 @@ $(function() {
             $('.cc-' + type).fadeTo(0, 1);
         }
     });
+
+    var setupCouponButtons = function () {
+        $('button.remove-coupon').on('click',function() {
+            var remId = $(this).attr('id').split('-')[2];
+            $.post(acendaBaseUrl + '/cart/ajax.json', {cart: { action: 'removecoupon/' + remId}},function(data) {            
+                $('div#summary-well').load(acendaBaseUrl + '/checkout/summary-ajax?step='+acendaCheckoutStep,function() {
+                    updateEstimates();
+                });      
+            });
+            return false;
+        });
+    }
+
+    setupCouponButtons();
+    $('button#checkout_enter_coupon').click(function() {
+        var coupon_code = $('input#cart_coupon_code').val();
+        $('#enter_coupon_validation').html('');
+        if(coupon_code) {
+            $(this).prop('disabled',true);
+            $.post(acendaBaseUrl + '/cart/ajax.json', $('form[name=coupon]').serialize(),function(data) {
+                $('button#checkout_enter_coupon').prop('disabled',false); 
+                console.log(data.errors);             
+                $('div#summary-well').load(acendaBaseUrl + '/checkout/summary-ajax?step='+acendaCheckoutStep,function() {
+                    updateEstimates();
+                    if(data.errors) {
+                        $('#enter_coupon_validation').html('<small>'+data.errors+'</small>');   
+                    }
+                    setupCouponButtons();                    
+                });                      
+            });
+
+        }
+    });
 });
+
+

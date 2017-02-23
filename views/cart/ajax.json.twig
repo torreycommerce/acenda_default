@@ -1,0 +1,68 @@
+{% spaceless %}
+{% for item, quantity in app.request.post.cart.quantity %}
+	{% if quantity <= 0 %}
+		{% set result = api.delete('/cart/item/' ~ item) %}
+	{% else %}
+		{% set result = api.put('/cart/item/' ~ item, {quantity:quantity}) %}
+	{% endif %}
+{% endfor %}
+{% if app.request.post.cart.action|split('/')|first == 'remove' %}
+	{% set result = api.delete('/cart/item/' ~ app.request.post.cart.action|split('/')|last) %}
+{% endif %}
+{# Remove coupon #}
+{% if app.request.post.cart.action|split('/')|first == 'removecoupon' %}
+	{% set cart  = api.get('/cart') %}
+	{% set coupon_id = app.request.post.cart.action|split('/')|last %}
+	{% set result = api.delete('/cart/discount/' ~ coupon_id) %}
+{% endif %}
+{# Add coupon #}
+{% if app.request.post.cart.coupon_code is not empty %}
+	{% set result = api.post('/cart/discount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
+	{% if api.error %}
+		{% set error="The coupon code you entered is invalid." %}
+	{% endif %}
+{% endif %}
+{% if app.request.post.cart.shipping_country is not empty %}
+	{% set result = api.post('/cart', app.request.post.cart) %}
+{% endif %}
+{% if api.error is not empty  and not error %}
+	{% set error = api.error %}
+{% endif %}
+
+{% set cart = api.get('/cart') %}
+{% set shipping_methods = api.get('/shippingmethod',{query:{status:'active'}}) %}
+{% set shipping_countries = api.get('/shippingmethod/country') %}
+{% set site_payments = api.get('/site/payments') %}
+
+{% if (cart.items is not empty) %}
+	{% set product_ids = cart.items|values_in('product_id') %}
+	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+
+	{# Remove products that were disabled or removed #}
+	{# TODO: We should probably do this outside of the template for orders #}
+	{% set items_deleted = false %}
+	{% for id, item in cart.items %}
+		{% set product = products[item.product_id].0 %}
+
+
+		{% if product.status != 'active' %}
+			{% do api.delete('/cart/item/' ~ id) %}
+			{% if product.title is defined %}
+				{# This product is disabled or removed #}
+				{% do app.user.setFlash(product.title ~ ' is no longer available.', 'info') %}
+			{% else %}
+				{# This product doesn't exist anymore (deleted) #}
+				{% do app.user.setFlash('A product you have selected is no longer available.', 'info') %}
+			{% endif %}
+			{% set items_deleted = true %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
+{% set total_before_tax = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) %}	
+{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxable_subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
+{% set total = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) + tax.tax|replace({',':''}) %}
+{% set returns =  {errors: error, total: total,discount: cart.discount_price,subtotal: cart.subtotal,shipping: shipping,total_before_tax: total_before_tax ,tax: tax,cart_items: cart.items, discounts: cart.discount_collection.discounts} %}
+{% endspaceless %}
+{{ returns | json_encode }}

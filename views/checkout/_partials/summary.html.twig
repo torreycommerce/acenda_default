@@ -1,7 +1,12 @@
+<script>
+	var acendaCheckoutStep = '{{ step }}';
+</script>
+
 {% set cart = api.get('/sessioncart') %}
 {% set cartitems = api.get('/sessioncartitem') %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
+<h3>Order Summary</h3>	
 <div class="fsd1">
 	{% for item in cartitems %}
 	{% set product = api.get('/variant/' ~ item.product_id) %}
@@ -54,6 +59,25 @@
 		<a class="btn btn-default btn-sec btn-xs" href="{{ app.url }}/cart">Edit Cart</a>
 	</div>
 	{# End product actions #}
+
+	{# begin coupons #}
+	{% for id, discount in cart.discount_collection.discounts %}
+		{% if discount.type == 'coupon' %}
+		<div class="discount">
+			<div class="alert alert-info">
+				<button class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-{{ discount.id }}" onclick="return false;">Remove</button>
+				<p>
+				<b>Coupon: {{ discount.code }}</b>
+				{% if discount.description is not empty %}<br>{% endif %}
+				{{ discount.description }}
+				</p>
+
+			</div>
+		</div>
+		{% endif  %}
+	{% endfor %}
+	{# end coupons#}
+
 	{# Begin subtotal #}
 	<div class="subtotal row">
 		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ cart.item_subtotal|number_format(2, '.') }}</span></div>
@@ -79,7 +103,6 @@
 		<div class="amount col-xs-5 text-right"><span class="dollar-sign">-$</span><span class="price">{{ cart.discount_price|number_format(2, '.') }}</span></div>
 	</div>
 	{% endif %}
-
 
 	{% if step == 'shipping' %}
 		<div class="shipping row" style="display:none;" id="summary-shipping">
@@ -165,6 +188,7 @@
 		</div>
 	{% endif %}
 </div>
+
 <form>
 <input type="hidden" name="cart[zip_code]">
 <input type="hidden" name="cart[country]">
