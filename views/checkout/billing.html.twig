@@ -195,7 +195,7 @@
 			{% endif %}
 		</fieldset>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-xs-12 col-md-6 p">
 				<fieldset>
 					<legend>Shipping Address</legend>
 					<div class="checkout-display-address p" id="display_shipping_address">
@@ -205,15 +205,15 @@
 				</fieldset>
 
 			</div>
-			<div class="col-md-6">
+			<div class="col-xs-12 col-md-6 p">
 				{% set method = api.get('shippingmethod/' ~ cart.shipping_method )%}
 				<fieldset>
 					<legend>Shipping Method</legend>
 					<div class="checkout-display-address p" id="display_shipping_address">
 						<address>
-						<b>Method: </b>{{ method.name }}<br/>
-						<b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )<br/>						
-						{% if method.top_days_range %}<b>Delivery Estimate: </b>{{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.{% endif %}<br/><br/><br/>
+							<div><b>Method: </b>{{ method.name }}</div>
+							<div><b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )</div>
+						{% if method.top_days_range %}<div><b>Delivery Estimate:</b> {{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.</div>{% endif %}
     					</address>
 					</div>
 						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Method</a>				
