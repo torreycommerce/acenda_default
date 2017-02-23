@@ -1,12 +1,12 @@
-<script>
-	var acendaCheckoutStep = '{{ step }}';
-</script>
 
 {% set cart = api.get('/sessioncart') %}
 {% set cartitems = api.get('/sessioncartitem') %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
 <h3>Order Summary</h3>	
+<script>
+var acendaCheckoutStep = '{{ step }}';
+</script>
 <div class="fsd1">
 	{% for item in cartitems %}
 	{% set product = api.get('/variant/' ~ item.product_id) %}
