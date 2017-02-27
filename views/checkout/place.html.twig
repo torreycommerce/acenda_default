@@ -3,7 +3,8 @@
 {% if app.request.post.api_unique_token is not empty %}
     {% set final_order = api.post('/order/place', {'api_unique_token': app.request.post.api_unique_token}) %}
 {% elseif app.request.post.order_number is not empty %}
-    {% set final_order = api.get('/order?email=' ~ app.request.post.email ~ '&order_number=' ~ app.request.post.order_number)|first %}
+    {% set final_orders = api.get('/order?query=order_number:' ~ app.request.post.order_number) %}
+    {% set final_order = final_orders | first %}
 {% endif %}
 
 {% if app.request.post.error is not empty %}
