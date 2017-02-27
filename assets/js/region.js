@@ -31,15 +31,13 @@ function updateEstimates() {
 	$('[name="cart[method]"]').val( $('[name="shipping[shipping_method]"]').val() );										
 	if(typeof estimator !== 'undefined') estimator('');	
 
-    if(!$('[name="shipping[shipping_country]"]').val()) {
+    if(!$('[name="shipping[shipping_country]"]').val() && !$('select#checkout_shipping_address_id').val()) {
         $('select#shipping_method').prop("disabled",true);
 		$('select#shipping_method').children().remove().end()        
 
     } else {
         $('select#shipping_method').prop("disabled",false);    
     }
-
-
 }
 
 $('[name="shipping[shipping_zip]"]').change(function() {

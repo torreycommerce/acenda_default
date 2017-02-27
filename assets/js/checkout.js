@@ -49,6 +49,7 @@ $(function() {
                 }
             });
         }
+        updateEstimates();
     });
 
     function cardtype(number) {
