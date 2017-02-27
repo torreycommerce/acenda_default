@@ -41,7 +41,16 @@
 <!DOCTYPE html>
 <html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
 <head>
-
+{% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
+	<!-- Google Tag Manager DataLayer -->
+	<script>
+		var dataLayer = [];
+		{% block dataLayer %}
+			{% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
+		{% endblock %}
+	</script>
+	<!-- Google Tag Manager DataLayer End -->
+{% endif %}
 {% block head %}
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -80,19 +89,14 @@ var acendaBaseThemeUrl = '{{app.url_asset}}'
 	{% endblock %}
 </head>
 <body>
+{% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
+	<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ app.params.seo.google_tag_manager }}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
 	{% include "/_layouts/stage_header.html.twig" %}
-	
+{% endif %}	
 	<div id="body">
-		{% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
-			<!-- Google Tag Manager DataLayer -->
-			<script>
-				var dataLayer = [];
-				{% block dataLayer %}
-					{% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
-				{% endblock %}
-			</script>
-			<!-- Google Tag Manager DataLayer End -->
-		{% endif %}
 
 		{% block body %}
 			<!--[if lte IE 8]>
