@@ -94,8 +94,9 @@ var acendaBaseThemeUrl = '{{app.url_asset}}'
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ app.params.seo.google_tag_manager }}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
+{% endif %}		
 	{% include "/_layouts/stage_header.html.twig" %}
-{% endif %}	
+
 	<div id="body">
 
 		{% block body %}
