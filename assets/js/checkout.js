@@ -5,10 +5,26 @@ $(function() {
     form.attachNormalizer({formPrefix:stepName});
 
     form.submit(function() {
+        var currentTime = new Date()
+        var month = currentTime.getMonth() + 1
+        var year = currentTime.getFullYear()
+
         if (form.parsley('isValid') === false) {
             $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
             return false;
         }else{
+            if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
+            {
+                $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
+                $('select#exp-y').parent().addClass('has-error');
+                $('select#exp-m').parent().addClass('has-error');                
+                console.log('card expired');
+                return false;            
+            } else {
+                 $('select#exp-y').parent().removeClass('has-error'); 
+                 $('select#exp-m').parent().removeClass('has-error');                            
+            }
+
             if (form.normalized === true && !$("#custom-address").is(":hidden")) {
                 $(this).find('button[type="submit"]').attr('disabled', true).addClass('wait');
                 sessionStorage.setItem('selected_shipping_method_checkout', null);
