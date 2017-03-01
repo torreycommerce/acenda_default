@@ -37,6 +37,24 @@ $(function() {
         }
     });
 
+    $('select#exp-m,select#exp-y ').change(function() {
+        var currentTime = new Date()
+        var month = currentTime.getMonth() + 1
+        var year = currentTime.getFullYear()        
+        if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
+        {
+            $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
+            $('select#exp-y').parent().addClass('has-error');
+            $('select#exp-m').parent().addClass('has-error');                
+            console.log('card expired');
+            return false;            
+        } else {
+             $('select#exp-y').parent().removeClass('has-error'); 
+             $('select#exp-m').parent().removeClass('has-error');                            
+        }
+    });
+
+
     // Remove constraints if address IDs are not set or undefined
     if (($('#checkout_shipping_address_id').val() != '' &&
         $('#checkout_shipping_address_id').val() != undefined) ||
