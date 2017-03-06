@@ -190,11 +190,15 @@ function VariantsManager (product, img, isCollection) {
             clonedDiv.appendTo( "#variant-image-carousel-"+_this.product_id );
             $('#'+id+" div").attr("data-video-src", video);
         });
-        //Set stop video event when clicking on a image of the carousel
-        $("[data-image-swap]").click(function() {
-            stopVideo();
-        });
-        initVideoPlayer(); //Initialiaze video player on newly set videos
+        IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/video-player.js",function(){
+            IncludeJavaScript("https://www.youtube.com/iframe_api",function(){
+                //Set stop video event when clicking on a image of the carousel
+                $("[data-image-swap]").click(function() {
+                    stopVideo();
+                });
+                initVideoPlayer(); //Initialiaze video player on newly set videos
+            });
+       });
     }
     /*
         Empties carousel section of the page
@@ -214,7 +218,7 @@ function VariantsManager (product, img, isCollection) {
         }
         //If no images where found
         if(images.length == 0){
-            if(!this.isCollection) stopVideo();
+            if(!this.isCollection && $.fn.stopVideo) stopVideo();
             this.setSelectImage();
             this.currentImage = "";
         }
@@ -235,7 +239,7 @@ function VariantsManager (product, img, isCollection) {
                 if(this.currentImage != id){
                     $('#image-carousel-'+this.product_id).hide();
                     $('#variant-selected-image-'+this.product_id+' img').hide();
-                    if(!this.isCollection) stopVideo();
+                    if(!this.isCollection && $.fn.stopVideo) stopVideo();
                     this.setSelectImage(standard_img_url,large_img_url,img_alt);
                     this.currentImage = id;
                 }

@@ -432,7 +432,6 @@ $(document).ready(function() {
 				});
 				//
 			} else {
-				$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/ytamenu.css">');
 				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
 				});
 			}
