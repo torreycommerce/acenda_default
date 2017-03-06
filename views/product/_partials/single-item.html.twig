@@ -51,7 +51,6 @@
 								</div>
 								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
 								<div class="col-xs-2 col-thin p-thin" id="variant-video-copy">
-									{% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
 									<div class="image-space video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
 										<img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 									</div>

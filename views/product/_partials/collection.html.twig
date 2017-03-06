@@ -68,7 +68,6 @@
 								{% endfor %}
 							{% endfor %}
 							{% if product.videos is not empty %}
-								{% do app.asset.js(app.url_asset ~ '/assets/js/video-player.js') %}
 								{% for video in product.videos %}
 									<div class="col-xs-2 col-thin p-thin">
 										<div class="image-space video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
