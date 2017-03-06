@@ -12,7 +12,10 @@ $(function() {
         if (form.parsley('isValid') === false) {
             $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
             return false;
-        }else{
+        } else if(!$('select#state_select').prop('disabled') && !$('select#state_select').val()) {
+            $('select#state_select').parent().addClass('has-error');
+            return false;
+        } else{
             if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
             {
                 $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
@@ -36,7 +39,9 @@ $(function() {
             }
         }
     });
-
+    $('select#state_select').change(function() {
+        $('select#state_select').parent().removeClass('has-error');
+    });
     $('select#exp-m,select#exp-y ').change(function() {
         var currentTime = new Date()
         var month = currentTime.getMonth() + 1
