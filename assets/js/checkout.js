@@ -12,7 +12,7 @@ $(function() {
         if (form.parsley('isValid') === false) {
             $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
             return false;
-        } else if(!$('select#state_select').prop('disabled') && !$('select#state_select').val()) {
+        } else if(($('select#state_select').length) && !$('select#state_select').prop('disabled') && !$('select#state_select').val()) {
             $('select#state_select').parent().addClass('has-error');
             return false;
         } else{
@@ -25,7 +25,8 @@ $(function() {
                 return false;            
             } else {
                  $('select#exp-y').parent().removeClass('has-error'); 
-                 $('select#exp-m').parent().removeClass('has-error');                            
+                 $('select#exp-m').parent().removeClass('has-error');    
+                 console.log('card not expired');                                         
             }
 
             if (form.normalized === true && !$("#custom-address").is(":hidden")) {
