@@ -1,0 +1,32 @@
+{% extends "/_layouts/base.html.twig" %}
+
+{% set useIndivStorePage = 1 %}
+
+{% block title %}View All Stores{% endblock %}
+
+{% block content %}
+
+<h1>View All Stores</h1>		
+<div class="locations">
+	<div class="location-list">
+	{% set locations = api.get('/location/') %}
+	{% for location in locations %}
+		<div class="divide g location pad-h" id="{{location.id}}">
+		{% if useIndivStorePage == 1 %}
+			<h3><a href="{{app.url}}/stores/store/{{location.id}}">{{location.title}}</a></h3>
+		{% else %}
+			<h3>{{location.title}}</h3>
+		{% endif %}
+			<address>
+				<div>{{location.street_line1}}</div>
+			{% if location.street_line2 is not empty %}
+				<div>{{location.street_line2}}</div>
+			{% endif %}
+				<div>{{location.city}}, {{location.state}} {{location.zip}}</div>
+			</address>
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

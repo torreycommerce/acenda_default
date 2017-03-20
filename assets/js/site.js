@@ -368,6 +368,22 @@ $('.btn-add-to-cart').click(function (e) {
 // } );
 
 
+/* params */
+function getQueryParams(qs) {
+	qs = qs.split("+").join(" ");
+	var params = {},
+		tokens,
+		re = /[?&]?([^=]+)=([^&]*)/g;
+
+	while (tokens = re.exec(qs)) {
+		params[decodeURIComponent(tokens[1])]
+		= decodeURIComponent(tokens[2]);
+	}
+
+	return params;
+}
+var desire = getQueryParams(document.location.search);
+/* */
 
 function IncludeJavaScript(jsFile, onLoadCallback) {
 	var head = document.getElementsByTagName('head')[0] || document.documentElement;
@@ -465,7 +481,6 @@ $(document).ready(function() {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
 	});
 });
-
 
 if (useDatePicker) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/bootstrap-datepicker.js",function(){
@@ -573,3 +588,7 @@ if (useTypeAhead) {
 		});
 	});
 }
+
+// final
+IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/acended.js",function(){
+});

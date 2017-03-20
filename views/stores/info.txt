@@ -1,0 +1,21 @@
+1. default.html.twig
+ - Barebones location list
+ - Requires nothing
+
+//
+
+2. map.html.twig
+ - Comprehensive location list, includes filters, and search
+ - Requires Google Maps API +  Google Places API
+
+////
+
+3. store/default.html/twig
+  - Barebones location information
+  - Requires nothing
+
+//
+
+4. store/map.html.twig
+  - Barebones location information
+  - Requires Google Maps API
