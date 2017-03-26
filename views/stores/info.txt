@@ -10,12 +10,12 @@
 
 ////
 
-3. store/default.html/twig
+3. store/default.html.twig
   - Barebones location information
   - Requires nothing
 
 //
 
-4. store/map.html.twig
-  - Barebones location information
+4. store/map/default.html.twig
+  - Comprehensive location information, includes directions, map
   - Requires Google Maps API

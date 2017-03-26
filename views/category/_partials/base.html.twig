@@ -333,7 +333,8 @@
 			<section class="products-category text-center">
 				<div class="row c-c">
 					{% set collection_ids = [] %}
-					{% for row,product in products if product.id not in collection_ids %}
+					{% for row,product in products %}
+					{# if product.id not in collection_ids #}
 						{% if product.group == 'product' %}
 							{% for id in product.product[0].collection_id %}
 								{% set collection_ids = collection_ids|merge([id]) %}

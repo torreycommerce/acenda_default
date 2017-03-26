@@ -1,0 +1,151 @@
+{% extends "/_layouts/base.html.twig" %}
+
+{% set locDefaultRadius = 50 %}
+{% set location_id = app.request.path|split('/')|last %}
+{% set location = api.get('/location/' ~ location_id) %}
+
+{% if (app.request.get.location is empty) or (app.request.get.radius is empty) %}
+	{% set extendURL = '?location=' ~ location.street_line1 ~ ', ' ~ location.city ~ ', ' ~ location.state ~ '&radius=' ~ locDefaultRadius %}
+{% else %}
+	{% set extendURL = '?location=' ~ app.request.get.location ~ '&radius=' ~ app.request.get.radius %}
+{% endif %}
+
+
+{% block title %}Store Info: {{location.title}}{% endblock %}
+
+{% block content %}
+
+<h1>Store Info: {{location.title}}</h1>	
+
+<div class="row">
+	<div class="col-xs-12 col-md-5 p">
+		<a class="btn btn-default p" href="{{app.url}}/stores/map{{extendURL}}"><i class="fa fa-chevron-left"></i><span>View All Stores</span></a>
+
+		<address>
+			<div><b>{{location.title}}</b></div>
+			<div>{{location.street_line1}}</div>
+		{% if location.street_line2 is not empty %}
+			<div>{{location.street_line2}}</div>
+		{% endif %}
+			<div>{{location.city}}, {{location.state}} {{location.zip}}</div>
+		</address>
+	{% if location.contact_phone is not empty %}
+		<div><i class="fa fa-phone-square"></i><span>{{location.contact_phone}}</span></div>
+	{% endif %}
+	{% if location.email is not empty %}
+		<div><i class="fa fa-envelope-o"></i><span>{{location.email}}</span></div>
+	{% endif %}
+	{% if location.hours is not empty %}
+		<div><i class="fa fa-calendar"></i><span>{{location.hours}}</span></div>
+	{% endif %}
+	</div>
+
+	<div class="col-xs-12 col-md-7">
+		<form class="p" action="//maps.google.com/maps" method="GET" target="map">
+			<label for="direct-loc">Get Directions:</label>
+			<div class="input-group">
+				<input class="controls form-control" name="saddr" type="text" id="direct-loc" placeholder="Enter starting location...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" id="direct-search" type="submit"><i class="fa fa-car"></i></a>
+				</span>
+			</div>
+			<input type="hidden" name="daddr" value="{{location.street_line1}} {{location.city}} {{location.state}} {{location.zip}}">
+			<input type="hidden" name="hl" value="en">
+		</form>
+		<div class="bgg embed-responsive is60">
+			<div class="embed-responsive-item stores-store-map" id="map"></div>
+		</div>
+	</div>
+</div>
+
+<div>
+
+</div>
+
+<script>
+function initStoresStoreMap() {
+
+var userCoord = {};
+//
+// options in admin?
+var locDefaultPos = {lat: {{location.lat}}, lng: {{location.lon}}};
+
+	var theLoc = new google.maps.LatLng({{location.lat}},{{location.lon}});
+	
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom: locDefaultZoom,
+		minZoom: 8,
+		maxZoom: 12,
+		center: theLoc,
+		panControl:false,
+		scaleControl:false,
+		streetViewControl:false,
+		overviewMapControl:false,
+		rotateControl:false
+	});
+
+	var input = document.getElementById('direct-loc');
+	var searchBox = new google.maps.places.SearchBox(input);
+
+	searchBox.addListener('places_changed', function() {
+		console.log('places_changed')
+		var places = searchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
+		}
+		
+	});
+
+	var marker = new google.maps.Marker({
+		position: theLoc,
+		map: map
+	});
+
+	var location = {title:"{{location.title}}", street_line1:"{{location.street_line1}}", street_line2:"{{location.street_line2}}", city:"{{location.city}}", state:"{{location.state}}", zip:"{{location.zip}}"};
+	var iWContent = '<div class="marker-info"><h3>'+location.title+'</h3><address><div>'+location.street_line1+'</div>';
+	
+{% if location.street_line2 is not empty %}
+	iWContent += '<div>'+location.street_line2+'</div>';
+{% endif %}
+	iWContent += '<div>'+location.city+', '+location.state+' '+location.zip+'</div></address>'
+	iWContent += '</div>'
+
+	var infowindow = new google.maps.InfoWindow({
+		content:iWContent
+	});
+
+	currCenter = map.getCenter();
+
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map,marker);
+		currCenter = map.getCenter();
+	});
+
+	google.maps.event.addListener(map, 'idle', function() {
+		currCenter = map.getCenter();
+	});
+
+	google.maps.event.addDomListener(window, 'resize', function() {
+		map.setCenter(theLoc);
+		if (infowindow.getMap()) {
+			console.log('window changed, infobox was open');
+			google.maps.event.trigger(infowindow.anchor, "click");
+		}
+	});
+	//
+	window.addEventListener('orientationchange', function() {
+		map.setCenter(currCenter);
+		if (infowindow.getMap()) {
+			console.log('window changed, infobox was open');
+			google.maps.event.trigger(infowindow.anchor, "click");
+		}
+	});
+	//
+	$('#direct-search').on('click', function() {
+	});
+	
+}
+</script>
+
+{% endblock %}

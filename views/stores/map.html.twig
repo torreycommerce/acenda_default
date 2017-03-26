@@ -1,0 +1,304 @@
+{% set locDefaultLoc = "Charlotte, NC" %}
+{% set locDefaultRadius = 50 %}
+{% set useIndivStorePage = 1 %}
+
+{% if (app.request.get.location is empty) or (app.request.get.radius is empty) %}
+	{% set extendURL = '?location=' ~ locDefaultLoc ~ '&radius=' ~ locDefaultRadius %}
+	{% do app.redirect('/' ~ app.request.url ~ '?location=' ~ locDefaultLoc ~ '&radius=' ~ locDefaultRadius ~ '&forced=1',{},'404') %}
+{% else %}
+	{% set extendURL = '?location=' ~ app.request.get.location ~ '&radius=' ~ app.request.get.radius %}
+{% endif %}
+
+{% extends "/_layouts/base.html.twig" %}
+
+
+
+{% block content %}
+
+<h1>Store Locator</h1>
+
+<div class="bgg pad p">
+	<div class="row">
+		<div class="col-xs-8 col-md-9 col-lg-10">
+			<div class="input-group">
+				<input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" id="loc-search" type="button"><i class="fa fa-search"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="col-xs-4 col-md-3 col-lg-2">
+			<select class="form-control" id="loc-radius">
+				<option value="10">10 Miles</option>
+				<option value="25">25 Miles</option>
+				<option value="50" selected>50 Miles</option>
+				<option value="100">100 Miles</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<div class="bgg embed-responsive is60 p">
+	<div class="embed-responsive-item stores-map" id="map"></div>
+</div>
+
+<div class="avai-list bgg pad">
+	<p class="p-mini">Stores within <span class="show-loc" id="show-loc-radius">50</span> Miles of <span class="show-loc" id="show-loc-search"></span></p>
+	<div class="avai-list-list">
+		<div class="c-c ok-list row"></div>
+	</div>
+</div>
+
+
+
+
+<script>
+var markerArray = [];
+var infowindow;
+var userCoord = {};
+var extendURL = "{{extendURL}}";
+//
+
+// options in admin?
+var locDefaultPos = {lat: 35.224951, lng: -80.832970};
+
+
+function initStoresMap() {
+	//
+	//
+	var newdesire;
+	var needToDo;
+	window.onpopstate = function(event) {
+		var needToDo = 0;
+		newdesire = getQueryParams(document.location.search);
+		console.log('onpopstate begin...');
+		console.log(newdesire)
+
+		newdesire = getQueryParams(document.location.search);
+		if (newdesire.location !== $('#loc-loc').val()) {
+			$('#loc-loc').val(newdesire.location);
+			needToDo = 1;
+		}
+		if (newdesire.radius !== $('#loc-radius').val()) {
+			$('#loc-radius').val(newdesire.radius);
+			needToDo = 1;
+		}
+		if (needToDo == 1) {
+			isoGAPI($('#loc-loc').val());
+		}
+	};
+	//
+	//
+
+	var locationArray = [];
+
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom: locDefaultZoom,
+		center: locDefaultPos
+	});
+	//
+	var input = document.getElementById('loc-loc');
+	var searchBox = new google.maps.places.SearchBox(input);
+	//map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+	searchBox.addListener('places_changed', function() {
+		console.log('places_changed')
+		var places = searchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
+		}
+
+		for (var i = 0; i < places.length;i++) {
+			console.log('place name: '+places[i].name)
+		}
+		//isoGAPI(places[0].name);
+		updateUrlParameter('location',$('#loc-loc').val());
+		isoGAPI($('#loc-loc').val());
+	});
+	//
+	infowindow = new google.maps.InfoWindow({maxWidth: 200});
+	if (desire.radius) {
+		$('#loc-radius').val(desire.radius);
+	}
+	if (desire.location) {
+		$('#loc-loc').val(desire.location);
+		console.log('there is desire')
+		isoGAPI(desire.location)
+	} else if (useGeo) {
+		$('#show-loc-search').text('Your Location');
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				userCoord.lat = position.coords.latitude;
+				userCoord.lon = position.coords.longitude;
+				isoAcendaAPI(userCoord.lat, userCoord.lon);
+			}, function() {
+				//Geolocation error
+				console.log('geo error');
+			});
+		} else {
+		// Browser doesn't support Geolocation
+		console.log('geo not supported');
+		}
+	} else {
+		$('#loc-loc').val(locDefaultLoc);
+		$('#show-loc-search').text(locDefaultLoc);
+		doNotCenter = 1;
+		isoAcendaAPI(locDefaultPos.lat, locDefaultPos.lng)
+	}
+	//
+	//
+	currCenter = map.getCenter();
+
+	google.maps.event.addDomListener(window, 'resize', function() {
+		map.setCenter(currCenter);
+		if (infowindow.getMap()) {
+			console.log('window changed, infobox was open');
+			google.maps.event.trigger(infowindow.anchor, "click");
+		}
+	});
+	//
+	window.addEventListener('orientationchange', function() {
+		map.setCenter(currCenter);
+		if (infowindow.getMap()) {
+			console.log('window changed, infobox was open');
+			google.maps.event.trigger(infowindow.anchor, "click");
+		}
+	});
+
+	//
+	map.addListener('bounds_changed', function() {
+		console.log('bounds_changed')
+		searchBox.setBounds(map.getBounds());
+	});
+	google.maps.event.addListener(map, 'idle', function() {
+		currCenter = map.getCenter();
+	});
+	//
+	$('#loc-search').on('click', function() {
+		newdesire = getQueryParams(document.location.search);
+		if (newdesire.location !== $('#loc-loc').val()) {
+			updateUrlParameter('location',$('#loc-loc').val());
+			isoGAPI($('#loc-loc').val());
+		}
+	});
+	//
+	//
+	$('#loc-radius').on('change', function() {
+		console.log('radius change event')
+		updateUrlParameter('radius',$('#loc-radius').val());
+		isoGAPI($('#loc-loc').val());
+	});
+	//
+	//
+	google.maps.event.addListener(infowindow,'closeclick',function(){
+		$('.location.active').removeClass('active');
+	});
+}
+
+function isoAcendaAPI(ala,alo) {
+	console.log('isoAcendaAPI()');
+	//
+	$.get(acendaBaseUrl + '/api/location/within', {lat: ala, lon: alo, radius: $('#loc-radius').val()}).done(function(responseApi){
+		locationArray = responseApi.result;
+		console.log(responseApi);
+		for (var i = 0; i < locationArray.length;i++) {
+			createMarker(locationArray[i],i);
+		}
+		if (locationArray.length > 0) {
+			if (!doNotCenter) {
+				map.setCenter({lat: parseFloat(locationArray[0].lat), lng: parseFloat(locationArray[0].lon)});
+			}
+		} else {
+			map.setCenter({lat: ala, lng: alo});
+			$('.ok-list').append('<div class="col-xs-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius.</div></div>');
+		}
+	});
+	//
+	doNotCenter = 0;
+}
+
+function isoGAPI(d) {
+	$.get("https://maps.googleapis.com/maps/api/geocode/json?address="+d+"&key="+gMapApiKey).done(function(response){
+		clearOverlay();
+		console.log('iso:')
+		// problem search string: Weldon's On-Site Services, County Road 979, Royse City, TX, United States
+		//console.log(response.results[0].geometry.location);
+		if (response.results[0]) {
+			userCoord.lat = response.results[0].geometry.location.lat;
+			userCoord.lon = response.results[0].geometry.location.lng;
+			isoAcendaAPI(userCoord.lat, userCoord.lon);
+		} else {
+			console.log("Returned place contains no geometry");
+			return;
+		}
+	});
+	currCenter = map.getCenter();
+	$('#show-loc-radius').text($('#loc-radius').val())
+	$('#show-loc-search').text(d)
+}
+
+
+function createMarker(location,id){
+	var marker = new google.maps.Marker({
+		map: map,
+		position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
+		id: id
+	});
+
+	markerArray.push(marker);
+	//
+	var formattedContent;
+	console.log(location.title)
+	formattedContent = '<div class="marker-info"><h3><i class="fa fa-map-marker"></i><span>'+location.title+'</span></h3><address><div>'+location.street_line1+'</div>';
+	if (location.street_line2 !== null && location.street_line2 !== "") {
+		formattedContent += '<div>'+location.street_line2+'</div>';
+	}
+	formattedContent += '<div>'+location.city+', '+location.state+' '+location.zip+'</div></address>';
+	formattedContent += '</div>';
+	//
+	//
+	//
+	google.maps.event.addListener(marker, 'click', function(){
+		//
+		infowindow.setContent(formattedContent);
+		infowindow.open(map, this);
+		currCenter = map.getCenter();
+		//
+		$('.location.active').removeClass('active');
+		$('.location[data-num="'+marker.id+'"]').addClass('active');
+		//
+		//
+	});
+	//
+	//console.log('now fC is:')
+	//console.log(formattedContent);
+	$('.ok-list').append('<div class="col-xs-12 col-sm-6 col-md-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="list-a" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
+	//
+}
+
+function goToMarker(i) {
+	//
+	if (!map.getBounds().contains(markerArray[i].getPosition())) {
+		map.setCenter(markerArray[i].getPosition());
+	}
+	//
+	google.maps.event.trigger(markerArray[i], "click");
+	currCenter = map.getCenter();
+}
+
+function clearOverlay() {
+	$('.ok-list').html('');
+	for (var i = 0; i < markerArray.length; i++ ) {
+		markerArray[i].setMap(null);
+	}
+	markerArray.length = 0;
+}
+
+function buildURL() {
+	var nowdesire = getQueryParams(document.location.search)
+	return '?location='+nowdesire.location+'&radius='+nowdesire.radius;
+}
+</script>
+
+{% endblock %}

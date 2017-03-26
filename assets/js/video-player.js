@@ -1,10 +1,3 @@
-//var player;
-//var tag = document.createElement('script');
-
-//tag.src = "https://www.youtube.com/iframe_api";
-//var firstScriptTag = document.getElementsByTagName('script')[0];
-//firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 (function($){
     initVideoPlayer();
 }( window.jQuery ));
@@ -77,7 +70,6 @@ function initVideoPlayer (){
                         $('.main-product-video').html('');
                     });
             });
-            $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
         }
     });
 }
@@ -91,6 +83,3 @@ function stopVideo(){
         $('.main-product-video').html('');
     }     
 }
-
-    
-    

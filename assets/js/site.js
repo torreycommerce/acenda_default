@@ -9,7 +9,7 @@ var telReady = 0;
 //
 var useMMenu = 0; // use default mobile menu?
 //
-var useTypeAhead = 0; // use Twitter TypeAhead?
+var useTypeAhead = 1; // use Twitter TypeAhead?
 /* */
 
 
@@ -588,6 +588,63 @@ if (useTypeAhead) {
 		});
 	});
 }
+
+/* stores all */
+/* store locator */
+function ChangeUrl(title, url) {
+	if (typeof (history.pushState) != "undefined") {
+		console.log('can pushState')
+		var obj = { Title: title, Url: url };
+		history.pushState(obj, obj.Title, obj.Url);
+	} else {
+		console.log('can not pushState')
+		//alert("Browser does not support HTML5.");
+	}
+}
+
+function updateUrlParameter(param, value) {
+	const regExp = new RegExp(param + "(.+?)(&|$)", "g");
+	const newUrl = window.location.href.replace(regExp, param + "=" + value + "$2");
+	window.history.pushState("", "", newUrl);
+}
+
+function getQueryParams(qs) {
+	qs = qs.split("+").join(" ");
+	var params = {},
+		tokens,
+		re = /[?&]?([^=]+)=([^&]*)/g;
+
+	while (tokens = re.exec(qs)) {
+		params[decodeURIComponent(tokens[1])]
+			= decodeURIComponent(tokens[2]);
+	}
+
+	return params;
+}
+
+var desire = getQueryParams(document.location.search);
+
+/* store / map */
+// add to Admin
+var gMapApiKey = 'AIzaSyD0MrZfh7KxerIHk83VWAR2kS2JN6melSc';
+var useGeo = 0;
+var locDefaultLoc = "Charlotte, NC";
+var locDefaultZoom = 10;
+var locRadiusArray = ["10","25","50","100"];
+var locDefaultRadius = 50;
+//
+var map;
+var currCenter;
+var doNotCenter = 0;
+//
+var mapReady = setInterval(function(){
+	if (typeof jQuery != 'undefined' && ($('#map').length || $('#search-store').length)) {
+		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/locations.js",function(){
+			$('body').append('<script src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&libraries=places&rankby=distance&callback=acendaMaps" async defer></script>');
+			clearInterval(mapReady);
+		});
+	}
+},1000);
 
 // final
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/acended.js",function(){
