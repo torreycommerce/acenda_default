@@ -1,12 +1,19 @@
 {% set locDefaultLoc = "Charlotte, NC" %}
+{% set locRadiusArray = [10, 25, 50, 100] %}
 {% set locDefaultRadius = 50 %}
 {% set useIndivStorePage = 1 %}
+
 
 {% if (app.request.get.location is empty) or (app.request.get.radius is empty) %}
 	{% set extendURL = '?location=' ~ locDefaultLoc ~ '&radius=' ~ locDefaultRadius %}
 	{% do app.redirect('/' ~ app.request.url ~ '?location=' ~ locDefaultLoc ~ '&radius=' ~ locDefaultRadius ~ '&forced=1',{},'404') %}
 {% else %}
-	{% set extendURL = '?location=' ~ app.request.get.location ~ '&radius=' ~ app.request.get.radius %}
+	{% if app.request.get.radius not in locRadiusArray %}
+		{% set extendURL = '?location=' ~ app.request.get.location ~ '&radius=' ~ locDefaultRadius %}
+		{% do app.redirect('/' ~ app.request.url ~ '?location=' ~ app.request.get.location  ~ '&radius=' ~ locDefaultRadius ~ '&forced=1',{},'404') %}
+	{% else %}
+		{% set extendURL = '?location=' ~ app.request.get.location ~ '&radius=' ~ app.request.get.radius %}
+	{% endif %}
 {% endif %}
 
 {% extends "/_layouts/base.html.twig" %}
@@ -17,24 +24,22 @@
 
 <h1>Store Locator</h1>
 
-<div class="bgg pad p">
-	<div class="row">
-		<div class="col-xs-8 col-md-9 col-lg-10">
-			<div class="input-group">
-				<input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode...">
-				<span class="input-group-btn">
-					<button class="btn btn-default" id="loc-search" type="button"><i class="fa fa-search"></i></button>
-				</span>
-			</div>
+<div class="p row">
+	<div class="col-xs-8 col-md-9 col-lg-10">
+		<div class="input-group">
+			<input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" id="loc-search" type="button"><i class="fa fa-search"></i></button>
+			</span>
 		</div>
-		<div class="col-xs-4 col-md-3 col-lg-2">
-			<select class="form-control" id="loc-radius">
-				<option value="10">10 Miles</option>
-				<option value="25">25 Miles</option>
-				<option value="50" selected>50 Miles</option>
-				<option value="100">100 Miles</option>
-			</select>
-		</div>
+	</div>
+	<div class="col-xs-4 col-md-3 col-lg-2">
+		<select class="form-control" id="loc-radius">
+			<option value="10">10 Miles</option>
+			<option value="25">25 Miles</option>
+			<option value="50" selected>50 Miles</option>
+			<option value="100">100 Miles</option>
+		</select>
 	</div>
 </div>
 
@@ -42,7 +47,7 @@
 	<div class="embed-responsive-item stores-map" id="map"></div>
 </div>
 
-<div class="avai-list bgg pad">
+<div class="avai-list">
 	<p class="p-mini">Stores within <span class="show-loc" id="show-loc-radius">50</span> Miles of <span class="show-loc" id="show-loc-search"></span></p>
 	<div class="avai-list-list">
 		<div class="c-c ok-list row"></div>
@@ -102,7 +107,6 @@ function initStoresMap() {
 	//map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 	searchBox.addListener('places_changed', function() {
-		console.log('places_changed')
 		var places = searchBox.getPlaces();
 
 		if (places.length == 0) {
@@ -168,7 +172,6 @@ function initStoresMap() {
 
 	//
 	map.addListener('bounds_changed', function() {
-		console.log('bounds_changed')
 		searchBox.setBounds(map.getBounds());
 	});
 	google.maps.event.addListener(map, 'idle', function() {
@@ -273,7 +276,7 @@ function createMarker(location,id){
 	//
 	//console.log('now fC is:')
 	//console.log(formattedContent);
-	$('.ok-list').append('<div class="col-xs-12 col-sm-6 col-md-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="list-a" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
+	$('.ok-list').append('<div class="col-xs-12 col-sm-6 col-md-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="d-b p" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
 	//
 }
 

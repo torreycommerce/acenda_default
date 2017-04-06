@@ -26,8 +26,8 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 
 .show-loc {display:inline-block; max-width:100%; text-decoration:underline; vertical-align:bottom; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .avai-list-list .location {border-bottom:1px solid rgba(0,0,0,.25); transition:background 200ms ease;}
-.avai-list-list .location.active {background:rgba(255,255,255,.8);}
-.avai-list-list .list-a {display:block; padding:0 10px 10px 0; text-decoration:none;}
+.avai-list-list .location.active {background:rgba(0,0,0,.03);}
+.avai-list-list a.d-b {text-decoration:none;}
 .avai-list-list .marker-info h3 {height:1.3em;}
 .avai-list-list address {min-height:4.3em;}
 .fa-tilt {transform:rotate(-45deg);}
@@ -38,8 +38,4 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 #map .marker-info h3 {margin:.5em 0; font-size:100%; font-weight:bold;}
 #map .marker-info address {margin:0;}
 
-
-@media (min-width:992px) {
-.avai-list-list .list-a {padding:0 15px 15px 0;}
-}
 /* */

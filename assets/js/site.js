@@ -7,8 +7,6 @@ var useGMapNorm = 0; // use google map normalizer?
 var useIntTel = 0; // use InternationlTel flag art?
 var telReady = 0;
 //
-var useMMenu = 0; // use default mobile menu?
-//
 var useTypeAhead = 1; // use Twitter TypeAhead?
 /* */
 
@@ -415,42 +413,8 @@ $(document).ready(function() {
 		//
 		$('.navajax').load(acendaBaseUrl+'/account/nav', function() {
 			//alert( "Load was performed." );
-			if (useMMenu) {
-				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.mmenu.min.js",function(){
-					$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/css/theme/jquery.mmenu.all.css">');
-					
-					$("#nav-mobile-main").mmenu({
-						extensions: [
-							'effect-slide-menu',
-							'shadow-page',
-							'shadow-panels'
-						],
-						keyboardNavigation	: true,
-						screenReader		: true,
-						counters: true,
-						navbar	: {
-							title: acendaBaseName
-						},
-						navbars	: [
-						{
-							position	: 'top',
-							content	: [
-								'prev',
-								'title',
-								'close'
-							]
-						}]
-		            });
-					//
-					$(document).on( "click", $('a[href$="#nav-mobile-main"]'), function() {
-						$('#nav-mobile-main').removeClass('hidden');
-					});
-				});
-				//
-			} else {
-				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
-				});
-			}
+			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
+			});
 		});
 		//
 		$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
@@ -629,7 +593,7 @@ var desire = getQueryParams(document.location.search);
 var gMapApiKey = 'AIzaSyD0MrZfh7KxerIHk83VWAR2kS2JN6melSc';
 var useGeo = 0;
 var locDefaultLoc = "Charlotte, NC";
-var locDefaultZoom = 10;
+var locDefaultZoom = 12;
 var locRadiusArray = ["10","25","50","100"];
 var locDefaultRadius = 50;
 //
