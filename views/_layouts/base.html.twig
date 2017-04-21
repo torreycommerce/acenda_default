@@ -68,7 +68,7 @@
 {% block css %}
 {% endblock %}
 
-<title>{% block title %}{{ app.params.site.title }}{% endblock %}</title>
+<title>{% block title %}{% if app.params.site.page_title %}{{ app.params.site.page_title }}{% else %}{{ app.params.site.title}}{% endif %}{% endblock %}</title>
 
 {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
 	{{ social.get_metatags(app.params.social_settings, seo) }}
