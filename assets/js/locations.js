@@ -1,7 +1,7 @@
 function acendaMaps() {
 /* global */
-if ($('#search-store').length) {
-	var input = document.getElementById('search-store');
+if ($('#search-locs').length) {
+	var input = document.getElementById('search-locs');
 	var searchBox = new google.maps.places.SearchBox(input);
 	searchBox.addListener('places_changed', function() {
 		var places = searchBox.getPlaces();
@@ -10,9 +10,9 @@ if ($('#search-store').length) {
 		}
 	});
 	//
-	$('.btn-search-store').click(function(){
-		if ($('.input-search-store').val() !== "") {
-			window.location.href = acendaBaseUrl+'/stores/map?location='+$('#search-store').val()+'&radius='+locDefaultRadius;
+	$('.btn-search-locs').click(function(){
+		if ($('.input-search-locs').val() !== "") {
+			window.location.href = acendaBaseUrl+'/stores/map?location='+$('#search-locs').val()+'&radius='+locDefaultRadius;
 		}
 	});
 }

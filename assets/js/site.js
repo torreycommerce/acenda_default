@@ -588,21 +588,9 @@ function getQueryParams(qs) {
 
 var desire = getQueryParams(document.location.search);
 
-/* store / map */
-// add to Admin
-var gMapApiKey = 'AIzaSyD0MrZfh7KxerIHk83VWAR2kS2JN6melSc';
-var useGeo = 0;
-var locDefaultLoc = "Charlotte, NC";
-var locDefaultZoom = 12;
-var locRadiusArray = ["10","25","50","100"];
-var locDefaultRadius = 50;
-//
-var map;
-var currCenter;
-var doNotCenter = 0;
-//
+/* stores */
 var mapReady = setInterval(function(){
-	if (typeof jQuery != 'undefined' && ($('#map').length || $('#search-store').length)) {
+	if (typeof jQuery != 'undefined' && ($('#map').length || $('#search-locs').length)) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/locations.js",function(){
 			$('body').append('<script src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&libraries=places&rankby=distance&callback=acendaMaps" async defer></script>');
 			clearInterval(mapReady);
