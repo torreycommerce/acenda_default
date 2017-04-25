@@ -1,8 +1,14 @@
-{% set locDefaultLoc = "Charlotte, NC" %}
-{% set locRadiusArray = [10, 25, 50, 100] %}
-{% set locDefaultRadius = 50 %}
-{% set useIndivStorePage = 1 %}
+{% set locRadiusArray = [] %}
+{% set foo = app.params.locations.locradarr|replace(' ','') %}
+{% set foo = foo|split(',') %}
+{% for i in foo %}
+   {% set locRadiusArray = locRadiusArray|merge([i]) %}
+{% endfor %}
 
+{% set locDefaultLoc = app.params.locations.locdefstr %}
+{% set locDefaultRadius = app.params.locations.locraddef %}
+{% set useIndivStorePage = 1 %}
+{% set locDesiredRadius = app.request.get.radius %}
 
 {% if (app.request.get.location is empty) or (app.request.get.radius is empty) %}
 	{% set extendURL = '?location=' ~ locDefaultLoc ~ '&radius=' ~ locDefaultRadius %}
@@ -19,13 +25,12 @@
 {% extends "/_layouts/base.html.twig" %}
 
 
-
 {% block content %}
 
 <h1>Store Locator</h1>
 
-<div class="p row">
-	<div class="col-xs-8 col-md-9 col-lg-10">
+<div class="row">
+	<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 p">
 		<div class="input-group">
 			<input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode...">
 			<span class="input-group-btn">
@@ -33,12 +38,11 @@
 			</span>
 		</div>
 	</div>
-	<div class="col-xs-4 col-md-3 col-lg-2">
+	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p">
 		<select class="form-control" id="loc-radius">
-			<option value="10">10 Miles</option>
-			<option value="25">25 Miles</option>
-			<option value="50" selected>50 Miles</option>
-			<option value="100">100 Miles</option>
+		{% for rad in locRadiusArray %}
+			<option value="{{rad}}" {% if rad == locDesiredRadius%}selected{% endif %}>{{rad}} Miles</option>
+		{% endfor %}
 		</select>
 	</div>
 </div>
@@ -56,16 +60,24 @@
 
 
 
-
 <script>
+var gMapApiKey = '{{app.params.locations.locgmapkey}}';
+var useGeo = 0;
+var locDefaultLoc = "{{app.params.locations.locdefstr}}";
+var locDefaultZoom = {{app.params.locations.locdefzoo}};
+//
+//
+var map;
+var currCenter;
 var markerArray = [];
 var infowindow;
 var userCoord = {};
+var doNotCenter = 0;
 var extendURL = "{{extendURL}}";
 //
 
-// options in admin?
-var locDefaultPos = {lat: 35.224951, lng: -80.832970};
+
+var locDefaultPos = {lat: {{app.params.locations.locdefposx}}, lng: {{app.params.locations.locdefposy}}};
 
 
 function initStoresMap() {
