@@ -1,7 +1,15 @@
 {% extends "/_layouts/base.html.twig" %}
 
 {% set location_id = app.request.path|split('/')|last %}
-{% set location = api.get('/location/' ~ location_id) %}
+{% set location = api.get('/location/' ~ location_id,{
+	'query':{
+		'publish':'1'
+	}
+}) %}
+
+{% if location.id is empty %}
+	{% do app.redirect('/' ~ app.url ~ '/stores',{},'404') %}
+{% endif %}
 
 {% block title %}Store Info: {{location.title}}{% endblock %}
 

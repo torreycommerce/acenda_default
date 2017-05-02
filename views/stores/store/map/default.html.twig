@@ -1,8 +1,16 @@
 {% extends "/_layouts/base.html.twig" %}
 
-{% set locDefaultRadius = 50 %}
+{% set locDefaultRadius = app.params.locations.locraddef %}
 {% set location_id = app.request.path|split('/')|last %}
-{% set location = api.get('/location/' ~ location_id) %}
+{% set location = api.get('/location/' ~ location_id,{
+	'query':{
+		'publish':'1'
+	}
+}) %}
+
+{% if location.id is empty %}
+	{% do app.redirect('/' ~ app.url ~ '/stores/map',{},'404') %}
+{% endif %}
 
 {% if (app.request.get.location is empty) or (app.request.get.radius is empty) %}
 	{% set extendURL = '?location=' ~ location.street_line1 ~ ', ' ~ location.city ~ ', ' ~ location.state ~ '&radius=' ~ locDefaultRadius %}

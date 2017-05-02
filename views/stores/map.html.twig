@@ -32,7 +32,7 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 p">
 		<div class="input-group">
-			<input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode...">
+			 <input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode..." title="Search Location">
 			<span class="input-group-btn">
 				<button class="btn btn-default" id="loc-search" type="button"><i class="fa fa-search"></i></button>
 			</span>
@@ -226,7 +226,7 @@ function isoAcendaAPI(ala,alo) {
 			}
 		} else {
 			map.setCenter({lat: ala, lng: alo});
-			$('.ok-list').append('<div class="col-xs-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius.</div></div>');
+			$('.ok-list').append('<div class="col-xs-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius, or search a different location.</div></div>');
 		}
 	});
 	//

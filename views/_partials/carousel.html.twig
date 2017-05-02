@@ -4,7 +4,7 @@
     
     {# End slider indicators #}
     {# Begin wrapper for slides #}
-    {% set widget = api.get('widget/render', {'slug' : 'default-carousel'}) %}
+    {% set widget = api.get('widget/render', {'slug' : 'default-carousel', 'publish' : '1'}) %}
     {% if widget is not empty %}
         {{ widget }}
     {% else %}

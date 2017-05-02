@@ -9,7 +9,11 @@
 <h1>View All Stores</h1>		
 <div class="locations">
 	<div class="location-list">
-	{% set locations = api.get('/location/') %}
+	{% set locations = api.get('/location/',{
+		'query':{
+			'publish':'1'
+		}
+	}) %}
 	{% for location in locations %}
 		<div class="divide g location pad-h" id="{{location.id}}">
 		{% if useIndivStorePage == 1 %}
