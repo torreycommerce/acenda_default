@@ -169,11 +169,13 @@ if ($('.form-region').length) {
 					var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 					if (typeof data.result !== 'undefined' && data.result.length > 0) {
 						$.each(data.result, function( index, method ) {
-							var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-							dropdown.append(option);
-							if(shippingMethod && method.id == shippingMethod){
-								dropdown.val(shippingMethod);
-							};
+							if (method.status == "active"){
+								var option = $('<option class="ver4"></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+								dropdown.append(option);
+								if(shippingMethod && method.id == shippingMethod){
+									dropdown.val(shippingMethod);
+								};
+							}
 						});
 						$(".shipping-continue").prop("disabled",false);
 					} else {
@@ -239,11 +241,13 @@ if ($('.form-region').length) {
 							var shippingMethod = sessionStorage.getItem('selected_shipping_method_checkout');
 							if (typeof data.result !== 'undefined' && data.result.length > 0) {
 								$.each(data.result, function( index, method ) {
-									var option = $('<option></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
-									dropdown.append(option);
-									if(shippingMethod && method.id == shippingMethod){
-										dropdown.val(shippingMethod);
-									};
+									if (method.status == "active"){
+										var option = $('<option class="ver5"></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
+										dropdown.append(option);
+										if(shippingMethod && method.id == shippingMethod){
+											dropdown.val(shippingMethod);
+										};
+									}
 								});
 								$(".shipping-continue").prop("disabled",false);
 							} else {
@@ -505,8 +509,10 @@ if ($('.form-estimate').length) {
 							dropdown.empty();
 							if (typeof data.result !== 'undefined' && data.result.length > 0) {
 								$.each(data.result, function( index, method ) {
-									var option = $('<option></option>').attr("value", method.id).text(method.name);
-									dropdown.append(option);
+									if (method.status == "active"){
+										var option = $('<option class="ver1"></option>').attr("value", method.id).text(method.name);
+										dropdown.append(option);
+									}
 								});
 								dropdown.prop("disabled",false);
 							}
@@ -531,10 +537,12 @@ if ($('.form-estimate').length) {
 					shipping_method = data.result[0].id;
 
 					response($.map(data.result, function(item, index) {
-						return {
-							label: item.name,
-							value: item.id
-						};
+						if (item.status == "active") {
+							return {
+								label: item.name,
+								value: item.id
+							};
+						}
 					}));
 
 					if(typeof($('select[id$=cart_shipping_method]').attr('data-value')) != 'undefined') {

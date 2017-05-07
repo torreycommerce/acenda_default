@@ -88,8 +88,8 @@ function initStoresMap() {
 	window.onpopstate = function(event) {
 		var needToDo = 0;
 		newdesire = getQueryParams(document.location.search);
-		console.log('onpopstate begin...');
-		console.log(newdesire)
+		//console.log('onpopstate begin...');
+		//console.log(newdesire)
 
 		newdesire = getQueryParams(document.location.search);
 		if (newdesire.location !== $('#loc-loc').val()) {
@@ -126,7 +126,7 @@ function initStoresMap() {
 		}
 
 		for (var i = 0; i < places.length;i++) {
-			console.log('place name: '+places[i].name)
+			//console.log('place name: '+places[i].name)
 		}
 		//isoGAPI(places[0].name);
 		updateUrlParameter('location',$('#loc-loc').val());
@@ -139,7 +139,7 @@ function initStoresMap() {
 	}
 	if (desire.location) {
 		$('#loc-loc').val(desire.location);
-		console.log('there is desire')
+		//console.log('there is desire')
 		isoGAPI(desire.location)
 	} else if (useGeo) {
 		$('#show-loc-search').text('Your Location');
@@ -169,7 +169,7 @@ function initStoresMap() {
 	google.maps.event.addDomListener(window, 'resize', function() {
 		map.setCenter(currCenter);
 		if (infowindow.getMap()) {
-			console.log('window changed, infobox was open');
+			//console.log('window changed, infobox was open');
 			google.maps.event.trigger(infowindow.anchor, "click");
 		}
 	});
@@ -177,7 +177,7 @@ function initStoresMap() {
 	window.addEventListener('orientationchange', function() {
 		map.setCenter(currCenter);
 		if (infowindow.getMap()) {
-			console.log('window changed, infobox was open');
+			//console.log('window changed, infobox was open');
 			google.maps.event.trigger(infowindow.anchor, "click");
 		}
 	});
@@ -200,7 +200,7 @@ function initStoresMap() {
 	//
 	//
 	$('#loc-radius').on('change', function() {
-		console.log('radius change event')
+		//console.log('radius change event')
 		updateUrlParameter('radius',$('#loc-radius').val());
 		isoGAPI($('#loc-loc').val());
 	});
@@ -212,11 +212,14 @@ function initStoresMap() {
 }
 
 function isoAcendaAPI(ala,alo) {
-	console.log('isoAcendaAPI()');
+	//console.log('isoAcendaAPI()');
 	//
 	$.get(acendaBaseUrl + '/api/location/within', {lat: ala, lon: alo, radius: $('#loc-radius').val()}).done(function(responseApi){
-		locationArray = responseApi.result;
-		console.log(responseApi);
+		rawLocationArray = responseApi.result;
+		var locationArray = rawLocationArray.filter(function(loca){
+			return loca.publish == 1;
+		})
+		//console.log(responseApi);
 		for (var i = 0; i < locationArray.length;i++) {
 			createMarker(locationArray[i],i);
 		}
@@ -236,7 +239,7 @@ function isoAcendaAPI(ala,alo) {
 function isoGAPI(d) {
 	$.get("https://maps.googleapis.com/maps/api/geocode/json?address="+d+"&key="+gMapApiKey).done(function(response){
 		clearOverlay();
-		console.log('iso:')
+		//console.log('iso:')
 		// problem search string: Weldon's On-Site Services, County Road 979, Royse City, TX, United States
 		//console.log(response.results[0].geometry.location);
 		if (response.results[0]) {
@@ -264,8 +267,8 @@ function createMarker(location,id){
 	markerArray.push(marker);
 	//
 	var formattedContent;
-	console.log(location.title)
-	formattedContent = '<div class="marker-info"><h3><i class="fa fa-map-marker"></i><span>'+location.title+'</span></h3><address><div>'+location.street_line1+'</div>';
+	//console.log(location.title)
+	formattedContent = '<div class="marker-info"><h3><i class="fa fa-map-marker"></i><span>'+location.title+location.publish+'</span></h3><address><div>'+location.street_line1+'</div>';
 	if (location.street_line2 !== null && location.street_line2 !== "") {
 		formattedContent += '<div>'+location.street_line2+'</div>';
 	}
