@@ -1,9 +1,9 @@
-{% if app.request.path is not empty %}
+{# {% if app.request.path is not empty and app.request.path != 'checkout' %}
 	{% if 'http://' not in app.request.path and 'https://' not in app.request.path %}
 		{% do app.user.setState('login_referer', app.request.path) %}
 	{% endif %}
-	{% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.'}) %}
-{% endif %}
+	{% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.' ~ app.request.path}) %}
+{% endif %} #}
 {% if app.request.post is not empty and app.request.post.login is empty %}
 	{% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.'}) %}
 {% endif %}
