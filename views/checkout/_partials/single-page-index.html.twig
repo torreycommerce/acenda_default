@@ -1,3 +1,80 @@
 {% block content %}
-SINGLE PAGE CHECKOUT!
+	<div class="checkoutapp">
+			<div class="row">
+				<div id="checkout-left" class="col-md-9">
+					<div id="checkout-steps" class="panel-group">
+					    <div class="panel panel-default">
+					        <div id="signin-panel" class="panel-heading">
+					            <h4 class="panel-title">
+					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseSignIn">Sign In</a>
+					            </h4>
+					        </div>
+					        <div id="collapseSignIn" class="panel-collapse collapse in">
+					            <div class="panel-body">
+
+
+
+					            </div>
+					        </div>
+					    </div>
+					    <div id="shipping-panel" class="panel panel-default">
+					        <div class="panel-heading">
+					            <h4 class="panel-title">
+					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShipping">Shipping</a>
+					            </h4>
+					        </div>
+					        <div id="collapseShipping" class="panel-collapse collapse">
+					            <div class="panel-body">
+	
+
+					            </div>
+					        </div>
+					    </div>
+					    <div id="billing-panel" class="panel panel-default">
+					        <div class="panel-heading">
+					            <h4 class="panel-title">
+					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseBilling">Billing</a>
+					            </h4>
+					        </div>
+					        <div id="collapseBilling" class="panel-collapse collapse">
+					            <div class="panel-body">
+
+					            </div>
+					        </div>
+					    </div>
+					    <div id="review-panel" class="panel panel-default">
+					        <div class="panel-heading">
+					            <h4 class="panel-title">
+					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseReview">Review</a>
+					            </h4>
+					        </div>
+					        <div id="collapseReview" class="panel-collapse collapse">
+					            <div class="panel-body">
+
+					            </div>
+					        </div>
+					    </div>
+					</div>
+				</div>
+				<div id="checkout-right" class="col-md-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">Summary</div>
+						<div class="panel-body">
+							text
+						</div>
+					</div>
+				</div>					
+			</div>
+
+	</div> 
+	<div style="display:none" id="summary-template">
+		SUMMARY!
+	</div>
+
+{% endblock %}
+
+
+{% block js %}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/checkout-view.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/checkoutbb.js') }}
 {% endblock %}
