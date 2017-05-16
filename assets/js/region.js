@@ -172,6 +172,7 @@ if ($('.form-region').length) {
 							if (method.status == "active"){
 								var option = $('<option class="ver4"></option>').attr("value", method.id).text(method.name+" ("+method.bottom_days_range+" to "+method.top_days_range+" days)");
 								dropdown.append(option);
+								console.log('adding '+ method.name);
 								if(shippingMethod && method.id == shippingMethod){
 									dropdown.val(shippingMethod);
 								};
