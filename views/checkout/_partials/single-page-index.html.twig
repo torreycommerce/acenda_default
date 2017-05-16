@@ -1,66 +1,116 @@
 {% block content %}
+
+	<style>
+	  .checkoutapp .panel .panel-heading .panel-title .btn-edit {	
+		position: relative; left: 10px; top: -5px; padding: 2px;
+	  }
+	  .checkoutapp #checkout-steps h3 {
+	  	 font-size: 16.8px;
+	  	 font-weight: bold;
+	  }
+	  .checkoutapp #checkout-steps .step-data {
+	  	 font-size: 14px;
+	  	 margin-left: 20px;
+	  	 margin-top: 10px;
+	  }
+
+	  .checkoutapp #checkout-steps label {
+	  	 font-size: 12px;
+
+
+	  }  
+	  .checkoutapp #checkout-steps .panel-title {
+	  	 font-weight: bold;	  	
+	  	 font-size: 19px;
+	  	 color: #777;
+	  }  
+	  .checkoutapp #checkout-steps .form-group {
+	  	 font-size: 14px;
+	  	 margin-bottom: 5px;
+	  }  
+
+	</style>
+
 	<div class="checkoutapp">
 			<div class="row">
-				<div id="checkout-left" class="col-md-9">
+				<div id="checkout-left" class="col-md-8">
 					<div id="checkout-steps" class="panel-group">
 					    <div class="panel panel-default">
 					        <div id="signin-panel" class="panel-heading">
 					            <h4 class="panel-title">
-					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseSignIn">Sign In</a>
+					                1. Sign In
+									<button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseSignIn">Edit</button>						                
 					            </h4>
+					            <div class="step-data">automatic.anderson@gmail.com</div>
 					        </div>
 					        <div id="collapseSignIn" class="panel-collapse collapse in">
 					            <div class="panel-body">
-
-
-
+	                                 {% include "/checkout/_partials/single-page-steps/signin.html.twig" %}
 					            </div>
 					        </div>
 					    </div>
 					    <div id="shipping-panel" class="panel panel-default">
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
-					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShipping">Shipping</a>
+					                2. Shipping Address
+					                <button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShipping">Edit</button>					                
 					            </h4>
+					            <div class="step-data"></div>					            
 					        </div>
 					        <div id="collapseShipping" class="panel-collapse collapse">
 					            <div class="panel-body">
-	
-
+									{% include "/checkout/_partials/single-page-steps/shipping.html.twig" %}
 					            </div>
 					        </div>
 					    </div>
+					    <div id="shipping-panel" class="panel panel-default">
+					        <div class="panel-heading">
+					            <h4 class="panel-title">
+					                3. Shipping Method
+									<button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShippingMethod">Edit</button>					                
+					            </h4>
+					            <div class="step-data"></div>					            
+					        </div>
+					        <div id="collapseShippingMethod" class="panel-collapse collapse">
+					            <div class="panel-body">
+									{% include "/checkout/_partials/single-page-steps/shipping-method.html.twig" %}
+					            </div>
+					        </div>
+					    </div>					    
 					    <div id="billing-panel" class="panel panel-default">
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
-					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseBilling">Billing</a>
+					                <a >4. Payment</a>
+									<button class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapsePayment">Edit</button>						                
 					            </h4>
+					            <div class="step-data"></div>					            
 					        </div>
-					        <div id="collapseBilling" class="panel-collapse collapse">
+					        <div id="collapsePayment" class="panel-collapse collapse">
 					            <div class="panel-body">
-
+									{% include "/checkout/_partials/single-page-steps/payment.html.twig" %}
 					            </div>
 					        </div>
-					    </div>
+					    </div>					    
 					    <div id="review-panel" class="panel panel-default">
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
-					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseReview">Review</a>
+					                <a data-toggle="collapse" data-parent="#checkout-steps" href="#collapseReview">5. Review Your Order </a>
 					            </h4>
+
 					        </div>
 					        <div id="collapseReview" class="panel-collapse collapse">
 					            <div class="panel-body">
-
+									{% include "/checkout/_partials/single-page-steps/review.html.twig" %}
 					            </div>
 					        </div>
 					    </div>
 					</div>
 				</div>
-				<div id="checkout-right" class="col-md-3">
+				<div id="checkout-right" class="col-md-4">
 					<div class="panel panel-default">
-						<div class="panel-heading">Summary</div>
+						<div class="panel-heading"><h4 class="panel-title">Order Summary</h4></div>
 						<div class="panel-body">
-							text
+							text text text
 						</div>
 					</div>
 				</div>					
@@ -75,6 +125,8 @@
 
 
 {% block js %}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/modess/order.js') }}		
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/modess/cart.js') }}	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/checkout-view.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/checkoutbb.js') }}
 {% endblock %}
