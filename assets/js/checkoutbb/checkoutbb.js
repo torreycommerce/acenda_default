@@ -6,3 +6,6 @@ $(function () {
 	'use strict';
 	new checkout.CheckoutView();
 });
+
+
+$('#summary-panel').stick_in_parent();
