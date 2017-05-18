@@ -6,8 +6,8 @@ var checkout = checkout || {};
 		el: '.checkoutapp',
 		summaryView: null,
 		cart: new checkout.Cart(),
-		shipping_countries: [],
-		shipping_states: [],		
+		shipping_countries: null,
+		shipping_states: null,		
 		checkoutSteps: [
 		    {name: 'signin', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false},
 		    {name: 'shipping', collapse: '#collapseShipping', edit: '#btn-edit-shipping' , completed: false, open: false},
@@ -51,19 +51,22 @@ var checkout = checkout || {};
 				 	 $(step.edit).hide();				 	
 				 }
 			});
-		    $('#shipping-country').html();
-			this.shipping_countries.each(function (country) {
-				var tpl = _.template('<option value="<%=country.get("value")%>"><%=country.get("label")%></option>');
-               $('#shipping-country').append(tpl({country:country}));
+		    
+		    if(this.shipping_countries !==null) {
+				this.shipping_countries.each(function (country) {
+					var tpl = _.template('<option value="<%=country.get("value")%>"><%=country.get("label")%></option>');
+	               $('#shipping-country').append(tpl({country:country}));
 
-			});
-		    $('#shipping-state').html();
-			this.shipping_states.each(function (state) {
-				var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
-               $('#shipping-state').append(tpl({state:state}));
+				});
+			}
 
-			});
+		    if(this.shipping_states !== null) {
+				this.shipping_states.each(function (state) {
+					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
+	               $('#shipping-state').append(tpl({state:state}));
 
+				});
+			}
 
 			this.summaryView.render();		    	
 		},
@@ -75,13 +78,15 @@ var checkout = checkout || {};
 			var that = this;			
 			this.shipping_countries = new checkout.ShippingCountries();
 			this.shipping_countries.fetch({success: function() {
+                $('#shipping-country').html('');				
 				that.render();
 			}});
 		},
 		getShippingStates: function() {
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
-			this.shipping_states.fetch({data:{},success: function() {
+			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
+		    $('#shipping-state').html('');				
 				that.render();
 			}});
 		},		
