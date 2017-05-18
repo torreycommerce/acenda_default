@@ -54,8 +54,10 @@ var checkout = checkout || {};
 		    
 		    if(this.shipping_countries !==null) {
 				this.shipping_countries.each(function (country) {
-					var tpl = _.template('<option <%= (country.get("value") == "US")?"selected":""%> value="<%=country.get("value")%>"><%=country.get("label")%></option>');
-	                $('#shipping-country').append(tpl({country:country}));
+					var currentCountry = $('#shipping-country').val();
+					if(!currentCountry) currentCountry='US';
+					var tpl = _.template('<option <%= (country.get("value") == current)?"selected":""%> value="<%=country.get("value")%>"><%=country.get("label")%></option>');
+	                $('#shipping-country').append(tpl({country:country,current: currentCountry}));
 				});
 			}
 
@@ -64,7 +66,13 @@ var checkout = checkout || {};
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#shipping-state').append(tpl({state:state}));
 				});
+				if(!this.shipping_states.length) {
+					$('#shipping-state').parent().fadeOut();
+				} else {
+					$('#shipping-state').parent().fadeIn();
+				}
 			}
+
 
 			this.summaryView.render();		    	
 		},
@@ -128,8 +136,8 @@ var checkout = checkout || {};
 		},
 		checkSignin: function(e) {
 			e.preventDefault();
-			// $('#guest-form').parsley().validate();
-			// if(!$('#guest-form').parsley().isValid()) return;
+			$('#guest-form').parsley().validate();
+			if(!$('#guest-form').parsley().isValid()) return;
 			var form = this.getFormData('#guest-form');
 			var tpl = _.template('<%=email%>');
 			$('#signin-panel .step-data').html(tpl(form));
@@ -141,8 +149,8 @@ var checkout = checkout || {};
 		checkShipping: function(e) {
 			e.preventDefault();
 
-            // $('#shipping-address-form').parsley().validate();
-            // if(!$('#shipping-address-form').parsley().isValid()) return;            		
+            $('#shipping-address-form').parsley().validate();
+            if(!$('#shipping-address-form').parsley().isValid()) return;            		
  			var form = this.getFormData('#shipping-address-form');
  			if(typeof form.state == 'undefined') form.state = 'CA';
 			if(typeof form.country == 'undefined') form.country = 'US'; 			

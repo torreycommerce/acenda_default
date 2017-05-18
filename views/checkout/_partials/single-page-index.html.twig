@@ -21,8 +21,6 @@
 
 	  .checkoutapp #checkout-steps label {
 	  	 font-size: 12px;
-
-
 	  }  
 	  .checkoutapp  .panel-title {
 	  	 font-weight: bold;	  	
@@ -38,8 +36,19 @@
 	  }
 	  .checkoutapp .btn-edit {
 	  	  display:none;
-
 	  }
+	  #guest-form > div > span {
+     	  margin-right: 0.5em;
+	  }
+      #checkout-cards .checkout-card {
+      	margin: 0px;
+      	padding: 0px;
+      }
+      #checkout-cards .col-thin {
+      	max-width: 60px;
+      	margin: 0px;
+      	padding: 0px;
+      }      
 	</style>
 
 	<div class="checkoutapp">
@@ -171,8 +180,7 @@
 
 
 {% block js %}
-    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}
-		    
+    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/product.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/variant.js') }}           	

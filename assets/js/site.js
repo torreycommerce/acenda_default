@@ -181,13 +181,13 @@ $(document).ready(function () {
 					if ($.inArray(elem[0].type, limit_feed) >= 0){
 					  if (elem.parent().find(".fa"))
 						  elem.parent().find(".fa").remove();
-					  elem.after('<span class="fa fa-remove form-control-feedback"></span>');
+					  elem.after('<span class="fa fa-exclamation-triangle form-control-feedback"></span>');
 					}
 
 					elem.attr("data-original-title", elem[0].validationMessage);
-					elem.tooltip("show");
+					//elem.tooltip("show");
 				},
-				onFieldSuccess: function ( elem, constraints, ParsleyField ) {
+				onFieldSuccess: function ( elem, constraints, ParsleyField ) {					
 					if (!elem.parents('.form-group').hasClass('has-feedback'))
 						elem.parents('.form-group').addClass('has-feedback');
 					if ($.inArray(elem[0].type, limit_feed) >= 0){
@@ -196,7 +196,7 @@ $(document).ready(function () {
 					  elem.after('<span class="fa fa-ok form-control-feedback"></span>');
 					}
 
-					elem.tooltip("destroy");
+					//elem.tooltip("destroy");
 				}
 			}
 		});
