@@ -2,28 +2,24 @@ var checkout = checkout || {};
 
 (function ($) {	
 	'use strict';
-
-
 	 checkout.SummaryView = Backbone.View.extend({
 		el: '.checkoutapp #summary-panel',
 		events: {
 
 		},
 		initialize: function () {
-				var fixSummaryHeight = function() {
-					if($('#checkout-left').height() > $('#summary-panel').height()) {
-					    $('#checkout-right').height($('#checkout-left').height());
-		     		} else {
-		     	        $('#checkout-right').height($('#summary-panel').height());		
-		     		}
-				    $(document.body).trigger("sticky_kit:recalc");				
-					setTimeout(fixSummaryHeight,1000);		    	
-				}
-     		    fixSummaryHeight();
+			var fixSummaryHeight = function() {
+				if($('#checkout-left').height() > $('#summary-panel').height()) {
+				    $('#checkout-right').height($('#checkout-left').height());
+					} else {
+				        $('#checkout-right').height($('#summary-panel').height());		
+					}
+			    $(document.body).trigger("sticky_kit:recalc");				
+				setTimeout(fixSummaryHeight,1000);		    	
+			}
+			fixSummaryHeight();
 
-		      this.$el.stick_in_parent({recalc_every: 1});
-		
-			    
+		    this.$el.stick_in_parent({recalc_every: 1});		    
 		},
 		render: function () {
 

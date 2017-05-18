@@ -15,7 +15,7 @@
 	  }
 	  .checkoutapp #checkout-steps .step-data {
 	  	 font-size: 14px;
-	  	 margin-left: 20px;
+	  	 margin-left: 0px;
 	  	 margin-top: 10px;
 	  }
 
@@ -171,11 +171,14 @@
 
 
 {% block js %}
-    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}
+		    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/product.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/variant.js') }}           	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/cart.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/shippingcountries.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/shippingstates.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/summary-view.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/checkout-view.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/checkoutbb.js') }}
