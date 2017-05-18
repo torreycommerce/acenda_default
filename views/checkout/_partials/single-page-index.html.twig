@@ -7,7 +7,7 @@
 	    border: 1px solid black;
 	    text-transform: none;
 	  }
-	  .checkoutapp #checkout-steps h3 {
+	  .checkoutapp  h3 {
 	  	 color: #777;
 	  	 font-size: 16.8px;
 	  	 font-weight: bold;
@@ -36,6 +36,10 @@
 	  .checkoutapp #billing-address {
 	  		margin-top: 20px;
 	  }
+	  .checkoutapp .btn-edit {
+	  	  display:none;
+
+	  }
 	</style>
 
 	<div class="checkoutapp">
@@ -46,11 +50,11 @@
 					        <div id="signin-panel" class="panel-heading">
 					            <h4 class="panel-title">
 					                1. Sign In
-									<button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseSignIn">Edit</button>						                
+									<button id="btn-edit-signin" class="btn btn-default pull-right btn-edit" data-parent="#checkout-steps" >Edit</button>						                
 					            </h4>
-					            <div class="step-data">automatic.anderson@gmail.com</div>
+					            <div class="step-data"></div>
 					        </div>
-					        <div id="collapseSignIn" class="panel-collapse collapse in">
+					        <div id="collapseSignIn" class="panel-collapse collapse">
 					            <div class="panel-body">
 	                                 {% include "/checkout/_partials/single-page-steps/signin.html.twig" %}
 					            </div>
@@ -60,7 +64,7 @@
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
 					                2. Shipping Address
-					                <button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShipping">Edit</button>					                
+					                <button id="btn-edit-shipping" class="btn btn-default pull-right btn-edit" data-parent="#checkout-steps" >Edit</button>					                
 					            </h4>
 					            <div class="step-data"></div>					            
 					        </div>
@@ -70,11 +74,11 @@
 					            </div>
 					        </div>
 					    </div>
-					    <div id="shipping-panel" class="panel panel-default">
+					    <div id="shipping-method-panel" class="panel panel-default">
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
 					                3. Shipping Method
-									<button  class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapseShippingMethod">Edit</button>					                
+									<button id="btn-edit-shipping-method" class="btn btn-default pull-right btn-edit" data-parent="#checkout-steps">Edit</button>					                
 					            </h4>
 					            <div class="step-data"></div>					            
 					        </div>
@@ -84,11 +88,11 @@
 					            </div>
 					        </div>
 					    </div>					    
-					    <div id="billing-panel" class="panel panel-default">
+					    <div id="payment-panel" class="panel panel-default">
 					        <div class="panel-heading">
 					            <h4 class="panel-title">
 					                4. Payment
-									<button class="btn btn-default pull-right btn-edit" data-toggle="collapse" data-parent="#checkout-steps" href="#collapsePayment">Edit</button>						                
+									<button id="btn-edit-payment" class="btn btn-default pull-right btn-edit" data-parent="#checkout-steps">Edit</button>						                
 					            </h4>
 					            <div class="step-data"></div>					            
 					        </div>
@@ -116,25 +120,63 @@
 				<div id="checkout-right" class="col-md-4">
 					<div id="summary-panel" class="panel panel-default" style="min-height: 200px">
 						<div class="panel-heading"><h4 class="panel-title">Order Summary</h4></div>
-						<div class="panel-body">
-							
+						<div class="panel-body fsd1" >
+							<h3>Items (<span id="num-items"></span>):</h3>
+								<div id="item-list" >
+
+								</div>
+							<hr/>
+							<div id="totals">
+
+							</div>
+
 						</div>
 					</div>
 				</div>					
 			</div>
-
 	</div> 
-	<div style="display:none" id="summary-template">
-		SUMMARY!
-	</div>
 
+	<script id="summary-item-template" type="text/template">
+		<div class="divide g p pad-b">
+			<div class="media">
+				<div class="media-left">
+					<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="<%= variant.get('thumbnail') %>" width="250" height="250" alt="">
+				</div>
+				<div class="media-body">
+					<div class="name"><%= variant.get('name') %></div>
+						<div class="availability">
+							<span><%= availability %> </span>
+						</div>
+					<div class="qty">Qty: <%= item.quantity %> </div>
+					<div class="pricing"><div class="price">Price: <span class="dollar-sign">$</span><%= variant.get('price') %> <span class="each">each</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script id="summary-totals-template" type="text/template">
+		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('subtotal') %></span></div>
+
+		<% if(cart.get('tax')) { %>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('tax') %></span></div>
+		<% } %>
+
+		<% if(cart.get('shipping_rate')) { %>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('shipping_rate') %></span></div>
+		<% } %>
+		<div class="amount col-xs-7">Total:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= (parseInt(cart.get('subtotal')) + parseInt(cart.get('shipping_rate')) ).toPrecision(4) %></span></div>
+
+	</script>
 {% endblock %}
 
 
 {% block js %}
     {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	
-    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}		
-    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/cart.js') }}	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/product.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/variant.js') }}           	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/cart.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/summary-view.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/checkout-view.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/checkoutbb.js') }}
 {% endblock %}

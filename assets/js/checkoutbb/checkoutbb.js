@@ -1,6 +1,7 @@
 var checkout = checkout || {};
+var co = {};
 
 $(function () {
-	'use strict';
-	new checkout.CheckoutView();
+	'use strict';	
+	co =new checkout.CheckoutView();
 });
