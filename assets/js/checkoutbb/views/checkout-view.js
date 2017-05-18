@@ -54,17 +54,15 @@ var checkout = checkout || {};
 		    
 		    if(this.shipping_countries !==null) {
 				this.shipping_countries.each(function (country) {
-					var tpl = _.template('<option value="<%=country.get("value")%>"><%=country.get("label")%></option>');
-	               $('#shipping-country').append(tpl({country:country}));
-
+					var tpl = _.template('<option <%= (country.get("value") == "US")?"selected":""%> value="<%=country.get("value")%>"><%=country.get("label")%></option>');
+	                $('#shipping-country').append(tpl({country:country}));
 				});
 			}
 
 		    if(this.shipping_states !== null) {
 				this.shipping_states.each(function (state) {
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
-	               $('#shipping-state').append(tpl({state:state}));
-
+	                $('#shipping-state').append(tpl({state:state}));
 				});
 			}
 
@@ -80,6 +78,7 @@ var checkout = checkout || {};
 			this.shipping_countries.fetch({success: function() {
                 $('#shipping-country').html('');				
 				that.render();
+				that.getShippingStates();
 			}});
 		},
 		getShippingStates: function() {
