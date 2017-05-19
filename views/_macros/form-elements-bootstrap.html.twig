@@ -18,7 +18,7 @@
 {% spaceless %}
     {% import _self as elements %}
 
-    <input type="{{ type }}" name="{{ name }}" value="{{ value }}" data-metatype="{{ metatype }}" data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" {{ elements._attrHtml(attributes) }}>
+    <input type="{{ type }}" name="{{ name }}" value="{{ value }}" data-metatype="{{ metatype }}" data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" {{ elements._attrHtml(attributes) }}>
 {% endspaceless %}
 {% endmacro %}
 
@@ -27,7 +27,7 @@
     {# {{ element.textarea('textarea','my default value',{'title':'A Textarea','placeholder':'My Placeholder'}) }} #}
     {% import _self as elements %}
 
-    <textarea data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" name="{{ name }}" {{ elements._attrHtml(attributes) }}>{{ value }}</textarea>
+    <textarea data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" name="{{ name }}" {{ elements._attrHtml(attributes) }}>{{ value }}</textarea>
 {% endspaceless %}
 {% endmacro %}
 
@@ -36,7 +36,7 @@
     {# {{ element.select('test_select','default',{'test':'This is a test','default':'This is my default'}) }} #}
     {% import _self as elements %}
 
-    <select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" name="{{ name }}" {{ elements._attrHtml(attributes) }}>
+    <select data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" name="{{ name }}" {{ elements._attrHtml(attributes) }}>
         {% for key,item in options %}
             <option value="{{key|e}}"{% if key == value %} selected="selected"{% endif %}>{{item}}</option>
         {% endfor %}
@@ -50,7 +50,7 @@
     {# {{ element.multiselect('test_multiselect', ['default','test'], {'test':'This is a test','default':'This is my default'}) }} #}
     {% import _self as elements %}
 
-    <select data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" multiple name="{{ name }}" {{ elements._attrHtml(attributes) }}>
+    <select data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" multiple name="{{ name }}" {{ elements._attrHtml(attributes) }}>
     {% for key,item in options %}
         <option value="{{key|e}}"{% if key in value %} selected="selected"{% endif %}>{{ item }}</option>
     {% endfor %}
@@ -64,7 +64,7 @@
     {# {{ element.radio('radio','john',{'john':'This is john','bob':'This is bob'}) }} #}
     {% import _self as elements %}
 
-    <input data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="radio" name="{{ name }}" value="{{ key|e }}" {{ elements._attrHtml(attributes) }}>
+    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="radio" name="{{ name }}" value="{{ key|e }}" {{ elements._attrHtml(attributes) }}>
 {% endspaceless %}
 {% endmacro %}
 
@@ -75,7 +75,7 @@
     {% import _self as elements %}
 
     <input type="hidden" name="{{ name }}" value="">
-    <input data-tooltip="" data-placement="bottom" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
+    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
 {% endspaceless %}
 {% endmacro %}
 

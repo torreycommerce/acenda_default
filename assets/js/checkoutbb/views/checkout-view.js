@@ -8,7 +8,7 @@ var checkout = checkout || {};
 		cart: new checkout.Cart(),
 		shipping_countries: null,
 		shipping_states: null,		
-		checkoutSteps: [
+		checkout_steps: [
 		    {name: 'signin', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false},
 		    {name: 'shipping', collapse: '#collapseShipping', edit: '#btn-edit-shipping' , completed: false, open: false},
 		    {name: 'shipping-method', collapse: '#collapseShippingMethod', edit: '#btn-edit-shipping-method' , completed: false, open: false},
@@ -35,7 +35,7 @@ var checkout = checkout || {};
 			    }
 			}); 
 
-			_.each(this.checkoutSteps,function(step,k){ 
+			_.each(this.checkout_steps,function(step,k){ 
 				$(step.edit).click(function() {
 					that.gotoStep(step.name);
 				})
@@ -44,7 +44,7 @@ var checkout = checkout || {};
 		},
 		render: function () {
 			$('.btn-edit').css({display: 'none'});
-			_.each(this.checkoutSteps,function(step){ 
+			_.each(this.checkout_steps,function(step){ 
 				 if(step.completed && !step.open) {
 				 	 $(step.edit).show();
 				 } else {
@@ -52,7 +52,7 @@ var checkout = checkout || {};
 				 }
 			});
 		    
-		    if(this.shipping_countries !==null) {
+		    if(this.shipping_countries !==null && $('#shipping-country').children().length<2 ) {
 				this.shipping_countries.each(function (country) {
 					var currentCountry = $('#shipping-country').val();
 					if(!currentCountry) currentCountry='US';
@@ -61,7 +61,7 @@ var checkout = checkout || {};
 				});
 			}
 
-		    if(this.shipping_states !== null) {
+		    if(this.shipping_states !== null && $('#shipping-state').children().length<2 ) {
 				this.shipping_states.each(function (state) {
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#shipping-state').append(tpl({state:state}));
@@ -84,7 +84,7 @@ var checkout = checkout || {};
 			var that = this;			
 			this.shipping_countries = new checkout.ShippingCountries();
 			this.shipping_countries.fetch({success: function() {
-                $('#shipping-country').html('');				
+                $('#shipping-country').html('<option disabled selected>Select a Country</option>');				
 				that.render();
 				that.getShippingStates();
 			}});
@@ -93,7 +93,7 @@ var checkout = checkout || {};
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
 			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
-		    $('#shipping-state').html('');				
+		        $('#shipping-state').html('<option disabled selected>Select a State</option>');				
 				that.render();
 			}});
 		},		
@@ -108,7 +108,7 @@ var checkout = checkout || {};
 		// util method for finding the index of a checkout step
 		findStep: function(name) {
 			var whichStep=-1;
-			_.each(this.checkoutSteps,function(step,k){ 
+			_.each(this.checkout_steps,function(step,k){ 
 			    if(step.name==name) {
 				    whichStep=k;
 				}
@@ -118,12 +118,12 @@ var checkout = checkout || {};
 		// open the checkout step and close others. Also deal with edit buttons and step data
 		gotoStep: function(name) {
 			var that = this;
-			_.each(this.checkoutSteps,function(step,k){
+			_.each(this.checkout_steps,function(step,k){
 				$(step.collapse).collapse('hide');
 				$('#'+step.name+'-panel .step-data').show();
-				that.checkoutSteps[k].open=false;
+				that.checkout_steps[k].open=false;
 				if(step.name==name) {
-				    that.checkoutSteps[k].open=true;					
+				    that.checkout_steps[k].open=true;					
 					$(step.collapse).collapse('show');
 			     	$('#'+step.name+'-panel .step-data').hide();	
 
@@ -142,7 +142,7 @@ var checkout = checkout || {};
 			var tpl = _.template('<%=email%>');
 			$('#signin-panel .step-data').html(tpl(form));
  
-			this.checkoutSteps[this.findStep('signin')].completed=true;
+			this.checkout_steps[this.findStep('signin')].completed=true;
 			this.gotoStep('shipping');
 			return false;
 		},
@@ -158,7 +158,7 @@ var checkout = checkout || {};
 			$('#shipping-panel .step-data').html(tpl(form));
 
 
-			this.checkoutSteps[this.findStep('shipping')].completed=true;
+			this.checkout_steps[this.findStep('shipping')].completed=true;
 			this.gotoStep('shipping-method');
 			return false;
 		},
@@ -166,7 +166,7 @@ var checkout = checkout || {};
 			e.preventDefault();
 
  
-			this.checkoutSteps[this.findStep('shipping-method')].completed=true;
+			this.checkout_steps[this.findStep('shipping-method')].completed=true;
 			this.gotoStep('payment');
 			return false;
 		},
@@ -174,14 +174,32 @@ var checkout = checkout || {};
 			e.preventDefault();
 
  
-			this.checkoutSteps[this.findStep('payment')].completed=true;
+			this.checkout_steps[this.findStep('payment')].completed=true;
 			this.gotoStep('review');
             $("html, body").animate({ scrollTop: 0 }, "slow");			
 			return false;
 		},
 		placeOrder: function(e) {
 			e.preventDefault();
+			$('#checkout-steps').fadeOut();
+			$('#summary-panel').fadeOut();			
+			$('#processing').slideDown();
 
+		    var checkoutProcessPercent = 0;
+
+		    function checkoutProgressbar() {
+		        setTimeout(function () {
+		            console.log(checkoutProcessPercent);
+		            var percent = Math.ceil(checkoutProcessPercent*100);
+		            $("#checkout_process_percent").width(percent+"%");
+		            $("#checkout_process_percent_text").text(percent+"% Complete")
+		            if(checkoutProcessPercent < 1) {
+		                checkoutProgressbar();
+		                checkoutProcessPercent += 0.01;
+		            }
+		        }, 100);
+		    }
+		    checkoutProgressbar();
 
 			return false;
 		},

@@ -39,20 +39,30 @@
 	  }
 	  #guest-form > div > span {
      	  margin-right: 0.5em;
-	  }
-      #checkout-cards .checkout-card {
-      	margin: 0px;
-      	padding: 0px;
-      }
-      #checkout-cards .col-thin {
-      	max-width: 60px;
-      	margin: 0px;
-      	padding: 0px;
-      }      
+	  }  
+	  #processing-panel {
+   	  	 margin: auto;
+  		 padding: 20px;
+  		 background-color: #eee;
+  		 color: black;
+  		 border: 1px solid #ddd;
+  		 text-align: center;
+  		 width: 75%;
+	  }  
 	</style>
 
 	<div class="checkoutapp">
-			<div class="row">
+			<div id="processing" style="display:none">
+				<div class="jumbotron" id="processing-panel">
+				        <p>Please wait while your order is being processed...</p>
+				        <div class="progress">
+				          <div id="checkout_process_percent" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+				            <span id="checkout_process_percent_text" class="sr-only">0% Complete</span>
+				          </div>
+				        </div>
+				 </div>
+			</div>		
+			<div class="row">				
 				<div id="checkout-left" class="col-md-8">
 					<div id="checkout-steps" class="panel-group">
 					    <div class="panel panel-default">
@@ -130,7 +140,7 @@
 					<div id="summary-panel" class="panel panel-default" style="min-height: 200px">
 						<div class="panel-heading"><h4 class="panel-title">Order Summary</h4></div>
 						<div class="panel-body fsd1" >
-							<h3>Items (<span id="num-items"></span>):</h3>
+							<h3>Items (<span id="num-items"></span>)</h3>
 								<div id="item-list" >
 
 								</div>
@@ -166,14 +176,14 @@
 	<script id="summary-totals-template" type="text/template">
 		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('subtotal') %></span></div>
 
-		<% if(cart.get('tax')) { %>
+		<% if(cart.get('tax') && steps[1].completed) { %>
 			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('tax') %></span></div>
 		<% } %>
 
-		<% if(cart.get('shipping_rate')) { %>
+		<% if(cart.get('shipping_rate') && steps[1].completed) { %>
 			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('shipping_rate') %></span></div>
 		<% } %>
-		<div class="amount col-xs-7">Total:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= (parseInt(cart.get('subtotal')) + parseInt(cart.get('shipping_rate')) ).toPrecision(4) %></span></div>
+		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.get('subtotal')) + parseInt(cart.get('shipping_rate')) ).toPrecision(4) %></strong></span></div>
 
 	</script>
 {% endblock %}

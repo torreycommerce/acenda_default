@@ -185,7 +185,7 @@ $(document).ready(function () {
 					}
 
 					elem.attr("data-original-title", elem[0].validationMessage);
-					//elem.tooltip("show");
+					elem.tooltip("show");
 				},
 				onFieldSuccess: function ( elem, constraints, ParsleyField ) {					
 					if (!elem.parents('.form-group').hasClass('has-feedback'))
@@ -196,7 +196,7 @@ $(document).ready(function () {
 					  elem.after('<span class="fa fa-ok form-control-feedback"></span>');
 					}
 
-					//elem.tooltip("destroy");
+					elem.tooltip("destroy");
 				}
 			}
 		});

@@ -18,7 +18,6 @@ var checkout = checkout || {};
 				setTimeout(fixSummaryHeight,1000);		    	
 			}
 			fixSummaryHeight();
-
 		    this.$el.stick_in_parent({recalc_every: 1});		    
 		},
 		render: function () {
@@ -40,7 +39,8 @@ var checkout = checkout || {};
 	    		});
 
 				that.$el.find('#item-list').append(totalsTemplate({
-					cart: co.cart
+					cart: co.cart,
+					steps: co.checkout_steps
 				}));
 
 		    }
