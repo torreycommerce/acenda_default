@@ -104,6 +104,12 @@ var checkout = checkout || {};
 		    	}});
 		    }});	
 		},
+		reloadToolbar: function() {
+			console.log('reload toolbar');
+			$.get(acendaBaseUrl+'/account/toolbar', function(data) {
+				$('.toolbarajax').html(data);
+		    });
+		},
 		getShippingCountries: function() {
 			var that = this;			
 			this.shipping_countries = new checkout.ShippingCountries();
@@ -310,8 +316,8 @@ var checkout = checkout || {};
 					checkoutProcessPercent = 1;
                     $('.checkoutapp #processing').slideUp();
                     $('.checkoutapp #thankyou').slideDown();   
-					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'},function() {
-
+					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).success(function() {
+ 						that.reloadToolbar();
 					});
 				}).error(function(response) {
 

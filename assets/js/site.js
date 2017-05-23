@@ -407,7 +407,7 @@ $(document).ready(function() {
 	    cache: false
 	});	
 	$.get(acendaBaseUrl+'/account/toolbar', function(data) {
-		$('.toolbarajax').replaceWith(data);
+		$('.toolbarajax').html(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//
