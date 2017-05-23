@@ -39,7 +39,7 @@ var checkout = checkout || {};
 	    		});
 
 				that.$el.find('#item-list').append(totalsTemplate({
-					cart: co.cart,
+					cart: co.cart.toJSON(),
 					steps: co.checkout_steps
 				}));
 

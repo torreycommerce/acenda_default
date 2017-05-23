@@ -1,3 +1,7 @@
+{% if cart.items is empty %}
+		{{ app.redirect('/cart') }}
+{% endif %}
+
 {% block content %}
 
 	<style>
@@ -48,10 +52,27 @@
   		 border: 1px solid #ddd;
   		 text-align: center;
   		 width: 75%;
-	  }  
+	  } 
+	  #thanks-panel {
+   	  	 margin: auto;
+  		 padding: 20px;
+  		 background-color: #eee;
+  		 color: green;
+  		 border: 1px solid #ddd;
+  		 text-align: center;
+  		 width: 75%;
+	  } 	  
+	  #review-panel #error-text {
+	   	color: red;
+	  } 
 	</style>
 
 	<div class="checkoutapp">
+    		<div id="thankyou" style="display:none">
+				<div class="jumbotron" id="thanks-panel">
+				        <p>THANKS!</p>
+				 </div>
+	    	</div>
 			<div id="processing" style="display:none">
 				<div class="jumbotron" id="processing-panel">
 				        <p>Please wait while your order is being processed...</p>
@@ -174,27 +195,51 @@
 		</div>
 	</script>
 	<script id="summary-totals-template" type="text/template">
-		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('subtotal') %></span></div>
+		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.subtotal %></span></div>
 
-		<% if(cart.get('tax') && steps[1].completed) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('tax') %></span></div>
+		<% if(cart.tax && steps[1].completed) { %>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.tax %></span></div>
 		<% } %>
 
-		<% if(cart.get('shipping_rate') && steps[1].completed) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.get('shipping_rate') %></span></div>
+		<% if(cart.shipping_rate && steps[1].completed) { %>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.shipping_rate %></span></div>
 		<% } %>
-		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.get('subtotal')) + parseInt(cart.get('shipping_rate')) ).toPrecision(4) %></strong></span></div>
+		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.subtotal) + parseInt(cart.shipping_rate) ).toPrecision(4) %></strong></span></div>
 
+	</script>
+
+	<script id="shipping-methods-template" type="text/template">
+		<table  class="table table-responsive">
+		<thead>
+	        <tr>
+			    <th>Method</th>
+				<th>Estimated Arrival</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% var first=true; _.each(methods,function(method) { %>
+			    <tr>
+			        <td><input <%= first?'checked':''  %><% first=false; %> type="radio" id="method_<%= method.id %>_input" name="shippingmethod" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
+			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
+			        <td><label for="method_<%= method.id %>_input"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></label></td>
+			    </tr>
+		    <% }) %>
+		</tbody>
+		</table>
 	</script>
 {% endblock %}
 
 
 {% block js %}
-    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	    
+    {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/customer.js') }}	        
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/product.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/variant.js') }}           	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/cart.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/customeraddresses.js') }} 
+    {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/shippingmethods.js') }}       
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/shippingcountries.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/collections/shippingstates.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/summary-view.js') }}    

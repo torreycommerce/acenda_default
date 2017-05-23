@@ -4,33 +4,33 @@
 		<div class="col-xs-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="first-name">First Name</label>
-				{{ forms.text('first_name', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
+				{{ forms.text('shipping_first_name', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
 			</div>
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="last-name">Last Name</label>
-				{{ forms.text('last_name', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
+				{{ forms.text('shipping_last_name', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'last_name') }}</div>
 			</div>
 		</div>
 	</div>
 	<div class="form-group fgq normalizable">
 		<label class="control-label" for="addr-1">Address 1</label>
-		{{ forms.text('street_line_1', address[name ~ 'street_line1'], {class:'form-control parsley-validated', id:'addr-1', placeholder:"Address 1", required:true}) }}
+		{{ forms.text('shipping_street_line1', address[name ~ 'street_line1'], {class:'form-control parsley-validated', id:'addr-1', placeholder:"Address 1", required:true}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
 	</div>
 	<div class="form-group normalizable">
 		<label class="control-label" for="addr-2">Address 2</label>
-		{{ forms.text( 'street_line_2', address[name ~ 'street_line2'], {class:'form-control parsley-validated', id:'addr-2', placeholder:"Address 2"}) }}
+		{{ forms.text( 'shipping_street_line2', address[name ~ 'street_line2'], {class:'form-control parsley-validated', id:'addr-2', placeholder:"Address 2"}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="country">Country</label>
-				{{ forms.select('country', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'shipping-country'}) }}
+				{{ forms.select('shipping_country', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'shipping-country'}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'country') }}</div>
 			</div>
 		</div>
@@ -39,14 +39,14 @@
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="city">City</label>
-				{{ forms.text('city', address[name ~ 'city'], {class:'form-control parsley-validated', id:'city', placeholder:"City", required:true}) }}
+				{{ forms.text('shipping_city', address[name ~ 'city'], {class:'form-control parsley-validated', id:'city', placeholder:"City", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
 			</div>
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" id="state-label" for="state">State</label>
-                {{ forms.select('state', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'shipping-state'}) }}
+                {{ forms.select('shipping_state', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'shipping-state'}) }}
                 <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
 			</div>
 		</div>
@@ -55,18 +55,28 @@
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="zip"><span class="postziplang">Zip Code</span></label>
-				{{ forms.text('zip', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
+				{{ forms.text('shipping_zip', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 			</div>
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="phone">Phone Number</label>
-				{{ forms.text('phone_number', address[name ~ 'phone_number'], {class:'form-control parsley-validated', id:'phone', placeholder:"Phone Number", required: true}) }}
+				{{ forms.text('shipping_phone_number', address[name ~ 'phone_number'], {class:'form-control parsley-validated', id:'phone', placeholder:"Phone Number", required: true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'phone_number') }}</div>
 			</div>
 		</div>
 	</div>
+
+    <div class="row">
+    	<div class="col-xs-12">
+			<div class="form-group">
+					<div class="checkbox">
+					  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Shipping Address is the same as the Billing Address</label>
+					</div>
+			</div>
+		</div>
+    </div>
 	<div class="row">
 		<div class="col-md-12">
 				<button id="btn-continue-shipping" class="btn btn-primary  pull-right">Continue</button>
