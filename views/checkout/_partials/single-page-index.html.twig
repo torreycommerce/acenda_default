@@ -52,27 +52,19 @@
   		 border: 1px solid #ddd;
   		 text-align: center;
   		 width: 75%;
-	  } 
-	  #thanks-panel {
-   	  	 margin: auto;
-  		 padding: 20px;
-  		 background-color: #eee;
-  		 color: green;
-  		 border: 1px solid #ddd;
-  		 text-align: center;
-  		 width: 75%;
-	  } 	  
+	  }   
 	  #review-panel #error-text {
 	   	color: red;
 	  } 
+	  #signin-error {
+	  	 color: red;
+	  }
 	</style>
+	<div id="thankyou" style="display:none">
 
+	</div>
 	<div class="checkoutapp">
-    		<div id="thankyou" style="display:none">
-				<div class="jumbotron" id="thanks-panel">
-				        <p>THANKS!</p>
-				 </div>
-	    	</div>
+
 			<div id="processing" style="display:none">
 				<div class="jumbotron" id="processing-panel">
 				        <p>Please wait while your order is being processed...</p>
@@ -158,18 +150,40 @@
 					</div>
 				</div>
 				<div id="checkout-right" class="col-md-4">
-					<div id="summary-panel" class="panel panel-default" style="min-height: 200px">
-						<div class="panel-heading"><h4 class="panel-title">Order Summary</h4></div>
-						<div class="panel-body fsd1" >
-							<h3>Items (<span id="num-items"></span>)</h3>
-								<div id="item-list" >
+					<div id="summary-panel" style="min-height: 200px">
+						<div class="panel panel-default" >
+							<div class="panel-heading"><h4 class="panel-title">Order Summary</h4></div>
+							<div class="panel-body fsd1" >
+								<h3>Items (<span id="num-items"></span>)</h3>
+									<div id="item-list" >
+
+									</div>
+								<hr/>
+								<div id="totals-section">
 
 								</div>
-							<hr/>
-							<div id="totals">
 
 							</div>
+						</div>
 
+						<div class="panel panel-default">
+							<div class="panel-body fsd1">
+								<form name="coupon">
+									<div class="form-group">
+										<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
+										<div class="row">
+											<div class="col-xs-6 col-sm-7">
+												{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
+											</div>
+											<div class="col-xs-6 col-sm-5">
+												<button id="checkout_enter_coupon" class="btn btn-primary">Apply</button>
+
+											</div>
+										</div>
+										<div id="enter_coupon_validation"></div>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>					
@@ -185,7 +199,7 @@
 				<div class="media-body">
 					<div class="name"><%= variant.get('name') %></div>
 						<div class="availability">
-							<span><%= availability %> </span>
+							<span>In Stock</span>
 						</div>
 					<div class="qty">Qty: <%= item.quantity %> </div>
 					<div class="pricing"><div class="price">Price: <span class="dollar-sign">$</span><%= variant.get('price') %> <span class="each">each</span></div>
@@ -201,10 +215,10 @@
 			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.tax %></span></div>
 		<% } %>
 
-		<% if(cart.shipping_rate && steps[1].completed) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.shipping_rate %></span></div>
+		<% if(cart.shipping_rate ) { %>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseInt(cart.shipping_rate).toFixed(2) %></span></div>
 		<% } %>
-		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.subtotal) + parseInt(cart.shipping_rate) ).toPrecision(4) %></strong></span></div>
+		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.subtotal) + parseInt(cart.shipping_rate) ).toFixed(2) %></strong></span></div>
 
 	</script>
 
@@ -220,7 +234,7 @@
 		<tbody>
 			<% var first=true; _.each(methods,function(method) { %>
 			    <tr>
-			        <td><input <%= first?'checked':''  %><% first=false; %> type="radio" id="method_<%= method.id %>_input" name="shippingmethod" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
+			        <td><input <%= first?'checked':''  %><% first=false; %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
 			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
 			        <td><label for="method_<%= method.id %>_input"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></label></td>
 			    </tr>
@@ -228,6 +242,113 @@
 		</tbody>
 		</table>
 	</script>
+
+	<script id="thank-you-template" type="text/template">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Thank You, your order has been placed!</h3>
+				<p>We have sent you an e-mail confirmation.</p>
+				{% if request.customer_id is defined %}
+					<div>
+						<a href="<%= acendaBaseUrl %>/account/order/<%= order.order_number %>">Order: #<%= order.order_number %></a>
+					</div>
+					<div>Order Placed: <%= order.date_created %></div>
+				{% else %}
+					<form name="order", action="<%= acendaBaseUrl %>/order", method="POST", class="" id="view-order">
+						<input type="hidden" name="order[id]" value="{{ order.order_number }}" />
+						<input type="hidden" name="order[email]" value="{{ order.email}}" />
+						<a href="javascript: $('form#view-order').submit();">Order: #<%= order.order_number %></a>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading">Items Ordered</div>
+            <div class="panel-body">
+
+            		!! NEED TO DO ITEMS STUFF
+
+            </div>
+        </div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="fsd1 p">
+					<div class="row">
+						<div class="col-xs-12 col-sm-8 col-md-7 col-lg-8">
+							<div class="row">
+								<div class="col-xs-12 col-md-6">
+									<div class="shipping-address p">
+										<div><strong>Shipping Address:</strong></div>
+										<div class="address">
+											<div class="name"><%= order.shipping_first_name %> <%= order.shipping_last_name %></div>
+											<div class="address1"><%= order.shipping_street_line1 %></div>
+											<div class="city-state"><%= order.shipping_city %>, <%= order.shipping_state %> <%= order.shipping_zip %></div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-6">
+									<% if(order.billing_first_name) {{ '{' }} %>
+										<div class="billing-address p">
+											<div><strong>Billing Address:</strong></div>
+											<div class="address">
+												<div class="name"><%= order.billing_first_name %> <%= order.billing_last_name %></div>
+												<div class="address1"><%= order.billing_street_line1 %></div>
+												<div class="city-state"><%= order.billing_city %>, <%= order.billing_state %> <%= order.billing_zip %></div>
+												<div class="billing-method">Card: <%= order.card_type %> | Last Digits <%= order.card_last4 %> </div>
+											</div>
+										</div>
+									<% {{ '}' }} %>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-5 col-lg-4">
+							<div class="order-totals">
+								<div class="row">
+									<div class="col-xs-8">Subtotal:</div>
+									<div class="col-xs-4 text-right">$<%= order.item_subtotal%></div>
+								</div>
+								<div class="row">
+									<div class="col-xs-8">Shipping:</div>
+									<div class="col-xs-4 text-right">$<%= order.shipping_rate %></div>
+								</div>
+								<% if(order.discount_price > 0 ) {{ '{' }} %>
+								<div class="row">
+									<div class="col-xs-8">Discount:</div>
+									<div class="col-xs-4 price-discount text-right">
+										-$<%= order.discount_price%>
+									</div>
+								</div>
+								<% {{ '}' }} %>
+								<div class="row">
+									<div class="col-xs-8">Total Before Tax:</div>
+									<div class="col-xs-4 text-right">$<%= parseInt(order.subtotal) + parseInt(order.shipping_rate)%></div>
+								</div>
+								<div class="row">
+									<div class="col-xs-8">Sales Tax:</div>
+									<div class="col-xs-4 text-right">$<%= order.tax %></div>
+								</div>
+								<div class="row">
+									<div class="col-xs-8">Total:</div>
+									<div class="col-xs-4 text-right">$<%= order.total %></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 p">
+				<a class="btn btn-xs-block btn-default" href="{{app.url}}">Continue Shopping</a>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 p">
+				<a href="#" class="btn btn-xs-block btn-default pull-right" onclick="window.print();return false;">Print Page</a>
+			</div>
+		</div>
+
+	</script>
+
 {% endblock %}
 
 

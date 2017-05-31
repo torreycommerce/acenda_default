@@ -28,7 +28,9 @@ var checkout = checkout || {};
 			'click #btn-continue-shipping-method' : 'checkShippingMethod',
 			'click #btn-continue-payment' : 'checkPayment',	
 			'click #btn-place-order' : 'placeOrder',
-			'change #shipping-country' : 'changedShippingCountry',											
+			'change #shipping-country' : 'changedShippingCountry',
+			'change #customer-addresses select' : 'changedSavedAddress',
+			'change #login-form input' : 'changedLogin'										
 		},
 		initialize: function () {
 			var that = this;
@@ -51,9 +53,9 @@ var checkout = checkout || {};
 				})
 			});
 
-			this.getCart();
-			this.getCustomer();
-			this.getShippingCountries();
+			this.fetchCart();
+			this.fetchCustomer();
+			this.fetchShippingCountries();
 		},
 		render: function () {
 			var that = this;
@@ -92,15 +94,26 @@ var checkout = checkout || {};
 			this.summaryView.render();
 		},
 		// Fetch current cart state
-		getCart: function () {   
+		fetchCart: function () {   
 		    this.cart.fetch();	
 		},
 		// Fetch current cart state
-		getCustomer: function () {   
+		fetchCustomer: function () {   
 			var that = this;				
 		    this.customer.fetch({error: function() {  that.gotoStep('signin'); that.logged_in=false;  },success: function(data) {
 		    	that.customer_addresses.fetch({success: function() {
                     that.logged_in=true; that.checkSignin();
+                    if(that.customer_addresses.length) {
+                    	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
+                    	$('[id=customer-addresses]').show();
+                    	$('#customer-addresses select').html('<option value selected >none</option>');
+                    	that.customer_addresses.each(function(addy){
+                    		console.log(addy);
+                    		$('#customer-addresses select').append(tpl(addy.toJSON()));
+                    	});
+                    } else {
+                    	$('[id=customer-addresses]').hide();
+                    }
 		    	}});
 		    }});	
 		},
@@ -110,16 +123,16 @@ var checkout = checkout || {};
 				$('.toolbarajax').html(data);
 		    });
 		},
-		getShippingCountries: function() {
+		fetchShippingCountries: function() {
 			var that = this;			
 			this.shipping_countries = new checkout.ShippingCountries();
 			this.shipping_countries.fetch({success: function() {
                 $('#shipping-country').html('<option disabled selected>Select a Country</option>');				
 				that.render();
-				that.getShippingStates();
+				that.fetchShippingStates();
 			}});
 		},
-		getShippingStates: function() {
+		fetchShippingStates: function() {
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
 			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
@@ -127,7 +140,7 @@ var checkout = checkout || {};
 				that.render();
 			}});
 		},
-		getShippingMethods: function() {
+		fetchShippingMethods: function() {
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
 			this.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
@@ -209,8 +222,31 @@ var checkout = checkout || {};
 			return checkoutForm;
 		},
 		changedShippingCountry: function() {
-			this.getShippingStates();
+			this.fetchShippingStates();
 		},
+		changedSavedAddress: function(e) {
+			console.log(e);
+			var val = $(e.target).val();
+			var current = (this.current_step == 'shipping')?'shipping':'billing';
+			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number'];
+
+			if(current !== 'shipping' && current !=='billing') return;
+
+			if(val) {
+				$('#'+current+ '-address-form .hide-shipping').slideUp();
+				var addy = this.customer_addresses.get(val);
+				_.each(copy_fields,function(field) {
+					$('[name=' + current + '_' + field +']').val(addy.get(field));
+
+				});
+			} else {
+				$('#'+current+ '-address-form .hide-shipping').slideDown();
+			}
+
+		},
+		changedLogin: function() {
+			$('#signin-error').html(' ');
+		},	
 		checkSignin: function(e) {
 			if(typeof e !== 'undefined') e.preventDefault();
 
@@ -236,6 +272,7 @@ var checkout = checkout || {};
 			return false;
 		},
 		checkShipping: function(e) {
+			var that = this;
 			e.preventDefault();
 			if(!this.validateStep('shipping')) return;
 
@@ -254,20 +291,31 @@ var checkout = checkout || {};
 			} else {
 				$('.checkoutapp #billing-address').show();
 			}
-			this.getShippingMethods();
+			this.fetchShippingMethods();
 			this.checkout_steps[this.findStep('shipping')].completed=true;
+			$.post(acendaBaseUrl + '/api/cart/checkout',form).done(function(response){
+				that.fetchCart();
+			});
+
+
 			this.gotoStep('shipping-method');
 			return false;
 		},
 		checkShippingMethod: function(e) {
+			var that = this;			
 			e.preventDefault();
 			if(!this.validateStep('shipping-method')) return;
   			var form = this.getFormData('#shipping-method-form');		
 			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<br/>$<%= method.price %>');
 
-			var method = this.shipping_methods.get(form.shippingmethod);
+			var method = this.shipping_methods.get(form.shipping_method);
 			$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));
 			this.checkout_steps[this.findStep('shipping-method')].completed=true;
+			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+				console.log('fetching cart')
+				that.fetchCart();
+			});
+	
 			this.gotoStep('payment');
 			return false;
 		},
@@ -290,11 +338,11 @@ var checkout = checkout || {};
 			$("#checkout_process_percent").removeClass("progress-bar-danger");
 			$(".checkoutapp #checkout_process_percent").width('0px');
 
-			$.post(acendaBaseUrl + '/api/order/place',form).success(function(response) {
+			$.post(acendaBaseUrl + '/api/order/place',form).done(function(response) {
 				console.log('success');
                  setTimeout(retryOrderProcess, 1000);				
 
-			}).error(function (response){
+			}).fail(function (){
                  setTimeout(retryOrderProcess, 1000);
 			});
 
@@ -312,15 +360,22 @@ var checkout = checkout || {};
 		    }
 			var retryOrderProcess = function() {
 
-				$.post(acendaBaseUrl + '/api/order/place',{api_unique_token: that.api_unique_token }).success(function(response) {
+				$.post(acendaBaseUrl + '/api/order/place',{api_unique_token: that.api_unique_token }).done(function(response) {
+
+					if(typeof response.result == 'undefined') {
+	                      checkoutProcessPercent += 0.05;
+					      setTimeout(retryOrderProcess, 2000);
+					      return;
+	                }
 					checkoutProcessPercent = 1;
+					var tpl = _.template($('#thank-you-template').html());
                     $('.checkoutapp #processing').slideUp();
-                    $('.checkoutapp #thankyou').slideDown();   
-					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).success(function() {
+                    $('#thankyou').html(tpl({order: response.result})).slideDown();   
+					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
  						that.reloadToolbar();
 					});
-				}).error(function(response) {
-
+				}).fail(function(response) {
+					response = response.responseJSON;
 	                if(response.code == 406) {
 	                      checkoutProcessPercent += 0.05;
 					      setTimeout(retryOrderProcess, 2000);
@@ -346,12 +401,23 @@ var checkout = checkout || {};
 			var that = this;
 			e.preventDefault();
 			var form = this.getFormData('#login-form');
-			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize(),function(response) {
-				if(response.code == 200) {
-					that.getCustomer();
-				} 
-			});
+            $('#signin-error').html('');
+            $('#btn-login-signin').attr('disabled',true);
+            var oldBtnText  = $('#btn-login-signin').html();
+            $('#btn-login-signin').html('<i class="fa fa-gear fa-spin"></i>');
 
+			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
+				if(response.code == 200) {
+					that.fetchCustomer();
+				} 				
+			}).fail(function(response){
+				console.log(response.responseJSON);
+				$('#signin-error').html(response.responseJSON.error.password[0]);
+
+			}).always(function() {
+                 $('#btn-login-signin').html(oldBtnText);
+                 $('#btn-login-signin').attr('disabled',false);
+			});
 			return false;
 		}	
 	});

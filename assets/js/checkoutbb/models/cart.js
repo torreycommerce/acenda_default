@@ -7,6 +7,7 @@ var checkout = checkout || {};
 		ready: false,
 		products: [],
 		variants: [],
+		defaults: {shipping_rate: 0.00},
 		parse: function(response) {
 			var that = this;
 			var obj = response.result;
