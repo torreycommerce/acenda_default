@@ -30,7 +30,8 @@ var checkout = checkout || {};
 			'click #btn-place-order' : 'placeOrder',
 			'change #shipping-country' : 'changedShippingCountry',
 			'change #customer-addresses select' : 'changedSavedAddress',
-			'change #login-form input' : 'changedLogin'										
+			'change #login-form input' : 'changedLogin'	,
+			'change input[name=shipping_method]' : 'changedShippingMethod',									
 		},
 		initialize: function () {
 			var that = this;
@@ -145,17 +146,16 @@ var checkout = checkout || {};
 			var tpl = _.template($('#shipping-methods-template').html());
 			this.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
 		        $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));
-		        var total = that.cart.get('subtotal');
+		        var total = that.cart.get('item_subtotal');
 		        var quantity = that.cart.get('item_count');
-
 
 		        that.shipping_methods.each(function(method,k){
 		        	$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: total,quantity: quantity}, function(response) {
 		        	    that.shipping_methods.at(k).set('price',response.result.rate);
-		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));			        	    
+		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));	              
 		        	})
 		        });		
-		        $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));		        	
+		        $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));		      		        	
 				that.render();
 			}});
 		},
@@ -224,6 +224,11 @@ var checkout = checkout || {};
 		changedShippingCountry: function() {
 			this.fetchShippingStates();
 		},
+		changedShippingMethod: function() {
+			var method = this.shipping_methods.get($('input[name=shipping_method]:checked').val());
+			this.cart.set('shipping_rate',method.get('price'));
+			this.summaryView.render();
+		},		
 		changedSavedAddress: function(e) {
 			console.log(e);
 			var val = $(e.target).val();
@@ -266,7 +271,6 @@ var checkout = checkout || {};
 			    var tpl = _.template('<%=email%>');				
     			$('#signin-panel .step-data').html(tpl(form));
     		}
- 
 			this.checkout_steps[this.findStep('signin')].completed=true;
 			this.gotoStep('shipping');
 			return false;
@@ -295,6 +299,7 @@ var checkout = checkout || {};
 			this.checkout_steps[this.findStep('shipping')].completed=true;
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).done(function(response){
 				that.fetchCart();
+				that.changedShippingMethod();
 			});
 
 

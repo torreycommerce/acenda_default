@@ -46,8 +46,11 @@ var checkout = checkout || {};
 						variant: co.cart.variants[k]
 					}));
 	    		});	
-	    		if(!co.cart.get('shipping_rate'))
-	    		co.cart.set('shipping_rate',0.00);
+	    		var cart = co.cart.toJSON();
+	    		console.log(cart);
+	    		if(!co.cart.get('shipping_rate')) co.cart.set('shipping_rate',0.00);
+	    		if(!co.cart.get('tax_rate')) co.cart.set('tax_rate',0.00);	    		
+	    	    co.cart.set('total',parseFloat(cart.subtotal) + parseFloat(cart.shipping_rate)+ parseFloat(cart.tax_rate));
 
 				that.$el.find('#totals-section').html('').append(totalsTemplate({
 					cart: co.cart.toJSON(),

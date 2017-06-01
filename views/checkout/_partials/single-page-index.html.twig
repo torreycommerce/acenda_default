@@ -209,16 +209,21 @@
 		</div>
 	</script>
 	<script id="summary-totals-template" type="text/template">
-		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.subtotal %></span></div>
-
-		<% if(cart.tax && steps[1].completed) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= cart.tax %></span></div>
-		<% } %>
+		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.item_subtotal).toFixed(2) %></span></div>
 
 		<% if(cart.shipping_rate ) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseInt(cart.shipping_rate).toFixed(2) %></span></div>
+			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.shipping_rate).toFixed(2) %></span></div>
 		<% } %>
-		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= (parseInt(cart.subtotal) + parseInt(cart.shipping_rate) ).toFixed(2) %></strong></span></div>
+
+		<% if(parseFloat(cart.discount_price) > 0)  { %>
+			<div class="amount col-xs-7">Discount:</div><div class="amount col-xs-5 text-right price-discount"><span class="dollar-sign">-$</span><span class="price "><%= parseFloat(cart.discount_price).toFixed(2) %></span></div>
+		<% } %>
+
+		<% if(cart.tax_rate) { %>
+			<div class="amount col-xs-7">Tax:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.tax_rate).toFixed(2) %></span></div>
+		<% } %>
+
+		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= parseFloat(cart.total).toFixed(2) %></strong></span></div>
 
 	</script>
 
@@ -315,21 +320,21 @@
 								<div class="row">
 									<div class="col-xs-8">Discount:</div>
 									<div class="col-xs-4 price-discount text-right">
-										-$<%= order.discount_price%>
+										-$<%= parseFloat(order.discount_price).toFixed(2) %>
 									</div>
 								</div>
 								<% {{ '}' }} %>
 								<div class="row">
 									<div class="col-xs-8">Total Before Tax:</div>
-									<div class="col-xs-4 text-right">$<%= parseInt(order.subtotal) + parseInt(order.shipping_rate)%></div>
+									<div class="col-xs-4 text-right">$<%= (parseFloat(order.subtotal) + parseFloat(order.shipping_rate)).toFixed(2) %></div>
 								</div>
 								<div class="row">
 									<div class="col-xs-8">Sales Tax:</div>
-									<div class="col-xs-4 text-right">$<%= order.tax %></div>
+									<div class="col-xs-4 text-right">$<%= parseFloat(order.tax).toFixed(2) %></div>
 								</div>
 								<div class="row">
 									<div class="col-xs-8">Total:</div>
-									<div class="col-xs-4 text-right">$<%= order.total %></div>
+									<div class="col-xs-4 text-right">$<%= parseFloat(order.total).toFixed(2) %></div>
 								</div>
 							</div>
 						</div>
