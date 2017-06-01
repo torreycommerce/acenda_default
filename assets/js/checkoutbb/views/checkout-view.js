@@ -31,7 +31,8 @@ var checkout = checkout || {};
 			'change #shipping-country' : 'changedShippingCountry',
 			'change #customer-addresses select' : 'changedSavedAddress',
 			'change #login-form input' : 'changedLogin'	,
-			'change input[name=shipping_method]' : 'changedShippingMethod',									
+			'change input[name=shipping_method]' : 'changedShippingMethod',
+			'keyup #checkout_card_number' : 'keyUpCardNumber'							
 		},
 		initialize: function () {
 			var that = this;
@@ -95,9 +96,41 @@ var checkout = checkout || {};
 			this.summaryView.render();
 		},
 		// Fetch current cart state
-		fetchCart: function () {   
-		    this.cart.fetch();	
+		fetchCart: function (callback) {  
+		    var that = this; 
+		    this.cart.fetch().done(function() {
+	    		if(typeof callback !=='undefined') {
+	    		    that[callback]();
+	    		}
+		    })
 		},
+
+	    determinCardType: function(number) {
+	        var re = {
+	            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+	            mastercard: /^5[1-5][0-9]{14}$/,
+	            amex: /^3[47][0-9]{13}$/,
+	            discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/
+	        };
+	        if (re.visa.test(number)) {
+	            return 'visa';
+	        } else if (re.mastercard.test(number)) {
+	            return 'mastercard';
+	        } else if (re.amex.test(number)) {
+	            return 'amex';
+	        } else if (re.discover.test(number)) {
+	            return 'discover';
+	        } else {
+	            return false;
+	        }
+	    },
+	    keyUpCardNumber: function() {
+	        var type = this.determinCardType($('#checkout_card_number').val());
+	        $('.cc-visa,.cc-mastercard,.cc-amex,.cc-discover').fadeTo(0, 0.4);
+	        if (type) {
+	            $('.cc-' + type).fadeTo(0, 1);
+	        }
+	    },
 		// Fetch current cart state
 		fetchCustomer: function () {   
 			var that = this;				
@@ -109,7 +142,6 @@ var checkout = checkout || {};
                     	$('[id=customer-addresses]').show();
                     	$('#customer-addresses select').html('<option value selected >none</option>');
                     	that.customer_addresses.each(function(addy){
-                    		console.log(addy);
                     		$('#customer-addresses select').append(tpl(addy.toJSON()));
                     	});
                     } else {
@@ -119,7 +151,6 @@ var checkout = checkout || {};
 		    }});	
 		},
 		reloadToolbar: function() {
-			console.log('reload toolbar');
 			$.get(acendaBaseUrl+'/account/toolbar', function(data) {
 				$('.toolbarajax').html(data);
 		    });
@@ -144,19 +175,26 @@ var checkout = checkout || {};
 		fetchShippingMethods: function() {
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
-			this.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
-		        $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));
+			that.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
 		        var total = that.cart.get('item_subtotal');
 		        var quantity = that.cart.get('item_count');
-
-		        that.shipping_methods.each(function(method,k){
-		        	$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: total,quantity: quantity}, function(response) {
+		        var first = true;
+		        var defer_methods = [];
+		        that.shipping_methods.each(function(method,k) {
+		            if(first && !that.cart.get('shipping_method')) {
+		            	that.cart.set('shipping_method',method.id);
+		            }	     	
+		        	defer_methods[k]=$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: total,quantity: quantity}, function(response) {		        		
 		        	    that.shipping_methods.at(k).set('price',response.result.rate);
-		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));	              
+		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON(), current_method: that.cart.get('shipping_method')}));		            
 		        	})
-		        });		
-		        $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON()}));		      		        	
-				that.render();
+		            first = false;   
+		        });	
+				$.when.apply($,defer_methods).then(function() {
+   				   that.render();
+             	    that.changedShippingMethod();
+				})
+
 			}});
 		},
 
@@ -218,7 +256,6 @@ var checkout = checkout || {};
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});	
-			console.log(checkoutForm);
 			return checkoutForm;
 		},
 		changedShippingCountry: function() {
@@ -226,11 +263,11 @@ var checkout = checkout || {};
 		},
 		changedShippingMethod: function() {
 			var method = this.shipping_methods.get($('input[name=shipping_method]:checked').val());
-			this.cart.set('shipping_rate',method.get('price'));
+	     	this.cart.set('shipping_rate',method.get('price'));
+	     	this.cart.set('shipping_method',method.get('id'));	     	
 			this.summaryView.render();
 		},		
 		changedSavedAddress: function(e) {
-			console.log(e);
 			var val = $(e.target).val();
 			var current = (this.current_step == 'shipping')?'shipping':'billing';
 			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number'];
@@ -238,14 +275,14 @@ var checkout = checkout || {};
 			if(current !== 'shipping' && current !=='billing') return;
 
 			if(val) {
-				$('#'+current+ '-address-form .hide-shipping').slideUp();
+				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
 				_.each(copy_fields,function(field) {
 					$('[name=' + current + '_' + field +']').val(addy.get(field));
 
 				});
 			} else {
-				$('#'+current+ '-address-form .hide-shipping').slideDown();
+				$('#'+current+ '-address-form .hide-'+current).slideDown();				
 			}
 
 		},
@@ -295,12 +332,11 @@ var checkout = checkout || {};
 			} else {
 				$('.checkoutapp #billing-address').show();
 			}
-			this.fetchShippingMethods();
+			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+				that.fetchCart('fetchShippingMethods');
+			});			
+
 			this.checkout_steps[this.findStep('shipping')].completed=true;
-			$.post(acendaBaseUrl + '/api/cart/checkout',form).done(function(response){
-				that.fetchCart();
-				that.changedShippingMethod();
-			});
 
 
 			this.gotoStep('shipping-method');
@@ -317,7 +353,6 @@ var checkout = checkout || {};
 			$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));
 			this.checkout_steps[this.findStep('shipping-method')].completed=true;
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
-				console.log('fetching cart')
 				that.fetchCart();
 			});
 	
@@ -344,7 +379,6 @@ var checkout = checkout || {};
 			$(".checkoutapp #checkout_process_percent").width('0px');
 
 			$.post(acendaBaseUrl + '/api/order/place',form).done(function(response) {
-				console.log('success');
                  setTimeout(retryOrderProcess, 1000);				
 
 			}).fail(function (){
@@ -416,7 +450,6 @@ var checkout = checkout || {};
 					that.fetchCustomer();
 				} 				
 			}).fail(function(response){
-				console.log(response.responseJSON);
 				$('#signin-error').html(response.responseJSON.error.password[0]);
 
 			}).always(function() {

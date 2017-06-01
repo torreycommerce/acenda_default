@@ -209,9 +209,27 @@
 		</div>
 	</script>
 	<script id="summary-totals-template" type="text/template">
+
+		<% for(var d in cart.discount_collection.discounts) {{ '{' }} var discount = cart.discount_collection.discounts[d];  %>
+         	
+			<% if(discount.type == 'coupon'){{ '{' }}  %>
+			<div class="discount">
+				<div class="alert alert-info">
+					<button class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>" onclick="return false;">Remove</button>
+					<p>
+					<b>Coupon: <%= discount.code %></b>
+					<% if(discount.description) {{ '{' }} %><br><% {{ '}' }} %>
+					<%= discount.description %>
+					</p>
+
+				</div>
+			</div>
+			<% {{ '}' }}  %>
+		<% {{ '}' }}  %>
+
 		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.item_subtotal).toFixed(2) %></span></div>
 
-		<% if(cart.shipping_rate ) { %>
+		<% if(cart.shipping_method ) { %>
 			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.shipping_rate).toFixed(2) %></span></div>
 		<% } %>
 
@@ -237,9 +255,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% var first=true; _.each(methods,function(method) { %>
+			<% _.each(methods,function(method) { %>
 			    <tr>
-			        <td><input <%= first?'checked':''  %><% first=false; %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
+			        <td><input <%= (method.id == current_method)?'checked':''  %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
 			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
 			        <td><label for="method_<%= method.id %>_input"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></label></td>
 			    </tr>

@@ -213,7 +213,6 @@
 	{# End category filters #}
 	<section class="product-grid">
 		<div class="col-md-9 col-xs-12">        
-
 			<h1>{% if app.request.get.s is not empty %}
 				Search results for: <i>{{app.request.get.s | e}}</i>
 			{% elseif category.display_name is empty %}
