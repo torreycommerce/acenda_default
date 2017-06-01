@@ -32,7 +32,7 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 #admin-bar:hover {opacity:1;}
 #admin-bar .btn img {max-width:80px;}
 
-#header .popover {left:10px!important; right:10px; width:420px; margin:0; max-width:none;}
+#header .popover {top:100%!important; right:20px; left:20px!important; width:auto; margin:0; max-width:none;}
 .ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
 #header .logo {font-size:140%;}
 #header .limit-logo .logo img {max-height:36px;}
@@ -41,13 +41,12 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 
 
 @media (min-width:768px) {
-#header .popover {left:auto!important;}
+#header .popover {left:auto!important; width:385px;}
 }
 
 @media (min-width:992px) {
 #header .popover {right:15px;}
 .ajaxcart-products {max-height:320px;}
-#header .logo {font-size:200%;}
 #header .limit-logo .logo img {max-height:80px;}
 .media-cart .media-left, .media-cart .media-object {width:128px; height:128px;}
 }
@@ -84,7 +83,7 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 /**** 4-) Navbar Menu Styling  ****/
 @media (min-width: 768px) {
 ul.nav li:hover > ul.dropdown-menu {display:block;}
-}/**/
+}
 
 #nav-desktop-main .navbar-nav > li > a:hover, #nav-desktop-main .navbar-nav > li > a:focus {background-color:transparent;}
 
@@ -105,7 +104,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .tt-suggestion.tt-cursor {color: #fff;background-color: #0097cf;}
 .tt-suggestion p {margin: 0;}
 .tt-cursor {background-color: #0097cf;}
- 
+
 
 
 
@@ -117,7 +116,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 .swatches {margin-right:-1px; margin-left:-1px;}
-.swatches li {padding:2px 1px 0;}
+.swatches li {margin:0; padding:2px 1px 0;}
 .swatches .selected a, .swatches li:hover a {border:1px solid #000;}
 .swatches .selected a {background:#f8f8f8;}
 .swatches .not-avail a {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
@@ -132,7 +131,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .star-rating .disabled {color:#ccc;}
 .star-rating .active {position:absolute; left:0; top:0; color:#FFC125; white-space:nowrap; overflow:hidden;}
 .star-rating-input {font-size:200%;}
-.star-rating .choosing {color:#e6c678;}
+.star-rating .choosing {color:#FFC125;}
 .star-rating .active-choosing {color:#FFC125;}
 .star-rating .disabled-choosing {color:#ccc;}
 
@@ -142,7 +141,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 #checkout-cards img {max-height:34px; width:auto;}
-.checkout-card {max-width:73px;}
+.checkout-card {max-width:56px; height:34px;}
 
 
 /**** 12-) Color Chip Styling  ****/
@@ -172,7 +171,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .color-chip.black {background-color: #000000;}
 .color-chip.gray, .color-chip.grey {background-color: #aaaaaa;}
 .color-chip.ivory {background-color: #fffff0;}
-.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5); background:#fcfcfc; border:1px solid #bbb;}
+.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5); background:#fdfdfd; border:1px solid #bbb;}
 .color-chip.multi {background: #88bfe8;
     background: -moz-linear-gradient(-45deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);
     /* FF3.6+ */
