@@ -5,14 +5,14 @@ var checkout = checkout || {};
 	 checkout.SummaryView = Backbone.View.extend({
 		el: '.checkoutapp #summary-panel',
 		events: {
-			'click button#checkout_enter_coupon' : 'clickEnterCoupon'
+			'click button#checkout_enter_coupon' : 'clickEnterCoupon',
+			'click button.remove-coupon' : 'clickRemoveCoupon'			
 
 		},
 		initialize: function () {
 			var fixSummaryHeight = function() {
 				var keepFocus = false;
 				if($('input#cart_coupon_code').is(':focus')) {
-					console.log('keeping focus');
 					keepFocus=true;
 				}
 				if($('#checkout-left').height() > $('#summary-panel').height()) {
@@ -47,7 +47,6 @@ var checkout = checkout || {};
 					}));
 	    		});	
 	    		var cart = co.cart.toJSON();
-	    		console.log(cart);
 	    		if(!co.cart.get('shipping_rate')) co.cart.set('shipping_rate',0.00);
 	    		if(!co.cart.get('tax_rate')) co.cart.set('tax_rate',0.00);	    		
 	    	    co.cart.set('total',parseFloat(cart.subtotal) + parseFloat(cart.shipping_rate)+ parseFloat(cart.tax_rate));
@@ -59,6 +58,14 @@ var checkout = checkout || {};
 
 		    }
 		},
+		clickRemoveCoupon: function(e) {
+			e.preventDefault();
+			console.log(e);
+            var remId = $(e.currentTarget).attr('id').split('-')[2];
+            $.post(acendaBaseUrl + '/cart/ajax.json', {cart: { action: 'removecoupon/' + remId}},function(data) {
+              	co.fetchCart();
+            });
+		},
 		clickEnterCoupon : function(e) {
 
 			e.preventDefault();
@@ -68,8 +75,7 @@ var checkout = checkout || {};
 	        if(coupon_code) {
                  $('button#checkout_enter_coupon').prop('disabled',true); 	        	
 	            $(this).prop('disabled',true);
-	            $.post(acendaBaseUrl + '/cart/ajax.json', $('form[name=coupon]').serialize()).done(function(data) {
-	                console.log(data.errors);       
+	            $.post(acendaBaseUrl + '/cart/ajax.json', $('form[name=coupon]').serialize()).done(function(data) {   
                     if(data.errors) {
                         $('#enter_coupon_validation').html('<small>'+data.errors+'</small>');   
                     }   

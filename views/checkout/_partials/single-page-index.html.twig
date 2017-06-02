@@ -215,7 +215,7 @@
 			<% if(discount.type == 'coupon'){{ '{' }}  %>
 			<div class="discount">
 				<div class="alert alert-info">
-					<button class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>" onclick="return false;">Remove</button>
+					<button  class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>">Remove</button>
 					<p>
 					<b>Coupon: <%= discount.code %></b>
 					<% if(discount.description) {{ '{' }} %><br><% {{ '}' }} %>
