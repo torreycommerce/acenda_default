@@ -414,10 +414,24 @@ var checkout = checkout || {};
 					checkoutProcessPercent = 1;
 					var tpl = _.template($('#thank-you-template').html());
                     $('.checkoutapp #processing').slideUp();
-                    $('#thankyou').html(tpl({order: response.result,items: that.cart.get('items')})).slideDown();   
-					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
- 						that.reloadToolbar();
-					});
+
+                    /* redirect to oldschool thankyou page rather than having a single page thanktou */
+
+			        var vform = '';
+			        var args = {order_number: response.result.order_number,email: response.result.email  };
+			        var location = acendaBaseUrl + '/checkout/place';
+			        $.each( args, function( key, value ) {
+			            value = value.split('"').join('\"')
+			            vform += '<input type="hidden" name="'+key+'" value="'+value+'">';
+			        });
+			        $('<form action="' + location + '" method="POST">' + vform + '</form>').appendTo($(document.body)).submit();
+
+			                    /* single page thankyou */
+
+     //                $('#thankyou').html(tpl({order: response.result,items: that.cart.get('items')})).slideDown();   
+					// $.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
+ 				// 		that.reloadToolbar();
+					// });
 				}).fail(function(response) {
 					response = response.responseJSON;
 	                if(response.code == 406) {
