@@ -289,7 +289,18 @@
             <div class="panel-heading">Items Ordered</div>
             <div class="panel-body">
 
-            		!! NEED TO DO ITEMS STUFF
+	            <% for(var i in items) {{ '{' }} var item = items[i]; %>
+	                <div class="row">
+	                    <div class="col-xs-8">
+	                        <%= item.quantity %> x <%= item.name %>
+	                    </div>
+	                    <% var price = parseFloat(item.price) * parseInt(item.quantity) %>
+	                    <% var subtotal = parseFloat(subtotal) + parseFloat(price) %>
+	                    <div class="col-xs-4 text-right">
+	                        $<%= parseFloat(item.price).toFixed(2) %>
+	                    </div>
+	                </div>
+	            <% {{ '}' }} %>
 
             </div>
         </div>

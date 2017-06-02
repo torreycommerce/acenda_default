@@ -21,6 +21,8 @@ var checkout = checkout || {};
 				_.each(obj.items,function(v,k) {
 					that.variants[k] = new checkout.Variant({id: v.product_id});
 					defer_variants[k] = that.variants[k].fetch({success: function(response) {
+						obj.items[k].name = response.get('name');
+                        obj.items[k].price = response.get('price');						
 					    that.products[k] = 	new checkout.Product({ id: response.get('product_id') });
 					    defer_products[k] = that.products[k].fetch();
 					}});

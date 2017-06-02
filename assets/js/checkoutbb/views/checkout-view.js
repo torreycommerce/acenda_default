@@ -400,7 +400,7 @@ var checkout = checkout || {};
 			var retryOrderProcess = function() {
 
 				$.post(acendaBaseUrl + '/api/order/place',{api_unique_token: that.api_unique_token }).done(function(response) {
-
+					// Order Successful
 					if(typeof response.result == 'undefined') {
 	                      checkoutProcessPercent += 0.05;
 					      setTimeout(retryOrderProcess, 2000);
@@ -409,7 +409,7 @@ var checkout = checkout || {};
 					checkoutProcessPercent = 1;
 					var tpl = _.template($('#thank-you-template').html());
                     $('.checkoutapp #processing').slideUp();
-                    $('#thankyou').html(tpl({order: response.result})).slideDown();   
+                    $('#thankyou').html(tpl({order: response.result,items: that.cart.get('items')})).slideDown();   
 					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
  						that.reloadToolbar();
 					});
