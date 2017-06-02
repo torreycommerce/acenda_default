@@ -424,7 +424,11 @@ var checkout = checkout || {};
 			            value = value.split('"').join('\"')
 			            vform += '<input type="hidden" name="'+key+'" value="'+value+'">';
 			        });
-			        $('<form action="' + location + '" method="POST">' + vform + '</form>').appendTo($(document.body)).submit();
+ 					$.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
+ 						$('<form action="' + location + '" method="POST">' + vform + '</form>').appendTo($(document.body)).submit();
+					});
+
+			        
 
 			                    /* single page thankyou */
 
