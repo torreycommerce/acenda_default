@@ -362,7 +362,9 @@ var checkout = checkout || {};
 		checkPayment: function(e) {
 			e.preventDefault();
 			if(!this.validateStep('payment')) return;
- 
+  			var form = this.getFormData('#payment-form');				
+ 			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
+			$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
 			this.checkout_steps[this.findStep('payment')].completed=true;
 			this.gotoStep('review');
             $("html, body").animate({ scrollTop: 0 }, "slow");			
