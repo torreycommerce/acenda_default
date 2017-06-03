@@ -257,6 +257,10 @@ var checkout = checkout || {};
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});	
+
+			if(this.logged_in) {
+				checkoutForm = $.extend(checkoutForm,{customer_id: this.customer.get('id')});
+			}
 			return checkoutForm;
 		},
 		changedShippingCountry: function() {
