@@ -449,7 +449,9 @@ var checkout = checkout || {};
 		checkPayment: function(e) {
 			e.preventDefault();
 			if(!this.validateStep('payment')) return;
-			if(!this.verifyAddress('payment')) return;			
+			if(!$('input[name=copy_shipping_to_billing]').is(":checked")) {			
+			    if(!this.verifyAddress('payment')) return;		
+			}	
   			var form = this.getFormData('#payment-form');				
  			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
 			$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
