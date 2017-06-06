@@ -381,16 +381,19 @@ var checkout = checkout || {};
 				{    
 				    this.checked = true;   
 				});
-
 				$('.checkoutapp #billing-address').hide();
                 $('#billing-customer-addresses-select').val(0);	
                 $('#billing-address-form .hide-billing').slideDown();			
 				$.each(form,function (k,v){
 					k = k.replace('shipping_','billing_');
-			
 					$('[name="' + k +  '"]').val(v);
 				});
+			    var tpl = _.template('<div style="width: 33%; margin: 15px; padding: 10px; background: #eee;"><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div>');
+
+				$('div#billing-address-preview').html(tpl(form));
+
 			} else {
+				$('div#billing-address-preview').html('');
 				$("input[name=copy_shipping_to_billing]").each(function()    
 				{    
 				    this.checked = false;   
