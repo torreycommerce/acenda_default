@@ -294,6 +294,13 @@ var checkout = checkout || {};
 				}
 			});
 			that.render();
+			if(this.logged_in) {
+				$('#billing-save').show();
+			}
+			else {
+				$('#billing-save').hide();				
+
+			}
 		},
 		buildCheckoutForm: function() {
 			var that = this;

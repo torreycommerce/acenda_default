@@ -79,7 +79,7 @@
 	</div>
 </div>
 <h3>Billing Address</h3>
-<div id="billing-address" style="display:block">
+<div id="billing-address" style="display:block;">
 
 	<div id="customer-addresses" style="display: none;" class="row">
 		<div class="col-xs-12">
@@ -162,9 +162,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div id="billing-save" class="row" style="display: none;">
 				<div class="col-xs-12">	
-
+					<div class="form-group">
+							<div class="checkbox">
+							  <label><input type="checkbox" name="billing_save" value="">Save this address for future use?</label>
+							</div>
+					</div>
 				</div>							
 			</div>
 		  </fieldset>
