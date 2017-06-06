@@ -34,9 +34,10 @@ var checkout = checkout || {};
 			'change input[name=shipping_method]' : 'changedShippingMethod',
 			'keyup #checkout_card_number' : 'keyUpCardNumber',
 			'keyup .verify-change-shipping' : 'changedAddress',
-            'change  .verify-change-shipping' : 'changedAddress',				
+            'change .verify-change-shipping' : 'changedAddress',				
 			'keyup .verify-change-billing' : 'changedAddress',
-            'change .verify-change-billing' : 'changedAddress'										
+            'change .verify-change-billing' : 'changedAddress',
+            'change input[name=copy_shipping_to_billing]' : 'changedCopyShippingToBilling'										
 		},
 		initialize: function () {
 			var that = this;
@@ -372,6 +373,29 @@ var checkout = checkout || {};
 			this.checkout_steps[this.findStep('signin')].completed=true;
 			this.gotoStep('shipping');
 			return false;
+		},
+		changedCopyShippingToBilling: function(e) {
+ 			var form = this.getFormData('#shipping-address-form');			
+			if($(e.target).is(":checked")) {
+				$("input[name=copy_shipping_to_billing]").each(function()    
+				{    
+				    this.checked = true;   
+				});
+
+				$('.checkoutapp #billing-address').hide();
+				$.each(form,function (k,v){
+					k = k.replace('shipping_','billing_');
+			
+					$('[name="' + k +  '"]').val(v);
+				});
+			} else {
+				$("input[name=copy_shipping_to_billing]").each(function()    
+				{    
+				    this.checked = false;   
+				});
+
+				$('.checkoutapp #billing-address').show();
+			}
 		},
 		checkShipping: function(e) {
 			var that = this;
