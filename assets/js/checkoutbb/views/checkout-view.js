@@ -32,7 +32,11 @@ var checkout = checkout || {};
 			'change #customer-addresses select' : 'changedSavedAddress',
 			'change #login-form input' : 'changedLogin'	,
 			'change input[name=shipping_method]' : 'changedShippingMethod',
-			'keyup #checkout_card_number' : 'keyUpCardNumber'							
+			'keyup #checkout_card_number' : 'keyUpCardNumber',
+			'keyup .verify-change-shipping' : 'changedAddress',
+            'change  .verify-change-shipping' : 'changedAddress',				
+			'keyup .verify-change-billing' : 'changedAddress',
+            'change .verify-change-billing' : 'changedAddress'										
 		},
 		initialize: function () {
 			var that = this;
@@ -104,7 +108,54 @@ var checkout = checkout || {};
 	    		}
 		    })
 		},
+		verifyAddress: function(stepName) {
+			var that = this;
+			var step = this.checkout_steps[this.findStep(stepName)];
+			var formData = this.getFormData(step.form);
+			var form_elem = $(step.form);
 
+			formData['step'] = (stepName=='payment')?'billing':'shipping';
+
+			var addySelect = $('.checkoutapp #' + stepName + '-panel #customer-addresses select').val();
+
+			console.log(addySelect);
+			if(addySelect) return true;
+
+			if(typeof formData['verified'] !=='undefined' && formData['verified']==1){ 
+                form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
+				return true;
+			}
+			form_elem.find('#address-verify').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');
+
+			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
+				var addy = response.result;
+				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' + 
+				'<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-current"  value="current" checked> <label for="useaddress-current" style="display: inline-block; vertical-align:middle; margin-top: 7px">Current Address</label><br><div style="height: 10px"></div>' + 
+                '<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-verified" value="verified"> <label for="useaddress-verified" style="display: inline-block; vertical-align:top;">' + addy['street_line1'] + ' ' +  addy['street_line2']+ '<br>' +  addy['city'] + ', ' + addy['state']	+ ' ' + addy['zip']	+ '</label>' +		
+				'</div>');
+
+				form_elem.find('input[name="useaddress"]').change(function() {
+			        if ($(this).is(':checked') && $(this).val() == 'verified') {
+                        $(step.form + ' [name$=street_line1]').val(addy['street_line1']);
+                        $(step.form + ' [name$=street_line2]').val(addy['street_line2']);
+                        $(step.form + ' [name$=city]').val(addy['city']);	
+                        $(step.form + ' [name$=state]').val(addy['state']);
+                        $(step.form + ' [name$=zip]').val(addy['zip']);	                                                                    	                        	        	
+			            console.log('verified');
+			        } else {
+                        $(step.form + ' [name$=street_line1]').val(formData[formData['step']+'_street_line1']);
+                        $(step.form + ' [name$=street_line2]').val(formData[formData['step']+'_street_line2']);
+                        $(step.form + ' [name$=city]').val(formData[formData['step']+'_city']);	
+                        $(step.form + ' [name$=state]').val(formData[formData['step']+'_state']);
+                        $(step.form + ' [name$=zip]').val(formData[formData['step']+'_zip']);	 			        	
+			            console.log('current');
+			        }
+				});
+			}).fail(function(response) {
+				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-warning">We couldn\'t verify your address. Please correct your address and try again, or click the button below to continue.</div>');
+			});
+			return false;
+		},
 	    determinCardType: function(number) {
 	        var re = {
 	            visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
@@ -175,6 +226,7 @@ var checkout = checkout || {};
 		fetchShippingMethods: function() {
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
+            $('#shipping-methods').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');			
 			that.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
 		        var total = that.cart.get('item_subtotal');
 		        var quantity = that.cart.get('item_count');
@@ -263,6 +315,10 @@ var checkout = checkout || {};
 			}
 			return checkoutForm;
 		},
+		changedAddress: function(e) {
+			console.log($(e.target).parents('.panel'));
+			$(e.target).parents('.panel').find('#address-verify').html('');
+		},
 		changedShippingCountry: function() {
 			this.fetchShippingStates();
 		},
@@ -321,6 +377,7 @@ var checkout = checkout || {};
 			var that = this;
 			e.preventDefault();
 			if(!this.validateStep('shipping')) return;
+			if(!this.verifyAddress('shipping')) return;
 
  			var form = this.getFormData('#shipping-address-form');
  			if(typeof form.shipping_state == 'undefined') form.shipping_state = 'CA';
@@ -337,10 +394,11 @@ var checkout = checkout || {};
 			} else {
 				$('.checkoutapp #billing-address').show();
 			}
+            $('#shipping-methods').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');			
+
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				that.fetchCart('fetchShippingMethods');
 			});			
-
 			this.checkout_steps[this.findStep('shipping')].completed=true;
 
 
@@ -367,6 +425,7 @@ var checkout = checkout || {};
 		checkPayment: function(e) {
 			e.preventDefault();
 			if(!this.validateStep('payment')) return;
+			if(!this.verifyAddress('payment')) return;			
   			var form = this.getFormData('#payment-form');				
  			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
 			$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
@@ -378,8 +437,10 @@ var checkout = checkout || {};
 		placeOrder: function(e) {			
 			e.preventDefault();
 		    window.location.hash = 'processing';
+
 			var that = this;
 			var form = this.buildCheckoutForm();
+            $("html, body").animate({ scrollTop: 0 }, "slow");			
 			$('.checkoutapp #checkout-steps').fadeOut();
 			$('.checkoutapp #summary-panel').fadeOut();			
 			$('.checkoutapp #processing').slideDown();

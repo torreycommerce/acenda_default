@@ -29,6 +29,7 @@
 			</div>
 		</div>
 	</div>
+	<fieldset class="verify-change-shipping">
 	<div class="form-group fgq normalizable">
 		<label class="control-label" for="addr-1">Address 1</label>
 		{{ forms.text('shipping_street_line1', address[name ~ 'street_line1'], {class:'form-control parsley-validated', id:'addr-1', placeholder:"Address 1", required:true}) }}
@@ -80,6 +81,7 @@
 			</div>
 		</div>
 	</div>
+</fieldset>
 </div>
     <div class="row">
     	<div class="col-xs-12">
@@ -90,9 +92,15 @@
 			</div>
 		</div>
     </div>
+	<div  class="row">
+    	<div id="address-verify" class="col-xs-12">
+
+		</div>
+	</div>    
 	<div class="row">
 		<div class="col-md-12">
 				<button id="btn-continue-shipping" class="btn btn-primary  pull-right">Continue</button>
 		</div>
 	</div>
+
 </form>
