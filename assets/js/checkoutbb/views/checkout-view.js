@@ -192,7 +192,7 @@ var checkout = checkout || {};
                     if(that.customer_addresses.length) {
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
                     	$('[id=customer-addresses]').show();
-                    	$('#customer-addresses select').html('<option value selected >none</option>');
+                    	$('#customer-addresses select').html('<option value="0" selected >none</option>');
                     	that.customer_addresses.each(function(addy){
                     		$('#customer-addresses select').append(tpl(addy.toJSON()));
                     	});
@@ -336,7 +336,7 @@ var checkout = checkout || {};
 
 			if(current !== 'shipping' && current !=='billing') return;
 
-			if(val) {
+			if(val!='0') {
 				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
 				_.each(copy_fields,function(field) {
@@ -383,6 +383,8 @@ var checkout = checkout || {};
 				});
 
 				$('.checkoutapp #billing-address').hide();
+                $('#billing-customer-addresses-select').val(0);	
+                $('#billing-address-form .hide-billing').slideDown();			
 				$.each(form,function (k,v){
 					k = k.replace('shipping_','billing_');
 			
