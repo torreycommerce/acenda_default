@@ -124,7 +124,7 @@ var checkout = checkout || {};
 			var addySelect = $('.checkoutapp #' + stepName + '-panel #customer-addresses select').val();
 
 			console.log(addySelect);
-			if(addySelect) return true;
+			if(addySelect!=0) return true;
 
 			if(typeof formData['verified'] !=='undefined' && formData['verified']==1){ 
                 form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
@@ -352,7 +352,7 @@ var checkout = checkout || {};
 			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number'];
 
 			if(current !== 'shipping' && current !=='billing') return;
-
+			$(e.target).parents('.panel').find('#address-verify').html('');
 			if(val!='0') {
 				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
