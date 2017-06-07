@@ -66,10 +66,14 @@ var checkout = checkout || {};
 		},
 		render: function () {
 			var that = this;
-
+			var passed_current = false;
 			$('.btn-edit').css({display: 'none'});
 			_.each(this.checkout_steps,function(step){ 
-				 if( !(step.name=='signin' && that.logged_in) && (step.completed && !step.open)) {
+    			 if(step.name == that.current_step) {
+    			 	passed_current=true;
+    			 }
+
+				 if( !(step.name=='signin' && that.logged_in) && (step.completed && !step.open) && !passed_current) {
 				 	 $(step.edit).show();
 				 } else {
 				 	 $(step.edit).hide();				 	
@@ -280,10 +284,10 @@ var checkout = checkout || {};
 		// open the checkout step and close others. Also deal with edit buttons and step data
 		gotoStep: function(name) {
 			var that = this;
-			if(this.current_step!=='') {
+			// if(this.current_step!=='') {
 
-				if(!this.validateStep(this.current_step)) return;
-			}
+			// 	if(!this.validateStep(this.current_step)) return;
+			// }
 
              //$("*").stop(true, true);			
 			_.each(this.checkout_steps,function(step,k){
