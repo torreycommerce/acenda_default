@@ -124,7 +124,7 @@ var checkout = checkout || {};
 			var addySelect = $('.checkoutapp #' + stepName + '-panel #customer-addresses select').val();
 
 			console.log(addySelect);
-			if(addySelect!=0) return true;
+			if(that.logged_in  && addySelect!=0) return true;
 
 			if(typeof formData['verified'] !=='undefined' && formData['verified']==1){ 
                 form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
