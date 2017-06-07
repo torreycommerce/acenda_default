@@ -173,7 +173,7 @@ var checkout = checkout || {};
 	        } else if (re.discover.test(number)) {
 	            return 'discover';
 	        } else {
-	            return false;
+	            return '';
 	        }
 	    },
 	    keyUpCardNumber: function() {
