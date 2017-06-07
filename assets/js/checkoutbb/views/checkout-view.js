@@ -13,7 +13,7 @@ var checkout = checkout || {};
 		shipping_methods: new checkout.ShippingMethods(),
 		logged_in: false,
 		api_unique_token: null,
-		current_step: 'signin',
+		current_step: '',
 		checkout_steps: [
 		    {name: 'signin', form: '#guest-form', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false},
 		    {name: 'shipping', form: '#shipping-address-form', collapse: '#collapseShipping', edit: '#btn-edit-shipping' , completed: false, open: false},
@@ -272,6 +272,7 @@ var checkout = checkout || {};
 		validateStep: function(name) {
 			var step = this.checkout_steps[this.findStep(name)];
 
+			if(step=='review') return true;
             $(step.form).parsley().validate();
             if(!$(step.form).parsley().isValid()) return false; 	
             return true;
@@ -279,6 +280,11 @@ var checkout = checkout || {};
 		// open the checkout step and close others. Also deal with edit buttons and step data
 		gotoStep: function(name) {
 			var that = this;
+			if(this.current_step!=='') {
+
+				if(!this.validateStep(this.current_step)) return;
+			}
+
              //$("*").stop(true, true);			
 			_.each(this.checkout_steps,function(step,k){
 				$(step.collapse).collapse('hide');
