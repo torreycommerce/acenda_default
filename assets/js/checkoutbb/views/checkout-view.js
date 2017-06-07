@@ -272,7 +272,7 @@ var checkout = checkout || {};
 		validateStep: function(name) {
 			var step = this.checkout_steps[this.findStep(name)];
 
-			if(step=='review') return true;
+			if(name=='review') return true;
             $(step.form).parsley().validate();
             if(!$(step.form).parsley().isValid()) return false; 	
             return true;
