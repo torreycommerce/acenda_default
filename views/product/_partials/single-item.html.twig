@@ -118,7 +118,7 @@
 				<div class="p selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
 					<div class="selected-option"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
 					{% if vo.name == 'color' %}
-					<ul class="list-inline swatches swatches-{{vo.name}}">
+					<ul class="list-inline vopt vopt-{{vo.name}}">
 					{% for v in vo.values %}
 						<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-value="{{v}}">
 						{% if vo.name == "color" %}
@@ -149,7 +149,7 @@
 					</ul>
 					{% endif %}
 					{% if vo.name != 'color' %}
-					<select class="form-control input-lg swatches swatches-{{vo.name}}">
+					<select class="form-control input-lg vopt vopt-{{vo.name}}">
 					{% for v in vo.values %}
 						<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v}}">{{v}}</option>
 					{% endfor %}

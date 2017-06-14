@@ -355,9 +355,9 @@ function VariantsManager (product, img, isCollection) {
             $(_this.getSelectedValue(name)).text(_this.selectedValues[name]);
             //
             //
-            if ($('.selectric-swatches').length) {
-                $('select.swatches').selectric('refresh');
-                $('.selectric-swatches').find('li').each(function() {
+            if ($('.selectric-vopt').length) {
+                $('select.vopt').selectric('refresh');
+                $('.selectric-vopt').find('li').each(function() {
                     $(this).attr('data-value',$(this).text());
                 });
             }

@@ -94,27 +94,24 @@
 .acaro {margin:3px;}
 .acaro.selected {box-shadow:0 0 2px rgba(0,0,0,.5);}
 /**/
-.swatches {margin-right:-1px; margin-left:-1px;}
-.swatches li {margin:0; padding:2px 1px 0;}
-.swatches .selected a, .swatches li:hover a {border:1px solid #000;}
-.swatches .selected a {background:#f8f8f8;}
-.swatches .not-avail a {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
-.swatches .not-avail-sel a {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
+.vopt {margin-right:-1px; margin-left:-1px;}
+.vopt li {margin:0; padding:2px 1px 0;}
+.vopt .selected a, .vopt li:hover a {border:1px solid #000;}
+.vopt .selected a {background:#f8f8f8;}
+.vopt .not-avail a {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
+.vopt .not-avail-sel a {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
 
 .color-details li {width:48px; height:48px;}
+.color-details li img {width:46px; height:46px;}
 @media (min-width:992px) {
-.color-details li {width:66px; height:66px;}
+#singleProduct .color-details li {width:66px; height:66px;}
+#singleProduct .color-details li img {width:64px; height:64px;}
 }
 .color-details li img {cursor:pointer; border:1px solid #bbb;}
 .color-details li:hover img, .color-details li:focus img {border:1px solid #888;}
 .color-details li.selected img {border-color:#000;}
 .color-details li.not-avail-sel img {border:1px dashed red; cursor:not-allowed; opacity:.65;}
-.color-details-collection li {width:48px; height:48px;}
-.color-details-collection img {cursor:pointer; border:1px solid #bbb;}
-.color-details-collection li:hover img, .color-details-collection li:focus img {border:1px solid #888;}
-.color-details-collection li.selected img {border-color:#000;}
-.color-details-collection li.not-avail-sel img {border:1px dashed red; cursor:not-allowed; opacity:.65;}
-.swatches .not-avail a, .swatches .not-avail img {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
+.vopt .not-avail a, .vopt .not-avail img {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
 .selector-details select {margin:2px 0 0;}
 /**/
 .has-video .vari-scase {width:80%; /*width:72%;*/}

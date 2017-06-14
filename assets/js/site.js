@@ -366,22 +366,6 @@ $('.btn-add-to-cart').click(function (e) {
 // } );
 
 
-/* params */
-function getQueryParams(qs) {
-	qs = qs.split("+").join(" ");
-	var params = {},
-		tokens,
-		re = /[?&]?([^=]+)=([^&]*)/g;
-
-	while (tokens = re.exec(qs)) {
-		params[decodeURIComponent(tokens[1])]
-		= decodeURIComponent(tokens[2]);
-	}
-
-	return params;
-}
-var desire = getQueryParams(document.location.search);
-/* */
 
 function IncludeJavaScript(jsFile, onLoadCallback) {
 	var head = document.getElementsByTagName('head')[0] || document.documentElement;
@@ -570,7 +554,7 @@ function productSlick() {
 	});
 	$('.slick-p .virg').removeClass('virg');
 	$('.slick-p-go').removeClass('slick-p-go');
-	$('.slick-p [data-tooltip]').tooltip()
+	//$('.slick-p [data-tooltip]').tooltip()
     
 }
 
@@ -584,28 +568,28 @@ if ($('.slick').length) {
 	});
 }
 
-if ($('select.swatches').length) {
+if ($('select.vopt').length) {
     IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.selectric.mod.js",function(){
-		//$('html').on('change','select.swatches', function() {
-		$('select.swatches').on('change', function() {
+		//$('html').on('change','select.vopt', function() {
+		$('select.vopt').on('change', function() {
 			//console.log($(this).val())
-			$('select.swatches').selectric('refresh');
-			$('.selectric-swatches').find('li').each(function() {
+			$('select.vopt').selectric('refresh');
+			$('.selectric-vopt').find('li').each(function() {
 				$(this).attr('data-value',$(this).text());
 			});
 			//$(this).parents('.selector-details').append('<div>detected change</div>')
-			$(this).parents('.selector-details').find('.selectric-swatches *[data-value="'+$(this).val()+'"]').click();
+			$(this).parents('.selector-details').find('.selectric-vopt *[data-value="'+$(this).val()+'"]').click();
 		});
 		//
-		$('select.swatches').selectric({
+		$('select.vopt').selectric({
 			
 		});
 		//console.log('Selectric applied')
 		//
 		//
-		if ($('.selectric-swatches').length) {
-			//$('select.swatches').selectric('refresh');
-			$('.selectric-swatches').find('li').each(function() {
+		if ($('.selectric-vopt').length) {
+			//$('select.vopt').selectric('refresh');
+			$('.selectric-vopt').find('li').each(function() {
 				$(this).attr('data-value',$(this).text());
 			});
 		}
