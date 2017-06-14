@@ -1,10 +1,13 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
-<div id="singleProduct" class="row" itemscope itemtype="http://schema.org/Product">    
+<div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row" itemscope itemtype="http://schema.org/Product">
+
 	<section id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
 		<div class="max-450">
+			{% if product.brand is not empty %}
 			<div class="brand p-mini">
 				<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
 			</div>
+			{% endif %}
 			<h1 class="product-name"><span itemprop="name">{{product.name}}</span></h1>
 			{# Begin review stars #}
 			{% spaceless %}
@@ -24,98 +27,138 @@
 			{% endspaceless %}
 		</div>
 	</section>
-	{# Beging product images #}
+{# set variation = product.variant[0] #}
+{% set startColor = app.request.get.color %}
+{% if startColor is not empty %}
+	{% set variations = product.variant|find({'color':startColor}) %}
+{% else %}
+	{% set variations = product.variant|find({'has_stock':true}) %}
+{% endif %}
+{% set variation = variations[0] %}
+
+{% if variation.images is empty %}
+	{% set varimgs = product.images %}
+{% else %}
+	{% set varimgs = variation.images %}
+{% endif %}
 	<div class="col-xs-12 col-sm-7 p-2x" id="product-images">
 		<div class="max-450">
-		{# Begin main image #}
-			<div class="p-thin" id="image-main">
+			<div class="p" id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
-					<div class="isd btn-block"><div id="main-product-video" style="display:none"></div></div>
+					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image-copy" class="img-responsive" src="{{ app.url_asset }}/assets/images/spacer.gif" data-image-zoom="" width="450" height="450" alt="" style="display:none">
+						{% set prodimg = varimgs[0] %}
+						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" itemprop="image" width="450" height="450" alt="" style="display:nonewhy">
 					</span>
-					<span class="helper"></span>
 				</div>
 			</div>
-			{# Begin main image #}
-			{# Begin image carousel #}
-			<div class="p" id="image-carousel">
-				<div class="image-carousel">
-					<div id="image-carousel-{{product.id}}" class="carousel" style="display:none">
-						<div class="row row-thin">
-							<div class="item active" id="variant-image-carousel-copy" style="display:none;">
-								<div class="col-xs-2 col-thin p-thin" id="variant-image-thumbnail-copy">
-									<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" data-image-swap="main-product-image" data-image-swap-src="" data-image-swap-zoom="" width="250" height="250" alt="">
-									</div>
-								</div>
-								<img itemprop="image" alt="Product Image" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-								<div class="col-xs-2 col-thin p-thin" id="variant-video-copy">
-									<div class="image-space video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-										<img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
-									</div>
-								</div>
-							</div>
 
-							<div class="item active itemauto" id="variant-image-carousel-{{product.id}}">
+			<div class="pos-r">
+				<div class="variations" data-id="{{product.id}}">
+					<div class="active variation" data-pos="{{variation.position}}"><div class="pad-w-3x"><div class="vari-scase">
+						<div class="slick slick-p slick-p-go">
+						{% for varimg in varimgs %}
+						<div class="virg">
+							<div class="acaro">
+								<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ variation.name }}">
+									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{varimg.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{varimg.standard}}" data-image-swap-zoom="{{varimg.large}}" width="450" height="450" alt="">
+								</div>
 							</div>
 						</div>
-					</div>
+						{% endfor %}
+						</div>
+					</div></div></div>
 				</div>
+				{% if product.videos is not empty %}
+				<div class="pad-w-3x vari-video-scase"><div class="pos-r"><div class="vari-video"><div class="acaro">
+					<div class="image-space video" data-video-src="{{ product.videos[0] }}">
+						<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+					</div>
+				</div></div></div></div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
 	{# End product images #}
 
 	{# Begin Product Details #}
-	<section id="product-details" class="col-xs-12 col-sm-5 p-2x text-center">
-		<div class="max-450">
-			<div class="sku-details p-mini" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span id="variant-sku-{{product.id}}"></span></div>
-			{% set id = 0 %}
-			{% for sku in product.variant %}
-				{% set id = id + 1 %}
-				<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-			{% endfor %} 
-			{% set id = 0 %}
-			{% for barcode in product.variant %}   
-				<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-			{% endfor %}
-
-			<div class="p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				{# Begin Product Prices #}
-				<div class="pricing">
-					<div class="price" id="product-price-{{product.id}}"></div>
+	<section id="product-details" class="col-xs-12 col-sm-5 p-2x">
+		<div class="max-320">
+			<div class="p-2x text-center variations" data-id="{{product.id}}">
+				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-pos="{{variation.position}}">
+					<!--name: {{variation.name}} <small><i>pos: {{variation.position}}</i></small>-->
+				{% set needsku = product.variant|values_in('sku') %}
+				{% if needsku[0] is not empty %}
+					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
+				{% endif %}
+					<div class="pricing">
+						<div class="p-mini price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">$<span>{{variation.price|number_format(2)}}</span><meta itemprop="priceCurrency" content="USD" /></div>
+				{% set needprices = product.variant|max('save_percent') %}
+				{% if needprices|length > 0 %}
+					{% if (variation.compare_price - variation.price) > 1 %}
+						<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
+					{% else %}
+						<ul class="list-inline"><li>&nbsp;</li></ul>
+					{% endif %}
+				{% endif %}
+					</div>
+				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
+				{% if needstockmsg|length > 0 %}
+					{% if variation.has_stock == false %}
+					<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+					{% else %}
+					<div class="fsd1 stock"><div class="stock-msg"><br></div></div>
+					{% endif %}
+				{% endif %}
 				</div>
-				<div class="price hidden"><span itemprop="price">{{ prod.price(product.attributes.price) }}</span></div> {# Rich Snippets for Search Engines, not showing on the preview! #}
-
-				{#<div class="stock" id="stock-text-{{product.id}}"></div>#}
-				
-				<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-				
-				<div class="g" id="pricing-box-{{product.id}}">
-					{% spaceless %}
-					<ul class="pricing list-inline">
-						{# Begin regular price #}
-							<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
-						{# End regular price #}
-						{# Begin percent off #}
-							<li class="percent" id="save-pricing-{{product.id}}"></li>
-						{# End percent off #}
-						{# Begin price per month #}
-						{# if variation.price >= 100 %}
-							<li class="per-month">
-								<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">
-									{{ prod.billmelater(variation.price) }}
-								</span>
-							</li>
-						{% endif #}
-					</ul>
-					{% endspaceless %}
-				</div>
-				{# End Product Prices #}
 			</div>
-
-			<div id="variation-selector-{{product.id}}"></div>
+			{% spaceless %}
+			<div class="variation-selector-{{product.id}}">
+			{% for vo in product.variant_options %}
+				<div class="p selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
+					<div class="selected-option"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
+					{% if vo.name == 'color' %}
+					<ul class="list-inline swatches swatches-{{vo.name}}">
+					{% for v in vo.values %}
+						<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-value="{{v}}">
+						{% if vo.name == "color" %}
+							{% set vsimgsrc = "" %}
+							{% for prodimg in product.images %}
+								{% if prodimg.type == "swatch" and prodimg.name == v %}
+									{% set vsimgsrc = prodimg.thumbnail %}
+								{% endif %}
+							{% endfor %}
+							{% if vsimgsrc is empty %}
+								{% set validvar = product.variant|find({'color':v}) %}
+								{% set vsimgsrc = validvar[0].images[0].thumbnail %}
+								{% for variation in product.variant %}
+									{% if variation.color == v %}
+									
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+							{% if vsimgsrc is empty %}
+								{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
+							{% endif %}
+							<img class="img-responsive" src="{{vsimgsrc}}" width="250" height="250" alt="{{v}}">
+						{% else %}
+							<a class="btn btn-default btn-lg">{{v}}</a>
+						{% endif %}
+						</li>
+					{% endfor %}
+					</ul>
+					{% endif %}
+					{% if vo.name != 'color' %}
+					<select class="form-control input-lg swatches swatches-{{vo.name}}">
+					{% for v in vo.values %}
+						<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v}}">{{v}}</option>
+					{% endfor %}
+					</select>
+					{% endif %}
+				</div>
+			{% endfor %}
+			</div>
+			{% endspaceless %}
 			{# Begin actions desktop #}
 			{% if app.user.id is not empty %}
 				{% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
@@ -137,20 +180,17 @@
 			{% endif %}
 
 			
-			<form method="post" class="text-left" id="productForm" action="{{ app.url }}/product/route">
+			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
 				<div class="actions">
 					<div class="" id="div-quantity-{{product.id}}">
-					   {# Begin product quantity #}
-						<div class="form-group divide pad-b">
+						<div class="form-group divide pad-b p-mini">
 							<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
 							<div class="input-group input-group-qty igq-mod">
-								{#<div class="input-group-btn">
-									<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-								</div>#}
-								<input id="variant-input-{{product.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="1" maxlength="2" placeholder="1" name="">
-								{#<div class="input-group-btn">
-									<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
-								</div>#}
+								<div class="btn-group btn-group-qty">
+									<input id="variant-input-{{product.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="1" maxlength="2" placeholder="1" name="">
+									<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+								</div>
 								<div class="input-group-btn">
 									<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
 									   <span>Add to Cart</span>
@@ -158,18 +198,11 @@
 							   </div>
 							</div>
 						</div>
-					   {# End product quantity #}
-					   {# Begin add to cart button #}
 					   {% include "/product/_partials/list/actions-single.html.twig" %}
 				   </div>
 				</div>
 			</form>
-			{# End actions desktop #}
 		</div>
 	</section>
-	{# End Product Details #}
-	{# Begin product tabs - desktop #}
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
-	{# End tab pane #}
-</div> 
-{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
+</div>

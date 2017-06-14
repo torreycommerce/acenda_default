@@ -1,5 +1,4 @@
-<div itemscope itemtype="http://schema.org/Product">
-<div class="row">
+<div class="{% if product.videos is not empty %}has-video{% endif %} row" itemscope itemtype="http://schema.org/Product">
 	<section id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
 		<div class="max-450">
 			<div class="brand p-mini">
@@ -24,78 +23,80 @@
 			{% endspaceless %}
 		</div>
 	</section>
-	{# Beging product images #}
+
 	<div class="col-xs-12 col-sm-7 p-2x">
 		<div class="max-450" id="product-images">
-		{# Begin main image #}
 		{% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
 		{% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
 		{% set main_image_alt = product.images.0.alt is not empty ? product.images.0.alt :product.product|values_in('images')[0]['alt'] %}
 		{% set main_image_alt = main_image_alt is empty ? '' : main_image_alt %}
-		<div class="p-thin" id="image-main">
+		<div class="p" id="image-main">
 			<div class="image-space no-of">
-				<div class="isd btn-block"><div id="main-product-video" style="display:none"></div></div>
+				<div class="isd btn-block" style="display:none;"><div id="main-product-video"></div></div>
 				<span class="isd">
-					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" alt="{{ main_image_alt }}" />
+					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" itemprop="image" alt="">
 				</span>
 				<span class="helper"></span>
 			</div>
 		</div>
-		{# End main image #}
-		{# Begin image carousel #}
-		<div class="p" id="image-carousel">
-			<div class="image-carousel">
-				<div id="image-carousel-{{product.id}}" class="carousel">
-					<div class="row row-thin">
-						<div class="item active">
-							{% for image in product.images %}
-								{% set name = image.name is not empty ? image.name : product.name %}
-								<div class="col-xs-2 col-thin p-thin">
-									<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.id }}" />
+		<div class="pos-r">
+			<div class="pieces">
+				<div class="pad-w-3x"><div class="vari-scase">
+					<div class="slick slick-p slick-p-go">
+					
+					{% for image in product.images %}
+					{% set name = image.name is not empty ? image.name : product.name %}
+					<div class="virg">
+						<div class="acaro">
+							<div class="image-space">
+								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					{% if product.images is empty %}
+						{% set items = product.product %}
+						{% for item in items %}
+							{% for image in item.images if image.id is not empty %}
+								{% set name = image.name is not empty ? image.name : item.name %}
+								<div class="virg">
+									<div class="acaro">
+										<div class="image-space">
+											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
+										</div>
 									</div>
 								</div>
 							{% endfor %}
-							{% set items = product.product %}
-							{% for item in items %}
-								{% for image in item.images if image.id is not empty %}
-									{% set name = image.name is not empty ? image.name : item.name %}
-									<div class="col-xs-2 col-thin p-thin">
-										<div class="image-space" data-tooltip="" data-toggle="tooltip" data-original-title="{{ name }}">
-											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{app.image.getImageUrl("product","thumbnail",image.id) }}" data-image-swap="main-product-image" data-image-swap-src="{{app.image.getImageUrl("product","standard",image.id) }}"  data-image-swap-zoom="{{app.image.getImageUrl("product","large",image.id) }}" alt="{{ image.alt }}" />
-										</div>
-									</div>
-								{% endfor %}
-							{% endfor %}
-							{% if product.videos is not empty %}
-								{% for video in product.videos %}
-									<div class="col-xs-2 col-thin p-thin">
-										<div class="image-space video" data-video-src="{{ video }}" data-tooltip="" data-toggle="tooltip" data-original-title="">
-											<img class="img-responsive isd" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
-										</div>
-									</div>
-								{% endfor %}
-							{% endif %}
-						</div>
+						{% endfor %}
+					{% endif %}
 					</div>
-				</div>
+				</div></div>
 			</div>
+			{% if product.videos is not empty %}
+			<div class="pad-w-3x vari-video-scase"><div class="pos-r"><div class="vari-video"><div class="acaro">
+				<div class="image-space video" data-video-src="{{ product.videos[0] }}">
+					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+				</div>
+			</div></div></div></div>
+			{% endif %}
 		</div>
-		{# End image carousel #}
+		
 		</div>
 	</div>
 	{# End product images #}
 	{# Begin Product Details #}
 	<section id="product-details" class="col-xs-12 col-sm-5 p-2x text-center">
-		<div class="max-450">
-			{# Begin product prices #}
-			{% set prices =  product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
+		<div class="max-320">
+			
+			{% set prices = product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
 			{% if prices.price|first > 0 %}
-			<div class="pricing g p">
-				<div class="price price-range">{{ prod.price(prices.price) }}</div>
+			<div class="pricing g p-2x">
+				<div class="p-mini price price-range">{{ prod.price(prices.price) }}</div>
 				{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
+				{# if (prices[0].compare_price - prices[0].price) > 1 #}
+				{# if (prices.compare_price is not empty and (prices.compare_price - prices.price) > 1) #}
 					{% spaceless %}
-					<ul class="pricing list-inline">
+					<ul class="list-inline">
 						{% if prices.compare_price is not empty and prices.compare_price != prices.price %}
 						<li class="price-regular">{{ prod.price(prices.compare_price) }}</li>
 						{% endif %}
@@ -107,431 +108,309 @@
 				{% endif %}
 			</div>
 			{% endif %}
-			{# End product prices #}
-			{# Begin add to cart / actions area #}
+			
 			{% if prices.price is not empty %}
 			<div class="divide p pad-b">
-				<a class="btn btn-lg btn-block btn-primary btn-cart" href="#collection">
+				<a class="btn btn-lg btn-block btn-primary btn-cart ttc" href="#collection">
 					<span>Add to Cart Below</span>
 				</a>
 			</div>
 			{% endif %}
-			{# End add to cart / actions area #}
-			{# Begin short description #}
-			{% if product.description is not empty %}
+
+			{#{% if product.description is not empty %}
 				{% set description = product.description|slice(0,300) %}
 			<section class="description-content">
 				{{ description }}{% if product.description|length > 300 %}... <a href="javascript: void(0);" class="read-more">(Read More)</a>{% endif %}
 			</section>
-			{% endif %}
-			{# End short description #}
+			{% endif %}#}
 		</div>
 	</section>
-{# End Product Details #}
 </div>
 
-{# Begin Product Tabs #}
-<section id="collection">
 
-	{# Begin tabs nav #}
-	<div class="panel-tabs">
-		<ul class="nav nav-tabs">
-			{# Begin Bundle logic #}
-			{% set bundles = api.get('/bundle', {query:{collection_id:item.id}}) %}
-			{% if bundles| length >= 1 %}
-				<li class="active">
-					<a href="#bundles" data-toggle="tab">Bundles</a>
-				</li>
-			{% endif %}
-			{# End Bundle logic #}
-			<li {% if bundles| length == 0 %}class="active"{% endif %}>
-				<a href="#children" data-toggle="tab">Products</a>
-			</li>
-			{% if product.description is not empty %}
-				<li>
-					<a href="#details" data-toggle="tab">Description</a>
-				</li>
-			{% endif %}
-			<li>
-				<a href="#reviews" data-toggle="tab">Reviews</a>
-			</li>
-		</ul>
-	</div>
-	{# End tabs nav #}
-	{# Begin tab pane #}
-	<div class="tab-content">
-		{% if bundles| length >= 1 %}
-		<div id="bundles" class="tab-pane fade {% if bundles| length >= 1 %} in active {% endif %}">
-			<form method="post" id="productForm" action="{{ app.url }}/product/route" class="">
-				<div class="panel panel-default panel-tab">
-					<div class="panel-heading">
-					{# Begin desktop buttons #}
-						<div class="btn-toolbar">
-							<div class="row">
-								{# Begin add to cart button #}
-								<div class="col-sm-4 col-md-3 col-lg-2 col-lg-offset-10 col-md-offset-9 col-sm-offset-8">
-									<button type="submit" class="btn btn-block btn-primary btn-cart" name="action" value="cart">
-										<span>Add to Cart</span>
-									</button>
+{% if product.description is not empty %}
+<div class="divide p-2x pad-b-2x" id="details">	
+	<h2>Description</h2>
+	<div class="g" itemprop="description">{{product.description}}</div>
+</div>	
+{% endif %}
+
+
+<section class="divide g p-2x pad-b-2x" id="collection">
+<form method="post" class="productForm" id="productForm2b" action="{{ app.url }}/product/route">
+{% set bundles = api.get('/bundle', {query:{collection_id:item.id}}) %}
+{% if bundles| length >= 1 %}
+<div class="divide p-2x" id="bundles">
+	<h2>Bundles</h2>
+		{% for bundle in bundles %}
+		<div class="divide p-2x pad-b-2x piece piece-{{bundle.id}}">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<div class="media media-cart">
+						<div class="media-left">
+							<div class="variant-selected-image">
+								<div class="image-space">
+									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','standard',bundle.items[0].images[0].id) }}" class="img-responsive isd" alt="">
 								</div>
-								{# End add to cart button #}
 							</div>
 						</div>
-						{# End desktop buttons #}
+
+						<div class="media-body">
+
+							<h3 class="product-name" itemprop="name">{{bundle.name}}</h3>
+						
+							<div class="pricing">
+								<div class="p-mini" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<div class="price">$<span>{{bundle.price|number_format(2)}}</span></div>
+								</div>
+								{% spaceless %}
+								<ul class="list-inline">
+									<li class="price-regular">${{ bundle.raw_price }}</li>
+									{% if bundle.discount_type == 'dollar'%}
+									<li class="percent">Save ${{ bundle.discount_value }}</li>
+									{% elseif bundle.discount_type == 'percentage' %}
+									<li class="percent">Save {{ bundle.discount_value }}%</li>
+									{% elseif bundle.discount_type == 'fixed' %}
+									<li class="percent">Save ${{ bundle.price - bundle.raw_price }}</li>
+									{% endif %}
+								</ul>
+								{% endspaceless %}
+							</div>
+
+							{% if bundle.has_stock == false %}
+							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+							{% endif %}
+						</div>
 					</div>
-					<div class="panel-body">
-						<div class="panel-group">
-							{% for bundle in bundles %}
-								{# Begin collection product #}
-								<div class="variations divide">
-									<div class="row">
-										
-										{# Begin collection product image #}
-										<div class="col-xs-5 col-sm-6 col-md-2 col-lg-2">
-											<div class="image thumbnail" id="variant-selected-image-{{bundle.id}}">
-												<img id="main-product-image-copy"
-													onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'"
-													src="{{app.image.getImageUrl("product","standard",bundle.items[0].images[0].id) }}"
-													width="250" class="img-responsive" alt="" />
-											</div>
-										</div>
-										{# End collection product image #}
-										{# Begin collection product details #}
-										<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
+					<div class="g p" itemprop="description">{{ bundle.description }}</div>
+				</div>
+				<div class="col-xs-12 col-sm-5 pull-right">
+					<div class="max-sm-320">
+						<h4>Includes:</h4>
+						<ul>
+						{% for item in bundle.items %}
+							<li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
+						{% endfor %}
+						</ul>
+						<div class="actions">
+							<div class="quantity" id="div-quantity-{{product.id}}">
+								<label for="variant-input-{{bundle.id}}" class="control-label">Qty</label>
+								<div class="input-group input-group-qty igq-mod">
+									<div class="btn-group btn-group-qty">
+										<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
+										<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+										<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+									</div>
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
+										   <span>Add to Cart</span>
+									   </button>
+								   </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+			</div>
+		</div>
+		{% endfor %}
+</div>	
+{% endif %}
+
+
+<div class="divide" id="children">
+	<h2>Products</h2>
+	{# Begin pane actions / registry / wishlist / add to cart #}
+	{% if app.user.id is not empty %}
+		{% set children_ids = [] %}
+		{% for child in children %}
+			{% set children_ids = children_ids|merge([child.id]) %}
+		{% endfor %}
+		{% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
+		{% if registries is not empty %}
+			{% set registry_ids = [] %}
+			{% for registry in registries %}
+				{% set registry_ids = registry_ids|merge([registry.id]) %}
+			{% endfor %}
+			{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:{'$in':children_ids}}}) %}
+		{% endif %}
+		{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
+		{% if wishlists is not empty %}
+			{% set wishlist_ids = [] %}
+			{% for wishlist in wishlists %}
+				{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
+			{% endfor %}
+			{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:{'$in':children_ids}}}) %}
+		{% endif %}
+	{% endif %}
+	
+
+	{% set items = product.product %}
+	{% set layouts = product.layout is not empty ? product.layout : [{'name':'','items':items|values_in('id')}]%}
+	{% for layout in layouts %}
+		{# Build ordered children array #}
+		{% set children = [] %}
+		{% for item in layout.items %}
+			{% set children = children|merge( items|find({'id':item}) ) %}
+		{% endfor %}
+
+		{# set children = items|find({'id':layout.items}) #}
+
+		{% if children is not empty %}
+			{# Begin collection group header #}
+			{% if layout.name != '' %}
+	<div class="group-header">
+		<h4>{{layout.name}}</h4>
+	</div>
+	{% endif %}
+	
+	{# Begin collection product $(this).parentsUntil('.product').hide(); #}
+	{% for product in children %}
+	{% set variations = product.variant|find({'has_stock':true}) %}
+	{% set variation = variations[0] %}
+	<div class="divide p-2x pad-b-2x piece piece-{{product.id}}">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+		<div class="media media-cart">
+			<div class="media-left">
+				<a href="{{app.url}}/product/{{product.slug}}" class="variant-selected-image" id="variant-selected-image-{{product.id}}">
+					<div class="image-space">
+						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-responsive isd" alt="">
+					</div>
+				</a>
+			</div>
+
+			<div class="media-body">
+				{% if product.brand is not empty %}
+				<div class="brand p-mini">
+					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
+				</div>
+				{% endif %}
+				<div><h3 class="product-name">
+					<a href="{{app.url}}/product/{{product.slug}}"><span itemprop="name">{{ product.name }}</span></a>
+				</h3></div>
+				<div class="variations" data-id="{{product.id}}">
+					<div class="active variation" data-pos="{{variation.position}}">
+						{% set needsku = product.variant|values_in('sku') %}
+						{% if needsku[0] is not empty %}
+						<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
+						{% endif %}
+
+						<div class="pricing">
+							<div class="p-mini" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+								<div class="price">$<span>{{variation.price|number_format(2)}}</span></div>
+							</div>
+						{% set needprices = product.variant|max('save_percent') %}
+						{% if needprices|length > 0 %}
+							{% if (variation.compare_price - variation.price) > 1 %}
+								<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
+							{% else %}
+								<ul class="list-inline"><li>&nbsp;</li></ul>
+							{% endif %}
+						{% endif %}
+						</div>
+						{% set needstockmsg = product.variant|find({'has_stock':false}) %}
+						{% if needstockmsg|length > 0 %}
+							{% if variation.has_stock == false %}
+							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+							{% else %}
+							<div class="fsd1 stock"><div class="stock-msg"><br></div></div>
+							{% endif %}
+						{% endif %}
+
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="g p" itemprop="description">{{ product.description }}</div>
+			</div>
+			<div class="col-xs-12 col-sm-5 pull-right">
+				<div class="max-sm-320">
+				{% spaceless %}
+					<div class="variation-selector-{{product.id}}">
+					{% for vo in product.variant_options %}
+						<div class="p selector-details{% if vo.name == 'color' %} color-details-collection{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
+							<div class="selected-option"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
+							{% if vo.name == 'color' %}
+							<ul class="list-inline swatches swatches-{{vo.name}}">
+							{% for v in vo.values %}
+								<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-value="{{v}}">
+								{% if vo.name == "color" %}
+									{% set vsimgsrc = "" %}
+									{% for prodimg in product.images %}
+										{% if prodimg.type == "swatch" and prodimg.name == v %}
+											{% set vsimgsrc = prodimg.thumbnail %}
+										{% endif %}
+									{% endfor %}
+									{% if vsimgsrc is empty %}
+										{% set validvar = product.variant|find({'color':v}) %}
+										{% set vsimgsrc = validvar[0].images[0].thumbnail %}
+										{% for variation in product.variant %}
+											{% if variation.color == v %}
 											
-											<div class="product-name">{{ bundle.name }}</div>
-											{# Begin variation dropdown #}
-												<div class="pricing">
-													<div class="price" id="product-price-{{bundle.id}}">${{ bundle.price }}</div>
-												</div>
-											{# End variation dropdown #}
-											{# Begin pricing #}
-												<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
-													{# Begin regular price #}
-													<li class="price-regular" id="product-standard-price-{{product.id}}">Regular price: ${{ bundle.raw_price }}</li>
-													{# End regular price #}
-													{# Begin percent off #}
-													{% if bundle.discount_type == 'dollar'%}
-														<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.discount_value }}</li>
-													{% elseif bundle.discount_type == 'percentage' %}
-														<li class="percent" id="save-pricing-{{product.id}}">Total discount: {{ bundle.discount_value }}%</li>
-													{% elseif bundle.discount_type == 'fixed' %}
-														<li class="percent" id="save-pricing-{{product.id}}">Total discount: ${{ bundle.price - bundle.raw_price }}</li>
-													{% endif %}
-													{# End percent off #}
-												</ul>
-											{# End pricing #}
-											{# Begin estimated shipping #}
-
-												<div class="p availability" id="stock-text-{{product.id}}">
-													{% if bundle.has_stock == '1' %}
-														In Stock
-													{% else %}
-														Out of Stock
-													{% endif %}
-												</div>
-
-											{# End estimated shipping #}
-											{# Begin product tags #}
-												<ul class="tags list-inline hidden-xs hidden-sm">
-													<li>
-														{% for item in bundle.items %}
-															{% for tag in item.tags %}
-																<span class="label label-info">{{tag|title}}</span>
-															{% endfor %}
-														{% endfor %}
-													</li>
-												</ul>
-											{# End product tags #}
-										</div>
-										{# End collection product details #}
-										
-
-										<div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
-											<div class="details">
-												<div class="col-md-8 row">
-													<div class="variation-selection">
-														{{ bundle.description }}<br/>
-														<ul>
-															{% for item in bundle.items %}
-																<li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
-															{% endfor %}
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xs-12 col-md-3">
-												{# Begin collection product actions #}
-													<div class="actions">
-														<div class="input-group-qty quantity" id="div-quantity-{{product.id}}">
-															<label for="variant-input-{{bundle.id}} class="control-label pT0">Qty</label>
-															<div class="input-group">
-																<div class="input-group-btn">
-																	<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-																</div>
-																<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
-																<div class="input-group-btn">
-																	<button class="btn btn-primarybtn-add" type="button"><i class="fa fa-plus"></i></button>
-																</div>
-															</div>
-														</div>
-													</div>
-												{# End collection product actions #}
-											</div>
-										</div>
-										{# End variation block of product #}
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+									{% if vsimgsrc is empty %}
+										{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
+									{% endif %}
+									<img class="img-responsive" src="{{vsimgsrc}}" width="250" height="250" alt="{{v}}">
+								{% else %}
+									<a class="btn btn-default btn-lg">{{v}}</a>
+								{% endif %}
+								</li>
+							{% endfor %}
+							</ul>
+							{% endif %}
+							{% if vo.name != 'color' %}
+							<select class="form-control input-lg swatches swatches-{{vo.name}}">
+							{% for v in vo.values %}
+								<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v}}">{{v}}</option>
+							{% endfor %}
+							</select>
+							{% endif %}
+						</div>
+					{% endfor %}
+					</div>
+				{% endspaceless %}
+					
+								
+					<div class="actions">
+						<div class="form-group divide pad-b p-mini">
+							<div class="quantity" id="div-quantity-{{product.id}}">
+								<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
+								<div class="input-group input-group-qty igq-mod">
+									<div class="btn-group btn-group-qty">
+										<input id="variant-input-{{product.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="">
+										<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+										<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+									</div>
+									<div class="input-group-btn">
+										<button id="variant-atc-{{product.id}}" type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
+											<span>Add to Cart</span>
+										</button>
 									</div>
 								</div>
-							{% endfor %}
-						{# End collection product #}
+							</div>
 						</div>
+						{% include "/product/_partials/list/actions-collection.html.twig" %}
 					</div>
 				</div>
-			</form>
-		</div>
-		{% endif %}
-		<div id="children" class="tab-pane fade {% if bundles| length == 0 %} in active {% endif %}">
-			<form method="post" id="productForm" action="{{ app.url }}/product/route" class="">
-				<div class="panel panel-default panel-tab">
-					{# Begin pane actions / registry / wishlist / add to cart #}
-					{% if app.user.id is not empty %}
-						{% set children_ids = [] %}
-						{% for child in children %}
-							{% set children_ids = children_ids|merge([child.id]) %}
-						{% endfor %}
-						{% set registries = api.get('/registry', {query:{customer_id:app.user.id}}) %}
-						{% if registries is not empty %}
-							{% set registry_ids = [] %}
-							{% for registry in registries %}
-								{% set registry_ids = registry_ids|merge([registry.id]) %}
-							{% endfor %}
-							{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:{'$in':children_ids}}}) %}
-						{% endif %}
-						{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
-						{% if wishlists is not empty %}
-							{% set wishlist_ids = [] %}
-							{% for wishlist in wishlists %}
-								{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
-							{% endfor %}
-							{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:{'$in':children_ids}}}) %}
-						{% endif %}
-					{% endif %}
-					
-					{# End pane actions #}
-					<div class="panel-body">
-						<div class="row p">
-							{# Begin add to cart button #}
-							<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 p pull-right">
-								<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
-									<span>Add to Cart</span>
-								</button>
-							</div>
-							{% include "/product/_partials/list/actions-collection.html.twig" %}
-							{# End add to cart button #}
-						</div>
 
-						{% set items = product.product %}
-						{% set layouts = product.layout is not empty ? product.layout : [{'name':'','items':items|values_in('id')}]%}
-						{% for layout in layouts %}
-							{# Build ordered children array #}
-							{% set children = [] %}
-							{% for item in layout.items %}
-								{% set children = children|merge( items|find({'id':item}) ) %}
-							{% endfor %}
-
-							{# set children = items|find({'id':layout.items}) #}
-
-							{% if children is not empty %}
-								<div class="panel-group">
-								{# Begin collection group header #}
-									{% if layout.name != '' %}
-										<div class="group-header">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>{{layout.name}}</h4>
-												</div>
-											</div>
-										</div>
-									{% endif %}
-									{# End collection group header #}
-									{# Begin collection product $(this).parentsUntil('.product').hide(); #}
-									{% for product in children %}
-										<div class="variations col-v g divide">
-											<div class="media media-cart">
-												
-												{# Begin collection product image #}
-												<div class="media-left">
-													<img id="main-product-image-copy" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" class="media-object" alt="" style="display:none"/>
-													<a href="{{app.url}}/product/{{product.slug}}">
-														<span class="" id="variant-selected-image-{{product.id}}">
-															<span class="isd"></span>
-														</span>
-													</a>
-													<img itemprop="image" alt="" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}"
-														class="hidden" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-												</div>
-												{# End collection product image #}
-												{# Begin collection product details #}
-												<div class="media-body">
-													<div class="row">
-														<div class="col-xs-12 col-md-5 p">
-															<div class="details">
-																<a class="hidden" href="{{app.url}}/brand/{{product.brand|url_encode}}">
-																	<span itemprop="brand">{{product.brand}}</span>
-																</a>
-																<div class="product-name">
-																	<a href="{{app.url}}/product/{{product.slug}}">
-																		<span itemprop="name">{{ product.name }}</span>
-																	</a>
-																</div>
-																<div class="sku-details p-mini" id="div-sku-{{product.id}}">
-																	<strong>Item:</strong> #<span id="variant-sku-{{product.id}}"></span>
-																	{% set id = 0 %}
-																	{% for sku in product.variant %}
-																		{% set id = id + 1 %}
-																		<span class="hidden" itemprop="sku">{{ product.variant[id].sku }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																	{% endfor %}
-																	{% set id = 0 %}
-																	{% for barcode in product.variant %}
-																		<span class="hidden" itemprop="gtin12">{{ product.variant[id].barcode }}</span> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																	{% endfor %}
-																</div>
-
-
-
-																<div class="pricing">
-																	<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-																		<div class="price" id="product-price-{{product.id}}"></div>
-																	</span>
-																</div>
-
-																{# End variation dropdown #}
-																{# Begin pricing #}
-																	<ul class="pricing list-inline" id="pricing-box-{{product.id}}">
-																		{# Begin regular price #}
-																		<li class="price-regular" id="product-standard-price-{{product.id}}"></li>
-																		<li class="price hidden">
-																			<span itemprop="price">{{ product.variant[0].price }}</span>
-																		</li> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																		<meta itemprop="priceCurrency" content="USD" /> {# Rich Snippets for Search Engines, not showing on the preview! #}
-																		{# End regular price #}
-																		{# Begin percent off #}
-																		<li class="percent" id="save-pricing-{{product.id}}"></li>
-																		{# End percent off #}
-																	</ul>
-																{# End pricing #}
-																{# Begin estimated shipping #}
-																	<div class="availability p" id="stock-text-{{product.id}}">
-																	</div>
-																{# End estimated shipping #}
-																{# Begin product tags #}
-																	{% if product.tags is not empty %}
-																	{#
-																	<ul class="tags list-inline hidden-xs hidden-sm">
-																		<li>
-																			{% for tag in product.tags %}
-																			<!-- <span class="label label-info">{{tag|title}}</span> -->
-																			{% endfor %}
-																		</li>
-																	</ul>
-																	#}
-																	{% endif %}
-																{# End product tags #}
-															</div>
-
-															{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
-															{% set review_score = reviews|average('score') %}
-
-															<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-																<ul class="list-inline reviews">
-																	{% if review_score > 0 %}
-																	<li class="stars"><span itemprop="ratingValue">{{ base.rating( review_score ) }}</span></li>
-																	<li class="average">
-																	{% if reviews.num_total %}
-																		{{ (review_score * 5)|number_format(1) }} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
-																	{% endif %}
-																	</li>
-																	<li class="submit">
-																		<a class="btn btn-sm btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
-																	</li>
-																	{% endif %}
-																</ul>
-															</div>
-
-
-															{# Begin product description for google rich snippets, not showing in the preview! #}
-															{% if product.description is not empty %}
-																{% set full_description = product.description %}
-																<div class="hidden"><span itemprop="description">{{full_description}}</span></div>
-																<div class="hidden" id="variant-description-{{product.id}}" ></div>
-															 {% endif %}
-														</div>
-
-														<div class="col-xs-12 col-md-4 p">
-
-															<div class="variation-selection">
-																<div id="variation-selector-{{product.id}}" class="input-group"></div>
-															</div>
-														</div>
-																	
-														<div class="col-xs-12 col-md-3 p">
-															{# Begin collection product actions #}
-																<div class="actions">
-																	<div class="quantity" id="div-quantity-{{product.id}}">
-																		<label for="variant-input-{{product.id}}"" class="control-label">Qty</label>
-																		<div class="input-group input-group-qty igq-mod">
-																			{#<div class="input-group-btn">
-																				<button class="btn btn-primary btn-remove" type="button"><i class="fa fa-minus"></i></button>
-																			</div>#}
-																			<input id="variant-input-{{product.id}}" data-limit="" class="form-control input-lg quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="">
-																			{#<div class="input-group-btn">
-																				<button class="btn btn-primary btn-add" type="button"><i class="fa fa-plus"></i></button>
-																			</div>#}
-																		</div>
-																	</div>
-																</div>
-															{# End collection product actions #}
-														</div>
-														
-
-														{# End variation block of product #}
-													</div>
-												</div>
-												{# End collection product details #}
-											</div>
-										</div>
-									{% endfor %}
-									{# End collection product #}
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-					{% if children|length > 3 %}
-						<div class="panel-footer">
-							{# Begin desktop buttons #}
-							<div class="btn-toolbar">
-								{% include "/product/_partials/list/buttons.html.twig" %}
-							</div>
-							{# End desktop buttons #}
-						</div>
-					{% endif %}
-				</div>
-			</form>
-		</div>
-		<div id="details" class="tab-pane fade">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					{{product.description}}
-				</div>
-			</div>
-		</div>
-		<div id="reviews" class="tab-pane fade">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					{% include "/product/_partials/reviews.html.twig" %}
-				</div>
 			</div>
 		</div>
 	</div>
+					
+		{% endfor %}
+	
+	{% endif %}
+{% endfor %}
+</div>
+</form>
 </section>
+
+<div class="divide" id="reviews">
+	<h2>Reviews</h2>
+	{% include "/product/_partials/reviews.html.twig" %}
 </div>

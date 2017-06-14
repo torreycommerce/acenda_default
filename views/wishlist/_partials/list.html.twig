@@ -45,7 +45,7 @@
 		{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 		{% set product = products[item.product_id][0] %}
 			{# Begin product #}
-			<div class="col-v divide g">
+			<div class="pad-h divide g">
 				<div class="media media-cart">
 					<div class="media-left">
 						<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ product.thumbnail }}" width="250" height="250" alt="">

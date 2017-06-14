@@ -37,7 +37,7 @@
 			{% endif %}
 
 			{# Begin product image #}               
-			<div class="max-250 p-mini">
+			<div class="max-250 p">
 				<a href="{{app.url}}/product/{{product.slug}}">
 					<div class="image-space">
 						<img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}" width="250" height="250">
@@ -105,7 +105,7 @@
 						{% endif #}
 						{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
 						{% spaceless %}
-						<ul class="list-inline pricing">
+						<ul class="list-inline">
 							<li class="price-regular">{{ this.price(product.attributes.compare_price) }}</li>
 							<li class="percent">Save {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}</li>
 						</ul>
@@ -148,8 +148,18 @@
 					and child.has_stock 
 					and child.images is not empty
 					and child.color not in colors %}
+					{% set image_url0 = "" %}
+				    {% set image_url = "" %}
+				    {% set thiscolor = child.color %}
 					{% set colors = colors|merge([child.color]) %}
-					{% set image_url = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
+					{% set imagevar = product.images %}
+					{% set image_url0 = imagevar|find({'name':thiscolor,'type':'swatch'}) %}
+					{% if image_url0 is not empty %}
+					    {% set image_url = image_url0[0].thumbnail %}
+				    {% endif %}
+					{% if image_url is empty %}
+					    {% set image_url = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
+				    {% endif %}
 					<div class="thumbnail col-xs-2 col-thin p-mini">
 						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ image_url }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
 					</div>

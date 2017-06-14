@@ -2,72 +2,70 @@
 {% spaceless %}
 <section class="fsd1 text-right limit-logo" id="toolbar">
 	<div class="container">
-		<div class="row col-v">
-			<div class="col-xs-12 col-md-8 pull-right">
-				<ul class="list-inline hidden-xs hidden-sm" id="tools">
+		<div class="row">
+			<div class="col-xs-4 g pull-right hidden-xs hidden-sm">
+				<ul class="list-inline" id="tools">
                     {% if app.request.isAjaxRequest() %}				
 						{% if app.user.id is null %}
-						{# Begin login button #}
-					<li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
 					<li class="tool">
-							<div class="btn-group my-account">
-								<a target="_new" type="button" id="dropdown-account" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-user"></i><span>My Account</span><i class="fa fa-caret-down"></i>
-								</a>
-								<ul class="dropdown-menu pull-right">
-									<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
-									<li role="separator" class="divider"></li>
-									<li> <a href="{{app.url}}/order">Order Status</a></li>
-								</ul>
-							</div>
-						</li>
-						{# End login button #}
+						<div class="btn-group my-account">
+							<a target="_new" type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-user hidden"></i><span>My Account</span><i class="fa fa-caret-down hidden"></i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
+								<li role="separator" class="divider"></li>
+								<li> <a href="{{app.url}}/order">Order Status</a></li>
+							</ul>
+						</div>
+					</li>
 						{% else %}
 						{% set customer = api.get('/customer/' ~ app.user.id) %}
-					<li class="tool"><a class="tool-tab" href="{{app.url}}/contact">Contact Us</a></li>
 					<li class="tool">
-							<div class="btn-group my-account">
-								<a type="button" id="dropdown-account" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-user"></i><span>{{ customer.first_name }}</span><i class="fa fa-caret-down"></i>
-								</a>
-								<ul class="dropdown-menu pull-right">
-									<li><a href="{{app.url}}/account">My Account</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a href="{{app.url}}/account/orders">Orders</a></li>
-									<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
-								</ul>
-							</div>
+						<div class="btn-group my-account">
+							<a type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-user hidden"></i><span>{{ customer.first_name }}</span><i class="fa fa-caret-down hidden"></i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="{{app.url}}/account">My Account</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="{{app.url}}/account/orders">Orders</a></li>
+								<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
+							</ul>
+						</div>
 					</li>
 						{% endif %}
 					{% endif %}						
 					</li>
 					<li class="cart">
-						<a class="btn btn-primary tool-tab" href="{{app.url}}/cart">
-							<i class="fa fa-shopping-cart"></i><span class="text">My Cart</span><span class="dib item-count"></span>
+						<a class="btn btn-link tool-tab" href="{{app.url}}/cart">
+							<i class="fa fa-shopping-bag"></i><span class="text">My Cart</span><span class="dib item-count"></span>
 						</a>
 					</li>
 				</ul>
-				<div class="search w-50p pull-right hidden-sm hidden-xs">
+			</div>
+			<div class="col-xs-3 hidden-xs hidden-sm">
+				<div class="search">
 					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
 						<div class="form-group input-group twitter-typeahead">
-							<input class="form-control typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
 							<span class="input-group-btn">
-								<button class="btn btn-primary" type="submit">
+								<button class="btn btn-link" type="submit">
 									<i class="fa fa-search"></i>
 								</button>
 							</span>
+							<input class="form-control input-white typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
 						</div>
 					</form>
 				</div>
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<a class="pull-left yta-launch yta-toggle" href="#">
-					<i class="fa fa-bars fa-2x"></i>
+				<a class="btn btn-link btn-sq pull-left yta-launch yta-toggle" href="#">
+					<i class="fa fa-bars"></i>
 				</a>
 			</div>
-			<div class="col-xs-6 col-md-4 text-center txt-md-lg-l">
+			<div class="col-xs-6 col-md-offset-1 col-md-4 text-center">
 				<div class="logo">
 					{% if app.params.logoimages is not empty %}
 						{% set logo_info = app.params.logoimages | first %}
@@ -81,8 +79,8 @@
 				</div>
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<a class="pull-right" href="{{app.url}}/cart">
-					<i class="fa fa-shopping-cart fa-2x"></i><span class="item-count">{{ api.get('/sessioncart').item_count }}</span>
+				<a class="btn btn-link btn-sq pull-right" href="{{app.url}}/cart">
+					<i class="fa fa-shopping-cart"></i><span class="item-count hidden">{{ api.get('/sessioncart').item_count }}</span>
 				</a>
 			</div>
 		</div>
@@ -94,17 +92,16 @@
 			<div class="popover-close divide">
 				<div class="row p">
 					<div class="col-xs-12">
-						<btn id="ajaxcart-close" class="btn btn-default btn-sec btn-sm pull-right"><i class="fa fa-times"></i></btn>
+						<button id="ajaxcart-close" class="btn btn-default btn-sec btn-sm pull-right"><i class="fa fa-times"></i></button>
 						<h3 class="al-btn-sm">Quick Cart</h3>
 					</div>
 				</div>
 			</div>
 			<div class="error g">
 			</div>
-			{# Begin Popover products #}
-			<section class="ajaxcart-products divide">
-				{# Begin product #}
-				<div class="ajaxcart-product col-v divide g">
+			
+			<section class="ajaxcart-products divide fsd1">
+				<div class="ajaxcart-product pad-h divide g">
 					<div class="media">
 						<div class="media-left">
 							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object product-image" src="" width="250" height="250" alt="">
@@ -116,10 +113,8 @@
 						</div>
 					</div>
 				</div>
-				{# Begin product #}
 			</section>
-			{# End Popover products #}
-			<div class="cart-totals col-v">
+			<div class="cart-totals pad-h fsd1">
 				<div class="items">You have <b><span class="item-count"></span></b> Item(s) in your Cart.</div>
 				<div class="total"><b>Subtotal:</b> $<span class="subtotal">0.00</span></div>
 			</div>

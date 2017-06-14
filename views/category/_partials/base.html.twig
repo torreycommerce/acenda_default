@@ -233,9 +233,9 @@
 				<div class="row c-c">
 					{% for category in categories %}
 					{# Begin category #}
-					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} p">
+					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} p-2x">
 						<div class="product">
-							<div class="max-250 p-mini">
+							<div class="max-250 p">
 								<a href="{{app.url}}/category/{{category.slug}}">
 									<span class="image-space">
 										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{category.thumbnail}}" class="img-responsive isd" data-image-source="{{category.thumbnail}}">
@@ -343,7 +343,7 @@
 							{% set collection_ids = collection_ids|merge([product.id]) %}
 						{% endif %}
 						{# Begin product #}
-						<div class="col-xs-6 col-sm-4 p">
+						<div class="col-xs-6 col-sm-4 p-2x">
 							{{ prod.gridproduct(product) }}
 						</div>
 						{# End product #}
@@ -376,7 +376,7 @@
 							{% set collection_ids = collection_ids|merge([product.id]) %}
 						{% endif %}
 						{# Begin product #}
-						<div class="col-xs-6 col-sm-4 p">
+						<div class="col-xs-6 col-sm-4 p-2x">
 							{{ prod.gridproduct(product) }}
 						</div>
 						{# End product #}

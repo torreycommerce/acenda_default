@@ -201,7 +201,7 @@ Cart
 					<div class="pricing p">
 						{% if product.compare_price is not empty and product.compare_price > product.price %}
 						<div class="regular">
-							<spam class="item-label">Reg:</span>
+							<span class="item-label">Reg:</span>
 							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>
 						</div>
 						{% else %}
@@ -211,7 +211,7 @@ Cart
 						</div>
 						{% endif %}
 						{% if product.compare_price is not empty and product.compare_price > product.price%}
-						<div class="sale">
+						<div class="price sale">
 							<span class="item-label">Sale:</span>
 							<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>
 						</div>
@@ -230,14 +230,10 @@ Cart
 				<div class="col-xs-12 col-md-3 p">
 					<div class="quantity">
 						<label for="quantity-selector-{{id}}" class="control-label">Qty</label>
-						<div class="input-group input-group-qty input-group-sm">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-primary btn-remove"><i class="fa fa-minus"></i></button>
-							</div>
-							<input type="text" class="form-control quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-primary btn-add"><i class="fa fa-plus"></i></button>
-							</div>
+						<div class="input-group input-group-qty igq-mod btn-group-qty">
+							<input type="text" class="form-control input-lg quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
+							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
 						</div>
 					</div>
 				</div>
@@ -312,11 +308,7 @@ Cart
 			{# End subtotal / checkout #}
 			{# Begin shipping estimator #}
             <div class="divide" id="shipping-estimator">
-				<div class="row">
-					<div class="col-xs-12">
-						{% include "/cart/_partials/estimator.html.twig" %}
-					</div>
-				</div>
+				{% include "/cart/_partials/estimator.html.twig" %}
 			</div>
 			{# End shipping estimator #}
 		</div>

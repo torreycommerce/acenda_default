@@ -2,17 +2,18 @@
 {% set categories = api.get('/category/sapling') %}
 
 <style>
-.mobile.yta-open, .mobile.yta-open body {overflow:hidden;}
+.mobile.yta-open, .mobile.yta-open body {height:100%; overflow:hidden;}
 .yta-toggle {cursor:pointer;}
 
-.yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:1061; top:-100px; bottom:-100px; left:0; right:0; background:rgba(0,0,0,.25); transition:all 300ms ease;}
+.yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:1061; top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,.25); transition:all 300ms ease;}
 .yta-open .yta-mask {visibility:visible; opacity:1;}
 
-#yta-menu {position:fixed; z-index:1062; top:0; left:-280px; width:280px; height:100%; font-size:14px; background:#fbfbfb; overflow-y:auto; opacity:0; transition:all 300ms ease;}
-.yta-open #yta-menu  {left:0; opacity:1;}
+#yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-280px; width:280px; padding-top:48px; font-size:14px; background:#fbfbfb; opacity:0; transition:all 300ms ease;}
+.yta-open #yta-menu {left:0; opacity:1;}
 #yta-menu .yta-getsub, #yta-menu .yta-toggle {width:48px; margin:0; cursor:pointer;}
-.yta-head {height:48px; line-height:48px; text-align:right;}
+.yta-head {position:absolute; top:0; left:0; width:100%; height:48px; line-height:48px; text-align:right;}
 .yta-head .fa {line-height:48px;}
+.yta-body {position:absolute; top:48px; bottom:0; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto;}
 #yta-menu ul {list-style:none; margin:0; padding:10px 0;}
 #yta-menu ul ul {padding:0; font-size:12px; /* */ height:0; visibility:hidden; opacity:0; overflow:hidden; transition:all 200ms ease;}
 #yta-menu ul ul.active {/* */ height:auto; padding:0 0 5px 10px; visibility:visible; opacity:1;}
@@ -26,6 +27,7 @@
 
 {% spaceless %}
 
+<div class="yta-body">
 <ul>
 	<li>
 		<a href="{{app.url}}"><span>Home</span></a>
@@ -60,34 +62,35 @@
 			<div class="input-group">
 				<input class="form-control" type="text" value="" name="s" placeholder="Search" title="Search">
 				<div class="input-group-btn">
-					<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+					<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 				</div>
 			</div>
 		</form>
 	</span></li>
 </ul>
 <ul>
-	{% set id = 0 %}
-	{% for main_category,items in categories %}
-		{% set id = id + 1 %}
-		<li>
-			<a href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
-			{% if items.limb|length %}
-			<i class="fa fa-chevron-down yta-getsub"></i>
-			<ul>
-				{% set i = 0 %}
-				{% for category,subitems in items.limb %}
-					{% set i = i + 1 %}
-					{% if subitems.limb|length %}
-						{% set subid = "submenu-" ~ id ~ "-" ~ i %}
-						{{ base.subcategory_mobile(category, subitems, subid) }}
-					{% else %}
-						<li><a href="{{app.url}}/category/{{subitems.slug}}"><span>{{category}}</span></a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
-			{% endif %}
-		</li>
-	{% endfor %}
+{% set id = 0 %}
+{% for main_category,items in categories %}
+	{% set id = id + 1 %}
+	<li>
+		<a href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
+		{% if items.limb|length %}
+		<i class="fa fa-chevron-down yta-getsub"></i>
+		<ul>
+			{% set i = 0 %}
+			{% for category,subitems in items.limb %}
+				{% set i = i + 1 %}
+				{% if subitems.limb|length %}
+					{% set subid = "submenu-" ~ id ~ "-" ~ i %}
+					{{ base.subcategory_mobile(category, subitems, subid) }}
+				{% else %}
+					<li><a href="{{app.url}}/category/{{subitems.slug}}"><span>{{category}}</span></a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</li>
+{% endfor %}
 </ul>
+</div>
 {% endspaceless %}
