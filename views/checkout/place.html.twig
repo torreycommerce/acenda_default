@@ -39,6 +39,8 @@
     {% include "/checkout/_partials/acenda.html.twig" %}
 {% endblock %}
 {% block dataLayer %}
-    {% include "/checkout/_partials/dataLayer.html.twig" %}
+    {% if config.params.checkout.single_page != 1 %}
+        {% include "/checkout/_partials/dataLayer.html.twig" %}
+    {% endif %}        
     {{ parent() }}
 {% endblock %}
