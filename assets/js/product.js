@@ -388,7 +388,7 @@ function VariantsManager (product, img, isCollection) {
                 }
                 $(vHTML).find('.price span').html(filteredVariants[0].price.toFixed(2));
                 if ((filteredVariants[0].compare_price - filteredVariants[0].price) > 1) {
-                    $(vHTML).find('.pricing ul').html('<li class="price-regular">$'+filteredVariants[0].compare_price.toFixed(2)+'</li><li class="percent">Save $'+filteredVariants[0].save_price+' ('+filteredVariants[0].save_percent+'%)</li>');
+                    $(vHTML).find('.pricing ul').html('<li class="price-regular">$'+filteredVariants[0].compare_price.toFixed(2)+'</li><li class="percent">Save $'+parseFloat(filteredVariants[0].save_price).toFixed(2)+' ('+filteredVariants[0].save_percent+'%)</li>');
                 } else {
                     $(vHTML).find('.pricing ul').html('<li>&nbsp;</li>');
                 }
