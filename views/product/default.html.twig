@@ -97,22 +97,17 @@
 .vopt {margin-right:-1px; margin-left:-1px;}
 .vopt-color {font-size:0;}
 .vopt li {margin:0; padding:2px 1px 0;}
-.vopt .selected a, .vopt li:hover a {border:1px solid #000;}
+.vopt-color li {width:20%;}
+.vopt li img {cursor:pointer; border:1px solid #bbb;}
+.vopt .selected a, .vopt li:hover a, .vopt li:focus a, .vopt .selected img, .vopt li:hover img, .vopt li:focus img {border:1px solid #000;}
 .vopt .selected a {background:#f8f8f8;}
-.vopt .not-avail a {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
-.vopt .not-avail-sel a {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
-
-.color-details li {width:48px; height:48px;}
-.color-details li img {width:46px; height:46px;}
-@media (min-width:992px) {
-#singleProduct .color-details li {width:66px; height:66px;}
-#singleProduct .color-details li img {width:64px; height:64px;}
-}
-.color-details li img {cursor:pointer; border:1px solid #bbb;}
-.color-details li:hover img, .color-details li:focus img {border:1px solid #888;}
-.color-details li.selected img {border-color:#000;}
-.color-details li.not-avail-sel img {border:1px dashed red; cursor:not-allowed; opacity:.65;}
 .vopt .not-avail a, .vopt .not-avail img {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
+.vopt .not-avail-sel a, .vopt .not-avail-sel img {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
+
+
+@media (min-width:992px) {
+
+}
 .selector-details select {margin:2px 0 0;}
 /**/
 .has-video .vari-scase {width:80%; /*width:72%;*/}
