@@ -167,7 +167,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .color-chip.brown {background-color:#6f5d42;}
 .color-chip.black {background-color:#000;}
 .color-chip.gray, .color-chip.grey {background-color:#aaa;}
-.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5); background:#fdfdfd; border:1px solid #bbb;}
+.color-chip.white {color:#666; text-shadow:0 1px 1px rgba(255,255,255,.5);}
 .color-chip.multi {background:#88bfe8; background:linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);}
 .color-chip:hover,.color-chip:focus {color:#fff; text-decoration:none; opacity:1; border:1px solid #000;}
 .color-chip.active {border:1px solid #000; opacity:1;}

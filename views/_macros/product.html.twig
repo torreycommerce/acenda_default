@@ -59,12 +59,6 @@
 			</div>                            
 			{# End product image #}
 
-			{# There is no point in having a carousel without an image, so it is moved inside here #}
-			{% if 'carousel' in options %}
-				{# Begin image carousel insert #}
-				{{ this.carousel(product) }}
-				{# End image carousel insert #}
-			{% endif %}
 		{% endif %}
 		{% if 'details' in options %}
 			{# Begin product details #}
@@ -75,53 +69,40 @@
 					<div class="product-name"><span itemprop="name">{{product.name}}</span></div>
 				</a>
 				
-				{# Begin product description for google rich snippets, not showing in the preview! #}
-				{% if product.description is not empty %}
-					{% set full_description = product.description %}
-						<div class="hidden"><span itemprop="description">{{full_description}}</span></div>
+				<div class="pricing p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+					{% if product.attributes.price %}
+					<div class="price p-mini"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
+					<meta itemprop="priceCurrency" content="USD" />
+					{% endif %}
+					{# if product.attributes.price.0 >= 100 %}
+					<div class="price-per-month hidden-xs">
+						<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
+					</div>
+					{% endif #}
+					{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
+					{% spaceless %}
+					<ul class="list-inline">
+						<li class="price-regular">{{ this.price(product.attributes.compare_price) }}</li>
+						<li class="percent">Save {{ this.saveprice(product.attributes.save_price) }} <span class="hidden-xs">{{ this.savepercent(product.attributes.save_percent) }}</span></li>
+					</ul>
+					{% endspaceless %}
+					{% endif %}
+				</div>
+
+				{# There is no point in having a carousel without an image, so it is moved inside here #}
+				{% if 'carousel' in options %}
+					{# Begin image carousel insert #}
+					{{ this.carousel(product) }}
+					{# End image carousel insert #}
 				{% endif %}
 
-				{% set id = 0 %}
-				{% for sku in product.variant %}
-					{% set id = id + 1 %}
-						<div class="sku-details hidden" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
-				{% endfor %} 
-				{% set id = 0 %}
-				{% for barcode in product.variant %}   
-						<div class="hidden"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
-				{% endfor %}      
-				{# End product descriptiong for google rich snippets, not showing in the preview! #}      
-
-				<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					<div class="pricing g">
-						{% if product.attributes.price %}
-						<div class="price"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
-						<meta itemprop="priceCurrency" content="USD" />
-						{% endif %}
-						{# if product.attributes.price.0 >= 100 %}
-						<div class="price-per-month hidden-xs">
-							<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
-						</div>
-						{% endif #}
-						{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
-						{% spaceless %}
-						<ul class="list-inline">
-							<li class="price-regular">{{ this.price(product.attributes.compare_price) }}</li>
-							<li class="percent">Save {{ this.saveprice(product.attributes.save_price) }} {{ this.savepercent(product.attributes.save_percent) }}</li>
-						</ul>
-						{% endspaceless %}
-						{% endif %}
-					</div>
-				</span>
 				{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
 				{% set review_score = reviews|average('score') %}
 				{% if review_score > 0 %}
-				<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<div class="reviews"> 
+				<div class="p reviews" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 				<span itemprop="ratingValue">{{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}</span>                 
 					{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
 					{% endif %}
-				</div>
 				</div>
 				{% endif %}
 			</div>
@@ -136,10 +117,8 @@
 {# Begin image carousel #}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
-		{% set carouselHasNext = false %}
-		<div class="color-carousel p-mini row row-thin hidden-sm hidden-xs">
-			<div id="color-image-carousel-{{product.id}}" class="col-xs-12 col-thin">
-
+		<div class="max-250 color-chips p-mini">
+			<div class="pad-w">
 				<div class="row row-thin">
 				{% set colors = [] %}
 				{% for item,child in product.variant if 
@@ -160,24 +139,16 @@
 					{% if image_url is empty %}
 					    {% set image_url = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
 				    {% endif %}
-					<div class="thumbnail col-xs-2 col-thin p-mini">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ image_url }}" class="img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
+					<div class="col-xs-2 col-thin p-mini">
+						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ image_url }}" class="color-chip img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
 					</div>
-					{% set carouselblock = carouselblock + 1 %}
-					{% if carouselblock is divisibleby(6) and product.variant[(item + 1)] is defined %}
-						{% set carouselHasNext = true %}
-
-					{% endif %}
 				{% endfor %}
 				</div>
 			</div>
-			{% if carouselHasNext == true %}
-
-			{% endif %}
 		</div>
 	{% endif %}
 {% else %}
-	<div class="empty-carousel hidden-sm hidden-xs"></div>
+	{#<div class="empty-carousel hidden-sm hidden-xs"></div>#}
 {% endif %}
 {# End image carousel #}
 {% endspaceless %}

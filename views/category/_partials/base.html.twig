@@ -168,8 +168,7 @@
 				</ul>
 			</section>
 			{% endif %}
-
-			{% if filters.category_id %}
+			{% if filters.num_total %}
 			<button class="btn btn-block btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
 			{% endif %}
 			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
@@ -212,6 +211,10 @@
 	</section>
 	{# End category filters #}
 	<section class="product-grid">
+<style>
+.product-grid .color-chips .col-xs-2 {width:20%;}
+.product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
+</style>
 		<div class="col-md-9 col-xs-12">        
 
 			<h1>{% if app.request.get.s is not empty %}
