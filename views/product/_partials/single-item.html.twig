@@ -55,7 +55,7 @@
 
 			<div class="pos-r">
 				<div class="variations" data-id="{{product.id}}">
-					<div class="active variation" data-pos="{{variation.position}}"><div class="pad-w-3x"><div class="vari-scase">
+					<div class="active variation" data-vid="{{variation.id}}"><div class="pad-w-3x"><div class="vari-scase">
 						<div class="slick slick-p slick-p-go">
 						{% for varimg in varimgs %}
 						<div class="virg">
@@ -85,7 +85,7 @@
 	<section id="product-details" class="col-xs-12 col-sm-5 p-2x">
 		<div class="max-320">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
-				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-pos="{{variation.position}}">
+				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
 					<!--name: {{variation.name}} <small><i>pos: {{variation.position}}</i></small>-->
 				{% set needsku = product.variant|values_in('sku') %}
 				{% if needsku[0] is not empty %}

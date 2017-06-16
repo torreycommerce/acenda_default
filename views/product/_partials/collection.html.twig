@@ -291,7 +291,7 @@
 					<a href="{{app.url}}/product/{{product.slug}}"><span itemprop="name">{{ product.name }}</span></a>
 				</h3></div>
 				<div class="variations" data-id="{{product.id}}">
-					<div class="active variation" data-pos="{{variation.position}}">
+					<div class="active variation" data-vid="{{variation.id}}">
 						{% set needsku = product.variant|values_in('sku') %}
 						{% if needsku[0] is not empty %}
 						<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
