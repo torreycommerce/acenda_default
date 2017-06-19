@@ -134,7 +134,7 @@
 #}
 {% set filters = api.get('/catalog', {
 							"query":default_query,
-							"search":search_filter_keyword,
+							"search":app.request.get.s,
 							"search_in":search_fields,
 							"attributes":default_attributes,
 							"format":"attributes"
