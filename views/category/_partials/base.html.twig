@@ -134,7 +134,7 @@
 #}
 {% set filters = api.get('/catalog', {
 							"query":default_query,
-							"search":search_filter_keyword,
+							"search":app.request.get.s,
 							"search_in":search_fields,
 							"attributes":default_attributes,
 							"format":"attributes"
@@ -168,8 +168,7 @@
 				</ul>
 			</section>
 			{% endif %}
-
-			{% if filters.category_id %}
+			{% if filters.num_total %}
 			<button class="btn btn-block btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
 			{% endif %}
 			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
@@ -212,6 +211,10 @@
 	</section>
 	{# End category filters #}
 	<section class="product-grid">
+<style>
+.product-grid .color-chips .col-xs-2 {width:20%;}
+.product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
+</style>
 		<div class="col-md-9 col-xs-12">        
 			<h1>{% if app.request.get.s is not empty %}
 				Search results for: <i>{{app.request.get.s | e}}</i>
@@ -232,9 +235,9 @@
 				<div class="row c-c">
 					{% for category in categories %}
 					{# Begin category #}
-					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} p">
+					<div class="col-sm-{{12 / items_per_row}} col-xs-{{18 / items_per_row}} p-2x">
 						<div class="product">
-							<div class="max-250 p-mini">
+							<div class="max-250 p">
 								<a href="{{app.url}}/category/{{category.slug}}">
 									<span class="image-space">
 										<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{category.thumbnail}}" class="img-responsive isd" data-image-source="{{category.thumbnail}}">
@@ -342,7 +345,7 @@
 							{% set collection_ids = collection_ids|merge([product.id]) %}
 						{% endif %}
 						{# Begin product #}
-						<div class="col-xs-6 col-sm-4 p">
+						<div class="col-xs-6 col-sm-4 p-2x">
 							{{ prod.gridproduct(product) }}
 						</div>
 						{# End product #}
@@ -375,7 +378,7 @@
 							{% set collection_ids = collection_ids|merge([product.id]) %}
 						{% endif %}
 						{# Begin product #}
-						<div class="col-xs-6 col-sm-4 p">
+						<div class="col-xs-6 col-sm-4 p-2x">
 							{{ prod.gridproduct(product) }}
 						</div>
 						{# End product #}

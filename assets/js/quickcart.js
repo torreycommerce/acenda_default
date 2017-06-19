@@ -28,7 +28,7 @@ $(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('.quickcart .item-count').html(data.result.item_count);
     });
-    $('.quickcart').popover({html:true, trigger: 'manual', container: '#qc-parent', placement:'bottom'});
+    $('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
 });
 
 $('html').on("click", "#ajaxcart-close", function() {
@@ -67,7 +67,7 @@ $('button[value=cart]').click(function(event) {
     })
     .fail(function() {
         // Set popover on failure to add items
-        $('.quickcart').attr('data-content','<h3>Failed to add item(s) to cart.</h3>').popover('show');
+        $('.quickcart').attr('data-content','<h5>Failed to add item(s) to cart.</h5>').popover('show');
     })
     .success(ajaxCart);
 });
@@ -104,7 +104,7 @@ function ajaxCart(data, r) {
         if (show_all) {
             items = cart_items;
         } else {
-            items = $('#productForm').serializeArray(); // Items that were added
+            items = $('.productForm').serializeArray(); // Items that were added
         }
 
         $('.quickcart .ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)

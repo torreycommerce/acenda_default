@@ -18,3 +18,14 @@ $.fn.modal.Constructor.prototype.resetScrollbar = function () {
     oldRSB.apply(this);
     $(fixedCls).css('padding-right', '');
 }
+
+
+$('html').on("click", ".ttc", function() {
+	if ($(this).attr('href')) {
+		var ttc = $(this).attr('href');
+		$('body,html').animate({
+			scrollTop: $(ttc).offset().top
+		}, 300);
+		return false;
+	}
+});

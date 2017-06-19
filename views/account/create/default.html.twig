@@ -23,11 +23,7 @@
 {% set title = 'Create An Account' %}
 {% block title %}{{title}}{% endblock %}
 {% block breadcrumb %}
-<ul class="breadcrumb">
-	<li><a href="{{app.url}}">Home</a></li>
-	<li><a href="{{app.url}}/account">Account</a></li>
-	<li class="active">{{title}}</li>
-</ul>
+{{ base.breadcrumbs({'Account':'/account', (title):''}) }}
 {% endblock %}
 {% block content %}
 
@@ -87,7 +83,7 @@
 				</div>
 			</div>
 			<div class="form-group fgq">
-				<label class="control-label" for="phone">Phone Number</label>
+				<label class="control-label" for="phonenumber">Phone Number</label>
 				{{ forms.text('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', id:'phonenumber', required:true})  }}
 				<div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
 			</div>

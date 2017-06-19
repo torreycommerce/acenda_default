@@ -80,6 +80,106 @@
 {% endblock %}
 
 {% block content %}
+<style>
+.max-320 {max-width:320px; margin-right:auto; margin-left:auto;}
+@media (min-width:768px) {
+.max-sm-320 {max-width:320px; margin-right:auto; margin-left:auto;}
+}
+
+.stock .stock-msg {display:inline-block; padding:5px 10px; font-weight:bold; text-transform:uppercase;}
+.stock-oos .stock-msg {color:#fff; background:#ff3344;}
+/**/
+.variation {/*margin:0 0 5px; padding:5px; font-size:87.5%; border:1px solid #ddd;*/ /* */ height:0; margin:0; padding:0; opacity:0; overflow:hidden; visibility:hidden; transition:all 300ms;}
+.variation.active {height:auto; opacity:1; visibility:visible;}
+.acaro {margin:3px;}
+.acaro.selected {box-shadow:0 0 2px rgba(0,0,0,.5);}
+/**/
+.vopt {margin-right:-1px; margin-left:-1px;}
+.vopt-color {font-size:0;}
+.vopt li {margin:0; padding:2px 1px 0;}
+.vopt-color li {width:20%;}
+.vopt li img {cursor:pointer; border:1px solid #bbb;}
+.vopt .selected a, .vopt li:hover a, .vopt li:focus a, .vopt .selected img, .vopt li:hover img, .vopt li:focus img {border:1px solid #000;}
+.vopt .selected a {background:#f8f8f8;}
+.vopt .not-avail a, .vopt .not-avail img {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
+.vopt .not-avail-sel a, .vopt .not-avail-sel img {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
+
+
+@media (min-width:992px) {
+
+}
+.selector-details select {margin:2px 0 0;}
+/**/
+.has-video .vari-scase {width:80%; /*width:72%;*/}
+.has-video .vari-video-scase {position:absolute; top:0; width:100%;}
+.has-video .vari-video {position:absolute; top:0; right:0; width:20%; /*width:18%;*/}
+.slick-p .virg {float:left; width:20%;}
+.has-video .slick-p .virg {width:25%;}
+.slick-p .virg:nth-child(n+6) {display:none;}
+.has-video .slick-p .virg:nth-child(n+5) {display:none;}
+.slick-p .slick-prev {left:-25px;}
+.slick-p .slick-next {left:100%; margin-left:5px;}
+.has-video .slick-p .slick-next {left:125%; /*left:138.8888%;*/ margin-left:5px;}
+.image-space.video {cursor:pointer;}
+.video-icon {color:#fff; font-size:150%; text-shadow:0 1px 5px rgba(0,0,0,.75);}
+/**/
+.variant-selected-image {display:block; width:80px;}
+@media (min-width:992px) {
+.variant-selected-image {width:128px;}
+}
+</style>
+<style>
+/*======================================
+  Selectric v1.11.1 mod
+======================================*/
+
+.selectric-wrapper {position:relative; cursor:pointer; text-align:center;}
+.selectric-responsive {width:100%;}
+.selectric-hide-select {position:relative; width:0; height:0; overflow:hidden;}
+.selectric {position:relative; height:36px; margin:2px 0 0; font-size:14px; line-height:36px; background:#fcfcfc; border:1px solid #bbb; overflow:hidden;}
+.selectric-input-lg .selectric {height:48px; font-size:16px; line-height:48px;}
+.selectric-hover .selectric {background:#f8f8f8; border-color:#bbb;}
+.selectric-focus .selectric {background:#f0f0f0; border-color:#aaa;}
+
+
+.selectric .slabel {display:block; margin:0 36px; color:#444; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+.selectric-input-lg .slabel {margin:0 48px;}
+
+.selectric .button {display:block; position:absolute; top:0; right:0; width:36px; height:36px;}
+.selectric-input-lg .button {width:48px; height:48px;}
+
+
+.selectric .button:after {content:" "; position:absolute; top:0; right:0; bottom:0; left:0; width:0; height:0; margin:auto; border:4px solid transparent; border-top-color:#666; border-bottom:none;}
+.selectric-input-lg .selectric .button:after {border-width:6px;}
+.selectric-hover .selectric .button:after {/*border-top-color: #a2a2a2;*/}
+
+
+.selectric-open {z-index:9999;}
+.selectric-open .selectric {border-color:#8c8c8c; border-color:#66afe9; box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);}
+.selectric-open .selectric .button:after {border-top-color:#000;}
+.selectric-open .selectric-items {opacity:1; transform:scale(1) translateY(0);}
+
+.selectric-disabled {cursor:default; filter:alpha(opacity=50); opacity:.5; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+
+.selectric-hide-select select {position:absolute; left:-100%;}
+.selectric-hide-select.selectric-is-native {position:absolute; z-index:10; width:100%; height:100%;}
+.selectric-hide-select.selectric-is-native select {position:absolute; z-index:1; top:0; left:0; right:0; width:100%; height:100%; border:none; box-sizing:border-box; opacity:0;}
+
+.selectric-input {position:absolute!important; top:0!important; left:0!important; width:1px!important; height:1px!important; clip:rect(0, 0, 0, 0)!important; margin:0!important; padding:0!important; *font: 0/0 a !important; background:none!important; border:none!important; outline:none!important; overflow:hidden!important;}
+
+.selectric-temp-show {display:block!important; position:absolute!important; visibility:hidden!important;}
+
+.selectric-items {position:absolute; z-index:-1; top:100%; left:0; width:100%!important; background:#fcfcfc; border:1px solid #c4c4c4; box-shadow:0 0 10px -6px; opacity:0; transform:scale(0.75) translateY(-21px); transform-origin:50% 0; transition:all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;}
+.selectric-above .selectric-items {top:auto; bottom:100%;}
+.selectric-items .selectric-scroll {height:100%; overflow:auto;}
+
+.selectric-items ul, .selectric-items li {list-style:none; margin:0; padding:0;}
+.selectric-items li {display:block; padding:10px; color:#666; cursor:pointer; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.selectric-items li:hover {color:#000; background:#f8f8f8;}
+.selectric-items .highlighted {}
+.selectric-items .selected {color:#000; font-weight:bold; background:#f4f4f4;}
+.selectric-items .disabled {color:#666!important; cursor:default!important; text-decoration:line-through; background:none!important; opacity:0.5; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+</style>
     {% if item.product|length == 1%}
         {% set product = item.product|first %}
         {% include "/product/_partials/single-item.html.twig" %}
