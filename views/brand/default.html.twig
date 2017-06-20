@@ -2,14 +2,13 @@
 {% set default_query = {"status":"active","brand":app.request.path} %}
 {% set default_attributes = "category_id,color,type,gender,size,price,review_score" %}
 
-{% set title = 'By Brand - ' ~ (app.request.path|title) %}
+{% set title = 'Shop By Brand - ' ~ (app.request.path|title) %}
 
 {% block title %}{{title}}{% endblock %}
 
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({(title):''}) }}
-
+    {{ base.breadcrumbs({'Brands':'/brands',(app.request.path|title):''}) }}
 {% endblock %}
 
 {% block content %}

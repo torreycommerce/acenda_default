@@ -26,6 +26,15 @@
 {% endblock %}
 
 {% block page_content %}
+<div class="row text-center" id="brands">
+	{% set last_letter = "" %}
+	{% for brand in brands|keys %}
+		<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 pad"><div class="bgg brand"><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}"><span class="image-space"><span class="isd pad-w">{{brand|title}}</span></span></a></div></div>
+	{% endfor %}
+</div>
+{% endblock %}
+
+{% block page_content_alt %}
 <div id="brands">
 	{% set last_letter = "" %}
 	{% if brands is empty %}
@@ -34,7 +43,7 @@
 	{% for brand in brands|keys %}
 		{% set letter = brand[0:1] %}
 		{% if last_letter != letter %}
-			<h3>{{letter|upper}}</h3>
+			<h2>{{letter|upper}}</h2>
 			<ul>
 		{% endif %}
 		<li><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}">{{brand|title}}</a></li>

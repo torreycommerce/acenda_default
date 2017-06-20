@@ -4936,13 +4936,13 @@ button.close {
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
 .p-mini {margin-bottom:5px;}
 
+.bgg {background-color:#fcfcfc;}
 .d-b {display:block!important;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
 
 .max-250,.max-450 {max-width:250px; margin-right:auto; margin-left:auto;}
 .max-450 {max-width:450px;}
-.w-50p {width:50%;}
 
 .img-c {margin-left:auto; margin-right:auto;}
 
