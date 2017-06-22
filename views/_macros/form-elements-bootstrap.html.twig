@@ -226,11 +226,12 @@
     {{ elements.input('file', name, value, attributes) }}
 {% endmacro %}
 
-{% macro rating(name,score,glyph = 'glyphicon-star',attributes=[]) %}
+{% macro rating(name,score,glyph = 'fa-star',attributes=[]) %}
     {% import _self as elements %}
     {% set field = app.form.getField('hidden',name,score,attributes) %}
     {% set score = field.value %}
     {% set num_active = (score*5)|round %}
+    {% spaceless %}
     <div id="{{id}}" class="star-rating star-rating-input">
         {{ elements.hidden(name,score) }}
         <div class="star-rating-stars">
@@ -240,10 +241,11 @@
                 {% else %}
                     {% set class = 'disabled-choosing'%}
                 {% endif %}
-                <span id="rating-star-{{ loop.index }}" class="star-rating-star glyphicon {{glyph}} {{ class }}"></span>
+                <span id="rating-star-{{ loop.index }}" class="star-rating-star fa fa-star {{ class }}"></span>
             {% endfor %}
         </div>
     </div>
+    {% endspaceless %}
 {% endmacro %}
 
 {% macro captcha() %}

@@ -99,11 +99,15 @@
 				{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
 				{% set review_score = reviews|average('score') %}
 				{% if review_score > 0 %}
-				<div class="p reviews" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<span itemprop="ratingValue">{{ base.rating( review_score ) }} {{ (review_score * 5)|number_format(1) }}</span>                 
-					{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
-					{% endif %}
+				{% spaceless %}
+				<div class="fsd1 list-inline rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+					<span>{{ base.rating( review_score ) }}</span>
+					<span class="dib"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>
+						{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
+						{% endif %}
+					</span>
 				</div>
+				{% endspaceless %}
 				{% endif %}
 			</div>
 			{# End product details #}

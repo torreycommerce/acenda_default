@@ -21,7 +21,7 @@ $(document).ready(function() {
          var elemPosition = $(this).offset();
          var elemX=elemPosition.left;
          var elemY=elemPosition.top;
-         var iconWidth = $(this).find('.glyphicon').width();
+         var iconWidth = $(this).find('.star-rating-star').width();
          var width = iconWidth*6;
          var x = (e.pageX- elemX);
          var percentage = x/width;

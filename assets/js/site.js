@@ -351,7 +351,7 @@ $(document).ready(function() {
 		});
 	});
 	//
-	if ($('.star-rating-input').length || $('.star-rating-star').length) {
+	if ($('.star-rating-input').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/rating.js",function(){
 		});
 	}
