@@ -137,9 +137,9 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 .rating .dib {vertical-align:middle;}
-.star-rating {position:relative; overflow:hidden;}
-.star-rating .active {position:absolute; left:0; top:0; white-space:nowrap; overflow:hidden;}
+.star-rating {display:table; position:relative; margin:0 auto; overflow:hidden;}
 .star-rating-input {font-size:200%;}
+.star-rating .active {position:absolute; left:0; top:0; white-space:nowrap; overflow:hidden;}
 .star-rating .disabled,.star-rating .disabled-choosing {color:#ccc;}
 .star-rating .active,.star-rating .choosing,.star-rating .active-choosing {color:#FFC125;}
 .star-rating .fa {margin:0;}

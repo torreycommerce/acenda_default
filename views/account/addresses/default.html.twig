@@ -12,6 +12,7 @@
 
 {% include '/account/addresses/_partials/' ~ action ~ '.html.twig' %}
 {% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/account.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}
 {% endblock %}
