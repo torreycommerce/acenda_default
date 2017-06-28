@@ -23,7 +23,6 @@
 {{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 
-
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/acendaAnalytics.js') }}
 {% endif %}
@@ -77,9 +76,9 @@
 {% endif %}
 
 <script>
-var acendaBaseName = '{{app.params.site.title}}'
-var acendaBaseUrl = '{{app.url}}'
-var acendaBaseThemeUrl = '{{app.url_asset}}'
+var acendaBaseName = '{{app.params.site.title}}';
+var acendaBaseUrl = '{{app.url}}';
+var acendaBaseThemeUrl = '{{app.url_asset}}';
 </script>
 <script>
 	{% block acenda %}

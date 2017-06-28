@@ -469,6 +469,7 @@ var checkout = checkout || {};
 			return false;
 		},
 		checkPayment: function(e) {
+			var that = this;
 			e.preventDefault();
 			if(!this.validateStep('payment')) return;
 			if(!$('input[name=copy_shipping_to_billing]').is(":checked")) {			
@@ -476,10 +477,24 @@ var checkout = checkout || {};
 			}	
   			var form = this.getFormData('#payment-form');				
  			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
-			$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
-			this.checkout_steps[this.findStep('payment')].completed=true;
-			this.gotoStep('review');
-            $("html, body").animate({ scrollTop: 0 }, "slow");			
+			if(typeof form.card_number !=='undefined') { 			
+				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
+				that.checkout_steps[this.findStep('payment')].completed=true;
+		     	that.gotoStep('review');
+	            $("html, body").animate({ scrollTop: 0 }, "slow");					
+			} else {
+				// console.log('checking dropin',bt_dropin_instance);
+			    bt_dropin_instance.requestPaymentMethod(function(err, payload) {
+				              console.log(err);				              
+				              console.log(payload);
+				        $('#nonce').val(payload.nonce);
+						that.checkout_steps[that.findStep('payment')].completed=true;
+				     	that.gotoStep('review');
+			            $("html, body").animate({ scrollTop: 0 }, "slow");	
+				});
+
+			}
+		
 			return false;
 		},
 		placeOrder: function(e) {			

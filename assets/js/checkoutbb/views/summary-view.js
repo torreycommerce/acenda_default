@@ -20,10 +20,6 @@ var checkout = checkout || {};
 					} else {
 				        $('#checkout-right').height($('#summary-panel').height());		
 					}
-			    //$(document.body).trigger("sticky_kit:recalc");	
-			    // if(keepFocus) {
-			    // 	setTimeout(function() {$('input#cart_coupon_code').focus()},200);
-			    // }
 				setTimeout(fixSummaryHeight,1000);		    	
 			}
 			fixSummaryHeight();
