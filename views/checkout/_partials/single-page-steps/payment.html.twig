@@ -4,28 +4,27 @@
 <form id="payment-form"  novalidate parsley-validate>
 
 {% if payment_platform.platform == 'Braintree' %}
-<h3>Payment Method</h3>	
-{# {{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.3.1/js/dropin.js') }} #}
-    {{ app.asset.js(app.url_asset ~ '/assets/js/dropin.js') }}	
- <input id="nonce" name="payment_method_nonce" type="hidden" />
-    <div id="dropin-container"></div>
-{% set bt_resp = api.get('braintree/token') %}
+	<h3>Payment Method</h3>	
+	{{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.3.1/js/dropin.js') }}
+	 <input id="nonce" name="payment_method_nonce" type="hidden" />
+	    <div id="dropin-container"></div>
+	{% set bt_resp = api.get('braintree/token') %}
 
-{{ app.asset.script('braintree-dropin',"
-        var bt_client_token = '" ~ bt_resp.client_token ~ "';
-        var bt_dropin_instance = null;
-        var form = document.querySelector('#btn-continue-payment');        
-        braintree.dropin.create({
-          debug: true,
-          authorization: bt_client_token,
-          container: '#dropin-container',
-          paypal: {
-            flow: 'vault'
-          }
-        }, function (createErr, instance) {
-            bt_dropin_instance = instance;
-        });
-") }}
+	{{ app.asset.script('braintree-dropin',"
+	        var bt_client_token = '" ~ bt_resp.client_token ~ "';
+	        var bt_dropin_instance = null;
+	        var form = document.querySelector('#btn-continue-payment');        
+	        braintree.dropin.create({
+	          debug: true,
+	          authorization: bt_client_token,
+	          container: '#dropin-container',
+	          paypal: {
+	            flow: 'vault'
+	          }
+	        }, function (createErr, instance) {
+	            bt_dropin_instance = instance;
+	        });
+	") }}
 
 {% else %}
 <h3>Credit Card</h3>	

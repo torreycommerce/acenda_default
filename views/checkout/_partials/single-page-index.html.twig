@@ -200,11 +200,21 @@
 				<div class="media-body">
 					<div class="name"><%= variant.get('name') %></div>
 						<div class="availability">
-							<span>In Stock</span>
+							<span><%= variant.get('has_stock')?"In Stock":"Out of Stock" %></span>
 						</div>
 					<div class="qty">Qty: <%= item.quantity %> </div>
 					<div class="pricing"><div class="price">Price: <span class="dollar-sign">$</span><%= variant.get('price') %> <span class="each">each</span></div>
 					</div>
+					<% if(item.wishlist_id) { %>
+						<div p class="wishlist p">
+							<a href="{{ app.url }}"><i class="icon icon-list"></i> For </a>					
+						</div>
+					<% } %>
+					<% if(item.registry_id) { %>
+						<div p class="registry p">
+							<a href="{{ app.url }}"><i class="icon icon-list"></i> For </a>					
+						</div>
+					<% } %>					
 				</div>
 			</div>
 		</div>
