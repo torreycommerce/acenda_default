@@ -33,7 +33,7 @@
 				</section>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 p-xs">
-				<h3>Shop</h3>
+				<h2>Shop</h2>
 				<ul class="list-unstyled fsd1">
 					{% set categories = api.get('/category/sapling') %}
 					{% for main_category,items in categories if main_category != "clearance" %}
@@ -44,7 +44,7 @@
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4">
-				<h3>Quick Links</h3>
+				<h2>Quick Links</h2>
 				<ul class="list-unstyled fsd1">
 					<li><a href="{{app.url}}/contact">Contact</a></li>
 				   {% if app.user.id != '' %}

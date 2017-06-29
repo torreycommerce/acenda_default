@@ -40,178 +40,166 @@
 		{% do app.redirect(app.request.url) %}
 	{% endif %}
 	{% endfor %}
+		{% spaceless %}
 		<div class="products p divide">
+		<h2>Products</h2>
+		<style>
+		@media (min-width: 768px) {
+			.max-sm-320 {max-width:320px; margin-right:auto; margin-left:auto;}
+		}
+		</style>
 	{% for item in wishlist_items %}
 		{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 		{% set product = products[item.product_id][0] %}
 			{# Begin product #}
-			<div class="pad-h divide g">
-				<div class="media media-cart">
-					<div class="media-left">
-						<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ product.thumbnail }}" width="250" height="250" alt="">
-					</div>
+		<div class="divide g p-2x pad-b-2x">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+			<div class="media media-cart p-0 p-xs">
+				<div class="media-left">
+					<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+				</div>
 
-					<div class="media-body">
-					<div class="row">
-					<div class="col-xs-12 col-sm-8">
+				<div class="media-body">
 
-						<div class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></div>
+					<h3 class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></h3>
 
-						{# Begin pricing #}
-						<ul class="list-inline pricing fsd1">
-							<li class="price">
-								<span class="sale">Sale:</span>&nbsp;<span class="dollar-sign">&#36;</span><span class="amount">{{ product.price }}</span><span class="cents"></span>
-							</li>
-							<li class="availability">In Stock</li>
-							{% if product.compare_price %}
-								<li class="price-regular">
-									<span class="regular">Reg:</span>&nbsp;<span class="dollar-sign">&#36;</span><span class="amount">{{ product.compare_price }}</span><span class="cents"></span>
-								</li>
+					{# Begin pricing #}
+					<ul class="list-inline pricing">
+						<li class="price"><span class="dollar-sign">$</span>{{ product.price }}</li>
+						{% if product.compare_price %}
+							<li class="price-regular"><span class="dollar-sign">$</span>{{ product.compare_price }}</li>
+						{% endif %}
+					</ul>
+					{# End pricing #}
+					{# Begin quantities #}
+					
+					<div class="fsd1 qty-wanted p">
+						<div class="{{ left ? "fg-green" : "fg-red" }}">
+							{% if left <= 0 %}
+								<span class="purchased">This item is purchased</span>
+							{% else %}
+								<b>Wanted:</b>&nbsp;<span class="qty">{{ left }}</span>
 							{% endif %}
-						</ul>
-						{# End pricing #}
-						{# Begin quantities #}
-						<div class="quantities fsd1">
-							<div class="qty-wanted p">
-								<div class="{{ left ? "fg-green" : "fg-red" }}">
-									{% if left <= 0 %}
-										<span class="purchased">This item is purchased</span>
-									{% else %}
-										<span class="purchased">Wanted:</span>&nbsp;<span class="qty">{{ left }}</span>
-									{% endif %}
-								</div>
-							</div>
-							<ul class="list-inline">
-							{% if wishlist.customer_id == app.user.id %}
-								<li class="qty-update">
-									<a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
-								{# Begin quantity modal #}
-								<div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
-									<div class="modal-dialog modal-sm">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Update Your Quantities</h4>
-											</div>
-											<div class="modal-body">
-												<div class="row">
-													<div class="col-xs-12">
-														<label for="quantity_purchased[{{ item.id }}]">Qty Purchased</label>
-														<div class="input-group input-group-qty">
-															<div class="input-group-btn">
-																<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
-															</div>
-															<input class="form-control quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
-															<div class="input-group-btn">
-																<button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
-															</div>
-														</div>
+						</div>
+					</div>
+					
+					<ul class="list-inline">
+					{% if wishlist.customer_id == app.user.id %}
+						<li class="qty-update">
+							<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
+						{# Begin quantity modal #}
+						<div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Update Your Quantities</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-xs-6">
+												<label for="quantity_purchased[{{ item.id }}]">Qty <br>Purchased</label>
+												<div class="input-group input-group-qty igq-mod">
+													<div class="btn-group btn-group-qty">
+														<input class="form-control input-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
+														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
 													</div>
 												</div>
-												
-												<hr>
 
-												<div class="row">
-													<div class="col-xs-12">
-														<label for="wishlistitem_quantity[{{ item.id }}]">Qty Wanted</label>
-														<div class="input-group input-group-qty">
-															<div class="input-group-btn">
-																<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
-															</div>
-															<input class="form-control quantity-selector text-center" id="wishlistitem_quantity[{{ item.id }}]" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
-															<div class="input-group-btn">
-																<button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
-															</div>
-														</div>
+											</div>
+											<div class="col-xs-6">
+												<label for="wishlistitem_quantity[{{ item.id }}]">Qty <br>Wanted</label>
+												<div class="input-group input-group-qty igq-mod">
+													<div class="btn-group btn-group-qty">
+														<input class="form-control input-lg quantity-selector text-center" id="wishlistitem_quantity[{{ item.id }}]" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
+														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								</li>
-							{% endif %}
-							{# End quantity modal #}
-							{% if wishlist.customer_id == app.user.id %}
-								<li class="qty-remove">
-									<a class="btn btn-default btn-sec btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#">Remove</a>
-								{# Begin remove modal #}
-								<div class="modal fade modal_list_quantity" id="modal_remove_{{ product.id }}">
-									<div class="modal-dialog modal-sm">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title">Delete this item?</h4>
-											</div>
-											<div class="modal-body">
-												<p>Remove this item from your wish list?</p>
-												<b>{{ product.name }}</b>
-											</div>
-											<div class="modal-footer">
-												<a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>
-												<a href="{{app.url}}/wishlist/item/{{ item.id }}/delete" class="btn btn-danger">Delete</a>                                                
-											</div>
-										</div>
-									</div>
-								</div>
-								{# End remove modal #}
-								</li>
-							{% endif %}
-							</ul>
-						</div>
-						{# End quantities #}                        
-					</div>
-					{# End product details #}
-					{# Begin product quantity and actions #}
-					<div class="col-xs-12 col-sm-4">
-						<div class="actions">
-							
-							{# Begin product quantity #}
-							
-							<div class="form-group">
-								<label for="quantity-selector-{{ item.id }}" class="control-label">Qty</label>
-								<div class="input-group input-group-sm input-group-qty">
-									<div class="input-group-btn">
-										<button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
-									</div>
-									<input type="text" value="1" maxlength="2" placeholder="1" class="form-control quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
-									<div class="input-group-btn">
-										<button type="button" class="btn btn-default btn-add"><i class="fa fa-plus"></i></button>
+									<div class="modal-footer">
+										<button class="btn btn-default" data-dismiss="modal">OK</button>
 									</div>
 								</div>
 							</div>
-							
-							{# End product quantity #}
-							{# Begin add to cart button #}
-							
-							<div class="p">
-								<button class="btn btn-primary btn-cart" name="action" value="add/{{ item.id }}">Add to Cart</button>
-							</div>                                    
-							
-							{# End add to cart button #}
-							
 						</div>
-					</div>
-					</div>
-					</div>
-					{# End product quantity and actions #}                    
+						</li>
+					{% endif %}
+					{# End quantity modal #}
+					{% if wishlist.customer_id == app.user.id %}
+						<li class="qty-remove">
+							<a class="btn btn-link btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#"><i class="fa fa-close"></i><span>Remove</span></a>
+						{# Begin remove modal #}
+						<div class="modal fade modal_list_quantity" id="modal_remove_{{ product.id }}">
+							<div class="modal-dialog modal-sm">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title">Delete this item?</h4>
+									</div>
+									<div class="modal-body">
+										<p>Remove this item from your wish list?</p>
+										<b>{{ product.name }}</b>
+									</div>
+									<div class="modal-footer">
+										<a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>
+										<a href="{{app.url}}/wishlist/item/{{ item.id }}/delete" class="btn btn-danger">Delete</a>                                                
+									</div>
+								</div>
+							</div>
+						</div>
+						{# End remove modal #}
+						</li>
+					{% endif %}
+					</ul>
+
 				</div>
 			</div>
+		</div>
+				{# End product details #}
+				{# Begin product quantity and actions #}
+				<div class="col-xs-12 col-sm-5 pull-right">
+					<div class="actions max-sm-320">
+						<div class="form-group">
+							<label for="quantity-selector-{{ item.id }}" class="control-label">Qty</label>
+							<div class="input-group input-group-qty igq-mod">
+								<div class="btn-group btn-group-qty">
+									<input type="text" value="1" maxlength="2" placeholder="1" class="form-control input-lg quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
+									<button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up"></i></button>
+									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+								</div>
+								<div class="input-group-btn">
+									<button class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="add/{{ item.id }}">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+			
 		{# End product #}
 	{% endfor %}
 	</div>
+	{% endspaceless %}
 	{# Begin wishlist menu #}
-	<div class="actions">
+	<div class="actions max-sm-320">
 		<div class="row">
-			<div class="col-md-12 text-right">
+			<div class="col-xs-6">
 				{% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
-				<a class="btn btn-default" id="btn-share" href="#" data-placement="top" data-content="A link to this wish list has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}"><i class="fa fa-share"></i> Share this Wish List</a>
-				{% endif %}
-				{% if wishlist.customer_id == app.user.id %}
-				<a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
+				<a class="btn btn-default btn-block" id="btn-share" href="#" data-placement="top" data-content="A link to this wish list has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}">Share Wish List</a>
 				{% endif %}
 			</div>
-		</div>       
+			<div class="col-xs-6">
+				{% if wishlist.customer_id == app.user.id %}
+				<a class="btn btn-default btn-block btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
+				{% endif %}
+			</div>
+		</div>
 	</div>
 	{# End wishlist menu #}
 	{{ forms.end() }}

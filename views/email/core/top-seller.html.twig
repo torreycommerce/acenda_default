@@ -46,7 +46,7 @@
 
 		{% if variant_images is empty %}
 			{% set variant_images = product.images %}
-			{% set img_url = app.image.getImageUrl('product','standard', variant_images[0].id) %}
+			{% set img_url = app.image.getImageUrl('product','thumbnail', variant_images[0].id) %}
 		{% endif %}
 	{% endif %}
 {% if product_count is odd %}
