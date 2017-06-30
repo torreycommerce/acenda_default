@@ -3,7 +3,7 @@
 {% set cartitems = api.get('/sessioncartitem') %}
 {# Calculate subtotal without discounts #}
 {% set subtotal = 0 %}
-<h3>Order Summary</h3>	
+<h2>Order Summary</h2>
 <script>
 var acendaCheckoutStep = '{{ step }}';
 </script>
@@ -21,7 +21,7 @@ var acendaCheckoutStep = '{{ step }}';
 			{# Begin product description #}
 
 			<div class="media-body">
-				<div class="name">{{ product.name }}</div>
+				<div class="product-name">{{ product.name }}</div>
 					<div class="availability">
 					  {% if product.has_stock %}
 						  In Stock

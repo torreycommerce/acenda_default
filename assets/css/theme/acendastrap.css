@@ -244,31 +244,6 @@ th {
     border: 1px solid #ddd !important;
   }
 }
-@font-face {
-  font-family: 'Glyphicons Halflings';
-
-  src: url('../../fonts/glyphicons-halflings-regular.eot');
-  src: url('../../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
-.glyphicon {
-  position: relative;
-  top: 1px;
-  display: inline-block;
-  font-family: 'Glyphicons Halflings';
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.glyphicon-star:before {
-  content: "\e006";
-}
-.glyphicon-star-empty:before {
-  content: "\e007";
-}
-
 * {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -388,14 +363,15 @@ h6,
 .h6 {
   margin-top: 15px;
   font-family: inherit;
-  font-size: 140%;
-  font-weight: 300;
+  font-size: 125%;
+  font-weight: 400;
   line-height: 1.1;
   color: #000;
 }
 h1,.h1 {
   margin-top:0; padding:0 0 6px; font-size:200%; text-align:center; border-bottom:1px solid #ccc;
 }
+h2,.h2 {font-size:150%;}
 h1 small,
 h2 small,
 h3 small,
@@ -419,54 +395,13 @@ h6 .small,
 .h3 .small,
 .h4 .small,
 .h5 .small,
-.h6 .small {
+.h6 .small { font-size:75%;
   font-weight: normal;
   line-height: 1;
-  color: #777;
-}
-
-h1 small,
-.h1 small,
-h2 small,
-.h2 small,
-h3 small,
-.h3 small,
-h1 .small,
-.h1 .small,
-h2 .small,
-.h2 .small,
-h3 .small,
-.h3 .small {
-  font-size: 65%;
-}
-
-h4 small,
-.h4 small,
-h5 small,
-.h5 small,
-h6 small,
-.h6 small,
-h4 .small,
-.h4 .small,
-h5 .small,
-.h5 .small,
-h6 .small,
-.h6 .small {
-  font-size: 75%;
+  opacity:.75;
 }
 p {
   margin: 0 0 10px;
-}
-.lead {
-  margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 1.4;
-}
-@media (min-width: 768px) {
-  .lead {
-    font-size: 21px;
-  }
 }
 small,
 .small {
@@ -571,7 +506,7 @@ ol ol {
 }
 .list-inline > li {
   display: inline-block;
-  margin-bottom:7px; padding-right:8px; padding-left:8px;
+  margin-bottom:7px; padding-right:8px; padding-left:8px; vertical-align:middle;
 }
 dl {
   margin-top: 0;
@@ -4931,19 +4866,20 @@ button.close {
 .image-space .isd .img-responsive {width:auto; margin:0 auto;}
 .image-space .img-responsive.isd {width:auto; max-width:100%; height:auto; max-height:100%;}
 
+.fs {font-size:100%;}
 .fsd1, form .validation {font-size:87.5%;}
 .fsi1 {font-size:112.5%;}
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .pagination, .panel, .panel-group, .well {margin-bottom:10px;}
 .p-mini {margin-bottom:5px;}
 
+.bgg {background-color:#fcfcfc;}
 .d-b {display:block!important;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
 
 .max-250,.max-450 {max-width:250px; margin-right:auto; margin-left:auto;}
 .max-450 {max-width:450px;}
-.w-50p {width:50%;}
 
 .img-c {margin-left:auto; margin-right:auto;}
 
@@ -5054,6 +4990,8 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 .c-c .col-md-2.col-lg-6,.c-c .col-md-2.col-lg-4,.c-c .col-md-2.col-lg-3,.c-c .col-md-2.col-lg-2 {clear:none;}
 .c-c .col-lg-6:nth-child(2n+1),.c-c .col-lg-4:nth-child(3n+1),.c-c .col-lg-3:nth-child(4n+1),.c-c .col-lg-2:nth-child(6n+1) {clear:left;}
 }
+
+.p-0 {margin-bottom:0;}
 
 @media (max-width:991px){
 body {font-size:87.5%;}

@@ -21,9 +21,13 @@
     {% set categories = app.request.path|split('/') %}
     {% set category_crumbs = [] %}
     {% for category in categories %}
-        {% set category_link = category_link ~ '/' ~ category %}
         {% set category_title = category|replace('-',' ')|title %}
-        {% set category_crumbs = category_crumbs|merge({(category_title):('/category' ~ category_link)})%}
+        {% if loop.last %}
+            {% set category_crumbs = category_crumbs|merge({(category_title):''})%}
+        {% else %}
+            {% set category_link = category_link ~ '/' ~ category %}
+            {% set category_crumbs = category_crumbs|merge({(category_title):('/category' ~ category_link)})%}
+        {% endif %}
     {% endfor %}
     {{ base.breadcrumbs(category_crumbs) }}
 {% endblock %}

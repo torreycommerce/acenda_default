@@ -40,87 +40,88 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-	<div class="col-md-12">
-		<h1>Write a Review</h1>
-		{{ lonelyform.begin('review-product')}}
-			{{ lonelyform.beginintro() }}
-				<p>Write a Review about this product, and share your experience with others.</p>
-			{{ lonelyform.endintro() }}
-		{% if form_errors is not empty %}
-			{{ forms.errorlist(form_errors, 'name') }}
-		{% endif %}
-		{# You must be logged in to review an item #}
-		{{ form.begin('review','','post', {class:'form-region'}) }}
-			{{ form.hidden('review[product_id]', product_id) }}
-			<fieldset>
-				<legend>Identity</legend>
+<h1>Write a Review</h1>
+{{ lonelyform.begin('review-product')}}
+	{{ lonelyform.beginintro() }}
+		<p>Write a Review about this product, and share your experience with others.</p>
+	{{ lonelyform.endintro() }}
+{% if form_errors is not empty %}
+	{{ forms.errorlist(form_errors, 'name') }}
+{% endif %}
+{# You must be logged in to review an item #}
+{{ form.begin('review','','post', {class:'form-region'}) }}
+	{{ form.hidden('review[product_id]', product_id) }}
+	<fieldset>
+		<legend>Identity</legend>
+		<div class="form-group fgq">
+			<label class="control-label" for="first-name">First Name</label>
+			{{ form.text('review[first_name]',review.first_name|default(app.user.first_name), {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required: true}) }}
+			<div class="validation">{{ form.errorlist(form_errors, 'first_name') }}</div>
+		</div>
+		<div class="form-group fgq">
+			<label class="control-label" for="email">Email</label>
+			{{ form.email('review[email]',review.email|default(app.user.email), {class:'form-control parsley-validated', id:'email', placeholder:"Email", required: true}) }}
+			<div class="validation">{{ form.errorlist(form_errors, 'email') }}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
 				<div class="form-group fgq">
-					<label class="control-label" for="first-name">First Name</label>
-					{{ form.text('review[first_name]',review.first_name|default(app.user.first_name), {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required: true}) }}
-					<div class="validation">{{ form.errorlist(form_errors, 'first_name') }}</div>
+					<label class="control-label" for="country">Country</label>
+					{{ form.select('review[country]',review.country|default(address.country), {}, {class:'form-control parsley-validated', id:'country', placeholder:"Country", required:true}) }}
+					<div class="validation">{{ form.errorlist(form_errors, 'country') }}</div>
 				</div>
-				<div class="form-group fgq">
-					<label class="control-label" for="email">Email</label>
-					{{ form.email('review[email]',review.email|default(app.user.email), {class:'form-control parsley-validated', id:'email', placeholder:"Email", required: true}) }}
-					<div class="validation">{{ form.errorlist(form_errors, 'email') }}</div>
-				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
 				<div class="form-group fgq">
 					<label class="control-label" for="city">City</label>
 					{{ form.text('review[city]',review.city|default(address.city), {class:'form-control parsley-validated', id:'city', placeholder:"City", required: true}) }}
 					<div class="validation">{{ form.errorlist(form_errors, 'city') }}</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-6">
-						<div class="form-group fgq">
-							<label class="control-label" id="state-label" for="state_select">State</label>
-							{{ form.select('review[state]',review.state|default(review.state), {}, {class:'form-control parsley-validated', id:'state_select', placeholder:"State"}) }}
-							{{ form.text('review[state]', review.state|default(review.state), {class:'form-control parsley-validated', placeholder:"State", id:'state_input'}) }}
-							<div class="validation">{{ form.errorlist(form_errors, 'state') }}</div>
-						</div>
-					</div>
-					
-					<div class="col-xs-6">
-						<div class="form-group fgq">
-							<label class="control-label" for="country">Country</label>
-							{{ form.select('review[country]',review.country|default(address.country), {}, {class:'form-control parsley-validated', id:'country', placeholder:"Country", required:true}) }}
-							<div class="validation">{{ form.errorlist(form_errors, 'country') }}</div>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Review - <small>{{ product.name }}</small></legend>
+			</div>
+			
+			<div class="col-xs-6">
 				<div class="form-group fgq">
-					<label class="control-label" for="review-title">Review Title</label>
-					{{ form.text('review[title]',review.title, {class:'form-control parsley-validated', placeholder:"Review Title", id:'review-title', required: true}) }}
-					<div class="validation">{{ form.errorlist(form_errors, 'title') }}</div>
+					<label class="control-label" id="state-label" for="state_select">State</label>
+					{{ form.select('review[state]',review.state|default(review.state), {}, {class:'form-control parsley-validated', id:'state_select', placeholder:"State"}) }}
+					{{ form.text('review[state]', review.state|default(review.state), {class:'form-control parsley-validated hidden', placeholder:"State", id:'state_input'}) }}
+					<div class="validation">{{ form.errorlist(form_errors, 'state') }}</div>
 				</div>
-				<div class="form-group fgq">
-					<label class="control-label" for="review-description">Comment</label>
-					{{ form.textarea('review[comment]',review.comment, {class:'form-control parsley-validated', id:'review-description', placeholder:"Comment", required: true}) }}
-					<div class="validation">{{ form.errorlist(form_errors, 'comment') }}</div>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Ratings</legend>
-				<div class="form-group text-center">
-					<label class="center-block" for="overall-review">Overall Rating</label>
-					{{ form.rating('review[score]',review.score|default('0.0'),'glyphicon-star') }}
-				</div>
-				<div class="form-group actions text-center">
-					{% if create %}
-						{{ form.submit('review[action]', 'create', 'Create Review', {class:'btn btn-lg btn-primary'})}}
-					{% else %}
-						{{ form.submit('review[action]', 'save', 'Create Review', {class:'btn btn-lg btn-primary'})}}
-					{% endif %}
-				</div>
-			</fieldset>
-		{{ form.end() }}
-		{{ lonelyform.end() }}
-	</div>
-</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Review - <small>{{ product.name }}</small></legend>
+		<div class="form-group fgq">
+			<label class="control-label" for="review-title">Review Title</label>
+			{{ form.text('review[title]',review.title, {class:'form-control parsley-validated', placeholder:"Review Title", id:'review-title', required: true}) }}
+			<div class="validation">{{ form.errorlist(form_errors, 'title') }}</div>
+		</div>
+		<div class="form-group fgq">
+			<label class="control-label" for="review-description">Comment</label>
+			{{ form.textarea('review[comment]',review.comment, {class:'form-control parsley-validated', id:'review-description', placeholder:"Comment", required: true}) }}
+			<div class="validation">{{ form.errorlist(form_errors, 'comment') }}</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Ratings</legend>
+		<div class="form-group text-center">
+			<label class="center-block" for="overall-review">Overall Rating</label>
+			{{ form.rating('review[score]',review.score|default('0.0'),'glyphicon-star') }}
+		</div>
+		<div class="form-group actions text-center">
+			{% if create %}
+				{{ form.submit('review[action]', 'create', 'Create Review', {class:'btn btn-lg btn-primary'})}}
+			{% else %}
+				{{ form.submit('review[action]', 'save', 'Create Review', {class:'btn btn-lg btn-primary'})}}
+			{% endif %}
+		</div>
+	</fieldset>
+{{ form.end() }}
+{{ lonelyform.end() }}
 {% endblock %}
 {% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}
 {% endblock %}

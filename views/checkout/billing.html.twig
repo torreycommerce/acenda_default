@@ -251,6 +251,7 @@
 	
 {% endblock %}
 {% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/checkout.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}
 {% endblock %}

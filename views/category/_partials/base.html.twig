@@ -18,7 +18,7 @@
 ##
 #}
 
-{% set default_attributes = default_attributes is not defined ? "color,category_id,brand,type,gender,size,price,review_score": default_attributes %}
+{% set default_attributes = default_attributes is not defined ? "acolor,color,category_id,brand,type,gender,size,price,review_score": default_attributes %}
 {% if category.facets is not empty %}
 	{% set tmpfacets = [] %}
 	{% for facet in category.facets %}
@@ -133,6 +133,7 @@
 ##
 #}
 {% set filters = api.get('/catalog', {
+							"id":category_id,
 							"query":default_query,
 							"search":app.request.get.s,
 							"search_in":search_fields,
@@ -168,45 +169,51 @@
 				</ul>
 			</section>
 			{% endif %}
-			{% if filters.num_total %}
+			
+	{% set hasFilters = 0 %}
+	{% for name,filter_set in filters %}
+		{% if filter_set|length > 1 %}
+			{% if hasFilters == 0 %}
 			<button class="btn btn-block btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
-			{% endif %}
 			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
-
-			{% for name,filter_set in filters %}
-				{% if filter_set|length > 1 %}
-					
-					{% set filter_count = filters %}
-					{% if filter_set|length %}
-						{% if filters|length %}
-						{% if attribute(filter_query,name) is defined %}
-							{% set current_filter_set = {} %}
-							{% for key,value in filter_query %}
-								{% if key != name %}
-									{% set current_filter_set = current_filter_set|merge({(key):value}) %}
-								{% endif %}
-							{% endfor %}
-						{% else %}
-							{% set current_filter_set = filter_query %}
+			{% set hasFilters = 1 %}
+			{% endif %}
+			
+			{% set filter_count = filters %}
+			{% if filter_set|length %}
+				{% if filters|length %}
+				{% if attribute(filter_query,name) is defined %}
+					{% set current_filter_set = {} %}
+					{% for key,value in filter_query %}
+						{% if key != name %}
+							{% set current_filter_set = current_filter_set|merge({(key):value}) %}
 						{% endif %}
-						{% if current_filter_set is not empty %}
-						{% set filter_count = api.get('/catalog', {
-									"query":current_filter_set|merge(default_query),
-									"search":app.request.get.s,
-									"attributes":name,
-									"format":"attributes",
-							  }) %}
-						{% endif %}
-					{% endif %}
-					<div class="filter">
-						{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
-						{% include  '/category/_partials/filter-' ~ (name in ['color','price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}                    
-					</div>
-					{% endif %}
-
+					{% endfor %}
+				{% else %}
+					{% set current_filter_set = filter_query %}
 				{% endif %}
-			{% endfor %}
+				{% if current_filter_set is not empty %}
+				{% set filter_count = api.get('/catalog', {
+							"query":current_filter_set|merge(default_query),
+							"search":app.request.get.s,
+							"attributes":name,
+							"format":"attributes",
+					  }) %}
+				{% endif %}
+			{% endif %}
+			<div class="filter">
+				{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
+				{% include  '/category/_partials/filter-' ~ (name in ['acolor','color','price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}                    
 			</div>
+				{% if loop.last %}
+					{% if hasFilters == 1 %}
+						</div>
+						{% set hasFilters = 2 %}
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
 		</div>
 	</section>
 	{# End category filters #}

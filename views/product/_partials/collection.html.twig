@@ -2,22 +2,18 @@
 	<section id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
 		<div class="max-450">
 			<div class="brand p-mini">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}" itemprop="brand">{{product.brand}}</a>
 			</div>
-			<h1 class="product-name">{{product.name}}</h1>
+			<h1 class="product-name" itemprop="name">{{product.name}}</h1>
 			{# Begin review stars #}
 			{% spaceless %}
 			{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
 			{% if review_score > 0 %}
-			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<ul class="list-inline reviews">
-					<li class="fsi1">
-						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ base.rating( review_score ) }}</a>
-					</li>
-					<li class="fsd1">
-						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews">{{ (review_score * 5)|number_format(1) }} {% if reviews.num_total %}({{ reviews.num_total }}){% endif %}</a>
-					</li>
-				</ul>
+			<div class="fsd1 list-inline rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
+				<span class="dib">
+					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
+				</span>
 			</div>
 			{% endif %}
 			{% endspaceless %}

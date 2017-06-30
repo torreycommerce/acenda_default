@@ -142,6 +142,7 @@ if ($('.form-region').length) {
 							selected: item.value.indexOf(country) != -1
 						};
 					}));
+					initCountryOpts()
 				});
 			}
 		},

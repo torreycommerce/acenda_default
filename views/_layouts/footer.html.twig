@@ -1,5 +1,6 @@
 {% spaceless %}
 <footer id="footer">
+	<div class="container">
 	{% if app.request.url != "store-protected" %}	
 	
 	{# get content available #}
@@ -14,12 +15,11 @@
 	{% for content in contents %}
 	{% set contents_available = contents_available|merge([content.slug]) %}
 	{% endfor %}
-	<div class="container">
 		<hr class="p-2x">
 		<div class="row">
 			<div class="col-xs-12 col-md-4 p-2x pull-right">
 				<section class="newsletter">
-					<h2 class="section-header">Newsletter</h2>
+					<h2>Newsletter</h2>
 					<p>Be the first to hear about our products and promotions.</p>
 					 <form>
 						<div class="input-group input-group-lg">
@@ -33,7 +33,7 @@
 				</section>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4 p-xs">
-				<h4 class="section-header">Shop</h3>
+				<h2>Shop</h2>
 				<ul class="list-unstyled fsd1">
 					{% set categories = api.get('/category/sapling') %}
 					{% for main_category,items in categories if main_category != "clearance" %}
@@ -44,9 +44,9 @@
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-4">
-				<h4 class="section-header">Quick Links</h3>
+				<h2>Quick Links</h2>
 				<ul class="list-unstyled fsd1">
-					<li><a href="{{app.url}}/contact">Contact Us</a></li>
+					<li><a href="{{app.url}}/contact">Contact</a></li>
 				   {% if app.user.id != '' %}
 					<li> <a href="{{app.url}}/account/orders">Order Status</a> </li>
 					{% else %}

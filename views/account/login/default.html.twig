@@ -34,13 +34,16 @@
 
 {{ lonelyform.begin('account-login')}}
     {{ lonelyform.beginintro() }}
-		<h3>Do you have a {{ app.params.site.title }} account?</h3>
+		<h2>Do you have a {{ app.params.site.title }} account?</h2>
 	{{ lonelyform.endintro() }}
 	{% include "/account/login/_partials/form.html.twig" %}
 {{ lonelyform.end() }}
+{{ lonelyform.begin('hr')}}
+<hr class="p-2x">
+{{ lonelyform.end() }}
 {{ lonelyform.begin('account-create')}}
     {{ lonelyform.beginintro() }}
-		<h3>Create a New Account</h3>
+		<h2>Create a New Account</h2>
 		<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more. </p>
 		<a class="btn btn-lg btn-primary" href="{{app.url}}/account/create/{{ app.request.path }}">Create Account</a>
 	{{ lonelyform.endintro() }}

@@ -2,7 +2,7 @@
 .input-group-qty {width:128px;}
 .input-group-qty.input-group-sm {width:108px;}
 .igq-mod {width:auto;}
-.igq-mod .form-control {width:60px; margin-right:10px;}
+.igq-mod .form-control {width:55px; margin-right:10px; padding:10px;}
 .igq-mod .input-group-btn {width:100%;}
 
 @media (min-width:992px) {
@@ -11,13 +11,13 @@
 /* */
 
 
-.btn-group-qty {width:85px; margin-right:10px;}
+.btn-group-qty {width:80px; margin-right:20px;}
 .igq-mod .btn-group-qty .form-control {margin:0;}
 .btn-group-qty .btn-add, .btn-group-qty .btn-remove {position:absolute; top:0; right:0;}
 .btn-group-qty .btn-remove {top:24px;}
 
 @media (min-width:992px) {
-.btn-group-qty {margin-right:15px;}
+
 }
 
 
@@ -54,7 +54,7 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 #footer .list-unstyled {line-height:2;}
 
 .media-left, .media-object {width:80px; height:80px;}
-
+.media-cart .media-left, .media-cart > .pull-left {padding-right:20px;}
 
 @media (min-width:768px) {
 #header .popover {left:auto!important; width:385px;}
@@ -67,7 +67,8 @@ img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
 #header .limit-logo .logo img {max-height:80px;}
 #nav {margin-top:24px;}
 
-.media-cart .media-left, .media-cart .media-object {width:128px; height:128px;}
+.media-cart .media-left, .media-cart .media-object {width:120px; height:120px;}
+.media-cart .media-left, .media-cart > .pull-left {padding-right:30px;}
 }
 /* */
 
@@ -136,14 +137,13 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 
-
-.star-rating {position:relative; display:inline-block; height:1em; overflow:hidden;}
-.star-rating .disabled {color:#ccc;}
-.star-rating .active {position:absolute; left:0; top:0; color:#FFC125; white-space:nowrap; overflow:hidden;}
-.star-rating-input {font-size:200%;}
-.star-rating .choosing {color:#FFC125;}
-.star-rating .active-choosing {color:#FFC125;}
-.star-rating .disabled-choosing {color:#ccc;}
+.rating .dib {vertical-align:middle;}
+.star-rating {position:relative; margin:0 auto; overflow:hidden;}
+.star-rating-input {display:table; font-size:200%;}
+.star-rating .active {position:absolute; left:0; top:0; white-space:nowrap; overflow:hidden;}
+.star-rating .disabled,.star-rating .disabled-choosing {color:#ccc;}
+.star-rating .active,.star-rating .choosing,.star-rating .active-choosing {color:#FFC125;}
+.star-rating .fa {margin:0;}
 
 
 .labels {position:absolute; right:0; top:0; padding:0; text-transform:uppercase;}
@@ -156,7 +156,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 .color-chips {padding-bottom:5px;}
-.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
+.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
 .color-chip.disabled {opacity:.1;}
 .color-chip.red {background-color:#9b1e20;}
 .color-chip.orange {background-color:#f90;}

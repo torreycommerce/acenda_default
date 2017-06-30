@@ -5,23 +5,18 @@
 		<div class="max-450">
 			{% if product.brand is not empty %}
 			<div class="brand p-mini">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}" itemprop="brand">{{product.brand}}</a>
 			</div>
 			{% endif %}
-			<h1 class="product-name"><span itemprop="name">{{product.name}}</span></h1>
-			{# Begin review stars #}
+			<h1 class="product-name" itemprop="name">{{product.name}}</h1>
 			{% spaceless %}
 			{% set review_score = reviews|average('score') %}
 			{% if review_score > 0 %}
-			<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<ul class="list-inline reviews">
-					<li class="fsi1">
-						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop">{{ base.rating( review_score ) }}</a>
-					</li>
-					<li class="fsd1">
-						<a onclick="$('.nav-tabs a:last').tab('show')" href="#reviews-desktop"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}</a>
-					</li>
-				</ul>
+			<div class="fsd1 list-inline rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
+				<span class="dib">
+					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
+				</span>
 			</div>
 			{% endif %}
 			{% endspaceless %}
