@@ -135,11 +135,21 @@ var checkout = checkout || {};
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
 				if(formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line1'] &&
-				   formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line2'] &&
+				   formData[formData.step + '_street_line2'].toUpperCase() == addy['street_line2'] &&
 				   formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
-				   formData[formData.step + '_city']  && addy['zip']) {
-                     form_elem.find('#address-verify').html('');
-					 return;
+				   formData[formData.step + '_zip'] == addy['zip']) {
+				   	  console.log('address loosely matched');
+                     form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
+
+                     switch(stepName) {
+                     	case 'shipping':
+                     	  that.checkShipping();
+                     	break;
+                     	default:
+                     	  that.checkPayment();
+                     	break;
+                     }
+					 return true;
 				}
 
 				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' + 
@@ -394,6 +404,8 @@ var checkout = checkout || {};
 			} else {
 			    var tpl = _.template('<%=email%>');				
     			$('#signin-panel .step-data').html(tpl(form));
+				$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+				});	    			
     		}
 			this.checkout_steps[this.findStep('signin')].completed=true;
 			this.gotoStep('shipping');
@@ -429,7 +441,7 @@ var checkout = checkout || {};
 		},
 		checkShipping: function(e) {
 			var that = this;
-			e.preventDefault();
+			if(typeof e !=='undefined') e.preventDefault();
 			if(!this.validateStep('shipping')) return;
 			if(!this.verifyAddress('shipping')) return;
 
@@ -478,7 +490,7 @@ var checkout = checkout || {};
 		},
 		checkPayment: function(e) {
 			var that = this;
-			e.preventDefault();
+			if(typeof e !=='undefined') e.preventDefault();
 			if(!this.validateStep('payment')) return;
 			if(!$('input[name=copy_shipping_to_billing]').is(":checked")) {			
 			    if(!this.verifyAddress('payment')) return;		
