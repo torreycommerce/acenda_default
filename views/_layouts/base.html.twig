@@ -141,36 +141,5 @@ var acendaBaseThemeUrl = '{{app.url_asset}}'
 		{% block js %}{% endblock %}
 	</div>
 
-{% if '/preview/' in app.url and 'store-protected' not in app.request.url and app.request.get["theme_id"] is null %}
-	{% set request = app.url | split('/preview/') %}
-	{% set back_to = request.0 %}
-	<nav id="admin-bar" class="navbar navbar-fixed-top hidden-xs" role="navigation">
-		<div class="container-fluid">
-			<div class="btn-group">
-				<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-					<img src="{{ app.params.url.preview ~ '/../../images/acenda-logo-tm-white.png'}}"><i class="fa fa-caret-down"></i>
-				</button>
-				<ul class="dropdown-menu fsd1 fa-fa-balance" role="menu">
-					{% set  sandboxMode = api.get('site/ispaypalsandbox') %}
-					{% if sandboxMode is not empty %}
-					<li>
-						<a href="#" ref='{{ back_to }}/site-settings#paymentplatforms' target="_blank"><i class="fa fa-exclamation-triangle"></i> <span>PayPal <span class="hidden">PayflowPro</span> is in Test Mode (Sandbox)</span></a>
-					</li>
-					<li role="separator" class="divider"></li>
-					{% endif %}
-					<li>
-						<a href="#" onClick="window.location.href='{{ back_to }}'; return false;" ><i class="fa fa-cog"></i> <span>Visit Your Admin</span></a>
-					</li>
-					<li>
-					{% if '/preview/' in app.url  %}
-						<a href="#" onClick="window.location.href='{{ app.params.url.live }}'; return false;" ><i class="fa fa-rocket"></i> <span>Visit Your Live Site</span></a>
-					{% endif %}
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-{% endif %}
 </body>
 </html>
