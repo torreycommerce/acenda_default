@@ -477,7 +477,21 @@ var checkout = checkout || {};
 			}	
   			var form = this.getFormData('#payment-form');				
  			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
-			if(typeof form.card_number !=='undefined') { 			
+			if(typeof form.card_number !=='undefined') { 
+		        var currentTime = new Date()
+		        var month = currentTime.getMonth() + 1
+		        var year = currentTime.getFullYear();
+	            if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
+	            {
+	                $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
+	                $('select#exp-y').parent().addClass('has-error');
+	                $('select#exp-m').parent().addClass('has-error');
+	                return false;            
+	            } else {
+	                 $('select#exp-y').parent().removeClass('has-error'); 
+	                 $('select#exp-m').parent().removeClass('has-error');                                      
+	            }
+
 				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
 				that.checkout_steps[this.findStep('payment')].completed=true;
 		     	that.gotoStep('review');
