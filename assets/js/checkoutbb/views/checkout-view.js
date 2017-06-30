@@ -134,6 +134,14 @@ var checkout = checkout || {};
 
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
+				if(formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line1'] &&
+				   formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line2'] &&
+				   formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
+				   formData[formData.step + '_city']  && addy['zip']) {
+                     form_elem.find('#address-verify').html('');
+					 return;
+				}
+
 				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' + 
 				'<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-current"  value="current" checked> <label for="useaddress-current" style="display: inline-block; vertical-align:middle; margin-top: 7px">Current Address</label><br><div style="height: 10px"></div>' + 
                 '<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-verified" value="verified"> <label for="useaddress-verified" style="display: inline-block; vertical-align:top;">' + addy['street_line1'] + ' ' +  addy['street_line2']+ '<br>' +  addy['city'] + ', ' + addy['state']	+ ' ' + addy['zip']	+ '</label>' +		
