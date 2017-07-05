@@ -12,7 +12,7 @@
 {% endif %}
 
 {% block content %}
-{% if app.request.get.new == 0 %}
+{% if app.request.get.new == 1 %}
     {% include "/checkout/_partials/single-page-index.html.twig" %}
 {% else %} 
     {% include "/checkout/_partials/double-page-index.html.twig" %}

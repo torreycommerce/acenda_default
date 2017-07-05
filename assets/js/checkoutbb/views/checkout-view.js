@@ -92,8 +92,9 @@ var checkout = checkout || {};
 
 		    if(this.shipping_states !== null && $('#shipping-state').children().length<2 ) {
 				this.shipping_states.each(function (state) {
-					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
+					var tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#shipping-state').append(tpl({state:state}));
+				    tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#billing-state').append(tpl({state:state}));	                
 				});
 				if(!this.shipping_states.length) {
@@ -511,7 +512,9 @@ var checkout = checkout || {};
 	                 $('select#exp-y').parent().removeClass('has-error'); 
 	                 $('select#exp-m').parent().removeClass('has-error');                                      
 	            }
-
+				// $.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+				    
+				// });	
 				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
 				that.checkout_steps[this.findStep('payment')].completed=true;
 		     	that.gotoStep('review');

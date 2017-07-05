@@ -10,7 +10,11 @@
 		</div>
 	</div>
 </div>
-
+{% set address = app.user.getCheckoutStates('shipping') %}
+{% set name ="shipping_" %}
+<script type="application/javascript">
+	var shipping_state_val = '{{ address['shipping_state'] }}';
+</script>
 <form id="shipping-address-form" novalidate parsley-validate>
 <div class="hide-shipping">	
 	<div class="row">
