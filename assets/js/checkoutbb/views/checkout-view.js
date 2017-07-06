@@ -7,7 +7,9 @@ var checkout = checkout || {};
 		summaryView: null,
 		cart: new checkout.Cart(),
 		shipping_countries: null,
+		billing_countries: null,		
 		shipping_states: null,
+		billing_states: null,		
 		customer: new checkout.Customer(),
 		customer_addresses: new checkout.CustomerAddresses(),
 		shipping_methods: new checkout.ShippingMethods(),
@@ -29,6 +31,7 @@ var checkout = checkout || {};
 			'click #btn-continue-payment' : 'checkPayment',	
 			'click #btn-place-order' : 'placeOrder',
 			'change #shipping-country' : 'changedShippingCountry',
+			'change #billing-country' : 'changedBillingCountry',			
 			'change #customer-addresses select' : 'changedSavedAddress',
 			'change #login-form input' : 'changedLogin'	,
 			'change input[name=shipping_method]' : 'changedShippingMethod',
@@ -63,6 +66,8 @@ var checkout = checkout || {};
 			this.fetchCart();
 			this.fetchCustomer();
 			this.fetchShippingCountries();
+			this.fetchBillingCountries();
+
 		},
 		render: function () {
 			var that = this;
@@ -85,17 +90,21 @@ var checkout = checkout || {};
 					var currentCountry = $('#shipping-country').val();
 					if(!currentCountry) currentCountry='US';
 					var tpl = _.template('<option <%= (country.get("value") == current)?"selected":""%> value="<%=country.get("value")%>"><%=country.get("label")%></option>');
-	                $('#shipping-country').append(tpl({country:country,current: currentCountry}));
+	                $('#shipping-country').append(tpl({country:country,current: currentCountry}));	                
+				});
+			}
+		    if(this.billing_countries !==null && $('#billing-country').children().length<2 ) {
+				this.billing_countries.each(function (country) {
+					var currentCountry = $('#billing-country').val();
+					if(!currentCountry) currentCountry='US';
+					var tpl = _.template('<option <%= (country.get("code") == current)?"selected":""%> value="<%=country.get("code")%>"><%=country.get("name")%></option>');
 	                $('#billing-country').append(tpl({country:country,current: currentCountry}));	                
 				});
 			}
-
 		    if(this.shipping_states !== null && $('#shipping-state').children().length<2 ) {
 				this.shipping_states.each(function (state) {
 					var tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#shipping-state').append(tpl({state:state}));
-				    tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
-	                $('#billing-state').append(tpl({state:state}));	                
 				});
 				if(!this.shipping_states.length) {
 					$('#shipping-state').parent().fadeOut();
@@ -103,6 +112,19 @@ var checkout = checkout || {};
 					$('#shipping-state').parent().fadeIn();
 				}
 			}
+
+		    if(this.billing_states !== null && $('#billing-state').children().length<2 ) {
+				this.billing_states.each(function (state) {
+					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
+	                $('#billing-state').append(tpl({state:state}));
+				});
+				if(!this.billing_states.length) {
+					$('#billing-state').parent().fadeOut();
+				} else {
+					$('#billing-state').parent().fadeIn();
+				}
+			}
+
 			this.summaryView.render();
 		},
 		// Fetch current cart state
@@ -136,21 +158,20 @@ var checkout = checkout || {};
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
 				if(formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line1'] &&
-				   formData[formData.step + '_street_line2'].toUpperCase() == addy['street_line2'] &&
-				   formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
-				   formData[formData.step + '_zip'] == addy['zip']) {
-				   	  console.log('address loosely matched');
-                     form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
+				    formData[formData.step + '_street_line2'].toUpperCase() == addy['street_line2'] &&
+				    formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
+				    formData[formData.step + '_zip'] == addy['zip']) {
+                    form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
 
-                     switch(stepName) {
-                     	case 'shipping':
-                     	  that.checkShipping();
-                     	break;
-                     	default:
-                     	  that.checkPayment();
-                     	break;
-                     }
-					 return true;
+					switch(stepName) {
+						case 'shipping':
+						  that.checkShipping();
+						break;
+						default:
+						  that.checkPayment();
+						break;
+					}
+					return true;
 				}
 
 				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' + 
@@ -236,7 +257,16 @@ var checkout = checkout || {};
 			this.shipping_countries.fetch({success: function() {
                 $('#shipping-country').html('<option disabled selected>Select a Country</option>');				
 				that.render();
-				that.fetchShippingStates();
+				that.fetchShippingStates();			
+			}});
+		},
+		fetchBillingCountries: function() {
+			var that = this;			
+			this.billing_countries = new checkout.BillingCountries();
+			this.billing_countries.fetch({success: function() {
+                $('#billing-country').html('<option disabled selected>Select a Country</option>');				
+				that.render();
+				that.fetchBillingStates();				
 			}});
 		},
 		fetchShippingStates: function() {
@@ -247,6 +277,15 @@ var checkout = checkout || {};
 				that.render();
 			}});
 		},
+		fetchBillingStates: function() {
+			var that = this;			
+			this.billing_states = new checkout.BillingStates();
+			this.billing_states.fetch({url: this.billing_states.url + '/' + $('#billing-country').val() ,success: function() {
+		        $('#billing-state').html('<option disabled selected>Select a State</option>');				
+				that.render();
+			}});
+		},
+
 		fetchShippingMethods: function() {
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
@@ -359,6 +398,9 @@ var checkout = checkout || {};
 		changedShippingCountry: function() {
 			this.fetchShippingStates();
 		},
+		changedBillingCountry: function() {
+			this.fetchBillingStates();
+		},		
 		changedShippingMethod: function() {
 			var method = this.shipping_methods.get($('input[name=shipping_method]:checked').val());
 	     	this.cart.set('shipping_rate',method.get('price'));
