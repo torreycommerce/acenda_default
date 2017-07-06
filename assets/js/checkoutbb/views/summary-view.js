@@ -45,7 +45,7 @@ var checkout = checkout || {};
 	    		var cart = co.cart.toJSON();
 	    		if(!co.cart.get('shipping_rate')) co.cart.set('shipping_rate',0.00);
 	    		if(!co.cart.get('tax_rate')) co.cart.set('tax_rate',0.00);	    		
-	    	    co.cart.set('total',parseFloat(cart.total));
+	    	    co.cart.set('total',parseFloat(cart.subtotal) + parseFloat(cart.shipping_rate)+ ((checkout_product_prices_include_tax)?0:parseFloat(cart.tax_rate)) );
 
 				that.$el.find('#totals-section').html('').append(totalsTemplate({
 					cart: co.cart.toJSON(),

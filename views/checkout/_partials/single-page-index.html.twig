@@ -4,6 +4,11 @@
 
 {% block content %}
 
+	<script type="application/javascript">
+	  var checkout_product_prices_include_tax = '{{ app.params.order.product_prices_include_tax }}';
+	</script>
+
+
 	<style>
 	  .checkoutapp .panel .panel-heading .panel-title .btn-edit {	
 		position: relative; left: 10px; top: -5px; padding: 4px;
