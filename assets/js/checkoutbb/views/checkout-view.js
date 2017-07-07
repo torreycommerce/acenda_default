@@ -396,6 +396,14 @@ var checkout = checkout || {};
 			$(e.target).parents('.panel').find('#address-verify').html('');
 		},
 		changedShippingCountry: function() {
+			var selectedCountry = $('select#shipping-country').val();
+			var matchedCountry=this.billing_countries.where({code: selectedCountry}) ;
+			if(!matchedCountry.length) {
+				$('input[name=copy_shipping_to_billing]').prop('checked',false);
+				$('.copy-shipping-flag').hide('fade');
+			} else {
+				$('.copy-shipping-flag').show('fade');
+			}
 			this.fetchShippingStates();
 		},
 		changedBillingCountry: function() {
@@ -491,7 +499,7 @@ var checkout = checkout || {};
  			var form = this.getFormData('#shipping-address-form');
  			if(typeof form.shipping_state == 'undefined') form.shipping_state = 'CA';
 			if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 			
-			var tpl = _.template('<%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%>');
+			var tpl = _.template('<%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>, <%=shipping_state%> <%=shipping_zip%>');
 			$('#shipping-panel .step-data').html(tpl(form));
 			if($('input[name=copy_shipping_to_billing]').is(":checked")) {
 				$('.checkoutapp #billing-address').hide();
