@@ -272,11 +272,13 @@
 		</thead>
 		<tbody>
 			<% _.each(methods,function(method) { %>
-			    <tr>
-			        <td><input <%= (method.id == current_method)?'checked':''  %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
-			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
-			        <td><label for="method_<%= method.id %>_input"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></label></td>
-			    </tr>
+				<% if(method.status=='active') { %>
+				    <tr>
+				        <td><input <%= (method.id == current_method)?'checked':''  %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
+				        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
+				        <td><label for="method_<%= method.id %>_input"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></label></td>
+				    </tr>
+				    <% } %>
 		    <% }) %>
 		</tbody>
 		</table>
