@@ -95,7 +95,7 @@
 					{% spaceless %}
 					<ul class="list-inline">
 						{% if prices.compare_price is not empty and prices.compare_price != prices.price %}
-						<li class="price-regular">{{ prod.price(prices.compare_price) }}</li>
+						<li class="price-regular">{{ prod.cprice(prices.compare_price) }}</li>
 						{% endif %}
 						{% if prices.save_price is not empty and prices.save_percent is not empty %}
 						<li class="percent">Save {{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
@@ -409,7 +409,10 @@
 </form>
 </section>
 
-<div class="divide" id="reviews">
+<div class="divide p-2x pad-b-2x" id="reviews">
 	<h2>Reviews</h2>
 	{% include "/product/_partials/reviews.html.twig" %}
+</div>
+<div class="divide" id="topsellers">
+    {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
 </div>

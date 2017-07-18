@@ -1,4 +1,4 @@
-<div class="col-xs-12 g p-2x">	
+<div class="col-xs-12 g">
 {% if product.description is not empty %}
 	<div class="divide p-2x pad-b-2x" id="description">
 		<h2>Description</h2>
@@ -22,7 +22,7 @@
 		<h2>Reviews</h2>
 		{% include "/product/_partials/reviews.html.twig" %}
 	</div>
-	<div class="divide p-2x pad-b-2x">
+	<div class="divide" id="topsellers">
 	    {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
 	</div>
 </div>
