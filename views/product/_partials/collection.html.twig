@@ -1,3 +1,4 @@
+<div class="divide p-2x pad-b-2x">
 <div class="{% if product.videos is not empty %}has-video{% endif %} row" itemscope itemtype="http://schema.org/Product">
 	<section id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
 		<div class="max-450">
@@ -86,7 +87,7 @@
 			
 			{% set prices = product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
 			{% if prices.price|first > 0 %}
-			<div class="pricing g p-2x">
+			<div class="pricing g p-2x" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 				<div class="p-mini price price-range">{{ prod.price(prices.price) }}</div>
 				{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
 				{# if (prices[0].compare_price - prices[0].price) > 1 #}
@@ -121,15 +122,16 @@
 			{% endif %}#}
 		</div>
 	</section>
-</div>
 
 
 {% if product.description is not empty %}
-<div class="divide p-2x pad-b-2x" id="details">	
+<div class="col-xs-12" id="details">	
 	<h2>Description</h2>
 	<div class="g" itemprop="description">{{product.description}}</div>
 </div>	
 {% endif %}
+
+</div></div>
 
 
 <section class="divide g p-2x pad-b-2x" id="collection">
@@ -139,7 +141,7 @@
 <div class="divide p-2x" id="bundles">
 	<h2>Bundles</h2>
 		{% for bundle in bundles %}
-		<div class="divide p-2x pad-b-2x piece piece-{{bundle.id}}">
+		<div class="divide p-2x pad-b-2x piece piece-{{bundle.id}}" itemscope itemtype="http://schema.org/Product">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="media media-cart">
@@ -154,28 +156,29 @@
 						<div class="media-body">
 
 							<h3 class="product-name" itemprop="name">{{bundle.name}}</h3>
-						
-							<div class="pricing">
-								<div class="p-mini" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-									<div class="price">$<span>{{bundle.price|number_format(2)}}</span></div>
-								</div>
-								{% spaceless %}
-								<ul class="list-inline">
-									<li class="price-regular">${{ bundle.raw_price|number_format(2) }}</li>
-									{% if bundle.discount_type == 'dollar'%}
-									<li class="percent">Save ${{ bundle.discount_value }}</li>
-									{% elseif bundle.discount_type == 'percentage' %}
-									<li class="percent">Save {{ bundle.discount_value }}%</li>
-									{% elseif bundle.discount_type == 'fixed' %}
-									<li class="percent">Save ${{ bundle.price - bundle.raw_price }}</li>
-									{% endif %}
-								</ul>
-								{% endspaceless %}
-							</div>
-
-							{% if bundle.has_stock == false %}
-							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
-							{% endif %}
+						     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    							<div class="pricing">
+    								<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
+              itemprop="price">{{bundle.price|number_format(2)}}</span></div>
+    								
+    								{% spaceless %}
+    								<ul class="list-inline">
+    									<li class="price-regular">${{ bundle.raw_price|number_format(2) }}</li>
+    									{% if bundle.discount_type == 'dollar'%}
+    									<li class="percent">Save ${{ bundle.discount_value }}</li>
+    									{% elseif bundle.discount_type == 'percentage' %}
+    									<li class="percent">Save {{ bundle.discount_value }}%</li>
+    									{% elseif bundle.discount_type == 'fixed' %}
+    									<li class="percent">Save ${{ bundle.price - bundle.raw_price }}</li>
+    									{% endif %}
+    								</ul>
+    								{% endspaceless %}
+    							</div>
+    
+    							{% if bundle.has_stock == false %}
+    							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+    							{% endif %}
+    						</div>
 						</div>
 					</div>
 					<div class="g p" itemprop="description">{{ bundle.description }}</div>
@@ -265,7 +268,7 @@
 	{% for product in children %}
 	{% set variations = product.variant|find({'has_stock':true}) %}
 	{% set variation = variations[0] %}
-	<div class="divide p-2x pad-b-2x piece piece-{{product.id}}">
+	<div class="divide p-2x pad-b-2x piece piece-{{product.id}}" itemscope itemtype="http://schema.org/Product">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 		<div class="media media-cart">
@@ -287,16 +290,16 @@
 					<a href="{{app.url}}/product/{{product.slug}}"><span itemprop="name">{{ product.name }}</span></a>
 				</h3></div>
 				<div class="variations" data-id="{{product.id}}">
-					<div class="active variation" data-vid="{{variation.id}}">
+					<div class="active variation" data-vid="{{variation.id}}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 						{% set needsku = product.variant|values_in('sku') %}
 						{% if needsku[0] is not empty %}
 						<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
 						{% endif %}
 
 						<div class="pricing">
-							<div class="p-mini" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-								<div class="price">$<span>{{variation.price|number_format(2)}}</span></div>
-							</div>
+							<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price">{{variation.price|number_format(2)}}</span></div>
+
 						{% set needprices = product.variant|max('save_percent') %}
 						{% if needprices|length > 0 %}
 							{% if (variation.compare_price - variation.price) > 1 %}

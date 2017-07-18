@@ -80,31 +80,32 @@
 	<section id="product-details" class="col-xs-12 col-sm-5 p-2x">
 		<div class="max-320">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
-				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
+				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 					<!--name: {{variation.name}} <small><i>pos: {{variation.position}}</i></small>-->
-				{% set needsku = product.variant|values_in('sku') %}
-				{% if needsku[0] is not empty %}
-					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
-				{% endif %}
-					<div class="pricing">
-						<div class="p-mini price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">$<span>{{variation.price|number_format(2)}}</span><meta itemprop="priceCurrency" content="USD" /></div>
-				{% set needprices = product.variant|max('save_percent') %}
-				{% if needprices|length > 0 %}
-					{% if (variation.compare_price - variation.price) > 1 %}
-						<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
-					{% else %}
-						<ul class="list-inline"><li>&nbsp;</li></ul>
-					{% endif %}
-				{% endif %}
-					</div>
-				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
-				{% if needstockmsg|length > 0 %}
-					{% if variation.has_stock == false %}
-					<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
-					{% else %}
-					<div class="fsd1 stock"><div class="stock-msg"><br></div></div>
-					{% endif %}
-				{% endif %}
+    				{% set needsku = product.variant|values_in('sku') %}
+    				{% if needsku[0] is not empty %}
+    					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
+    				{% endif %}
+    					<div class="pricing">
+    						<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price">{{variation.price|number_format(2)}}</span></div>
+    				{% set needprices = product.variant|max('save_percent') %}
+    				{% if needprices|length > 0 %}
+    					{% if (variation.compare_price - variation.price) > 1 %}
+    						<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
+    					{% else %}
+    						<ul class="list-inline"><li>&nbsp;</li></ul>
+    					{% endif %}
+    				{% endif %}
+    					</div>
+    				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
+    				{% if needstockmsg|length > 0 %}
+    					{% if variation.has_stock == false %}
+    					<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+    					{% else %}
+    					<div class="fsd1 stock"><div class="stock-msg"><br></div></div>
+    					{% endif %}
+    				{% endif %}
 				</div>
 			</div>
 			{% spaceless %}

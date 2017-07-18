@@ -161,7 +161,8 @@
 {% macro price(prices) %}
 {% spaceless %}
 	{% if prices is not iterable %}
-		${{prices|number_format(2)}}
+		<span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price">{{prices|number_format(2)}}</span>
 	{% else %}
 		{% set min = prices[0] %}
 		{% set max = prices[0] %}
@@ -170,9 +171,14 @@
 			{% set max = max < price ? price : max %}
 		{% endfor %}
 		{% if min == max or min == 0 %}
-			${{max|number_format(2)}}
+			<span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price">{{max|number_format(2)}}</span>
 		{% else %}
-			${{min|number_format(2)}} - ${{max|number_format(2)}}
+		    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+			<span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="price minPrice">{{min|number_format(2)}}</span> - <span itemprop="priceCurrency" content="USD">$</span><span
+          itemprop="maxPrice">{{max|number_format(2)}}</span>
+          </span>
 		{% endif %}
 	{% endif %}
 {% endspaceless %}
