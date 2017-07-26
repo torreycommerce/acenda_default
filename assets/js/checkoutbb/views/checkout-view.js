@@ -30,6 +30,7 @@ var checkout = checkout || {};
 			'click #btn-continue-shipping-method' : 'checkShippingMethod',
 			'click #btn-continue-payment' : 'checkPayment',	
 			'click #btn-place-order' : 'placeOrder',
+			'click #btn-edit-billing-address' : 'editBillingAddress',
 			'change #shipping-country' : 'changedShippingCountry',
 			'change #billing-country' : 'changedBillingCountry',			
 			'change #customer-addresses select' : 'changedSavedAddress',
@@ -476,9 +477,10 @@ var checkout = checkout || {};
 					k = k.replace('shipping_','billing_');
 					$('[name="' + k +  '"]').val(v);
 				});
-			    var tpl = _.template('<div style="width: 33%; margin: 15px; padding: 10px; background: #eee;"><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div>');
+			    var tpl = _.template('<div style="min-width: 40%; display: inline-block; text-transform: capitalize; margin: 15px; padding: 10px; background: #eee;"><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%> <br> <button id="btn-edit-billing-address" class="btn btn-default" style="float: right;">Edit</button></div>');
 
 				$('div#billing-address-preview').html(tpl(form));
+				$('.checkoutapp #payment-panel .copy-shipping-flag').hide();				
 
 			} else {
 				$('div#billing-address-preview').html('');
@@ -488,8 +490,12 @@ var checkout = checkout || {};
 				});
 
 				$('.checkoutapp #billing-address').show();
+				$('.checkoutapp #payment-panel .copy-shipping-flag').show();				
 			}
 		},
+		editBillingAddress: function() {
+			$('.checkoutapp #payment-panel .copy-shipping-flag input').click();
+		},		
 		checkShipping: function(e) {
 			var that = this;
 			if(typeof e !=='undefined') e.preventDefault();
