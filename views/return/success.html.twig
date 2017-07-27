@@ -39,10 +39,10 @@
     <legend>Your RMA numbers and their products are:</legend>
     {% for return in returns %}
     <ul class="list-unstyled">
+    <li><strong>{{ items[return.item_id].0.name }}</strong></li>
     <li><strong>RMA #:</strong> {{ return.rma }}</li>
-    <li><strong>Qty:</strong>  {{ return.quantity }}</li>
-    <li><strong>Product Name:</strong>  {{ items[return.item_id].0.name }}</li>
-    <li><strong>Reason:</strong>  {{ return.reason }}</li>
+    <li><strong>Qty:</strong> {{ return.quantity }}</li>
+    <li><strong>Reason:</strong> {{ return.reason }}</li>
     </ul>
     {% endfor %}
 
@@ -50,7 +50,7 @@
 
 {% if ret_addr is not empty %}
     <legend>Please ship your returns to:</legend>
-    <p>
+    
         <address>
             <strong>{{ app.params['site']['title'] }}</strong><br>
             {{ ret_addr.street_line1 }} {{ ret_addr.street_line2 }}<br>
@@ -59,6 +59,5 @@
                 <abbr title="Phone">P:</abbr> {{ app.params['information']['phone_number'] }}
             {% endif %}
         </address>
-    </p>
 {% endif %}
 {% endblock %}
