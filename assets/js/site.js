@@ -18,20 +18,6 @@ $(document).ready(function() {
 
    $('[data-tooltip]').tooltip();
 
-
-  $(window).scroll(function () {
-	if ($(window).scrollTop() > 1) {
-	  $('html').addClass('scrolled');
-	} else {
-	  $('html').removeClass('scrolled');
-	}
-  });
-
-
-
-   
-
-
    $('.navbar .nav li a').click(function(){
 	  if($(this).attr('target') == undefined){
 		  window.location=($(this).attr('href'));
@@ -47,17 +33,6 @@ var debugging = true; // or true
 if (typeof console == "undefined") var console = { log: function() {} };
 else if (!debugging || typeof console.log == "undefined") console.log = function() {};
 
-// if IE7, convert inline-blocks to inline zoom 1
-function fixInlineBlocks(selector) {
-
-	  $(selector).each(function (i) {
-			if ($(this).css('display') == "inline-block") {
-				 $(this).css('display','inline');
-				 $(this).css('zoom','1');
-
-			}
-	  });
-}
 
 // Don't need document.ready since our script is getting loaded at the bottom of the page instead of in <head>
 
@@ -267,24 +242,6 @@ $('.quantity-selector').keypress(function(e){
 	}
 });
 
-if ($('.panel-tabs li:eq(1) a').length && $('.read-more').length)
-  $('.read-more').click(function(){
-	$('.panel-tabs li:eq(1) a').click();
-	$("html, body").animate({ scrollTop: 600 }, 600);
-  })
-
-// Show product tab when add to cart below is clicked on collections pages
-$('.btn-add-to-cart').click(function (e) {
-  $('.panel-tabs a[href="#children"]').tab('show');
-})
-
-// client.on( "load", function(client) {
-//   client.on( "complete", function(client, args) {
-//       $('#btn-share').popover('show');
-//       setTimeout(function(){$('#btn-share').popover('hide');}, 3000);
-//   } );
-// } );
-
 
 
 function IncludeJavaScript(jsFile, onLoadCallback) {
@@ -327,20 +284,6 @@ $(document).ready(function() {
 		//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 		//
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/quickcart.js",function(){
-		});
-		//
-		var timer=0;
-		timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
-		$('#admin-bar').hover(function() {
-			clearTimeout(timer);
-		},function() {
-			if(timer) clearTimeout(timer);
-				timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
-		})
-		$(window).scroll(function() {
-			$('#admin-bar').fadeIn('slow');
-			if(timer) clearTimeout(timer);
-				timer = setTimeout(function() {  $('#admin-bar').fadeOut('slow'); timer=0; },2000);
 		});
 	});
 	//
@@ -477,14 +420,11 @@ function productSlick() {
 		dots: false,
 		infinite: false,
 		speed: 500,
-		//autoplay: true,
-		//autoplaySpeed: 4000,
 		slidesToShow: spslides,
 		slidesToScroll: spslides
 	});
 	$('.slick-p .virg').removeClass('virg');
 	$('.slick-p-go').removeClass('slick-p-go');
-	//$('.slick-p [data-tooltip]').tooltip()
     
 }
 

@@ -29,3 +29,11 @@ $('html').on("click", ".ttc", function() {
 		return false;
 	}
 });
+
+$(window).scroll(function () {
+	if ($(window).scrollTop() > 1) {
+		$('html').addClass('scrolled');
+	} else {
+		$('html').removeClass('scrolled');
+	}
+});

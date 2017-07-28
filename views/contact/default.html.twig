@@ -42,8 +42,8 @@ Contact Us
         <div class="validation">{{ forms.errorlist(form_errors, 'name') }}</div>
     </div>
     <div class="form-group fgq">
-        <label class="control-label" for="contact-email">Email</label>
-        {{ forms.email('contact[email]', contact.email|default(app.user.email), {class:'form-control parsley-validated', id:'contact-email', placeholder:"Email", required:true}) }}
+        <label class="control-label" for="contact-email">Email Address</label>
+        {{ forms.email('contact[email]', contact.email|default(app.user.email), {class:'form-control parsley-validated', id:'contact-email', placeholder:"Email Address", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
     </div>
 

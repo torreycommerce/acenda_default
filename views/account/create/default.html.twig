@@ -38,8 +38,8 @@
 		<fieldset>
 			<legend>Login Information</legend>
 			<div class="form-group fgq">
-				<label class="control-label" for="email">Email</label>
-				{{ forms.email('create[email]',create.email, {class:'form-control parsley-validated', id:'email', placeholder:"Email", required:true}) }}
+				<label class="control-label" for="email">Email Address</label>
+				{{ forms.email('create[email]',create.email, {class:'form-control parsley-validated', id:'email', placeholder:"Email Address", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
 			</div>
 			<div class="form-group fgq">

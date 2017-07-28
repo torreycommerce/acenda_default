@@ -1,7 +1,7 @@
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
-{% set items = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
 {% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
 <tr>
 	<td style="border-bottom:1px solid #e5e5e5;">
 		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">
@@ -29,11 +29,12 @@
 			</tr>
 			<tr>
 				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
-					<b>Status:</b> {{return.status }}
-					<br><b>RMA#:</b> {{return.rma}}
-					<br><b>Item name:</b> {{item.name}}
+				    {{item.name}}
+				    <br><b>RMA #:</b> {{return.rma}}
+				    <br><b>SKU:</b> {{item.sku}}
 					<br><b>Qty:</b> {{return.quantity}}
 					<br><b>Reason:</b> {{return.reason}}
+					<br><b>Status:</b> {{return.status }}
 				</td>
 		</table>
 	</td>

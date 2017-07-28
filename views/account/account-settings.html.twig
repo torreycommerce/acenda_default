@@ -86,8 +86,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group fgq">
-						<label class="control-label" for="account_settings[email]">Email</label>
-						{{ forms.email('account_settings[email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[email]', required:true, placeholder: "Email"}) }}
+						<label class="control-label" for="account_settings[email]">Email Address</label>
+						{{ forms.email('account_settings[email]', app.user.email, {class:'form-control parsley-validated', id:'account_settings[email]', required:true, placeholder: "Email Address"}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
 					</div>
 				</div>

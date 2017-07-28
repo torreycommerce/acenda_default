@@ -20,9 +20,9 @@ Order Status &amp; History
                 </div>
                 {{ forms.begin('order','','post',{ class:'form-horizontal' }) }}
                 <div class="form-group fgq">
-                    <label class="control-label col-sm-3" for="input2">Email</label>
+                    <label class="control-label col-sm-3" for="input2">Email Address</label>
                     <div class="col-sm-9">
-                        {{ forms.email('order[email]', '', {class:'form-control parsley-validated', required:true, placeholder: "Email"}) }}
+                        {{ forms.email('order[email]', '', {class:'form-control parsley-validated', required:true, placeholder: "Email Address"}) }}
                     </div>
                     <div class="col-sm-9 col-sm-offset-3">
                         <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>

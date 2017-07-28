@@ -15,7 +15,6 @@
 				<td align="center" style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
 				Your <b>{{ params['site']['title']|default("") }}</b> order status return has been confirmed!
 				<br><b>Order ID:</b> {{ order.order_number }}
-				<br><b>RMA #:</b> {{return.rma}}
 				</td>
 			</tr>
 		</table>
@@ -32,6 +31,7 @@
 			<tr>
 				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
 					{{ item.name }}
+					<br><b>RMA #:</b> {{return.rma}}
 					<br><b>SKU:</b> {{item.sku}}
 					<br><b>Qty:</b> {{ return.quantity }}
 					<br><b>Reason:</b> {{ return.reason }}
