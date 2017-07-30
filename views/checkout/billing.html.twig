@@ -190,7 +190,7 @@
 
 				<div class="checkout-display-address p" id="display_billing_address">
 					<address>{{ shipping_address }}</address>
-					<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>
+					<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>
 				</div>
 			{% endif %}
 		</fieldset>
@@ -200,7 +200,7 @@
 					<legend>Shipping Address</legend>
 					<div class="checkout-display-address p" id="display_shipping_address">
 						<address>{{ shipping_address }}</address>
-						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Address</a>
+						<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout">Change Address</a>
 					</div>
 				</fieldset>
 
@@ -216,7 +216,7 @@
 						{% if method.top_days_range %}<div><b>Delivery Estimate:</b> {{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.</div>{% endif %}
     					</address>
 					</div>
-						<a class="btn btn-sm btn-default btn-sec" href="{{ app.url }}/checkout">Change Method</a>				
+						<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout">Change Method</a>				
 				</fieldset>				
 			</div>
 		</div>

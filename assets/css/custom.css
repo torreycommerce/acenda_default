@@ -7,22 +7,31 @@ a:hover, a:focus {color:#000;}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 
 .btn {transition:all 0.2s ease;}
-.btn-primary {font-weight:bold; box-shadow:0 5px 9px 0 rgba(0,0,0,0.15);}
-.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {box-shadow:0 5px 12px 0 rgba(0,0,0,0.25);}
-.btn-primary.btn-lg {box-shadow:0 6px 12px 0 rgba(0,0,0,0.15);}
-.btn-primary.btn-lg:focus,.btn-primary.btn-lg.focus,.btn-primary.btn-lg:hover,.btn-primary.btn-lg:active,.btn-primary.btn-lg.active {box-shadow:0 6px 15px 0 rgba(0,0,0,0.25);}
-.btn-primary.btn-sm {box-shadow:0 2px 4px 0 rgba(0,0,0,0.15);}
-.btn-primary.btn-sm:focus,.btn-primary.btn-sm.focus,.btn-primary.btn-sm:hover,.btn-primary.btn-sm:active,.btn-primary.btn-sm.active {box-shadow:0 2px 6px 0 rgba(0,0,0,0.25);}
-.btn-primary.btn-sm {box-shadow:0 1px 3px 0 rgba(0,0,0,0.15);}
-.btn-primary.btn-sm:focus,.btn-primary.btn-sm.focus,.btn-primary.btn-sm:hover,.btn-primary.btn-sm:active,.btn-primary.btn-sm.active {box-shadow:0 1px 4px 0 rgba(0,0,0,0.25);}
+.btn-primary {font-weight:bold; box-shadow:0 .333333em .6666667em rgba(0,0,0,0.15);}
+.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {box-shadow:0 .333333em 1em rgba(0,0,0,0.25);}
 /* */
 
 
 /* acenda global */
+#toolbar {padding-top:6px; padding-bottom:6px;}
+#header .logo {font-size:140%; line-height:36px;}
+#header .limit-logo .logo img {max-height:36px;}
+#nav .navbar-nav {display:table; float:none; margin-right:auto; margin-left:auto;}
+#nav-desktop-main {padding-top:10px; border-top-color:#ccc;}
+.nav-mobile .btn {font-size:28px;}
+#footer .list-unstyled {line-height:2;}
+
+
 .pricing .price {color:#000; font-weight:bold;}
 #product-details .pricing .price {font-size:150%;}
 #collection .pricing .price {font-size:120%;}
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}
+
+@media (min-width:992px) {
+#toolbar {padding-top:30px;}
+#header .limit-logo .logo img {max-height:80px;}
+#nav {margin-top:24px;}
+}
 /* */
