@@ -62,7 +62,12 @@ $('button[value=cart]').click(function(event) {
         form.serialize())
     .always(function(data) {
         // Make sure to reenable it, success or failure
-        $('button[value=cart]').addClass('wait').attr('disabled',false);
+        $('button[value=cart]').each(function() {
+            $(this).removeClass('wait');
+            if (!$(this).parents('.piece').find('.variation.active .stock-oos').length) {
+                $(this).attr('disabled',false);
+            }
+        });
         $("html, body").animate({ scrollTop: 0 }, 600);
     })
     .fail(function() {

@@ -261,7 +261,11 @@
 	{# Begin collection product $(this).parentsUntil('.product').hide(); #}
 	{% for product in children %}
 	{% set variations = product.variant|find({'has_stock':true}) %}
-	{% set variation = variations[0] %}
+	{% if variations is empty %}
+		{% set variation = product.variant[0] %}
+	{% else %}	
+		{% set variation = variations[0] %}
+	{% endif %}
 	<div class="divide p-2x pad-b-2x piece piece-{{product.id}}" itemscope itemtype="http://schema.org/Product">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">

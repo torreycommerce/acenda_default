@@ -97,12 +97,17 @@
 .vopt {margin-right:-1px; margin-left:-1px;}
 .vopt-color {font-size:0;}
 .vopt li {margin:0; padding:2px 1px 0;}
-.vopt-color li {width:20%;}
-.vopt li img {cursor:pointer; border:1px solid #bbb;}
-.vopt .selected a, .vopt li:hover a, .vopt li:focus a, .vopt .selected img, .vopt li:hover img, .vopt li:focus img {border:1px solid #000;}
-.vopt .selected a {background:#f8f8f8;}
-.vopt .not-avail a, .vopt .not-avail img {background:none; border:1px dashed #aaa; cursor:not-allowed; opacity:.65;}
-.vopt .not-avail-sel a, .vopt .not-avail-sel img {background:none; border:1px dashed red; cursor:not-allowed; opacity:.65;}
+.vopt-color li {width:20%; cursor:pointer;}
+.vopt li .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb;}
+.vopt li.selected .image-space:after, .vopt li:hover .image-space:after {border:1px solid #000;}
+.vopt li.not-avail {cursor:not-allowed; opacity:.6;}
+.vopt li.not-avail .image-space:after {border:2px dashed #bbb;}
+.vopt li.not-avail:hover {opacity:.4;}
+.vopt li.not-avail:hover .image-space:after {border:2px dashed red;}
+.vopt li.not-avail-sel {cursor:not-allowed; opacity:.6;}
+.vopt li.not-avail-sel .image-space:after {border:2px dashed red;}
+.vopt li.not-avail-sel:hover {opacity:.4;}
+.vopt li.not-avail-sel:hover .image-space:after {border:2px dashed red;}
 
 @media (min-width:479px) and (max-width:767px) {
 .piece .vopt-color li {width:16.666666%;}
@@ -177,7 +182,8 @@
 .selectric-items li:hover {color:#000; background:#f8f8f8;}
 .selectric-items .highlighted {}
 .selectric-items .selected {color:#000; font-weight:bold; background:#f4f4f4;}
-.selectric-items .disabled {color:#666!important; cursor:default!important; text-decoration:line-through; background:none!important; opacity:0.5; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+.selectric-items .not-avail {color:#666!important; cursor:default!important; text-decoration:line-through; background:none!important; opacity:0.5; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
+.selectric-items .not-avail-sel {color:#666!important; cursor:default!important; text-decoration:line-through; opacity:0.5; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
 </style>
     {% if item.product|length == 1%}
         {% set product = item.product|first %}

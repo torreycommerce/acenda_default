@@ -29,7 +29,11 @@
 {% else %}
 	{% set variations = product.variant|find({'has_stock':true}) %}
 {% endif %}
-{% set variation = variations[0] %}
+{% if variations is empty %}
+	{% set variation = product.variant[0] %}
+{% else %}	
+	{% set variation = variations[0] %}
+{% endif %}
 
 {% if variation.images is empty %}
 	{% set varimgs = product.images %}
