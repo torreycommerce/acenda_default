@@ -64,7 +64,8 @@ $('button[value=cart]').click(function(event) {
         // Make sure to reenable it, success or failure
         $('button[value=cart]').each(function() {
             $(this).removeClass('wait');
-            if (!$(this).parents('.piece').find('.variation.active .stock-oos').length) {
+            // only enable the cart button if it wasn't disabled due to lack of Stock/Price
+            if (!$(this).parents('.piece').find('.quantity-selector').attr('disabled')) {
                 $(this).attr('disabled',false);
             }
         });
