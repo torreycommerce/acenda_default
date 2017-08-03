@@ -57,7 +57,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{# Begin wishlists #}
 		<div class="row c-c">
 			{% for wishlist in wishlists %}
-			<div class="col-xs-12 col-sm-6 col-md-4">
+			<div class="col-xs-12 col-sm-6 col-lg-4">
 				<div class="panel panel-default{% if wishlist.default %} panel-success{% endif %}">
 					<div class="panel-heading">
 						<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
@@ -65,7 +65,11 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					<div class="panel-body">
 						<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
 						<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
-						{% if wishlist.default %}<div class="fsd1 mar-t"><u>Default Wish List</u></div>{% endif %}
+						{% if wishlist.default %}
+							<div class="fsd1 mar-t"><u>Default Wish List</u></div>
+						{% else %}
+							<div class="fsd1 mar-t"><br></div>
+						{% endif %}
 					</div>
 					<div class="panel-footer">
 						<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>

@@ -199,23 +199,23 @@ if ($('.form-region').length) {
 					}
 					if ($('select[id$=country]').val() == "US") {
 						$(".postziplang").html("Zip Code");
-						$('input[placeholder="Postal Code"]').attr('placeholder','Zip');
+						$('input[placeholder="Postal Code"]').attr('placeholder','Zip Code');
 					} else {
 						$(".postziplang").html("Postal Code");
 						$('input[placeholder="Zip"]').attr('placeholder','Postal Code');
 					}
 					if (typeof data.result !== 'undefined') {
-
+						//review/id
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
+							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden-x').prop( "disabled", true )
+							$("#state_select").addClass('hidden').prop( "disabled", true )
                             $('select#state_select').parent().removeClass('has-error');							
 						} else {
-							$("#state_input").addClass('hidden-x').prop( "disabled", true );
+							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
+							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
                             $('select#state_select').parent().removeClass('has-error');
 						}
 
@@ -419,15 +419,17 @@ if ($('.form-region-customer').length) {
 					}
 
 					if (typeof data.result !== 'undefined') {
+						//account/addresses
+						console.log('acct')
 						//If State array is empty, then show state as a text input.
 						if ($.isArray(data.result) && data.result.length == 0) {
-							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden-x').prop( "disabled", true )
+							$("#state_select").addClass('hidden').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden-x').prop( "disabled", true );
+							$("#state_input").addClass('hidden').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
 						}
 					}
 
