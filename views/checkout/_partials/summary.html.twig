@@ -36,7 +36,7 @@ var acendaCheckoutStep = '{{ step }}';
 					  {% endif %}
 					</div>
 				<div class="qty">Qty: {{ item.quantity }}</div>
-				<div class="pricing"><div class="price">Price: <span class="dollar-sign">$</span>{{ product.price|number_format(2, '.') }} <span class="each">each</span></div></div>
+				<div class="pricing"><div class="price">Price: {{ prod.currency(product.price|number_format(2, '.')) }} <span class="each">each</span></div></div>
 				{% if item.wishlist_id is not empty %}
 					{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
 					<div class="wishlist p">
@@ -80,27 +80,40 @@ var acendaCheckoutStep = '{{ step }}';
 
 	{# Begin subtotal #}
 	<div class="subtotal row">
-		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ cart.item_subtotal|number_format(2, '.') }}</span></div>
+		<div class="amount col-xs-7">Subtotal:</div>
+		<div class="amount col-xs-5 text-right">
+			{{ prod.currency(cart.item_subtotal|number_format(2, '.')) }}
+			{#<span class="dollar-sign">$</span><span class="price">{{ cart.item_subtotal|number_format(2, '.') }}</span>#}
+		</div>
 	</div>
 	{# End subtotal #}
 	{% if step == 'billing' %}
 		<div class="shipping row" id="summary-shipping">
 			<div class="col-xs-7">Shipping:</div>
 			{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span></div>
+			<div class="amount col-xs-5 text-right">
+				{{ prod.currency(shipping.rate|number_format(2, '.')) }}
+				{#<span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span>#}
+			</div>
 		</div>
 	{% endif %}
 	{% if step == 'express' %}
 		<div class="shipping row">
 			<div class="col-xs-7">Shipping:</div>
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price">{{ expressdetails.SHIPPINGAMT|number_format(2, '.') }}</span></div>
+			<div class="amount col-xs-5 text-right">
+				{{ prod.currency(expressdetails.SHIPPINGAMT|number_format(2, '.')) }}
+				{#<span class="dollar-sign">$</span><span class="price">{{ expressdetails.SHIPPINGAMT|number_format(2, '.') }}</span>#}
+			</div>
 		</div>
 	{% endif %}
 
 	{% if cart.discount_price > 0 %}
 	<div class="coupon row">
 		<div class="col-xs-7">Discount:</div>
-		<div class="amount col-xs-5 text-right"><span class="dollar-sign">-$</span><span class="price">{{ cart.discount_price|number_format(2, '.') }}</span></div>
+		<div class="amount col-xs-5 text-right">
+			{{ prod.currency(cart.discount_price|number_format(2, '.')) }}
+			{#<span class="dollar-sign">-$</span><span class="price">{{ cart.discount_price|number_format(2, '.') }}</span>#}
+		</div>
 	</div>
 	{% endif %}
 
@@ -108,13 +121,17 @@ var acendaCheckoutStep = '{{ step }}';
 		<div class="shipping row" style="display:none;" id="summary-shipping">
 			<div class="col-xs-7">Shipping:</div>
 			{% set shipping = api.post('/shippingmethod/' ~ app.user.getState('shipping_method') ~ '/rate', {'total':cart.subtotal, 'quantity':cart.item_count}) %}
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span></div>
+			<div class="amount col-xs-5 text-right">
+				{{ prod.currency(shipping.rate|number_format(2, '.')) }}
+				{#<span class="dollar-sign">$</span><span class="price" id="rate-estimate">{{ shipping.rate|number_format(2, '.') }}</span>#}
+			</div>
 		</div>
 		<div class="tax row" style="display:none;"  id="summary-before-tax">
 			<div class="col-xs-7">Total Before Tax:</div>
 			{% set total_before_tax = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) %}
 			<div class="amount col-xs-5 text-right">
-				<span class="dollar-sign">$</span><span class="price" id="total-before-tax">{{ total_before_tax|number_format(2, '.') }}</span>
+				{{ prod.currency(total_before_tax|number_format(2, '.')) }}
+				{#<span class="dollar-sign">$</span><span class="price" id="total-before-tax">{{ total_before_tax|number_format(2, '.') }}</span>#}
 			</div>
 		</div>
 		<div class="tax row" style="display:none;" id="summary-tax">
@@ -126,13 +143,17 @@ var acendaCheckoutStep = '{{ step }}';
 			{% endif %}
 			{% set tax = api.post('/taxdata/calculate', {'subtotal':cart.taxable_subtotal, 'shipping_zip':zip, 'shipping_rate':shipping.rate, 'shipping_country': app.user.getState('shipping_country'), 'shipping_state': app.user.getState('shipping_state')}) %}
 			<div class="amount col-xs-5 text-right">
-				<span class="dollar-sign">$</span><span class="price" id="tax-estimate">{{ tax.tax|number_format(2, '.') }}</span>
+				{{ prod.currency(tax.tax|number_format(2, '.')) }}
+				{#<span class="dollar-sign">$</span><span class="price" id="tax-estimate">{{ tax.tax|number_format(2, '.') }}</span>#}
 			</div>
 		</div>		
 		<div class="total row" id="summary-total">
 			<div class="col-xs-7"><strong>Total:</strong></div>
 			{% set total = cart.subtotal|replace({',':''}) + shipping.rate|replace({',':''}) + tax.tax|replace({',':''}) %}
-			<div class="amount col-xs-5 text-right"><span class="dollar-sign"><strong>$</strong></span><span class="price"><strong><span id="total-estimate">{{ total|number_format(2, '.') }}</span></strong></span></div>
+			<div class="amount col-xs-5 text-right">
+				{{ prod.currency(total|number_format(2, '.')) }}
+				{#<span class="dollar-sign"><strong>$</strong></span><span class="price"><strong><span id="total-estimate">{{ total|number_format(2, '.') }}</span></strong></span>#}
+			</div>
 		</div>
 	{% endif %}
 	{% if step == 'billing' %}

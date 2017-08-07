@@ -93,7 +93,7 @@
                     {% set price = item.price * item.quantity %}
                     {% set subtotal = subtotal + price %}
                     <div class="col-xs-4 text-right">
-                        ${{ item.price|number_format(2, '.') }}
+                        {{ prod.currency(item.price|number_format(2, '.')) }}
                     </div>
                 </div>
             {% endfor %}
@@ -134,31 +134,31 @@
 							<div class="order-totals">
 								<div class="row">
 									<div class="col-xs-8">Subtotal:</div>
-									<div class="col-xs-4 text-right">${{ final_order.item_subtotal|number_format(2, '.') }}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency( final_order.item_subtotal|number_format(2, '.')) }}</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-8">Shipping:</div>
-									<div class="col-xs-4 text-right">${{ final_order.shipping_rate|number_format(2, '.') }}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency( final_order.shipping_rate|number_format(2, '.')) }}</div>
 								</div>
 								{% if final_order.discount_price > 0 %}
 								<div class="row">
 									<div class="col-xs-8">Discount:</div>
 									<div class="col-xs-4 price-discount text-right">
-										-${{ final_order.discount_price|number_format(2, '.')}}
+										-{{ prod.currency(final_order.discount_price|number_format(2, '.')) }}
 									</div>
 								</div>
 								{% endif %}
 								<div class="row">
 									<div class="col-xs-8">Total Before Tax:</div>
-									<div class="col-xs-4 text-right">${{ (final_order.subtotal + final_order.shipping_rate)|number_format(2, '.') }}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-8">Sales Tax:</div>
-									<div class="col-xs-4 text-right">${{ final_order.tax|number_format(2, '.')}}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-8">Total:</div>
-									<div class="col-xs-4 text-right">${{ final_order.total|number_format(2, '.') }}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency(final_order.total|number_format(2, '.')) }}</div>
 								</div>
 							</div>
 						</div>

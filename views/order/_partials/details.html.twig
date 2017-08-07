@@ -22,7 +22,7 @@
 					<div><strong>Order Info</strong></div>
 					<div>Order: #{{ order.order_number }}</div>
 					<div>{{ order.date_created }}</div>
-					<div>Order Total: ${{ order.total|number_format(2, '.') }}</div>
+					<div>Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 				</div>
 				{# End order details #}
 					
@@ -113,7 +113,7 @@
 							</div>
 
 							<div class="pricing">
-								<div class="price">Price: ${{ product.price|number_format(2, '.') }}</div>
+								<div class="price">Price: {{ prod.currency(product.price|number_format(2, '.')) }}</div>
 							</div>
 
 							<div>Qty: {{ item.quantity }}</div>
@@ -212,7 +212,7 @@
 							<div class="coupon">
 								<div class="row">
 									<div class="col-xs-6">Discount:</div>
-									<div class="col-xs-6 price-discount text-right">-${{ order.discount_price|number_format(2, '.')}}</div>
+									<div class="col-xs-6 price-discount text-right">-{{ prod.currency(order.discount_price|number_format(2, '.')) }}</div>
 								</div>
 							</div>
 							{# End coupons #}
@@ -221,15 +221,15 @@
 								<div class="row">
 									{% set total_before_tax = order.item_subtotal - order.discount_price + order.shipping_rate %}
 									<div class="col-xs-8">Total Before Tax:</div>
-									<div class="col-xs-4 text-right">${{total_before_tax|number_format(2, '.')}}</div>
+									<div class="col-xs-4 text-right">{{ prod.currency(total_before_tax|number_format(2, '.')) }}</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-6">Sales Tax:</div>
-									<div class="col-xs-6 text-right">${{order.tax|number_format(2, '.')}}</div>
+									<div class="col-xs-6 text-right">{{ prod.currency(order.tax|number_format(2, '.')) }}</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-6">Total:</div>
-									<div class="col-xs-6 text-right">${{order.total|number_format(2, '.')}}</div>
+									<div class="col-xs-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
 								</div>
 							</div>
 						</div>

@@ -77,7 +77,7 @@
 					{% spaceless %}
 					<ul class="list-inline">
 						<li class="price-regular">{{ this.cprice(product.attributes.compare_price) }}</li>
-						<li class="percent">Save {{ this.saveprice(product.attributes.save_price) }} <span class="hidden-xs">{{ this.savepercent(product.attributes.save_percent) }}</span></li>
+						<li class="percent">{{ this.saveprice(product.attributes.save_price) }}{{ this.savepercent(product.attributes.save_percent) }}</li>
 					</ul>
 					{% endspaceless %}
 					{% endif %}
@@ -150,15 +150,57 @@
 {% endspaceless %}
 {% endmacro %}
 
-{% macro currency() %}
-	{% set cur = USD %}
-	{% if cur == EUR %}
+{% macro currency(val,ip,add) %}
+{#	price,
+	optional bool for if itemprop html is desired,
+	optional string for itemprop value other than just "price"
+#}
+	{% set cur = "EUR" %} {# EUR #}
+	{% set curs = "€" %} {# € #}
+	{% set add = add %}
+	{% if add is empty %}
+		{% set add = "price" %}
+	{% endif %}
+	{% if cur == "EUR" %}
+		{% if ip == 1 %}
+			<span class="val" itemprop="{{add}}">{{val}}</span><span class="cursign" itemprop="priceCurrency" content="{{cur}}">{{curs}}</span>
+		{% else %}
+			<span class="val">{{val}}</span><span class="cursign">{{curs}}</span>
+		{% endif %}
 	{% else %}
+		{% if ip == 1 %}
+			<span class="cursign" itemprop="priceCurrency" content="{{cur}}">{{curs}}</span><span class="val" itemprop="{{add}}">{{val}}</span>
+		{% else %}
+			<span class="cursign">{{curs}}</span><span class="val">{{val}}</span>
+		{% endif %}
 	{% endif %}
 {% endmacro %}
 
 
 {% macro price(prices) %}
+{% import _self as this %}
+{% spaceless %}
+	{% if prices is not iterable %}
+		{{ this.currency(prices|number_format(2),1) }}
+	{% else %}
+		{% set min = prices[0] %}
+		{% set max = prices[0] %}
+		{% for price in prices %}
+			{% set min = min > price ? price : min %}
+			{% set max = max < price ? price : max %}
+		{% endfor %}
+		{% if min == max or min == 0 %}
+			{{ this.currency(max|number_format(2),1) }}
+		{% else %}
+		    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+			{{ this.currency(min|number_format(2),1,"price minPrice") }}<span class="splitter"> - </span>{{ this.currency(max|number_format(2),1,"maxPrice") }}
+          </span>
+		{% endif %}
+	{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro priceold(prices) %}
 {% spaceless %}
 	{% if prices is not iterable %}
 		<span itemprop="priceCurrency" content="USD">$</span><span
@@ -185,6 +227,27 @@
 {% endmacro %}
 
 {% macro cprice(prices) %}
+{% import _self as this %}
+{% spaceless %}
+	{% if prices is not iterable %}
+		{{ this.currency(prices|number_format(2)) }}
+	{% else %}
+		{% set min = prices[0] %}
+		{% set max = prices[0] %}
+		{% for price in prices %}
+			{% set min = min > price ? price : min %}
+			{% set max = max < price ? price : max %}
+		{% endfor %}
+		{% if min == max or min == 0 %}
+			{{ this.currency(max|number_format(2)) }}
+		{% else %}
+		    {{ this.currency(min|number_format(2)) }} - {{ this.currency(max|number_format(2)) }}
+		{% endif %}
+	{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro cpriceold(prices) %}
 {% spaceless %}
 	{% if prices is not iterable %}
 		${{prices|number_format(2)}}
@@ -223,32 +286,34 @@
 {% endmacro %}
 
 {% macro saveprice(saveprices) %}
+{% import _self as this %}
 {% spaceless %}
 	{% if saveprices is not iterable %}
-		${{saveprices|number_format(2)}}
+		<span class="lang">Save </span>{{ this.currency(saveprices|number_format(2)) }}
 	{% else %}
 		{% set max = saveprices[0] %}
 		{% for price in saveprices %}
 			{% set max = max < price ? price : max %}
 		{% endfor %}
 		{% if max > 1 %}
-			${{max|number_format()}}
+			<span class="lang">Save </span>{{ this.currency(max|number_format()) }}
 		{% endif %}
 	{% endif %}
 {% endspaceless %}
 {% endmacro %}
 
 {% macro savepercent(percents) %}
+{% import _self as this %}
 {% spaceless %}
 	{% if percents is not iterable %}
-		({{ percents }}%)
+		<span class="percs hidden-xs"> (<span class="val">{{ percents }}</span>%)</span>
 	{% else %}
 		{% set max = percents[0] %}
 		{% for percent in percents %}
 			{% set max = max < percent ? percent : max %}
 		{% endfor %}
 		{% if max > 0 %}
-			({{ max }}%)
+			<span class="percs hidden-xs"> (<span class="val">{{ max }}</span>%)</span>
 		{% endif %}
 	{% endif %}
 {% endspaceless %}

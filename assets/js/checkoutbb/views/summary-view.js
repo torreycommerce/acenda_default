@@ -29,30 +29,89 @@ var checkout = checkout || {};
 
 			if(typeof co.cart !== 'object'  || typeof co.cart.get('items') === 'undefined') return;
 			var that = this;	
-			var itemTemplate = _.template($('#summary-item-template').html());
-			var totalsTemplate = _.template($('#summary-totals-template').html());			
+			//var itemTemplate = _.template($('#summary-item-template').html());
+			//var totalsTemplate = _.template($('#summary-totals-template').html());
+			//
+			var itemCompTemplate = _.template($('#summary-item-compress').html());
+			var totalsCompTemplate = _.template($('#summary-totals-compress').html());
+			//
 		    this.$el.find('#num-items').html(co.cart.get('items').length);
+		    
 			that.$el.find('#item-list').html('');
-		    if(co.cart.get('items').length) {		    	
-	    		_.each(co.cart.get('items'),function(v,k){
+			that.$el.find('#item-list-data').html('');
+		    if(co.cart.get('items').length) {
+		    	_.each(co.cart.get('items'),function(v,k){
+		    		that.$el.find('#item-list-data').append(itemCompTemplate({
+						item:v,
+						availability: ((co.cart.variants[k].has_stock)?"In Stock":"Out of Stock"),
+						product: co.cart.products[k], 
+						variant: co.cart.variants[k]
+					}));
+	    		});
+	    		/*_.each(co.cart.get('items'),function(v,k){
 					that.$el.find('#item-list').append(itemTemplate({
 						item:v,
 						availability: ((co.cart.variants[k].has_stock)?"In Stock":"Out of Stock"),
 						product: co.cart.products[k], 
 						variant: co.cart.variants[k]
 					}));
-	    		});	
+	    		});*/
 	    		var cart = co.cart.toJSON();
 	    		if(!co.cart.get('shipping_rate')) co.cart.set('shipping_rate',0.00);
 	    		if(!co.cart.get('tax_rate')) co.cart.set('tax_rate',0.00);	    		
 	    	    co.cart.set('total',parseFloat(cart.subtotal) + parseFloat(cart.shipping_rate)+ ((checkout_product_prices_include_tax)?0:parseFloat(cart.tax_rate)) );
 
+				/*
 				that.$el.find('#totals-section').html('').append(totalsTemplate({
 					cart: co.cart.toJSON(),
 					steps: co.checkout_steps
 				}));
+				*/
+				
+				that.$el.find('#totals-section-data').html('').append(totalsCompTemplate({
+					cart: co.cart.toJSON(),
+					steps: co.checkout_steps
+				}));
+				//
+				var totalsHtml = $('#totals-section-copy').clone();
+				var sauce = $('#totals-section-data');
 
+				$(totalsHtml).find('.totals-subtotal .val').text($(sauce).find('.c-ist').text());
+				if ($(sauce).find('.discount').length) {
+					$(totalsHtml).prepend($(sauce).find('.discounts').html());
+				}
+				if ($(sauce).find('.c-sr').length) {
+					$(totalsHtml).find('.totals-shipping .val').text($(sauce).find('.c-sr').text());
+				} else {
+					$(totalsHtml).find('.totals-shipping').remove();
+				}
+				if ($(sauce).find('.c-dp').length) {
+					$(totalsHtml).find('.totals-discount .val').text($(sauce).find('.c-dp').text());
+				} else {
+					console.log('remove Disc')
+					$(totalsHtml).find('.totals-discount').remove();
+				}
+				if ($(sauce).find('.c-tr').length) {
+					$(totalsHtml).find('.totals-tax .val').text($(sauce).find('.c-tr').text());
+				} else {
+					$(totalsHtml).find('.totals-tax').remove();
+				}
+				$(totalsHtml).find('.totals-total .val').text($(sauce).find('.c-t').text());
+				$('#totals-section').html($(totalsHtml).html());
 		    }
+		    $('#item-list-data .compressed-item').each(function() {
+				var listItem = $('#item-list-copy .item').clone();
+				$(listItem).find('.media-object').attr('src',($(this).find('.t').text()));
+				$(listItem).find('.product-name').text($(this).find('.n').text());
+				$(listItem).find('.availability').text($(this).find('.s').text());
+				$(listItem).find('.qty').text($(this).find('.q').text());
+				$(listItem).find('.price .val').text($(this).find('.p').text());
+				var temp = $(listItem).find('.price .val').text();
+				temp = Number(temp).toFixed(2).toString();
+				$(listItem).find('.price .val').html(temp);
+				$(listItem).find('.media-body').append($(this).find('.l').text());
+				$('#item-list').append(listItem);
+			});
 		},
 		clickRemoveCoupon: function(e) {
 			e.preventDefault();

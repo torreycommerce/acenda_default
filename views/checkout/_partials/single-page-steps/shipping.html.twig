@@ -3,7 +3,7 @@
 <div id="customer-addresses" style="display: none;" class="row">
 	<div class="col-xs-12">
 		<div class="form-group">
-             <label class="control-label" for="first-name">Select an Address</label>			
+             <label class="control-label" for="shipping-customer-addresses-select">Select an Address</label>
 			<select class="form-control" id="shipping-customer-addresses-select">
 			</select>
             <div class="validation"></div>			
@@ -47,7 +47,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="form-group fgq normalizable">
-				<label class="control-label" for="country">Country</label>
+				<label class="control-label" for="shipping-country">Country</label>
 				{{ forms.select('shipping_country', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'shipping-country'}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'country') }}</div>
 			</div>
@@ -63,7 +63,7 @@
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
-				<label class="control-label" id="state-label" for="state">State</label>
+				<label class="control-label" id="state-label" for="shipping-state">State</label>
                 {{ forms.select('shipping_state', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'shipping-state'}) }}
                 <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
 			</div>

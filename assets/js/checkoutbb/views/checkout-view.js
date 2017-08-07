@@ -302,7 +302,10 @@ var checkout = checkout || {};
 		            }	     	
 		        	defer_methods[k]=$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: total,quantity: quantity}, function(response) {		        		
 		        	    that.shipping_methods.at(k).set('price',response.result.rate);
-		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON(), current_method: that.cart.get('shipping_method')}));		            
+		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON(), current_method: that.cart.get('shipping_method')}));
+		                $('#shipping-methods label .hidden').each(function() {
+		                	$(this).parents('label').find('.val').text($(this).text());
+		                });
 		        	})
 		            first = false;   
 		        });	
@@ -477,7 +480,7 @@ var checkout = checkout || {};
 					k = k.replace('shipping_','billing_');
 					$('[name="' + k +  '"]').val(v);
 				});
-			    var tpl = _.template('<div style="min-width: 40%; display: inline-block; text-transform: capitalize; margin: 15px; padding: 10px; background: #eee;"><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%> <br> <button id="btn-edit-billing-address" class="btn btn-default" style="float: right;">Edit</button></div>');
+			    var tpl = _.template('<div class="col-xs-12 col-sm-6"><div class="alert alert-info p" style="text-transform: capitalize; padding: 10px; background: #eee;"><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%> <br> <button id="btn-edit-billing-address" class="btn btn-default btn-xs pull-right">Edit</button></div></div>');
 
 				$('div#billing-address-preview').html(tpl(form));
 				$('.checkoutapp #payment-panel .copy-shipping-flag').hide();				

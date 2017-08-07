@@ -71,12 +71,11 @@
                 {# Begin pricing #}
                 <div class="pricing">
                     <div class="price">
-                        <span class="sale">Sale:</span>&nbsp;<span class="dollar-sign">$</span><span class="amount">{{ product.price }}</span><span class="cents"></span>
+                        {{ prod.currency(product.price) }}
                     </div>
-                    <div class="stock">In Stock</div>                            
                     {% if product.compare_price %}
                     <div class="price-regular">
-                        <span class="regular">Reg:</span>&nbsp;<span class="dollar-sign">$</span><span class="amount">{{ product.compare_price }}</span><span class="cents"></span>
+                        {{ prod.currency(product.compare_price) }}
                     </div>
                     {% endif %}                            
                 </div>

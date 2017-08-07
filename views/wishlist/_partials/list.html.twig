@@ -66,9 +66,9 @@
 
 					{# Begin pricing #}
 					<ul class="list-inline pricing">
-						<li class="price"><span class="dollar-sign">$</span>{{ product.price }}</li>
+						<li class="price">{{ prod.currency(product.price) }}</li>
 						{% if product.compare_price %}
-							<li class="price-regular"><span class="dollar-sign">$</span>{{ product.compare_price }}</li>
+							<li class="price-regular">{{ prod.currency(product.compare_price) }}</li>
 						{% endif %}
 					</ul>
 					{# End pricing #}

@@ -24,7 +24,7 @@
 		</div>
 	</div>
 {{ forms.end() }}
-{% if cart.shipping_rate > 0 %}
+{% if cart.shipping_rate != 0 %}
 <div class="fsd1" id="estimate">
 	<div class="well">
 		{# Begin arrival modal #}
@@ -71,7 +71,10 @@
 					<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
 				</div>
 				<div class="col-xs-4 text-right">
-					<span id="rate-estimate" class="amount">${{cart.shipping_rate|number_format(2)}}</span>
+					<span id="rate-estimate" class="amount">
+						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
+						{#${{cart.shipping_rate|number_format(2)}}#}
+					</span>
 				</div>
 			</div>
 		</div>
@@ -96,7 +99,10 @@
 					Estimated Sales Tax:
 				</div>
 				<div class="col-xs-4 text-right">
-					<span id="tax-estimate" class="amount">${{cart.tax_rate|number_format(2)}}</span>
+					<span id="tax-estimate" class="amount">
+						{{ prod.currency(cart.tax_rate|number_format(2)) }}
+						{#${{cart.tax_rate|number_format(2)}}#}
+					</span>
 				</div>
 			</div>
 		</div>
@@ -108,7 +114,8 @@
 					Estimated Total:
 				</div>
 				<div class="col-xs-4 text-right">
-					<span id="total-estimate" class="amount">${{cart.total|number_format(2)}}</span>
+					{{ prod.currency(cart.total|number_format(2)) }}
+					{#<span id="total-estimate" class="amount">${{cart.total|number_format(2)}}</span>#}
 				</div>
 			</div>
 		</div>

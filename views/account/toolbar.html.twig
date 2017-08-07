@@ -1,4 +1,5 @@
 {% block toolbar %}
+{%- import "/_macros/product.html.twig" as prod -%}
 {% spaceless %}
 <section class="fsd1 text-right limit-logo" id="toolbar">
 	<div class="container">
@@ -108,15 +109,15 @@
 						</div>
 						<div class="media-body">
 							<div class="product-name"></div>
-							<div class="price"><strong>Price:</strong> $<span class="product-price"></span></div>
-							<div class="quantity"><strong>Qty:</strong>&nbsp;<span class="product-quantity"></span></div>
+							<div class="price"><b>Price: </b>{{ prod.currency("0.00") }}</div>
+							<div class="quantity"><b>Qty: </b><span class="product-quantity"></span></div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<div class="cart-totals pad-h fsd1">
-				<div class="items">You have <b><span class="item-count"></span></b> Item(s) in your Cart.</div>
-				<div class="total"><b>Subtotal:</b> $<span class="subtotal">0.00</span></div>
+				<div class="items">You have <b class="item-count"></b> Item(s) in your Cart.</div>
+				<div class="subtotal"><b>Subtotal: </b>{{ prod.currency("0.00") }}</div>
 			</div>
 			<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
 		</div>

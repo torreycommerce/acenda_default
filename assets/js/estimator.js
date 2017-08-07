@@ -1,7 +1,4 @@
-function estimator(currency) {
-    if(typeof currency === 'undefined') {
-        var currency = '$';
-    }
+function estimator() {
     var zip_code = $('[name="cart[zip_code]"]').val();
     var shipping_method = $('[name="cart[method]"]').val();
     var shipping_country = $('[name="cart[country]"]').val();
@@ -33,7 +30,7 @@ function estimator(currency) {
             cart_data = response.result;
             $('#form').hide();
             $('#estimate').show();
-            $('#rate-estimate').html(currency +  cart_data.shipping_rate);
+            $('#rate-estimate .val').html(cart_data.shipping_rate);
             setRateEstimatedShipping(cart_data.shipping_rate);
             var total_before_tax = parseFloat(cart_data.subtotal) + parseFloat(cart_data.shipping_rate);
             var total_before_tax = total_before_tax.toFixed(2).toLocaleString();
@@ -44,10 +41,10 @@ function estimator(currency) {
             }else{
                 $('#block-date-estimate').hide();
             }
-            $('#tax-estimate').html(currency + cart_data.tax_rate);
+            $('#tax-estimate .val').html(cart_data.tax_rate);
             setTaxEstimated(cart_data.tax_rate);
             var total = parseFloat(cart_data.subtotal) + parseFloat(cart_data.tax_rate) + parseFloat(cart_data.shipping_rate);
-            $('#total-estimate').html(currency + total.toFixed(2).toLocaleString());
+            $('#total-estimate .val').html(total.toFixed(2).toLocaleString());
             console.log('setting total estimate to ' +  total.toFixed(2).toLocaleString());
             setTotalEstimated(total.toFixed(2).toLocaleString());
         });
@@ -68,20 +65,20 @@ $('#cart_ClearEstimate').click(function(e) {
     $('#form').show();
 });
 function setRateEstimatedShipping(rate){
-    $('#rate-estimate-checkout').find('.amount').text('$'+rate);
+    $('#rate-estimate-checkout .val').text(rate);
     $('#rate-estimate-checkout').show();
 }
 function setTaxEstimated(tax){
-    $('#tax-estimate-checkout').find('.amount').text('$'+tax);
+    $('#tax-estimate-checkout .val').text(tax);
     $('#tax-estimate-checkout').show();
 }
 function setTotalEstimated(total){
-    var estimate_total = $('#estimate-total').find('.amount');
+    var estimate_total = $('#estimate-total .val');
     estimate_total.data("old-value", estimate_total.text());
-    estimate_total.text('$'+total);
+    estimate_total.text(total);
 }
 function setTotalBeforeTax(total){
-    $('#total-before-tax').find('.amount').text('$'+total);
+    $('#total-before-tax .val').text(total);
     $('#total-before-tax').show();
 }
 function clearEstimated(){
@@ -89,6 +86,6 @@ function clearEstimated(){
     $('#tax-estimate-checkout').hide();
     $('#total-before-tax').hide();
     //Restore total
-    var estimate_total = $('#estimate-total').find('.amount');
+    var estimate_total = $('#estimate-total .val');
     estimate_total.text( estimate_total.data("old-value") );
 }

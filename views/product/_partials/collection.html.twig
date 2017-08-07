@@ -98,7 +98,7 @@
 						<li class="price-regular">{{ prod.cprice(prices.compare_price) }}</li>
 						{% endif %}
 						{% if prices.save_price is not empty and prices.save_percent is not empty %}
-						<li class="percent">Save {{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
+						<li class="percent">{{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
 					{% endif %}
 					</ul>
 					{% endspaceless %}
@@ -152,18 +152,17 @@
 							<h3 class="product-name" itemprop="name">{{bundle.name}}</h3>
 						     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
     							<div class="pricing">
-    								<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
-              itemprop="price">{{bundle.price|number_format(2)}}</span></div>
+    								<div class="p-mini price">{{ prod.currency(bundle.price|number_format(2),1) }}</div>
     								
     								{% spaceless %}
     								<ul class="list-inline">
-    									<li class="price-regular">${{ bundle.raw_price|number_format(2) }}</li>
+    									<li class="price-regular">{{ prod.currency(bundle.raw_price|number_format(2)) }}</li>
     									{% if bundle.discount_type == 'dollar'%}
-    									<li class="percent">Save ${{ bundle.discount_value }}</li>
+    									<li class="percent">{{ prod.saveprice(bundle.discount_value) }}</li>
     									{% elseif bundle.discount_type == 'percentage' %}
-    									<li class="percent">Save {{ bundle.discount_value }}%</li>
+    									<li class="percent">{{ prod.saveprice(bundle.discount_value) }}</li>
     									{% elseif bundle.discount_type == 'fixed' %}
-    									<li class="percent">Save ${{ bundle.price - bundle.raw_price }}</li>
+    									<li class="percent">{{ prod.saveprice(bundle.price - bundle.raw_price) }}</li>
     									{% endif %}
     								</ul>
     								{% endspaceless %}
@@ -295,15 +294,14 @@
 						{% endif %}
 
 						<div class="pricing">
-							<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price">{{variation.price|number_format(2)}}</span></div>
+							<div class="p-mini price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
 
 						{% set needprices = product.variant|max('save_percent') %}
 						{% if needprices|length > 0 %}
 							{% if (variation.compare_price - variation.price) > 1 %}
-								<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
+								<ul class="list-inline"><li class="price-regular">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.currency(variation.save_price|number_format(2)) }}{{ prod.savepercent(variation.save_percent) }}</li></ul>
 							{% else %}
-								<ul class="list-inline"><li>&nbsp;</li></ul>
+								<ul class="list-inline"><li class="price-regular" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
 							{% endif %}
 						{% endif %}
 						</div>

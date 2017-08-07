@@ -91,14 +91,13 @@
     					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
     				{% endif %}
     					<div class="pricing">
-    						<div class="p-mini price"><span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price">{{variation.price|number_format(2)}}</span></div>
+    						<div class="p-mini price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
     				{% set needprices = product.variant|max('save_percent') %}
     				{% if needprices|length > 0 %}
     					{% if (variation.compare_price - variation.price) > 1 %}
-    						<ul class="list-inline"><li class="price-regular">${{variation.compare_price|number_format(2)}}</li><li class="percent">Save ${{variation.save_price|number_format(2)}} ({{variation.save_percent}}%)</li></ul>
+    						<ul class="list-inline"><li class="price-regular">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(variation.save_price|number_format(2)) }}{{ prod.savepercent(variation.save_percent) }}</li></ul>
     					{% else %}
-    						<ul class="list-inline"><li>&nbsp;</li></ul>
+    						<ul class="list-inline"><li class="price-regular" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
     					{% endif %}
     				{% endif %}
     					</div>

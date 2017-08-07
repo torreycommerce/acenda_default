@@ -136,17 +136,14 @@ set in the array in /account/_macros/base.html.twig
 						<div class="pad-b divide p g">
 						<div class="media media-cart">
 							<div class="media-left">
-								<a href="{{ app.url ~ product.url }}">
-									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-image-source="{{ product.thumbnail }}" class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">
-								</a>
+								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-image-source="{{ product.thumbnail }}" class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">
 							</div>
-							<div class="media-body">	
-								<div class="brand">{{ product.brand }}</div>
-								<div class="product-name">{{ product.name }}</div>
+							<div class="media-body">
+								<div class="product-name"><a href="{{ app.url ~ product.url }}">{{ product.name }}</a></div>
 								
 								<div class="pricing p">
 									<div class="price">
-										<span class="dollar-sign">$</span>{{ product.price }}
+										{{ prod.currency(product.price|number_format(2)) }}
 									</div>
 								</div>
 								{% set it = api.get('/wishlistitem', {query:{'product_id': product.id}})[0] %}
