@@ -535,11 +535,14 @@ var checkout = checkout || {};
 			var that = this;			
 			e.preventDefault();
 			if(!this.validateStep('shipping-method')) return;
-  			var form = this.getFormData('#shipping-method-form');		
-			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<br/>$<%= method.price %>');
-
+  			var form = this.getFormData('#shipping-method-form');
+			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="hidden"><%= method.price %></div>');
 			var method = this.shipping_methods.get(form.shipping_method);
 			$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));
+			var temp = $('#shipping-methods .val:first').parent('label').html();
+			$(temp).find('.val').text($('#shipping-method-panel .step-data .hidden').text());
+			$('#shipping-method-panel .step-data').append('<div>'+temp+'</div>');
+
 			this.checkout_steps[this.findStep('shipping-method')].completed=true;
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				that.fetchCart();
