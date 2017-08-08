@@ -219,38 +219,6 @@
 		</div>
 	</script>
 
-	<!--<script id="summary-item-template" type="text/template">
-		<div class="divide g p pad-b">
-			<div class="media">
-				<div class="media-left">
-					<img class="media-object" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="<%= variant.get('thumbnail') %>" width="250" height="250" alt="">
-				</div>
-				<div class="media-body">
-					<div class="name product-name"><%= variant.get('name') %></div>
-					<div class="availability">
-						<span><%= variant.get('has_stock')?"In Stock":"Out of Stock" %></span>
-					</div>
-					<div class="qty">Qty: <%= item.quantity %></div>
-					<div class="pricing"><div class="price">
-						{# prod.currency("0.00") #}
-						{# prod.currency(<%= variant.get('price') %>) #}
-						Price: <span class="dollar-sign">$</span><%= variant.get('price') %> <span class="each">each</span>
-					</div></div>
-					<% if(item.wishlist_id) { %>
-						<div p class="wishlist p">
-							<a href="{{ app.url }}"><i class="icon icon-list"></i> For </a>					
-						</div>
-					<% } %>
-					<% if(item.registry_id) { %>
-						<div p class="registry p">
-							<a href="{{ app.url }}"><i class="icon icon-list"></i> For </a>					
-						</div>
-					<% } %>					
-				</div>
-			</div>
-		</div>
-	</script>-->
-
 	<script id="summary-totals-compress" type="text/template">
 		<div class="discounts">
 		<% for(var d in cart.discount_collection.discounts) {{ '{' }} var discount = cart.discount_collection.discounts[d];  %>
@@ -282,43 +250,6 @@
 		<% } %>
 		<p class="c-t"><%= parseFloat(cart.total).toFixed(2) %></p>
 	</script>
-
-	<!--<script id="summary-totals-template" type="text/template">
-	<div class="row">
-		<% for(var d in cart.discount_collection.discounts) {{ '{' }} var discount = cart.discount_collection.discounts[d];  %>
-         	
-			<% if(discount.type == 'coupon'){{ '{' }}  %>
-			<div class="discount">
-				<div class="alert alert-info">
-					<button  class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>">Remove</button>
-					<p>
-					<b>Coupon: <%= discount.code %></b>
-					<% if(discount.description) {{ '{' }} %><br><% {{ '}' }} %>
-					<%= discount.description %>
-					</p>
-
-				</div>
-			</div>
-			<% {{ '}' }}  %>
-		<% {{ '}' }}  %>
-
-		<div class="amount col-xs-7">Subtotal:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.item_subtotal).toFixed(2) %></span></div>
-
-		<% if(cart.shipping_method ) { %>
-			<div class="amount col-xs-7">Shipping:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.shipping_rate).toFixed(2) %></span></div>
-		<% } %>
-
-		<% if(parseFloat(cart.discount_price) > 0)  { %>
-			<div class="amount col-xs-7">Discount:</div><div class="amount col-xs-5 text-right price-discount"><span class="dollar-sign">-$</span><span class="price "><%= parseFloat(cart.discount_price).toFixed(2) %></span></div>
-		<% } %>
-
-		<% if(cart.tax_rate) { %>
-			<div class="amount col-xs-7">Tax:</div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><%= parseFloat(cart.tax_rate).toFixed(2) %></span></div>
-		<% } %>
-
-		<div class="amount col-xs-7"><strong>Total:</strong></div><div class="amount col-xs-5 text-right"><span class="dollar-sign">$</span><span class="price"><strong><%= parseFloat(cart.total).toFixed(2) %></strong></span></div>
-		</div>
-	</script>-->
 
 	<script id="shipping-methods-template" type="text/template">
 		<table  class="table table-responsive">

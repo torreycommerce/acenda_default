@@ -155,8 +155,8 @@
 	optional bool for if itemprop html is desired,
 	optional string for itemprop value other than just "price"
 #}
-	{% set cur = "USD" %} {# EUR #}
-	{% set curs = "$" %} {# € #}
+	{% set cur = "EUR" %} {# EUR #}
+	{% set curs = "€" %} {# € #}
 
 	{% set add = add %}
 	{% if add is empty %}
@@ -201,32 +201,6 @@
 {% endspaceless %}
 {% endmacro %}
 
-{% macro priceold(prices) %}
-{% spaceless %}
-	{% if prices is not iterable %}
-		<span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price">{{prices|number_format(2)}}</span>
-	{% else %}
-		{% set min = prices[0] %}
-		{% set max = prices[0] %}
-		{% for price in prices %}
-			{% set min = min > price ? price : min %}
-			{% set max = max < price ? price : max %}
-		{% endfor %}
-		{% if min == max or min == 0 %}
-			<span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price">{{max|number_format(2)}}</span>
-		{% else %}
-		    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
-			<span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="price minPrice">{{min|number_format(2)}}</span> - <span itemprop="priceCurrency" content="USD">$</span><span
-          itemprop="maxPrice">{{max|number_format(2)}}</span>
-          </span>
-		{% endif %}
-	{% endif %}
-{% endspaceless %}
-{% endmacro %}
-
 {% macro cprice(prices) %}
 {% import _self as this %}
 {% spaceless %}
@@ -243,26 +217,6 @@
 			{{ this.currency(max|number_format(2)) }}
 		{% else %}
 		    {{ this.currency(min|number_format(2)) }} - {{ this.currency(max|number_format(2)) }}
-		{% endif %}
-	{% endif %}
-{% endspaceless %}
-{% endmacro %}
-
-{% macro cpriceold(prices) %}
-{% spaceless %}
-	{% if prices is not iterable %}
-		${{prices|number_format(2)}}
-	{% else %}
-		{% set min = prices[0] %}
-		{% set max = prices[0] %}
-		{% for price in prices %}
-			{% set min = min > price ? price : min %}
-			{% set max = max < price ? price : max %}
-		{% endfor %}
-		{% if min == max or min == 0 %}
-			${{max|number_format(2)}}
-		{% else %}
-		    ${{min|number_format(2)}} - ${{max|number_format(2)}}
 		{% endif %}
 	{% endif %}
 {% endspaceless %}
