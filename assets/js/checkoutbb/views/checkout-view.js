@@ -239,7 +239,14 @@ var checkout = checkout || {};
                     	$('[id=customer-addresses]').show();
                     	$('#customer-addresses select').html('<option value="0" selected >none</option>');
                     	that.customer_addresses.each(function(addy){
-                    		$('#customer-addresses select').append(tpl(addy.toJSON()));
+                    		var state = addy.get('state');
+                    		var country = addy.get('country');
+                    		if(that.shipping_countries.where({value: country}).length) {
+                    	    	$('#shipping-customer-addresses-select').append(tpl(addy.toJSON()));
+                    	    }
+                    		if(that.billing_countries.where({code: country}).length) {                    	
+	                    		$('#billing-customer-addresses-select').append(tpl(addy.toJSON())); 
+	                    	}                   		
                     	});
                     } else {
                     	$('[id=customer-addresses]').hide();
