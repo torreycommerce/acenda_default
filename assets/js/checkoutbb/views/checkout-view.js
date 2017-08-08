@@ -29,6 +29,7 @@ var checkout = checkout || {};
 			'click #btn-continue-shipping' : 'checkShipping',
 			'click #btn-continue-shipping-method' : 'checkShippingMethod',
 			'click #btn-continue-payment' : 'checkPayment',	
+			'click #btn-go-back-shipping-method' : 'goBackToShipping',		
 			'click #btn-place-order' : 'placeOrder',
 			'click #btn-edit-billing-address' : 'editBillingAddress',
 			'change #shipping-country' : 'changedShippingCountry',
@@ -237,17 +238,30 @@ var checkout = checkout || {};
                     if(that.customer_addresses.length) {
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
                     	$('[id=customer-addresses]').show();
-                    	$('#customer-addresses select').html('<option value="0" selected >none</option>');
+                    	$('#customer-addresses select').html('<option value="0" selected >New Address</option>');
+                    	var count_addy_shipping=0;
+                    	var count_addy_billing=0;                    	
                     	that.customer_addresses.each(function(addy){
                     		var state = addy.get('state');
                     		var country = addy.get('country');
                     		if(that.shipping_countries.where({value: country}).length) {
+                    			count_addy_shipping++;
                     	    	$('#shipping-customer-addresses-select').append(tpl(addy.toJSON()));
                     	    }
-                    		if(that.billing_countries.where({code: country}).length) {                    	
+                    		if(that.billing_countries.where({code: country}).length) {   
+                 		      	count_addy_billing++;                    		                 	
 	                    		$('#billing-customer-addresses-select').append(tpl(addy.toJSON())); 
 	                    	}                   		
                     	});
+                    	setTimeout(function() {
+                    		if(!count_addy_shipping) {
+                                 $('#shipping-panel [id=customer-addresses]').hide();                    			
+                    		}
+                    		if(!count_addy_billing) {
+                                 $('#shipping-panel [id=customer-addresses]').hide();                    			
+                    		}
+
+                    	},100)
                     } else {
                     	$('[id=customer-addresses]').hide();
                     }
@@ -293,7 +307,6 @@ var checkout = checkout || {};
 				that.render();
 			}});
 		},
-
 		fetchShippingMethods: function() {
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
@@ -303,7 +316,16 @@ var checkout = checkout || {};
 		        var quantity = that.cart.get('item_count');
 		        var first = true;
 		        var defer_methods = [];
-		        that.shipping_methods.each(function(method,k) {
+		        if(!that.shipping_methods.length) {
+		        	 $('#btn-go-back-shipping-method').show();
+		        	 $('#btn-continue-shipping-method').hide();		        	
+		        	 $('#shipping-methods').html("<span style=\"color: red\">We do not currently ship to the desired shipping address.</span>");
+		        	 return;	
+		        } else {
+		        	 $('#btn-go-back-shipping-method').hide();
+		        	 $('#btn-continue-shipping-method').show();	
+		        }
+ 		        that.shipping_methods.each(function(method,k) {
 		            if(first && !that.cart.get('shipping_method')) {
 		            	that.cart.set('shipping_method',method.id);
 		            }	     	
@@ -317,7 +339,7 @@ var checkout = checkout || {};
 		            first = false;   
 		        });	
 				$.when.apply($,defer_methods).then(function() {
-   				   that.render();
+   				    that.render();
              	    that.changedShippingMethod();
 				})
 
@@ -505,7 +527,12 @@ var checkout = checkout || {};
 		},
 		editBillingAddress: function() {
 			$('.checkoutapp #payment-panel .copy-shipping-flag input').click();
-		},		
+		},	
+		goBackToShipping: function(e) {
+			var that = this;
+			if(typeof e !=='undefined') e.preventDefault();
+			this.gotoStep('shipping');			
+		},
 		checkShipping: function(e) {
 			var that = this;
 			if(typeof e !=='undefined') e.preventDefault();
