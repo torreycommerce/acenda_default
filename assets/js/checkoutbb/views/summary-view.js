@@ -37,7 +37,7 @@ var checkout = checkout || {};
 			//
 		    this.$el.find('#num-items').html(co.cart.get('items').length);
 		    
-			that.$el.find('#item-list').html('');
+
 			that.$el.find('#item-list-data').html('');
 		    if(co.cart.get('items').length) {
 		    	_.each(co.cart.get('items'),function(v,k){
@@ -99,6 +99,7 @@ var checkout = checkout || {};
 				$(totalsHtml).find('.totals-total .val').text($(sauce).find('.c-t').text());
 				$('#totals-section').html($(totalsHtml).html());
 		    }
+			that.$el.find('#item-list').html('');		    
 		    $('#item-list-data .compressed-item').each(function() {
 				var listItem = $('#item-list-copy .item').clone();
 				$(listItem).find('.media-object').attr('src',($(this).find('.t').text()));
