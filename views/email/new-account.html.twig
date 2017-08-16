@@ -1,34 +1,35 @@
+{%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:20px; font-weight:bold;">
-				Welcome to {{ app.params.site.title }}!
+				<td {{ ema.titform() }}>
+				Welcome to <b>{{ params['site']['title']|default("") }}</b>!
 				</td>
 			</tr>
 			<tr>
-				<td align="center" style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
-				We are excited to have you as a customer and look forward to provide you with great products and services from {{ app.params.site.title }}.
+				<td {{ ema.comformA() }}>
+				We are excited to have you as a customer and look forward to provide you with great products and services from <b>{{ params['site']['title']|default("") }}</b>.
 				</td>
 			</tr>
 		</table>
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					Login Details
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformA() }}>
 					Log in using your personal details below:
 					<br><b>Username:</b> {{ email }}
 					<br><b>Password:</b> ******
-					<br><br>Forgot Your Password? <a href="{{ params['url']['current'] }}/account/reset-password" style="color:#000; text-decoration:none;">Reset your password</a>.
+					<br><br>Forgot Your Password? <a href="{{ params['url']['current'] }}/account/reset-password" style="color:#000; text-decoration:underline;"><b>Reset your password</b></a>.
 				</td>
 		</table>
 	</td>

@@ -1,3 +1,5 @@
+{%- import "/_macros/product.html.twig" as mac -%}
+{%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
@@ -5,15 +7,15 @@
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:20px; font-weight:bold;">
+				<td {{ ema.titform() }}>
 				Thank you again!
 				</td>
 			</tr>
 			<tr>
-				<td align="center" style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformA() }}>
 				Your <b>{{ params['site']['title']|default("") }}</b> Order has Shipped!
 				<br><b>Order ID:</b> {{ order.order_number }}
 				</td>
@@ -22,26 +24,27 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td style="width:50%; padding:30px 10px 20px 20px; color:#000; font-size:16px;">
+				<td {{ ema.halftitform() }}>
 					Order Details
 				</td>
-				<td style="width:50%; padding:30px 20px 20px 10px; color:#000; font-size:16px;">
+				<td {{ ema.halftitform() }}>
 					Shipping Info
 				</td>
 			</tr>
 			<tr>
-				<td valign="top" style="width:50%; padding:0 10px 30px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.halfcomform() }}>
 					<b>Order ID:</b> {{ order.order_number }}
 					<br><b>Date:</b> {{ order.date_created }}
-					<br><br><b>Subtotal:</b> ${{ order.subtotal|number_format(2) }}
+					<br><br><b>Subtotal:</b> {{ mac.currency(order.subtotal|number_format(2)) }}
+					<br><b>Shipping:</b> {{ mac.currency(order.shipping_rate|number_format(2, '.')) }}
 					<br><b>Shipping:</b> ${{ order.shipping_rate|number_format(2, '.') }}
-					<br><b>Tax:</b> ${{order.tax|number_format(2)}}
-					<br><b>Total:</b> ${{order.total|number_format(2)}}
+					<br><b>Tax:</b> {{ mac.currency(order.tax|number_format(2)) }}
+					<br><b>Total:</b> {{ mac.currency(order.total|number_format(2)) }}
 				</td>
-				<td valign="top" style="width:50%; padding:0 20px 30px 10px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.halfcomform() }}>
 					{{ order.shipping_first_name }} {{ order.shipping_last_name }}
 					{% if order.giftlist_present is empty %}
 					<br>{{ order.shipping_street_line1}} {{ order.shipping_street_line2}}
@@ -60,17 +63,17 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					Products
 				</td>
 			</tr>
 			{% for item in items %}
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
-					<a href="{{ params['url']['current']}}{{products[item.product_id].0.url}}" style="color:#000; text-decoration:none;">{{ item.name }}</a>
+				<td {{ ema.comformB() }}>
+					<a href="{{ params['url']['current']}}{{products[item.product_id].0.url}}" style="color:#000; text-decoration:none;"><b>{{ item.name }}</b></a>
 					<br><b>SKU:</b> {{item.sku}}
 					<br><b>Price:</b> ${{ item.price|number_format(2) }}
 					<br><b>Qty:</b> {{ item.quantity }}

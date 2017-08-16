@@ -1,24 +1,24 @@
+{%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:20px; font-weight:bold;">
-				Thank you for subscribing to<br>{{ app.params.site.title }}!
+				<td {{ ema.titform() }}>
+				Thank you for subscribing to<br><b>{{ params['site']['title']|default("") }}</b>!
 				</td>
 			</tr>
 			<tr>
-				<td align="center" style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
-				You have successfully subscribed to the {{ app.params.site.title }} newsletter. You will now be one of the first to know about our best promotions, latest arrivals, exclusive offers, and much more!*
+				<td {{ ema.comformA() }}>
+				You have successfully subscribed to the <b>{{ params['site']['title']|default("") }}</b> newsletter. You will now be one of the first to know about our best promotions, latest arrivals, exclusive offers, and much more!*
 				</td>
 			</tr>
 			<tr>
-				<td align="center" style="padding:20px; color:#333; font-size:14px; line-height:1.6;">
-					<a style="padding:9px 29px; color:#000; font-size:16px; font-weight:bold; text-decoration:none; border:1px solid #000;" href="{{app.url}}/">Start Shopping!</a>
+				<td {{ ema.comformD() }}>
+					<a style="display:table; padding:9px 29px; color:#000; font-size:16px; font-weight:bold; text-decoration:none; border:1px solid #000;" href="{{app.url}}/">Start Shopping!</a>
 				</td>
 			</tr>
 		</table>
 	</td>
 </tr>
-{% include 'email/core/top-seller.html.twig' %}
 {% include 'email/core/footer.html.twig' %}

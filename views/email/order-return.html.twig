@@ -1,18 +1,19 @@
+{%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {# Variables passed in: order_id, return_id #}
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellspacing="0" cellpadding="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:20px; font-weight:bold;">
+				<td {{ ema.titform() }}>
 					Order Return
 				</td>
 			</tr>
 			<tr>
-				<td align="center" style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformA() }}>
 				Your <b>{{ params['site']['title']|default("") }}</b> order status return has been confirmed!
 				<br><b>Order ID:</b> {{ order.order_number }}
 				</td>
@@ -21,16 +22,16 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 		    <tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					Returned Product
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
-					{{ item.name }}
+				<td {{ ema.comformB() }}>
+					<b>{{item.name}}</b>
 					<br><b>RMA #:</b> {{return.rma}}
 					<br><b>SKU:</b> {{item.sku}}
 					<br><b>Qty:</b> {{ return.quantity }}
@@ -41,17 +42,17 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					Order Details
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformB() }}>
 					You have successfully created a return. In order for us to process your return, your items must meet the following criteria:
-					<ul style="list-style-type:disc; margin:0; padding:5px 30px 0;">
+					<ul style="list-style-type:disc; margin:0; padding:5px 20px 0;">
 						<li>Items must be unused and returned with the original product tags.</li>
 						<li>Items must be returned in their original, undamaged packaging.</li>
 						<li>Please do not place shipping labels on product packaging, only place shipping labels on the cardboard shipping box.</li>
@@ -62,17 +63,17 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					What happens next?
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformB() }}>
 					You have successfully created a return. In order for us to process your return, your items must meet the following criteria:
-					<ol style="list-style-type:decimal; margin:0; padding:5px 25px 0;">
+					<ol style="list-style-type:decimal; margin:0; padding:5px 20px 0;">
 						<li>Print this page and cut on the dashed lines.</li>
 						<li>Place the packing slip inside the box with the items you are returning.</li>
 						<li>Affix the returns address label to the outside of your shipping box.</li>
@@ -85,15 +86,15 @@
 	</td>
 </tr>
 <tr>
-	<td style="border-bottom:1px solid #e5e5e5;">
-		<table border="0" cellpadding="0" cellspacing="0" style="width:100%!important;">
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
 			<tr>
-				<td align="center" style="padding:20px; color:#000; font-size:16px;">
+				<td {{ ema.minititform() }}>
 					Ship your Returns to:
 				</td>
 			</tr>
 			<tr>
-				<td style="padding:0 20px 20px; color:#333; font-size:14px; line-height:1.6;">
+				<td {{ ema.comformB() }}>
 					{{ app.params['return_address']['street_line1'] }} {{ app.params['return_address']['street_line2'] }}
 					<br>{{ app.params['return_address']['city'] }}, {{ app.params['return_address']['state'] }} {{ app.params['return_address']['zip'] }}
 					{% if app.params['information']['phone_number'] is defined %}
