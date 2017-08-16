@@ -1,13 +1,14 @@
 {% if final_order is defined %} 
     var items = [];
     {% for item in items %}
+        {% set product = api.get('/product/'~item.product_id) %}
         items.push({
-            'sku': '{{products[item.product_id].0.sku}}',
-            'id': '{{item.id}}',
+            'sku': '{{item.sku}}',
+            'id': '{{item.sku}}',
             'name': '{{item.name}}',
-            // 'category': 'Apparel',
+            'category': '{{product.category|first}}', 
             'brand': '{{product.brand}}',
-            'price': '{{item.price}}',
+            'price': {{item.price}},
             'quantity': {{item.quantity}}
         })
     {% endfor %}
@@ -16,49 +17,38 @@
         var transaction = {
             'event': "gtm.orderComplete",
             'transactionId': '{{final_order.order_number}}',
-            'transactionDate': '{{final_order.date_created}}',
-            'transactionAffiliation': '{{app.params.site.title}}',
-            'transactionTotal': '{{final_order.total}}',
-            'transactionTax': '{{final_order.tax}}',
-            'transactionShipping': '{{final_order.shipping_rate}}',
+            'transactionAffiliation': 'Online Store',
+            'transactionTotal': {{final_order.total}},
+            'transactionTax': {{final_order.tax}},
+            'transactionShipping': {{final_order.shipping_rate}},
             'transactionCurrency': "USD",
             'transactionProducts': []
         }
         transaction.transactionProducts = items;
         dataLayer.push(transaction);
-    {% else %} {# Adding Enhance Ecommerce purchase data to Google Tag Manager dataLayer #}
-        dataLayer.push({
-            'ecommerce': {
-                'purchase': {
-                    'actionField': {
-                        'event': "gtm.orderComplete",
-                        'currency': 'USD',                         // Transaction Currency.
-                        'id': '{{final_order.order_number}}',                         // Transaction ID.
-                        'affiliation': '{{app.params.site.title}}',
-                        'revenue': '{{final_order.total}}',                     // Total transaction value (incl. tax and shipping)
-                        'tax':'{{final_order.tax}}',
-                        'shipping': '{{final_order.shipping_rate}}',
-                        //'coupon': 'SUMMER_SALE'
-                    },
-                    'products': items
-                }
-            }
-        });
     {% endif %}
     {% if app.params.seo.enhanced_ecommerce == '1' %}
         {# Checkout Process Tracking #}
         dataLayer.push({
-            'event': 'checkout',
+            'event': 'gtm.orderCompleteEEC',
             'ecommerce': {
-              'checkout': {
-                'actionField': {'step': 4 },
+              'purchase': {
+                'actionField': {
+                    'id': '{{final_order.order_number}}',                         // Transaction ID. Required for purchases and refunds.
+                    'affiliation': 'Online Store',
+                    'revenue': '{{final_order.total}}',                     // Total transaction value (incl. tax and shipping)
+                    'tax':'{{final_order.tax}}',
+                    {% if final_order.discount_collection.discounts[0].code is not empty and final_order.discount_collection.discounts[0].type == 'coupon' %}
+                    'coupon': '{{final_order.discount_collection.discounts[0].code}}',
+                    {% endif %}
+                    'shipping': '{{final_order.shipping_rate}}'
+                    },
                 'products': items
              }
            }
         });
     {% endif %}
 {% endif %}
-
 {# Checkout Process Tracking #}
 {% if app.params.seo.enhanced_ecommerce == '1' %}
     {% if cart is not empty %}
@@ -76,7 +66,6 @@
                           'quantity': {{product.quantity}}   // Product quantity (number).
                         });
             {% endfor %}
-
             {% if 'cart' in app.request.url %}
                 {% set step = 1 %}
             {% elseif 'checkout/billing' in app.request.url %}
@@ -86,9 +75,8 @@
             {% elseif 'checkout' in app.request.url  or 'checkout/paypal/review' in app.request.url %}
                 {% set step = 2 %}
             {% endif %}
-
             dataLayer.push({
-                    'event': 'checkout',
+                    'event': 'checkout2',
                     'ecommerce': {
                       'checkout': {
                         'actionField': {'step': {{step}} },
