@@ -330,7 +330,7 @@
 							{% if vo.name == 'color' %}
 							<ul class="list-inline vopt vopt-{{vo.name}}">
 							{% for v in vo.values %}
-								<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-value="{{v}}">
+								<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-index="{{loop.index0}}" data-value="{{v|e('html')}}">
 								{% if vo.name == "color" %}
 									{% set vsimgsrc = "" %}
 									{% for prodimg in product.images %}
@@ -350,7 +350,7 @@
 									{% if vsimgsrc is empty %}
 										{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
 									{% endif %}
-									<div class="image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v}}"></div>
+									<div class="image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></div>
 								{% else %}
 									<a class="btn btn-default btn-lg">{{v}}</a>
 								{% endif %}
@@ -361,7 +361,7 @@
 							{% if vo.name != 'color' %}
 							<select class="form-control input-lg vopt vopt-{{vo.name}}">
 							{% for v in vo.values %}
-								<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v}}">{{v}}</option>
+								<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v|e('html')}}" data-index="{{loop.index0}}">{{v}}</option>
 							{% endfor %}
 							</select>
 							{% endif %}

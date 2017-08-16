@@ -343,13 +343,6 @@ function VariantsManager (product, img, isCollection) {
 			//Updates value selected html span element, with the currently selected value
 			$(_this.getSelectedValue(name)).text(_this.selectedValues[name]);
 			//
-			//
-			if ($('.selectric-vopt').length) {
-				$('select.vopt').selectric('refresh');
-				$('.selectric-vopt').find('li').each(function() {
-					$(this).attr('data-value',$(this).text());
-				});
-			}
 		});
 
 		//Gets the array of variant that match currently selected values : 
@@ -594,7 +587,7 @@ function VariantsManager (product, img, isCollection) {
 			var optionArray = option.values;
 			//
 			$.each(optionArray, function(index, optionValue){
-				$('html').on('click', '.variation-selector-'+_this.product_id+' *[data-name="'+selectName+'"] *[data-value="'+optionValue+'"]', function() {
+				$('html').on('click', '.variation-selector-'+_this.product_id+' *[data-name="'+selectName+'"] *[data-index="'+index+'"]', function() {
 					//console.log('detected beChip click')
 					_this.updateVariants(selectName, optionValue);
 				});

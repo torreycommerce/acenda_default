@@ -440,29 +440,24 @@ if ($('.slick').length) {
 
 if ($('select.vopt').length) {
     IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.selectric.mod.js",function(){
-		//$('html').on('change','select.vopt', function() {
 		$('select.vopt').on('change', function() {
 			//console.log($(this).val())
 			$('select.vopt').selectric('refresh');
-			$('.selectric-vopt').find('li').each(function() {
-				$(this).attr('data-value',$(this).text());
+			var desVal = $(this).val();
+			var desInd = 0;
+			$(this).find('option').each(function() {
+				if ($(this).attr('value') == desVal) {
+					desInd = $(this).attr('data-index');
+					return false;
+				}
 			});
-			//$(this).parents('.selector-details').append('<div>detected change</div>')
-			$(this).parents('.selector-details').find('.selectric-vopt *[data-value="'+$(this).val()+'"]').click();
+			$(this).parents('.selector-details').find('.selectric-vopt li[data-index="'+desInd+'"]').click();
 		});
 		//
 		$('select.vopt').selectric({
 			
 		});
 		//console.log('Selectric applied')
-		//
-		//
-		if ($('.selectric-vopt').length) {
-			//$('select.vopt').selectric('refresh');
-			$('.selectric-vopt').find('li').each(function() {
-				$(this).attr('data-value',$(this).text());
-			});
-		}
 	});
 }
 
