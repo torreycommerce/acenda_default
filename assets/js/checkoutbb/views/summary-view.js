@@ -88,7 +88,7 @@ var checkout = checkout || {};
 				if ($(sauce).find('.c-dp').length) {
 					$(totalsHtml).find('.totals-discount .val').text($(sauce).find('.c-dp').text());
 				} else {
-					console.log('remove Disc')
+					//console.log('remove Disc')
 					$(totalsHtml).find('.totals-discount').remove();
 				}
 				if ($(sauce).find('.c-tr').length) {

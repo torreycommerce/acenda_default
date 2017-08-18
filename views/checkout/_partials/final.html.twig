@@ -171,32 +171,30 @@
 
 	{% if app.user.isLoggedIn() == false %}
 	<div class="col-xs-12 col-md-4">
-		<div class="account-create">
-			<div class="well">
-				<h3>Create a New Account</h3>
-				<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more!</p>
-				{{ forms.begin('create', app.url ~ '/account/create', 'post') }}
-					<fieldset>
-						{{ forms.hidden('create[first_name]',final_order.billing_first_name) }}
-						{{ forms.hidden('create[last_name]',final_order.billing_last_name) }}
-						{{ forms.hidden('create[phone_number]',final_order.billing_phone_number) }}
-						{{ forms.hidden('create[email]',final_order.email) }}
-						{{ forms.hidden('create[confirm_email]',final_order.email) }}
-						<div class="form-group">
-							<label for="create-pass" class="control-label">Password (4-14 Characters)</label>
-							{{ forms.password('create[password]', "", {class:'form-control parsley-validated', id:'create-pass', placeholder:"Password", required:true}) }}
-						</div>
-						<div class="form-group">
-							<label for="create-pass2">Confirm Password</label>
-							{{ forms.password('create[confirm_password]', "", {class:'form-control parsley-validated', id:'create-pass2', placeholder:"Confirm Password", required:true}) }}
-						</div>
-						<div class="actions form-group">
-							{{ forms.submit('create[action]', 'create', 'Create Account', {class:'btn btn-lg btn-block btn-primary'})}}
-						</div>
-					</fieldset>
-				{{ forms.end() }}
-			</div>
-		</div>
+		<div class="panel panel-default"><div class="panel-body">
+			<h3>Create a New Account</h3>
+			<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more!</p>
+			{{ forms.begin('create', app.url ~ '/account/create', 'post') }}
+				<fieldset>
+					{{ forms.hidden('create[first_name]',final_order.billing_first_name) }}
+					{{ forms.hidden('create[last_name]',final_order.billing_last_name) }}
+					{{ forms.hidden('create[phone_number]',final_order.billing_phone_number) }}
+					{{ forms.hidden('create[email]',final_order.email) }}
+					{{ forms.hidden('create[confirm_email]',final_order.email) }}
+					<div class="form-group">
+						<label for="create-pass" class="control-label">Password (4-14 Characters)</label>
+						{{ forms.password('create[password]', "", {class:'form-control parsley-validated', id:'create-pass', placeholder:"Password", required:true}) }}
+					</div>
+					<div class="form-group">
+						<label for="create-pass2">Confirm Password</label>
+						{{ forms.password('create[confirm_password]', "", {class:'form-control parsley-validated', id:'create-pass2', placeholder:"Confirm Password", required:true}) }}
+					</div>
+					<div class="actions form-group">
+						{{ forms.submit('create[action]', 'create', 'Create Account', {class:'btn btn-lg btn-block btn-primary'})}}
+					</div>
+				</fieldset>
+			{{ forms.end() }}
+		</div></div>
 	</div>
 	{% endif %}
 </div>

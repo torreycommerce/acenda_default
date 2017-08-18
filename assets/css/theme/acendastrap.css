@@ -3754,10 +3754,10 @@ button.list-group-item-danger.active:focus {
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 .panel-body {
-  padding: 15px;
+  padding: 14px;
 }
 .panel-heading {
-  padding: 10px 15px;
+  padding: 10px 14px;
   border-bottom: 1px solid transparent;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -4114,8 +4114,8 @@ button.list-group-item-danger.active:focus {
   padding-bottom: 75%;
 }
 .well {
-  min-height: 10px;
-  padding: 10px;
+  min-height: 14px;
+  padding: 14px;
   background-color: #fefefe;
   border: 1px solid #ccc;
 }
@@ -4956,6 +4956,8 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 .p-mini {margin-bottom:7.5px;}
 .media-right, .media > .pull-right {padding-left:20px;}
 .media-left, .media > .pull-left {padding-right:20px;}
+.panel-body {padding:20px;}
+.panel-heading {padding:12px 20px;}
 .popover-content {padding:15px;}
 .well {min-height:20px; padding:20px;}
 .alert {padding:12px 15px;}
@@ -5013,7 +5015,7 @@ body {font-size:87.5%;}
 .p-thin {margin-bottom:10px;}
 
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
-blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .panel-body>*:last-child, .well>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}
+blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .panel-body>*:last-child, .panel-body fieldset:last-of-type .actions:last-child, .well>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}
 blockquote>.list-inline:last-child, form>.list-inline:last-child, .alert>.list-inline:last-child, .g>.list-inline:last-child, .panel-body>.list-inline:last-child, .well>.list-inline:last-child {margin-bottom:-10px;}
 
 @media (min-width:992px) {
