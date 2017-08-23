@@ -1,8 +1,9 @@
 {% extends "/_layouts/base.html.twig" %}
 {% block content %}
 {% do app.cache(10) %}
-<div class="p-2x">
-	<img class="img-responsive" src="{{app.url_asset}}/assets/images/promo-slider/promo-01-lg.jpg" width="1170" height="480" alt="">
+<div class="image-space is40 p-2x promo-sample text-center">
+	<img class="img-responsive isd" src="{{app.url_asset}}/assets/images/promo-sample.jpg" width="1170" height="468" alt="">
+	<span class="isd"><h1 class="mar-t">Sample Promo</h1><p>1170 x 468</p></span>
 </div>
 
 {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}

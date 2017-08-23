@@ -16,16 +16,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="customer-account">
 
-	{# Begin navigation #}
-	{{account.navigation('orders')}}
+{# Begin navigation #}
+{{account.navigation('orders')}}
 
-	{# End navigation #}
-	<div id="customer-account-order-details">
-		{% include '/account/order/_partials/details.html.twig' %}
-	</div>
+{# End navigation #}
 
-	{{account.navigatend()}}
-</div>
+{% include '/account/order/_partials/details.html.twig' %}
+
+{{account.navigatend()}}
+
 {% endblock %}

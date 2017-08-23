@@ -25,18 +25,13 @@
 	{% do app.redirect('/account/orders', {'error':'Order is too old for returns.x' ~ app.request.path ~ 'x'}) %}
 {% endif %}
 
-<div class="customer-account">
-	
-	{# Begin navigation #}
-	
-	{{account.navigation('orders')}}
-	
-	{# End navigation #}
-	<div id="customer-account-order-details">
+{# Begin navigation #}
 
-	{% include '/account/return/create/_partials/form.html.twig' %}
+{{account.navigation('orders')}}
 
-	</div>
-	{{account.navigatend()}}
-</div>
+{# End navigation #}
+
+{% include '/account/return/create/_partials/form.html.twig' %}
+
+{{account.navigatend()}}
 {% endblock %}

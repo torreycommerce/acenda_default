@@ -1,10 +1,10 @@
 {% block toolbar %}
 {%- import "/_macros/product.html.twig" as prod -%}
 {% spaceless %}
-<section class="fsd1 text-right limit-logo" id="toolbar">
+<section class="fsd1 text-right" id="toolbar">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-4 g pull-right hidden-xs hidden-sm">
+			<div class="col-xs-4 g pull-right hidden-xs hidden-sm tool-wing">
 				<ul class="list-inline" id="tools">
                     {% if app.request.isAjaxRequest() %}				
 						{% if app.user.id is null %}
@@ -47,7 +47,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-xs-3 hidden-xs hidden-sm">
+			<div class="col-xs-3 hidden-xs hidden-sm tool-wing">
 				<div class="search">
 					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
 						<div class="form-group input-group twitter-typeahead">
@@ -67,15 +67,15 @@
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-offset-1 col-md-4 text-center">
-				<div class="logo">
+				<div class="image-space logo">
 					{% if app.params.logoimages is not empty %}
 						{% set logo_info = app.params.logoimages | first %}
 						{% set logo = logo_info.url %}
 					{% endif %}
 					{% if logo is not empty %}
-					<a href="{{app.url}}/"><img class="img-responsive img-c" src="{{ logo }}" alt=""></a>
+					<a href="{{app.url}}/"><img class="img-responsive isd" src="{{ logo }}" alt=""></a>
 					{% else %}
-					<div id="logo-txt"><a href="{{app.url}}/">{{ app.params.site.title }}</a></div>
+					<a href="{{app.url}}/"><span class="isd">{{ app.params.site.title }}</span></a>
 					{% endif %}
 				</div>
 			</div>

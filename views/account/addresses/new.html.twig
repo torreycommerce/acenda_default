@@ -10,7 +10,7 @@
 {% set page_name = 'address' %}
 
 {# Set the html head title #}
-{% block title %}Account - Add new address{% endblock %}
+{% block title %}Account - Add a New Address{% endblock %}
 
 {# Load in the breadcrumbs positioned in /_layouts/main/base.html.twig #}
 {% block breadcrumb %}
@@ -26,44 +26,39 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% block content %}
 {# Load in the tabs for the page, pass in the name of this page, and make sure it's
 set in the array in /account/_macros/base.html.twig #}
-<div id="customer-account">
 
-	{# Begin navigation #}
-	
-	{{account.navigation('addresses')}}
-	
-	{# End navigation #}
-	{# Begin content #}
-	<div class="customer-account-address-new">
+{# Begin navigation #}
 
-		<h1>New Address</h1>
-		<p>Create a new address.</p>
-		
-		<div class="asdf">
-			{% if app.request.post.address is defined %}
-				{% set post_data = app.request.post.address|merge( {'customer_id':app.user.id} ) %}
-				{% set result = api.post('/customeraddress', post_data) %}
-				{% if result %}
-					{% do app.user.setFlash('A new address has been created.', 'success') %}
-					{% if post_data.make_default %}
-						{% set result = api.post('/customeraddress/' ~ result ~ '/makeDefault') %}
-						{% if result %}
-							{% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
-						{% else %}
-							{% set form_errors = api.error() %}
-							{% set address = app.request.post.address %}
-						{% endif %}
-					{% endif %}
-					{% do app.redirect('/account/addresses') %}
-				{% else %}
-					{% set form_errors = api.error() %}
-				{% endif %}
+{{account.navigation('addresses')}}
+
+{# End navigation #}
+{# Begin content #}
+
+<h1>New Address</h1>
+<p>Add a new address.</p>
+
+{% if app.request.post.address is defined %}
+	{% set post_data = app.request.post.address|merge( {'customer_id':app.user.id} ) %}
+	{% set result = api.post('/customeraddress', post_data) %}
+	{% if result %}
+		{% do app.user.setFlash('A new address has been created.', 'success') %}
+		{% if post_data.make_default %}
+			{% set result = api.post('/customeraddress/' ~ result ~ '/makeDefault') %}
+			{% if result %}
+				{% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
+			{% else %}
+				{% set form_errors = api.error() %}
+				{% set address = app.request.post.address %}
 			{% endif %}
-			{% include "/account/addresses/_partials/form.html.twig" %}
-		</div>
-	</div>
-	{{account.navigatend()}}
-</div>
+		{% endif %}
+		{% do app.redirect('/account/addresses') %}
+	{% else %}
+		{% set form_errors = api.error() %}
+	{% endif %}
+{% endif %}
+{% include "/account/addresses/_partials/form.html.twig" %}
+
+{{account.navigatend()}}
 {% endblock %}
 {% block js %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}

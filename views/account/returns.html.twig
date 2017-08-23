@@ -23,134 +23,130 @@
 {% endblock %}
 
 {% block content %}
-<div id="customer-account">
 
-	{# Begin navigation #}
+{# Begin navigation #}
 
-	{{account.navigation('returns')}}
+{{account.navigation('returns')}}
 
-	{# End navigation #}
-	{# Begin returns #}
-	<div id="customer-account-returns">
-		{# Begin header #}
-		
-		<h1>Returns</h1>
-		
-		{# End header #}
-		<div class="page-filters divide p">
-			<div class="row">
-				{# Begin return filter #}
-				<div class="col-xs-6 col-sm-4 p">
-					<div class="return-filter">
-						{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
-						{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control'}) }}
-					</div>
-				</div>
-				{# End return filter #}
-				{# Begin return search #}
-				<div class="col-xs-6 col-sm-4 p pull-right">
-					<div class="search-within"> 
-						<div class="input-group">
-							<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search" />
-							<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
-						</div>
-					</div>
-				</div>
-				{# End return search #}
-				{{ forms.end() }}
+{# End navigation #}
+{# Begin returns #}
+{# Begin header #}
+
+<h1>Returns</h1>
+
+{# End header #}
+<div class="page-filters divide p">
+	<div class="row">
+		{# Begin return filter #}
+		<div class="col-xs-6 col-sm-4 p">
+			<div class="return-filter">
+				{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
+				{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control'}) }}
 			</div>
 		</div>
-		{# Begin pagination #}
-		{% set query = {} %}
-		{% if app.request.get.returnsearch.daterange != '' %}
-			{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
-		{% endif %}
-		{% set returns = api.get('/orderreturn', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
+		{# End return filter #}
+		{# Begin return search #}
+		<div class="col-xs-6 col-sm-4 p pull-right">
+			<div class="search-within"> 
+				<div class="input-group">
+					<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search" />
+					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
+				</div>
+			</div>
+		</div>
+		{# End return search #}
+		{{ forms.end() }}
+	</div>
+</div>
+{# Begin pagination #}
+{% set query = {} %}
+{% if app.request.get.returnsearch.daterange != '' %}
+	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
+{% endif %}
+{% set returns = api.get('/orderreturn', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
+<div class="row">
+	<div class="col-xs-12 text-center">
+		{{ base.pagination(returns.num_total,limit) }}
+	</div>
+</div>
+{# End pagination #}
+{% if returns is empty %}
+<p>There are no returns.</p>
+{% endif %}
+{% for return in returns %}
+{# Begin return #}
+<div class="return">
+	<div class="well">
 		<div class="row">
-			<div class="col-xs-12 text-center">
-				{{ base.pagination(returns.num_total,limit) }}
-			</div>
-		</div>
-		{# End pagination #}
-		{% if returns is empty %}
-		<p>There are no returns.</p>
-		{% endif %}
-		{% for return in returns %}
-		{# Begin return #}
-		<div class="return">
-			<div class="well">
-				<div class="row">
-					{# Begin return details #}
-					<div class="return-details col-xs-12 col-sm-4 fsd1 p-xs-2x">
-						<div class="return-info p">
-							<div><strong>Return Information</strong></div>
-							<div>RMA # {{ return.rma }}</div>
-							<div>Created on: {{ return.date_created }}</div>
-							<div>Status: {{ return.status }}</div>
-						</div>
-						{# Begin actions #}
-						<div class="actions p-xs">
-							<div class="row">
-								<div class="col-md-12">
-									{% if return.status == 'pending' %}
-									{# FIXME: This should be a post request and a modal #}
-										<a class="btn btn-default" data-toggle="modal" data-target="#cancel-modal">Cancel Return</a>
-										<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="cancel-modal-label">Cancel Return</h4>
-													</div>
-													<div class="modal-body">Are you sure you want to cancel this return?</div>
-													<div class="modal-footer">
-														{{ forms.begin('return',app.url ~ '/return/actions','post') }}
-														<a class="btn btn-default" data-dismiss="modal">Back</a>
-														{{ forms.submit('action','cancel','Cancel', {class:'btn btn-danger'}) }}
-														{{ forms.hidden('id',return.id) }}
-														{{ forms.end() }}
-													</div>
-												</div>
+			{# Begin return details #}
+			<div class="return-details col-xs-12 col-sm-4 fsd1 p-xs-2x">
+				<div class="return-info p">
+					<div><strong>Return Information</strong></div>
+					<div>RMA # {{ return.rma }}</div>
+					<div>Created on: {{ return.date_created }}</div>
+					<div>Status: {{ return.status }}</div>
+				</div>
+				{# Begin actions #}
+				<div class="actions p-xs">
+					<div class="row">
+						<div class="col-md-12">
+							{% if return.status == 'pending' %}
+							{# FIXME: This should be a post request and a modal #}
+								<a class="btn btn-default" data-toggle="modal" data-target="#cancel-modal">Cancel Return</a>
+								<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="cancel-modal-label">Cancel Return</h4>
+											</div>
+											<div class="modal-body">Are you sure you want to cancel this return?</div>
+											<div class="modal-footer">
+												{{ forms.begin('return',app.url ~ '/return/actions','post') }}
+												<a class="btn btn-default" data-dismiss="modal">Back</a>
+												{{ forms.submit('action','cancel','Cancel', {class:'btn btn-danger'}) }}
+												{{ forms.hidden('id',return.id) }}
+												{{ forms.end() }}
 											</div>
 										</div>
-									{% endif %}
+									</div>
 								</div>
-							</div>
+							{% endif %}
 						</div>
 					</div>
-					{# End return details #}
-					{# Begin return items #}
-					<div class="col-xs-12 col-sm-8 fsd1 g">
-						{% set item = api.get('/orderitem/' ~ return.item_id) %}
-						{% set product = api.get('/variant/' ~ item.product_id) %}
-						<div class="divide g p pad-b">
-							<div class="media">
-								<div class="media-left">
-									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src='{{ product.thumbnail }}' width="250" height="250" alt="">
-								</div>
-								<div class="media-body">
-									<a href="{{ app.url ~ product.url }}">{{ item.name }}</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					{# End return item #}
 				</div>
 			</div>
-		</div>
-		{# End order #}
-		{% endfor %}
-		{# Begin pagination #}
-		<div class="row">
-			<div class="col-md-12">
-				{{ base.pagination(returns.num_total,limit) }}
+			{# End return details #}
+			{# Begin return items #}
+			<div class="col-xs-12 col-sm-8 fsd1 g">
+				{% set item = api.get('/orderitem/' ~ return.item_id) %}
+				{% set product = api.get('/variant/' ~ item.product_id) %}
+				<div class="divide g p pad-b">
+					<div class="media">
+						<div class="media-left">
+							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src='{{ product.thumbnail }}' width="250" height="250" alt="">
+						</div>
+						<div class="media-body">
+							<a href="{{ app.url ~ product.url }}">{{ item.name }}</a>
+						</div>
+					</div>
+				</div>
 			</div>
+			{# End return item #}
 		</div>
-		{# End pagination #}
 	</div>
-	{# End returns #}
-	{{account.navigatend()}}
 </div>
+{# End order #}
+{% endfor %}
+{# Begin pagination #}
+<div class="row">
+	<div class="col-md-12">
+		{{ base.pagination(returns.num_total,limit) }}
+	</div>
+</div>
+{# End pagination #}
+{# End returns #}
+{{account.navigatend()}}
 {% endblock %}
 {% block js %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/returns.js') }}

@@ -11,19 +11,15 @@
 {% endblock %}
 
 {% block content %}
-<div id="customer-account">
 
-	{# Begin navigation #}
+{# Begin navigation #}
 
-	{{account.navigation('wishlists')}}
+{{account.navigation('wishlists')}}
 
-	{# End navigation #}
-	{# Begin content #}
-	<div class="customer-account-wishlist">
-		
-		{% include '/wishlist/_partials/list.html.twig' %}
-		
-	</div>
-	{{account.navigatend()}}
-</div>
+{# End navigation #}
+{# Begin content #}
+	
+{% include '/wishlist/_partials/list.html.twig' %}
+	
+{{account.navigatend()}}
 {% endblock %}

@@ -411,16 +411,20 @@ if ($('.form-region-customer').length) {
 						//state = data.result[0].value;
 					}
 					if ($('select[id$=country]').val() == "US") {
+						$('#zip-label').prop('for','zip');
 						$(".postziplang").html("Zip Code");
-						$('input[placeholder="Postal Code"]').attr('placeholder','Zip Code');
+						$("#postal").addClass('hidden').prop( "disabled", true )
+						$("#zip").removeClass('hidden').prop( "disabled", false )
 					} else {
+						$('#zip-label').prop('for','postal');
 						$(".postziplang").html("Postal Code");
-						$('input[placeholder="Zip Code"]').attr('placeholder','Postal Code');
+						$("#zip").addClass('hidden').prop( "disabled", true )
+						$("#postal").removeClass('hidden').prop( "disabled", false )
 					}
 
 					if (typeof data.result !== 'undefined') {
 						//account/addresses
-						console.log('acct')
+						//console.log('acct2')
 						//If State array is empty, then show state as a text input.
 						if ($.isArray(data.result) && data.result.length == 0) {
 							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();

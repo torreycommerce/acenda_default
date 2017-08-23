@@ -20,37 +20,33 @@
 {% endblock %}
 
 {% block content %}
-<div id="customer-account">
-	{# Begin navigation #}
-	
-	{{account.navigation('addresses')}}
-	
-	{# End navigation #}
-	
-	<div class="customer-account-address-new">	
-		<h1>Edit Address</h1>
-		<p>Edit a previously stored address.</p>
+{# Begin navigation #}
 
-		{% if app.request.post.address is defined %}
-			{% if app.request.post.address.make_default %}
-				{% set result = api.post('/customeraddress/' ~ address.id ~ '/makeDefault') %}
-				{% if result %}
-					{% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
-				{% else %}
-					{% set form_errors = api.error() %}
-					{% set address = app.request.post.address %}
-				{% endif %}
-			{% endif %}
-			{% if api.put('/customeraddress/' ~ address.id, app.request.post.address) %}
-				{% do app.user.setFlash('Your address has been successfully saved.', 'success') %}
-				{% do app.redirect('/account/addresses') %}
-			{% else %}
-				{% set form_errors = api.error() %}
-			{% endif %}
+{{account.navigation('addresses')}}
+
+{# End navigation #}
+
+<h1>Edit Address</h1>
+<p>Edit a previously stored address.</p>
+
+{% if app.request.post.address is defined %}
+	{% if app.request.post.address.make_default %}
+		{% set result = api.post('/customeraddress/' ~ address.id ~ '/makeDefault') %}
+		{% if result %}
+			{% do app.user.setFlash('Your primary address has been successfully updated.', 'success') %}
+		{% else %}
+			{% set form_errors = api.error() %}
+			{% set address = app.request.post.address %}
 		{% endif %}
-		{% include "/account/addresses/_partials/form.html.twig" %}
+	{% endif %}
+	{% if api.put('/customeraddress/' ~ address.id, app.request.post.address) %}
+		{% do app.user.setFlash('Your address has been successfully saved.', 'success') %}
+		{% do app.redirect('/account/addresses') %}
+	{% else %}
+		{% set form_errors = api.error() %}
+	{% endif %}
+{% endif %}
+{% include "/account/addresses/_partials/form.html.twig" %}
 
-	</div>
-	{{account.navigatend()}}
-</div>
+{{account.navigatend()}}
 {% endblock %}

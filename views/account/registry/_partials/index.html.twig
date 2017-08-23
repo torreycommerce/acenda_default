@@ -11,17 +11,13 @@
 {% endblock %}
 
 {% block content %}
-<div id="customer-account">
-	{# Begin navigation #}
-	
-	{{account.navigation('registries')}}
+{# Begin navigation #}
 
-	{# End navigation #}
-	{# Begin content #}
-	<div id="customer-account-registry">
-	
-		{% include '/registry/_partials/list.html.twig' %}
-	</div>
-	{{account.navigatend()}}
-</div>
+{{account.navigation('registries')}}
+
+{# End navigation #}
+{# Begin content #}
+
+{% include '/registry/_partials/list.html.twig' %}
+{{account.navigatend()}}
 {% endblock %}

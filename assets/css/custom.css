@@ -14,13 +14,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 
 /* acenda global */
 #toolbar {padding-top:6px; padding-bottom:6px;}
-#header .logo {font-size:140%; line-height:36px;}
-#header .limit-logo .logo img {max-height:36px;}
+#header .logo {position:relative; padding-top:36px; font-size:120%;}
 #nav .navbar-nav {display:table; float:none; margin-right:auto; margin-left:auto;}
-#nav-desktop-main {padding-top:10px; border-top-color:#ccc;}
+#nav-desktop-main {border-top-color:#ccc;}
 .nav-mobile .btn {font-size:28px;}
 #footer .list-unstyled {line-height:2;}
-
 
 .pricing .price {color:#000; font-weight:bold;}
 #product-details .pricing .price {font-size:150%;}
@@ -30,8 +28,12 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 .availability {color:#558C89;}
 
 @media (min-width:992px) {
-#toolbar {padding-top:30px;}
-#header .limit-logo .logo img {max-height:80px;}
-#nav {margin-top:24px;}
+#toolbar {padding-top:15px; padding-bottom:15px;}
+.tool-wing {padding-top:22px;}
+#header .logo {padding-top:80px; font-size:140%;}
 }
 /* */
+
+
+.promo-sample h1 {margin:0; padding:15% 0 0; color:#fff; text-transform:uppercase; border:none;}
+.promo-sample span.isd {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5);}
