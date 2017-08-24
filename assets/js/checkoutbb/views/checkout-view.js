@@ -491,9 +491,10 @@ var checkout = checkout || {};
 			this.summaryView.render();
 		},		
 		changedSavedAddress: function(e) {
+			var that = this;
 			var val = $(e.target).val();
 			var current = (this.current_step == 'shipping')?'shipping':'billing';
-			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number'];
+			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number','country'];
 
 			if(current !== 'shipping' && current !=='billing') return;
 			$(e.target).parents('.panel').find('#address-verify').html('');
@@ -513,6 +514,14 @@ var checkout = checkout || {};
 				}
 				_.each(copy_fields,function(field) {
 					$('[name=' + current + '_' + field +']').val(addy.get(field));
+					if(field=='state') {
+				     	$('[name=' + current + '_' + field +'_select]').val(addy.get(field));						
+				     	$('[name=' + current + '_' + field +'_text]').val(addy.get(field));						
+					} 
+					if(field=='country') {
+						that.changedShippingCountry();
+						that.changedBillingCountry();						
+					} 					
 
 				});
 			} else {
@@ -549,6 +558,7 @@ var checkout = checkout || {};
 			return false;
 		},
 		changedCopyShippingToBilling: function(e) {
+			var that = this;
  			var form = this.getFormData('#shipping-address-form');			
 			if($(e.target).is(":checked")) {
 				$("input[name=copy_shipping_to_billing]").each(function()    
@@ -557,7 +567,14 @@ var checkout = checkout || {};
 				});
 				$('.checkoutapp #billing-address').hide();
                 $('#billing-customer-addresses-select').val(0);	
-                $('#billing-address-form .hide-billing').slideDown();			
+                $('#billing-address-form .hide-billing').slideDown();	
+
+				if(that.shipping_states.length) {
+					form['shipping_state'] = form['shipping_state_select'];
+				} else if(formData['shipping_state_text']) {
+					form['shipping_state'] = form['shipping_state_text'];
+				}
+             		
 				$.each(form,function (k,v){
 					k = k.replace('shipping_','billing_');
 					$('[name="' + k +  '"]').val(v);
