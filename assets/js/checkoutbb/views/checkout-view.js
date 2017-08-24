@@ -106,24 +106,28 @@ var checkout = checkout || {};
 		    if(this.shipping_states !== null && $('#shipping-state').children().length<2 ) {
 				this.shipping_states.each(function (state) {
 					var tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
-	                $('#shipping-state').append(tpl({state:state}));
+	                $('#shipping-state-select').append(tpl({state:state}));
 				});
 				if(!this.shipping_states.length) {
-					$('#shipping-state').parent().fadeOut();
+					$('#shipping-state-select').hide();
+					$('#shipping-state-text').show();					
 				} else {
-					$('#shipping-state').parent().fadeIn();
+					$('#shipping-state-select').show();
+					$('#shipping-state-text').hide();						
 				}
 			}
 
 		    if(this.billing_states !== null && $('#billing-state').children().length<2 ) {
 				this.billing_states.each(function (state) {
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
-	                $('#billing-state').append(tpl({state:state}));
+	                $('#billing-state-select').append(tpl({state:state}));
 				});
 				if(!this.billing_states.length) {
-					$('#billing-state').parent().fadeOut();
+					$('#billing-state-select').hide();
+					$('#billing-state-text').show();					
 				} else {
-					$('#billing-state').parent().fadeIn();
+					$('#billing-state-select').show();
+					$('#billing-state-text').hide();						
 				}
 			}
 
@@ -143,6 +147,21 @@ var checkout = checkout || {};
 			var step = this.checkout_steps[this.findStep(stepName)];
 			var formData = this.getFormData(step.form);
 			var form_elem = $(step.form);
+
+			if(step.name === 'shipping') {
+				if(that.shipping_states.length) {
+					formData['shipping_state'] = formData['shipping_state_select'];
+				} else if(formData['shipping_state_text']) {
+					formData['shipping_state'] = formData['shipping_state_text'];
+				}
+			}
+			if(step.name === 'payment') {
+				if(that.billing_states.length) {
+					formData['billing_state'] = formData['billing_state_select'];
+				} else if(formData['billing_state_text']) {
+					formData['billing_state'] = formData['billing_state_text'];
+				}
+			}
 
 			formData['step'] = (stepName=='payment')?'billing':'shipping';
 
@@ -415,6 +434,22 @@ var checkout = checkout || {};
 			_.each(this.checkout_steps,function(step) {
 				if(typeof step.form !== 'undefined') {
 					var formData = that.getFormData(step.form);
+					if(step.name === 'shipping') {
+						if(that.shipping_states.length) {
+							formData['shipping_state'] = formData['shipping_state_select'];
+						} else if(formData['shipping_state_text']) {
+							formData['shipping_state'] = formData['shipping_state_text'];
+						}
+					}
+					if(step.name === 'payment') {
+						if(that.billing_states.length) {
+							formData['billing_state'] = formData['billing_state_select'];
+						} else if(formData['billing_state_text']) {
+							formData['billing_state'] = formData['billing_state_text'];
+						}
+					}
+
+
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});	
