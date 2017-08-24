@@ -6,6 +6,7 @@ var checkout = checkout || {};
 		el: '.checkoutapp',
 		summaryView: null,
 		cart: new checkout.Cart(),
+		default_address: null,
 		shipping_countries: null,
 		billing_countries: null,		
 		shipping_states: null,
@@ -207,14 +208,12 @@ var checkout = checkout || {};
                         $(step.form + ' [name$=city]').val(addy['city']);	
                         $(step.form + ' [name$=state]').val(addy['state']);
                         $(step.form + ' [name$=zip]').val(addy['zip']);	                                                                    	                        	        	
-			            console.log('verified');
 			        } else {
                         $(step.form + ' [name$=street_line1]').val(formData[formData['step']+'_street_line1']);
                         $(step.form + ' [name$=street_line2]').val(formData[formData['step']+'_street_line2']);
                         $(step.form + ' [name$=city]').val(formData[formData['step']+'_city']);	
                         $(step.form + ' [name$=state]').val(formData[formData['step']+'_state']);
                         $(step.form + ' [name$=zip]').val(formData[formData['step']+'_zip']);	 			        	
-			            console.log('current');
 			        }
 				});
 			}).fail(function(response) {
@@ -254,6 +253,7 @@ var checkout = checkout || {};
 		    this.customer.fetch({error: function() {  that.gotoStep('signin'); that.logged_in=false;  },success: function(data) {
 		    	that.customer_addresses.fetch({success: function() {
                     that.logged_in=true; that.checkSignin();
+
                     if(that.customer_addresses.length) {
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
                     	$('[id=customer-addresses]').show();
@@ -263,15 +263,19 @@ var checkout = checkout || {};
                     	that.customer_addresses.each(function(addy){
                     		var state = addy.get('state');
                     		var country = addy.get('country');
+                    		var newElem = $(tpl(addy.toJSON()));   
+                    		if(addy.get('default')==1) that.default_address = addy.id;	
+
                     		if(that.shipping_countries.where({value: country}).length) {
                     			count_addy_shipping++;
-                    	    	$('#shipping-customer-addresses-select').append(tpl(addy.toJSON()));
+                    	    	$('#shipping-customer-addresses-select').append(newElem);
                     	    }
                     		if(that.billing_countries.where({code: country}).length) {   
                  		      	count_addy_billing++;                    		                 	
-	                    		$('#billing-customer-addresses-select').append(tpl(addy.toJSON())); 
-	                    	}                   		
+	                    		$('#billing-customer-addresses-select').append(newElem); 
+	                    	} 
                     	});
+
                     	setTimeout(function() {
                     		if(!count_addy_shipping) {
                                  $('#shipping-panel [id=customer-addresses]').hide();                    			
@@ -279,7 +283,11 @@ var checkout = checkout || {};
                     		if(!count_addy_billing) {
                                  $('#shipping-panel [id=customer-addresses]').hide();                    			
                     		}
-
+					     	if(that.default_address!==null) {
+		                    	$('#billing-customer-addresses-select option[value=' + that.default_address + ']').prop('selected',true);
+		                        $('#shipping-customer-addresses-select option[value=' + that.default_address + ']').prop('selected',true); 
+		                        $('#shipping-customer-addresses-select').change();
+		                    }  
                     	},100)
                     } else {
                     	$('[id=customer-addresses]').hide();
@@ -409,8 +417,7 @@ var checkout = checkout || {};
 					that.current_step = name;
 				    that.checkout_steps[k].open=true;					
 					$(step.collapse).collapse('show');
-			     	$('#'+step.name+'-panel .step-data').hide();	
-
+			     	$('#'+step.name+'-panel .step-data').hide();	         	
 				}
 			});
 			that.render();
