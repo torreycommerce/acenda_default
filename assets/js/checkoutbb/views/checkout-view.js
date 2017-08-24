@@ -458,6 +458,17 @@ var checkout = checkout || {};
 			if(val!='0') {
 				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
+				if(current =='shipping') {
+					var country = addy.get('country');
+					// if saved country is not in billing countries then we cant copy the address!
+					var matchedCountry=this.billing_countries.where({code: country}) ;
+					if(!matchedCountry.length) {
+						$('input[name=copy_shipping_to_billing]').prop('checked',false);
+						$('.copy-shipping-flag').hide('fade');
+					} else {
+						$('.copy-shipping-flag').show('fade');
+					}
+				}
 				_.each(copy_fields,function(field) {
 					$('[name=' + current + '_' + field +']').val(addy.get(field));
 
