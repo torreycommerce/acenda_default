@@ -7,6 +7,8 @@ var checkout = checkout || {};
 		summaryView: null,
 		cart: new checkout.Cart(),
 		default_address: null,
+		selected_shipping_address: null,
+		selected_billing_address: null,		
 		shipping_countries: null,
 		billing_countries: null,		
 		shipping_states: null,
@@ -104,32 +106,47 @@ var checkout = checkout || {};
 	                $('#billing-country').append(tpl({country:country,current: currentCountry}));	                
 				});
 			}
-		    if(this.shipping_states !== null && $('#shipping-state').children().length<2 ) {
+		    if(this.shipping_states !== null && $('#shipping-state-select').children().length<2 ) {
 				this.shipping_states.each(function (state) {
 					var tpl = _.template('<option ' + (( shipping_state_val == state.get('value'))?"selected":"") +  ' value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#shipping-state-select').append(tpl({state:state}));
 				});
 				if(!this.shipping_states.length) {
 					$('#shipping-state-select').hide();
-					$('#shipping-state-text').show();					
+					$('#shipping-state-text').show();
+
 				} else {
 					$('#shipping-state-select').show();
 					$('#shipping-state-text').hide();						
 				}
 			}
-
-		    if(this.billing_states !== null && $('#billing-state').children().length<2 ) {
+			var savedAddy = $('#shipping-customer-addresses-select').val();
+			if( savedAddy != 0) {
+				var addy=this.customer_addresses.get(savedAddy);
+                if(addy) { 
+                	$('#shipping-state-select').val(addy.get('state'));
+                }
+			}
+		    if(this.billing_states !== null && $('#biling-state-select').children().length<2 ) {
 				this.billing_states.each(function (state) {
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#billing-state-select').append(tpl({state:state}));
 				});
 				if(!this.billing_states.length) {
 					$('#billing-state-select').hide();
-					$('#billing-state-text').show();					
+					$('#billing-state-text').show();
 				} else {
 					$('#billing-state-select').show();
 					$('#billing-state-text').hide();						
 				}
+			}
+
+			var savedAddy = $('#billing-customer-addresses-select').val();
+			if( savedAddy != 0) {
+				var addy=this.customer_addresses.get(savedAddy);
+                if(addy) { 
+                	$('#billing-state-select').val(addy.get('state'));
+                }
 			}
 
 			this.summaryView.render();
@@ -322,7 +339,7 @@ var checkout = checkout || {};
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
 			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
-		        $('#shipping-state').html('<option disabled selected>Select a State</option>');				
+		        $('#shipping-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
 			}});
 		},
@@ -330,7 +347,7 @@ var checkout = checkout || {};
 			var that = this;			
 			this.billing_states = new checkout.BillingStates();
 			this.billing_states.fetch({url: this.billing_states.url + '/' + $('#billing-country').val() ,success: function() {
-		        $('#billing-state').html('<option disabled selected>Select a State</option>');				
+		        $('#biling-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
 			}});
 		},
@@ -338,7 +355,7 @@ var checkout = checkout || {};
 			var that = this;
 			var tpl = _.template($('#shipping-methods-template').html());
             $('#shipping-methods').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');			
-			that.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state').val()} ,success: function(data) {
+			that.shipping_methods.fetch({data: {country:  $('#shipping-country').val() ,state: $('#shipping-state-select').val()} ,success: function(data) {
 		        var total = that.cart.get('item_subtotal');
 		        var quantity = that.cart.get('item_count');
 		        var first = true;
@@ -502,6 +519,7 @@ var checkout = checkout || {};
 				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
 				if(current =='shipping') {
+					that.selected_shipping_address = val;
 					var country = addy.get('country');
 					// if saved country is not in billing countries then we cant copy the address!
 					var matchedCountry=this.billing_countries.where({code: country}) ;
@@ -511,7 +529,11 @@ var checkout = checkout || {};
 					} else {
 						$('.copy-shipping-flag').show('fade');
 					}
+				} else {
+
+					that.selected_billing_address = val;					
 				}
+
 				_.each(copy_fields,function(field) {
 					$('[name=' + current + '_' + field +']').val(addy.get(field));
 					if(field=='state') {
@@ -571,7 +593,7 @@ var checkout = checkout || {};
 
 				if(that.shipping_states.length) {
 					form['shipping_state'] = form['shipping_state_select'];
-				} else if(formData['shipping_state_text']) {
+				} else if(form['shipping_state_text']) {
 					form['shipping_state'] = form['shipping_state_text'];
 				}
              		
@@ -611,7 +633,13 @@ var checkout = checkout || {};
 
  			var form = this.getFormData('#shipping-address-form');
  			if(typeof form.shipping_state == 'undefined') form.shipping_state = 'CA';
-			if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 			
+			if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 	
+			if(that.shipping_states.length) {
+				form['shipping_state'] = form['shipping_state_select'];
+			} else if(form['shipping_state_text']) {
+				form['shipping_state'] = form['shipping_state_text'];
+			}
+
 			var tpl = _.template('<%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>, <%=shipping_state%> <%=shipping_zip%>');
 			$('#shipping-panel .step-data').html(tpl(form));
 			if($('input[name=copy_shipping_to_billing]').is(":checked")) {
