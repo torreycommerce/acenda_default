@@ -166,7 +166,11 @@ var checkout = checkout || {};
 			var formData = this.getFormData(step.form);
 			var form_elem = $(step.form);
 
+
+
 			if(step.name === 'shipping') {
+				var shipping_country=$('#shipping-country').val();
+				if(shipping_country!='US') return true;				
 				if(that.shipping_states.length) {
 					formData['shipping_state'] = formData['shipping_state_select'];
 				} else if(formData['shipping_state_text']) {
@@ -174,6 +178,8 @@ var checkout = checkout || {};
 				}
 			}
 			if(step.name === 'payment') {
+			    var billing_country=$('#billing-country').val();
+				if(billing_country!='US') return true;						
 				if(that.billing_states.length) {
 					formData['billing_state'] = formData['billing_state_select'];
 				} else if(formData['billing_state_text']) {
