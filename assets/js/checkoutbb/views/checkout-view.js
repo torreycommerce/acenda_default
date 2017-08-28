@@ -286,16 +286,15 @@ var checkout = checkout || {};
                     	that.customer_addresses.each(function(addy){
                     		var state = addy.get('state');
                     		var country = addy.get('country');
-                    		var newElem = $(tpl(addy.toJSON()));   
                     		if(addy.get('default')==1) that.default_address = addy.id;	
 
                     		if(that.shipping_countries.where({value: country}).length) {
                     			count_addy_shipping++;
-                    	    	$('#shipping-customer-addresses-select').append(newElem);
+                    	    	$('#shipping-customer-addresses-select').append(tpl(addy.toJSON()));
                     	    }
                     		if(that.billing_countries.where({code: country}).length) {   
                  		      	count_addy_billing++;                    		                 	
-	                    		$('#billing-customer-addresses-select').append(newElem); 
+	                    		$('#billing-customer-addresses-select').append(tpl(addy.toJSON())); 
 	                    	} 
                     	});
 
