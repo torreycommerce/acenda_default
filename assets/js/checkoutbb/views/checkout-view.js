@@ -637,7 +637,7 @@ var checkout = checkout || {};
 			if(!this.verifyAddress('shipping')) return;
 
  			var form = this.getFormData('#shipping-address-form');
- 			if(typeof form.shipping_state == 'undefined') form.shipping_state = 'CA';
+ 			if(typeof form.shipping_state == 'undefined') form.shipping_state = '';
 			if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 	
 			if(that.shipping_states.length) {
 				form['shipping_state'] = form['shipping_state_select'];
