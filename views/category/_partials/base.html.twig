@@ -205,12 +205,13 @@
 				{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
 				{% include  '/category/_partials/filter-' ~ (name in ['acolor','color','price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}                    
 			</div>
-				{% if loop.last %}
-					{% if hasFilters == 1 %}
-						</div>
-						{% set hasFilters = 2 %}
-					{% endif %}
-				{% endif %}
+				
+			{% endif %}
+		{% endif %}
+		{% if loop.last %}
+			{% if hasFilters == 1 %}
+				</div>
+				{% set hasFilters = 2 %}
 			{% endif %}
 		{% endif %}
 	{% endfor %}
