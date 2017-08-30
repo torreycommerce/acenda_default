@@ -34,7 +34,7 @@
 			<div class="max-250 p">
 				<a href="{{app.url}}/product/{{product.slug}}">
 					<div class="image-space">
-						<img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" data-image-source="{{ image_url }}" width="250" height="250">
+						<img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250">
 						<div class="labels">
 						{% for tag in product.tags %}
 							{% if tag == 'new' %}
@@ -94,7 +94,7 @@
 				{% set review_score = reviews|average('score') %}
 				{% if review_score > 0 %}
 				{% spaceless %}
-				<div class="fsd1 list-inline rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
 					<span>{{ base.rating( review_score ) }}</span>
 					<span class="dib"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>
 						{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)

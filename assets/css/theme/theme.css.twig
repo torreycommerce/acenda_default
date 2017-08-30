@@ -118,10 +118,6 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .category-filters .filter-clear a {margin:2px 0; padding:6px 15px; color:#fff; text-decoration:none; background-color:#aaa;}
 
 
-
-
-
-
 .rating .dib {vertical-align:middle;}
 .star-rating {position:relative; margin:0 auto; overflow:hidden;}
 .star-rating-input {display:table; font-size:200%;}
@@ -135,13 +131,11 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .labels .label {float:right; margin:0 0 0 5px; text-shadow:0 0 1px rgba(0,0,0,.2); box-shadow:0 0 1px rgba(0,0,0,.2);}
 
 
-#checkout-cards img {max-height:34px; width:auto;}
-.checkout-card {max-width:56px; height:34px;}
 
+li.sub-category, .filter a, .category-grid .category-name, .product-grid .brand {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
-
-.color-chips {padding-bottom:10px;}
-.color-chip {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
+.filter .color-chips {padding-bottom:4px;}
+.color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
 .color-chip.disabled {opacity:.1;}
 .color-chip.red {background-color:#9b1e20;}
 .color-chip.orange {background-color:#f90;}
@@ -158,8 +152,9 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 .color-chip.active {outline:1px solid #000; opacity:1;}
 .color-chip.white:hover, .color-chip.white:focus {color:#666;}
 
-@media (max-width:991px) {
-.color-chip {font-size:140%;}
+@media (min-width:992px) {
+.filter .color-chips {padding-bottom:10px;}
+.color-chip {font-size:100%;}
 }
 
 

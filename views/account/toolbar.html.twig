@@ -1,7 +1,7 @@
 {% block toolbar %}
 {%- import "/_macros/product.html.twig" as prod -%}
 {% spaceless %}
-<section class="fsd1 text-right" id="toolbar">
+<div class="fsd1 text-right" id="toolbar">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4 g pull-right hidden-xs hidden-sm tool-wing">
@@ -39,7 +39,6 @@
 					</li>
 						{% endif %}
 					{% endif %}						
-					</li>
 					<li class="cart">
 						<a class="btn btn-link tool-tab" href="{{app.url}}/cart">
 							<i class="fa fa-shopping-bag"></i><span class="text">My Cart</span><span class="dib item-count"></span>
@@ -86,7 +85,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
 <div class="container no-arrow pos-r" id="qc-parent">
     <div class="quickcart" data-content="" data-placement='bottom' rel='popover'>
 		<div class="ajaxcart" style="display:none">
@@ -101,11 +100,11 @@
 			<div class="error g">
 			</div>
 			
-			<section class="ajaxcart-products divide fsd1">
+			<div class="ajaxcart-products divide fsd1">
 				<div class="ajaxcart-product pad-h divide g">
 					<div class="media">
 						<div class="media-left">
-							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object product-image" src="" width="250" height="250" alt="">
+							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object product-image" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" width="250" height="250" alt="">
 						</div>
 						<div class="media-body">
 							<div class="product-name"></div>
@@ -114,7 +113,7 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</div>
 			<div class="cart-totals pad-h fsd1">
 				<div class="items">You have <b class="item-count"></b> Item(s) in your Cart.</div>
 				<div class="subtotal"><b>Subtotal: </b>{{ prod.currency("0.00") }}</div>
