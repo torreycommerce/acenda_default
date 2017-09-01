@@ -20,6 +20,7 @@ function initCountryOpts() {
 var firstRun = 1;
 var newCountry = 0;
 var newState = 0;
+var telReady = 0;
 
 // ---- //
 
