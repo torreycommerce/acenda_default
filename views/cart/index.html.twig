@@ -136,15 +136,14 @@
 	<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
 
 {% else %}
+<h1>Shopping Cart</h1>
 {% if (cart.items is empty) %}
 
-	<p>Your Shopping Cart is empty.</p>
-	<a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
+<p>Your Shopping Cart is empty.</p>
+<a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
 
 {% else %}
 
-
-	<h1>Shopping Cart</h1>
 <style>
 .quantity>.input-group {width:100%;}
 .quantity .input-group-btn {width:1%;}
@@ -373,9 +372,9 @@
 					</div>
 					{% endif %}
 					<hr>
-					<div class="fsi1 pricing row" id="estimate-total">
-						<div class="col-xs-7"><b>Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</b></div>
-						<div class="amount col-xs-5 text-right price">
+					<div class="row totals-total" id="estimate-total">
+						<div class="col-xs-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+						<div class="amount col-xs-5 text-right">
 							{{ prod.currency(cart.total|number_format(2)) }}
 							{#<span class="dollar-sign">$</span>{{ cart.total|number_format(2) }}#}
 						</div>

@@ -9,27 +9,6 @@
 </script>
 
 
-<style>
-.panel-heading h2 {margin:0;}
-.panel-heading .step-data {display:none; margin:10px 0 0;}
-.checkoutapp .btn-edit {display:none;}
-#processing-panel {
-	margin: auto;
-	padding: 20px;
-	background-color: #eee;
-	color: black;
-	border: 1px solid #ddd;
-	text-align: center;
-	width: 75%;
-}
-#checkout-cards img {max-height:34px; width:auto;}
-.checkout-card {max-width:56px; height:34px;}
-
-@media (min-width:992px) {
-.panel-heading .step-data {margin:15px 0 0;}
-}
-.panel-heading .step-data:empty {margin:0;}
-</style>
 	<h1>Secure Checkout</h1>
 	<div id="thankyou" style="display:none">
 
@@ -112,7 +91,7 @@
 					<div id="summary-panel" style="min-height: 200px">
 						<div class="panel panel-default" >
 							<div class="panel-heading"><h2>Order Summary</h2></div>
-							<div class="panel-body fsd1" >
+							<div class="panel-body" >
 								<h3>Items (<span id="num-items"></span>)</h3>
 									<div id="item-list">
 									</div>
@@ -143,34 +122,36 @@
 								<div id="totals-section">
 								</div>
 								<div class="hidden" id="totals-section-copy">
-									<div class="row totals-subtotal">
-										<div class="amount col-xs-7">Subtotal:</div>
+								    <div class="divide p pad-b">
+    									<div class="row totals-subtotal">
+    										<div class="amount col-xs-7">Subtotal:</div>
+    										<div class="amount col-xs-5 text-right">
+    											{{ prod.currency("0.00") }}
+    										</div>
+    									</div>
+    									<div class="row totals-shipping">
+    										<div class="amount col-xs-7">Shipping:</div>
+    										<div class="amount col-xs-5 text-right">
+    											{{ prod.currency("0.00") }}
+    										</div>
+    									</div>
+    									<div class="row totals-discount">
+    										<div class="amount col-xs-7">Discount:</div>
+    										<div class="amount col-xs-5 text-right price-discount">
+    											{{ prod.currency("0.00") }}
+    										</div>
+    									</div>
+    									<div class="row totals-tax">
+    										<div class="amount col-xs-7">Tax:</div>
+    										<div class="amount col-xs-5 text-right">
+    											{{ prod.currency("0.00") }}
+    										</div>
+    									</div>
+    								</div>
+									<div class="row totals-total">
+										<div class="amount col-xs-7">Total:</div>
 										<div class="amount col-xs-5 text-right">
 											{{ prod.currency("0.00") }}
-										</div>
-									</div>
-									<div class="row totals-shipping">
-										<div class="amount col-xs-7">Shipping:</div>
-										<div class="amount col-xs-5 text-right">
-											{{ prod.currency("0.00") }}
-										</div>
-									</div>
-									<div class="row totals-discount">
-										<div class="amount col-xs-7">Discount:</div>
-										<div class="amount col-xs-5 text-right price-discount">
-											{{ prod.currency("0.00") }}
-										</div>
-									</div>
-									<div class="row totals-tax">
-										<div class="amount col-xs-7">Tax:</div>
-										<div class="amount col-xs-5 text-right">
-											{{ prod.currency("0.00") }}
-										</div>
-									</div>
-									<div class="row totals-total">	
-										<div class="amount col-xs-7"><strong>Total:</strong></div>
-										<div class="amount col-xs-5 text-right">
-											<b>{{ prod.currency("0.00") }}</b>
 										</div>
 									</div>
 								</div>
@@ -179,7 +160,8 @@
 						</div>
 
 						<div class="panel panel-default">
-							<div class="panel-body fsd1">
+							<div class="panel-body">
+                                <h3>Coupon Code</h3>
 								<form name="coupon">
 									<div class="form-group">
 										<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
@@ -411,4 +393,8 @@
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/summary-view.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/views/checkout-view.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/checkoutbb.js') }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/checkout.css" />
 {% endblock %}

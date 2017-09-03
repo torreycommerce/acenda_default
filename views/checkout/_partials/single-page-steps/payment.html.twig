@@ -178,9 +178,9 @@
 				</div>
 				<div class="col-xs-6">
 					<div class="form-group fgq normalizable">
-						<label class="control-label" id="state-label" for="billing-state">State</label>
+						<label class="control-label" id="billing-state-label" for="billing-state">State/Province</label>
 		                {{ forms.select('billing_state_select', '', {}, {class:'form-control parsley-validated', placeholder:"State", id:'billing-state-select'}) }}
-                        {{ forms.text('billing_state_text', '', {class:'form-control', placeholder:"State", id:'billing-state-text'}) }}    		                
+                        {{ forms.text('billing_state_text', '', {class:'form-control', placeholder:"State/Province", id:'billing-state-text'}) }}    		                
 		                <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
 					</div>
 				</div>
@@ -188,7 +188,7 @@
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group fgq normalizable">
-						<label class="control-label" for="billing-zip"><span class="postziplang">Zip Code</span></label>
+						<label class="control-label" for="billing-zip" id="billing-zip-label">Zip Code</label>
 						{{ forms.text('billing_zip', '', {class:'form-control parsley-validated', id:'billing-zip', placeholder:"Zip Code", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 					</div>

@@ -219,10 +219,6 @@
 	</div>
 	{# End category filters #}
 	<div class="product-grid">
-<style>
-.product-grid .color-chips .col-xs-2 {float:none; display:inline-block; width:20%;}
-.product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
-</style>
 		<div class="col-md-9 col-xs-12">        
 			<h1>{% if app.request.get.s is not empty %}
 				Search results for: <i>{{app.request.get.s | e}}</i>

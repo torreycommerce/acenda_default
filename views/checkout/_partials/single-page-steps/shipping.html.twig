@@ -63,9 +63,9 @@
 		</div>
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
-				<label class="control-label" id="state-label" for="shipping-state">State / Province</label>
+				<label class="control-label" id="state-label" for="shipping-state">State/Province</label>
                 {{ forms.select('shipping_state_select', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'shipping-state-select'}) }}
-                {{ forms.text('shipping_state_text', '', {class:'form-control', placeholder:"State", id:'shipping-state-text'}) }}                
+                {{ forms.text('shipping_state_text', '', {class:'form-control', placeholder:"State/Province", id:'shipping-state-text'}) }}                
                 <div class="validation">{{ forms.errorlist(form_errors, name ~ 'state') }}</div>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="form-group fgq normalizable">
-				<label class="control-label" for="zip"><span class="postziplang">Zip Code</span></label>
+				<label class="control-label" for="zip" id="zip-label">Zip Code</label>
 				{{ forms.text('shipping_zip', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 			</div>

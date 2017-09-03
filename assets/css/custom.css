@@ -20,9 +20,10 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 .nav-mobile .btn {font-size:28px;}
 #footer .list-unstyled {line-height:2;}
 
-.pricing .price {color:#000; font-weight:bold;}
+.product-grid .product-name {min-height:2.8em; display:flex; align-items:center; justify-content:center;}
+.pricing .price, .totals-total {color:#000; font-weight:bold;}
 #product-details .pricing .price {font-size:150%;}
-#collection .pricing .price {font-size:120%;}
+#collection .pricing .price, .totals-total {font-size:120%;}
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}

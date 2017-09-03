@@ -2,6 +2,7 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
 {% import "/_macros/normalizer.html.twig" as normalizer %}
+{% block title %}Secure Checkout{% endblock %}
 {% set step = 'shipping' %}
 {% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
 {% set cart = api.get('/sessioncart') %}

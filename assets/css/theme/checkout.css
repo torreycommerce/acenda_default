@@ -1,0 +1,19 @@
+.panel-heading h2 {margin:0;}
+.panel-heading .step-data {display:none; margin:10px 0 0;}
+.checkoutapp .btn-edit {display:none;}
+#processing-panel {
+	margin: auto;
+	padding: 20px;
+	background-color: #eee;
+	color: black;
+	border: 1px solid #ddd;
+	text-align: center;
+	width: 75%;
+}
+#checkout-cards img {max-height:34px; width:auto;}
+.checkout-card {max-width:56px; height:34px;}
+
+@media (min-width:992px) {
+.panel-heading .step-data {margin:15px 0 0;}
+}
+.panel-heading .step-data:empty {margin:0;}

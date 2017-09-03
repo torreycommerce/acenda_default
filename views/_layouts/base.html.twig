@@ -38,7 +38,7 @@
 {% endif %}
 
 <!DOCTYPE html>
-<html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}">
+<html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}" lang="en">
 <head>
 {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
 	<!-- Google Tag Manager DataLayer -->

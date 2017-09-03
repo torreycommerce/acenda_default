@@ -95,7 +95,7 @@ var checkout = checkout || {};
 					var currentCountry = $('#shipping-country').val();
 					if(!currentCountry) currentCountry='US';
 					var tpl = _.template('<option <%= (country.get("value") == current)?"selected":""%> value="<%=country.get("value")%>"><%=country.get("label")%></option>');
-	                $('#shipping-country').append(tpl({country:country,current: currentCountry}));	                
+	                $('#shipping-country').append(tpl({country:country,current: currentCountry}));
 				});
 			}
 		    if(this.billing_countries !==null && $('#billing-country').children().length<2 ) {
@@ -103,7 +103,7 @@ var checkout = checkout || {};
 					var currentCountry = $('#billing-country').val();
 					if(!currentCountry) currentCountry='US';
 					var tpl = _.template('<option <%= (country.get("code") == current)?"selected":""%> value="<%=country.get("code")%>"><%=country.get("name")%></option>');
-	                $('#billing-country').append(tpl({country:country,current: currentCountry}));	                
+	                $('#billing-country').append(tpl({country:country,current: currentCountry}));
 				});
 			}
 		    if(this.shipping_states !== null && $('#shipping-state-select').children().length<2 ) {
@@ -114,12 +114,15 @@ var checkout = checkout || {};
 				if(!this.shipping_states.length) {
 					$('#shipping-state-select').hide();
 					$('#shipping-state-text').show();
+					$('#state-label').prop('for','shipping-state-text');
 
 				} else {
 					$('#shipping-state-select').show();
-					$('#shipping-state-text').hide();						
+					$('#shipping-state-text').hide();
+					$('#state-label').prop('for','shipping-state-select');
 				}
 			}
+
 			var savedAddy = $('#shipping-customer-addresses-select').val();
 			if( savedAddy != 0) {
 				var addy=this.customer_addresses.get(savedAddy);
@@ -135,9 +138,11 @@ var checkout = checkout || {};
 				if(!this.billing_states.length) {
 					$('#billing-state-select').hide();
 					$('#billing-state-text').show();
+					$('#billing-state-label').prop('for','billing-state-text');
 				} else {
 					$('#billing-state-select').show();
-					$('#billing-state-text').hide();						
+					$('#billing-state-text').hide();
+					$('#billing-state-label').prop('for','billing-state-select');
 				}
 			}
 
@@ -501,9 +506,29 @@ var checkout = checkout || {};
 			} else {
 				$('.copy-shipping-flag').show('fade');
 			}
+			//
+			var currentCountry = $('#shipping-country').val();
+			if (currentCountry == 'US') {
+				$('#zip-label').html("Zip Code");
+				$('#zip').attr('placeholder','Zip Code');
+			} else {
+				$('#zip-label').html("Postal Code");
+				$('#zip').attr('placeholder','Postal Code');
+			}
+			//
 			this.fetchShippingStates();
 		},
 		changedBillingCountry: function() {
+			//
+			var currentCountry = $('#billing-country').val();
+			if (currentCountry == 'US') {
+				$('#biling-zip-label').html("Zip Code");
+				$('#billing-zip').attr('placeholder','Zip Code');
+			} else {
+				$('#billing-zip-label').html("Postal Code");
+				$('#billing-zip').attr('placeholder','Postal Code');
+			}
+			//
 			this.fetchBillingStates();
 		},		
 		changedShippingMethod: function() {
@@ -606,7 +631,7 @@ var checkout = checkout || {};
 					k = k.replace('shipping_','billing_');
 					$('[name="' + k +  '"]').val(v);
 				});
-			    var tpl = _.template('<div class="col-xs-12 col-sm-6"><div class="alert alert-info fsd1 p"><button id="btn-edit-billing-address" class="btn btn-default btn-xs pull-right">Edit</button><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div></div>');
+			    var tpl = _.template('<div class="col-xs-12 col-sm-6"><div class="alert alert-info fsd1 p"><button id="btn-edit-billing-address" class="btn btn-info btn-xs pull-right">Edit</button><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div></div>');
 
 				$('div#billing-address-preview').html(tpl(form));
 				$('.checkoutapp #payment-panel .copy-shipping-flag').hide();				

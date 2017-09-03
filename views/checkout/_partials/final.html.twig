@@ -1,19 +1,4 @@
-{# Begin Branding for Print Page #}
 
-<div class="row visible-print">
-	<div class="col-xs-12 p">
-		{% if app.params.logoimages is not empty %}
-			{% set logo_info = app.params.logoimages | first %}
-			{% set logo = logo_info.url %}
-		{% endif %}
-		{% if logo is not empty %}
-		 	<img class="img-responsive" src="{{ logo }}" alt="">
-		{% else %}
-			<div id="logo-txt">{{ app.params.site.title }}</div>
-		{% endif %}
-	</div>
-</div>
-{# End Branding for Print Page #}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 
 {% if final_order is not empty %}
@@ -33,18 +18,17 @@
 		{% if final_order is not empty %}
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h3>Thank You, your order has been placed!</h3>
+				<h2>Thank You, your order has been placed!</h2>
 				<p>We have sent you an e-mail confirmation.</p>
 				{% if request.customer_id is defined %}
-					<div>
-						<a href="{{app.url}}/account/order/{{final_order.order_number}}">Order: #{{ final_order.order_number }}</a>
-					</div>
+					<a class="btn btn-default" href="{{app.url}}/account/order/{{final_order.order_number}}">Review Order: #{{ final_order.order_number }}</a>
+					
 					<div>Order Placed: {{ final_order.date_created|date("F jS, Y") }}</div>
 				{% else %}
-					<form name="order", action="{{app.url}}/order", method="POST", class="" id="view-order">
+					<form name="order" action="{{app.url}}/order", method="POST", class="" id="view-order">
 						<input type="hidden" name="order[id]" value="{{ final_order.order_number }}" />
 						<input type="hidden" name="order[email]" value="{{ final_order.email}}" />
-						<a href="javascript: $('form#view-order').submit();">Order: #{{ final_order.order_number }}</a>
+						<a class="btn btn-default" href="javascript: $('form#view-order').submit();">Review Order: #{{ final_order.order_number }}</a>
 					</form>
 				{% endif %}
 			</div>
@@ -83,96 +67,92 @@
 		
 		{% if final_order is not empty %}
 		<div class="panel panel-default">
-            <div class="panel-heading">Items Ordered</div>
-            <div class="panel-body">
-            {% for item in items %}
-                <div class="row">
-                    <div class="col-xs-8">
-                        {{item.quantity}} x {{ item.name }}
-                    </div>
-                    {% set price = item.price * item.quantity %}
-                    {% set subtotal = subtotal + price %}
-                    <div class="col-xs-4 text-right">
-                        {{ prod.currency(item.price|number_format(2, '.')) }}
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-		<div class="panel panel-default">
 			<div class="panel-body">
-				<div class="fsd1 p">
-					<div class="row">
-						<div class="col-xs-12 col-sm-8 col-md-7 col-lg-8">
-							<div class="row">
-								<div class="col-xs-12 col-md-6">
-									<div class="shipping-address p">
-										<div><strong>Shipping Address:</strong></div>
-										<div class="address">
-											<div class="name">{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
-											<div class="address1">{{ final_order.shipping_street_line1 }}</div>
-											<div class="city-state">{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-12 col-md-6">
-									{% if final_order.billing_first_name %}
-										<div class="billing-address p">
-											<div><strong>Billing Address:</strong></div>
-											<div class="address">
-												<div class="name">{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
-												<div class="address1">{{ final_order.billing_street_line1 }}</div>
-												<div class="city-state">{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
-												<div class="billing-method">Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
-											</div>
-										</div>
-									{% endif %}
-								</div>
+			    <h2 class="divide pad-b">Invoice: <span class="pull-right">#{{ final_order.order_number }}</span></h2>
+				<div class="row">
+					<div class="col-xs-12 col-sm-7">
+						<div class="row">
+							<div class="col-xs-12 p">
+								<h3>Ship To</h3>
+								<address class="fsd1">
+									<div>{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
+									<div>{{ final_order.shipping_street_line1 }}</div>
+									<div>{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
+								</address>
+							</div>
+							<div class="col-xs-12 g p-xs-2x">
+								{% if final_order.billing_first_name %}
+								<h3>Payment</h3>
+								<address class="fsd1">
+									<div>{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
+									<div>{{ final_order.billing_street_line1 }}</div>
+									<div>{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
+									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+								</address>
+								{% endif %}
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-4 col-md-5 col-lg-4">
-							<div class="order-totals">
-								<div class="row">
-									<div class="col-xs-8">Subtotal:</div>
-									<div class="col-xs-4 text-right">{{ prod.currency( final_order.item_subtotal|number_format(2, '.')) }}</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-8">Shipping:</div>
-									<div class="col-xs-4 text-right">{{ prod.currency( final_order.shipping_rate|number_format(2, '.')) }}</div>
-								</div>
-								{% if final_order.discount_price > 0 %}
-								<div class="row">
-									<div class="col-xs-8">Discount:</div>
-									<div class="col-xs-4 price-discount text-right">
-										-{{ prod.currency(final_order.discount_price|number_format(2, '.')) }}
-									</div>
-								</div>
-								{% endif %}
-								<div class="row">
-									<div class="col-xs-8">Total Before Tax:</div>
-									<div class="col-xs-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-8">Sales Tax:</div>
-									<div class="col-xs-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-8">Total:</div>
-									<div class="col-xs-4 text-right">{{ prod.currency(final_order.total|number_format(2, '.')) }}</div>
-								</div>
+					</div>
+					<div class="col-xs-12 col-sm-5">
+					    <h3>Order Total</h3>
+						<div class="row">
+							<div class="col-xs-8">Subtotal:</div>
+							<div class="col-xs-4 text-right">{{ prod.currency( final_order.item_subtotal|number_format(2, '.')) }}</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-8">Shipping:</div>
+							<div class="col-xs-4 text-right">{{ prod.currency( final_order.shipping_rate|number_format(2, '.')) }}</div>
+						</div>
+						{% if final_order.discount_price > 0 %}
+						<div class="row">
+							<div class="col-xs-8">Discount:</div>
+							<div class="col-xs-4 price-discount text-right">
+								-{{ prod.currency(final_order.discount_price|number_format(2, '.')) }}
 							</div>
+						</div>
+						{% endif %}
+						<div class="row">
+							<div class="col-xs-8">Total Before Tax:</div>
+							<div class="col-xs-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
+						</div>
+						<div class="divide p pad-b">
+    						<div class="row">
+    							<div class="col-xs-8">Sales Tax:</div>
+    							<div class="col-xs-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
+    						</div>
+						</div>
+						<div class="row totals-total">
+							<div class="col-xs-8">Total:</div>
+							<div class="col-xs-4 text-right">{{ prod.currency(final_order.total|number_format(2, '.')) }}</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="panel panel-default">
+            <div class="panel-body">
+                <h2 class="divide pad-b">Items Ordered</h2>
+            {% for item in items %}
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="product-name">{{item.quantity}} x {{ item.name }}</div>
+                    </div>
+                    {% set price = item.price * item.quantity %}
+                    {% set subtotal = subtotal + price %}
+                    <div class="col-xs-4 pricing text-right">
+                        <div class="price">{{ prod.currency(item.price|number_format(2, '.')) }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
 		{% endif %}
 	</div>
 
 	{% if app.user.isLoggedIn() == false %}
 	<div class="col-xs-12 col-md-4">
 		<div class="panel panel-default"><div class="panel-body">
-			<h3>Create a New Account</h3>
+			<h2>Create a New Account</h2>
 			<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more!</p>
 			{{ forms.begin('create', app.url ~ '/account/create', 'post') }}
 				<fieldset>
@@ -200,11 +180,8 @@
 </div>
 {% if final_order is not empty %}
 <div class="row">
-	<div class="col-xs-12 col-sm-6 p">
-		<a class="btn btn-xs-block btn-default" href="{{app.url}}">Continue Shopping</a>
-	</div>
-
-	<div class="col-xs-12 col-sm-6 p">
+	<div class="{{ app.user.isLoggedIn() ? "col-xs-12" : "col-xs-12 col-md-8" }}">
+		<a class="btn btn-xs-block btn-default p-xs" href="{{app.url}}">Continue Shopping</a>
 		<a href="#" class="btn btn-xs-block btn-default pull-right" onclick="window.print();return false;">Print Page</a>
 	</div>
 </div>

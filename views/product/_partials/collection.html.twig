@@ -142,7 +142,7 @@
 						<div class="media-left">
 							<div class="variant-selected-image">
 								<div class="image-space">
-									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','standard',bundle.items[0].images[0].id) }}" class="img-responsive isd" alt="">
+									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id) }}" class="img-responsive isd" alt="">
 								</div>
 							</div>
 						</div>
@@ -185,7 +185,7 @@
 						{% endfor %}
 						</ul>
 						<div class="actions">
-							<div class="quantity" id="div-quantity-{{product.id}}">
+							<div class="quantity" id="div-quantity-{{bundle.id}}">
 								<label for="variant-input-{{bundle.id}}" class="control-label">Qty</label>
 								<div class="input-group input-group-qty igq-mod">
 									<div class="btn-group btn-group-qty">
@@ -272,7 +272,7 @@
 			<div class="media-left">
 				<a href="{{app.url}}/product/{{product.slug}}" class="variant-selected-image" id="variant-selected-image-{{product.id}}">
 					<div class="image-space">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-responsive isd" alt="">
+						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-responsive isd" alt="">
 					</div>
 				</a>
 			</div>
