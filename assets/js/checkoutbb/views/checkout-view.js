@@ -130,7 +130,7 @@ var checkout = checkout || {};
                 	$('#shipping-state-select').val(addy.get('state'));
                 }
 			}
-		    if(this.billing_states !== null && $('#biling-state-select').children().length<2 ) {
+		    if(this.billing_states !== null && $('#billing-state-select').children().length<2 ) {
 				this.billing_states.each(function (state) {
 					var tpl = _.template('<option value="<%=state.get("value")%>"><%=state.get("label")%></option>');
 	                $('#billing-state-select').append(tpl({state:state}));
@@ -357,7 +357,7 @@ var checkout = checkout || {};
 			var that = this;			
 			this.billing_states = new checkout.BillingStates();
 			this.billing_states.fetch({url: this.billing_states.url + '/' + $('#billing-country').val() ,success: function() {
-		        $('#biling-state-select').html('<option disabled selected>Select a State</option>');				
+		        $('#billing-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
 			}});
 		},
@@ -522,7 +522,7 @@ var checkout = checkout || {};
 			//
 			var currentCountry = $('#billing-country').val();
 			if (currentCountry == 'US') {
-				$('#biling-zip-label').html("Zip Code");
+				$('#billing-zip-label').html("Zip Code");
 				$('#billing-zip').attr('placeholder','Zip Code');
 			} else {
 				$('#billing-zip-label').html("Postal Code");
