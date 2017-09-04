@@ -52,7 +52,7 @@
 						<div class="form-group input-group twitter-typeahead">
 							<span class="input-group-btn">
 								<button class="btn btn-link" type="submit">
-									<i class="fa fa-search"></i>
+									<i class="fa fa-search"><i class="sr-only">Search</i></i>
 								</button>
 							</span>
 							<input class="form-control input-white typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
@@ -62,7 +62,7 @@
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
 				<a class="btn btn-link btn-sq pull-left yta-launch yta-toggle" href="#">
-					<i class="fa fa-bars"></i>
+					<i class="fa fa-bars"><i class="sr-only">Mobile Menu</i></i>
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-offset-1 col-md-4 text-center">
@@ -72,7 +72,7 @@
 						{% set logo = logo_info.url %}
 					{% endif %}
 					{% if logo is not empty %}
-					<a href="{{app.url}}/"><img class="img-responsive isd" src="{{ logo }}" alt=""></a>
+					<a href="{{app.url}}/"><img class="img-responsive isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage"></a>
 					{% else %}
 					<a href="{{app.url}}/"><span class="isd">{{ app.params.site.title }}</span></a>
 					{% endif %}
@@ -80,7 +80,7 @@
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
 				<a class="btn btn-link btn-sq pull-right" href="{{app.url}}/cart">
-					<i class="fa fa-shopping-bag"></i><span class="item-count hidden">{{ api.get('/sessioncart').item_count }}</span>
+					<i class="fa fa-shopping-bag"></i><span class="item-count sr-only">My Cart {{ api.get('/sessioncart').item_count }}</span>
 				</a>
 			</div>
 		</div>
@@ -89,13 +89,9 @@
 <div class="container no-arrow pos-r" id="qc-parent">
     <div class="quickcart" data-content="" data-placement='bottom' rel='popover'>
 		<div class="ajaxcart" style="display:none">
-			<div class="popover-close divide">
-				<div class="row p">
-					<div class="col-xs-12">
-						<button id="ajaxcart-close" class="btn btn-default btn-sm pull-right"><i class="fa fa-times"></i></button>
-						<h3 class="al-btn-sm">Quick Cart</h3>
-					</div>
-				</div>
+			<div class="popover-close divide pad-b">
+				<button id="ajaxcart-close" class="btn btn-default btn-sm pull-right"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
+				<h3 class="al-btn-sm">Quick Cart</h3>
 			</div>
 			<div class="error g">
 			</div>

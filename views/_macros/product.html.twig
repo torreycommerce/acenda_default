@@ -4,7 +4,8 @@
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 	{% import _self as this %}
 	{% import "/_macros/base.html.twig" as base %}
-	<div class="product" itemscope itemtype="http://schema.org/Product">        
+	<div class="product g" itemscope itemtype="http://schema.org/Product">
+		<a href="{{app.url}}/product/{{product.slug}}">
 		{% if 'image' in options %}
 			{# Grab image based on color facets #}
 			{% if product.images is not empty %}
@@ -30,82 +31,75 @@
 				{% endif %}
 			{% endif %}
 
-			{# Begin product image #}               
 			<div class="max-250 p">
-				<a href="{{app.url}}/product/{{product.slug}}">
-					<div class="image-space">
-						<img itemprop="image" alt="{{product.name}} Image" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250">
-						<div class="labels">
-						{% for tag in product.tags %}
-							{% if tag == 'new' %}
-								<span class="label label-new">{{ tag|capitalize }}</span>
-							{% elseif tag == 'sale' %}
-								<span class="label label-sale">{{ tag|capitalize }}</span>
-							{% elseif tag == 'popular' %}
-								<span class="label label-hot">{{ tag|capitalize }}</span>
-							{% else %}
-								<span class="label label-feat">{{ tag|capitalize }}</span>
-							{% endif %}
-						{% endfor %}
-						</div>
+				<div class="image-space">
+					<img itemprop="image" alt="{{product.name}}" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250">
+					<div class="labels">
+					{% for tag in product.tags %}
+						{% if tag == 'new' %}
+							<span class="label label-new">{{ tag|capitalize }}</span>
+						{% elseif tag == 'sale' %}
+							<span class="label label-sale">{{ tag|capitalize }}</span>
+						{% elseif tag == 'popular' %}
+							<span class="label label-hot">{{ tag|capitalize }}</span>
+						{% else %}
+							<span class="label label-feat">{{ tag|capitalize }}</span>
+						{% endif %}
+					{% endfor %}
 					</div>
-				</a>
+				</div>
 			</div>                            
-			{# End product image #}
 
 		{% endif %}
 		{% if 'details' in options %}
-			{# Begin product details #}
-			<div class="product-details g">
-				
-				<a href="{{app.url}}/product/{{product.slug}}">
-					<div class="brand"><span itemprop="brand">{{product.brand}}</span></div>
-					<div class="product-name"><span itemprop="name">{{product.name}}</span></div>
-				</a>
-				
-				<div class="pricing p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					{% if product.attributes.price %}
-					<div class="price p-mini"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
-					<meta itemprop="priceCurrency" content="USD" />
-					{% endif %}
-					{# if product.attributes.price.0 >= 100 %}
-					<div class="price-per-month hidden-xs">
-						<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
-					</div>
-					{% endif #}
-					{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
-					{% spaceless %}
-					<ul class="list-inline">
-						<li class="price-regular">{{ this.cprice(product.attributes.compare_price) }}</li>
-						<li class="percent">{{ this.saveprice(product.attributes.save_price) }}{{ this.savepercent(product.attributes.save_percent) }}</li>
-					</ul>
-					{% endspaceless %}
-					{% endif %}
-				</div>
-
-				{# There is no point in having a carousel without an image, so it is moved inside here #}
-				{% if 'carousel' in options %}
-					{# Begin image carousel insert #}
-					{{ this.carousel(product) }}
-					{# End image carousel insert #}
-				{% endif %}
-
-				{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
-				{% set review_score = reviews|average('score') %}
-				{% if review_score > 0 %}
-				{% spaceless %}
-				<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-					<span>{{ base.rating( review_score ) }}</span>
-					<span class="dib"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>
-						{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
-						{% endif %}
-					</span>
-				</div>
-				{% endspaceless %}
-				{% endif %}
+		
+			<h3 class="brand-product">
+				<span class="brand"><span itemprop="brand">{{product.brand}} </span></span><span class="product-name"><span itemprop="name">{{product.name}}</span></span>
+			</h3>
+		
+		</a>
+		
+		<div class="pricing p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+			{% if product.attributes.price %}
+			<div class="price p-mini"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
+			<meta itemprop="priceCurrency" content="USD" />
+			{% endif %}
+			{# if product.attributes.price.0 >= 100 %}
+			<div class="price-per-month hidden-xs">
+				<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
 			</div>
-			{# End product details #}
+			{% endif #}
+			{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
+			{% spaceless %}
+			<ul class="list-inline">
+				<li class="price-regular">{{ this.cprice(product.attributes.compare_price) }}</li>
+				<li class="percent">{{ this.saveprice(product.attributes.save_price) }}{{ this.savepercent(product.attributes.save_percent) }}</li>
+			</ul>
+			{% endspaceless %}
+			{% endif %}
+		</div>
+
+		{# There is no point in having a carousel without an image, so it is moved inside here #}
+		{% if 'carousel' in options %}
+			{# Begin image carousel insert #}
+			{{ this.carousel(product) }}
+			{# End image carousel insert #}
 		{% endif %}
+
+		{% set reviews = api.get('/productreview', { query:{ product_id: product.id,status:"active" } }) %}
+		{% set review_score = reviews|average('score') %}
+		{% if review_score > 0 %}
+		{% spaceless %}
+		<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+			<span>{{ base.rating( review_score ) }}</span>
+			<span class="dib"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>
+				{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
+				{% endif %}
+			</span>
+		</div>
+		{% endspaceless %}
+		{% endif %}
+	{% endif %}
 	</div>
 	{% endspaceless %}
 {% endmacro %}

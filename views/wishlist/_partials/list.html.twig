@@ -103,8 +103,8 @@
 												<div class="input-group input-group-qty igq-mod">
 													<div class="btn-group btn-group-qty">
 														<input class="form-control input-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
-														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
-														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 													</div>
 												</div>
 
@@ -114,8 +114,8 @@
 												<div class="input-group input-group-qty igq-mod">
 													<div class="btn-group btn-group-qty">
 														<input class="form-control input-lg quantity-selector text-center" id="wishlistitem_quantity[{{ item.id }}]" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
-														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"></i></button>
-														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+														<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 													</div>
 												</div>
 											</div>
@@ -170,7 +170,7 @@
 								<div class="btn-group btn-group-qty">
 									<input type="text" value="1" maxlength="2" placeholder="1" class="form-control input-lg quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
 									<button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up"></i></button>
-									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"></i></button>
+									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 								</div>
 								<div class="input-group-btn">
 									<button class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="add/{{ item.id }}">Add to Cart</button>
