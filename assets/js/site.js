@@ -96,6 +96,17 @@ $(document).ready(function() {
 });
 
 
+$('html').on('error', 'img', function() {
+	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
+});
+
+$(window).load(function() {
+	$('img').each(function() {
+		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');	
+		}
+	});
+});
 
 
 

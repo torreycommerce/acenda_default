@@ -168,11 +168,11 @@ li.sub-category, .filter a, .category-grid .category-name {white-space:nowrap; o
 .slick-list:focus {outline:none;}
 .slick-list.dragging {cursor:pointer; cursor:hand;}
 .slick-slider .slick-track, .slick-slider .slick-list{-webkit-transform:translate3d(0, 0, 0); -moz-transform:translate3d(0, 0, 0); -ms-transform:translate3d(0, 0, 0); -o-transform:translate3d(0, 0, 0); transform:translate3d(0, 0, 0);}
-.slick-track {position:relative; top:0; left:0; display:block; margin-left:auto; margin-right:auto;}
+.slick-track {position:relative; top:0; left:0; display:block;}
 .slick-track:before, .slick-track:after {display:table; content:'';}
 .slick-track:after {clear:both;}
 .slick-loading .slick-track {visibility:hidden;}
-.slick-slide {display:none; position:relative; float:left; height:100%; min-height:1px; overflow:hidden;}
+.slick-slide {display:none; position:relative; float:left; height:100%; min-height:1px; outline:none; overflow:hidden;}
 [dir='rtl'] .slick-slide {float:right;}
 .slick-slide img {display:block;}
 .slick-slide.slick-loading img {display:none;}
@@ -188,12 +188,12 @@ li.sub-category, .filter a, .category-grid .category-name {white-space:nowrap; o
 .slick-prev:hover:before, .slick-prev:focus:before, .slick-next:hover:before, .slick-next:focus:before {color:#000; opacity:1;}
 .slick-arrow.slick-disabled {pointer-events:none;}
 .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before {color:#bbb!important; opacity:.25;}
-.slick-prev {left:-16px;}
-[dir='rtl'] .slick-prev {right:-16px; left:auto;}
+.slick-prev {left:-24px;}
+[dir='rtl'] .slick-prev {right:-24px; left:auto;}
 .slick-prev:before {content:"\f053";}
 [dir='rtl'] .slick-prev:before {content:"\f054";}
-.slick-next {right:-16px;}
-[dir='rtl'] .slick-next {right:auto; left:-16px;}
+.slick-next {right:-24px;}
+[dir='rtl'] .slick-next {right:auto; left:-24px;}
 .slick-next:before {content:"\f054";}
 [dir='rtl'] .slick-next:before {content:"\f053";}
 .slick-dots {position:absolute; bottom:-25px; display:block; width:100%; padding:0; margin:0; list-style:none; text-align:center;}
