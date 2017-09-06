@@ -20,6 +20,16 @@ $.fn.modal.Constructor.prototype.resetScrollbar = function () {
 }
 
 
+$('img').each(function() {
+	if ($(this).width() == 0 || $(this).height() == 0) {
+		$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');	
+	}
+});
+$('img').error(function() {
+	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
+});
+
+
 $('html').on("click", ".ttc", function() {
 	if ($(this).attr('href')) {
 		var ttc = $(this).attr('href');

@@ -50,7 +50,7 @@
 			<div class="search-within"> 
 				<div class="input-group">
 					<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search" />
-					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
+					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search</i></i></button></span>
 				</div>
 			</div>
 		</div>
@@ -124,7 +124,7 @@
 				<div class="divide g p pad-b">
 					<div class="media">
 						<div class="media-left">
-							<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="media-object" src='{{ product.thumbnail }}' width="250" height="250" alt="">
+							<img class="media-object" src='{{ product.thumbnail }}' width="250" height="250" alt="">
 						</div>
 						<div class="media-body">
 							<a href="{{ app.url ~ product.url }}">{{ item.name }}</a>

@@ -55,7 +55,7 @@ set in the array in /account/_macros/base.html.twig
 			<div class="search-within">
 				<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
 					<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
-					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button></span>
+					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search</i></i></button></span>
 				</form>
 			</div>
 		</div>

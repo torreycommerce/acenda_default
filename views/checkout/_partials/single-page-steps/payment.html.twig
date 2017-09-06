@@ -108,28 +108,24 @@
 <h3>Billing Address</h3>
 <div class="row" id="billing-address-preview">
 </div>
-<div class="row copy-shipping-flag">
-	<div class="col-xs-12" >
-		<div class="form-group">
-				<div class="checkbox">
-				  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Billing Address is the same as the Shipping Address</label>
-				</div>
+<div class="copy-shipping-flag">
+	<div class="form-group">
+		<div class="checkbox">
+		  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Billing Address is the same as the Shipping Address</label>
 		</div>
 	</div>
 </div>
 <div id="billing-address" style="display:block;">
 
-	<div id="customer-addresses" style="display: none;" class="row">
-		<div class="col-xs-12">
-			<div class="form-group">
-	             <label class="control-label" for="first-name">Select an Address</label>			
-				<select class="form-control" id="billing-customer-addresses-select">
-				</select>
-	            <div class="validation"></div>			
-			</div>
+	<div id="customer-addresses" style="display: none;">
+		<div class="form-group">
+			<label class="control-label" for="billing-customer-addresses-select">Select an Address</label>		
+			<select class="form-control" id="billing-customer-addresses-select">
+			</select>
+            <div class="validation"></div>			
 		</div>
 	</div>
-	<div  id="billing-address-form">
+	<div id="billing-address-form">
 		<div class="hide-billing">
 			<div class="row">
 				<div class="col-xs-6">
@@ -201,27 +197,20 @@
 					</div>
 				</div>
 			</div>
-			<div id="billing-save" class="row" style="display: none;">
-				<div class="col-xs-12">	
-					<div class="form-group">
-							<div class="checkbox">
-							  <label><input type="checkbox" name="billing_save" value="">Save this address for future use?</label>
-							</div>
+			<div id="billing-save" style="display: none;">
+				<div class="form-group">
+					<div class="checkbox">
+					  <label><input type="checkbox" name="billing_save" value="">Save this address for future use?</label>
 					</div>
-				</div>							
+				</div>
 			</div>
 		  </fieldset>
 	    </div>
 	</div>	
 </div>
 
-<div id="address-verify">
-
-</div>
+<div id="address-verify"></div>
 </form>
-<div class="row">
-	<div class="col-md-12">
-		 <button id="btn-continue-payment" class="btn btn-primary  pull-right">Continue</button>
-	</div>
-</div>
 
+<button id="btn-continue-payment" class="btn btn-primary pull-right">Continue</button>
+	

@@ -1,13 +1,11 @@
 <h3>Shipping Address</h3>
 
-<div id="customer-addresses" style="display: none;" class="row">
-	<div class="col-xs-12">
-		<div class="form-group">
-             <label class="control-label" for="shipping-customer-addresses-select">Select an Address</label>
-			<select class="form-control" id="shipping-customer-addresses-select">
-			</select>
-            <div class="validation"></div>			
-		</div>
+<div id="customer-addresses" style="display: none;">
+	<div class="form-group">
+         <label class="control-label" for="shipping-customer-addresses-select">Select an Address</label>
+		<select class="form-control" id="shipping-customer-addresses-select">
+		</select>
+        <div class="validation"></div>			
 	</div>
 </div>
 {% set address = app.user.getCheckoutStates('shipping') %}
@@ -88,24 +86,13 @@
 	</div>
 </fieldset>
 </div>
-    <div class="row copy-shipping-flag" >
-    	<div class="col-xs-12">
-			<div class="form-group">
-					<div class="checkbox">
-					  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Shipping Address is the same as the Billing Address</label>
-					</div>
+    <div class="copy-shipping-flag">
+		<div class="form-group">
+			<div class="checkbox">
+			  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Shipping Address is the same as the Billing Address</label>
 			</div>
 		</div>
     </div>
-	<div  class="row">
-    	<div id="address-verify" class="col-xs-12">
-
-		</div>
-	</div>    
-	<div class="row">
-		<div class="col-md-12">
-				<button id="btn-continue-shipping" class="btn btn-primary  pull-right">Continue</button>
-		</div>
-	</div>
-
+    <div id="address-verify"></div>
+	<button id="btn-continue-shipping" class="btn btn-primary pull-right">Continue</button>
 </form>

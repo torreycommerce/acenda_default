@@ -31,7 +31,7 @@
 			<div class="image-space no-of">
 				<div class="isd btn-block" style="display:none;"><div id="main-product-video"></div></div>
 				<span class="isd">
-					<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" itemprop="image" alt="">
+					<img id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" itemprop="image" alt="">
 				</span>
 				<span class="helper"></span>
 			</div>
@@ -46,7 +46,7 @@
 					<div class="virg">
 						<div class="acaro">
 							<div class="image-space">
-								<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
+								<img class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
 							</div>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 								<div class="virg">
 									<div class="acaro">
 										<div class="image-space">
-											<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
+											<img class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
 										</div>
 									</div>
 								</div>
@@ -142,7 +142,7 @@
 						<div class="media-left">
 							<div class="variant-selected-image">
 								<div class="image-space">
-									<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id) }}" class="img-responsive isd" alt="">
+									<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id) }}" class="img-responsive isd" alt="">
 								</div>
 							</div>
 						</div>
@@ -272,7 +272,7 @@
 			<div class="media-left">
 				<a href="{{app.url}}/product/{{product.slug}}" class="variant-selected-image" id="variant-selected-image-{{product.id}}">
 					<div class="image-space">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-responsive isd" alt="">
+						<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-responsive isd" alt="">
 					</div>
 				</a>
 			</div>

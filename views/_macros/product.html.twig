@@ -33,7 +33,7 @@
 
 			<div class="max-250 p">
 				<div class="image-space">
-					<img itemprop="image" alt="{{product.name}}" onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250">
+					<img itemprop="image" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="">
 					<div class="labels">
 					{% for tag in product.tags %}
 						{% if tag == 'new' %}
@@ -62,7 +62,6 @@
 		<div class="pricing p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 			{% if product.attributes.price %}
 			<div class="price p-mini"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
-			<meta itemprop="priceCurrency" content="USD" />
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
 			<div class="price-per-month hidden-xs">
@@ -130,7 +129,7 @@
 					    {% set image_url = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
 				    {% endif %}
 					<div class="col-xs-2 col-thin p-mini">
-						<img onerror="this.src='{{ app.url_asset }}/assets/images/product/image-250x250.gif'" src="{{ image_url }}" class="color-chip img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
+						<img src="{{ image_url }}" class="color-chip img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
 					</div>
 				{% endfor %}
 				</div>

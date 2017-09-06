@@ -817,14 +817,6 @@ var checkout = checkout || {};
  						$('<form action="' + location + '" method="POST">' + vform + '</form>').appendTo($(document.body)).submit();
 					});
 
-			        
-
-			                    /* single page thankyou */
-
-     //                $('#thankyou').html(tpl({order: response.result,items: that.cart.get('items')})).slideDown();   
-					// $.ajax({url: acendaBaseUrl + '/api/cart',type: 'DELETE'}).done(function() {
- 				// 		that.reloadToolbar();
-					// });
 				}).fail(function(response) {
 					response = response.responseJSON;
 	                if(response.code == 406) {
