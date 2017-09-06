@@ -61,6 +61,7 @@ set in the array in /account/_macros/base.html.twig #}
 {{account.navigatend()}}
 {% endblock %}
 {% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/account.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}

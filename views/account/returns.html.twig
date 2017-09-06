@@ -64,10 +64,8 @@
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
 {% endif %}
 {% set returns = api.get('/orderreturn', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
-<div class="row">
-	<div class="col-xs-12 text-center">
-		{{ base.pagination(returns.num_total,limit) }}
-	</div>
+<div class="text-center">
+	{{ base.pagination(returns.num_total,limit) }}
 </div>
 {# End pagination #}
 {% if returns is empty %}
@@ -139,10 +137,8 @@
 {# End order #}
 {% endfor %}
 {# Begin pagination #}
-<div class="row">
-	<div class="col-md-12">
-		{{ base.pagination(returns.num_total,limit) }}
-	</div>
+<div class="text-center">
+	{{ base.pagination(returns.num_total,limit) }}
 </div>
 {# End pagination #}
 {# End returns #}

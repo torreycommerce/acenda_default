@@ -63,10 +63,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
 {% endif %}
 {% set orders = api.get('/order', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
-<div class="row">
-	<div class="col-xs-12 text-center">
-		{{ base.pagination(orders.num_total,limit) }}
-	</div>
+<div class="text-center">
+	{{ base.pagination(orders.num_total,limit) }}
 </div>
 {# End pagination #}
 {% if orders is empty %}
@@ -144,10 +142,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# End order #}
 {% endfor %}
 {# Begin pagination #}
-<div class="row">
-	<div class="col-xs-12 text-center">
-		{{ base.pagination(orders.num_total,limit) }}
-	</div>
+<div class="text-center">
+	{{ base.pagination(orders.num_total,limit) }}
 </div>
 {# End pagination #}
 {# End order history list #}

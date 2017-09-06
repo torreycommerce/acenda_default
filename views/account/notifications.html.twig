@@ -35,7 +35,7 @@ set in the array in /account/_macros/base.html.twig
 {# End navigation #}
 
 {# Begin header #}
-<h1>Your Notifications</h1>
+<h1>Notifications</h1>
 			
 {# End header #}
 <div class="page-filters divide p">
@@ -61,21 +61,18 @@ set in the array in /account/_macros/base.html.twig
 		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="col-xs-12 text-center">
-		{{ base.pagination(notifications.num_total , limit ) }}
-	</div>
+<div class="text-center">
+	{{ base.pagination(notifications.num_total , limit ) }}
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel">
-			{{ list.create(columns, notifications, '/account/notification/{id}', 'sort', {'unread':'boolean','date_created':'date'}, ['delete']) }}
-		</div>
-	</div>
+
+<div class="panel">
+	{{ list.create(columns, notifications, '/account/notification/{id}', 'sort', {'unread':'boolean','date_created':'date'}, ['delete']) }}
 </div>
+
 
 {{account.navigatend()}}
 {% endblock %}
 {% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/account.js') }}
 {% endblock %}

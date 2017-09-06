@@ -173,7 +173,7 @@ function productSlick() {
 }
 
 if ($('.slick').length) {
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.6.0/slick.min.js",function(){
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.7.1/slick.min.js",function(){
 		slickReady = 1;
 		if ($('.slick-p.slick-p-go').length) {
 			//console.log('pS call s')

@@ -16,9 +16,9 @@
 {% if app.request.url == "checkout" %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {% endif %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap/bootstrap.js') }}
-{{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 
 {% if app.params.seo.google_analytics is not empty or app.params.seo.google_tag_manager is not empty %}

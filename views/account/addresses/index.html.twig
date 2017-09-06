@@ -55,7 +55,7 @@ set in the array in /account/_macros/base.html.twig
 
 {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
 {% if addresses is empty %}
-<p>There are no addresses.</p>
+<p>You have yet to save an address.</p>
 {% else %}
 <div class="row c-c">
 	{% for row,address in addresses %}
@@ -99,7 +99,6 @@ set in the array in /account/_macros/base.html.twig
 									<i class="fa fa-pencil"></i><span>Edit Address</span>
 								</a>
 							</span>
-							
 						</li>
 						<li>
 							{{ forms.submit('address[action]', 'primary/' ~  (row + 1), '<i class="fa fa-star"></i><span>Use as Default Address</span>', {class:'btn btn-link'})}}
@@ -115,18 +114,12 @@ set in the array in /account/_macros/base.html.twig
 	{% endfor %}
 </div>
 {% endif %}
-{# Begin footer actions #}
-<div class="row">
-	<div class="col-xs-12">
-		<div class="actions-footer p">
-			{% if addresses is not empty %}
-			<p>Click the edit button to adjust, set as default, or remove an address.</p>
-			{% endif %}
-			<a href="{{app.url}}/account/addresses/new" class="btn btn-default"><i class="fa fa-plus"></i><span>Add New Address</span></a>
-		</div>
-	</div>
-</div>
-{# End footer actions #}
+
+{% if addresses is not empty %}
+<p>Click the edit button to adjust, set as default, or remove an address.</p>
+{% endif %}
+<a href="{{app.url}}/account/addresses/new" class="btn btn-default"><i class="fa fa-plus"></i><span>Add New Address</span></a>
+
 {{ forms.end() }}
 
 {{account.navigatend()}}

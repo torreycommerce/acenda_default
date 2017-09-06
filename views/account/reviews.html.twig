@@ -37,6 +37,9 @@ set in the array in /account/_macros/base.html.twig
 	
 <h1>Reviews</h1>
 
+{% if reviews is empty %}
+<p>You have yet to write a review.</p>
+{% else %}
 <div class="panel">
 	<div class="table-responsive">
 		<table class="table table-hover table-striped tablesorter">
@@ -62,6 +65,7 @@ set in the array in /account/_macros/base.html.twig
 		</table>
 	</div>
 </div>
+{% endif %}
 {# End reviews #}
 {{account.navigatend()}}
 {% endblock %}

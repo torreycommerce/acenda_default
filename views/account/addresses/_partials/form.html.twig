@@ -87,6 +87,7 @@
 					</label>
 				</div>
 			</div>
+			{{ normalizer.normalizer() }}
 			<div class="form-group actions">
 				{% if create %}
 				{{ forms.submit('address[action]', 'create', 'Create', {class:'btn btn-lg btn-primary'})}}
@@ -94,7 +95,6 @@
 				{{ forms.submit('address[action]', 'save', 'Save', {class:'btn btn-lg btn-primary'})}}
 				{% endif %}
 			</div>
-			{{ normalizer.normalizer() }}
 		</fieldset>
 	{{ form.end() }}
 </div>
