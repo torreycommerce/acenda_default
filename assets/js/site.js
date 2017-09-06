@@ -96,7 +96,7 @@ $(document).ready(function() {
 });
 
 
-$('html').on('error', 'img', function() {
+$('img').error(function() {
 	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
 });
 
@@ -107,8 +107,6 @@ $(window).load(function() {
 		}
 	});
 });
-
-
 
 
 
