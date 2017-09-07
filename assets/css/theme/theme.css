@@ -132,7 +132,7 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 
 
 
-li.sub-category, .filter a, .category-grid .category-name {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
 .filter .color-chips {padding-bottom:4px;}
 .color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
