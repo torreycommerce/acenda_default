@@ -1,11 +1,9 @@
 <div class="filter-navigation panel-group">
 	<div class="panel panel-default">
-		<div class="panel-heading" data-toggle="collapse" data-target="#collapseOne">
-			<a>
-				<span>Color</span><i class="fa fa-caret-down"></i>
-			</a>
+		<div class="panel-heading" data-toggle="collapse" data-target="#collapseAC">
+			<span>Color</span><i class="fa fa-caret-down"></i>
 		</div>
-		<div id="collapseOne" class="panel-collapse collapse in">
+		<div id="collapseAC" class="panel-collapse collapse in">
 			<div class="panel-body color-chips">
 				<div class="row row-thin">
 					{% for item,count in filter_set %}
@@ -20,8 +18,8 @@
 						<div class="col-thin col-xs-2 col-sm-1 col-md-2 p-thin">
 						   <a class="color-chip {{ item|replace({' ':'-'})|lower }} {% if selected %}active{% endif %} {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}" data-tooltip data-toggle="tooltip" data-original-title="{{item|title}}">
 								<span class="image-space">
-								{% if current_count == 0 %}<i class="isd fa fa-times"></i>{% elseif selected %}
-								<i class="isd fa fa-check"></i>
+								{% if current_count == 0 %}<i class="isd fa fa-times"><i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i></i>{% elseif selected %}
+								<i class="isd fa fa-check"><i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i></i>{% else %}<i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i>
 								{% endif %}
 								</span>
 							</a>

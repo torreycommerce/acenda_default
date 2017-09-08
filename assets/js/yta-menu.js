@@ -4,5 +4,5 @@ $(document).on( "click", '.yta-toggle', function() {
     return false;
 });
 $(document).on( "click", '.yta-getsub', function() {
-    $(this).next().toggleClass('active');
+    $(this).parent().toggleClass('active');
 });
