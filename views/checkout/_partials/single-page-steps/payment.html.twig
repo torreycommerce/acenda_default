@@ -144,18 +144,7 @@
 				</div>
 			</div>
 	     	<fieldset class="verify-change-billing">
-
-			<div class="form-group fgq normalizable">
-				<label class="control-label" for="billing-addr-1">Address 1</label>
-				{{ forms.text('billing_street_line1', '', {class:'form-control parsley-validated', id:'billing-addr-1', placeholder:"Address 1", required:true}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
-			</div>
-			<div class="form-group normalizable">
-				<label class="control-label" for="billing-addr-2">Address 2</label>
-				{{ forms.text( 'billing_street_line2', '', {class:'form-control parsley-validated', id:'billing-addr-2', placeholder:"Address 2"}) }}
-				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
-			</div>
-			<div class="row">
+	     	<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group fgq normalizable">
 						<label class="control-label" for="billing-country">Country</label>
@@ -163,6 +152,16 @@
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'country') }}</div>
 					</div>
 				</div>
+			</div>
+			<div class="form-group fgq normalizable">
+				<label class="control-label" for="billing-addr-1">Address Line 1</label>
+				{{ forms.text('billing_street_line1', '', {class:'form-control parsley-validated', id:'billing-addr-1', placeholder:"Address Line 1", required:true}) }}
+				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line1') }}</div>
+			</div>
+			<div class="form-group normalizable">
+				<label class="control-label" for="billing-addr-2">Address Line 2</label>
+				{{ forms.text( 'billing_street_line2', '', {class:'form-control parsley-validated', id:'billing-addr-2', placeholder:"Address Line 2"}) }}
+				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-6">

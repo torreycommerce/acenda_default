@@ -24,16 +24,6 @@
 					{{ forms.text('address[company]', address.company, {class:'form-control parsley-validated', placeholder:"Company", id:"company"}) }}
 					<div class="validation">{{ forms.errorlist(form_errors, 'company') }}</div>
 				</div>
-				<div class="form-group fgq normalizable">
-					<label class="control-label" for="address-1">Address Line 1</label>
-					{{ forms.text('address[street_line1]', address.street_line1, {class:'form-control parsley-validated', placeholder:"Address Line 1", id:"address-1", required:true}) }}
-					<div class="validation">{{ forms.errorlist(form_errors, 'street_line1') }}</div>
-				</div>
-				<div class="form-group normalizable">
-					<label class="control-label" for="address-2">Address Line 2</label>
-					{{ forms.text('address[street_line2]', address.street_line2, {class:'form-control parsley-validated', placeholder:"Address Line 2", id:"address-2"}) }}
-					<div class="validation">{{ forms.errorlist(form_errors, 'street_line2') }}</div>
-				</div>
 				<div class="row">
 					<div class="col-xs-6">
 						<div class="form-group fgq normalizable">
@@ -43,6 +33,16 @@
 							<div class="validation">{{ forms.errorlist(form_errors, 'country') }}</div>
 						</div>
 					</div>
+				</div>
+				<div class="form-group fgq normalizable">
+					<label class="control-label" for="address-1">Address Line 1</label>
+					{{ forms.text('address[street_line1]', address.street_line1, {class:'form-control parsley-validated', placeholder:"Address Line 1", id:"address-1", required:true}) }}
+					<div class="validation">{{ forms.errorlist(form_errors, 'street_line1') }}</div>
+				</div>
+				<div class="form-group normalizable">
+					<label class="control-label" for="address-2">Address Line 2</label>
+					{{ forms.text('address[street_line2]', address.street_line2, {class:'form-control parsley-validated', placeholder:"Address Line 2", id:"address-2"}) }}
+					<div class="validation">{{ forms.errorlist(form_errors, 'street_line2') }}</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6">
