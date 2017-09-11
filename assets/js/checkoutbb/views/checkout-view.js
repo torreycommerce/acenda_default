@@ -794,14 +794,12 @@ var checkout = checkout || {};
 
 				$.post(acendaBaseUrl + '/api/order/place',{api_unique_token: that.api_unique_token }).done(function(response) {
 					// Order Successful
-					window.location.hash = 'thankyou';
 					if(typeof response.result == 'undefined') {
 	                      checkoutProcessPercent += 0.05;
 					      setTimeout(retryOrderProcess, 2000);
 					      return;
 	                }
 					checkoutProcessPercent = 1;
-					var tpl = _.template($('#thank-you-template').html());
                     $('.checkoutapp #processing').slideUp();
 
                     /* redirect to oldschool thankyou page rather than having a single page thanktou */
