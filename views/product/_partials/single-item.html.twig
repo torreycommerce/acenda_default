@@ -13,11 +13,14 @@
 			{% set review_score = reviews|average('score') %}
 			{% if review_score > 0 %}
 			<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
+				<a class="btn btn-link btn-sm ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
 				<span class="dib">
 					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
 				</span>
+				</a>
 			</div>
+			{% else %}
+			<a class="btn btn-link btn-sm" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
 			{% endif %}
 			{% endspaceless %}
 		</div>
@@ -47,7 +50,7 @@
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" itemprop="image" width="450" height="450" alt="" style="display:nonewhy">
+						<img id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" itemprop="image" width="450" height="450" alt="">
 					</span>
 				</div>
 			</div>
