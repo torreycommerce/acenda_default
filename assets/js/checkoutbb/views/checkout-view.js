@@ -18,6 +18,8 @@ var checkout = checkout || {};
 		shipping_methods: new checkout.ShippingMethods(),
 		logged_in: false,
 		api_unique_token: null,
+        bt_client_token: '',
+        bt_dropin_instance: null,   		
 		current_step: '',
 		checkout_steps: [
 		    {name: 'signin', form: '#guest-form', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false},
@@ -164,6 +166,24 @@ var checkout = checkout || {};
 	    		    that[callback]();
 	    		}
 		    })
+		},
+		setupBrainTree: function() {
+  			var that = this;
+
+  			$.post(acendaBaseUrl+'/api/braintree/token', function(data) {
+  				that.bt_client_token = data.result.client_token;
+		        braintree.dropin.create({
+		          debug: true,
+		          authorization: that.bt_client_token,
+		          container: '#dropin-container',
+		          paypal: {
+		            flow: 'vault'
+		          }
+		        }, function (createErr, instance) {
+		            that.bt_dropin_instance = instance;
+		        });
+		    });
+
 		},
 		verifyAddress: function(stepName) {
 			var that = this;
@@ -606,6 +626,7 @@ var checkout = checkout || {};
 				});	    			
     		}
 			this.checkout_steps[this.findStep('signin')].completed=true;
+			this.setupBrainTree();
 			this.gotoStep('shipping');
 			return false;
 		},
@@ -745,7 +766,7 @@ var checkout = checkout || {};
 	            $("html, body").animate({ scrollTop: 0 }, "slow");					
 			} else {
 				// console.log('checking dropin',bt_dropin_instance);
-			    bt_dropin_instance.requestPaymentMethod(function(err, payload) {
+			    that.bt_dropin_instance.requestPaymentMethod(function(err, payload) {
 				              console.log(err);				              
 				              console.log(payload);
 				        $('#nonce').val(payload.nonce);
