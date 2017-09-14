@@ -1,0 +1,12 @@
+{% set brands = api.get("/catalog",{attributes:"brand",format:"attributes"}).brand %}
+
+{% block page_content %}
+<div class="row text-center" id="brands">
+	{% set last_letter = "" %}
+	{% for brand in brands|keys %}
+	    {% if brand != "" %}
+		<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 pad"><div class="bgg brand"><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}"><span class="image-space is80"><span class="isd pad-w">{{brand|title}}</span></span></a></div></div>
+		{% endif %}
+	{% endfor %}
+</div>
+{% endblock %}

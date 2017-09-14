@@ -1,17 +1,34 @@
 {% extends "/_layouts/base.html.twig" %}
 {% set default_query = {"status":"active","brand":app.request.path} %}
 {% set default_attributes = "category_id,color,type,gender,size,price,review_score" %}
+{% set name = app.request.path|title %}
 
-{% set title = 'Shop By Brand - ' ~ (app.request.path|title) %}
-
+{% if name == "" %}
+    {% set title = 'Shop By Brand' %}
+    {% set dync = 'shop-by-brand' %}
+{% else %}
+    {% set title = 'Shop By Brand - ' ~ (app.request.path|title) %}
+    {% set dync = 'shop-by-brand-' ~ name %}
+{% endif %}
 {% block title %}{{title}}{% endblock %}
+
+{% block dynamicclasses %}
+    {{dync}}
+{% endblock %}
 
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs({'Brands':'/brands',(app.request.path|title):''}) }}
+{% if name == "" %}
+    {{ base.breadcrumbs({'Shop By Brand':''}) }}
+{% else %}
+    {{ base.breadcrumbs({'Shop By Brand':'/brand',(name):''}) }}
+{% endif %}
 {% endblock %}
 
 {% block content %}
-    {% set name = app.request.path|title %}
+{% if name == "" %}
+    {% include "/brand/_partials/list.html.twig" %}
+{% else %}
     {% include "/category/_partials/base.html.twig" %}
+{% endif %}
 {% endblock %}
