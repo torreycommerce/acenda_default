@@ -182,20 +182,16 @@ li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:e
 .slick-vertical .slick-slide {display:block; height:auto; border:1px solid transparent;}
 .slick-arrow.slick-hidden {display:none;}
 /* */
-.slick-prev, .slick-next {font-size:0; line-height:0; position:absolute; top:50%; display:block; width:20px; height:20px; padding:0; color:transparent; -webkit-transform:translate(0, -50%); -ms-transform:translate(0, -50%); transform:translate(0, -50%); cursor:pointer; border:none; outline:none; background:transparent;}
-.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {outline:none; background:transparent;}
-.slick-prev:before, .slick-next:before, .slick-dots li button:before {font:normal normal normal 14px/1 FontAwesome; color:#666; font-size:24px; text-rendering:auto; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-.slick-prev:hover:before, .slick-prev:focus:before, .slick-next:hover:before, .slick-next:focus:before {color:#000; opacity:1;}
-.slick-arrow.slick-disabled {pointer-events:none;}
-.slick-prev.slick-disabled:before, .slick-next.slick-disabled:before {color:#bbb!important; opacity:.25;}
+.slick-prev, .slick-next {font-size:0; line-height:0; position:absolute; top:50%; z-index:1; display:block; width:20px; height:32px; padding:0; opacity:.6; -webkit-transform:translate(0, -50%); -ms-transform:translate(0, -50%); transform:translate(0, -50%); cursor:pointer; border:none; outline:none; background:transparent;}
+.slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {outline:none; background:transparent; color:#000; opacity:1;}
+.slick-prev:before, .slick-next:before, .slick-dots li button:before {font:normal normal normal 14px/1 FontAwesome; font-size:24px; text-rendering:auto; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+.slick-arrow.slick-disabled {opacity:.25; pointer-events:none;}
 .slick-prev {left:-24px;}
-[dir='rtl'] .slick-prev {right:-24px; left:auto;}
-.slick-prev:before {content:"\f053";}
-[dir='rtl'] .slick-prev:before {content:"\f054";}
 .slick-next {right:-24px;}
+[dir='rtl'] .slick-prev {right:-24px; left:auto;}
 [dir='rtl'] .slick-next {right:auto; left:-24px;}
-.slick-next:before {content:"\f054";}
-[dir='rtl'] .slick-next:before {content:"\f053";}
+.slick-prev:before,[dir='rtl'] .slick-next:before {content:"\f053";}
+.slick-next:before,[dir='rtl'] .slick-prev:before {content:"\f054";}
 .slick-dots {position:absolute; bottom:-25px; display:block; width:100%; padding:0; margin:0; list-style:none; text-align:center;}
 .slick-dots li {position:relative; display:inline-block; width:20px; height:20px; margin:0 5px; padding:0; cursor:pointer;}
 .slick-dots li button {font-size:0; line-height:0; display:block; width:20px; height:20px; padding:5px; cursor:pointer; color:transparent; border:0; outline:none; background:transparent;}

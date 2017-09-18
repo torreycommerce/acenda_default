@@ -84,7 +84,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					<div>Ordered: {{ order.date_created }}</div>
 				</div>
 				{% if order.hide_shipping != true %}
-				<div class="shipping-address">
+				<div class="shipping-address divide g p pad-b">
 					<div><strong>Shipping Address</strong></div>
 					<address>
 						{{ order.shipping_street_line1 }}<br>
@@ -95,7 +95,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					</address>
 				</div>
 				{% endif %}
-				<div class="order-total p">
+				<div class="totals-total p">
 					Total: {{ prod.currency(order.total|number_format(2)) }}
 				</div>
 				{# Begin actions #}

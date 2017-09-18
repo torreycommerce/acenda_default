@@ -850,7 +850,7 @@ var checkout = checkout || {};
 						$('.checkoutapp #summary-panel').fadeIn();	
 						that.api_unique_token = null; 
                         $('#review-panel #review-text').hide();
-						$('#review-panel #error-text').html('Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.'); 	                    
+						$('#review-panel #error-text').html('<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.</p>');
 	                }					
 				});
 
