@@ -6,39 +6,6 @@
 		<div class="row">
 			<div class="col-xs-4 g pull-right hidden-xs hidden-sm tool-wing">
 				<ul class="list-inline" id="tools">
-                    {% if app.request.isAjaxRequest() %}				
-						{% if app.user.id is null %}
-					<li class="tool">
-						<div class="btn-group my-account">
-							<a target="_new" type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-user hidden"></i><span>My Account</span><i class="fa fa-caret-down hidden"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
-								<li role="separator" class="divider"></li>
-								<li> <a href="{{app.url}}/order">Order Status</a></li>
-							</ul>
-						</div>
-					</li>
-						{% else %}
-						{% set customer = api.get('/customer/' ~ app.user.id) %}
-					<li class="tool">
-						<div class="btn-group my-account">
-							<a type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-								<i class="fa fa-user hidden"></i><span>Hi, <u>{{ customer.first_name }}</u></span><i class="fa fa-caret-down hidden"></i>
-							</a>
-							<ul class="dropdown-menu pull-right">
-								<li><a href="{{app.url}}/account">My Account</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="{{app.url}}/account/orders">Orders</a></li>
-								<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
-							</ul>
-						</div>
-					</li>
-						{% endif %}
-					{% endif %}						
 					<li class="cart">
 						<a class="btn btn-link tool-tab" href="{{app.url}}/cart">
 							<i class="fa fa-shopping-bag"></i><span class="text">My Cart</span><span class="dib item-count"></span>
@@ -49,13 +16,14 @@
 			<div class="col-xs-3 hidden-xs hidden-sm tool-wing">
 				<div class="search">
 					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
+					    <label class="sr-only" for="search">Search</label>
 						<div class="form-group input-group twitter-typeahead">
 							<span class="input-group-btn">
 								<button class="btn btn-link" type="submit">
 									<i class="fa fa-search"><i class="sr-only">Search</i></i>
 								</button>
 							</span>
-							<input class="form-control input-white typeahead search-autocomplete" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
+							<input class="form-control input-white typeahead search-autocomplete" id="search" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
 						</div>
 					</form>
 				</div>
@@ -79,7 +47,7 @@
 				</div>
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<a class="btn btn-link btn-sq pull-right" href="{{app.url}}/cart">
+				<a class="btn btn-link btn-sq pull-right" href="{{app.url}}/cart#2">
 					<i class="fa fa-shopping-bag"></i><span class="item-count sr-only">My Cart {{ api.get('/sessioncart').item_count }}</span>
 				</a>
 			</div>

@@ -94,48 +94,43 @@ var acendaBaseThemeUrl = '{{app.url_asset}}';
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 {% endif %}		
-	{% include "/_layouts/stage_header.html.twig" %}
+{% include "/_layouts/stage_header.html.twig" %}
 
-	<div id="body">
-
-		{% block body %}
-			<header id="header">
-				{{ base.protected_site() }}
-				{# avoiding the display of the menu when we're in the store-protected template #}
-				{% if app.request.url != "store-protected" %}
-					{# Begin Toolbar #}
-					{% block header %}
-						{%include "/_layouts/toolbar.html.twig"%}
-					{% endblock %}
-					{# End Toolbar #}
-				{% endif %}
-				{# avoiding the display of the menu when we're in the store-protected template #}
-				{% if app.request.url != "store-protected" %}
-					{# Begin Navigation #}
-						{% include "/_layouts/nav.html.twig" %}
-					{# End Navigation #}
-				{% endif %}
-			</header>
-			{# End Header #}
-			{# Begin Content #}
-			<section class="pad-h pad-b-2x" id="content">
-				<div class="container">
-					{% block breadcrumb %}{% endblock %}
-					{% block stage %}
-						{% block content %}
-						{% endblock %}
-					{% endblock %}
-				</div>
-			</section>
-			{# End Content #}
-			{# Begin Footer #}
-				{% block footer %}
-				{%include "/_layouts/footer.html.twig"%}
-				{% endblock %}
-			{# End Footer #}
+{% block body %}
+<header id="header">
+	{{ base.protected_site() }}
+	{# avoiding the display of the menu when we're in the store-protected template #}
+	{% if app.request.url != "store-protected" %}
+		{# Begin Toolbar #}
+		{% block header %}
+			{%include "/_layouts/toolbar.html.twig"%}
 		{% endblock %}
-		{% block js %}{% endblock %}
+		{# End Toolbar #}
+	{% endif %}
+	{# avoiding the display of the menu when we're in the store-protected template #}
+	{% if app.request.url != "store-protected" %}
+		{# Begin Navigation #}
+			{% include "/_layouts/nav.html.twig" %}
+		{# End Navigation #}
+	{% endif %}
+</header>
+{# End Header #}
+{# Begin Content #}
+<section class="pad-h pad-b-2x" id="content">
+	<div class="container">
+		{% block breadcrumb %}{% endblock %}
+		{% block stage %}
+			{% block content %}
+			{% endblock %}
+		{% endblock %}
 	</div>
+</section>
+
+{% block footer %}
+{%include "/_layouts/footer.html.twig"%}
+{% endblock %}
+{% endblock %}
+{% block js %}{% endblock %}
 
 </body>
 </html>

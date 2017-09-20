@@ -36,8 +36,8 @@ $(document).ready(function() {
    	 // Disable caching of AJAX responses
 	    cache: false
 	});	
-	$.get(acendaBaseUrl+'/account/toolbar', function(data) {
-		$('.toolbarajax').html(data);
+	$.get(acendaBaseUrl+'/account/tools', function(data) {
+		$('#tools').prepend(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//

@@ -21,7 +21,8 @@
 				<section class="newsletter">
 					<h2>Newsletter</h2>
 					<p>Be the first to hear about our products and promotions.</p>
-					 <form>
+					<form>
+                        <label class="sr-only" for="SignupInput">Email Address</label>
 						<div class="input-group input-group-lg">
 							<input id="SignupInput" type="search" placeholder="Email Address" class="form-control" name="email" title="Email Address">
 							<div class="input-group-btn">
@@ -53,9 +54,9 @@
 					<li> <a href="{{app.url}}/order">Order Status</a> </li>
 					{% endif %}
 					{% if app.user.id != '' %}
-					<li><a href="{{app.url}}/account/orders">Easy Returns</a></li>
+					<li><a href="{{app.url}}/account/orders">Returns</a></li>
 					{% else %}
-					<li><a href="{{app.url}}/return">Easy Returns</a></li>
+					<li><a href="{{app.url}}/return">Returns</a></li>
 					{% endif %}
 					{% if "faq" in contents_available %}
 					<li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
@@ -69,15 +70,6 @@
 				</ul>
 			</div>
 		</div>
-		{# Social Network Icons if found in config file #}
-		{# if social settings is not set in the config file, just do nothing #}
-		{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-		{#<div class="row">
-			<div class="col-xs-12 pad-h">
-				  {{ social.social_parseConfig(app.params.social_settings) }}
-			</div>
-		</div>#}
-		{% endif %}
 	
 	{% endif %}
 		<hr class="p-2x">
