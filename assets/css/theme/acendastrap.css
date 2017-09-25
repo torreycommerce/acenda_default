@@ -4230,6 +4230,7 @@ button.close {
 .pad-b-2x {padding-bottom:20px;}
 .pad-b-3x {padding-bottom:30px;}
 .pad-t-2x {padding-top:20px;}
+.pad-t-3x {padding-top:30px;}
 
 .image-space {display:block; position:relative; padding-top:100%;}
 .is80 {padding-top:80%;}
@@ -4320,6 +4321,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 .pad-b-2x {padding-bottom:30px;}
 .pad-b-3x {padding-bottom:45px;}
 .pad-t-2x {padding-top:30px;}
+.pad-t-3x {padding-top:45px;}
 
 h1 {padding:0 0 12px;}
 hr {margin-top:15px; margin-bottom:15px;}
@@ -4374,6 +4376,9 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 body {font-size:87.5%;}
 .fsd1, form .validation {font-size:85.714285%;}
 .fsi1 {font-size:114.285714%;}
+
+.p-xsm {margin-bottom:10px;}
+.p-xsm-2x {margin-bottom:20px;}
 }
 
 @media (max-width:767px){
