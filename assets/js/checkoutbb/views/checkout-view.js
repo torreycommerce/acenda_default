@@ -3,6 +3,7 @@ var checkout = checkout || {};
 (function ($) {
 	'use strict';
 	checkout.CheckoutView = Backbone.View.extend({
+		start_step: 'signin',
 		el: '.checkoutapp',
 		summaryView: null,
 		cart: new checkout.Cart(),
@@ -22,10 +23,10 @@ var checkout = checkout || {};
         bt_dropin_instance: null,   		
 		current_step: '',
 		checkout_steps: [
-		    {name: 'signin', form: '#guest-form', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false},
-		    {name: 'shipping', form: '#shipping-address-form', collapse: '#collapseShipping', edit: '#btn-edit-shipping' , completed: false, open: false},
-		    {name: 'shipping-method', form: '#shipping-method-form', collapse: '#collapseShippingMethod', edit: '#btn-edit-shipping-method' , completed: false, open: false},
-		    {name: 'payment', form: '#payment-form', collapse: '#collapsePayment',edit: '#btn-edit-payment', completed: false, open: false},
+		    {name: 'signin', form: '#guest-form', collapse: '#collapseSignIn', edit: '#btn-edit-signin', completed: false, open: false, check: 'checkSignin'},
+		    {name: 'shipping', form: '#shipping-address-form', collapse: '#collapseShipping', edit: '#btn-edit-shipping' , completed: false, open: false, check: 'checkShipping'},
+		    {name: 'shipping-method', form: '#shipping-method-form', collapse: '#collapseShippingMethod', edit: '#btn-edit-shipping-method' , completed: false, open: false,check: 'checkShippingMethod'},
+		    {name: 'payment', form: '#payment-form', collapse: '#collapsePayment',edit: '#btn-edit-payment', completed: false, open: false,check: 'checkPayment'},
 		    {name: 'review', collapse: '#collapseReview', edit: '#btn-edit-review' , completed: false, open: false}
 		],
 		events: {
@@ -47,10 +48,17 @@ var checkout = checkout || {};
             'change .verify-change-shipping' : 'changedAddress',				
 			'keyup .verify-change-billing' : 'changedAddress',
             'change .verify-change-billing' : 'changedAddress',
-            'change input[name=copy_shipping_to_billing]' : 'changedCopyShippingToBilling'										
+            'change input[name=copy_shipping_to_billing]' : 'changedCopyShippingToBilling',		
+            'change input[name=create_account]' : 'changedCreateAccount',	
+            'keyup input[name=new_user_password],input[name=new_user_password_verify]' : 'changedCreateAccountPassword'         							
 		},
 		initialize: function () {
 			var that = this;
+
+			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
+				//this.start_step=saved_checkout_step;
+			}
+
 			this.summaryView = new checkout.SummaryView();
 			this.cart.on('change',function(e) {
 				if(that.cart.ready === true ) {
@@ -61,7 +69,8 @@ var checkout = checkout || {};
 				if(that.customer.get('email')) that.logged_in=true;
 				else that.logged_in=false;
 				that.checkSignin();
-				if(!that.logged_in) this.gotoStep('signin');
+			   // if(!that.logged_in) this.findStartStep();
+			    if(that.logged_in) that.start_step = 'shipping';
 			}); 
 			// setup edit buttons
 			_.each(this.checkout_steps,function(step,k){ 
@@ -70,10 +79,28 @@ var checkout = checkout || {};
 				})
 			});
 
+
 			this.fetchCart();
 			this.fetchCustomer();
 			this.fetchShippingCountries();
 			this.fetchBillingCountries();
+
+		},
+		findStartStep: function() {
+			var that = this;
+			_.each(this.checkout_steps,function(step) {
+
+				if(step.name == 'shipping') {
+					that.checkShipping(void 0, true);
+				}
+
+				if(step.name == that.start_step) {   
+					that.gotoStep(step.name);
+					return; 
+				}
+				step.completed=true;
+
+			});
 
 		},
 		render: function () {
@@ -298,7 +325,7 @@ var checkout = checkout || {};
 		// Fetch current cart state
 		fetchCustomer: function () {   
 			var that = this;				
-		    this.customer.fetch({error: function() {  that.gotoStep('signin'); that.logged_in=false;  },success: function(data) {
+		    this.customer.fetch({error: function() {  that.logged_in=false;  },success: function(data) {
 		    	that.customer_addresses.fetch({success: function() {
                     that.logged_in=true; that.checkSignin();
 
@@ -362,7 +389,9 @@ var checkout = checkout || {};
 			this.billing_countries.fetch({success: function() {
                 $('#billing-country').html('<option disabled selected>Select a Country</option>');				
 				that.render();
-				that.fetchBillingStates();				
+				that.fetchBillingStates();		
+				that.findStartStep(); 
+			    $('input[name=create_account]').change();						
 			}});
 		},
 		fetchShippingStates: function() {
@@ -464,7 +493,10 @@ var checkout = checkout || {};
 					that.current_step = name;
 				    that.checkout_steps[k].open=true;					
 					$(step.collapse).collapse('show');
-			     	$('#'+step.name+'-panel .step-data').hide();	         	
+			     	$('#'+step.name+'-panel .step-data').hide();
+					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name}).always(function(response){
+					});	    
+
 				}
 			});
 			that.render();
@@ -613,7 +645,19 @@ var checkout = checkout || {};
 				}
 			}
 			var form = this.getFormData('#guest-form');
+			$('#create-user-error').html('');
+			if(form.create_account) {
+				if(form.new_user_password.length<6) {
+					 $('#create-user-error').html('Password must be at least 6 characters');
+					 return;
+				}
 
+				if(form.new_user_password != form.new_user_password_verify) {
+					 $('#create-user-error').html('Passwords do not match');
+					 return;		
+				}
+				
+			}
 
 			if(this.logged_in) {
 			    var tpl = _.template('Logged in as <%=first_name%> <%=last_name%> ');				
@@ -629,6 +673,43 @@ var checkout = checkout || {};
 			this.setupBrainTree();
 			this.gotoStep('shipping');
 			return false;
+		},
+		changedCreateAccount: function(e) {
+			if($(e.target).is(":checked")) {
+				if(typeof $('#newPass').parsley !=='undefined') {
+					$('#newPass').parsley('addConstraint', {
+	                    required: true 
+	                });
+					$('#newPassVerify').parsley('addConstraint', {
+	                    required: true 
+	                });                
+				}
+				$('#new-user-form').show('fade');
+			} else {
+				if(typeof $('#newPass').parsley !=='undefined') {				
+					$('#newPass').parsley('removeConstraint', 'required');
+					$('#newPassVerify').parsley('removeConstraint', 'required');                								
+				}
+				$('#new-user-form').hide('fade');
+
+			}
+		},
+		changedCreateAccountPassword: function(e) {
+			var form = this.getFormData('#guest-form');
+			$('#create-user-error').html('');
+			if(form.create_account) {
+				if(form.new_user_password.length<6) {
+					 $('#create-user-error').html('Password must be at least 6 characters');
+					 return;
+				}
+
+				if(form.new_user_password != form.new_user_password_verify) {
+					 $('#create-user-error').html('Passwords do not match');
+					 return;		
+				}
+				
+			}
+
 		},
 		changedCopyShippingToBilling: function(e) {
 			var that = this;
@@ -676,23 +757,26 @@ var checkout = checkout || {};
 			if(typeof e !=='undefined') e.preventDefault();
 			this.gotoStep('shipping');			
 		},
-		checkShipping: function(e) {
+		checkShipping: function(e, dontGo) {
 			var that = this;
 			if(typeof e !=='undefined') e.preventDefault();
-			if(!this.validateStep('shipping')) return;
-			if(!this.verifyAddress('shipping')) return;
+			if(!dontGo && !this.validateStep('shipping')) return;
+			if(!dontGo && !this.verifyAddress('shipping')) return;
 
  			var form = this.getFormData('#shipping-address-form');
- 			if(typeof form.shipping_state == 'undefined') form.shipping_state = '';
-			if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 	
-			if(that.shipping_states.length) {
-				form['shipping_state'] = form['shipping_state_select'];
-			} else if(form['shipping_state_text']) {
-				form['shipping_state'] = form['shipping_state_text'];
-			}
 
+ 			if(!dontGo) {
+	 			if(typeof form.shipping_state == 'undefined') form.shipping_state = '';
+				if(typeof form.shipping_country == 'undefined') form.shipping_country = 'US'; 	
+				if(that.shipping_states.length) {
+					form['shipping_state'] = form['shipping_state_select'];
+				} else if(form['shipping_state_text']) {
+					form['shipping_state'] = form['shipping_state_text'];
+				}
+			}
+			if(!form['shipping_state']) form['shipping_state'] = form['shipping_state_text'];
 			var tpl = _.template('<%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>, <%=shipping_state%> <%=shipping_zip%>');
-			$('#shipping-panel .step-data').html(tpl(form));
+			 if(!dontGo) $('#shipping-panel .step-data').html(tpl(form));
 			if($('input[name=copy_shipping_to_billing]').is(":checked")) {
 				$('.checkoutapp #billing-address').hide();
 				$.each(form,function (k,v){
@@ -711,12 +795,12 @@ var checkout = checkout || {};
 			this.checkout_steps[this.findStep('shipping')].completed=true;
 
 
-			this.gotoStep('shipping-method');
+			if(!dontGo) this.gotoStep('shipping-method');
 			return false;
 		},
 		checkShippingMethod: function(e) {
 			var that = this;			
-			e.preventDefault();
+			if(typeof e !=='undefined') e.preventDefault();
 			if(!this.validateStep('shipping-method')) return;
   			var form = this.getFormData('#shipping-method-form');
 			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="hidden"><%= method.price %></div>');

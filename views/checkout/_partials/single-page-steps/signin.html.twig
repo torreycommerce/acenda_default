@@ -7,6 +7,34 @@
 		    <label for="guestEmail">Email Address</label>
 		    <input type="email" class="form-control parsley-validated" id="guestEmail" name="email" value="{{ app.user.getState('email') }}" placeholder="Email Address" required>
 		  </div>
+			<div class="form-group">
+				<div class="checkbox">
+					{% set checked = '' %}
+					{% if app.user.getState('newsletter') == '1' %}{% set checked = 'checked' %}{% endif %}					
+				  <label><input type="checkbox" name="newsletter" {{ checked }} value="1">Signup for special offers!</label>
+				</div>
+			</div>				  
+			<div class="form-group">
+				<div class="checkbox">
+			 	{% set create_checked = '' %}
+			  	{% if app.user.getState('create_account') == '1' %}{% set create_checked = 'checked' %}{% endif %}	
+
+				  <label><input type="checkbox" name="create_account" {{ create_checked }} value="1">Create an Account!</label>
+				</div>
+			</div>	
+
+			<div id="new-user-form" style="display:none">
+			  <div class="form-group fgq">
+			    <label for="custPass">Create Password</label>
+			    <input type="password" class="form-control parsley-validated" id="newPass" name="new_user_password" placeholder="Password"  value="{{ app.user.getState('new_user_password') }}" >
+			  </div>
+			  <div class="form-group fgq">
+			    <label for="custPass">Verify Password</label>
+			    <input type="password" class="form-control parsley-validated" id="newPassVerify" name="new_user_password_verify" placeholder="Verify Password" value="{{ app.user.getState('new_user_password_verify') }}" >
+			  </div>
+		       <div class="text-danger" id="create-user-error"></div>  			  
+			</div>
+
 		  <button id="btn-continue-signin" class="btn btn-lg btn-primary btn-cart btn-xs-block pull-right">Continue</button>
 		</form>
 	</div>
@@ -23,6 +51,7 @@
 		    <input type="password" class="form-control" id="custPass" name="password" placeholder="Password">
 		  </div>
 		  <div class="text-danger" id="signin-error"></div>  
+		  <div style="padding: 10px;"> </div>
 		  <button id="btn-login-signin" class="btn btn-lg btn-primary btn-cart btn-xs-block pull-right">Sign In</button>
 		</form>
 
