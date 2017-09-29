@@ -370,8 +370,9 @@ var checkout = checkout || {};
 		    }});	
 		},
 		reloadToolbar: function() {
-			$.get(acendaBaseUrl+'/account/toolbar', function(data) {
-				$('.toolbarajax').html(data);
+			$.get(acendaBaseUrl+'/account/tools', function(data) {
+				$('#tools .tool').remove();
+				$('#tools').prepend(data);
 		    });
 		},
 		fetchShippingCountries: function() {
@@ -955,6 +956,8 @@ var checkout = checkout || {};
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
 				if(response.code == 200) {
 					that.fetchCustomer();
+					//
+					that.reloadToolbar();
 				} 				
 			}).fail(function(response){
 				$('#signin-error').html(response.responseJSON.error.password[0]);
