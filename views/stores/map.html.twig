@@ -270,7 +270,7 @@ function createMarker(location,id){
 	//
 	var formattedContent;
 	//console.log(location.title)
-	formattedContent = '<div class="marker-info"><h3><i class="fa fa-map-marker"></i><span>'+location.title+location.publish+'</span></h3><address><div>'+location.street_line1+'</div>';
+	formattedContent = '<div class="marker-info"><h3><i class="fa fa-map-marker"></i><span>'+location.title+'</span></h3><address><div>'+location.street_line1+'</div>';
 	if (location.street_line2 !== null && location.street_line2 !== "") {
 		formattedContent += '<div>'+location.street_line2+'</div>';
 	}
