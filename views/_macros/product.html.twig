@@ -9,8 +9,17 @@
 		{% if 'image' in options %}
 			{# Grab image based on color facets #}
 			{% if product.images is not empty %}
-				{% set image_url = app.image.getImageUrl('product','thumbnail', product.images[0].id) %}
-			{% else %}
+			    {% set potentialImages = [] %}
+			    {% for imo in product.images %}
+			        {% if imo.type != "swatch" %}
+			            {% set potentialImages = potentialImages|merge([imo]) %}
+			        {% endif %}
+			    {% endfor %}
+			    {% if potentialImages|length > 0 %}
+				    {% set image_url = app.image.getImageUrl('product','thumbnail', potentialImages[0].id) %}
+				{% endif %}
+			{% endif %}
+			{% if image_url is empty %}
 				{% set fallback = "" %}
 				{% set image_url = "" %}
 				{# Look for first variant with images, price>0 and has_stock #}
@@ -125,11 +134,12 @@
 					{% if image_url0 is not empty %}
 					    {% set image_url = image_url0[0].thumbnail %}
 				    {% endif %}
+				    {% set image_urlB = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
 					{% if image_url is empty %}
-					    {% set image_url = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
+					    {% set image_url = image_urlB %}
 				    {% endif %}
 					<div class="col-xs-2 col-thin p-mini">
-						<img src="{{ image_url }}" class="color-chip img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_url }}" width="250" height="250" alt="">
+						<img src="{{ image_url }}" class="color-chip img-responsive" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}" width="250" height="250" alt="">
 					</div>
 				{% endfor %}
 				</div>

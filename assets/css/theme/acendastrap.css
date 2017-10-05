@@ -3157,11 +3157,9 @@ a.label:focus {
 .alert .alert-link {
   font-weight: bold;
 }
-.alert-dismissable,
 .alert-dismissible {
   padding-right: 35px;
 }
-.alert-dismissable .close,
 .alert-dismissible .close {
   position: relative;
   top: -2px;

@@ -88,7 +88,6 @@
 		<div class="max-320">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
 				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-					<!--name: {{variation.name}} <small><i>pos: {{variation.position}}</i></small>-->
     				{% set needsku = product.variant|values_in('sku') %}
     				{% if needsku[0] is not empty %}
     					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
