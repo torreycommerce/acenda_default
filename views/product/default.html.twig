@@ -3,20 +3,25 @@
 {% set request = app.request.path | split('/') %}
 {% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}
 {% if item.id is empty %}
-    {% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
-    {% if item.id is empty %}
-        {% if request.1 | split('-') | last | integer %}
-            {% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}
-            {% if item.url is not empty %}
-                {% do app.redirect(item.url,{'code':301}) %}
+    {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
+    {% if response and response[0].destination %}
+       {% do app.redirect(response[0].destination ,response[0].code) %}
+    {% else %}
+        {% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
+        {% if item.id is empty %}
+            {% if request.1 | split('-') | last | integer %}
+                {% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}
+                {% if item.url is not empty %}
+                    {% do app.redirect(item.url,{'code':301}) %}
+                {% else %}
+                    {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.' ~ request.1 | split('-') | last}) %}
+                {% endif %}
+    
             {% else %}
-                {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.' ~ request.1 | split('-') | last}) %}
+                {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.'}) %}
             {% endif %}
-
-        {% else %}
-            {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.'}) %}
         {% endif %}
-    {% endif %}
+    {% endif %}        
 {% endif %}
 
 {% set reviews = api.get('/productreview', { query:{ product_id: item.id,status:"active" } }) %}
