@@ -259,9 +259,9 @@ var desire = getQueryParams(document.location.search);
 /* stores */
 var mapReady = setInterval(function(){
 	if (typeof jQuery != 'undefined' && ($('#map').length || $('#search-locs').length)) {
+		clearInterval(mapReady);
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/locations.js",function(){
 			$('body').append('<script src="https://maps.googleapis.com/maps/api/js?key='+gMapApiKey+'&libraries=places&rankby=distance&callback=acendaMaps" async defer></script>');
-			clearInterval(mapReady);
 		});
 	}
 },1000);

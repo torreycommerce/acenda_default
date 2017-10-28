@@ -4,7 +4,7 @@
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 	{% import _self as this %}
 	{% import "/_macros/base.html.twig" as base %}
-	<div class="product g" itemscope itemtype="http://schema.org/Product">
+	<div class="product g">
 		<a href="{{app.url}}/product/{{product.slug}}">
 		{% if 'image' in options %}
 			{# Grab image based on color facets #}
@@ -42,7 +42,7 @@
 
 			<div class="max-250 p">
 				<div class="image-space">
-					<img itemprop="image" id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="">
+					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="">
 					<div class="labels">
 					{% for tag in product.tags %}
 						{% if tag == 'new' %}
@@ -63,14 +63,14 @@
 		{% if 'details' in options %}
 		
 			<h3 class="brand-product">
-				<span class="brand"><span itemprop="brand">{{product.brand}} </span></span><span class="product-name"><span itemprop="name">{{product.name}}</span></span>
+				<span class="brand"><span>{{product.brand}} </span></span><span class="product-name"><span>{{product.name}}</span></span>
 			</h3>
 		
 		</a>
 		
-		<div class="pricing p" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<div class="pricing p">
 			{% if product.attributes.price %}
-			<div class="price p-mini"><span itemprop="price">{{ this.price(product.attributes.price) }}</span></div>
+			<div class="price p-mini"><span>{{ this.price(product.attributes.price) }}</span></div>
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
 			<div class="price-per-month hidden-xs">
@@ -98,10 +98,10 @@
 		{% set review_score = reviews|average('score') %}
 		{% if review_score > 0 %}
 		{% spaceless %}
-		<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		<div class="fsd1 rating">
 			<span>{{ base.rating( review_score ) }}</span>
-			<span class="dib"><span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>
-				{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>)
+			<span class="dib"><span>{{ (review_score * 5)|number_format(1) }}</span>
+				{% if reviews.num_total %}(<span>{{ reviews.num_total }}</span>)
 				{% endif %}
 			</span>
 		</div>
@@ -153,6 +153,12 @@
 {% endspaceless %}
 {% endmacro %}
 
+
+
+{% macro getcur() %}USD{% endmacro %} {# EUR #}
+
+{% macro getcurs() %}${% endmacro %} {# € #}
+
 {% macro currency(val,ip,add) %}
 {#	price,
 	optional bool for if itemprop html is desired,
@@ -167,13 +173,13 @@
 	{% endif %}
 	{% if cur == "EUR" %}
 		{% if ip == 1 %}
-			<span class="val" itemprop="{{add}}">{{val}}</span><span class="cursign" itemprop="priceCurrency" content="{{cur}}">{{curs}}</span>
+			<span class="val">{{val}}</span><span class="cursign" content="{{cur}}">{{curs}}</span>
 		{% else %}
 			<span class="val">{{val}}</span><span class="cursign">{{curs}}</span>
 		{% endif %}
 	{% else %}
 		{% if ip == 1 %}
-			<span class="cursign" itemprop="priceCurrency" content="{{cur}}">{{curs}}</span><span class="val" itemprop="{{add}}">{{val}}</span>
+			<span class="cursign" content="{{cur}}">{{curs}}</span><span class="val">{{val}}</span>
 		{% else %}
 			<span class="cursign">{{curs}}</span><span class="val">{{val}}</span>
 		{% endif %}
@@ -196,7 +202,7 @@
 		{% if min == max or min == 0 %}
 			{{ this.currency(max|number_format(2),1) }}
 		{% else %}
-		    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+		    <span>
 			{{ this.currency(min|number_format(2),1,"price minPrice") }}<span class="splitter"> - </span>{{ this.currency(max|number_format(2),1,"maxPrice") }}
           </span>
 		{% endif %}

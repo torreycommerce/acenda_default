@@ -1,21 +1,21 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
-<div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row" itemscope itemtype="http://schema.org/Product">
+<div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row">
 
 	<div id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
 		<div class="max-450">
 			{% if product.brand is not empty %}
 			<div class="brand p-mini">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}" itemprop="brand">{{product.brand}}</a>
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
 			</div>
 			{% endif %}
-			<h1 class="product-name" itemprop="name">{{product.name}}</h1>
+			<h1 class="product-name">{{product.name}} hi</h1>
 			{% spaceless %}
 			{% set review_score = reviews|average('score') %}
 			{% if review_score > 0 %}
-			<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+			<div class="fsd1 rating">
 				<a class="btn btn-link btn-sm ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
 				<span class="dib">
-					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
+					<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
 				</span>
 				</a>
 			</div>
@@ -50,7 +50,7 @@
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" itemprop="image" width="450" height="450" alt="">
+						<img id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" width="450" height="450" alt="">
 					</span>
 				</div>
 			</div>
@@ -87,10 +87,10 @@
 	<div id="product-details" class="col-xs-12 col-sm-5 p-2x">
 		<div class="max-320">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
-				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
     				{% set needsku = product.variant|values_in('sku') %}
     				{% if needsku[0] is not empty %}
-    					<div class="sku">Item: <span itemprop="sku">{{variation.sku}}</span></div>
+    					<div class="sku">Item: <span>{{variation.sku}}</span></div>
     				{% endif %}
     					<div class="pricing">
     						<div class="p-mini price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
@@ -180,7 +180,6 @@
 				{% endif %}
 			{% endif %}
 
-			
 			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
 				<div class="actions">
 					<div class="" id="div-quantity-{{product.id}}">
@@ -205,5 +204,69 @@
 			</form>
 		</div>
 	</div>
+
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
+
 </div>
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "{{product.name}}",
+    "image": "{{prodimg.standard}}",
+    "description": "{{product.description|striptags}}",
+    "brand": {
+        "@type": "Thing",
+        "name": "{{product.brand}}"
+    },
+    {% if review_score > 0 %}
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{(review_score * 5)}}",
+        "reviewCount": "{{ reviews.num_total }}"
+    },
+    "review": [
+        {% for rev in reviews %}
+        {
+            "@type": "Review",
+            "author": "{{rev.first_name}}",
+            "datePublished": "{{rev.date_created}}",
+            "description": "{{rev.comment}}",
+            "name": "{{rev.title}}",
+            "reviewRating": {
+                "@type": "Rating",
+                "bestRating": "5",
+                "ratingValue": "{{(rev.score * 5)}}",
+                "worstRating": "1"
+            }
+        }{% if loop.last == false %},{% endif %}
+        {% endfor %}
+    ],
+    {% endif %}
+    {% if product.videos is not empty %}
+    {% set vidthumb = product.videos[0] %}
+    {% set vidthumb = vidthumb|split('?v=') %}
+    {% set vidthumb = vidthumb[1] %}
+    "video": {
+        "@type": "VideoObject",
+        "description": "Product video.",
+        {#"duration": "T1M33S",#}
+        "name": "{{product.name}} Video",
+        "thumbnail": "{{vidthumb}}"
+    },
+    {% endif %}
+    "offers": [
+        {% set vs = product.variant %}
+        {% for varia in vs %}
+        {
+            "@type": "Offer",
+            "price": "{{varia.price|number_format(2)}}",
+            "priceCurrency": "{{prod.getcur()}}",
+            "sku": "{{varia.sku}}",
+            "itemCondition": "http://schema.org/NewCondition",
+            "availability": {% if varia.has_stock == true %}"http://schema.org/InStock"{% else %}"http://schema.org/OutOfStock"{% endif %}
+        }{% if loop.last == false %},{% endif %}
+        {% endfor %}
+    ]
+}
+</script>

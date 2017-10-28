@@ -1,0 +1,26 @@
+{% if product.cross_sellers is not empty %}
+<section class="product-grid">
+<h2><span>You May Also Like</span></h2>
+<div class="row c-c text-center">
+{% set items_per_row = 12 %}
+{% set collection_ids = [] %}
+{% set product_count = 1 %}
+{% set products = api.get('/catalog', {query:{id:{"$in":product.cross_sellers}},sort:"product.variant.popularity:-1",limit:4}) %}
+{% for row,product in products if  product.id not in collection_ids and product_count < 13 %}
+    {% if product.group == 'product' %}
+        {% for id in product.product[0].collection_id %}
+            {% set collection_ids = collection_ids|merge([id]) %}
+        {% endfor %}
+    {% else %}
+        {% set collection_ids = collection_ids|merge([product.id]) %}
+    {% endif %}
+    {% set product_count = product_count + 1 %}
+    {# Begin product #}
+    <div class="col-xs-6 col-sm-3 p-2x">
+        {{ prod.gridproduct(product, ['image','details']) }}
+    </div>
+    {# End product #}
+{% endfor %}
+</div>
+</section>
+{% endif %}
