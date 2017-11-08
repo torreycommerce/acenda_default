@@ -205,7 +205,23 @@ var checkout = checkout || {};
 		          container: '#dropin-container',
 		          paypal: {
 		            flow: 'vault'
-		          }
+		          },
+				  dataCollector: {
+				    kount: {environment: data.result.environment}
+				  },
+				  onReady: function (braintreeInstance) {
+				    var form = document.getElementById('my-form-id');
+				    var deviceDataInput = form['device_data'];
+
+				    if (deviceDataInput == null) {
+				      deviceDataInput = document.createElement('input');
+				      deviceDataInput.name = 'device_data';
+				      deviceDataInput.type = 'hidden';
+				      form.appendChild(deviceDataInput);
+				    }
+
+				    deviceDataInput.value = braintreeInstance.deviceData;
+				  }
 		        }, function (createErr, instance) {
 		            that.bt_dropin_instance = instance;
 		        });
