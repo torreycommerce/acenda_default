@@ -12,7 +12,7 @@
 		<ul>
 		{% for feature in product.dynamic_attributes %}
 		   <li>
-			   {{feature}}: {{product[feature]}}
+			   {{feature|title}}: {{product[feature]}}
 		   </li>
 		{% endfor %}
 		</ul>
