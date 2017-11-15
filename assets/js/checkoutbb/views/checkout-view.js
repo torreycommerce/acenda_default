@@ -20,6 +20,8 @@ var checkout = checkout || {};
 		logged_in: false,
 		api_unique_token: null,
         bt_client_token: '',
+        bt_environment: 'sandbox',
+        bt_device_data: null,
         bt_dropin_instance: null,   		
 		current_step: '',
 		checkout_steps: [
@@ -199,15 +201,21 @@ var checkout = checkout || {};
 
   			$.post(acendaBaseUrl+'/api/braintree/token', function(data) {
   				that.bt_client_token = data.result.client_token;
+  				that.bt_environment = data.result.environment;
 		        braintree.dropin.create({
 		          debug: true,
 		          authorization: that.bt_client_token,
 		          container: '#dropin-container',
 		          paypal: {
 		            flow: 'vault'
-		          }
+		          },
+				  dataCollector: {
+				    kount: {environment: 'sandbox'},
+				    paypal: true
+				  }
 		        }, function (createErr, instance) {
 		            that.bt_dropin_instance = instance;
+				    that.bt_device_data = null;		    	            
 		        });
 		    });
 
@@ -217,8 +225,6 @@ var checkout = checkout || {};
 			var step = this.checkout_steps[this.findStep(stepName)];
 			var formData = this.getFormData(step.form);
 			var form_elem = $(step.form);
-
-
 
 			if(step.name === 'shipping') {
 				var shipping_country=$('#shipping-country').val();
@@ -243,7 +249,6 @@ var checkout = checkout || {};
 
 			var addySelect = $('.checkoutapp #' + stepName + '-panel #customer-addresses select').val();
 
-			console.log(addySelect);
 			if(that.logged_in  && addySelect!=0) return true;
 
 			if(typeof formData['verified'] !=='undefined' && formData['verified']==1){ 
@@ -541,13 +546,16 @@ var checkout = checkout || {};
 				}
 			});	
 
+
+				checkoutForm = $.extend(checkoutForm,{device_data: JSON.stringify( this.bt_device_data) });
+		
 			if(this.logged_in) {
 				checkoutForm = $.extend(checkoutForm,{customer_id: this.customer.get('id')});
 			}
+			console.log('checkoutform',checkoutForm);
 			return checkoutForm;
 		},
 		changedAddress: function(e) {
-			console.log($(e.target).parents('.panel'));
 			$(e.target).parents('.panel').find('#address-verify').html('');
 		},
 		changedShippingCountry: function() {
@@ -842,9 +850,6 @@ var checkout = checkout || {};
 	                 $('select#exp-y').parent().removeClass('has-error'); 
 	                 $('select#exp-m').parent().removeClass('has-error');                                      
 	            }
-				// $.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
-				    
-				// });	
 				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
 				that.checkout_steps[this.findStep('payment')].completed=true;
 		     	that.gotoStep('review');
@@ -855,6 +860,9 @@ var checkout = checkout || {};
 				              console.log(err);				              
 				              console.log(payload);
 				        $('#nonce').val(payload.nonce);
+				        if(typeof payload.deviceData !== 'undefined' ) {
+				        	that.bt_device_data = payload.deviceData;
+				        }
 						that.checkout_steps[that.findStep('payment')].completed=true;
 				     	that.gotoStep('review');
 			            $("html, body").animate({ scrollTop: 0 }, "slow");	
