@@ -8,7 +8,7 @@
 				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
 			</div>
 			{% endif %}
-			<h1 class="product-name">{{product.name}} hi</h1>
+			<h1 class="product-name">{{product.name}}</h1>
 			{% spaceless %}
 			{% set review_score = reviews|average('score') %}
 			{% if review_score > 0 %}

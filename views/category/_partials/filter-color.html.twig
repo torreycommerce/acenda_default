@@ -15,8 +15,8 @@
 						{% else %}
 							{% set link = filter_request|merge({(name):link}) %}
 						{% endif %}
-						<div class="col-thin col-xs-2 col-sm-1 col-md-2 p-thin">
-						   <a class="color-chip {{ item|replace({' ':'-'})|lower }} {% if selected %}active{% endif %} {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}" data-tooltip data-toggle="tooltip" data-original-title="{{item|title}}">
+						<div class="col-thin col-xs-2 col-sm-1 col-md-2 p-thin color-chip">
+						   <a class="{{ item|replace({' ':'-'})|lower }} {% if selected %}active{% endif %} {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}" data-tooltip data-toggle="tooltip" data-original-title="{{item|title}}">
 								<span class="image-space">
 								{% if current_count == 0 %}<i class="isd fa fa-times"><i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i></i>{% elseif selected %}
 								<i class="isd fa fa-check"><i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i></i>{% else %}<i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i>

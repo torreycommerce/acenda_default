@@ -243,12 +243,12 @@
 				<div class="row c-c text-center">
 					{% for category in categories %}
 					{# Begin category #}
-					<div class="col-xs-6 col-sm-4 p">
-						<div class="product">
+					<div class="col-xs-6 col-sm-4 p-2x">
+						<div class="category">
 						    <a href="{{app.url}}/category/{{category.slug}}">
 							    <div class="max-250 p">
 									<span class="image-space">
-										<img src="{{category.thumbnail}}" class="img-responsive isd">
+										<img src="{{category.thumbnail}}" class="img-responsive isd" width="250" height="250" alt="">
 									</span>
 							    </div>
     							<h3 class="category-name">{{ category.name }}</h3>

@@ -16,10 +16,6 @@
 .btn-group-qty .btn-add, .btn-group-qty .btn-remove {position:absolute; top:0; right:0;}
 .btn-group-qty .btn-remove {top:24px;}
 
-@media (min-width:992px) {
-
-}
-
 
 /* fa */
 .fa{display:inline-block;min-width:1em;margin-right:.5em;margin-left:.5em;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-align:center;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-lg{font-size:1.33333333em;line-height:.75em;vertical-align:-15%}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-fw{width:1.28571429em;text-align:center}.fa-ul{padding-left:0;margin-left:2.14285714em;list-style-type:none}.fa-ul>li{position:relative}.fa-li{position:absolute;left:-2.14285714em;width:2.14285714em;top:.14285714em;text-align:center}.fa-li.fa-lg{left:-1.85714286em}.fa-border{padding:.2em .25em .15em;border:solid .08em #eee;border-radius:.1em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.fa-rotate-90{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);-webkit-transform:rotate(270deg);-ms-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);-webkit-transform:scale(-1, 1);-ms-transform:scale(-1, 1);transform:scale(-1, 1)}.fa-flip-vertical{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);-webkit-transform:scale(1, -1);-ms-transform:scale(1, -1);transform:scale(1, -1)}:root .fa-rotate-90,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-flip-horizontal,:root .fa-flip-vertical{filter:none}.fa-stack{position:relative;display:inline-block;width:2em;height:2em;line-height:2em;vertical-align:middle}.fa-stack-1x,.fa-stack-2x{position:absolute;left:0;width:100%;text-align:center}.fa-stack-1x{line-height:inherit}.fa-stack-2x{font-size:2em}.fa-inverse{color:#fff}
@@ -36,7 +32,7 @@
 
 
 /* acenda global */
-img[data-image-swap],img[data-image-zoom] {cursor:pointer;}
+*[data-image-swap],*[data-image-zoom] {cursor:pointer;}
 
 #header .popover {top:100%!important; right:20px; left:20px!important; width:auto; margin:0; max-width:none;}
 .ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
@@ -135,7 +131,8 @@ ul.nav li:hover > ul.dropdown-menu {display:block;}
 li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
 .filter .color-chips {padding-bottom:4px;}
-.color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; box-shadow:0 0 2px rgba(0,0,0,.4); opacity:.9;}
+.color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); background:#f0f0f0; opacity:.9;}
+.color-chip .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb;}
 .color-chip.disabled {opacity:.1;}
 .color-chip.red {background-color:#9b1e20;}
 .color-chip.orange {background-color:#f90;}
@@ -148,8 +145,9 @@ li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:e
 .color-chip.gray, .color-chip.grey {background-color:#aaa;}
 .color-chip.white {color:#666; background:#fcfcfc; text-shadow:0 1px 1px rgba(255,255,255,.5);}
 .color-chip.multi {background:#88bfe8; background:linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);}
-.color-chip:hover,.color-chip:focus {color:#fff; text-decoration:none; opacity:1; outline:1px solid #000;}
-.color-chip.active {outline:1px solid #000; opacity:1;}
+.color-chip:hover {color:#fff; text-decoration:none; opacity:1;}
+.color-chip:hover .image-space:after {border-color:#000;}
+.color-chip.active .image-space:after {border-color:#000; opacity:1;}
 .color-chip.white:hover, .color-chip.white:focus {color:#666;}
 
 .product-grid .color-chips .col-xs-2 {float:none; display:inline-block; width:20%;}
