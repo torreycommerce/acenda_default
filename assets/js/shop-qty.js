@@ -2,30 +2,36 @@
 function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
-		$('#subtotal').css({'opacity':1});
+		//
 	})
 	.done(function(data) {
-		// Different field name if it's a sale amount vs. regular
-		if (qtyField.parents('.item').find('.sale').length) {
-			var priceElement = qtyField.parents('.item').find('.sale .amount');
+		var dataRST = data.result.subtotal;
+		var dataQty = data.result.items[cartItemId].quantity;
+		var itemElement = qtyField.parents('.item');
+		var priceElement = itemElement.find('.cart-indiv .price .val').html();
+
+		amount = parseFloat(priceElement * dataQty).toFixed(2);
+		var savings = parseFloat( ( itemElement.find('.cart-indiv .price-regular .val').html() - itemElement.find('.cart-indiv .price .val').html() ) * dataQty).toFixed(2);
+
+		itemElement.find('.cart-total .price .val').html(amount);
+		itemElement.find('.cart-total .percent .val').html(savings);
+
+		$('#estimate-subtotal .val').html(dataRST);
+		//
+		var rateEC = $('#rate-estimate-checkout .val').text();
+		var taxEC = $('#tax-estimate-checkout .val').text();
+		var totalBT = $('#total-before-tax .val').text();
+		var ifTotalBT = parseFloat(parseFloat(dataRST) + parseFloat(rateEC)).toFixed(2);
+		var newEstimateTotal = 0;
+		//
+		if ($('#total-before-tax .val').html() > 0 ) {
+		    $('#total-before-tax .val').html(ifTotalBT);
+			newEstimateTotal = parseFloat(parseFloat(taxEC) + parseFloat(ifTotalBT)).toFixed(2);
 		} else {
-			var priceElement = qtyField.parents('.item').find('.regular .amount');
+            newEstimateTotal = parseFloat(dataRST).toFixed(2);
 		}
-
-		var amount = priceElement.find('.dollars').html() + '.' + priceElement.find('.cents').html();
-		amount = parseFloat(amount * data.result.items[cartItemId].quantity).toFixed(2);
-
-		// Line item amount
-		var item_amount = amount.split('.');
-		// toLocaleString for the commas
-		qtyField.parents('.item').find('.total .dollars').html(parseInt(item_amount[0]).toLocaleString());
-		qtyField.parents('.item').find('.total .cents').html(item_amount[1]);
-
-		// Subtotal
-		var result = data.result.subtotal.split('.');
-		// toLocaleString for the commas
-		$('#subtotal .amount .dollars').html(parseInt(result[0]).toLocaleString());
-		$('#subtotal .amount .cents').html(result[1]);
+		//
+		$('#estimate-total .val').html(newEstimateTotal);
 	});
 }
 
@@ -106,14 +112,14 @@ function adjustQuantity(qtyField, increment, postForm) {
 			}).fail(function(e) {
 				data = $.parseJSON(e.responseText);
 				qtyField.val(previousValue -= increment);
-				if (data.code === 400 && model === 'sessioncartitem') { // Bad request for the cart - not enough inventory
+				if (data.code === 400 && model === 'cart/item') { // Bad request for the cart - not enough inventory
 					qtyField.parents('.item').find('.error').html('Not enough inventory to add more items!');
 				} else { // Probably a connection failure
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}
 				qtyField.parents('.item').find('.error').show();
 			}).done(function(e) {
-				if (model === 'sessioncartitem') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
+				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
 				}
 			});

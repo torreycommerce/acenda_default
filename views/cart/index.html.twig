@@ -156,7 +156,7 @@
 	{% set product = products[item.product_id].0 %}
 	{% set parent = api.get('product/' ~ product.product_id)%}
 	{% spaceless %}
-	<div class="divide p-2x pad-b-2x">
+	<div class="divide item p-2x pad-b-2x">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
 				<div class="media media-cart p-0 p-xs">
@@ -308,7 +308,7 @@
 		<div class="col-xs-12 col-md-5">
 			<div class="well">
 				<div class="p" id="subtotal">
-					<div class="row">
+					<div class="row" id="estimate-subtotal">
 						<div class="col-xs-7">Subtotal:</div>
 						<div class="amount col-xs-5 text-right">
 							{{ prod.currency(cart.item_subtotal|number_format(2)) }}
