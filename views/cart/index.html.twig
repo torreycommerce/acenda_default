@@ -307,22 +307,20 @@
 		</div>
 		<div class="col-xs-12 col-md-5">
 			<div class="well">
-				<div class="p" id="subtotal">
-					<div class="row" id="estimate-subtotal">
+				<div class="p">
+					<div class="row estimate-subtotal">
 						<div class="col-xs-7">Subtotal:</div>
-						<div class="amount col-xs-5 text-right">
+						<div class="col-xs-5 text-right">
 							{{ prod.currency(cart.item_subtotal|number_format(2)) }}
-							{#<span class="dollar-sign">$</span>{{ cart.item_subtotal|number_format(2)}}#}
 						</div>
 					</div>
 					{% if cart.shipping_rate != null %}
-					<div class="row" id="rate-estimate-checkout">
+					<div class="row rate-estimate-checkout">
 						<div class="col-xs-7">
 							Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 						</div>
-						<div id="total-estimate" class="amount col-xs-5 text-right">
+						<div class="col-xs-5 text-right">
 							{{ prod.currency(cart.shipping_rate|number_format(2)) }}
-							{#<span class="dollar-sign">$</span>{{ cart.shipping_rate|number_format(2)}}#}
 						</div>
 					</div>
 					{% endif %}
@@ -337,46 +335,41 @@
 					{% endfor %}
 
 					{% if coupon_discount > 0 %} 
-					<div class="row" id="estimate-coupons">
+					<div class="row estimate-coupons">
 						<div class="col-xs-7">Coupons:</div>
-						<div class="amount price-discount col-xs-5 text-right">
+						<div class="price-discount col-xs-5 text-right">
 							-{{ prod.currency(coupon_discount|number_format(2)) }}
-							{#-<span class="dollar-sign">$</span>{{ coupon_discount|number_format(2)}}#}
 						</div>
 					</div>
 					{% endif %}
 					
 					{% if bundle_discount > 0 %}
-					<div class="row">
+					<div class="row estimate-bundles">
 						<div class="col-xs-7">Bundles:</div>
-						<div class="amount price-discount col-xs-5 text-right">
+						<div class="price-discount col-xs-5 text-right">
 							-{{ prod.currency(bundle_discount|number_format(2)) }}
-							{#-<span class="dollar-sign">$</span>{{ bundle_discount|number_format(2)}}#}
 						</div>
 					</div>
 					{% endif %}
 					{% if cart.tax_rate != null %}
-					<div class="row" id="total-before-tax">
+					<div class="row total-before-tax">
 						<div class="col-xs-7">Total Before Tax:</div>
-						<div class="amount col-xs-5 text-right">
+						<div class="col-xs-5 text-right">
 							{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
-							{#<span class="dollar-sign">$</span>{{ (cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)}}#}
 						</div>
 					</div>
-					<div class="row" id="tax-estimate-checkout">
+					<div class="row tax-estimate-checkout">
 						<div class="col-xs-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
-						<div class="amount col-xs-5 text-right">
+						<div class="col-xs-5 text-right">
 							{{ prod.currency(cart.tax_rate|number_format(2)) }}
-							{#<span class="dollar-sign">$</span>{{ cart.tax_rate|number_format(2)}}#}
 						</div>
 					</div>
 					{% endif %}
 					<hr>
-					<div class="row totals-total" id="estimate-total">
+					<div class="row estimate-total totals-total">
 						<div class="col-xs-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
-						<div class="amount col-xs-5 text-right">
+						<div class="col-xs-5 text-right">
 							{{ prod.currency(cart.total|number_format(2)) }}
-							{#<span class="dollar-sign">$</span>{{ cart.total|number_format(2) }}#}
 						</div>
 					</div>
 				</div>

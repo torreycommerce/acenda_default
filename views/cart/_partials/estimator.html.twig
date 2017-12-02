@@ -25,97 +25,73 @@
 	</div>
 {{ forms.end() }}
 {% if cart.shipping_rate != 0 %}
+<div class="modal fade" id="modal-arrival-date" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
+				<h4 class="modal-title" id="myModalLabel">Estimated Arrival</h4>
+			</div>
+			<div class="modal-body">
+				<p>These dates are based on carrier shipping practices, destination and the items you order. (Expected delivery dates are estimates. Orders can be delayed due to verification or time of order being placed. Items that are not regularly stocked cannot be held to the expected delivery dates.)</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-shipping-rate" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
+				<h4 class="modal-title" id="myModalLabel">Shipping Rate</h4>
+			</div>
+			<div class="modal-body">
+				<p>Shipping estimates are based on shipping costs to an address within the ZIP Code displayed.
+					Exact shipping cost will be calculated during checkout.</p>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="fsd1" id="estimate">
 	<div class="well">
-		{# Begin arrival modal #}
-	   	<div class="modal fade" id="modal-arrival-date" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-						<h4 class="modal-title" id="myModalLabel">Estimated Arrival</h4>
-					</div>
-					<div class="modal-body">
-						<p>These dates are based on carrier shipping practices, destination and the items you order. (Expected delivery dates are estimates. Orders can be delayed due to verification or time of order being placed. Items that are not regularly stocked cannot be held to the expected delivery dates.)</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-					</div>
-				</div>
+		<div class="row rate-estimate-checkout">
+			<div class="col-xs-8">
+				<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
 			</div>
-		</div>
-		{# End arival modal #}
-		{# Begin shipping rate modal #}
-		<div class="modal fade" id="modal-shipping-rate" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-sm">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-						<h4 class="modal-title" id="myModalLabel">Shipping Rate</h4>
-					</div>
-					<div class="modal-body">
-						<p>Shipping estimates are based on shipping costs to an address within the ZIP Code displayed.
-							Exact shipping cost will be calculated during checkout.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		{# End shipping rate modal #}
-		{# Begin shipping rate #}
-		<div class="rate">
-			<div class="row">
-				<div class="col-xs-8">
-					<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
-				</div>
-				<div class="col-xs-4 text-right">
-					<span id="rate-estimate" class="amount">
-						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
-					</span>
-				</div>
+			<div class="col-xs-4 text-right">
+				{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 			</div>
 		</div>
 		{# End shipping rate #}
 
 		{# Begin arrival date #}
-		<div class="arrival" id="block-date-estimate">
-			<div class="row">
-				<div class="col-xs-5">
-					<span data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></span>:
-				</div>
-				<div class="col-xs-7 text-right">
-					<span id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
-				</div>
+		<div class="row">
+			<div class="col-xs-5">
+				<span data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></span>:
+			</div>
+			<div class="col-xs-7 text-right">
+				<span id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
 			</div>
 		</div>
 		{# End arrival date #}
 		{# Begin estimated tax #}
-		<div class="tax">
-			<div class="row">
-				<div class="col-xs-8">
-					Estimated Sales Tax:
-				</div>
-				<div class="col-xs-4 text-right">
-					<span id="tax-estimate" class="amount">
-						{{ prod.currency(cart.tax_rate|number_format(2)) }}
-						{#${{cart.tax_rate|number_format(2)}}#}
-					</span>
-				</div>
+		<div class="row tax-estimate-checkout">
+			<div class="col-xs-8">
+				Estimated Sales Tax:
+			</div>
+			<div class="col-xs-4 text-right">
+				{{ prod.currency(cart.tax_rate|number_format(2)) }}
 			</div>
 		</div>
 		{# End estimated tax #}
 		{# Begin estimated total #}
-		<div class="total divide p pad-b">
-			<div class="row">
-				<div class="col-xs-8">
-					Estimated Total:
-				</div>
-				<div class="col-xs-4 text-right">
-					{{ prod.currency(cart.total|number_format(2)) }}
-					{#<span id="total-estimate" class="amount">${{cart.total|number_format(2)}}</span>#}
-				</div>
+		<div class="row total estimate-total">
+			<div class="col-xs-8">
+				Estimated Total:
+			</div>
+			<div class="col-xs-4 text-right">
+				{{ prod.currency(cart.total|number_format(2)) }}
 			</div>
 		</div>
 		{# End estimated total #}

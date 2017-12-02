@@ -5,33 +5,23 @@ function updateCartTotals(qtyField, cartItemId) {
 		//
 	})
 	.done(function(data) {
-		var dataRST = data.result.subtotal;
 		var dataQty = data.result.items[cartItemId].quantity;
 		var itemElement = qtyField.parents('.item');
 		var priceElement = itemElement.find('.cart-indiv .price .val').html();
 
 		amount = parseFloat(priceElement * dataQty).toFixed(2);
 		var savings = parseFloat( ( itemElement.find('.cart-indiv .price-regular .val').html() - itemElement.find('.cart-indiv .price .val').html() ) * dataQty).toFixed(2);
+        
+		itemElement.find('.cart-total .price .val').text(amount);
+		itemElement.find('.cart-total .percent .val').text(savings);
 
-		itemElement.find('.cart-total .price .val').html(amount);
-		itemElement.find('.cart-total .percent .val').html(savings);
-
-		$('#estimate-subtotal .val').html(dataRST);
-		//
-		var rateEC = $('#rate-estimate-checkout .val').text();
-		var taxEC = $('#tax-estimate-checkout .val').text();
-		var totalBT = $('#total-before-tax .val').text();
-		var ifTotalBT = parseFloat(parseFloat(dataRST) + parseFloat(rateEC)).toFixed(2);
-		var newEstimateTotal = 0;
-		//
-		if ($('#total-before-tax .val').html() > 0 ) {
-		    $('#total-before-tax .val').html(ifTotalBT);
-			newEstimateTotal = parseFloat(parseFloat(taxEC) + parseFloat(ifTotalBT)).toFixed(2);
-		} else {
-            newEstimateTotal = parseFloat(dataRST).toFixed(2);
-		}
-		//
-		$('#estimate-total .val').html(newEstimateTotal);
+		$('.estimate-subtotal .val').text(data.result.item_subtotal);
+		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
+		$('.estimate-coupons .val').text(data.result.coupon_discount);
+		$('.estimate-bundles .val').text(data.result.bundle_discount);
+		$('.total-before-tax .val').text(parseFloat(data.result.adjusted_subtotal+data.result.shipping_rate).toFixed(2));
+		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
+		$('.estimate-total .val').text(data.result.total);
 	});
 }
 
