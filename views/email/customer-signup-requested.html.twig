@@ -1,0 +1,25 @@
+{%- import "email/core/macro.html.twig" as ema -%}
+{% include 'email/core/header.html.twig' %}
+<tr>
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
+			<tr>
+				<td {{ ema.titform() }}>
+				New account sign-up requested at <b>{{ site_name }}</b>
+				</td>
+			</tr>
+			<tr>
+				<td {{ ema.comformA() }}>
+				{{ email }} is awaiting approval at your store. To view your currently pending accounts visit your <a href="{{ url }}">customer account admin.</a>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+
+</table>
+
+</td></tr></table></td></tr></table>
+
+</body>
+</html>

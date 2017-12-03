@@ -1,0 +1,20 @@
+{%- import "email/core/macro.html.twig" as ema -%}
+{% include 'email/core/header.html.twig' %}
+<tr>
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
+			<tr>
+				<td {{ ema.titform() }}>
+				Welcome to <b>{{ site_name }}</b>!
+				</td>
+			</tr>
+			<tr>
+				<td {{ ema.comformA() }}>
+				Your account has been approved at {{ site_name }}!
+				<br><br>We are excited to have you as a customer and look forward to provide you with great products and services from <b>{{ site_name }}</b>.
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+{% include 'email/core/footer.html.twig' %}

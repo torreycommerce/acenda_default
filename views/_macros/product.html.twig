@@ -166,12 +166,15 @@
 #}
 	{% set cur = "USD" %} {# EUR #}
 	{% set curs = "$" %} {# € #}
+	{% set show_price = api.get('/customer/permissions').show_prices %}
 
 	{% set add = add %}
 	{% if add is empty %}
 		{% set add = "price" %}
 	{% endif %}
-	{% if cur == "EUR" %}
+	{% if show_price == false or val == 0 %}
+		
+	{% elseif cur == "EUR" %}
 		{% if ip == 1 %}
 			<span class="val">{{val}}</span><span class="cursign" content="{{cur}}">{{curs}}</span>
 		{% else %}
@@ -199,7 +202,9 @@
 			{% set min = min > price ? price : min %}
 			{% set max = max < price ? price : max %}
 		{% endfor %}
-		{% if min == max or min == 0 %}
+		{% if min == 0 and min == 0 %}
+			
+		{% elseif min == max or min == 0 %}
 			{{ this.currency(max|number_format(2),1) }}
 		{% else %}
 		    <span>
@@ -222,7 +227,9 @@
 			{% set min = min > price ? price : min %}
 			{% set max = max < price ? price : max %}
 		{% endfor %}
-		{% if min == max or min == 0 %}
+		{% if min == 0 and min == 0 %}
+			
+		{% elseif min == max or min == 0 %}
 			{{ this.currency(max|number_format(2)) }}
 		{% else %}
 		    {{ this.currency(min|number_format(2)) }} - {{ this.currency(max|number_format(2)) }}

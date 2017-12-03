@@ -410,7 +410,7 @@ function VariantsManager (product, img, isCollection) {
 				$(quantityInput).val(1);
 			}
 			//
-			if(filteredVariants[0].has_stock == '0' || !this.getNumber(filteredVariants[0].price) > 0) {
+			if(filteredVariants[0].has_stock == '0' || this.getNumber(filteredVariants[0].price) <= 0) {
 				this.disabled = true;
 				this.disableAddToCart(true);
 
