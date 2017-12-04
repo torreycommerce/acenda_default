@@ -16,8 +16,8 @@
 {% if app.user.getState('shipping_address_id') is null and app.user.getState('shipping_first_name') is null %}
 	{{ app.redirect('/checkout') }}
 {% endif %}
-{% if cart.items is empty %}
-	{{ app.redirect('/') }}
+    {% if cart.items is empty or permissions.browse_catalog == false or permissions.show_prices == false or permissions.place_order == false %} {# Set cart products for acenda object #}
+	{% do app.redirect('/cart') %}
 {% endif %}
 
 <h1>Checkout: Billing</h1>

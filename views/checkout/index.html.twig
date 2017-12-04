@@ -7,6 +7,9 @@
 {% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
 {% set cart = api.get('/sessioncart') %}
 {% set config = api.get('/config') %}
+    {% if cart.items is empty or permissions.browse_catalog == false or permissions.show_prices == false or permissions.place_order == false %} {# Set cart products for acenda object #}
+	{% do app.redirect('/cart') %}
+{% endif %}
 {% if cart.items is not empty %} {# Set cart products for acenda object #}
 	{% set product_ids = cart.items|values_in('product_id') %}
 	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}

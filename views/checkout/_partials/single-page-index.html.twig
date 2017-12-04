@@ -1,5 +1,5 @@
-{% if cart.items is empty %}
-		{{ app.redirect('/cart') }}
+    {% if cart.items is empty or permissions.browse_catalog == false or permissions.show_prices == false or permissions.place_order == false %} {# Set cart products for acenda object #}
+	{% do app.redirect('/cart') %}
 {% endif %}
 
 {% block content %}

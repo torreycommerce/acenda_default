@@ -26,12 +26,28 @@
         {% endif %}
     {% else %}
         {% set form_errors = api.error() %}
+        {% if form_errors.pending %}
+            {% do app.user.resetLoginAttempts(logindata.email) %}
+        {% endif %}
     {% endif %}
 {% else %}
     {% set loginAttempts = app.user.incrementLoginAttempts() %}
 {% endif %}
 
 {{ forms.begin('login','','post') }}
+    {% if form_errors.pending %}
+        <div class="alert alert-success">
+            Your account is currently pending approval.<br>
+            We'll notify you once your account is activated.
+        </div>  
+    {% endif %}
+    {% if form_errors.disabled %}
+        <div class="alert alert-warning">
+            Your account is currently disabled.<br>
+            Please contact customer support for futher assistance.
+        </div>  
+    {% endif %}
+
     <fieldset>    
         <div class="form-group fgq">
             <label class="control-label" for="login-email">Email Address</label>

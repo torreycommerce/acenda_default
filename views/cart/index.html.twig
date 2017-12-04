@@ -373,19 +373,27 @@
 						</div>
 					</div>
 				</div>
-				{% if site_payments.has_regular_checkout == true %}
+				{% set permissions = api.get('/customer/permissions') %}
+				{% if permissions.browse_catalog and permissions.show_prices and permissions.place_order %}
+					{% if site_payments.has_regular_checkout == true %}
 
-					<div class="p" id="proceed-to-checkout">
-						<a class="btn btn-block btn-lg btn-primary btn-cart" href="{{ app.url }}/checkout">Proceed To Checkout</a>
-					</div>
+						<div class="p" id="proceed-to-checkout">
+							<a class="btn btn-block btn-lg btn-primary btn-cart" href="{{ app.url }}/checkout">Proceed To Checkout</a>
+						</div>
 
-				{% endif %}
-				{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
+					{% endif %}
+					{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
 
+						<div class="text-center" id="paypal">
+							<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out" width="145" height="42"></a>
+						</div>
+					{% endif %}
+				{% else %}
 					<div class="text-center" id="paypal">
-						<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out" width="145" height="42"></a>
+						You cannot place an order at this time.
 					</div>
 				{% endif %}
+
 			</div>
 		</div>
 	</div>
