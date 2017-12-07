@@ -69,7 +69,7 @@
 		</a>
 		
 		<div class="pricing p">
-			{% if product.attributes.price %}
+			{% if product.attributes.price is not empty %}
 			<div class="price p-mini"><span>{{ this.price(product.attributes.price) }}</span></div>
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
@@ -172,7 +172,7 @@
 	{% if add is empty %}
 		{% set add = "price" %}
 	{% endif %}
-	{% if show_price == false or val == 0 %}
+	{% if show_price == false %} {# or val == 0  #}
 		
 	{% elseif cur == "EUR" %}
 		{% if ip == 1 %}
