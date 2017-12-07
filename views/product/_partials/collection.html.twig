@@ -21,69 +21,103 @@
 		</div>
 	</div>
 
-	<div class="col-xs-12 col-sm-7 p-2x">
-		<div class="max-450" id="product-images">
+	<div class="col-xs-12 col-sm-7 p-2x" id="product-images">
+		<div class="pos-r pi-contain">
 		{% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
 		{% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
 		{% set main_image_alt = product.images.0.alt is not empty ? product.images.0.alt :product.product|values_in('images')[0]['alt'] %}
 		{% set main_image_alt = main_image_alt is empty ? '' : main_image_alt %}
-		<div class="p" id="image-main">
-			<div class="image-space no-of">
-				<div class="isd btn-block" style="display:none;"><div id="main-product-video"></div></div>
-				<span class="isd">
-					<img id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" data-image-zoom="{{app.image.getImageUrl("product","large",main_image_id) }}" itemprop="image" alt="">
-				</span>
-				<span class="helper"></span>
-			</div>
-		</div>
-		<div class="pos-r">
-			<div class="pieces">
-				<div class="pad-w-3x"><div class="vari-scase">
-					<div class="slick slick-p slick-p-go">
-					
+
+			<div class="variations" data-id="{{product.id}}">
+				<div class="active variation" data-vid="{{product.id}}">
+					<div class="slick slick-heroic slick-heroic-go" id="slick-heroic-{{product.id}}">
 					{% for image in product.images %}
 					{% set name = image.name is not empty ? image.name : product.name %}
-					<div class="virg">
-						<div class="acaro">
-							<div class="image-space">
-								<img class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
-							</div>
+						<div class="{% if loop.index > 1 %}hidden {% endif %}">
+							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
+								<a target=_blank href="{{image.retina}}">
+									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
+								</a>
+							</div></div></div>
 						</div>
-					</div>
 					{% endfor %}
 					{% if product.images is empty %}
 						{% set items = product.product %}
 						{% for item in items %}
 							{% for image in item.images if image.id is not empty %}
 								{% set name = image.name is not empty ? image.name : item.name %}
-								<div class="virg">
-									<div class="acaro">
-										<div class="image-space">
-											<img class="img-responsive isd" src="{{image.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{image.standard}}"  data-image-swap-zoom="{{image.large}}" width="450" height="450" alt="">
-										</div>
-									</div>
-								</div>
+						<div class="{% if loop.index > 1 %}hidden {% endif %}">
+							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
+								<a target=_blank href="{{image.retina}}">
+									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
+								</a>
+							</div></div></div>
+						</div>
 							{% endfor %}
 						{% endfor %}
 					{% endif %}
 					</div>
-				</div></div>
+					<div class="ss-contain">
+						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{product.id}}">
+					{% for image in product.images %}
+					{% set name = image.name is not empty ? image.name : product.name %}
+							<div class="hidden">
+								<div class="acaro"><div class="image-space">
+									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
+								</div></div>
+							</div>
+					{% endfor %}
+					{% if product.images is empty %}
+						{% set items = product.product %}
+						{% for item in items %}
+							{% for image in item.images if image.id is not empty %}
+								{% set name = image.name is not empty ? image.name : item.name %}
+							<div class="hidden">
+								<div class="acaro"><div class="image-space">
+									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
+								</div></div>
+							</div>
+							{% endfor %}
+						{% endfor %}
+					{% endif %}
+						</div>
+					</div>
+					
+					<div class="silent-gal" id="silent-gal-{{product.id}}" data-pswp-uid="{{product.id}}"><div class="image-space">
+					{% for image in product.images %}
+						<div class="ztrig" id="ztrig-{{product.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{image.retina}}" data-med-size="600x600">
+							<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
+						</div>
+					{% endfor %}
+					</div></div>
+					
+				</div>
 			</div>
+			
 			{% if product.videos is not empty %}
-			<div class="pad-w-3x vari-video-scase"><div class="pos-r"><div class="vari-video"><div class="acaro">
+			<div class="vari-video-scase"><div class="acaro">
 				<div class="image-space video" data-video-src="{{ product.videos[0] }}">
 					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</div>
-			</div></div></div></div>
+			</div></div>
 			{% endif %}
+			
+			<div id="image-main">
+				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
+					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
+					<span class="isd">
+						<img id="main-product-image" class="img-responsive" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" itemprop="image" alt="">
+					</span>
+				</div>
+			</div>
+
 		</div>
 		
-		</div>
 	</div>
 	{# End product images #}
 	{# Begin Product Details #}
 	<div id="product-details" class="col-xs-12 col-sm-5 p-2x text-center">
-		<div class="max-320">
+		<div class="max-360">
 			
 			{% set prices = product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
 			{% if prices.price|first > 0 %}
@@ -177,7 +211,7 @@
 					<div class="g p" itemprop="description">{{ bundle.description }}</div>
 				</div>
 				<div class="col-xs-12 col-sm-5 pull-right">
-					<div class="max-sm-320">
+					<div class="max-sm-360">
 						<h4>Includes:</h4>
 						<ul>
 						{% for item in bundle.items %}
@@ -321,7 +355,7 @@
 			<div class="g p" itemprop="description">{{ product.description }}</div>
 			</div>
 			<div class="col-xs-12 col-sm-5 pull-right">
-				<div class="max-sm-320">
+				<div class="max-sm-360">
 				{% spaceless %}
 					<div class="variation-selector-{{product.id}}">
 					{% for vo in product.variant_options %}
@@ -404,6 +438,7 @@
 </div>
 </form>
 </div>
+
 
 <div class="divide" id="topsellers">
     {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}

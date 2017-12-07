@@ -44,12 +44,12 @@ function initVideoPlayer (){
             };
             el.find('img').first().attr('src', '//img.youtube.com/vi/'+id+'/default.jpg');
             el.click(function() {
-                    $("#main-product-video").parent('.isd').show();
-                    $("#main-product-image").parent('.isd').hide();
+                    $('#image-main').addClass('active');
+                    //
                     player.loadVideoById(id);
                     $("[data-image-swap]").click(function() {
-                        $("#main-product-video").parent('.isd').hide();
-                        $("#main-product-image").parent('.isd').show();
+                        $('#image-main').removeClass('active');
+                        //
                         player.stopVideo();
 
                     });
@@ -61,12 +61,12 @@ function initVideoPlayer (){
                 el.find('img').first().attr('src', data[0].thumbnail_medium);
             });
             el.click(function() {
-                    $("#main-product-video").parent('.isd').show();
-                    $("#main-product-image").parent('.isd').hide();
+                    $('#image-main').addClass('active');
+                    //
                     $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
                     $("[data-image-swap]").click(function() {
-                        $("#main-product-video").parent('.isd').hide();
-                        $("#main-product-image").parent('.isd').show();
+                        $('#image-main').removeClass('active');
+                        //
                         $('.main-product-video').html('');
                     });
             });
@@ -75,12 +75,13 @@ function initVideoPlayer (){
 }
 
 function stopVideo(){
-    $("#main-product-video").parent('.isd').hide();
-    $("#main-product-image").parent('.isd').show();
+    $('#image-main').removeClass('active');
+    //
     if(player){
         player.stopVideo();
     }else{
-        $('.main-product-video').parent('.isd').hide();
+        $('#image-main').removeClass('active');
+        //
         $('.main-product-video').html('');
     }     
 }

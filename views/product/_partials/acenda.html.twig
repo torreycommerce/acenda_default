@@ -27,6 +27,7 @@ acenda.products = [];
 	{% for img_id in arr_uniq_img %}
 	 {% set arr_uniq_var_img_url = 
 	    arr_uniq_var_img_url|merge({ ('_'~img_id) : {
+	            'retina' : app.image.getImageUrl("product","retina",img_id),
 	          'large' : app.image.getImageUrl("product","large",img_id),
 	          'thumbnail' : app.image.getImageUrl("product","thumbnail",img_id),
 	          'standard' : app.image.getImageUrl("product","standard",img_id)
@@ -59,5 +60,3 @@ acenda.products = [];
 		"brand": {{item.brand|json_encode}}
 	}
 {% endif %}
-
-

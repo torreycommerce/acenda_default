@@ -144,7 +144,7 @@ function VariantsManager (product, img, isCollection) {
 		if(standard_img_url){
 			//console.log('setSelIma: is standard')
 			if(!this.isCollection) {
-				$('#main-product-image').attr('src', standard_img_url).attr('data-image-zoom', large_img_url).attr('alt', img_alt);
+				//$('#main-product-image').attr('src', standard_img_url).attr('data-image-zoom', large_img_url).attr('alt', img_alt);
 			} else {
 				$('#variant-selected-image-'+this.product_id+' img').attr('src', standard_img_url);
 			}
@@ -193,11 +193,15 @@ function VariantsManager (product, img, isCollection) {
 		var i = 0;
 		//
 		var vHTML = "";
+		var htmlHeroic = "";
+		var htmlHeroicNav = "";
+		var htmlSilentGal = "";
 		//
 		for (key in images) {
 			var id = images[key].id;
 			var standard_img_url = this.getImageUrl(id,'standard');
 			var large_img_url = this.getImageUrl(id,'large');
+			var retina_img_url = this.getImageUrl(id,'retina');
 
 			if (typeof images[key].alt !== 'undefined')
 				var img_alt = images[key].alt;
@@ -206,7 +210,7 @@ function VariantsManager (product, img, isCollection) {
 			//on first iteration set main image
 			if (i == 0){
 				if(this.currentImage != id){
-					$('#image-carousel-'+this.product_id).hide();
+					//$('#image-carousel-'+this.product_id).hide();
 					//$('#variant-selected-image-'+this.product_id+' img').hide();
 					if(!this.isCollection && $.fn.stopVideo) stopVideo();
 					this.setSelectImage(standard_img_url,large_img_url,img_alt);
@@ -215,7 +219,10 @@ function VariantsManager (product, img, isCollection) {
 			}
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-					vHTML += '<div class="virg"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" data-image-swap="main-product-image" data-image-swap-src="'+standard_img_url+'" data-image-swap-zoom="'+large_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					vHTML += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					htmlHeroic += '<div class="hidden"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+					htmlHeroicNav += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
+					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
 				}
 			}
 			i++;
@@ -223,11 +230,11 @@ function VariantsManager (product, img, isCollection) {
 		//
 		if(!this.isCollection) {
 			if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-				vHTML = '<div class="active variation" data-vid="'+obj_variant.id+'"><div class="pad-w-3x"><div class="vari-scase"><div class="slick slick-p slick-p-go">' + vHTML;
-				vHTML += '</div></div></div></div>';
+				vHTML = '<div class="active variation" data-vid="'+obj_variant.id+'"><div class="slick slick-heroic slick-heroic-go" id="slick-heroic-'+obj_variant.id+'">' + htmlHeroic + '</div><div class="ss-contain"><div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-'+obj_variant.id+'">' + htmlHeroicNav + '</div></div><div class="silent-gal" id="silent-gal-'+obj_variant.id+'" data-pswp-uid="'+obj_variant.id+'"><div class="image-space">' + htmlSilentGal + '</div></div></div>';
 				$('#product-images .variations').append(vHTML);
+				$('#product-images .variation[data-vid='+obj_variant.id+']').siblings().removeClass('active');
 
-				if ($('.slick-p.slick-p-go').length) {
+				if ($('.slick-heroic.slick-heroic-go').length) {
 					if (typeof productSlick === "function" && slickReady == 1) {
 						//console.log('pS call 252')
 						productSlick();
@@ -240,13 +247,14 @@ function VariantsManager (product, img, isCollection) {
 		//The first time the page load and the images are set, wait for
 		//the main product image to be loaded before showing it with carousel
 		
-		$('#variant-selected-image-'+this.product_id+' img').on("load", function() {
+		/*$('#variant-selected-image-'+this.product_id+' img').on("load", function() {
 			_this.showImage();
 			$('#image-carousel-'+_this.product_id).show();
 		});
 		$( window ).load(function() {
 			_this.showImage();
 		});
+		*/
 	}
 	/*
 		Updates variant available quantity and sku
@@ -393,15 +401,19 @@ function VariantsManager (product, img, isCollection) {
 			var quantityInput = "#variant-input-"+this.product_id; //Gets quatity input css selector
 			//console.log('fVs:');
 			//console.log(filteredVariants[0]);
-			this.updateImagesAndVideo(filteredVariants[0]);
-			this.updateQuantitySku(filteredVariants[0]);
-			//
 			var extCSS = "#singleProduct";
 			if(this.isCollection){
 				var extCSS = ".piece-"+this.product_id;
 			}
+			//
 			$(extCSS+' .variation[data-vid='+desired_id+']').siblings().removeClass('active');
 			$(extCSS+' .variation[data-vid='+desired_id+']').addClass('active');
+			//
+			this.updateImagesAndVideo(filteredVariants[0]);
+			this.updateQuantitySku(filteredVariants[0]);
+			//
+			
+			//$(extCSS+' .variation[data-vid='+desired_id+']').addClass('active');
 			//
 			//Reset quantity inputs
 			if(this.isCollection){
@@ -673,7 +685,7 @@ function VariantsManager (product, img, isCollection) {
 		//
 		//
 		//
-		if ($('.slick-p.slick-p-go').length) {
+		if ($('.slick-heroic.slick-heroic-go').length) {
 			if (typeof productSlick === "function" && slickReady == 1) {
 				//console.log('pS call 801')
 				productSlick();

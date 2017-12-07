@@ -166,30 +166,91 @@ if (useTypeAhead) {
 
 
 
+$(document).click(function(e) {
+    if (e.target.id != 'image-main' && !$('#image-main').find(e.target).length && !$('.vari-video-scase').find(e.target).length) {
+        if ($('#image-main').hasClass('active')) {
+            stopVideo();
+        }
+    }
+});
+
+
 var slickReady = 0;
-var spslides = 5;
-if ($('.vari-video').length) spslides = 4
+var spslides = 6;
+if ($('.vari-video-scase').length) spslides = 5
 function productSlick() {
-	$('.slick-p-go').slick({
+    var who = $('#product-images .active').attr('data-vid');
+    $('#slick-heroic-'+who).slick({
 		dots: false,
-		infinite: false,
-		speed: 500,
-		slidesToShow: spslides,
-		slidesToScroll: spslides
+		fade: true,
+		speed: 300,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		asNavFor: '#slick-heroic-nav-'+who,
+		swipe: true
 	});
-	$('.slick-p .virg').removeClass('virg');
-	$('.slick-p-go').removeClass('slick-p-go');
+	$('#slick-heroic-nav-'+who).slick({
+        dots: false,
+		speed: 300,
+		slidesToShow: spslides,
+		slidesToScroll: 1,
+		vertical: true,
+		asNavFor: '#slick-heroic-'+who,
+		focusOnSelect: true,
+		swipe: false
+	});
+	$('#slick-heroic-nav-'+who).slick('resize'); // why
+	//
+	//
+	$('.slick-heroic-go .hidden, .slick-heroic-nav-go .hidden').removeClass('hidden');
+	$('.slick-heroic-go').removeClass('slick-heroic-go');
+	$('.slick-heroic-nav-go').removeClass('slick-heroic-nav-go');
+    
+	if ($.fn.easyZoom) {
+	    $('#slick-heroic-'+who+' .easyzoom').easyZoom();
+    }
+
 }
+
 
 if ($('.slick').length) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.7.1/slick.min.js",function(){
 		slickReady = 1;
-		if ($('.slick-p.slick-p-go').length) {
+		if ($('.slick-heroic.slick-heroic-go').length) {
 			//console.log('pS call s')
 			productSlick();
 		}
 	});
 }
+
+
+
+if ($('.ztrig').length) {
+    $.get(acendaBaseUrl+'/product/insert-photoswipe', function(data2) {
+	    $('#product-images').append(data2);
+        IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-mod.min.js",function() {
+    		//console.log('ps 1 loaded');
+    		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-ui-default.min.js",function() {
+    			//console.log('ps 2 loaded');
+    			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-acenda.js",function() {
+                    //console.log('ps 3 loaded');
+                    var ezReady = setInterval(function(){
+                        if ($('html').hasClass('desktop')) {
+                            clearInterval(ezReady);
+                            $.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
+                                $('#product-images').append(data3);
+                                IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
+                                    $('#product-images .active .easyzoom').easyZoom();
+                                });
+                            });
+                        }
+                    },1000);
+    			});
+    		});
+    	});
+    });
+}
+
 
 if ($('select.vopt').length) {
     IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.selectric.mod.js",function(){

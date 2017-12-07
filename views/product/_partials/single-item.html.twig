@@ -1,7 +1,7 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 <div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row">
 
-	<div id="product-intro" class="col-xs-12 col-sm-5 pull-right p text-center">
+	<div id="product-intro" class="col-xs-12 col-md-5 pull-right p text-center">
 		<div class="max-450">
 			{% if product.brand is not empty %}
 			<div class="brand p-mini">
@@ -43,49 +43,72 @@
 {% else %}
 	{% set varimgs = variation.images %}
 {% endif %}
-	<div class="col-xs-12 col-sm-7 p-2x" id="product-images">
-		<div class="max-450">
-			<div class="p" id="image-main">
+
+
+	<div class="col-xs-12 col-md-7 p-2x" id="product-images">
+		<div class="pos-r pi-contain">
+
+			<div class="variations" data-id="{{product.id}}">
+				<div class="active variation" data-vid="{{variation.id}}">
+					<div class="slick slick-heroic slick-heroic-go" id="slick-heroic-{{variation.id}}">
+					{% for varimg in varimgs %}
+						<div class="{% if loop.index > 1 %}hidden {% endif %}">
+							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
+								<a target=_blank href="{{varimg.retina}}">
+									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+								</a>
+							</div></div></div>
+						</div>
+					{% endfor %}
+					</div>
+					<div class="ss-contain">
+						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{variation.id}}">
+						{% for varimg in varimgs %}
+							<div class="{% if loop.index > 5 %}hidden {% endif %}">
+								<div class="acaro"><div class="image-space">
+									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+								</div></div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+					
+					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
+					{% for varimg in varimgs %}
+						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
+							<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+						</div>
+					{% endfor %}
+					</div></div>
+					
+				</div>
+			</div>
+			
+			{% if product.videos is not empty %}
+			<div class="vari-video-scase"><div class="acaro">
+				<div class="image-space video" data-video-src="{{ product.videos[0] }}">
+					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+				</div>
+			</div></div>
+			{% endif %}
+			
+			<div id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-responsive" src="{{prodimg.standard}}" data-image-zoom="" width="450" height="450" alt="">
+						<img id="main-product-image" class="img-responsive hidden" src="{{prodimg.standard}}" data-image-zoom="" width="450" height="450" alt="">
 					</span>
 				</div>
 			</div>
 
-			<div class="pos-r">
-				<div class="variations" data-id="{{product.id}}">
-					<div class="active variation" data-vid="{{variation.id}}"><div class="pad-w-3x"><div class="vari-scase">
-						<div class="slick slick-p slick-p-go">
-						{% for varimg in varimgs %}
-						<div class="virg">
-							<div class="acaro">
-								<div class="image-space">
-									<img class="img-responsive isd" src="{{varimg.standard}}" data-image-swap="main-product-image" data-image-swap-src="{{varimg.standard}}" data-image-swap-zoom="{{varimg.large}}" width="450" height="450" alt="">
-								</div>
-							</div>
-						</div>
-						{% endfor %}
-						</div>
-					</div></div></div>
-				</div>
-				{% if product.videos is not empty %}
-				<div class="pad-w-3x vari-video-scase"><div class="pos-r"><div class="vari-video"><div class="acaro">
-					<div class="image-space video" data-video-src="{{ product.videos[0] }}">
-						<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
-					</div>
-				</div></div></div></div>
-				{% endif %}
-			</div>
 		</div>
 	</div>
 	{# End product images #}
 
 	{# Begin Product Details #}
-	<div id="product-details" class="col-xs-12 col-sm-5 p-2x">
-		<div class="max-320">
+	<div id="product-details" class="col-xs-12 col-md-5 p-2x">
+		<div class="max-360">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
 				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
     				{% set needsku = product.variant|values_in('sku') %}
