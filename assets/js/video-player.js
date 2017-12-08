@@ -85,3 +85,11 @@ function stopVideo(){
         $('.main-product-video').html('');
     }     
 }
+
+$(document).click(function(e) {
+    if (e.target.id != 'image-main' && !$('#image-main').find(e.target).length && !$('.vari-video-scase').find(e.target).length) {
+        if ($('#image-main').hasClass('active')) {
+            stopVideo();
+        }
+    }
+});

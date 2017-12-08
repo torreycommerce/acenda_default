@@ -166,14 +166,6 @@ if (useTypeAhead) {
 
 
 
-$(document).click(function(e) {
-    if (e.target.id != 'image-main' && !$('#image-main').find(e.target).length && !$('.vari-video-scase').find(e.target).length) {
-        if ($('#image-main').hasClass('active')) {
-            stopVideo();
-        }
-    }
-});
-
 
 var slickReady = 0;
 var spslides = 6;
@@ -234,17 +226,19 @@ if ($('.ztrig').length) {
     			//console.log('ps 2 loaded');
     			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-acenda.js",function() {
                     //console.log('ps 3 loaded');
-                    var ezReady = setInterval(function(){
-                        if ($('html').hasClass('desktop')) {
-                            clearInterval(ezReady);
-                            $.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
-                                $('#product-images').append(data3);
-                                IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
-                                    $('#product-images .active .easyzoom').easyZoom();
+                    if ($('.easyzoom').length) {
+                        var ezReady = setInterval(function(){
+                            if ($('html').hasClass('desktop')) {
+                                clearInterval(ezReady);
+                                $.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
+                                    $('#product-images').append(data3);
+                                    IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
+                                        $('#product-images .active .easyzoom').easyZoom();
+                                    });
                                 });
-                            });
-                        }
-                    },1000);
+                            }
+                        },1000);
+                    }
     			});
     		});
     	});
