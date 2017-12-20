@@ -484,6 +484,7 @@ var checkout = checkout || {};
 		// open the checkout step and close others. Also deal with edit buttons and step data
 		gotoStep: function(name) {
 			var that = this;
+			console.log('gotostep',name);
 			// if(this.current_step!=='') {
 
 			// 	if(!this.validateStep(this.current_step)) return;
@@ -491,7 +492,7 @@ var checkout = checkout || {};
 
              //$("*").stop(true, true);			
 			_.each(this.checkout_steps,function(step,k){
-				$(step.collapse).collapse('hide');
+
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
 				if(step.name==name) {
@@ -503,6 +504,8 @@ var checkout = checkout || {};
 					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name}).always(function(response){
 					});	    
 
+				} else {
+					$(step.collapse).collapse('hide');
 				}
 			});
 			that.render();
