@@ -103,7 +103,12 @@ function adjustQuantity(qtyField, increment, postForm) {
 				data = $.parseJSON(e.responseText);
 				qtyField.val(previousValue -= increment);
 				if (data.code === 400 && model === 'cart/item') { // Bad request for the cart - not enough inventory
-					qtyField.parents('.item').find('.error').html('Not enough inventory to add more items!');
+					if(typeof data.error != 'undefined') {
+						var error = data.error[Object.keys(data.error)[0]][0];
+						qtyField.parents('.item').find('.error').html(error);
+					} else {
+						qtyField.parents('.item').find('.error').html('Not enough inventory to add more items!');
+					}
 				} else { // Probably a connection failure
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}

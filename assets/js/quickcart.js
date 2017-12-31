@@ -145,7 +145,6 @@ function ajaxCart(data, r) {
         }
         var defer = $.when.apply($, requests); // Run all requests
         defer.done(function() {
-
             var errors = $('.ajaxcart .error');
             errors.empty();
 
@@ -172,14 +171,19 @@ function ajaxCart(data, r) {
                     cloned.find('.price .val').html(product_price);
                     cloned.find('.product-quantity').html(product_attr[product_id].quantity);
                 }
-
                 //Error management
-                if(result[product_id] == false){
+                if(result[product_id] == false || typeof result[product_id]['error'] != 'undefined'){
                     var stock = parseInt(response[i].inventory_quantity);
                     if(response[i].inventory_minimum_quantity){
                         var stock = stock - parseInt(response[i].inventory_minimum_quantity);
                     }
-                    var message = product_name + " <b><u>Not Added!</u></b>" + '</br>' + 'Only ' + stock + ' left in stock.';
+                    var message = product_name + " <b><u>Not Added!</u></b>" + '</br>';
+
+                    if(typeof result[product_id]['error'] != 'undefined') {
+                        message += result[product_id]['error'][Object.keys(result[product_id]['error'])[0]][0];
+                    } else {
+                        message += 'Only ' + stock + ' left in stock.';
+                    }
                     var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
                     errors.append(error);
                 }

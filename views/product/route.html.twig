@@ -11,7 +11,11 @@
             {% endif %}
             {% if quantity > 0 %}
                 {% set result = api.post('/sessioncartitem', {"product_id":item, "quantity":quantity}) %}
-                {% set result_add = result_add + {(item):result} %}
+                {% if result is not empty %}
+                    {% set result_add = result_add + {(item):result} %}
+                {% else %}
+                    {% set result_add = result_add + {(item):{'error':api.error()}} %}
+                {% endif %}
                 {% do api.post('/sessioncartdiscount/refresh') %}
             {% endif %}
         {% endfor %}
