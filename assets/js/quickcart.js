@@ -88,7 +88,6 @@ function ajaxCart(data, r) {
 
     // Check for items
     var result = $.parseJSON(data);
-
     $.ajax({
         dataType: "json",
         url: acendaBaseUrl + '/api/sessioncart'
@@ -111,6 +110,12 @@ function ajaxCart(data, r) {
             items = cart_items;
         } else {
             items = $('.productForm').serializeArray(); // Items that were added
+        }
+
+        if(items.length == 0) {
+            Object.keys(result).forEach(function(id) {
+                items.push({product_id:id, quantity:1});
+            });
         }
 
         $('.quickcart .ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
