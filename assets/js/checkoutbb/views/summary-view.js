@@ -39,11 +39,12 @@ var checkout = checkout || {};
 		    
 
 			that.$el.find('#item-list-data').html('');
-		    if(co.cart.get('items').length) {
+
+		    if(co.cart.get('items').length && co.cart.products.length) {
 		    	_.each(co.cart.get('items'),function(v,k){
 		    		that.$el.find('#item-list-data').append(itemCompTemplate({
 						item:v,
-						availability: ((co.cart.variants[k].has_stock)?"In Stock":"Out of Stock"),
+						availability: ((typeof co.cart.variants[k] != 'undefined' && co.cart.variants[k].has_stock)?"In Stock":"Out of Stock"),
 						product: co.cart.products[k], 
 						variant: co.cart.variants[k]
 					}));
