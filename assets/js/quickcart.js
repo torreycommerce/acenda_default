@@ -145,13 +145,12 @@ function ajaxCart(data, r) {
         }
         var defer = $.when.apply($, requests); // Run all requests
         defer.done(function() {
-            var errors = $('.ajaxcart .error');
-            errors.empty();
 
             // Sort the responses by most recently added to the cart (by cart item ID)
             response.sort(function(a, b) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
             });
+
             for (var i = 0; i < response.length; i++) {
                 var product_name = response[i].name;
                 var product_price = parseFloat(response[i].price).toFixed(2);
@@ -171,24 +170,23 @@ function ajaxCart(data, r) {
                     cloned.find('.price .val').html(product_price);
                     cloned.find('.product-quantity').html(product_attr[product_id].quantity);
                 }
-                //Error management
-                if(result[product_id] == false || typeof result[product_id]['error'] != 'undefined'){
-                    var stock = parseInt(response[i].inventory_quantity);
-                    if(response[i].inventory_minimum_quantity){
-                        var stock = stock - parseInt(response[i].inventory_minimum_quantity);
-                    }
-                    var message = product_name + " <b><u>Not Added!</u></b>" + '</br>';
+            }
 
-                    if(typeof result[product_id]['error'] != 'undefined') {
-                        message += result[product_id]['error'][Object.keys(result[product_id]['error'])[0]][0];
-                    } else {
-                        message += 'Only ' + stock + ' left in stock.';
+            //Error management
+            var errors = $('.ajaxcart .error');
+            errors.empty();
+
+            Object.keys(result).forEach(function(id) {
+                if(result[id] == false || typeof result[id]['error'] != 'undefined') {
+                    var message = "<b><u>Item Not Added.</u></b>" + '</br>';
+                    if(typeof result[id]['error'] != 'undefined') {
+                        message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
                     }
                     var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
                     errors.append(error);
                 }
+            });
 
-            }
             $('#header .item-count').html(cart_item_count);
             //$('.quickcart .ajaxcart .item-count').html(cart_item_count);
             $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);
