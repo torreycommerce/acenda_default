@@ -88,7 +88,6 @@ function ajaxCart(data, r) {
 
     // Check for items
     var result = $.parseJSON(data);
-
     $.ajax({
         dataType: "json",
         url: acendaBaseUrl + '/api/sessioncart'
@@ -111,6 +110,12 @@ function ajaxCart(data, r) {
             items = cart_items;
         } else {
             items = $('.productForm').serializeArray(); // Items that were added
+        }
+
+        if(items.length == 0) {
+            Object.keys(result).forEach(function(id) {
+                items.push({product_id:id, quantity:1});
+            });
         }
 
         $('.quickcart .ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
@@ -146,13 +151,11 @@ function ajaxCart(data, r) {
         var defer = $.when.apply($, requests); // Run all requests
         defer.done(function() {
 
-            var errors = $('.ajaxcart .error');
-            errors.empty();
-
             // Sort the responses by most recently added to the cart (by cart item ID)
             response.sort(function(a, b) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
             });
+
             for (var i = 0; i < response.length; i++) {
                 var product_name = response[i].name;
                 var product_price = parseFloat(response[i].price).toFixed(2);
@@ -172,19 +175,23 @@ function ajaxCart(data, r) {
                     cloned.find('.price .val').html(product_price);
                     cloned.find('.product-quantity').html(product_attr[product_id].quantity);
                 }
+            }
 
-                //Error management
-                if(result[product_id] == false){
-                    var stock = parseInt(response[i].inventory_quantity);
-                    if(response[i].inventory_minimum_quantity){
-                        var stock = stock - parseInt(response[i].inventory_minimum_quantity);
+            //Error management
+            var errors = $('.ajaxcart .error');
+            errors.empty();
+
+            Object.keys(result).forEach(function(id) {
+                if(result[id] == false || typeof result[id]['error'] != 'undefined') {
+                    var message = "<b><u>Item Not Added.</u></b>" + '</br>';
+                    if(typeof result[id]['error'] != 'undefined') {
+                        message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
                     }
-                    var message = product_name + " <b><u>Not Added!</u></b>" + '</br>' + 'Only ' + stock + ' left in stock.';
                     var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
                     errors.append(error);
                 }
+            });
 
-            }
             $('#header .item-count').html(cart_item_count);
             //$('.quickcart .ajaxcart .item-count').html(cart_item_count);
             $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);

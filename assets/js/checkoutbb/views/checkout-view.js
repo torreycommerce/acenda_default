@@ -187,15 +187,22 @@ var checkout = checkout || {};
 
 			this.summaryView.render();
 		},
+
 		// Fetch current cart state
 		fetchCart: function (callback) {  
 		    var that = this; 
-		    this.cart.fetch().done(function() {
+		    this.cart.fetch()
+		    .success(function(data) {
+		    	if(data.result.item_count == 'undefined' || data.result.item_count == 0) {
+		    		window.location = acendaBaseUrl + '/cart';
+		    	}
+		    }).done(function() {
 	    		if(typeof callback !=='undefined') {
 	    		    that[callback]();
 	    		}
 		    })
 		},
+
 		setupBrainTree: function() {
   			var that = this;
 
@@ -967,8 +974,7 @@ var checkout = checkout || {};
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
 				if(response.code == 200) {
 					that.fetchCustomer();
-					//
-					that.reloadToolbar();
+					that.fetchCart('reloadToolbar');
 				} 				
 			}).fail(function(response){
 				$('#signin-error').html(response.responseJSON.error.password[0]);
