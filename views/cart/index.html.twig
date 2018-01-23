@@ -182,7 +182,7 @@
 {% set product = products[item.product_id].0 %}
 {% set parent = api.get('product/' ~ product.product_id)%}
 {% spaceless %}
-<div class="divide item p-2x pad-b-2x">
+<div class="divide item p-2x pad-b-2x" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="media media-cart p-0 p-xs">
@@ -190,7 +190,12 @@
 					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 				</div>
 				<div class="media-body">
-					<h3 class="product-name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></h3>
+				{% if product.brand is not empty %}
+    				<div class="brand p-mini">
+    					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
+    				</div>
+    			{% endif %}
+					<div><h3 class="product-name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></h3></div>
 					
 					{#<div class="availability p">
 						{% if product.has_stock %}
@@ -213,7 +218,7 @@
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
 					<p><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
-					<button class="btn btn-link btn-xs" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
+					<button class="btn btn-link btn-xs btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
 					<div class="error alert alert-danger" style="display:none"></div>
 
 				</div>

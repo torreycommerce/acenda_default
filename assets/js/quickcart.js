@@ -35,8 +35,18 @@ $('html').on("click", "#ajaxcart-close", function() {
     $('.quickcart').popover('hide');
 });
 
+var pData;
+var vData = $('#product-details .active');
+
 $('button[value=cart]').click(function(event) {
     event.preventDefault();
+    if ($('#singleProduct').length) {
+        pData = $('#product-intro');
+        vData = $('#product-details .active');
+    } else {
+        pData = $(this).parents('.piece');
+        vData = $(this).parents('.piece').find('.active');
+    }
     var cartButton = event.currentTarget;
     var form = cartButton.parentElement;
     while(form.nodeName != 'FORM'){
@@ -79,7 +89,30 @@ $('button[value=cart]').click(function(event) {
 });
 
 function ajaxCart(data, r) {
-
+    //console.log('dataLayer add');
+    //
+    if ($(vData).find('.sku').length) {
+        var dLID = $(vData).find('.sku span').text();
+    } else {
+        var dLID = $('#product-details .variations').attr('data-id');
+    }
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'currencyCode': 'USD',
+            'add': {                                // 'add' actionFieldObject measures.
+                'products': [{                        //  adding a product to a shopping cart.
+                    'name': $(pData).find('.product-name').text(),
+                    'id': dLID,
+                    'price': $(vData).find('.price .val').text(),
+                    'brand': $(pData).find('.brand').text(),
+                    //'category': 'Apparel',
+                    //'variant': $(vData).attr('data-vid'),
+                    'quantity': $('.quantity-selector').val()
+                }]
+            }
+        }
+    });
     // BEGIN CONFIG VARIABLES
     var show_all = true; // Whether to show all products in ajax cart
     // END CONFIG VARIABLES
@@ -88,6 +121,7 @@ function ajaxCart(data, r) {
 
     // Check for items
     var result = $.parseJSON(data);
+
     $.ajax({
         dataType: "json",
         url: acendaBaseUrl + '/api/sessioncart'
@@ -111,7 +145,7 @@ function ajaxCart(data, r) {
         } else {
             items = $('.productForm').serializeArray(); // Items that were added
         }
-
+        
         if(items.length == 0) {
             Object.keys(result).forEach(function(id) {
                 items.push({product_id:id, quantity:1});
@@ -155,7 +189,6 @@ function ajaxCart(data, r) {
             response.sort(function(a, b) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
             });
-
             for (var i = 0; i < response.length; i++) {
                 var product_name = response[i].name;
                 var product_price = parseFloat(response[i].price).toFixed(2);
@@ -175,23 +208,24 @@ function ajaxCart(data, r) {
                     cloned.find('.price .val').html(product_price);
                     cloned.find('.product-quantity').html(product_attr[product_id].quantity);
                 }
-            }
 
-            //Error management
-            var errors = $('.ajaxcart .error');
-            errors.empty();
-
-            Object.keys(result).forEach(function(id) {
-                if(result[id] == false || typeof result[id]['error'] != 'undefined') {
-                    var message = "<b><u>Item Not Added.</u></b>" + '</br>';
-                    if(typeof result[id]['error'] != 'undefined') {
-                        message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
+                //Error management
+                //Error management
+                var errors = $('.ajaxcart .error');
+                errors.empty();
+    
+                Object.keys(result).forEach(function(id) {
+                    if(result[id] == false || typeof result[id]['error'] != 'undefined') {
+                        var message = "<b><u>Item Not Added.</u></b>" + '</br>';
+                        if(typeof result[id]['error'] != 'undefined') {
+                            message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
+                        }
+                        var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
+                        errors.append(error);
                     }
-                    var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
-                    errors.append(error);
-                }
-            });
+                });
 
+            }
             $('#header .item-count').html(cart_item_count);
             //$('.quickcart .ajaxcart .item-count').html(cart_item_count);
             $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);

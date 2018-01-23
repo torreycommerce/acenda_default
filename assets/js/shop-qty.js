@@ -5,15 +5,76 @@ function updateCartTotals(qtyField, cartItemId) {
 		//
 	})
 	.done(function(data) {
+	    //console.log(data)
+		//console.log('v2')
 		var dataQty = data.result.items[cartItemId].quantity;
-		var itemElement = qtyField.parents('.item');
-		var priceElement = itemElement.find('.cart-indiv .price .val').html();
+		//console.log('dataQty: '+dataQty);
+		var v2Data = qtyField.parents('.item');
+		var priceElement = v2Data.find('.cart-indiv .price .val').html();
+		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
 
 		amount = parseFloat(priceElement * dataQty).toFixed(2);
-		var savings = parseFloat( ( itemElement.find('.cart-indiv .price-regular .val').html() - itemElement.find('.cart-indiv .price .val').html() ) * dataQty).toFixed(2);
-        
-		itemElement.find('.cart-total .price .val').text(amount);
-		itemElement.find('.cart-total .percent .val').text(savings);
+		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-regular .val').html() - priceElement ) * dataQty).toFixed(2);
+		//
+		if ($(v2Data).attr('data-sid')) {
+            var dLID = $(v2Data).attr('data-sid');
+        } else {
+            var dLID = $(v2Data).attr('data-id');
+        }
+		//
+		var oldQty = v2Data.find('.cart-total .price .val').text() / priceElement;
+		//console.log('oldQty: '+oldQty);
+		var changeQty = parseInt(dataQty - oldQty);
+		//console.log('changeQty: '+changeQty);
+		var absChangeQty = Math.abs(changeQty);
+        //
+        //
+        if (oldQty < dataQty) {
+            //console.log('dataLayer add');
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'currencyCode': 'USD',
+                    'add': {                                // 'add' actionFieldObject measures.
+                        'products': [{                        //  adding a product to a shopping cart.
+                            'name': $(v2Data).find('h3').text(),
+                            'id': dLID,
+                            'price': priceElement,
+                            'brand': $(v2Data).find('.brand').text(),
+                            //'category': 'Apparel',
+                            //'variant': $(v2Data).attr('data-vid'),
+                            'quantity': absChangeQty
+                        }]
+                    }
+                }
+            });
+            
+        }
+        if (oldQty > dataQty) {
+            //console.log('dataLayer remove');
+            dataLayer.push({
+                'event': 'removeFromCart',
+                'ecommerce': {
+                    'currencyCode': 'USD',
+                    'remove': {                                // 'add' actionFieldObject measures.
+                        'products': [{                        //  adding a product to a shopping cart.
+                            'name': $(v2Data).find('h3').text(),
+                            'id': dLID,
+                            'price': priceElement,
+                            'brand': $(v2Data).find('.brand').text(),
+                            //'category': 'Apparel',
+                            //'variant': $(v2Data).attr('data-vid'),
+                            'quantity': absChangeQty
+                        }]
+                    }
+                }
+            });
+
+        }
+        //
+        //
+		v2Data.find('.cart-total .price .val').text(amount);
+		v2Data.find('.cart-total .percent .val').text(savings);
 
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
@@ -144,3 +205,71 @@ $('.quantity-selector').keypress(function(e){
 		adjustQuantity($(this), 0); // Quantity was adjusted externally
 	}
 });
+
+var sendDLFirst = 1;
+
+$('.btn-remove-all').click(function(e) {
+    if (sendDLFirst == 1) {
+        e.preventDefault();
+        //console.log('gotcha');
+        //
+        var v2Data = $(this).parents('.item');
+        var curQty = $(v2Data).find('.quantity-selector').val();
+        //
+        if ($(v2Data).attr('data-sid')) {
+            var dLID = $(v2Data).attr('data-sid');
+        } else {
+            var dLID = $(v2Data).attr('data-id');
+        }
+        //
+        //console.log('dataLayer remove');
+        dataLayer.push({
+            'event': 'removeFromCart',
+            'ecommerce': {
+                'currencyCode': 'USD',
+                'remove': {
+                    'products': [{
+                        'name': $(v2Data).find('h3').text(),
+                        'id': dLID,
+                        'price': $(v2Data).find('.cart-indiv .price .val').text(),
+                        'brand': $(v2Data).find('.brand').text(),
+                        //'category': 'Apparel',
+                        //'variant': $(v2Data).attr('data-vid'),
+                        'quantity': curQty
+                    }]
+                }
+            }
+        });
+        //
+        sendDLFirst = 0;
+        $(this).click();
+    } else {
+        
+    }
+});
+
+$('.url-1-cart form[name=cartnooooo]').submit(function(e) {
+    e.preventDefault();
+    //console.log('gotcha');
+    //
+    //var v2Data = .parents('.item');
+    //console.log('dataLayer remove');
+    dataLayer.push({
+        'event': 'removeFromCart',
+        'ecommerce': {
+            'currencyCode': 'USD',
+            'remove': {                                // 'add' actionFieldObject measures.
+                'products': [{                        //  adding a product to a shopping cart.
+                    'name': $(v2Data).find('h3').text(),
+                    'id': $(v2Data).attr('data-id'),
+                    'price': priceElement,
+                    //'brand': $(pData).find('.brand').text(),
+                    //'category': 'Apparel',
+                    //'variant': $(v2Data).attr('data-vid'),
+                    'quantity': absChangeQty
+                }]
+            }
+        }
+    });
+});
+
