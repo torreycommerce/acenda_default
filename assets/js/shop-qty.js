@@ -29,47 +29,51 @@ function updateCartTotals(qtyField, cartItemId) {
 		var absChangeQty = Math.abs(changeQty);
         //
         //
-        if (oldQty < dataQty) {
-            //console.log('dataLayer add');
-            dataLayer.push({
-                'event': 'addToCart',
-                'ecommerce': {
-                    'currencyCode': 'USD',
-                    'add': {                                // 'add' actionFieldObject measures.
-                        'products': [{                        //  adding a product to a shopping cart.
-                            'name': $(v2Data).find('h3').text(),
-                            'id': dLID,
-                            'price': priceElement,
-                            'brand': $(v2Data).find('.brand').text(),
-                            //'category': 'Apparel',
-                            //'variant': $(v2Data).attr('data-vid'),
-                            'quantity': absChangeQty
-                        }]
-                    }
+        if (typeof dataLayer !== "undefined") {
+            if (dataLayer !== null) {
+                if (oldQty < dataQty) {
+                    //console.log('dataLayer add');
+                    dataLayer.push({
+                        'event': 'addToCart',
+                        'ecommerce': {
+                            'currencyCode': 'USD',
+                            'add': {                                // 'add' actionFieldObject measures.
+                                'products': [{                        //  adding a product to a shopping cart.
+                                    'name': $(v2Data).find('h3').text(),
+                                    'id': dLID,
+                                    'price': priceElement,
+                                    'brand': $(v2Data).find('.brand').text(),
+                                    //'category': 'Apparel',
+                                    //'variant': $(v2Data).attr('data-vid'),
+                                    'quantity': absChangeQty
+                                }]
+                            }
+                        }
+                    });
+                    
                 }
-            });
-            
-        }
-        if (oldQty > dataQty) {
-            //console.log('dataLayer remove');
-            dataLayer.push({
-                'event': 'removeFromCart',
-                'ecommerce': {
-                    'currencyCode': 'USD',
-                    'remove': {                                // 'add' actionFieldObject measures.
-                        'products': [{                        //  adding a product to a shopping cart.
-                            'name': $(v2Data).find('h3').text(),
-                            'id': dLID,
-                            'price': priceElement,
-                            'brand': $(v2Data).find('.brand').text(),
-                            //'category': 'Apparel',
-                            //'variant': $(v2Data).attr('data-vid'),
-                            'quantity': absChangeQty
-                        }]
-                    }
+                if (oldQty > dataQty) {
+                    //console.log('dataLayer remove');
+                    dataLayer.push({
+                        'event': 'removeFromCart',
+                        'ecommerce': {
+                            'currencyCode': 'USD',
+                            'remove': {                                // 'add' actionFieldObject measures.
+                                'products': [{                        //  adding a product to a shopping cart.
+                                    'name': $(v2Data).find('h3').text(),
+                                    'id': dLID,
+                                    'price': priceElement,
+                                    'brand': $(v2Data).find('.brand').text(),
+                                    //'category': 'Apparel',
+                                    //'variant': $(v2Data).attr('data-vid'),
+                                    'quantity': absChangeQty
+                                }]
+                            }
+                        }
+                    });
+        
                 }
-            });
-
+            }
         }
         //
         //
@@ -222,54 +226,32 @@ $('.btn-remove-all').click(function(e) {
             var dLID = $(v2Data).attr('data-id');
         }
         //
-        //console.log('dataLayer remove');
-        dataLayer.push({
-            'event': 'removeFromCart',
-            'ecommerce': {
-                'currencyCode': 'USD',
-                'remove': {
-                    'products': [{
-                        'name': $(v2Data).find('h3').text(),
-                        'id': dLID,
-                        'price': $(v2Data).find('.cart-indiv .price .val').text(),
-                        'brand': $(v2Data).find('.brand').text(),
-                        //'category': 'Apparel',
-                        //'variant': $(v2Data).attr('data-vid'),
-                        'quantity': curQty
-                    }]
-                }
+        if (typeof dataLayer !== "undefined") {
+            if (dataLayer !== null) {
+                dataLayer.push({
+                    'event': 'removeFromCart',
+                    'ecommerce': {
+                        'currencyCode': 'USD',
+                        'remove': {
+                            'products': [{
+                                'name': $(v2Data).find('h3').text(),
+                                'id': dLID,
+                                'price': $(v2Data).find('.cart-indiv .price .val').text(),
+                                'brand': $(v2Data).find('.brand').text(),
+                                //'category': 'Apparel',
+                                //'variant': $(v2Data).attr('data-vid'),
+                                'quantity': curQty
+                            }]
+                        }
+                    }
+                });
             }
-        });
+        }
         //
         sendDLFirst = 0;
         $(this).click();
     } else {
         
     }
-});
-
-$('.url-1-cart form[name=cartnooooo]').submit(function(e) {
-    e.preventDefault();
-    //console.log('gotcha');
-    //
-    //var v2Data = .parents('.item');
-    //console.log('dataLayer remove');
-    dataLayer.push({
-        'event': 'removeFromCart',
-        'ecommerce': {
-            'currencyCode': 'USD',
-            'remove': {                                // 'add' actionFieldObject measures.
-                'products': [{                        //  adding a product to a shopping cart.
-                    'name': $(v2Data).find('h3').text(),
-                    'id': $(v2Data).attr('data-id'),
-                    'price': priceElement,
-                    //'brand': $(pData).find('.brand').text(),
-                    //'category': 'Apparel',
-                    //'variant': $(v2Data).attr('data-vid'),
-                    'quantity': absChangeQty
-                }]
-            }
-        }
-    });
 });
 

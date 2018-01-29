@@ -73,22 +73,16 @@
             {% set end_page = number_pages %}
             {% set start_page = number_pages - number_pages_displayed + 2 > 2? number_pages - number_pages_displayed + 2: 2 %}
         {% endif %}
-            <ul class="pagination pagination-sm">
-                <li class="previous {% if app.request.get.page <= 1 %}disabled{% endif %}">
-                    <a {% if current_page > 1 %} href="{{app.request.getUrl({(page_key):current_page - 1})}}"{% endif %}>«</a>
-                </li>
-                <li class="page {% if current_page == 1 %}active{% endif %}">
-                    <a href="{{app.request.getUrl({(page_key):1})}}">1</a>
-                </li>
+            <div class="btn-group btn-pagination">
+                <a class="btn btn-default btn-previous {% if app.request.get.page <= 1 %}disabled{% endif %}" {% if current_page > 1 %} href="{{app.request.getUrl({(page_key):current_page - 1})}}"{% endif %}><i class="fa fa-angle-double-left"><i class="sr-only">Previous Page</i></i></a> {#«#}
+
+                <a class="btn {% if current_page == 1 %}btn-primary active disabled{% else %}btn-default{% endif %}" href="{{app.request.getUrl({(page_key):1})}}">1</a>
+
                 {% for page in start_page..end_page %}
-                    <li class="page {% if current_page == page %}active{% endif %}">
-                        <a href="{{app.request.getUrl({(page_key):page})}}">{{page}}</a>
-                    </li>
+                    <a class="btn {% if current_page == page %}btn-primary active disabled{% else %}btn-default{% endif %}" href="{{app.request.getUrl({(page_key):page})}}">{{page}}</a>
                 {% endfor %}
-                <li class="next {% if current_page >= number_pages %}disabled{% endif %}">
-                    <a {% if current_page < number_pages %}href="{{app.request.getUrl({(page_key):current_page + 1})}}"{% endif %}>»</a>
-                </li>
-            </ul>
+                <a class="btn btn-default btn-next {% if current_page >= number_pages %}disabled{% endif %}" {% if current_page < number_pages %}href="{{app.request.getUrl({(page_key):current_page + 1})}}"{% endif %}><i class="fa fa-angle-double-right"><i class="sr-only">Next Page</i></i></a> {#»#}
+            </div>
     {% endif %}
 {% endspaceless %}
 {% endmacro %}

@@ -1,4 +1,5 @@
 {% extends "/_layouts/base.html.twig" %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% block title %}Page Not Found{% endblock %}
 {% block content %}
 
@@ -8,13 +9,17 @@
 {% endif %}
 
 <h1>Page Not Found</h1>
-<p>The page you are attempting to reach has moved or may no longer exist.</p>
-<p>We recently redesigned our website and apologize for the inconvenience.</p>
-<p>Please visit our new <a href="{{ app.url }}">homepage.</a></p>
-{% if app.error.code != 404 %}
-    <h2>Errmerhgerd <small>A undiscovered feature was discovered</small></h2>
-    {{app.error.message}}<br /><br />
-    <p>While rendering <b>{{app.error.view}}</b></p>
+{{ lonelyform.begin('error-404')}}
+    {{ lonelyform.beginintro() }}
+        <p>The page you are attempting to reach has moved or may no longer exist.</p>
+        <p>We recently redesigned our website and apologize for the inconvenience.</p>
+        <p>Please visit our new <a href="{{ app.url }}">homepage.</a></p>
+        {% if app.error.code != 404 %}
+            <h2>Errmerhgerd <small>A undiscovered feature was discovered</small></h2>
+            {{app.error.message}}<br /><br />
+            <p>While rendering <b>{{app.error.view}}</b></p>
+    {{ lonelyform.endintro() }}
+{{ lonelyform.end() }}
 {% endif %}
         
 {% endblock %}

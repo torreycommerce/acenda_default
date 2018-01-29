@@ -96,23 +96,27 @@ function ajaxCart(data, r) {
     } else {
         var dLID = $('#product-details .variations').attr('data-id');
     }
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'currencyCode': 'USD',
-            'add': {                                // 'add' actionFieldObject measures.
-                'products': [{                        //  adding a product to a shopping cart.
-                    'name': $(pData).find('.product-name').text(),
-                    'id': dLID,
-                    'price': $(vData).find('.price .val').text(),
-                    'brand': $(pData).find('.brand').text(),
-                    //'category': 'Apparel',
-                    //'variant': $(vData).attr('data-vid'),
-                    'quantity': $('.quantity-selector').val()
-                }]
-            }
+    if (typeof dataLayer !== "undefined") {
+        if (dataLayer !== null) {
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'currencyCode': 'USD',
+                    'add': {                                // 'add' actionFieldObject measures.
+                        'products': [{                        //  adding a product to a shopping cart.
+                            'name': $(pData).find('.product-name').text(),
+                            'id': dLID,
+                            'price': $(vData).find('.price .val').text(),
+                            'brand': $(pData).find('.brand').text(),
+                            //'category': 'Apparel',
+                            //'variant': $(vData).attr('data-vid'),
+                            'quantity': $('.quantity-selector').val()
+                        }]
+                    }
+                }
+            });
         }
-    });
+    }
     // BEGIN CONFIG VARIABLES
     var show_all = true; // Whether to show all products in ajax cart
     // END CONFIG VARIABLES
