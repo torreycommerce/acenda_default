@@ -2,7 +2,6 @@
 <section class="product-grid">
 <h2><span>You May Also Like</span></h2>
 <div class="row c-c text-center">
-{% set items_per_row = 12 %}
 {% set collection_ids = [] %}
 {% set product_count = 1 %}
 {% set products = api.get('/catalog', {query:{id:{"$in":product.cross_sellers}},sort:"product.variant.popularity:-1",limit:4}) %}

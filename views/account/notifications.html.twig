@@ -52,12 +52,10 @@ set in the array in /account/_macros/base.html.twig
 		{% endif %}
 		{% set notifications = api.get('/customernotification',{'sort':sort,'page':app.request.get.page,'query':query + {customer_id:app.user.id},'search':search,'attributes':columns,'limit':  limit }) %}
 		<div class="col-xs-12 col-sm-4 p pull-right">
-			<div class="search-within">
-				<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
-					<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
-					<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search</i></i></button></span>
-				</form>
-			</div>
+			<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
+				<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
+				<span class="input-group-btn"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search</i></i></button></span>
+			</form>
 		</div>
 	</div>
 </div>
