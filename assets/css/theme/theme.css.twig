@@ -34,6 +34,7 @@
 /* acenda global */
 *[data-image-swap],*[data-image-zoom] {cursor:pointer;}
 
+.logo a:focus img {outline:-webkit-focus-ring-color auto 5px;}
 #header .popover {top:100%!important; right:20px; left:20px!important; width:auto; margin:0; max-width:none;}
 .ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
 
@@ -81,7 +82,7 @@
 
 /**** 4-) Navbar Menu Styling  ****/
 @media (min-width: 768px) {
-ul.nav li:hover > ul.dropdown-menu {display:block;}
+ul.nav li:hover > ul.dropdown-menu, ul.nav li ul.dropdown-menu.show-menu {display:block;}
 }
 
 #nav-desktop-main .navbar-nav > li > a:hover, #nav-desktop-main .navbar-nav > li > a:focus {background-color:transparent;}

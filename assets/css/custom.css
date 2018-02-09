@@ -17,7 +17,6 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 #header .logo {position:relative; padding-top:36px; font-size:120%;}
 #nav .navbar-nav {display:table; float:none; margin-right:auto; margin-left:auto;}
 #nav-desktop-main {border-top-color:#ccc;}
-.nav-mobile .btn {font-size:28px;}
 #footer .list-unstyled {line-height:2;}
 
 .product-grid .brand-product {height:2.2em; overflow:hidden;}

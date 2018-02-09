@@ -1,4 +1,4 @@
-$('#yta-menu').before('<div class="yta-mask yta-toggle"></div>').prepend('<div class="yta-head yta-bg"><i class="fa fa-2x fa-close yta-toggle"></i></div>');
+$('#yta-menu').before('<div class="yta-mask yta-toggle"></div>').prepend('<div class="yta-head yta-bg"><button class="btn btn-lg btn-white btn-sq-lg pull-right yta-toggle"><i class="fa fa-close"><i class="sr-only">Close</i></i></button></div>');
 $(document).on( "click", '.yta-toggle', function() {
     $('html').toggleClass('yta-open');
     return false;

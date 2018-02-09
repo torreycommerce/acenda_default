@@ -3,6 +3,10 @@
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/device.min.js",function(){
 });
 
+IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/accesstabs.js",function(){
+    $('.nav.navbar-nav').setup_navigation();
+});
+
 // https://github.com/twbs/bootstrap/issues/14040
 // TODO: Add any custom classes with 'position: fixed' to the selector below
 var fixedCls = '.navbar-fixed-top,.navbar-fixed-bottom,.mobile.yta-open';

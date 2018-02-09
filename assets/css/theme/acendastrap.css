@@ -319,7 +319,7 @@ hr {
 }
 .sr-only-focusable:active,
 .sr-only-focusable:focus {
-  position: static;
+  /*position: static;*/
   width: auto;
   height: auto;
   margin: 0;
@@ -1844,6 +1844,23 @@ fieldset[disabled] a.btn {
   background-color: #ac2925;
   border-color: #761c19;
 }
+.btn-white {
+  color: #000!important;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-white:focus,
+.btn-white.focus,
+.btn-white:hover {
+  background-color: #fff;
+  border-color: #fff;
+  border-color: #fff;
+}
+.btn-white:active,
+.btn-white.active {
+  background-color: #fff;
+  border-color: #fff;
+}
 .btn-link {
   font-weight: normal;
   color: #000;
@@ -1951,7 +1968,7 @@ tbody.collapse.in {
   position: relative;
 }
 .dropdown-toggle:focus {
-  outline: 0;
+  /*outline: 0;*/
 }
 .dropdown-menu {
   position: absolute;
@@ -4168,6 +4185,8 @@ button.close {
 .image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
 .image-space .isd .img-responsive {width:auto; margin:0 auto;}
 .image-space .img-responsive.isd {width:auto; max-width:100%; height:auto; max-height:100%;}
+
+div:focus, section:focus {outline:none;}
 
 .fs {font-size:100%;}
 .fsd1, form .validation {font-size:87.5%;}
