@@ -56,22 +56,23 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 <div class="row c-c">
 	{% for wishlist in wishlists %}
 	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<div class="panel panel-default{% if wishlist.default %} panel-success{% endif %}">
+		<div class="panel{% if wishlist.default %} panel-success{% endif %}">
 			<div class="panel-heading">
 				<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 			</div>
 			<div class="panel-body">
 				<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
 				<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
+				<div class="fsd1 mar-t pad-b divide p g">
 				{% if wishlist.default %}
-					<div class="fsd1 mar-t"><u>Default Wish List</u></div>
+					<u>Default Wish List</u>
 				{% else %}
-					<div class="fsd1 mar-t"><br></div>
+					<br>
 				{% endif %}
-			</div>
-			<div class="panel-footer">
+				</div>
 				<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>
 			</div>
+			
 		</div>
 	</div>
 {% endfor %}

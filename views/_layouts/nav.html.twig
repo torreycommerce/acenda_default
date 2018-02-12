@@ -1,9 +1,9 @@
 {% set categories = api.get('/category/sapling') %}
 {#{% set more_info = api.get(‘category’,{slug: item.slug}) %}#}
 {% spaceless %}
-<nav id="nav"><div class="container">
-<div class="hidden-sm hidden-xs">
-	<nav id="nav-desktop-main" class="navbar">
+
+<div class="container hidden-sm hidden-xs">
+	<nav id="nav" class="navbar">
 		<ul class="nav navbar-nav">
 		{% for main_category,items in categories if main_category != "clearance" %}
 			{% if items.limb|length %}
@@ -30,10 +30,4 @@
 </div>
 {# End desktop nav #}
 
-{# Begin mobile navigation menu #}
-<nav class="bgg navajax" id="yta-menu">
-</nav>
-
-</div></nav>
-{# End mobile navigation menu #}
 {% endspaceless %}

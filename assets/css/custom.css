@@ -15,8 +15,8 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 /* acenda global */
 #toolbar {padding-top:6px; padding-bottom:6px;}
 #header .logo {position:relative; padding-top:36px; font-size:120%;}
+#nav {border-top-color:#ccc;}
 #nav .navbar-nav {display:table; float:none; margin-right:auto; margin-left:auto;}
-#nav-desktop-main {border-top-color:#ccc;}
 #footer .list-unstyled {line-height:2;}
 
 .product-grid .brand-product {height:2.2em; overflow:hidden;}

@@ -60,12 +60,12 @@ set in the array in /account/_macros/base.html.twig
 <div class="row c-c">
 	{% for row,address in addresses %}
 	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<div class="panel {% if address.verified == 0 %} panel-danger{% else %} panel-default{% endif %} {% if address.default == 1 %} panel-success{% endif %}">
+		<div class="panel {% if address.verified == 0 %} panel-danger{% else %}{% endif %} {% if address.default == 1 %} panel-success{% endif %}">
 			<div class="panel-heading">
 				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
 			</div>
 			<div class="panel-body">
-				<address>
+				<address class="pad-b divide p g">
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>
 					{% endif %}
@@ -77,17 +77,17 @@ set in the array in /account/_macros/base.html.twig
 					<div class="country">{{ address.country }}</div>
 					{#{% if address.street_line2 == '' %}<br />{% endif %}#}
 					{#{% if address.company == '' %}<br />{% endif %}#}
+					<div class="fsd1 mar-t">
 					{% if address.default == 1 %}
-						<div class="fsd1 mar-t"><u>Default Address</u></div>
+						<u>Default Address</u>
 					{% else %}
-						<div class="fsd1 mar-t"><br></div>
+						<br>
 					{% endif %}
+					</div>
+					{% if address.verified == 0 %}
+    				{#<span class="text-danger">Please verify this address by clicking the edit address link under options below and fill in any missing information.</span>#}
+    				{% endif %}
 				</address>
-				{% if address.verified == 0 %}
-				<span class="text-danger">Please verify this address by clicking the edit address link under options below and fill in any missing information.</span>
-				{% endif %}
-			</div>
-			<div class="panel-footer">
 				<div class="btn-group">
 					<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						<span>Options</span><i class="fa fa-caret-down"></i>

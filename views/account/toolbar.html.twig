@@ -1,10 +1,10 @@
 {% block toolbar %}
 {%- import "/_macros/product.html.twig" as prod -%}
 {% spaceless %}
-<div class="fsd1 text-right" id="toolbar">
+<div id="toolbar">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-4 g pull-right hidden-xs hidden-sm tool-wing">
+			<div class="col-xs-4 g pull-right text-right hidden-xs hidden-sm tool-wing">
 				<ul class="list-inline" id="tools">
 					<li class="cart">
 						<a class="btn btn-link tool-tab" href="{{app.url}}/cart">
@@ -29,9 +29,9 @@
 				</div>
 			</div>
 			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<a class="btn btn-link btn-sq pull-left yta-launch yta-toggle" href="#">
+				<button class="btn btn-link btn-sq pull-left yta-launch yta-toggle">
 					<i class="fa fa-bars"><i class="sr-only">Mobile Menu</i></i>
-				</a>
+				</button>
 			</div>
 			<div class="col-xs-6 col-md-offset-1 col-md-4 text-center">
 				<div class="image-space logo">

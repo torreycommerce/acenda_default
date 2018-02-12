@@ -29,7 +29,7 @@
 				{% if product.description is not empty %}
 					{% set full_description = product.description %}
 					<div id="description-desktop" class="tab-pane fade in active">
-						<div class="panel panel-default">
+						<div class="panel">
 							<div class="panel-body">
 								<div class="g" itemprop="description">{{full_description}}</div>
 								<div id="variant-description-{{product.id}}" ></div>
@@ -40,7 +40,7 @@
 				{# Begin features #}
 				{% if product.dynamic_attributes is not empty %}
 					<div id="features-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
-						<div class="panel panel-default">
+						<div class="panel">
 							<div class="panel-body">
 								<ul>
 									{% for feature in product.dynamic_attributes %}
@@ -55,7 +55,7 @@
 				{% endif %}
 				{# Begin reviews #}
 				<div id="reviews-desktop" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
-					<div class="panel panel-default">
+					<div class="panel">
 						<div class="panel-body">
 							{% include "/product/_partials/reviews.html.twig" %}
 						</div>

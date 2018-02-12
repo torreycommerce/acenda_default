@@ -2,9 +2,9 @@
 {% if app.user.id is null %}
 <li class="tool">
 	<div class="btn-group my-account">
-		<a target="_new" type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+		<button id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
 			<i class="fa fa-user hidden"></i><span>My Account</span><i class="fa fa-caret-down hidden"></i>
-		</a>
+		</button>
 		<ul class="dropdown-menu pull-right">
 			<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
 			<li role="separator" class="divider"></li>
@@ -16,9 +16,9 @@
 {% set customer = api.get('/customer/' ~ app.user.id) %}
 <li class="tool">
 	<div class="btn-group my-account">
-		<a type="button" id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+		<button id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
 			<i class="fa fa-user hidden"></i><span>Hi, <u>{{ customer.first_name }}</u></span><i class="fa fa-caret-down hidden"></i>
-		</a>
+		</button>
 		<ul class="dropdown-menu pull-right">
 			<li><a href="{{app.url}}/account">My Account</a></li>
 			<li role="separator" class="divider"></li>

@@ -25,6 +25,9 @@
 
 {% spaceless %}
 
+<div class="yta-mask yta-toggle"></div>
+<nav class="bgg" id="yta-menu">
+<div class="yta-head yta-bg"><button class="btn btn-lg btn-white btn-sq-lg pull-right yta-toggle"><i class="fa fa-close"><i class="sr-only">Close</i></i></button></div>
 <div class="yta-body">
 <ul>
 	<li>
@@ -33,7 +36,7 @@
 
 	{% if app.user.id %}
 	<li>
-		<span>My Account</span><i class="fa fa-chevron-down yta-getsub"></i>
+		<a href="{{ app.url }}/account">My Account</a><button class="btn btn-sm btn-white btn-sq-sm yta-getsub"><i class="fa fa-chevron-down"><i class="sr-only">Account Subcategories</i></i></button>
 		<ul>
 			<li><a href="{{ app.url }}/account/notifications">Notifications</a></li>
 			<li><a href="{{ app.url }}/account/addresses">Addresses</a></li>
@@ -91,4 +94,5 @@
 {% endfor %}
 </ul>
 </div>
+</nav>
 {% endspaceless %}

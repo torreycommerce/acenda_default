@@ -185,7 +185,7 @@
 	{% for name,filter_set in filters %}
 		{% if filter_set|length > 1 %}
 			{% if hasFilters == 0 %}
-			<button class="btn btn-block btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
+			<button class="btn btn-block btn-lg btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
 			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
 			{% set hasFilters = 1 %}
 			{% endif %}
@@ -212,11 +212,12 @@
 					  }) %}
 				{% endif %}
 			{% endif %}
-			<div class="filter">
-				{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
-				{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}                    
-			</div>
-				
+
+            {% set safename = name|replace({'.':'-'})  %}
+            <div class="filter panel" id="filter-{{safename}}">
+			{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
+			{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
+            </div>
 			{% endif %}
 		{% endif %}
 		{% if loop.last %}

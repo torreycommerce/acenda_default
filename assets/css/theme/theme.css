@@ -5,6 +5,9 @@
 .igq-mod .form-control {width:55px; margin-right:10px; padding:10px;}
 .igq-mod .input-group-btn {width:100%;}
 
+button.blank {background:none; border-width:0;}
+.filter button {text-align:left; border:none; border-radius:0;}
+
 @media (min-width:992px) {
 .igq-mod .form-control {margin-right:15px;}
 }
@@ -25,7 +28,7 @@
 .fa-w12 {min-width:1.2em;}
 .fa:last-child {margin-right:0;}
 .fa:first-child {margin-left:0;}
-.fa-fa-balance .fa {min-width:1.25em; text-align:center;}
+.fa-fa-balance .fa {min-width:1.25em;}
 .fa-fa-gentle .fa {opacity:.667;}
 /* */
 
@@ -153,6 +156,8 @@ li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:e
 
 .product-grid .color-chips .col-xs-2 {float:none; display:inline-block; width:20%;}
 .product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
+
+.color-chip button {width:100%;}
 
 @media (min-width:992px) {
 .filter .color-chips {padding-bottom:10px;}

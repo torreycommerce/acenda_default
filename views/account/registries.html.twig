@@ -52,7 +52,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	{% for registry in registries %}
 	{# Begin registry #}
 	<div class="col-lg-4 col-md-4 col-sm-6">
-		<div class="panel panel-default panel-info ">
+		<div class="panel panel-info ">
 			{# Begin registry details #}
 			<div class="panel-heading">
 				{% if registry.default %}<i class="fa fa-star"></i>{% endif %} <strong>{{ registry.name }}</strong>
@@ -60,14 +60,17 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			<div class="panel-body">
 				<div class="item-count">{{ registry.item_count }} item(s)</div>
 				<div class="registry-privacy">{{ registry.privacy }}</div>
-				<div class="privacy">{% if registry.default %}default registry{% endif %}</div>
-			</div>
-			{# End registry details #}
-			{# Begin registry actions #}
-			<div class="panel-footer">
+				<div class="fsd1 mar-t pad-b divide p g">
+				{% if registry.default %}
+					<u>Default Wish List</u>
+				{% else %}
+					<br>
+				{% endif %}
+				</div>
 				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
 			</div>
-			{# End registry actions #}
+			{# End registry details #}
+
 		</div>
 	</div>
 	{# End registry #}

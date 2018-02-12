@@ -16,7 +16,7 @@
 	<div class="{{ app.user.isLoggedIn() ? "col-xs-12" : "col-xs-12 col-md-8" }}">
 
 		{% if final_order is not empty %}
-		<div class="panel panel-default">
+		<div class="panel">
 			<div class="panel-body">
 				<h2>Thank You, your order has been placed!</h2>
 				<p>We have sent you an e-mail confirmation.</p>
@@ -66,7 +66,7 @@
 		{% endif %}
 		
 		{% if final_order is not empty %}
-		<div class="panel panel-default">
+		<div class="panel">
 			<div class="panel-body">
 			    <h2 class="divide pad-b">Invoice: <span class="pull-right">#{{ final_order.order_number }}</span></h2>
 				<div class="row">
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default">
+		<div class="panel">
             <div class="panel-body">
                 <h2 class="divide pad-b">Items Ordered</h2>
             {% for item in items %}
@@ -151,7 +151,7 @@
 
 	{% if app.user.isLoggedIn() == false %}
 	<div class="col-xs-12 col-md-4">
-		<div class="panel panel-default"><div class="panel-body">
+		<div class="panel"><div class="panel-body">
 			<h2>Create a New Account</h2>
 			<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more!</p>
 			{{ forms.begin('create', app.url ~ '/account/create', 'post') }}
