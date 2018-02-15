@@ -48,8 +48,10 @@
 				<div class="media-body">
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
-							<a href="{{ app.url ~ products[item.product_id][0].url }}">{{ item.name }}</a>
-							<p class="help-block"><u><b>{{ available }}</b> available for return</u></p>
+						    <div class="product-name p">
+							    <a href="{{ app.url ~ products[item.product_id][0].url }}">{{ item.name }}</a>
+						    </div>
+							<div><b>{{ available }}</b> available for return.</div>
 						</div>
 					{# End item detials #}
 					{# Begin return form #}
@@ -66,7 +68,7 @@
 								</div>
 								{# End return quantity #}
 								{# Begin return reason #}
-								<div class="col-xs-8">
+								<div class="col-xs-12 col-sm-8">
 									<div class="form-group">
 										<label for="return-reason[{{item.id}}]">Reason</label>
 										{{ forms.select('createreturn[reason][' ~ item.id ~ ']', '', {'': 'Please select',
@@ -103,7 +105,7 @@
 {% endif %}
 <div class="form-group actions">
 	{% if global_available > 0 %}
-	{{ forms.submit('createreturn[action]','submit','Create Return',{class:'btn btn-primary pull-right'}) }}
+	{{ forms.submit('createreturn[action]','submit','Create Return',{class:'btn btn-default pull-right'}) }}
 	{% else %}
 	<a class="btn btn-default pull-left" href="javascript:history.go(-1)">Back</a>
 	{% endif %}
