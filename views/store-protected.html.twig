@@ -3,19 +3,20 @@
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% block title %}{{ app.params.site.title}} is protected{% endblock %}
 {% block content %}
+
 {% if app.request.post.auth_protection is not empty %}
-{% if app.form.validateCaptcha(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post.recaptcha_response_field) %}
-{% set auth = api.post('/site/authentication', app.request.post.auth_protection) %}
-{% if api.post('/site/authentication', app.request.post.auth_protection) %}
-{% do app.user.setState('user_allowed', app.request.post.auth_protection.password) %}
-{% do app.redirect('/') %}
-{% else %}
-{% set form_errors = api.error() %}
-{% endif %}
-{% else %}
-{% do app.user.setFlash('The captcha is not valid', 'danger') %}
-{% do app.redirect('store-protected') %}
-{% endif %}
+	{% if app.form.validateCaptcha2(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post['g-recaptcha-response']) %}
+		{% set auth = api.post('/site/authentication', app.request.post.auth_protection) %}
+		{% if api.post('/site/authentication', app.request.post.auth_protection) %}
+			{% do app.user.setState('user_allowed', app.request.post.auth_protection.password) %}
+			{% do app.redirect('/') %}
+		{% else %}
+			{% set form_errors = api.error() %}
+		{% endif %}
+	{% else %}
+		{% do app.user.setFlash('The captcha is not valid', 'danger') %}
+		{% do app.redirect('store-protected') %}
+	{% endif %}
 {% endif %}
 
 <h1 class="pad-t-2x">{{ app.params.site.title}}</h1>
@@ -31,7 +32,7 @@
 	<div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
 </div>
 <div class="form-group">
-	{{ forms.captcha() }}
+	{{ forms.captchaHtml() }}
 </div>
 <div class="form-group">
 	{{ forms.submit('auth_protection[submit]', 'submit', 'Access', {class:'btn btn-lg btn-primary'})}}
