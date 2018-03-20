@@ -261,6 +261,17 @@
 {% endmacro %}
 
 
+{% macro captchaHtml() %}
+{% spaceless %}
+    {% import _self as elements %}
+    <div class="captcha">
+        {{ app.form.captchaHtml() }}
+    </div>
+
+{% endspaceless %}
+{% endmacro %}
+
+
 {% macro end() %}
 {% spaceless %}
     </form>
