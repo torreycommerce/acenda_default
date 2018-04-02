@@ -1,0 +1,20 @@
+{%- import "email/core/macro.html.twig" as ema -%}
+{% include 'email/core/header.html.twig' %}
+<tr>
+	<td {{ ema.divform() }}>
+		<table {{ ema.tform() }}>
+			<tr>
+				<td {{ ema.titform() }}>
+				An account has been created at {{ site_name }}
+				</td>
+			</tr>
+			<tr>
+				<td {{ ema.comformA() }}>
+				Please verify your account by following the link below:
+				<a href="{{app.url}}/account/verify?token={{ verification_token }}">{{app.url}}/account/verify?token={{ verification_token }}</a>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+{% include 'email/core/footer.html.twig' %}
