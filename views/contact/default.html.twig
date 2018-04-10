@@ -20,12 +20,18 @@ Contact Us
     'Other' : 'Other'
 }
 %}
+{% set captcha_invalid = false %}
+
 {% if app.request.post.contact is defined and app.request.post.contact.subject in subjects %}
-    {% do app.request.validateToken() %}
-    {% if app.params['contact-us']['to'] is empty or app.params['contact-us']['from'] is empty %}
-        <div class="alert-danger">We're sorry, contact-us feature has not yet been setup.</div>
-    {% elseif api.post('/contact', app.request.post.contact) %}
-        {% do app.redirect('/', {'success':'Your comment has been submitted. Thank you.'}) %}
+    {% set contact = app.request.post.contact %}
+    {% if app.form.validateCaptcha2(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post['g-recaptcha-response']) %}
+            {% if app.params['contact-us']['to'] is empty or app.params['contact-us']['from'] is empty %}
+                <div class="alert-danger">We're sorry, contact-us feature has not yet been setup.</div>
+            {% elseif api.post('/contact', app.request.post.contact) %}
+                {% do app.redirect('/', {'success':'Your comment has been submitted. Thank you.'}) %}
+            {% endif %}
+    {% else %}
+        {% set captcha_invalid = true %}
     {% endif %}
 {% endif %}
 
@@ -57,6 +63,12 @@ Contact Us
         {{ forms.textarea('contact[message]', contact.message, {class:'form-control parsley-validated', id:'contact-message', placeholder:"Message", rows:"3", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'message') }}</div>
     </div>
+    <div class="form-group">
+        {% if captcha_invalid %}
+            <div class="alert alert-warning"> Please complete the CAPTCHA </div>
+        {% endif %}
+        {{ forms.captchaHtml() }}
+    </div>    
     <div class="actions">
         {{ forms.submit('submit', 'create', 'Send Message', {class:'btn btn-lg btn-primary',id: 'contact-form-submit'})}}
     </div>
