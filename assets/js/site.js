@@ -37,7 +37,7 @@ $(document).ready(function() {
 	    cache: false
 	});	
 	$.get(acendaBaseUrl+'/account/tools', function(data) {
-		$('#tools').prepend(data);
+		$('#header .my-account').append(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//
@@ -294,6 +294,7 @@ function updateUrlParameter(param, value) {
 	const regExp = new RegExp(param + "(.+?)(&|$)", "g");
 	const newUrl = window.location.href.replace(regExp, param + "=" + value + "$2");
 	window.history.pushState("", "", newUrl);
+	//window.history.replaceState("", "", newUrl);
 }
 
 function getQueryParams(qs) {
@@ -309,6 +310,54 @@ function getQueryParams(qs) {
 
 	return params;
 }
+
+
+var updateQueryStringParam = function (key, value) {
+console.log('uQSP key: '+key+' , value: '+value)
+    var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+        urlQueryString = document.location.search,
+        newParam = key + '=' + value,
+        params = '?' + newParam;
+
+    console.log('urlQS v10');
+    // If the "search" string exists, then build params from it
+    //if (urlQueryString) {
+    if (urlQueryString) {
+
+        updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+        removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+        console.log('has urlQS');
+        console.log('value: '+value);
+        if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
+            console.log('path 1');
+            if (urlQueryString.indexOf(key) !== -1) {
+                console.log('path 1 actual MODDed');
+                params = urlQueryString.replace(removeRegex, "$1");
+                //params = urlQueryString.replace(updateRegex, "$1" + newParam); me
+                params = params.replace( /[&;]$/, "" );
+            }
+
+        } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+            console.log('path 2');
+            params = urlQueryString.replace(updateRegex, "$1" + newParam);
+
+        } else { // Otherwise, add it to end of query string
+            console.log('path 3');
+            params = urlQueryString + '&' + newParam;
+
+        }
+        //window.history.pushState({}, "", baseUrl + params);
+
+    } else {
+        console.log('has NO urlQS');
+        //window.history.pushState({}, "", baseUrl);
+    }
+    params = params == '?' ? '' : params;
+    
+    window.history.pushState({}, "", baseUrl + params);
+};
+
+
 
 var desire = getQueryParams(document.location.search);
 

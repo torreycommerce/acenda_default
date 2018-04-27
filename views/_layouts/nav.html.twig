@@ -2,8 +2,8 @@
 {#{% set more_info = api.get(‘category’,{slug: item.slug}) %}#}
 {% spaceless %}
 
-<div class="container hidden-sm hidden-xs">
-	<nav id="nav" class="navbar">
+<nav id="nav" class="bgb navbar hidden-sm hidden-xs">
+    <div class="container">
 		<ul class="nav navbar-nav">
 		{% for main_category,items in categories %}
 			{% if items.limb|length %}
@@ -26,8 +26,8 @@
 			{% endif %}
 		{% endfor %}
 		</ul>
-	</nav>
-</div>
+    </div>
+</nav>
 {# End desktop nav #}
 
 {% endspaceless %}

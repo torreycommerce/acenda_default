@@ -1,33 +1,19 @@
 {% if app.request.isAjaxRequest() %}				
+<ul class="dropdown-menu pull-right">
 {% if app.user.id is null %}
-<li class="tool">
-	<div class="btn-group my-account">
-		<button id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-			<i class="fa fa-user hidden"></i><span>My Account</span><i class="fa fa-caret-down hidden"></i>
-		</button>
-		<ul class="dropdown-menu pull-right">
-			<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
-			<li role="separator" class="divider"></li>
-			<li> <a href="{{app.url}}/order">Order Status</a></li>
-		</ul>
-	</div>
-</li>
+	<li><a href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
+	<li role="separator" class="divider"></li>
+	<li><a href="{{app.url}}/order">Order Status</a></li>
+	<li> <a href="{{app.url}}/return">Returns</a></li>
 {% else %}
 {% set customer = api.get('/customer/' ~ app.user.id) %}
-<li class="tool">
-	<div class="btn-group my-account">
-		<button id="dropdown-account" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-			<i class="fa fa-user hidden"></i><span>Hi, <u>{{ customer.first_name }}</u></span><i class="fa fa-caret-down hidden"></i>
-		</button>
-		<ul class="dropdown-menu pull-right">
-			<li><a href="{{app.url}}/account">My Account</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a href="{{app.url}}/account/orders">Orders</a></li>
-			<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
-		</ul>
-	</div>
-</li>
+	<li><a href="{{app.url}}/account">My Account</a></li>
+	<li role="separator" class="divider"></li>
+	<li><a href="{{app.url}}/account/orders">Orders</a></li>
+	<li><a href="{{app.url}}/account/returns">Returns</a></li>
+	<li><a href="{{app.url}}/account/wishlists">Wish Lists</a></li>
+	<li role="separator" class="divider"></li>
+	<li><a href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
 {% endif %}
+</ul>
 {% endif %}	

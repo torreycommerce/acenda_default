@@ -3,52 +3,46 @@
 {% spaceless %}
 <div id="toolbar">
 	<div class="container">
-		<div class="row">
-			<div class="col-xs-4 g pull-right text-right hidden-xs hidden-sm tool-wing">
-				<ul class="list-inline" id="tools">
-					<li class="cart">
-						<a class="btn btn-link tool-tab" href="{{app.url}}/cart">
-							<i class="fa fa-shopping-bag"></i><span class="text">My Cart</span><span class="dib item-count"></span>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="col-xs-3 hidden-xs hidden-sm tool-wing">
-				<div class="search">
-					<form role="search" class="search-form" method="get" action="{{app.url}}/search">
-					    <label class="sr-only" for="search">Search</label>
-						<div class="form-group input-group twitter-typeahead">
-							<span class="input-group-btn">
-								<button class="btn btn-link" type="submit">
-									<i class="fa fa-search"><i class="sr-only">Search</i></i>
-								</button>
-							</span>
-							<input class="form-control input-white typeahead search-autocomplete" id="search" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search" title="Search">
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<button class="btn btn-link btn-sq pull-left yta-launch yta-toggle">
-					<i class="fa fa-bars"><i class="sr-only">Mobile Menu</i></i>
+	    <div class="pos-r">
+	        <div class="omm nav-mobile hidden-md hidden-lg">
+				<button class="btn btn-link btn-sq btn-lg btn-sq-lg yta-launch yta-toggle">
+					<i class="fa fa-bars"><i class="sr-only">Open Mobile Menu</i></i>
 				</button>
 			</div>
-			<div class="col-xs-6 col-md-offset-1 col-md-4 text-center">
-				<div class="image-space logo">
-					{% if app.params.logoimages is not empty %}
-						{% set logo_info = app.params.logoimages | first %}
-						{% set logo = logo_info.url %}
-					{% endif %}
-					{% if logo is not empty %}
-					<a href="{{app.url}}/"><img class="img-responsive isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage"></a>
-					{% else %}
-					<a href="{{app.url}}/"><span class="isd">{{ app.params.site.title }}</span></a>
-					{% endif %}
-				</div>
+            <div class="logo"><a class="image-space" href="{{app.url}}/">
+				{% if app.params.logoimages is not empty %}
+					{% set logo_info = app.params.logoimages | first %}
+					{% set logo = logo_info.url %}
+				{% endif %}
+				{% if logo is not empty %}
+				<img class="img-responsive isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage">
+				{% else %}
+				<span class="isd">{{ app.params.site.title }}</span>
+				{% endif %}
+			</a></div>
+			<div class="search hidden-xs hidden-sm">
+				<form role="search" class="search-form" method="get" action="{{app.url}}/search">
+				    <label class="sr-only" for="search">Search products</label>
+					<div class="form-group input-group twitter-typeahead">
+						<input class="form-control input-lg typeahead search-autocomplete" id="search" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search products">
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-lg btn-sq-lg" type="submit">
+								<i class="fa fa-search"><i class="sr-only">Search products</i></i>
+							</button>
+						</span>
+					</div>
+				</form>
 			</div>
-			<div class="col-xs-3 nav-mobile hidden-md hidden-lg">
-				<a class="btn btn-link btn-sq pull-right" href="{{app.url}}/cart#2">
-					<i class="fa fa-shopping-bag"><i class="sr-only">My Cart</i></i>
+			<div class="mya">
+            	<div class="btn-group my-account">
+            		<button id="dropdown-account" class="btn btn-lg btn-sq btn-sq-lg btn-link dropdown-toggle" data-toggle="dropdown">
+            			<i class="fa fa-user-o"><i class="sr-only">My Account</i></i>
+            		</button>
+            	</div>
+            </div>
+			<div class="cart nav-mobile">
+				<a class="btn btn-lg btn-link btn-sq btn-sq-lg" href="{{app.url}}/cart">
+					<span><i class="fa fa-shopping-bag"></i></span><span class="sr-only">My Cart</span>{#<span class="dib item-count"></span>#}
 				</a>
 			</div>
 		</div>
