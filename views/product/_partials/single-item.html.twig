@@ -191,7 +191,7 @@
 					{% for registry in registries %}
 						{% set registry_ids = registry_ids|merge([registry.id]) %}
 					{% endfor %}
-					{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+					{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},variant_id:product.id}}) %}
 				{% endif %}
 				{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
 				{% if wishlists is not empty %}

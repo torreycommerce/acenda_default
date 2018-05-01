@@ -15,13 +15,13 @@
     <h1><i class="fa fa-gift"></i><span>{{ registry.name }}</span></h1>
 
     {{ forms.begin('registry-form', app.url ~ '/registry/' ~ registry.id ~ '/route') }}   
-    {% set product_ids = registry_items|values_in('product_id') %}
-    {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+    {% set product_ids = registry_items|values_in('variant_id') %}
+	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
     {# Remove products that were disabled or removed #}
     {% set items_deleted = false %}
     {% for item in registry_items %}
-        {% set product = products[item.product_id][0] %}
-        {% if product.status != 'active' %}
+        {% set product = products[item.variant_id][0] %}
+		{% if product.status != 'active' %}
             {% do api.delete('/registryitem/' ~ item.id) %}
             {% if registry.customer_id == app.user.id %}
                 {# FIXME: These flash messages don't work sometimes #}
@@ -41,7 +41,7 @@
     {% endfor %}
     {% for item in registry_items %}
         {% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
-        {% set product = products[item.product_id][0] %}
+        {% set product = products[item.variant_id][0] %}
         {# Begin product #}
     <div class="product">
         <div class="row">{# End Row #}

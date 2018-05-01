@@ -88,7 +88,7 @@
             {% set quantity = 1 %}
         {% endif %}
         {% if quantity > 0 %}
-            {% set result = api.post('/registryitem', {"registry_id":registry.id, "product_id":item, "quantity":quantity}) %}
+			{% set result = api.post('/registryitem', {"registry_id":registry.id, "variant_id":item, "quantity":quantity}) %}
         {% endif %}
     {% endfor %}
 {% endif %}
