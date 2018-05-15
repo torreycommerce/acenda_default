@@ -294,7 +294,7 @@ function VariantsManager (product, img, isCollection) {
 			- selected, available
 			- not selected available
 	*/
-	this.updateChips = function(){
+	this.updateChips = function(inorganic){
 		//Iterate through the available variant options selectsData = { size: ["S","M","L"], color: ...}
 		//In order to style its cheap according to its current state (current chips selecion and variant availabilities)
 		var _this = this;
@@ -429,6 +429,26 @@ function VariantsManager (product, img, isCollection) {
 			} else {
 				this.disabled = false;
 				this.disableAddToCart(false);
+			}
+			//
+			//
+			if ($('#singleProduct').length) {
+				//newdesire = getQueryParams(document.location.search);
+				//if (newdesire.variant) {
+					console.log('change URL v9: '+filteredVariants[0].id);
+					if (inorganic !== 1) {
+						console.log('organic')
+						//updateUrlParameter('variant',filteredVariants[0].id);
+						updateQueryStringParam('variant',filteredVariants[0].id);
+					} else {
+						console.log('inorganic')
+						$('select.vopt').trigger('change');
+					}
+				//} else {
+					//console.log('attempt to blank the variant URL v4');
+					//updateQueryStringParam('variant','');
+					//updateQueryStringParam('variant',filteredVariants[0].id);
+				//}
 			}
 		}else{ //If no variant exist for teh currently selected chips
 			//Disable the add to cart buttons accordingly
@@ -606,7 +626,7 @@ function VariantsManager (product, img, isCollection) {
 			});
 		});
 		//
-		this.updateChips()
+		this.updateChips(1)
 	}
 	/*
 		Takes a variant options array and returns the the same array of options ordered according to their position attribute:
@@ -665,6 +685,16 @@ function VariantsManager (product, img, isCollection) {
 				}
 			});
 			
+		} else if (desire.variant) {
+		    $.each(this.variants, function(index,variant){
+				//console.log('var col: '+variant.color)
+				if( variant.id == desire.variant ){
+					//console.log('desire this one, select it: '+variant.color);
+					selected_variant = variant;
+					return false;
+				}
+			});
+
 		} else {
 			$.each(this.variants, function(index,variant){
 				if( _this.getNumber(variant.price) > 0 && variant.has_stock == '1' ){
@@ -680,7 +710,7 @@ function VariantsManager (product, img, isCollection) {
 			_this.selectedValues[selectName] = selected_variant[selectName];
 		});
 
-		//Bluilds HTML variant options chips
+		//Builds HTML variant options chips
 		this.beChips(this.variant_options);
 		//
 		//
@@ -704,5 +734,37 @@ function VariantsManager (product, img, isCollection) {
 				});
 			});
 		}
+		//
+		//
+		window.onpopstate = function(event) {
+			if ($('#singleProduct').length) {
+				console.log('popState v4.2');
+				newdesire = getQueryParams(document.location.search);
+				//console.log('onpopstate begin...');
+				//console.log(newdesire)
+				if (newdesire.variant) {
+					console.log('was newdesire.variant')
+					$.each(_this.variants, function(index,variant){
+						console.log('each loop')
+						//console.log('var col: '+variant.color)
+						if( variant.id == newdesire.variant ){
+							console.log('each loop found matching variant')
+							//console.log('desire this one, select it: '+variant.color);
+							selected_variant = variant;
+							return false;
+						}
+					});
+				} else {
+					selected_variant = _this.variants[0];
+				}
+				//
+				$.each(_this.selectsData, function(selectName,optionArray){
+					console.log('each Data loop v3');
+					_this.selectedValues[selectName] = selected_variant[selectName];
+				});
+				//
+				_this.updateChips(1);
+			}
+    	};
 	}
 }

@@ -45,10 +45,6 @@ template {
 a {
   background-color: transparent;
 }
-a:active,
-a:hover {
-  outline: 0;
-}
 abbr[title] {
   border-bottom: 1px dotted;
 }
@@ -1517,6 +1513,7 @@ select[multiple].input-lg {
   text-align: center;
   pointer-events: none;
 }
+.fa.form-control-feedback {margin:0;}
 .input-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback {
@@ -1623,10 +1620,9 @@ select[multiple].input-lg {
 }
 .has-feedback label ~ .form-control-feedback {
   top: 32px;
-  right: -8px;
 }
 .has-feedback label.sr-only ~ .form-control-feedback {
-  top: 0;
+  top: 10px;
 }
 .help-block {
   display: block;
@@ -3879,30 +3875,8 @@ button.close {
 .fgq .control-label:after {content:'*'; margin-left:.25em; color:#f55;}
 .trunc *:last-child:after {display:inline; content:'...';}
 
-.mar {margin:10px;}
-.mar-2x {margin:20px;}
-.mar-w {margin-right:10px; margin-left:10px;}
-.mar-w-2x {margin-right:20px; margin-left:20px;}
-.mar-h {margin-top:10px; margin-bottom:10px;}
-.mar-h-2x {margin-top:20px; margin-bottom:20px;}
-.mar-t {margin-top:10px;}
-.mar-t-2x {margin-top:20px;}
-.p-2x {margin-bottom:20px;}
-.p-3x {margin-bottom:30px;}
-.pad {padding:10px;}
-.pad-2x {padding:20px;}
-.pad-3x {padding:30px;}
-.pad-w {padding-right:10px; padding-left:10px;}
-.pad-w-2x {padding-right:20px; padding-left:20px;}
-.pad-w-3x {padding-right:30px; padding-left:30px;}
-.pad-h {padding-top:10px; padding-bottom:10px;}
-.pad-h-2x {padding-top:20px; padding-bottom:20px;}
-.pad-h-3x {padding-top:30px; padding-bottom:30px;}
-.pad-b {padding-bottom:10px;}
-.pad-b-2x {padding-bottom:20px;}
-.pad-b-3x {padding-bottom:30px;}
-.pad-t-2x {padding-top:20px;}
-.pad-t-3x {padding-top:30px;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .panel, .table-responsive, .well {margin-bottom:10px;}
+.list-inline.p-0 {margin-bottom:-3px;}
 
 .image-space {display:block; position:relative; padding-top:100%;}
 .is80 {padding-top:80%;}
@@ -3921,14 +3895,11 @@ button.close {
 div:focus, section:focus {outline:none;}
 
 .fs {font-size:100%;}
-.fsd1, form .validation {font-size:87.5%;}
+.fsd1, form .validation, .dropdown-menu {font-size:87.5%;}
 .fsi1 {font-size:112.5%;}
 
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .panel, .table-responsive, .well {margin-bottom:10px;}
-.p-mini {margin-bottom:5px;}
-.list-inline.p-0 {margin-bottom:-3px;}
-
 .bgg {background-color:#fcfcfc;}
+.frame {position:relative; box-shadow:0 0 2px rgba(0,0,0,.2);}
 .d-b {display:block!important;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
@@ -3960,6 +3931,32 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 
 .btn-pagination > .btn.active {z-index:3;}
 
+.p-mini {margin-bottom:5px;}
+.mar {margin:10px;}
+.mar-2x {margin:20px;}
+.mar-w {margin-right:10px; margin-left:10px;}
+.mar-w-2x {margin-right:20px; margin-left:20px;}
+.mar-h {margin-top:10px; margin-bottom:10px;}
+.mar-h-2x {margin-top:20px; margin-bottom:20px;}
+.mar-t {margin-top:10px;}
+.mar-t-2x {margin-top:20px;}
+.p-2x {margin-bottom:20px;}
+.p-3x {margin-bottom:30px;}
+.pad {padding:10px;}
+.pad-2x {padding:20px;}
+.pad-3x {padding:30px;}
+.pad-w {padding-right:10px; padding-left:10px;}
+.pad-w-2x {padding-right:20px; padding-left:20px;}
+.pad-w-3x {padding-right:30px; padding-left:30px;}
+.pad-h {padding-top:10px; padding-bottom:10px;}
+.pad-h-2x {padding-top:20px; padding-bottom:20px;}
+.pad-h-3x {padding-top:30px; padding-bottom:30px;}
+.pad-b {padding-bottom:10px;}
+.pad-b-2x {padding-bottom:20px;}
+.pad-b-3x {padding-bottom:30px;}
+.pad-t-2x {padding-top:20px;}
+.pad-t-3x {padding-top:30px;}
+
 .c-c .col-xs-6:nth-child(2n+1),.c-c .col-xs-4:nth-child(3n+1),.c-c .col-xs-3:nth-child(4n+1),.c-c .col-xs-2:nth-child(6n+1) {clear:left;}
 
 @media (min-width:1px){
@@ -3975,6 +3972,29 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 }
 
 @media (min-width:992px) {
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .panel, .table-responsive, .well {margin-bottom:15px;}
+
+.list-inline {margin-right:-10px; margin-bottom:5px; margin-left:-10px;}
+.list-inline.p-0 {margin-bottom:-5px;}
+.list-inline>li {margin-bottom:10px; padding-right:10px; padding-left:10px;}
+
+h1 {padding:0 0 12px;}
+hr {margin-top:15px; margin-bottom:15px;}
+
+.container {padding-right:15px; padding-left:15px;}
+.row {margin-right:-15px; margin-left:-15px;}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:15px; padding-right:15px;}
+
+.text-md-right {text-align:right;}
+.media-right, .media > .pull-right {padding-left:20px;}
+.media-left, .media > .pull-left {padding-right:20px;}
+.panel-body {padding:20px;}
+.panel-heading {padding:12px 20px;}
+.popover-content {padding:15px;}
+.well {min-height:20px; padding:20px;}
+.alert {padding:12px 15px;}
+
+.p-mini {margin-bottom:7.5px;}
 .mar {margin:15px;}
 .mar-2x {margin:30px;}
 .mar-w {margin-right:15px; margin-left:15px;}
@@ -3999,28 +4019,6 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 .pad-b-3x {padding-bottom:45px;}
 .pad-t-2x {padding-top:30px;}
 .pad-t-3x {padding-top:45px;}
-
-h1 {padding:0 0 12px;}
-hr {margin-top:15px; margin-bottom:15px;}
-
-.container {padding-right:15px; padding-left:15px;}
-.row {margin-right:-15px; margin-left:-15px;}
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {padding-left:15px; padding-right:15px;}
-
-.list-inline {margin-right:-10px; margin-bottom:5px; margin-left:-10px;}
-.list-inline.p-0 {margin-bottom:-5px;}
-.list-inline>li {margin-bottom:10px; padding-right:10px; padding-left:10px;}
-
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, ol, .alert, .table, .form-group, .media, .panel, .table-responsive, .well {margin-bottom:15px;}
-.p-mini {margin-bottom:7.5px;}
-.text-md-right {text-align:right;}
-.media-right, .media > .pull-right {padding-left:20px;}
-.media-left, .media > .pull-left {padding-right:20px;}
-.panel-body {padding:20px;}
-.panel-heading {padding:12px 20px;}
-.popover-content {padding:15px;}
-.well {min-height:20px; padding:20px;}
-.alert {padding:12px 15px;}
 
 .c-c .col-xs-6.col-md-6,.c-c .col-xs-6.col-md-4,.c-c .col-xs-6.col-md-3,.c-c .col-xs-6.col-md-2,
 .c-c .col-xs-4.col-md-6,.c-c .col-xs-4.col-md-4,.c-c .col-xs-4.col-md-3,.c-c .col-xs-4.col-md-2,
@@ -4049,13 +4047,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, .p, address, blockquote, dl, p, ul, o
 .c-c .col-lg-6:nth-child(2n+1),.c-c .col-lg-4:nth-child(3n+1),.c-c .col-lg-3:nth-child(4n+1),.c-c .col-lg-2:nth-child(6n+1) {clear:left;}
 }
 
-.p-0 {margin-bottom:0;}
-
 @media (max-width:991px){
-body {font-size:87.5%;}
-.fsd1, form .validation {font-size:85.714285%;}
-.fsi1 {font-size:114.285714%;}
-
 .p-xsm {margin-bottom:10px;}
 .p-xsm-2x {margin-bottom:20px;}
 }
@@ -4072,6 +4064,7 @@ body {font-size:87.5%;}
 .row.row-thin {margin-left:-5px; margin-right:-5px;}
 .col-thin {padding-left:5px; padding-right:5px;}
 .p-thin {margin-bottom:10px;}
+.p-0 {margin-bottom:0;}
 
 h1:first-child,h2:first-child,h3:first-child,h4:first-child,h5:first-child,h6:first-child {margin-top:0;}
 blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .panel-heading>*:last-child, .panel-body>*:last-child, .panel-body fieldset:last-of-type .actions:last-child, .well>*:last-child, .well fieldset:last-of-type .actions:last-child {margin-bottom:0;}

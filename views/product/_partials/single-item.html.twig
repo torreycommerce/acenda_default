@@ -27,10 +27,14 @@
 	</div>
 {# set variation = product.variant[0] #}
 {% set startColor = app.request.get.color %}
+{% set startVar = app.request.get.variant %}
 {% if startColor is not empty %}
 	{% set variations = product.variant|find({'color':startColor}) %}
-{% else %}
-	{% set variations = product.variant|find({'has_stock':true}) %}
+{% elseif startVar is not empty %}
+    {% set variations = product.variant|find({'id':startVar}) %}
+{% endif %}
+{% if variations is empty %}
+    {% set variations = product.variant|find({'has_stock':true}) %}
 {% endif %}
 {% if variations is empty %}
 	{% set variation = product.variant[0] %}
@@ -164,9 +168,9 @@
 							{% if vsimgsrc is empty %}
 								{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
 							{% endif %}
-							<div class="image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></div>
+							<button class="blank image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
 						{% else %}
-							<a class="btn btn-default btn-lg">{{v}}</a>
+							<button class="btn btn-default btn-lg">{{v}}</button>
 						{% endif %}
 						</li>
 					{% endfor %}

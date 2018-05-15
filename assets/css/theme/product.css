@@ -6,12 +6,12 @@
 .stock .stock-msg {display:inline-block; padding:5px 10px; font-weight:bold; text-transform:uppercase;}
 .stock-oos .stock-msg {color:#fff; background:#ff3344;}
 /**/
-.variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; /*overflow:hidden;*/ visibility:hidden; transition:all 300ms;}
+.variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; overflow:hidden; visibility:hidden; transition:all 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}
 /**/
 .vopt {margin-right:-2px; margin-left:-2px;}
 .vopt-color {font-size:0;}
-.vopt li {margin:0; padding:2px 2px 0;}
+.vopt li {margin:0; padding:2px;}
 .vopt-color li {width:16.666666%; cursor:pointer;}
 .vopt li .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb; border:1px solid rgba(0,0,0,.1); transition:all 300ms ease;}
 .vopt li:hover .image-space:after {border:1px solid rgba(0,0,0,.25)}

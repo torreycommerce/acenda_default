@@ -6,6 +6,7 @@
 .igq-mod .input-group-btn {width:100%;}
 
 button.blank {background:none; border-width:0;}
+button.blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding-left:0;}
 .filter button {text-align:left; border:none; border-radius:0;}
 
 @media (min-width:992px) {
@@ -156,8 +157,6 @@ li.sub-category, .filter a {white-space:nowrap; overflow:hidden; text-overflow:e
 
 .product-grid .color-chips .col-xs-2 {float:none; display:inline-block; width:20%;}
 .product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
-
-.color-chip button {width:100%;}
 
 @media (min-width:992px) {
 .filter .color-chips {padding-bottom:10px;}
