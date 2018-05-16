@@ -176,6 +176,7 @@ function VariantsManager (product, img, isCollection) {
 	*/
 	this.updateImagesAndVideo = function(obj_variant) {
 		//console.log('o_v pos: '+obj_variant.position)
+		if(typeof obj_variant.images == 'undefined') return;
 		var images = [];
 		if (obj_variant.images.length > 0 ) { //Look for variant images first, or for product images if product images not available
 			images = obj_variant.images;
