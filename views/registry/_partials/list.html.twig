@@ -26,7 +26,7 @@
 	
 	{# FIXME using api workaround #}
 	{% set variants1 = api.get('/variant',{ query:{id:{'$in':variant_ids}} } )|group_by('id') %}
-	{% set variants2 = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'id,product.name' } )|group_by('id') %}
+	{% set variants2 = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'id,product.name,product.slug' } )|group_by('id') %}
 	{% set variants = {} %}
 	{% for variant_id, variant in variants1 %}
 		{% set variant_merged = variant[0] | merge(variants2[variant_id][0]) %}
@@ -75,7 +75,7 @@
             {# Begin product header - Mobile #}
             <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
                 <header class="mobile">
-                    <div class="name"><a href="{{app.url}}{{ variant.url }}"{{ variant.product.name }} — {{ variant.name }}</a></div>
+                    <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
                 </header>
             </div>
             {# End product header - Mobile #}
@@ -92,7 +92,7 @@
             <div class="col-xs-12 col-sm-3 col-md-5 col-lg-5"> {# Begin col-sm-3 col-md-5 #}
                 {# Begin desktop product header#}
                 <header class="desktop hidden-xs hidden-sm">
-                    <div class="name"><a href="{{app.url}}{{ variant.url }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
+                    <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
                 </header>
                 {# End desktop product header #}
                 {# Begin pricing #}
