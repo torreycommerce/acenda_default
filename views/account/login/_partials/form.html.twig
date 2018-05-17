@@ -7,7 +7,7 @@
     {% do app.request.validateToken() %}
 
     {% if loginAttempts > 3 %}
-        {% if app.form.validateCaptcha(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post.recaptcha_response_field) %}
+        {% if app.form.validateCaptcha2(app.request.ip,app.request.post.recaptcha_challenge_field,app.request.post['g-recaptcha-response'] ) %}
             {% set result = api.post('/customer/login', logindata ) %}
         {% else %}
             {% set captcha_failed = true %}
