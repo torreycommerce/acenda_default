@@ -21,27 +21,14 @@
 	FIXME the api is currently broken using the below conditions
 	when the API is fixed, restore this and get rid of the api workaround
 	#}
-	{#% set variants = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'*,product.name' } )|group_by('id') %#}
-	
-	
-	{# FIXME using api workaround #}
-	{% set variants1 = api.get('/variant',{ query:{id:{'$in':variant_ids}} } )|group_by('id') %}
-	{% set variants2 = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'id,product.name,product.slug' } )|group_by('id') %}
-	{% set variants = {} %}
-	{% for variant_id, variant in variants1 %}
-		{% set variant_merged = variant[0] | merge(variants2[variant_id][0]) %}
-		{% set key = "_" ~ variant_id %}
-		{% set variants = variants | merge( { (key) : [variant_merged] } ) %}
-	{% endfor %}
+	{% set variants = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'*,product.*' } )|group_by('id') %}
 	
 	
     {# Remove variants that were disabled or removed #}
     {% set items_deleted = false %}
     {% for item in registry_items %}
         
-		{# FIXME using api workaround #}
-		{#% set variant = variants[item.variant_id][0] %#}
-		{% set variant = variants[("_" ~ item.variant_id)][0] %}
+		{% set variant = variants[item.variant_id][0] %}
 		
 		{#% if variant.status != 'active' %#}
 		{% if false %}
@@ -65,9 +52,7 @@
     {% for item in registry_items %}
         {% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 		
-		{# FIXME using api workaround #}
-        {#% set variant = variants[item.variant_id][0] %#}
-		{% set variant = variants[("_" ~ item.variant_id)][0] %}
+		{% set variant = variants[item.variant_id][0] %}
 		
         {# Begin variant #}
     <div class="product">

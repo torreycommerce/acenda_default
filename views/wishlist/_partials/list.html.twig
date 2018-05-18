@@ -15,20 +15,20 @@
 	<h1>{{ wishlist.name }}</h1>
 
 	{{ forms.begin('wishlist-form', app.url ~ '/wishlist/' ~ wishlist.id ~ '/route') }}   
-	{% set product_ids = wishlist_items|values_in('product_id') %}
-	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+	{% set product_ids = wishlist_items|values_in('variant_id') %}
+	{% set variants = api.get('/variant',{ query:{id:{'$in':product_ids}}, attributes:'*,product.*' } )|group_by('id') %}
 
 	{# Remove products that were disabled or removed #}
 	{% set items_deleted = false %}
 	{% for item in wishlist_items %}
-	{% set product = products[item.product_id][0] %}
-	{% if product.status != 'active' %}
+	{% set variant = variants[item.variant_id][0] %}
+	{% if variant.status != 'active' %}
 	{% do api.delete('/wishlistitem/' ~ item.id) %}
 	{% if wishlist.customer_id == app.user.id %}
 	{# FIXME: These flash messages don't work sometimes #}
-	{% if product.title is defined %}
+	{% if variant.title is defined %}
 	{# This product is disabled or removed #}
-	{% do app.user.setFlash(product.title ~ ' is no longer available.', 'info') %}
+	{% do app.user.setFlash(variant.title ~ ' is no longer available.', 'info') %}
 	{% else %}
 	{# This product doesn't exist anymore (deleted) #}
 	{% do app.user.setFlash('A product you have selected is no longer available.', 'info') %}
@@ -50,25 +50,25 @@
 		</style>
 	{% for item in wishlist_items %}
 		{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
-		{% set product = products[item.product_id][0] %}
+		{% set variant = variants[item.variant_id][0] %}
 			{# Begin product #}
 		<div class="divide g p-2x pad-b-2x">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 			<div class="media media-cart p-0 p-xs">
 				<div class="media-left">
-					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+					<img class="media-object" src="{{ variant.thumbnail }}" width="250" height="250" alt="">
 				</div>
 
 				<div class="media-body">
 
-					<h3 class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></h3>
+					<h3 class="product-name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.name }}</a></h3>
 
 					{# Begin pricing #}
 					<ul class="list-inline pricing">
-						<li class="price">{{ prod.currency(product.price) }}</li>
-						{% if product.compare_price %}
-							<li class="price-regular">{{ prod.currency(product.compare_price) }}</li>
+						<li class="price">{{ prod.currency(variant.price) }}</li>
+						{% if variant.compare_price %}
+							<li class="price-regular">{{ prod.currency(variant.compare_price) }}</li>
 						{% endif %}
 					</ul>
 					{# End pricing #}
@@ -87,9 +87,9 @@
 					<ul class="list-inline">
 					{% if wishlist.customer_id == app.user.id %}
 						<li class="qty-update">
-							<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
+							<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
 						{# Begin quantity modal #}
-						<div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
+						<div class="modal fade modal_list_quantity" id="modal_{{ variant.id }}">
 							<div class="modal-dialog modal-sm">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -132,9 +132,9 @@
 					{# End quantity modal #}
 					{% if wishlist.customer_id == app.user.id %}
 						<li class="qty-remove">
-							<a class="btn btn-link btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#"><i class="fa fa-close"></i><span>Remove</span></a>
+							<a class="btn btn-link btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" href="#"><i class="fa fa-close"></i><span>Remove</span></a>
 						{# Begin remove modal #}
-						<div class="modal fade modal_list_quantity" id="modal_remove_{{ product.id }}">
+						<div class="modal fade modal_list_quantity" id="modal_remove_{{ variant.id }}">
 							<div class="modal-dialog modal-sm">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -143,7 +143,7 @@
 									</div>
 									<div class="modal-body">
 										<p>Remove this item from your wish list?</p>
-										<b>{{ product.name }}</b>
+										<b>{{ variant.name }}</b>
 									</div>
 									<div class="modal-footer">
 										<a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>
