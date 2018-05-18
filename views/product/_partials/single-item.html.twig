@@ -203,7 +203,7 @@
 					{% for wishlist in wishlists %}
 						{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
 					{% endfor %}
-					{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+					{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},variant_id:product.id}}) %}
 				{% endif %}
 			{% endif %}
 
