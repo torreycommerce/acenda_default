@@ -6,7 +6,7 @@ $(function() {
 
     var q=false;
 
-    $("li.cart").hover(function(){
+    $("#header .cart").hover(function(){
         q = true;
         if (!$(".popover.fade.bottom.in").length && !cartTriggerTimeout) {
             cartTriggerTimeout = setTimeout(function(){
@@ -26,7 +26,7 @@ $(function() {
 
 
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
-        $('.quickcart .item-count').html(data.result.item_count);
+        $('#header .item-count').html(data.result.item_count).addClass('ready');
     });
     $('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
 });
@@ -230,8 +230,7 @@ function ajaxCart(data, r) {
                 });
 
             }
-            $('#header .item-count').html(cart_item_count);
-            //$('.quickcart .ajaxcart .item-count').html(cart_item_count);
+            $('#header .item-count').html(cart_item_count).addClass('ready');
             $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);
 
             if (show_all) {

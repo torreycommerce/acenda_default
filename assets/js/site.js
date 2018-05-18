@@ -42,8 +42,7 @@ $(document).ready(function() {
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//
 		$('.yta-launch').parent('.nav-mobile').after('<div class="navajax"></div>');
-		$('.navajax').load(acendaBaseUrl+'/account/nav', function() {
-			//alert( "Load was performed." );
+	    $('.navajax').load(acendaBaseUrl+'/account/nav', function() {
 			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
 			});
 		});

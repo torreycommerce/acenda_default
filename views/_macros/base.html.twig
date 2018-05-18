@@ -19,12 +19,10 @@
     {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
         {{main_category}}
     </a>#}
-    <a href="{{app.url}}/category/{{ items.slug }}" class="sub_c" ref="{{ id }}">
-        {{main_category}}
-    </a>
+    <a class="btn btn-lg btn-blank" href="{{app.url}}/category/{{ items.slug }}">{{main_category}}</a>
     {% if items.limb|length %}
-    <button class="btn btn-sm btn-white btn-sq-sm yta-getsub"><i class="fa fa-chevron-down"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
-    <ul id="{{ id }}">
+    <button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
+    <ul>
         {% for category,subitems in items.limb %}
             {% set i = i + 1 %}
             {% set id = id ~ "-" ~ i %}
@@ -32,7 +30,7 @@
               {{ _self.subcategory_mobile(category, subitems, id) }}
             {% else %}
                 <li>
-                    <a tabindex="-1" href="{{app.url}}/category/{{subitems.slug}}">
+                    <a href="{{app.url}}/category/{{subitems.slug}}">
                         {{category}}
                     </a>
                 </li>
@@ -76,10 +74,10 @@
             <div class="btn-group btn-pagination">
                 <a class="btn btn-default btn-previous {% if app.request.get.page <= 1 %}disabled{% endif %}" {% if current_page > 1 %} href="{{app.request.getUrl({(page_key):current_page - 1})}}"{% endif %}><i class="fa fa-angle-double-left"><i class="sr-only">Previous Page</i></i></a> {#«#}
 
-                <a class="btn {% if current_page == 1 %}btn-primary active disabled{% else %}btn-default{% endif %}" href="{{app.request.getUrl({(page_key):1})}}">1</a>
+                <a class="btn {% if current_page == 1 %}btn-primary active disabled{% else %}btn-default{% endif %}"{% if current_page != 1 %} href="{{app.request.getUrl({(page_key):1})}}"{% endif %}><i class="sr-only">Page</i> 1</a>
 
                 {% for page in start_page..end_page %}
-                    <a class="btn {% if current_page == page %}btn-primary active disabled{% else %}btn-default{% endif %}" href="{{app.request.getUrl({(page_key):page})}}">{{page}}</a>
+                    <a class="btn {% if current_page == page %}btn-primary active disabled{% else %}btn-default{% endif %}"{% if current_page != page %} href="{{app.request.getUrl({(page_key):page})}}"{% endif %}><i class="sr-only">Page</i> {{page}}</a>
                 {% endfor %}
                 <a class="btn btn-default btn-next {% if current_page >= number_pages %}disabled{% endif %}" {% if current_page < number_pages %}href="{{app.request.getUrl({(page_key):current_page + 1})}}"{% endif %}><i class="fa fa-angle-double-right"><i class="sr-only">Next Page</i></i></a> {#»#}
             </div>
