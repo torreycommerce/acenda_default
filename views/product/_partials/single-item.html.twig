@@ -58,7 +58,7 @@
 					{% for varimg in varimgs %}
 						<div class="{% if loop.index > 1 %}hidden {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
-								<a target=_blank href="{{varimg.retina}}">
+								<a target=_blank href="{{varimg.retina}}" tabindex="-1">
 									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
 								</a>
 							</div></div></div>
@@ -90,9 +90,9 @@
 			
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
-				<div class="image-space video" data-video-src="{{ product.videos[0] }}">
+				<button class="blank image-space video" data-video-src="{{ product.videos[0] }}">
 					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
-				</div>
+				</button>
 			</div></div>
 			{% endif %}
 			
@@ -166,7 +166,7 @@
 								{% endfor %}
 							{% endif %}
 							{% if vsimgsrc is empty %}
-								{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
+								{% set vsimgsrc = varimgs[0].standard %}
 							{% endif %}
 							<button class="blank image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
 						{% else %}

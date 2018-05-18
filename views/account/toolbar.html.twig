@@ -20,29 +20,27 @@
 				<span class="isd">{{ app.params.site.title }}</span>
 				{% endif %}
 			</a></div>
-			<div class="search hidden-xs hidden-sm">
+			<div class="search">
 				<form role="search" class="search-form" method="get" action="{{app.url}}/search">
 				    <label class="sr-only" for="search">Search products</label>
-					<div class="form-group input-group twitter-typeahead">
+					<div class="form-group twitter-typeahead">
 						<input class="form-control input-lg typeahead search-autocomplete" id="search" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search products">
-						<span class="input-group-btn">
-							<button class="btn btn-default btn-lg btn-sq-lg" type="submit">
-								<i class="fa fa-search"><i class="sr-only">Search products</i></i>
-							</button>
-						</span>
+						<button class="btn btn-blank btn-lg btn-sq-lg" type="submit">
+							<i class="fa fa-search"><i class="sr-only">Search products</i></i>
+						</button>
 					</div>
 				</form>
 			</div>
 			<div class="mya">
             	<div class="btn-group my-account">
             		<button id="dropdown-account" class="btn btn-lg btn-sq btn-sq-lg btn-link dropdown-toggle" data-toggle="dropdown">
-            			<i class="fa fa-user-o"><i class="sr-only">My Account</i></i>
+            			<i class="fa fa-user"><i class="sr-only">My Account</i></i>
             		</button>
             	</div>
             </div>
 			<div class="cart nav-mobile">
-				<a class="btn btn-lg btn-link btn-sq btn-sq-lg" href="{{app.url}}/cart">
-					<span><i class="fa fa-shopping-bag"></i></span><span class="sr-only">My Cart</span>{#<span class="dib item-count"></span>#}
+				<a class="pos-r btn btn-lg btn-link btn-sq btn-sq-lg" href="{{app.url}}/cart">
+					<span><i class="fa fa-shopping-cart"></i></span><span class="sr-only">My Cart</span><span class="dib fsd1 item-count"></span>
 				</a>
 			</div>
 		</div>
