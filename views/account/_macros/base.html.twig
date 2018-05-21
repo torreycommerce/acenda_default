@@ -6,12 +6,14 @@
 {% endmacro %}
 
 {# 'registries':'<i class="fa fa-gift"></i><span>Registries</span>', #}
+{% set payment_platform = api.get('order/platform') %}
 
 {% macro navigation(current_page = '') %}
 {% set tabs = {
 	'':'<i class="fa fa-user"></i><span>Account Center</span>',
 	'notifications':'<i class="fa fa-exclamation-circle"></i><span>Notifications</span>',
 	'addresses':'<i class="fa fa-map-marker"></i><span>Addresses</span>',
+	'payment-methods':'<i class="fa fa-credit-card"></i><span>Payment Methods</span>',	
 	'orders':'<i class="fa fa-shopping-bag"></i><span>Orders</span>',
 	'wishlists':'<i class="fa fa-gift"></i><span>Wish Lists</span>',
 	'reviews':'<i class="fa fa-star"></i><span>Reviews</span>',
@@ -19,6 +21,7 @@
 	'account-settings':'<i class="fa fa-cogs"></i><span>Account Settings</span>',
 } %}
 <div class="row">
+	{% set platform = api.get('order/platform').platform %}
 	<div class="navigation hidden-xs hidden-sm">
 		<div class="col-xs-12 col-md-3">
 			<div class="navbar navbar-default fsd1 fa-fa-balance">
@@ -26,9 +29,11 @@
 				<div class="sidebar">
 					<ul class="nav nav-sidebar">
 						{% for page,title in tabs %}
-						<li {% if current_page == page or page == '' and current_page not in tabs|keys %}class="active"{% endif %}>
-							<a href="{{app.url}}/account/{{page}}">{{title}}</a>
-						</li>
+							{% if page != 'payment-methods' or platform == 'Braintree' %}
+							<li {% if current_page == page or page == '' and current_page not in tabs|keys %}class="active"{% endif %}>
+								<a href="{{app.url}}/account/{{page}}">{{title}}</a>
+							</li>
+						    {% endif %}
 						{% endfor %}
 					</ul>        
 				</div>
