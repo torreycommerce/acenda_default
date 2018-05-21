@@ -1,0 +1,53 @@
+{% extends "/_layouts/base.html.twig" %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/account/_macros/base.html.twig" as account %}
+
+{# Redirect to the login page if user is not logged in. #}
+{% do account.login() %}
+
+{% set platform = api.get('order/platform').platform %}
+
+
+{# Set the page_name - used for the page title, heading, tab selection, and breadcrumb in this page. #}
+{% set page_name = 'payment methods' %}
+
+{# Set the html head title #}
+{% block title %}Account - {{page_name|title}}{% endblock %}
+
+{# Load in the breadcrumbs positioned in /_layouts/main/base.html.twig #}
+{% block breadcrumb %}
+{#
+Passed into the macro is a array of key:value pairs as (title):(relative url)
+- The last link should not have a url, as it will be used as a 'you are here'
+#}
+{{ base.breadcrumbs({'Account':'/account',(page_name|title):''}) }}
+{% endblock %}
+
+{# Load in the main content positioned in /_layouts/main/base.html.twig #}
+{% block content %}
+    {{account.navigation('payment-methods')}}
+
+	{% if platform!="Braintree" %}
+			<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform. </div>
+	{% else %}
+	<div id="payment-methods">
+
+
+
+	</div>
+	<div><button>Add Credit Card</button><button>Add Paypal Account</button></div>	
+	<script type="text/template" id="payment-methods-tmpl">
+         <div class="table">
+     		<% _.forEach(methods, function(method) { %>
+
+ 			<% }); %>
+          </div>
+	</script>
+
+	{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
+	{{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/client.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/vault-manager.min.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/braintree_admin.js') }}
+	{% endif %}
+{% endblock %}
