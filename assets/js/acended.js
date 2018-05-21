@@ -4,7 +4,9 @@ IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/device.min.js",function(){
 });
 
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/accesstabs.js",function(){
-    $('.nav.navbar-nav').setup_navigation();
+    $('.nav.navbar-nav, .addAccess').each(function() {
+        $(this).setup_navigation();
+    });
 });
 
 // https://github.com/twbs/bootstrap/issues/14040
@@ -24,21 +26,21 @@ $.fn.modal.Constructor.prototype.resetScrollbar = function () {
 }
 
 $('html').on("click", ".ttc", function() {
-	if ($(this).attr('href')) {
-		var ttc = $(this).attr('href');
-		$('body,html').animate({
-			scrollTop: $(ttc).offset().top
-		}, 300);
-		return false;
-	}
+    if ($(this).attr('href')) {
+        var ttc = $(this).attr('href');
+        $('body,html').animate({
+            scrollTop: $(ttc).offset().top
+        }, 300);
+        return false;
+    }
 });
 
 $(window).scroll(function () {
-	if ($(window).scrollTop() > 1) {
-		$('html').addClass('scrolled');
-	} else {
-		$('html').removeClass('scrolled');
-	}
+    if ($(window).scrollTop() > 1) {
+        $('html').addClass('scrolled');
+    } else {
+        $('html').removeClass('scrolled');
+    }
 });
 
 $(document).on('click', function (e) {

@@ -1,10 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
 {% block content %}
 {% do app.cache(10) %}
-<div class="image-space is40 p-2x promo-sample text-center">
-	<img class="img-responsive isd" src="{{app.url_asset}}/assets/images/promo-sample.jpg" width="1170" height="468" alt="">
-	<div class="btn-block isd"><h1 class="mar-t">Sample Promo</h1><p>1170 x 468</p></div>
-</div>
 
 {{ api.get('widget/rendertag?tag=home')}}
 

@@ -3,40 +3,41 @@
 
 <style>
 .mobile.yta-open, .mobile.yta-open body {height:100%; overflow:hidden;}
-
-.yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:1061; top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,.25); transition:all 300ms ease;}
+.yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:1061; top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,.5); transition:all 300ms ease;}
 .yta-open .yta-mask {visibility:visible; opacity:1;}
 
-#yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-280px; width:280px; padding-top:48px; font-size:14px; opacity:0; visibility:hidden; transition:all 300ms ease;}
+#yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-320px; width:320px; line-height:1.6; opacity:0; visibility:hidden; transition:all 300ms ease;}
 .yta-open #yta-menu {left:0; opacity:1; visibility:visible;}
-#yta-menu .active > .yta-getsub {transform:rotate(-90deg);}
-.yta-head {position:absolute; top:0; left:0; width:100%; height:48px;}
-.yta-body {position:absolute; top:48px; bottom:0; width:280px; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto;}
-#yta-menu ul {list-style:none; margin:0; padding:10px 0;}
-#yta-menu ul ul {padding:0; font-size:12px; /* */ height:0; visibility:hidden; opacity:0; overflow:hidden; transition:all 200ms ease;}
-#yta-menu ul li.active ul {/* */ height:auto; padding:0 0 5px 10px; visibility:visible; opacity:1;}
-#yta-menu li {position:relative;}
-#yta-menu a, #yta-menu span {display:block; padding:0 20px; color:#333; line-height:32px; text-decoration:none; text-transform:uppercase;}
-#yta-menu span {white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-#yta-menu a span {padding:0;}
-#yta-menu li .yta-getsub {position:absolute; top:0; right:0; width:48px;}
-.yta-bg {background:#fff; box-shadow:0 0 1px rgba(0,0,0,.3);}
+/*.yta-head {position:absolute; top:0; left:0; width:100%; height:48px; text-align:right;}*/
+.yta-bodies {position:absolute; top:0; right:0; bottom:0; width:320px; overflow:hidden;}
+.yta-body {position:absolute; top:0; right:0; bottom:0; width:320px; padding:12px 0 0; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto; transition:all 300ms ease;}
+.yta-open .yta-body:not(.deep, .burr) {opacity:1; visibility:visible;}
+.yta-body.deep {right:-320px; visibility:hidden; opacity:0;}
+.yta-body.burr {right:40px; visibility:hidden; opacity:0;}
+#yta-menu ul {list-style:none; padding:0;}
+#yta-menu li {position:relative; border-bottom:1px solid #d9d7d7;}
+#yta-menu .yta-par {background:linear-gradient(to bottom, #ffffff 0%,#fcfcfc 100%); border-bottom:1px solid #d9d7d7;}
+#yta-menu a {/*display:block; padding:10px 20px; text-align:left;*/}
+#yta-menu a.btn {display:block; text-align:left; overflow:hidden; text-overflow:ellipsis;}
+#yta-menu ul ul {position:fixed; visibility:hidden; opacity:0;}
+
+#yta-menu button {display:block;}
+#yta-menu .yta-toggle {position:absolute; top:12px; left:100%; color:#fff!important;}
+#yta-menu .yta-getsub {position:absolute; top:0; right:0;}
+#yta-menu .yta-getpar {width:100%; text-align:left;}
 </style>
 
 {% spaceless %}
 
 <div class="yta-mask yta-toggle"></div>
-<nav class="bgg" id="yta-menu">
-<div class="yta-head yta-bg"><button class="btn btn-lg btn-white btn-sq-lg pull-right yta-toggle"><i class="fa fa-close"><i class="sr-only">Close</i></i></button></div>
-<div class="yta-body">
+<nav id="yta-menu">
+<div class="yta-head bgw"></div>
+<div class="bgg yta-bodies">
+<div class="yta-body bgw frame" data-depth="0">
 <ul>
 	<li>
-		<a href="{{app.url}}"><span>Home</span></a>
-	</li>
-
 	{% if app.user.id %}
-	<li>
-		<a href="{{ app.url }}/account">My Account</a><button class="btn btn-sm btn-white btn-sq-sm yta-getsub"><i class="fa fa-chevron-down"><i class="sr-only">Account Subcategories</i></i></button>
+		<a href="{{ app.url }}/account"><i class="fa fa-user"></i><span>My Account</span></a><button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">Account Subcategories</i></i></button>
 		<ul>
 			<li><a href="{{ app.url }}/account/notifications">Notifications</a></li>
 			<li><a href="{{ app.url }}/account/addresses">Addresses</a></li>
@@ -47,36 +48,18 @@
 			<li><a href="{{ app.url }}/account/account-settings">Settings</a></li>
 			<li><a href="{{ app.url }}/account/logout">Logout</a></li>
 		</ul>
-	</li>
 	{% else %}
-	<li>
-		<a href="{{app.url}}/account/login"><span>Sign In / Sign Up</span></a>
-	</li>
+		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i><span>Sign In / Sign Up</span></a>
 	{% endif %}
-	<li>
-		<a href="{{app.url}}/contact"><span>Contact</span></a>
 	</li>
-</ul>
-<ul>
-	<li><span>
-		<form role="search" action="{{ app.url }}/search" method="get">
-			<div class="input-group">
-				<input class="form-control" type="text" value="" name="s" placeholder="Search" title="Search">
-				<div class="input-group-btn">
-					<button class="btn btn-default" type="submit"><i class="fa fa-search"><i class="sr-only">Search</i></i></button>
-				</div>
-			</div>
-		</form>
-	</span></li>
-</ul>
-<ul>
+
 {% set id = 0 %}
 {% for main_category,items in categories %}
 	{% set id = id + 1 %}
-	<li>
-		<a href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
+	<li class="yta-shop">
+		<a{% if items.limb|length %} class="yta-hassub"{% endif %} href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
 		{% if items.limb|length %}
-		<button class="btn btn-sm btn-white btn-sq-sm yta-getsub"><i class="fa fa-chevron-down"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
+		<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
 		<ul>
 			{% set i = 0 %}
 			{% for category,subitems in items.limb %}
@@ -92,7 +75,12 @@
 		{% endif %}
 	</li>
 {% endfor %}
+    <li>
+		<a href="{{app.url}}/contact"><i class="fa fa-comment-o"></i><span>Contact</span></a>
+	</li>
 </ul>
 </div>
+</div>
+<button class="btn btn-lg btn-blank pull-right yta-toggle"><i class="fa fa-close"><i class="sr-only">Close Mobile Menu</i></i></button>
 </nav>
 {% endspaceless %}

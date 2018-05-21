@@ -35,7 +35,7 @@
 					{% set name = image.name is not empty ? image.name : product.name %}
 						<div class="{% if loop.index > 1 %}hidden {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
-								<a target=_blank href="{{image.retina}}">
+								<a target=_blank href="{{image.retina}}" tabindex="-1">
 									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
 								</a>
 							</div></div></div>
@@ -48,7 +48,7 @@
 								{% set name = image.name is not empty ? image.name : item.name %}
 						<div class="{% if loop.index > 1 %}hidden {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
-								<a target=_blank href="{{image.retina}}">
+								<a target=_blank href="{{image.retina}}" tabindex="-1">
 									<img class="img-responsive isd" src="{{image.standard}}" width="600" height="600" alt="">
 								</a>
 							</div></div></div>
@@ -96,9 +96,9 @@
 			
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
-				<div class="image-space video" data-video-src="{{ product.videos[0] }}">
+				<button class="blank image-space video" data-video-src="{{ product.videos[0] }}">
 					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
-				</div>
+				</button>
 			</div></div>
 			{% endif %}
 			
