@@ -31,8 +31,10 @@
 {% set url_based_array = app.request.url|split('/') %}
 {% set url_based_class = '' %}
 {% for part in url_based_array %}
+	{% set part = part | replace({'%3C':'','%3E':'','<':'','(':'',')':'','>':'',';':''})  %}
 	{% set url_based_class = url_based_class ~ ' url-' ~ loop.index ~ '-' ~ part | e %}
 {% endfor %}
+
 {% if url_based_array.0 | trim == ''%}
 	{% set url_based_class = 'store-home-page' %}
 {% endif %}
