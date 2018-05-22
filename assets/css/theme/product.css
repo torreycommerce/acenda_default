@@ -110,7 +110,7 @@
 .slick-heroic {padding:0 30px;}
 .slick-heroic .slick-prev {left:0;}
 .slick-heroic .slick-next {right:0;}
-.slick-heroic img {cursor:pointer;}
+.slick-heroic.slick-initialized img {cursor:pointer;}
 
 .has-video .vari-video-scase {top:365px; left:5px; width:60px; overflow:hidden;}
 .vari-video-scase .acaro {padding:5px;}

@@ -43,23 +43,24 @@
 {% endif %}
 
 {% if variation.images is empty %}
-	{% set varimgs = product.images %}
+    {% set varimgs = product.images %}
 {% else %}
 	{% set varimgs = variation.images %}
 {% endif %}
 
 
+
 	<div class="col-xs-12 col-md-7 p-2x" id="product-images">
 		<div class="pos-r pi-contain">
-
 			<div class="variations" data-id="{{product.id}}">
 				<div class="active variation" data-vid="{{variation.id}}">
+				    {% if varimgs is not empty %}
 					<div class="slick slick-heroic slick-heroic-go" id="slick-heroic-{{variation.id}}">
 					{% for varimg in varimgs %}
 						<div class="{% if loop.index > 1 %}hidden {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
 								<a target=_blank href="{{varimg.retina}}" tabindex="-1">
-									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								</a>
 							</div></div></div>
 						</div>
@@ -84,14 +85,20 @@
 						</div>
 					{% endfor %}
 					</div></div>
-					
+					{% else %}
+					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
+    					<div class="image-space">
+                            <img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
+    				    </div>
+    				</div>
+					{% endif %}
 				</div>
 			</div>
 			
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
 				<button class="blank image-space video" data-video-src="{{ product.videos[0] }}">
-					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt=""><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</button>
 			</div></div>
 			{% endif %}

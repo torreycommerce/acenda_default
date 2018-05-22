@@ -15,7 +15,7 @@
 
 {% macro subcategory_mobile(main_category, items, id) %}
 {% set i = 0 %}
-<li>
+<li class="bgw">
     {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
         {{main_category}}
     </a>#}
@@ -29,7 +29,7 @@
             {% if subitems.limb|length %}
               {{ _self.subcategory_mobile(category, subitems, id) }}
             {% else %}
-                <li>
+                <li class="bgw">
                     <a href="{{app.url}}/category/{{subitems.slug}}">
                         {{category}}
                     </a>

@@ -10,7 +10,7 @@ var depth = len('.yta-body ul:first');
 var i = 1;
 while (i < depth) {
 	//console.log('build body');
-	$('.yta-bodies').append('<div class="yta-body bgw frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-chevron-left"></i><span>Back to</span></button></div></div>');
+	$('.yta-bodies').append('<div class="yta-body bgg frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-chevron-left"></i><span>Back to</span></button></div></div>');
 	i++;
 }
 
@@ -27,13 +27,11 @@ $(document).on( "click", '.yta-toggle', function() {
 			    }
 				$(this).attr('tabindex','-1');
 			} else {
-				//if (!$(this).attr('disabled')) {
-				    if ($(this).attr('data-tabindexold')) {
-				        $(this).attr('tabindex',$(this).attr('data-tabindexold'));
-				    } else {
-					    $(this).attr('tabindex','0');
-				    }
-				//}
+			    if ($(this).attr('data-tabindexold')) {
+			        $(this).attr('tabindex',$(this).attr('data-tabindexold'));
+			    } else {
+				    $(this).attr('tabindex','0');
+			    }
 			}
 		}
 	});

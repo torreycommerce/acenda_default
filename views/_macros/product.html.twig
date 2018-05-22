@@ -139,7 +139,7 @@
 					    {% set image_url = image_urlB %}
 				    {% endif %}
 					<div class="col-xs-2 col-thin p-mini color-chip">
-						<button class="blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="See it in {{child.color}}"></button>
+						<button class="blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
 					</div>
 				{% endfor %}
 				</div>

@@ -15,18 +15,19 @@ h1,.h1 {padding:0 0 8px; text-align:center; border-bottom:1px solid #ccc;}
 .bgb a {color:#fff;}
 .bgb a:hover, .bgb a:focus {color:#fff;}
 .bgb .btn-link {color:#fff;}
+.bgg {background-color:#f8f8f8;}
 
 .max-400 {max-width:400px; margin-right:auto; margin-left:auto;}
 /* */
 
 
 /* acenda global */
-#toolbar {height:118px; padding-top:6px; padding-bottom:6px;}
+#toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
 #header {}
 #header .omm {position:absolute; top:0; left:0;}
 #header .logo {margin-left:50px; width:160px; font-size:120%;}
 #header .logo .image-space {padding-top:48px;}
-#header .search {position:absolute; top:58px; right:0; left:0;}
+#header .search {position:absolute; top:54px; right:0; left:0;}
 #header .search .btn {position:absolute; top:0; right:0;}
 #header .btn-link.btn-sq-lg {width:40px; font-size:150%;}
 #header .mya {position:absolute; top:0; right:50px;}

@@ -8,17 +8,16 @@
 
 #yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-320px; width:320px; line-height:1.6; opacity:0; visibility:hidden; transition:all 300ms ease;}
 .yta-open #yta-menu {left:0; opacity:1; visibility:visible;}
-/*.yta-head {position:absolute; top:0; left:0; width:100%; height:48px; text-align:right;}*/
 .yta-bodies {position:absolute; top:0; right:0; bottom:0; width:320px; overflow:hidden;}
 .yta-body {position:absolute; top:0; right:0; bottom:0; width:320px; padding:12px 0 0; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto; transition:all 300ms ease;}
 .yta-open .yta-body:not(.deep, .burr) {opacity:1; visibility:visible;}
 .yta-body.deep {right:-320px; visibility:hidden; opacity:0;}
 .yta-body.burr {right:40px; visibility:hidden; opacity:0;}
 #yta-menu ul {list-style:none; padding:0;}
-#yta-menu li {position:relative; border-bottom:1px solid #d9d7d7;}
-#yta-menu .yta-par {background:linear-gradient(to bottom, #ffffff 0%,#fcfcfc 100%); border-bottom:1px solid #d9d7d7;}
-#yta-menu a {/*display:block; padding:10px 20px; text-align:left;*/}
-#yta-menu a.btn {display:block; text-align:left; overflow:hidden; text-overflow:ellipsis;}
+#yta-menu li {position:relative; margin:0 0 1px;}
+#yta-menu li:before, #yta-menu .yta-par:before {content:''; display:block; position:absolute; bottom:0; left:0; width:100%; border-bottom:1px solid #ddd;}
+#yta-menu .yta-par {position:relative; margin:0 0 1px;}
+#yta-menu a.btn {position:relative; display:block; text-align:left; overflow:hidden; text-overflow:ellipsis;}
 #yta-menu ul ul {position:fixed; visibility:hidden; opacity:0;}
 
 #yta-menu button {display:block;}
@@ -33,7 +32,7 @@
 <nav id="yta-menu">
 <div class="yta-head bgw"></div>
 <div class="bgg yta-bodies">
-<div class="yta-body bgw frame" data-depth="0">
+<div class="yta-body bgg frame" data-depth="0">
 <ul>
 	<li>
 	{% if app.user.id %}
@@ -56,7 +55,7 @@
 {% set id = 0 %}
 {% for main_category,items in categories %}
 	{% set id = id + 1 %}
-	<li class="yta-shop">
+	<li class="bgw yta-shop">
 		<a{% if items.limb|length %} class="yta-hassub"{% endif %} href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
 		{% if items.limb|length %}
 		<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
@@ -68,7 +67,7 @@
 					{% set subid = "submenu-" ~ id ~ "-" ~ i %}
 					{{ base.subcategory_mobile(category, subitems, subid) }}
 				{% else %}
-					<li><a href="{{app.url}}/category/{{subitems.slug}}"><span>{{category}}</span></a></li>
+					<li class="bgw"><a href="{{app.url}}/category/{{subitems.slug}}"><span>{{category}}</span></a></li>
 				{% endif %}
 			{% endfor %}
 		</ul>
