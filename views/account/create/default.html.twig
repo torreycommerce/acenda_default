@@ -34,7 +34,7 @@
 {% set form_extras = api.get('/customer/group/fields', {name:'Default Customer'}) %}
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <h1>{{title|title}}</h1>
         {{ lonelyform.begin('reset-password')}}
             {{ lonelyform.beginintro() }}
@@ -54,14 +54,14 @@
                 <div class="validation">{{ forms.errorlist(form_errors, 'confirm_email') }}</div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-6">
                     <div class="form-group fgq">
                         <label class="control-label" for="password">Password</label>
                         {{ forms.password('create[password]',create.password, {class:'form-control parsley-validated', id:'password', placeholder:"Password", required:true}) }}
                         <div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-6">
                     <div class="form-group fgq">
                         <label class="control-label" for="retype-password">Confirm Password</label>
                         {{ forms.password('create[confirm_password]',create.confirm_password, {class:'form-control parsley-validated', id:'retype-password', placeholder:"Confirm Password", required:true}) }}
@@ -73,14 +73,14 @@
         <fieldset>
             <legend>Contact Information</legend>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-6">
                     <div class="form-group fgq">
                         <label class="control-label" for="first-name">First Name</label>
                         {{ forms.text('create[first_name]',create.first_name, {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
                         <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
                     </div>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-6">
                     <div class="form-group fgq">
                         <label class="control-label" for="last-name">Last Name</label>
                         {{ forms.text('create[last_name]',create.last_name, {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
@@ -93,10 +93,9 @@
                 {{ forms.text('create[phone_number]',create.phone_number, {class:'form-control parsley-validated', id:'phonenumber', required:true})  }}
                 <div class="validation">{{ forms.errorlist(form_errors, 'phone_number') }}</div>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label for="subscribe">{{ forms.checkbox('create[newsletter]', true, {id:'subscribe'}, true) }}Subscribe to our Newsletter</label>
-                </div>
+            <div class="form-group form-check">
+                {{ forms.checkbox('create[newsletter]', true, '', true) }}
+                <label class="form-check-label" for="create[newsletter]">Subscribe to our Newsletter</label>
             </div>
         </fieldset>
         {% if form_extras is not empty %}
@@ -104,7 +103,7 @@
             <legend>Additional Information</legend>
             {% for field in form_extras %}
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     {% if field.validator == 'boolean' %}
                     <div class="form-group {{ field.required ? 'fgq' : ''}}">
                         <label for="{{ 'additionalfields'~field.name }}">{{ forms.checkbox('create['~field.name~']', create[field.name], {id:'additionalfields'~field.name}, true) }} {{ field.name|replace({'_':' '})|title }}</label>

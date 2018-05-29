@@ -214,9 +214,9 @@ function VariantsManager (product, img, isCollection) {
 			}
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-					vHTML += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
-					htmlHeroic += '<div class="hidden"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
-					htmlHeroicNav += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
+					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+					htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
 					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
 				}
 			}

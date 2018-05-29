@@ -18,7 +18,7 @@
 		<div class="validation">{{ forms.errorlist(form_errors, 'city') }}</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" id="state-label" for="state_input">State</label>
 				{#{{ forms.select('review[state]', review.state, {}, {required:true, class:'form-control parsley-validated hidden', id:'state_select' }) }}#}
@@ -26,7 +26,7 @@
 				<div class="validation">{{ forms.errorlist(form_errors, 'state') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="country">Country</label>
 				{#{{ forms.select('review[country]',review.country|default(review.country), {}, {class:'form-control parsley-validated', id:'country', placeholder:"Country", required:true}) }}#}

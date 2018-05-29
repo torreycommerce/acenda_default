@@ -59,10 +59,12 @@ $(document).ready(function() {
 	//
 	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome-4.7.0/css/font-awecenda.min.css">');
 	//
+	
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomify.js",function(){
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomcenda.js",function(){
 		});
 	});
+	
 	//
 	if ($('.btn-add').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/shop-qty.js",function(){
@@ -97,7 +99,7 @@ $(document).ready(function() {
 });
 
 
-$('img').error(function() {
+$('img').on( "error", function() {
     if ($(this).attr('width') == "450") {
         $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-450x450.gif');
     } else {
@@ -105,7 +107,8 @@ $('img').error(function() {
     }
 });
 
-$(window).load(function() {
+
+$(window).on("load", function (e) {
 	$('img').each(function() {
 		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
 			if ($(this).attr('width') == "450") {
@@ -116,6 +119,18 @@ $(window).load(function() {
 		}
 	});
 });
+
+
+$('body').on('mouseenter mouseleave','.addAccess > li',function(e){
+    //var _d=$(e.target).closest('.dropdown');
+    var _d=$(this);
+    var _e=$(_d).find('.dropdown-menu:first');_e.addClass('show');
+    setTimeout(function(){
+        _e[_d.is(':hover')?'addClass':'removeClass']('show');
+        $('[data-toggle="dropdown"]', _d).attr('aria-expanded',_d.is(':hover'));
+    },100);
+});
+
 
 
 

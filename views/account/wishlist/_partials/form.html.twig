@@ -23,11 +23,10 @@
 			{% endif %}
 			<div class="validation">{{ forms.errorlist(form_errors, 'address_id') }}</div>
 		</div>
-		<div class="form-group">
-			<div class="checkbox">
-				<label class="control-label" for="default">{{ forms.checkbox('wishlist[make_default]', 1, {id:'default'}) }} Default Wish List</label>
-				<div class="validation">{{ forms.errorlist(form_errors, 'make_default') }}</div>
-			</div>
+		<div class="form-group form-check">
+			{{ forms.checkbox('wishlist[make_default]', 1, {id:'default'}) }}
+			<label class="form-check-label" for="default">Default Wish List</label>
+			<div class="validation">{{ forms.errorlist(form_errors, 'make_default') }}</div>
 		</div>
 	</fieldset>
 	<div class="form-actions actions">

@@ -35,9 +35,6 @@
       return event;
     }
   };
-  $.each([ 'touchstart', 'touchmove', 'touchend' ], function( i, name ) {
-    $.event.fixHooks[ name ] = touchHook;
-  });
 
   var datakey = '__pz__';
   var slice = Array.prototype.slice;

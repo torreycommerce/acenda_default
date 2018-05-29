@@ -42,7 +42,7 @@
 {% endmacro %}
 {% macro breadcrumbs(crumbs=[]) %}
 {% spaceless %}
-<div class="hidden-sm hidden-xs fsd1">
+<div class="d-xsm-none fsd1">
     <ol class="breadcrumb">
         <li><a href="{{app.url}}">Home</a></li>
         {% for name,link in crumbs %}

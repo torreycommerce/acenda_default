@@ -13,11 +13,11 @@
 				<div class="row">
 					{% set product = products[review.product_id].0 %}
 					{# Begin product #}
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 p">
+					<div class="col-md-6 col-lg-4 col-xl-4 p">
 						{{ prod.gridproduct(product) }}
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 p">
-						<div class="well">
+					<div class="col-md-6 col-lg-8 col-xl-8 p">
+						<div class="card"><div class="card-body">
 							<div class="title fsi1">{{ review.title }}</div>
 							<div class="reviewer">
 								By: <span class="first-name">{{ review.first_name }}</span>
@@ -27,7 +27,7 @@
 							<div class="date">{{ review.date_created|strtotime|date('F j, Y') }}</div>
 							<div class="score">{{ base.rating(review.score) }}</div>
 							<div class="comment">{{ review.comment }}</div>
-						</div>
+						</div></div>
 					</div>
 					{# End product #}
 				</div>

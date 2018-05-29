@@ -11,14 +11,14 @@
 {% endif %}
 <h1>Order Details</h1>
 
-<div class="panel">
-	<div class="panel-heading">
+<div class="card">
+	<div class="card-header">
 		<h2>Order: #{{ order.order_number }}</h2>
 	</div>
-	<div class="panel-body">
+	<div class="card-body">
 		<div class="row">
 			{# Begin order details #}
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-md-4">
 				
 				{# Begin order details #}
 				<div class="p-2x">
@@ -93,7 +93,7 @@
 				{# End order actions #}
 			</div>
 			{# End order details #}
-			<div class="col-xs-12 col-sm-8">
+			<div class="col-md-8">
 				<div class="divide p-2x">
 					<h3>Ordered Items</h3>
 				{# Begin order items #}
@@ -168,7 +168,7 @@
 				{% endif %}
 				<div class="row">
 					{# Begin billing address #}
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-md-6">
 						<div class="p-2x">
 							<h3>Billing Address</h3>
 							{% if order.transaction_type == 'PayPal' %}
@@ -200,34 +200,34 @@
 					</div>
 					{# End billing address #}
 					{# Begin order totals #}
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-md-6">
 						<div class="row">
-							<div class="col-xs-6">Subtotal:</div>
-							<div class="col-xs-6 text-right">{{ prod.currency(order.item_subtotal|number_format(2, '.')) }}</div>
+							<div class="col-6">Subtotal:</div>
+							<div class="col-6 text-right">{{ prod.currency(order.item_subtotal|number_format(2, '.')) }}</div>
 						</div>
 						<div class="row">
-							<div class="col-xs-6">Shipping:</div>
-							<div class="col-xs-6 text-right">{{ prod.currency(order.shipping_rate|number_format(2, '.')) }}</div>
+							<div class="col-6">Shipping:</div>
+							<div class="col-6 text-right">{{ prod.currency(order.shipping_rate|number_format(2, '.')) }}</div>
 						</div>
 						{% if order.discount_price > 0 %}
 						<div class="row">
-							<div class="col-xs-6">Discount:</div>
-							<div class="col-xs-6 price-discount text-right">-{{ prod.currency(order.discount_price|number_format(2, '.')) }}</div>
+							<div class="col-6">Discount:</div>
+							<div class="col-6 price-discount text-right">-{{ prod.currency(order.discount_price|number_format(2, '.')) }}</div>
 						</div>
 						{% endif %}
 						<div class="row">
 							{% set total_before_tax = order.item_subtotal - order.discount_price + order.shipping_rate %}
-							<div class="col-xs-8">Total Before Tax:</div>
-							<div class="col-xs-4 text-right">{{ prod.currency(total_before_tax|number_format(2, '.')) }}</div>
+							<div class="col-8">Total Before Tax:</div>
+							<div class="col-4 text-right">{{ prod.currency(total_before_tax|number_format(2, '.')) }}</div>
 						</div>
 						<div class="row">
-							<div class="col-xs-6">Sales Tax:</div>
-							<div class="col-xs-6 text-right">{{ prod.currency(order.tax|number_format(2, '.')) }}</div>
+							<div class="col-6">Sales Tax:</div>
+							<div class="col-6 text-right">{{ prod.currency(order.tax|number_format(2, '.')) }}</div>
 						</div>
 						<hr>
 						<div class="row totals-total">
-							<div class="col-xs-6">Total:</div>
-							<div class="col-xs-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
+							<div class="col-6">Total:</div>
+							<div class="col-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
 						</div>
 					</div>
 					{# End order totals #}
@@ -240,7 +240,7 @@
 {# Begin returns #}
 {% set returns = api.get('/orderreturn?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
 {% if returns is not empty %}
-<div class="well">
+<div class="card"><div class="card-body">
 
 	<h2>Returns</h2>
 
@@ -251,7 +251,7 @@
 		{# Begin actions #}
 		<div class="actions">
 		{{ forms.begin('cancel-return',app.request.path) }}
-			<input type="submit" name="cancel" value="Cancel" class="btn btn-default btn-sm pull-right" />
+			<input type="submit" name="cancel" value="Cancel" class="btn btn-default btn-sm float-right" />
 			<input type="hidden" name="id" value="{{item.id}}">
 			<input type="hidden" name="return" value="{{return.id}}">
 			<input type="hidden" name="order[email]" value="{{ app.request.post.order.email }}">
@@ -265,5 +265,5 @@
 		<div><b>Qty:</b> {{ return.quantity }}, <b>Status:</b> {{ return.status }}</div>
 	</div>
 	{% endfor %}
-</div>
+</div></div>
 {% endif %}

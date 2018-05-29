@@ -154,7 +154,7 @@
 ##
 #}
 <div class="row">
-	<div class="category-intro col-md-9 col-xs-12 pull-right">
+	<div class="category-intro col-lg-9 col-12 float-right">
 		<h1>{% if app.request.get.s is not empty %}
 			Search results for: <i>{{app.request.get.s | e}}</i>
 		{% elseif category.display_name is empty %}
@@ -167,9 +167,9 @@
 		</div>
 	</div>
 	{# Begin category filters #}
-	<div class="category-filters col-md-3 col-xs-12">
+	<div class="category-filters col-lg-3 col-12">
 		{% if categories is not empty %}
-		<div class="list-sub-categories hidden-sm hidden-xs">
+		<div class="list-sub-categories d-xsm-none">
 			<ul class="list-unstyled fa-fa-gentle">
 				<li class="current-category">{{ name|default(category.name) }}</li>
 				{% for category in categories %}
@@ -186,7 +186,7 @@
 		{% if filter_set|length > 1 %}
 			{% if hasFilters == 0 %}
 			<button class="btn btn-block btn-lg btn-default p hidden-md hidden-lg" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
-			<div class="collapse force-md-lg fa-fa-balance" id="collapseFilters">
+			<div class="collapse d-lg-block fa-fa-balance" id="collapseFilters">
 			{% set hasFilters = 1 %}
 			{% endif %}
 			
@@ -214,7 +214,7 @@
 			{% endif %}
 
             {% set safename = name|replace({'.':'-'})  %}
-            <div class="filter panel" id="filter-{{safename}}">
+            <div class="filter card p" id="filter-{{safename}}">
 			{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
 			{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
             </div>
@@ -230,7 +230,7 @@
 	</div>
 	{# End category filters #}
 	
-	<div class="category-details col-md-9 col-xs-12 pull-right">
+	<div class="category-details col-lg-9 col-12 float-right">
 
 		{# Sub Category grid #}
 		{% if categories is not empty %}
@@ -239,7 +239,7 @@
 			<div class="row c-c text-center">
 				{% for category in categories %}
 				{# Begin category #}
-				<div class="col-xs-6 col-sm-4 p-2x">
+				<div class="col-6 col-md-4 p-2x">
 					<div class="category">
 					    <a href="{{app.url}}/category/{{category.slug}}">
 						    <div class="max-250 p">
@@ -262,7 +262,7 @@
 		<div class="page-filters divide p">
 			<div class="row">                    
 				{# Begin search bar #}
-				<div class="col-md-4 col-xs-12 p">
+				<div class="col-lg-4 col-12 p">
 					<form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
 						<div class="input-group twitter-typeahead">
 							<input class="form-control typeahead search-autocomplete" id="category-search" data-provide="typeahead" autocomplete="off" type="text" name="fs" value="{{app.request.get.s|e}}" placeholder="Search within">
@@ -276,7 +276,7 @@
 				</div>
 				{# End search bar #}
 				{# Begin paging #}
-				<div class="col-md-8 col-xs-12 text-center text-md-right">
+				<div class="col-lg-8 col-12 text-center text-md-right">
 					<ul class="list-inline">
 						<li>
 							<div class="btn-group">
@@ -284,7 +284,7 @@
 									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
 										<span>{{ sortByTitle }}</span><i class="fa fa-caret-down"></i>
 									</button>
-									<ul class="dropdown-menu text-left pull-right">
+									<ul class="dropdown-menu text-left float-right">
 										{% for name,sort in sort_options %}
 										<li><a href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
 										{% endfor %}
@@ -296,7 +296,7 @@
 								<form class="form-inline">
 									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><span>{{ limit }}</span><i class="fa fa-caret-down"></i>
 									</button>
-									<ul class="dropdown-menu pull-right text-left">                                
+									<ul class="dropdown-menu float-right text-left">                                
 										<li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
 										<li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
 										<li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
@@ -340,7 +340,7 @@
 						{% set collection_ids = collection_ids|merge([product.id]) %}
 					{% endif %}
 					{# Begin product #}
-					<div class="col-xs-6 col-sm-4 p-2x">
+					<div class="col-6 col-md-4 p-2x">
 						{{ prod.gridproduct(product) }}
 					</div>
 					{# End product #}
@@ -372,7 +372,7 @@
 						{% set collection_ids = collection_ids|merge([product.id]) %}
 					{% endif %}
 					{# Begin product #}
-					<div class="col-xs-6 col-sm-4 p-2x">
+					<div class="col-6 col-md-4 p-2x">
 						{{ prod.gridproduct(product) }}
 					</div>
 					{# End product #}

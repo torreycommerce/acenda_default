@@ -24,77 +24,77 @@
 		 </div>
 	</div>		
 	<div class="row">				
-		<div id="checkout-left" class="col-md-8">
+		<div id="checkout-left" class="col-lg-8">
 			<div id="checkout-steps">
-			    <div class="panel">
-			        <div id="signin-panel" class="panel-heading">
-			        	<button id="btn-edit-signin" class="btn btn-default btn-xs pull-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			    <div class="card">
+			        <div id="signin-panel" class="card-header">
+			        	<button id="btn-edit-signin" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
 			            <h2>1. Sign In</h2>
 			            <div class="step-data"></div>
 			        </div>
-			        <div id="collapseSignIn" class="panel-collapse collapse">
-			            <div class="panel-body">
+			        <div id="collapseSignIn" class=" collapse">
+			            <div class="card-body">
                              {% include "/checkout/_partials/single-page-steps/signin.html.twig" %}
 			            </div>
 			        </div>
 			    </div>
-			    <div id="shipping-panel" class="panel">
-			        <div class="panel-heading">
-			        	<button id="btn-edit-shipping" class="btn btn-default btn-xs pull-right btn-edit" data-parent="#checkout-steps" >Edit</button>
+			    <div id="shipping-panel" class="card">
+			        <div class="card-header">
+			        	<button id="btn-edit-shipping" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps" >Edit</button>
 			            <h2>2. Shipping Address</h2>
 			            <div class="step-data"></div>					            
 			        </div>
-			        <div id="collapseShipping" class="panel-collapse collapse">
-			            <div class="panel-body">
+			        <div id="collapseShipping" class=" collapse">
+			            <div class="card-body">
 							{% include "/checkout/_partials/single-page-steps/shipping.html.twig" %}
 			            </div>
 			        </div>
 			    </div>
-			    <div id="shipping-method-panel" class="panel">
-			        <div class="panel-heading">
-			        	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs pull-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			    <div id="shipping-method-panel" class="card">
+			        <div class="card-header">
+			        	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
 			            <h2>3. Shipping Method</h2>
 			            <div class="step-data"></div>					            
 			        </div>
-			        <div id="collapseShippingMethod" class="panel-collapse collapse">
-			            <div class="panel-body">
+			        <div id="collapseShippingMethod" class=" collapse">
+			            <div class="card-body">
 							{% include "/checkout/_partials/single-page-steps/shipping-method.html.twig" %}
 			            </div>
 			        </div>
 			    </div>					    
-			    <div id="payment-panel" class="panel">
-			        <div class="panel-heading">
-			        	<button id="btn-edit-payment" class="btn btn-default btn-xs pull-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			    <div id="payment-panel" class="card">
+			        <div class="card-header">
+			        	<button id="btn-edit-payment" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
 			            <h2>4. Payment</h2>
 			            <div class="step-data"></div>					            
 			        </div>
-			        <div id="collapsePayment" class="panel-collapse collapse">
-			            <div class="panel-body">
+			        <div id="collapsePayment" class=" collapse">
+			            <div class="card-body">
 							{% include "/checkout/_partials/single-page-steps/payment.html.twig" %}
 			            </div>
 			        </div>
 			    </div>					    
-			    <div id="review-panel" class="panel">
-			        <div class="panel-heading">
+			    <div id="review-panel" class="card">
+			        <div class="card-header">
 			            <h2>5. Review Your Order</h2>
 			        </div>
-			        <div id="collapseReview" class="panel-collapse collapse">
-			            <div class="panel-body">
+			        <div id="collapseReview" class=" collapse">
+			            <div class="card-body">
 							{% include "/checkout/_partials/single-page-steps/review.html.twig" %}
 			            </div>
 			        </div>
 			    </div>
 			</div>
 		</div>
-		<div id="checkout-right" class="col-md-4">
+		<div id="checkout-right" class="col-lg-4">
 			<div id="summary-panel" style="min-height: 200px">
-				<div class="panel" >
-					<div class="panel-heading"><h2>Order Summary</h2></div>
-					<div class="panel-body" >
+				<div class="card" >
+					<div class="card-header"><h2>Order Summary</h2></div>
+					<div class="card-body" >
 						<h3>Items (<span id="num-items"></span>)</h3>
 							<div id="item-list">
 							</div>
-							<div class="hidden" id="item-list-copy">
+							<div class="d-none" id="item-list-copy">
 								<div class="divide g item p pad-b">
 									{% spaceless %}
 									<div class="media">
@@ -115,60 +115,60 @@
 									{% endspaceless %}
 								</div>
 							</div>
-							<div class="hidden" id="item-list-data">
+							<div class="d-none" id="item-list-data">
 							</div>
 						<hr/>
 						<div id="totals-section">
 						</div>
-						<div class="hidden" id="totals-section-copy">
+						<div class="d-none" id="totals-section-copy">
 						    <div class="divide p pad-b">
 								<div class="row totals-subtotal">
-									<div class="amount col-xs-7">Subtotal:</div>
-									<div class="amount col-xs-5 text-right">
+									<div class="amount col-7">Subtotal:</div>
+									<div class="amount col-5 text-right">
 										{{ prod.currency("0.00") }}
 									</div>
 								</div>
 								<div class="row totals-shipping">
-									<div class="amount col-xs-7">Shipping:</div>
-									<div class="amount col-xs-5 text-right">
+									<div class="amount col-7">Shipping:</div>
+									<div class="amount col-5 text-right">
 										{{ prod.currency("0.00") }}
 									</div>
 								</div>
 								<div class="row totals-discount">
-									<div class="amount col-xs-7">Discount:</div>
-									<div class="amount col-xs-5 text-right price-discount">
+									<div class="amount col-7">Discount:</div>
+									<div class="amount col-5 text-right price-discount">
 										{{ prod.currency("0.00") }}
 									</div>
 								</div>
 								<div class="row totals-tax">
-									<div class="amount col-xs-7">Tax:</div>
-									<div class="amount col-xs-5 text-right">
+									<div class="amount col-7">Tax:</div>
+									<div class="amount col-5 text-right">
 										{{ prod.currency("0.00") }}
 									</div>
 								</div>
 							</div>
 							<div class="row totals-total">
-								<div class="amount col-xs-7">Total:</div>
-								<div class="amount col-xs-5 text-right">
+								<div class="amount col-7">Total:</div>
+								<div class="amount col-5 text-right">
 									{{ prod.currency("0.00") }}
 								</div>
 							</div>
 						</div>
-						<div class="hidden" id="totals-section-data"></div>
+						<div class="d-none" id="totals-section-data"></div>
 					</div>
 				</div>
 
-				<div class="panel">
-					<div class="panel-body">
+				<div class="card">
+					<div class="card-body">
                         <h3>Coupon Code</h3>
 						<form name="coupon">
 							<div class="form-group">
 								<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
 								<div class="row">
-									<div class="col-xs-6 col-sm-9 col-md-7 col-lg-8">
+									<div class="col-6 col-md-9 col-lg-7 col-xl-8">
 										{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
 									</div>
-									<div class="col-xs-6 col-sm-3 col-md-5 col-lg-4">
+									<div class="col-6 col-md-3 col-lg-5 col-xl-4">
 										<button id="checkout_enter_coupon" class="btn btn-primary btn-block">Apply</button>
 
 									</div>
@@ -208,7 +208,7 @@
 		<% if(discount.type == 'coupon'){{ '{' }}  %>
 		<div class="discount">
 			<div class="alert alert-info">
-				<button class="pull-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>">Remove</button>
+				<button class="float-right btn btn-info btn-xs remove-coupon" id="remove-coupon-<%= discount.id %>">Remove</button>
 				<p>
 				<b>Coupon: <%= discount.code %></b>
 				<% if(discount.description) {{ '{' }} %><br><% {{ '}' }} %>
@@ -248,7 +248,7 @@
 			    <tr>
 			        <td><input <%= (method.id == current_method)?'checked':''  %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
 			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
-			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="hidden"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
+			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
 			    </tr>
 			    <% } %>
 	    <% }) %>

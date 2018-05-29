@@ -12,13 +12,14 @@
 {# Scripts #}
 
 
-{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-2.1.4.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-3.3.1.min.js') }}
 {% if app.request.url == "checkout" %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {% endif %}
-{{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap/bootstrap.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/popper-1.14.3.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap-4.1.1.min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 
 {% if app.params.seo.google_analytics is not empty and app.params.seo.google_tag_manager is empty %}
@@ -58,7 +59,7 @@
 <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
 <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
 <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" type="image/x-icon" />
-<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/acendastrap.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/bootcenda.css" />
 <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/theme.css" />
 <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
 

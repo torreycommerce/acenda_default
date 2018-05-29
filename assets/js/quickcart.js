@@ -1,21 +1,78 @@
 
 var cartCloseTimeout;
 var cartTriggerTimeout;
+console.log('qc v24');
+
+/*
+var q=false;
+ $('body').on('mouseenter mouseleave focusin focusout','#header .cart',function(e){
+    console.log('triggered raw')
+    if (e.type == "mouseenter" || e.type == "focusin") {
+        q = true;
+        console.log('triggered on');
+    } else {
+        q = false;
+        console.log('triggered off')
+    }
+    if (!$(".popover.fade.bottom").length && !cartTriggerTimeout) {
+        cartTriggerTimeout = setTimeout(function(){
+            if ($('.qcart').is(':hover') || $('.qcart').is(':focus')) {
+                console.log('continue...')
+                if($('.quickcart').attr('data-content') == '') {
+                    ajaxCart("{}", true);
+                } else {
+                    //$('.quickcart').popover("show");
+                    $('#qc-btn').dropdown('toggle'); //show
+                    //cartCloseTimeout = setTimeout(function(){$('.quickcart').popover("hide"); resetErrors();}, 5000);
+                    cartCloseTimeout = setTimeout(function(){$('#qc-btn').dropdown('toggle'); resetErrors();}, 5000); //hide
+                }
+            }
+            cartTriggerTimeout = false;
+        }, 500);
+    }
+
+});//, function(){q = false;});
+*/
+
+
+
+$('#qc-parent').on('shown.bs.dropdown', function () {
+    console.log('qc shown');
+    $('#qc').collapse('show');
+    $('#qc-spin').collapse('hide');
+});
+
+$('#qc-parent').on('hidden.bs.dropdown', function () {
+    console.log('qc hidden');
+    $('#qc-spin').collapse('show');
+    $('#qc').collapse('hide');
+});
+
+
+
+
+
+
 
 $(function() {
 
     var q=false;
 
-    $("#header .cart").hover(function(){
+    //$("#header .cart").hover(function(){
+    $('body').on('hover','#header22 .cart',function(){
+        console.log('triggered')
         q = true;
-        if (!$(".popover.fade.bottom.in").length && !cartTriggerTimeout) {
+        if (!$(".popover.fade.bottom").length && !cartTriggerTimeout) {
             cartTriggerTimeout = setTimeout(function(){
                 if (q) {
                     if($('.quickcart').attr('data-content') == '') {
                         ajaxCart("{}", true);
                     } else {
                         $('.quickcart').popover("show");
-                        cartCloseTimeout = setTimeout(function(){$('.quickcart').popover("hide"); resetErrors();}, 5000);
+                        //
+                        $('#qc-btn').dropdown('toggle'); //show
+                        //cartCloseTimeout = setTimeout(function(){$('.quickcart').popover("hide"); resetErrors();}, 50000);
+                        cartCloseTimeout = setTimeout(function(){$('#qc-btn').dropdown('toggle'); resetErrors();}, 50000); //hide
                     }
                 }
                 cartTriggerTimeout = false;
@@ -28,11 +85,12 @@ $(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('#header .item-count').html(data.result.item_count).addClass('ready');
     });
-    $('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
+    //('.quickcart').popover({html:true, trigger: 'manual', placement:'bottom'});
 });
 
 $('html').on("click", "#ajaxcart-close", function() {
-    $('.quickcart').popover('hide');
+    //$('.quickcart').popover('hide');
+    $('#qc-btn').dropdown('toggle'); //hide
 });
 
 var pData;
@@ -68,6 +126,7 @@ $('button[value=cart]').click(function(event) {
     $('button[value=cart]').addClass('wait').attr('disabled',true);
     //console.log("Add to cart");
     //console.log(form.serialize());
+    /*
     $.post(acendaBaseUrl + '/product/route',
         form.serialize())
     .always(function(data) {
@@ -85,7 +144,26 @@ $('button[value=cart]').click(function(event) {
         // Set popover on failure to add items
         $('.quickcart').attr('data-content','<h5>Failed to add item(s) to cart.</h5>').popover('show');
     })
-    .success(ajaxCart);
+    .then(ajaxCart);
+    */
+    $.post(acendaBaseUrl + '/product/route',
+        form.serialize())
+    .always(function(data) {
+        // Make sure to reenable it, success or failure
+        $('button[value=cart]').each(function() {
+            $(this).removeClass('wait');
+            // only enable the cart button if it wasn't disabled due to lack of Stock/Price
+            if (!$(this).parents('.piece').find('.quantity-selector').attr('disabled')) {
+                $(this).attr('disabled',false);
+            }
+        });
+        $("html, body").animate({ scrollTop: 0 }, 600);
+    })
+    .fail(function() {
+        // Set popover on failure to add items
+        $('.quickcart').attr('data-content','<h5>Failed to add item(s) to cart.</h5>').popover('show');
+    })
+    .done(ajaxCart);
 });
 
 function ajaxCart(data, r) {
@@ -242,6 +320,7 @@ function ajaxCart(data, r) {
 
 
             if(cart_items.length > 0) {
+                //displayCart($('.quickcart').attr('data-content',$('.quickcart .ajaxcart').html()), r);
                 displayCart($('.quickcart').attr('data-content',$('.quickcart .ajaxcart').html()), r);
             }
 
@@ -251,9 +330,10 @@ function ajaxCart(data, r) {
 
 function displayCart(el, r){
 
-    el.popover("show");
+    //$('#qc-drop').dropdown("show");
+    $('#qc-btn').dropdown('toggle'); //show
 
-    el.on('shown.bs.popover', function () {
+    $('#qc-btn').on('shown.bs.dropdown', function () {
 
         $(this).parent().find('.popover-content')
             .mouseenter(function(){
@@ -276,5 +356,5 @@ function displayCart(el, r){
 
 function resetErrors(){
     $('.ajaxcart .error').empty();
-    $('.quickcart').attr('data-content',$('.quickcart .ajaxcart').html());
+    //$('.quickcart').attr('data-content',$('.quickcart .ajaxcart').html());
 }

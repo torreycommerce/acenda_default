@@ -16,14 +16,14 @@
 <form id="shipping-address-form" novalidate parsley-validate>
 <div class="hide-shipping">	
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="first-name">First Name</label>
 				{{ forms.text('shipping_first_name', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="last-name">Last Name</label>
 				{{ forms.text('shipping_last_name', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
@@ -33,7 +33,7 @@
 	</div>
 	<fieldset class="verify-change-shipping">
 	<div class="row">
-		<div class="col-xs-12 col-sm-6">
+		<div class="col-md-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="shipping-country">Country</label>
 				{{ forms.select('shipping_country', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'shipping-country', required:true}) }}
@@ -52,14 +52,14 @@
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="city">City</label>
 				{{ forms.text('shipping_city', address[name ~ 'city'], {class:'form-control parsley-validated', id:'city', placeholder:"City", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" id="state-label" for="shipping-state">State/Province</label>
                 {{ forms.select('shipping_state_select', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'shipping-state-select'}) }}
@@ -69,14 +69,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="zip" id="zip-label">Zip Code</label>
 				{{ forms.text('shipping_zip', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="phone">Phone Number</label>
 				{{ forms.text('shipping_phone_number', address[name ~ 'phone_number'], {class:'form-control parsley-validated', id:'phone', placeholder:"Phone Number", required: true}) }}
@@ -87,12 +87,11 @@
 </fieldset>
 </div>
     <div class="copy-shipping-flag">
-		<div class="form-group">
-			<div class="checkbox">
-			  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Shipping Address is the same as the Billing Address</label>
-			</div>
+		<div class="form-group form-check">
+			<input type="checkbox" class="form-check-input" id="copy_shipping_to_billing" name="copy_shipping_to_billing" value="">
+			<label class="form-check-label" for="copy_shipping_to_billing">Shipping Address is the same as the Billing Address</label>
 		</div>
     </div>
     <div id="address-verify"></div>
-	<button id="btn-continue-shipping" class="btn btn-lg btn-primary btn-cart btn-xs-block pull-right">Continue</button>
+	<button id="btn-continue-shipping" class="btn btn-lg btn-primary btn-cart btn-xs-block float-right">Continue</button>
 </form>

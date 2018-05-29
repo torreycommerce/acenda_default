@@ -8,7 +8,7 @@ var keyCodeMap = {
 $.fn.setup_navigation = function(settings) {
 
 	settings = jQuery.extend({
-		menuHoverClass: 'show-menu',
+		menuHoverClass: 'show',
 	}, settings);
 	
 	// Add ARIA role to menubar and menu items

@@ -184,7 +184,7 @@
 {% spaceless %}
 <div class="divide item p-2x pad-b-2x" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6">
+		<div class="col-md-6">
 			<div class="media media-cart p-0 p-xs">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
@@ -225,14 +225,14 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12 col-sm-5 pull-right">
+		<div class="col-md-5 float-right">
 			<div class="quantity">
 				<label for="quantity-selector-{{id}}" class="control-label">Qty</label>
 				<div class="input-group">
 					<div class="input-group-btn">
 						<div class="input-group input-group-qty igq-mod">
 							<div class="btn-group btn-group-qty">
-								<input type="text" class="form-control input-lg quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
+								<input type="text" class="form-control form-control-lg quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
 								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
 								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 							</div>
@@ -285,7 +285,7 @@
             {% set has_bundle = true %}
         {% endif %}
     {% endfor %}
-	<div class="col-xs-12 col-md-7">
+	<div class="col-lg-7">
 		<h2>Coupon Code</h2>
         {{ forms.begin('cart','','post', {class:'form-coupon divide pad-b-2x p-2x',id:'coupon-code'}) }}
         {% if has_bundle %}
@@ -304,10 +304,10 @@
 		<div class="form-group">
 			<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
 			<div class="row">
-				<div class="col-xs-6 col-sm-8">
+				<div class="col-6 col-md-8">
 					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
 				</div>
-				<div class="col-xs-6 col-sm-4">
+				<div class="col-6 col-md-4">
 					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
 				</div>
 			</div>
@@ -317,7 +317,7 @@
 			{% if discount.type == 'coupon' %}
 			<div class="discount">
 				<div class="alert alert-info">
-					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' pull-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
+					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
 					
 					<p>
 					<b>Coupon: {{ discount.code }}</b>
@@ -336,21 +336,21 @@
 		</div>
 		{# End shipping estimator #}
 	</div>
-	<div class="col-xs-12 col-md-5">
-		<div class="well">
+	<div class="col-lg-5">
+		<div class="card"><div class="card-body">
 			<div class="p">
 				<div class="row estimate-subtotal">
-					<div class="col-xs-7">Subtotal:</div>
-					<div class="col-xs-5 text-right">
+					<div class="col-7">Subtotal:</div>
+					<div class="col-5 text-right">
 						{{ prod.currency(cart.item_subtotal|number_format(2)) }}
 					</div>
 				</div>
 				{% if cart.shipping_rate != null %}
 				<div class="row rate-estimate-checkout">
-					<div class="col-xs-7">
+					<div class="col-7">
 						Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 					</div>
-					<div class="col-xs-5 text-right">
+					<div class="col-5 text-right">
 						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 					</div>
 				</div>
@@ -367,8 +367,8 @@
 
 				{% if coupon_discount > 0 %} 
 				<div class="row estimate-coupons">
-					<div class="col-xs-7">Coupons:</div>
-					<div class="price-discount col-xs-5 text-right">
+					<div class="col-7">Coupons:</div>
+					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(coupon_discount|number_format(2)) }}
 					</div>
 				</div>
@@ -376,30 +376,30 @@
 				
 				{% if bundle_discount > 0 %}
 				<div class="row estimate-bundles">
-					<div class="col-xs-7">Bundles:</div>
-					<div class="price-discount col-xs-5 text-right">
+					<div class="col-7">Bundles:</div>
+					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(bundle_discount|number_format(2)) }}
 					</div>
 				</div>
 				{% endif %}
 				{% if cart.tax_rate != null %}
 				<div class="row total-before-tax">
-					<div class="col-xs-7">Total Before Tax:</div>
-					<div class="col-xs-5 text-right">
+					<div class="col-7">Total Before Tax:</div>
+					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
 					</div>
 				</div>
 				<div class="row tax-estimate-checkout">
-					<div class="col-xs-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
-					<div class="col-xs-5 text-right">
+					<div class="col-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
+					<div class="col-5 text-right">
 						{{ prod.currency(cart.tax_rate|number_format(2)) }}
 					</div>
 				</div>
 				{% endif %}
 				<hr>
 				<div class="row estimate-total totals-total">
-					<div class="col-xs-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
-					<div class="col-xs-5 text-right">
+					<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+					<div class="col-5 text-right">
 						{{ prod.currency(cart.total|number_format(2)) }}
 					</div>
 				</div>
@@ -425,7 +425,7 @@
 				</div>
 			{% endif %}
 
-		</div>
+		</div></div>
 	</div>
 </div>
 

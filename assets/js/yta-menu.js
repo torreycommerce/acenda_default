@@ -30,7 +30,7 @@ $(document).on( "click", '.yta-toggle', function() {
 			    if ($(this).attr('data-tabindexold')) {
 			        $(this).attr('tabindex',$(this).attr('data-tabindexold'));
 			    } else {
-				    $(this).attr('tabindex','0');
+				    $(this).removeAttr('tabindex');
 			    }
 			}
 		}

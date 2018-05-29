@@ -4,21 +4,21 @@
 	<div class="form-group">
 		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
 		<div class="row">
-			<div class="col-xs-6 p">
+			<div class="col-6 p">
 				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country}) }}
 			</div>
-			<div class="col-xs-6 p">
+			<div class="col-6 p">
 				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state}) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6 col-sm-4 p">
+			<div class="col-6 col-md-4 p">
 				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip}) }}
 			</div>
-			<div class="col-xs-6 col-sm-4 p">
+			<div class="col-6 col-md-4 p">
 				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method}) }}
 			</div>
-			<div class="col-xs-12 col-sm-4 p">
+			<div class="col-md-4 p">
 				{{ forms.submit('action', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
 			</div>
 		</div>
@@ -54,12 +54,12 @@
 	</div>
 </div>
 <div class="fsd1" id="estimate">
-	<div class="well">
+	<div class="card"><div class="card-body">
 		<div class="row rate-estimate-checkout">
-			<div class="col-xs-8">
+			<div class="col-8">
 				<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
 			</div>
-			<div class="col-xs-4 text-right">
+			<div class="col-4 text-right">
 				{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 			</div>
 		</div>
@@ -67,35 +67,35 @@
 
 		{# Begin arrival date #}
 		<div class="row">
-			<div class="col-xs-5">
+			<div class="col-5">
 				<span data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></span>:
 			</div>
-			<div class="col-xs-7 text-right">
+			<div class="col-7 text-right">
 				<span id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
 			</div>
 		</div>
 		{# End arrival date #}
 		{# Begin estimated tax #}
 		<div class="row tax-estimate-checkout">
-			<div class="col-xs-8">
+			<div class="col-8">
 				Estimated Sales Tax:
 			</div>
-			<div class="col-xs-4 text-right">
+			<div class="col-4 text-right">
 				{{ prod.currency(cart.tax_rate|number_format(2)) }}
 			</div>
 		</div>
 		{# End estimated tax #}
 		{# Begin estimated total #}
 		<div class="row total estimate-total">
-			<div class="col-xs-8">
+			<div class="col-8">
 				Estimated Total:
 			</div>
-			<div class="col-xs-4 text-right">
+			<div class="col-4 text-right">
 				{{ prod.currency(cart.total|number_format(2)) }}
 			</div>
 		</div>
 		{# End estimated total #}
-	</div>
+	</div></div>
 </div>
 {% endif %}
 {# End estimates #}

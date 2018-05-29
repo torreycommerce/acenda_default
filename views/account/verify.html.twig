@@ -23,33 +23,29 @@
 {{ base.breadcrumbs({'Account':'/account', (title):''}) }}
 {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <h1>{{title|title}}</h1>
-        <div>
-        {% if error is empty %}
-            {% if customer.group_status == 'active' %}
-            <p>
-            	Your account has been successfully verified! 
-            </p>
-            <p>
-                You may now <a href="{{app.url}}/account">Login to your account</a> to continue.
-            </p>
-            {% else %}
-            <p>
-                Your account has been successfully verified, however it is still pending approval.
-                We'll notify you once we approve your request.
-            </p>
-            <p>
-                Please contact customer support for futher assistance.
-            </p>
-            {% endif %}
-        {% else %}
-        <p>
-            Sorry the verification token is invalid, please check the emailed link and try again.
-        </p>
-        {% endif %}
-        </div>
-    </div>
-</div>
+
+<h1>{{title|title}}</h1>
+{% if error is empty %}
+    {% if customer.group_status == 'active' %}
+    <p>
+    	Your account has been successfully verified! 
+    </p>
+    <p>
+        You may now <a href="{{app.url}}/account">Login to your account</a> to continue.
+    </p>
+    {% else %}
+    <p>
+        Your account has been successfully verified, however it is still pending approval.
+        We'll notify you once we approve your request.
+    </p>
+    <p>
+        Please contact customer support for futher assistance.
+    </p>
+    {% endif %}
+{% else %}
+<p>
+    Sorry the verification token is invalid, please check the emailed link and try again.
+</p>
+{% endif %}
+
 {% endblock %}

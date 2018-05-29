@@ -48,20 +48,20 @@
 .selectric-responsive {width:100%;}
 .selectric-hide-select {position:relative; width:0; height:0; overflow:hidden;}
 .selectric {position:relative; height:36px; margin:2px 0 0; font-size:14px; line-height:36px; background:#fcfcfc; border:1px solid #bbb; overflow:hidden;}
-.selectric-input-lg .selectric {height:48px; font-size:16px; line-height:48px;}
+.selectric-form-control-lg .selectric {height:48px; font-size:16px; line-height:48px;}
 .selectric-hover .selectric {background:#f8f8f8; border-color:#bbb;}
 .selectric-focus .selectric {background:#f0f0f0; border-color:#aaa;}
 
 
 .selectric .slabel {display:block; margin:0 36px; color:#444; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;}
-.selectric-input-lg .slabel {margin:0 48px;}
+.selectric-form-control-lg .slabel {margin:0 48px;}
 
 .selectric .button {display:block; position:absolute; top:0; right:0; width:36px; height:36px;}
-.selectric-input-lg .button {width:48px; height:48px;}
+.selectric-form-control-lg .button {width:48px; height:48px;}
 
 
 .selectric .button:after {content:" "; position:absolute; top:0; right:0; bottom:0; left:0; width:0; height:0; margin:auto; border:4px solid transparent; border-top-color:#666; border-bottom:none;}
-.selectric-input-lg .selectric .button:after {border-width:6px;}
+.selectric-form-control-lg .selectric .button:after {border-width:6px;}
 .selectric-hover .selectric .button:after {/*border-top-color: #a2a2a2;*/}
 
 

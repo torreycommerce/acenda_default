@@ -1,8 +1,8 @@
-<button class="btn btn-block btn-default btn-lg" data-toggle="collapse" data-target="#collapseAC">
+<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#collapseAC">
 	<span>Color</span><i class="fa fa-caret-down"></i>
 </button>
-<div id="collapseAC" class="panel-collapse collapse in">
-	<div class="panel-body color-chips">
+<div id="collapseAC" class="collapse show">
+	<div class="card-body color-chips">
 		<div class="row row-thin">
 			{% for item,count in filter_set %}
 				{% set current_count = filter_count[name][item] %}
@@ -13,7 +13,7 @@
 				{% else %}
 					{% set link = filter_request|merge({(name):link}) %}
 				{% endif %}
-				<div class="col-thin col-xs-2 col-sm-1 col-md-2 p-thin">
+				<div class="col-thin col-2 col-md-1 col-lg-2 p-thin">
 				   <a class="color-chip {{ item|replace({' ':'-'})|lower }} {% if selected %}active{% endif %} {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}" data-tooltip data-toggle="tooltip" data-original-title="{{item|title}}">
 						<span class="image-space">
 						{% if current_count == 0 %}<i class="isd fa fa-times"><i class="sr-only">{{ item|replace({' ':'-'})|lower }}</i></i>{% elseif selected %}

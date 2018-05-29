@@ -59,12 +59,12 @@ set in the array in /account/_macros/base.html.twig
 {% else %}
 <div class="row c-c">
 	{% for row,address in addresses %}
-	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<div class="panel {% if address.verified == 0 %} panel-danger{% else %}{% endif %} {% if address.default == 1 %} panel-success{% endif %}">
-			<div class="panel-heading">
+	<div class="col-md-6 col-xl-4">
+		<div class="card {% if address.verified == 0 %} panel-danger{% else %}{% endif %} {% if address.default == 1 %} panel-success{% endif %}">
+			<div class="card-header">
 				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<address class="pad-b divide p g">
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>

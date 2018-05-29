@@ -55,12 +55,12 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# Begin wishlists #}
 <div class="row c-c">
 	{% for wishlist in wishlists %}
-	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<div class="panel{% if wishlist.default %} panel-success{% endif %}">
-			<div class="panel-heading">
+	<div class="col-md-6 col-xl-4">
+		<div class="card{% if wishlist.default %} panel-success{% endif %}">
+			<div class="card-header">
 				<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
 				<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
 				<div class="fsd1 mar-t pad-b divide p g">

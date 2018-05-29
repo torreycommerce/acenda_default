@@ -19,21 +19,21 @@
 	<h1>Checkout: Shipping</h1>
 
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="col-12">
 			<div id="fade-container">
 				{{ forms.begin('shipping',  app.url ~ '/checkout', 'post', { class:'form-region' }) }}
 				{% if app.request.get.test_order %}
 				<div class="row">
-					<div class="col-xs-12">
+					<div class="col-12">
 						<div class="alert alert-danger">You are placing a test order. Test orders will not be processed or fulfilled.</div>
 					</div>
 				</div>
 				{% endif %}
 				<div class="row">
-					<div class="col-xs-12 col-sm-7 col-md-8">
+					<div class="col-md-7 col-lg-8">
 						{% if app.user.id is empty %}
 						<div class="row">
-							<div class="col-xs-12 col-sm-6 p">
+							<div class="col-md-6 p">
 								<fieldset>
 									<legend>Guest &amp; New Customer</legend>
 									<div class="form-group fgq">
@@ -41,15 +41,14 @@
 										{{ forms.email('shipping[email]', app.user.getState('email'), {required: true, class: "form-control parsley-validated", id:'email', placeholder: "Email Address"}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
 									</div>
-									<div class="form-group">
-										<div class="checkbox">
-											<label class="control-label" for="subsc">{{ forms.checkbox('shipping[newsletter]', true, {id:'subsc'}, true) }} Subscribe to our Newsletter
-											</label>
-										</div>
+									<div class="form-group form-check">
+										{{ forms.checkbox('shipping[newsletter]', true, '', true) }}
+										<label class="form-check-label" for="shipping[newsletter]">Subscribe to our Newsletter
+										</label>
 									</div>
 								</fieldset>
 							</div>
-							<div class="col-xs-12 col-sm-6 p">
+							<div class="col-md-6 p">
 								<fieldset>
 									<legend>Returning Customer</legend>
 									<div class="form-group">
@@ -123,14 +122,14 @@
                                 	{% set name = 'shipping_' %}
                                     {% set form = 'shipping' %}
                                 	<div class="row">
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq">
                                 				<label class="control-label" for="first-name">First Name</label>
                                 				{{ forms.text(form ~ '[' ~ name ~ 'first_name]', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
                                 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
                                 			</div>
                                 		</div>
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq">
                                 				<label class="control-label" for="last-name">Last Name</label>
                                 				{{ forms.text(form ~ '[' ~ name ~ 'last_name]', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
@@ -149,7 +148,7 @@
                                 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
                                 	</div>
                                 	<div class="row">
-                                		<div class="col-xs-12 col-sm-6">
+                                		<div class="col-md-6">
                                 			<div class="form-group fgq normalizable">
                                 				<label class="control-label" for="country">Country</label>
                                 				{{ forms.select(form ~ '[' ~ name ~ 'country]', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'country'}) }}
@@ -159,14 +158,14 @@
                                 		</div>
                                 	</div>
                                 	<div class="row">
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq normalizable">
                                 				<label class="control-label" for="city">City</label>
                                 				{{ forms.text(form ~ '[' ~ name ~ 'city]', address[name ~ 'city'], {class:'form-control parsley-validated', id:'city', placeholder:"City", required:true}) }}
                                 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
                                 			</div>
                                 		</div>
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq normalizable">
                                 				<label class="control-label" id="state-label" for="state">State</label>
                                                 {{ forms.select('shipping[shipping_state]', address[name ~ 'state'], {}, {class:'form-control parsley-validated', placeholder:"State", id:'state_select'}) }}
@@ -176,14 +175,14 @@
                                 		</div>
                                 	</div>
                                 	<div class="row">
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq normalizable">
                                 				<label class="control-label" for="zip"><span class="postziplang">Zip Code</span></label>
                                 				{{ forms.text(form ~ '[' ~ name ~ 'zip]', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
                                 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
                                 			</div>
                                 		</div>
-                                		<div class="col-xs-6">
+                                		<div class="col-6">
                                 			<div class="form-group fgq">
                                 				<label class="control-label" for="phone">Phone Number</label>
                                 				{{ forms.text(form ~ '[' ~ name ~ 'phone_number]', address[name ~ 'phone_number'], {class:'form-control parsley-validated', id:'phone', placeholder:"Phone Number", required: true}) }}
@@ -194,14 +193,13 @@
                                     {# End Shipping In line Form #}
 								</div>
 								{% if app.user.id is not empty %}
-								<div class="form-group">
-									<div class="checkbox">
-										{% set checked = {} %}
-										{% if app.user.getState('shipping_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
-										<label>{{ forms.checkbox('shipping[shipping_save]', false, checked) }} Save shipping address</label>
-									</div>
-									<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
+								<div class="form-group form-check">
+									{% set checked = {} %}
+									{% if app.user.getState('shipping_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
+									{{ forms.checkbox('shipping[shipping_save]', false, checked) }}
+									<label class="form-check-label" for="shipping[shipping_save]">Save shipping address</label>
 								</div>
+								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
 								{% endif %}
 							</div>
 							<div class="form-group fgq">
@@ -210,12 +208,11 @@
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
 							</div>
 							{% if giftlist_present != true %}
-							<div class="form-group">
-								<div class="checkbox">
-									{% set same = {} %}
-									{% if app.user.getState('shipping_same_as_billing') is not null and  app.user.getState('shipping_same_as_billing') == '' %} {% set same = {} %} {% endif %}
-									<label for="shipping_same_as_billing">{{ forms.checkbox('shipping[shipping_same_as_billing]', false, same+{'id': 'shipping_same_as_billing'}) }} Shipping Address is the same as the Billing Address</label>
-								</div>
+							<div class="form-group form-check">
+								{% set same = {} %}
+								{% if app.user.getState('shipping_same_as_billing') is not null and  app.user.getState('shipping_same_as_billing') == '' %} {% set same = {} %} {% endif %}
+								{{ forms.checkbox('shipping[shipping_same_as_billing]', false, same+{'id': 'shipping_same_as_billing'}) }}
+								<label class="form-check-label" for="shipping_same_as_billing">Shipping Address is the same as the Billing Address</label>
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_same_as_billing') }}</div>
 							</div>
 							{% endif %}
@@ -229,14 +226,14 @@
 							</div>
 						</div>
 					</div>
-					<section id="order-summary" class="col-xs-12 col-sm-5 col-md-4">
-						<div class="well" id="summary-well">
+					<section id="order-summary" class="col-md-5 col-lg-4">
+						<div class="card"><div class="card-body" id="summary-well">
 							{% include "/checkout/_partials/summary.html.twig" %}
-						</div>
+						</div></div>
 						{% include "/checkout/_partials/entercoupon.html.twig" %}									
 
 					<div class="row hidden-sm hidden-md hidden-lg">
-						<div class="col-xs-12">
+						<div class="col-12">
 							<div class="actions">
 								{{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
 								<input type="hidden" name="step" value="shipping">

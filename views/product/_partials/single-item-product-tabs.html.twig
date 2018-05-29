@@ -1,6 +1,6 @@
-<div id="product-tabs" class="col-xs-12 p-2x">	
+<div id="product-tabs" class="col-12 p-2x">	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-lg-12">
 			<div class="panel-tabs">
 				<ul class="nav nav-tabs">
 					{% if product.description is not empty %}
@@ -23,14 +23,14 @@
 	{# End tabs nav #}
 	{# Begin tab pane #}
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-lg-12">
 			<div class="tab-content">
 				{# Begin product description #}
 				{% if product.description is not empty %}
 					{% set full_description = product.description %}
 					<div id="description-desktop" class="tab-pane fade in active">
-						<div class="panel">
-							<div class="panel-body">
+						<div class="card">
+							<div class="card-body">
 								<div class="g" itemprop="description">{{full_description}}</div>
 								<div id="variant-description-{{product.id}}" ></div>
 							</div>
@@ -40,8 +40,8 @@
 				{# Begin features #}
 				{% if product.dynamic_attributes is not empty %}
 					<div id="features-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
-						<div class="panel">
-							<div class="panel-body">
+						<div class="card">
+							<div class="card-body">
 								<ul>
 									{% for feature in product.dynamic_attributes %}
 									   <li>
@@ -55,8 +55,8 @@
 				{% endif %}
 				{# Begin reviews #}
 				<div id="reviews-desktop" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
-					<div class="panel">
-						<div class="panel-body">
+					<div class="card">
+						<div class="card-body">
 							{% include "/product/_partials/reviews.html.twig" %}
 						</div>
 					</div>
