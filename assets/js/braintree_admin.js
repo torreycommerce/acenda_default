@@ -52,10 +52,10 @@ var paymentMethodsView = Backbone.View.extend({
 		});
 	},
 	render: function() {
-		var methods = new paymentMethodCollection();	
-		methods.fetch();
-	    var html = this.template(methods.toJson());
-	    this.$el.html(html);
+		// var methods = new paymentMethodCollection();	
+		// methods.fetch();
+	 //    var html = this.template(methods.toJson());
+	 //    this.$el.html(html);
 	    return this;
 	}
 });
