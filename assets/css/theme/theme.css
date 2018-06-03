@@ -2,11 +2,11 @@
 .input-group-qty {width:128px;}
 .input-group-qty.input-group-sm {width:108px;}
 .igq-mod {width:auto;}
-.igq-mod .form-control {width:55px; margin-right:10px; /*padding:10px;*/}
+.igq-mod .form-control {width:55px;}
 .igq-mod .input-group-btn {width:100%;}
 
 @media (min-width:992px) {
-.igq-mod .form-control {margin-right:15px;}
+
 }
 
 .btn-group-qty {width:80px; margin-right:20px;}
@@ -159,7 +159,8 @@ label {margin-bottom:.25rem; font-size:.875rem;}
 /* ani boots */
 .sr-only-focusable:active,.sr-only-focusable:focus {position:absolute; width:auto; height:auto; margin:0; overflow:visible; clip:auto;}
 
-blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .card-header>*:last-child, .card-body>*:last-child, .card-body fieldset:last-of-type .actions:last-child {margin-bottom:0;}
+blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .card-header>*:last-child, .card-body>*:last-child, .card-body fieldset:last-of-type .actions:last-child, .table-responsive>*:last-child {margin-bottom:0;}
+.card-body::after{display:block; clear:both; content:""}
 
 .btn-blank {background-color:transparent;}
 button.blank {background:none; border-width:0;}

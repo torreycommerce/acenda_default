@@ -36,7 +36,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 		}
 
 		var parents = [];
-		var mb-3 = el.parentNode;
+		var p = el.parentNode;
 
 		while (p !== parentSelector) {
 			var o = p;

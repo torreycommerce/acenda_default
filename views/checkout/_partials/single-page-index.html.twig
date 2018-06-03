@@ -234,7 +234,8 @@
 </script>
 
 <script id="shipping-methods-template" type="text/template">
-	<table  class="table table-responsive">
+    <div class="table-responsive">
+	<table  class="table">
 	<thead>
         <tr>
 		    <th>Method</th>
@@ -246,7 +247,7 @@
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
 			    <tr>
-			        <td><input <%= (method.id == current_method)?'checked':''  %> type="radio" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"> &nbsp;<label for="method_<%= method.id %>_input"><%= method.name %></label></td>
+			        <td><div class="form-check form-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="form-check-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="form-check-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
 			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
 			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
 			    </tr>
@@ -254,6 +255,7 @@
 	    <% }) %>
 	</tbody>
 	</table>
+	</div>
 </script>
 {% endblock %}
 

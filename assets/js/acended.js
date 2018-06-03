@@ -1,5 +1,4 @@
 // asynced bonus fluff good
-
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/device.min.js",function(){
 });
 
