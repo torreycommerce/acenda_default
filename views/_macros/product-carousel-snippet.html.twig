@@ -7,7 +7,7 @@
 {% set id = 0 %}
 {% for sku in product.variant %}
 	{% set id = id + 1 %}
-		<div class="sku-details hidden" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
+		<div class="sku-details d-none" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
 {% endfor %} 
 {% set id = 0 %}
 {% for barcode in product.variant %}   

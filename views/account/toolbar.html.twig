@@ -4,7 +4,7 @@
 <div id="toolbar">
 	<div class="container">
 	    <div class="pos-r">
-	        <div class="omm nav-mobile hidden-md hidden-lg">
+	        <div class="omm nav-mobile d-lg-none">
 				<button class="btn btn-link btn-lg yta-launch yta-toggle">
 					<i class="fa fa-bars"><i class="sr-only">Open Mobile Menu</i></i>
 				</button>
@@ -15,7 +15,7 @@
 					{% set logo = logo_info.url %}
 				{% endif %}
 				{% if logo is not empty %}
-				<img class="img-responsive isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage">
+				<img class="img-fluid isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage">
 				{% else %}
 				<span class="isd">{{ app.params.site.title }}</span>
 				{% endif %}
@@ -44,15 +44,17 @@
     					<span><i class="fa fa-shopping-cart"></i></span><span class="sr-only">My Cart</span><span class="dib fsd1 item-count"></span>
     				</a>
     				<div class="dropdown-menu dropdown-menu-right p-3" id="qc-drop">
+    				    {#
     				    <div class="collapse show" id="qc-spin">
         				    <div class="p-4 text-center">
         				        <i class="fa fa-refresh fa-spin fa-2x"></i>
         				    </div>
         				</div>
-    				    <div class="collapse" id="qc">
+        				#}
+    				    <div class="collaps" id="qc">
     				        <div class="quickcart">
                         		<div class="ajaxcart">
-                        			<div class="popover-close divide pad-b">
+                        			<div class="popover-close divide pb-3">
                         				<button id="ajaxcart-close" class="btn btn-default btn-sm float-right"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
                         				<h3 class="al-btn-sm">Quick Cart</h3>
                         			</div>
@@ -87,39 +89,6 @@
 		</div>
 	</div>
 </div>
-{#
-<div class="container no-arrow pos-r" id="qc-parent">
-    <div class="quickcart col-3 float-right" data-content="" data-placement='bottom' rel='popover'>
-		<div class="ajaxcart" style="display:none">
-			<div class="popover-close divide pad-b">
-				<button id="ajaxcart-close" class="btn btn-default btn-sm float-right"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-				<h3 class="al-btn-sm">Quick Cart</h3>
-			</div>
-			<div class="error g">
-			</div>
-			
-			<div class="ajaxcart-products divide fsd1">
-				<div class="ajaxcart-product pad-h divide g">
-					<div class="media">
-						<div class="media-left">
-							<img class="media-object product-image" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif" width="250" height="250" alt="">
-						</div>
-						<div class="media-body">
-							<div class="product-name"></div>
-							<div class="price"><b>Price: </b>{{ prod.currency("0.00") }}</div>
-							<div class="quantity"><b>Qty: </b><span class="product-quantity"></span></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="cart-totals pad-h fsd1">
-				<div class="items">You have <b class="item-count"></b> Item(s) in your Cart.</div>
-				<div class="subtotal"><b>Subtotal: </b>{{ prod.currency("0.00") }}</div>
-			</div>
-			<a href="{{ app.url }}/cart" class="btn btn-block btn-lg btn-primary btn-cart">My Cart</a>
-		</div>
-	</div>
-</div>
-#}
+
 {% endspaceless %}
 {% endblock %}

@@ -5,7 +5,7 @@
     <h2>Weekly Specials</h2>
 
     {# End category header #}
-    <div class="products row c-c text-center">
+    <div class="products row text-center">
         {#
         Products to display:
         1528, 12458, 14097, 21032
@@ -14,7 +14,7 @@
         {% set products = api.get('/catalog', {query:{id:{'$in':product_ids}}}) %}
         {% for row,product in products %}
         {# Begin product #}
-        <div class="col-6 col-md-3 p">
+        <div class="col-6 col-md-3 mb-3">
             {{ prod.gridproduct(product, ['image','details']) }}
         </div>
         {# End product #}

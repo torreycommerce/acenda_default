@@ -48,21 +48,16 @@ $(document).ready(function() {
 			});
 		});
 		//
-		$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
-			$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
-		});
-		//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
-		//
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/quickcart.js",function(){
 		});
 	});
 	//
 	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome-4.7.0/css/font-awecenda.min.css">');
 	//
-	
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomify.js",function(){
-		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomcenda.js",function(){
-		});
+	$(document).on('click','[data-image-swap]', function() {
+        var src = $(this).attr('data-image-swap-src');
+        var el = $('#'+$(this).attr('data-image-swap'));
+        el.attr('src',src);
 	});
 	
 	//
@@ -218,7 +213,7 @@ function productSlick() {
 	$('#slick-heroic-nav-'+who).slick('resize'); // why
 	//
 	//
-	$('.slick-heroic-go .hidden, .slick-heroic-nav-go .hidden').removeClass('hidden');
+	$('.slick-heroic-go .d-none, .slick-heroic-nav-go .d-none').removeClass('d-none');
 	$('.slick-heroic-go').removeClass('slick-heroic-go');
 	$('.slick-heroic-nav-go').removeClass('slick-heroic-nav-go');
     
@@ -280,32 +275,6 @@ if ($('.ztrig').length) {
     	});
     });
 }
-
-
-if ($('select.vopt').length) {
-    IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.selectric.mod.js",function(){
-		$('select.vopt').on('change', function() {
-			//console.log($(this).val())
-			$('select.vopt').selectric('refresh');
-			var desVal = $(this).val();
-			var desInd = 0;
-			$(this).find('option').each(function() {
-				if ($(this).attr('value') == desVal) {
-					desInd = $(this).attr('data-index');
-					return false;
-				}
-			});
-			$(this).parents('.selector-details').find('.selectric-vopt li[data-index="'+desInd+'"]').click();
-		});
-		//
-		$('select.vopt').selectric({
-			
-		});
-		//console.log('Selectric applied')
-	});
-}
-
-
 
 
 

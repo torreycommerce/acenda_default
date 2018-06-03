@@ -95,7 +95,7 @@
 							<div id="item-list">
 							</div>
 							<div class="d-none" id="item-list-copy">
-								<div class="divide g item p pad-b">
+								<div class="divide g item mb-3 pb-3">
 									{% spaceless %}
 									<div class="media">
 										<div class="media-left">
@@ -121,7 +121,7 @@
 						<div id="totals-section">
 						</div>
 						<div class="d-none" id="totals-section-copy">
-						    <div class="divide p pad-b">
+						    <div class="divide mb-3 pb-3">
 								<div class="row totals-subtotal">
 									<div class="amount col-7">Subtotal:</div>
 									<div class="amount col-5 text-right">
@@ -192,10 +192,10 @@
 		<p class="p"><%= variant.get('price') %></p>
 		<p class="l">
 		<% if(item.wishlist_id) { %>
-			<div p class="wishlist p"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
+			<div mb-3 class="wishlist mb-3"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
 		<% } %>
 		<% if(item.registry_id) { %>
-			<div p class="registry p"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
+			<div mb-3 class="registry mb-3"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
 		<% } %>
 		</p>
 	</div>

@@ -169,35 +169,37 @@
 {% else %}
 
 <style>
+/*
 .quantity>.input-group {width:100%;}
 .quantity .input-group-btn {width:1%;}
 .quantity .cart-indiv.input-group-btn {width:26%;}
 .quantity .cart-total.input-group-btn {width:34%;}
+*/
 </style>
 <h2>Products</h2>
 
 
-{{ forms.begin('cart','','post', {class:'form-cart g p-2x divide'}) }}
+{{ forms.begin('cart','','post', {class:'form-cart g mb-4 divide'}) }}
 {% for id, item in cart.items %}
 {% set product = products[item.product_id].0 %}
 {% set parent = api.get('product/' ~ product.product_id)%}
 {% spaceless %}
-<div class="divide item p-2x pad-b-2x" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
+<div class="divide item mb-4 pb-4" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
 		<div class="col-md-6">
-			<div class="media media-cart p-0 p-xs">
+			<div class="media media-cart mb-0 p-xs">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 				</div>
 				<div class="media-body">
 				{% if product.brand is not empty %}
-    				<div class="brand p-mini">
+    				<div class="brand mb-2">
     					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
     				</div>
     			{% endif %}
 					<div><h3 class="product-name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></h3></div>
 					
-					{#<div class="availability p">
+					{#<div class="availability mb-3">
 						{% if product.has_stock %}
 							In Stock
 						{% elseif variation.inventory_shipping_estimate is not empty %}
@@ -225,54 +227,45 @@
 			</div>
 		</div>
 
-		<div class="col-md-5 float-right">
-			<div class="quantity">
-				<label for="quantity-selector-{{id}}" class="control-label">Qty</label>
-				<div class="input-group">
-					<div class="input-group-btn">
-						<div class="input-group input-group-qty igq-mod">
-							<div class="btn-group btn-group-qty">
-								<input type="text" class="form-control form-control-lg quantity-selector text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
-								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
-								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
-							</div>
+		<div class="col-md-6 col-lg-5 offset-lg-1">
+            <label for="quantity-selector-{{id}}" class="control-label">Qty</label>
+			<div class="row quantity">
+                <div class="col-8 cart-indiv">
+					<div class="input-group igq-mod">
+						<div class="mr-1">
+							<input type="text" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
 						</div>
-					</div>
-		
-					<div class="fs cart-indiv input-group-btn">
+						<div class="btn-group-vertical mr-4">
+						    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+						    <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+						</div>
 						<div class="pricing">
 							<div class="price">
 								{{ prod.currency(product.price|number_format(2)) }}
-								{#<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.price|number_format(2)|split('.')|last }}</span></span>#}
 							</div>
 							{% if product.compare_price is not empty and product.compare_price > product.price %}
 							<div class="fsd1 price-regular">
 								{{ prod.currency(product.compare_price|number_format(2)) }}
-								{#<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ product.compare_price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ product.compare_price|number_format(2)|split('.')|last }}</span></span>#}
-							</div>
-							{% endif %}
-						</div>
-					</div>
-					<div class="fs input-group-btn text-right cart-total">
-						{% set price = product.price * item.quantity %}
-						<div class="pricing">
-							<div class="price">
-								{{ prod.currency(price|number_format(2)) }}
-								{#<span class="dollar-sign">$</span><span class="amount"><span class="dollars">{{ price|number_format(2)|split('.')|first }}</span>.<span class="cents">{{ price|number_format(2)|split('.')|last }}</span></span>#}
-							</div>
-							{% if product.compare_price is not empty and product.compare_price > product.price %}
-							<div class="fsd1 percent">
-								{{ prod.saveprice((product.save_price * item.quantity)|number_format(2)) }}
-								{#Save ${{(product.save_price * item.quantity)|number_format(2)}}#}
 							</div>
 							{% endif %}
 						</div>
 					</div>
 				</div>
+				<div class="col-4 cart-total text-right">
+					{% set price = product.price * item.quantity %}
+					<div class="pricing">
+						<div class="price">
+							{{ prod.currency(price|number_format(2)) }}
+						</div>
+						{% if product.compare_price is not empty and product.compare_price > product.price %}
+						<div class="fsd1 percent">
+							{{ prod.saveprice((product.save_price * item.quantity)|number_format(2)) }}
+						</div>
+						{% endif %}
+					</div>
+				</div>
 			</div>
 		</div>
-
-
 	</div>
 </div>
 {% endspaceless %}
@@ -287,7 +280,7 @@
     {% endfor %}
 	<div class="col-lg-7">
 		<h2>Coupon Code</h2>
-        {{ forms.begin('cart','','post', {class:'form-coupon divide pad-b-2x p-2x',id:'coupon-code'}) }}
+        {{ forms.begin('cart','','post', {class:'form-coupon divide pb-4 p-2x',id:'coupon-code'}) }}
         {% if has_bundle %}
         <div class="p divide" id="bundles">
 			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
@@ -331,7 +324,7 @@
 		{% endfor %}
         {{ forms.end() }}
 		{# Begin shipping estimator #}
-        <div class="p-2x" id="shipping-estimator">
+        <div class="mb-4" id="shipping-estimator">
 			{% include "/cart/_partials/estimator.html.twig" %}
 		</div>
 		{# End shipping estimator #}

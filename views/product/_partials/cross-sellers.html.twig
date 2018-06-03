@@ -1,7 +1,7 @@
 {% if product.cross_sellers is not empty %}
 <section class="product-grid">
 <h2><span>You May Also Like</span></h2>
-<div class="row c-c text-center">
+<div class="row text-center">
 {% set collection_ids = [] %}
 {% set product_count = 1 %}
 {% set products = api.get('/catalog', {query:{id:{"$in":product.cross_sellers}},sort:"product.variant.popularity:-1",limit:4}) %}
@@ -15,7 +15,7 @@
     {% endif %}
     {% set product_count = product_count + 1 %}
     {# Begin product #}
-    <div class="col-6 col-md-3 p-2x">
+    <div class="col-6 col-md-3 mb-4">
         {{ prod.gridproduct(product, ['image','details']) }}
     </div>
     {# End product #}

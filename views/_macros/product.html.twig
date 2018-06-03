@@ -40,10 +40,10 @@
 				{% endif %}
 			{% endif %}
 
-			<div class="max-250 p">
+			<div class="max-250 mb-3">
 				<div class="image-space">
-					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="">
-					<div class="labels">
+					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="">
+					<div class="badges">
 					{% for tag in product.tags %}
 						{% if tag == 'new' %}
 							<span class="label label-new">{{ tag|capitalize }}</span>
@@ -52,7 +52,7 @@
 						{% elseif tag == 'popular' %}
 							<span class="label label-hot">{{ tag|capitalize }}</span>
 						{% else %}
-							<span class="label label-feat">{{ tag|capitalize }}</span>
+							<span class="badge badge-primary">{{ tag|capitalize }}</span>
 						{% endif %}
 					{% endfor %}
 					</div>
@@ -68,9 +68,9 @@
 		
 		</a>
 		
-		<div class="pricing p-mini">
+		<div class="pricing mb-2">
 			{% if product.attributes.price is not empty %}
-			<div class="price p-mini"><span>{{ this.price(product.attributes.price) }}</span></div>
+			<div class="price mb-2"><span>{{ this.price(product.attributes.price) }}</span></div>
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
 			<div class="price-per-month hidden-xs">
@@ -117,7 +117,7 @@
 {# Begin image carousel #}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
-		<div class="max-250 color-chips p-mini">
+		<div class="max-250 color-chips mb-2">
 			<div class="pad-w">
 				<div class="row row-thin">
 				{% set colors = [] %}
@@ -138,8 +138,8 @@
 					{% if image_url is empty %}
 					    {% set image_url = image_urlB %}
 				    {% endif %}
-					<div class="col-2 col-thin p-mini color-chip">
-						<button class="blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-responsive isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
+					<div class="col-2 col-thin mb-2 color-chip">
+						<button class="blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
 					</div>
 				{% endfor %}
 				</div>

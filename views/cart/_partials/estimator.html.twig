@@ -4,21 +4,21 @@
 	<div class="form-group">
 		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
 		<div class="row">
-			<div class="col-6 p">
+			<div class="col-6 mb-3">
 				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country}) }}
 			</div>
-			<div class="col-6 p">
+			<div class="col-6 mb-3">
 				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state}) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6 col-md-4 p">
+			<div class="col-6 col-md-4 mb-3">
 				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip}) }}
 			</div>
-			<div class="col-6 col-md-4 p">
+			<div class="col-6 col-md-4 mb-3">
 				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method}) }}
 			</div>
-			<div class="col-md-4 p">
+			<div class="col-md-4 mb-3">
 				{{ forms.submit('action', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
 			</div>
 		</div>

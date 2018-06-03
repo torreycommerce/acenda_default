@@ -53,7 +53,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 <p>There are no wishlists.</p>
 {% else %}
 {# Begin wishlists #}
-<div class="row c-c">
+<div class="row">
 	{% for wishlist in wishlists %}
 	<div class="col-md-6 col-xl-4">
 		<div class="card{% if wishlist.default %} panel-success{% endif %}">
@@ -63,7 +63,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			<div class="card-body">
 				<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
 				<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
-				<div class="fsd1 mar-t pad-b divide p g">
+				<div class="fsd1 mar-t pb-3 divide mb-3 g">
 				{% if wishlist.default %}
 					<u>Default Wish List</u>
 				{% else %}

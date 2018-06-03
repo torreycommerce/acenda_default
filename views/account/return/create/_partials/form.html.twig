@@ -19,7 +19,7 @@
 
 <h1>Create a Return</h1>
 
-<div class="divide p">
+<div class="divide mb-3">
 	<p>Return items for <strong>Order #{{ order.order_number }}</strong></p>
 </div>
 
@@ -39,7 +39,7 @@
 	{% if products[item.product_id][0].inventory_returnable == "1" and q > 0 %}
 		{% set ret = ret + 1 %}
 		{% set available = q %}
-		<div class="divide g p pad-b">
+		<div class="divide g mb-3 pb-3">
 			<div class="media media-cart">
 				<div class="media-left">
 					<img class="media-object" src="{{ products[item.product_id][0].thumbnail }}" width="250" height="250" alt="">
@@ -48,7 +48,7 @@
 				<div class="media-body">
 					<div class="row">
 						<div class="col-lg-6">
-						    <div class="product-name p">
+						    <div class="product-name mb-3">
 							    <a href="{{ app.url ~ products[item.product_id][0].url }}">{{ item.name }}</a>
 						    </div>
 							<div><b>{{ available }}</b> available for return.</div>

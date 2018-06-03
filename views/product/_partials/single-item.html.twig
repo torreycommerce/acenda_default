@@ -1,30 +1,6 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 <div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row">
 
-	<div id="product-intro" class="col-lg-5 float-right p text-center">
-		<div class="max-450">
-			{% if product.brand is not empty %}
-			<div class="brand p-mini">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
-			</div>
-			{% endif %}
-			<h1 class="product-name">{{product.name}}</h1>
-			{% spaceless %}
-			{% set review_score = reviews|average('score') %}
-			{% if review_score > 0 %}
-			<div class="fsd1 rating">
-				<a class="btn btn-link btn-sm ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
-				<span class="dib">
-					<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
-				</span>
-				</a>
-			</div>
-			{% else %}
-			<a class="btn btn-link btn-sm" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>
-			{% endif %}
-			{% endspaceless %}
-		</div>
-	</div>
 {# set variation = product.variant[0] #}
 {% set startColor = app.request.get.color %}
 {% set startVar = app.request.get.variant %}
@@ -50,17 +26,17 @@
 
 
 
-	<div class="col-lg-7 p-2x" id="product-images">
+	<div class="col-lg-7 mb-4" id="product-images">
 		<div class="pos-r pi-contain">
 			<div class="variations" data-id="{{product.id}}">
 				<div class="active variation" data-vid="{{variation.id}}">
 				    {% if varimgs is not empty %}
 					<div class="slick slick-heroic slick-heroic-go" id="slick-heroic-{{variation.id}}">
 					{% for varimg in varimgs %}
-						<div class="{% if loop.index > 1 %}hidden {% endif %}">
+						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
 								<a target=_blank href="{{varimg.retina}}" tabindex="-1">
-									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								</a>
 							</div></div></div>
 						</div>
@@ -69,9 +45,9 @@
 					<div class="ss-contain">
 						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{variation.id}}">
 						{% for varimg in varimgs %}
-							<div class="{% if loop.index > 5 %}hidden {% endif %}">
+							<div class="{% if loop.index > 5 %}d-none {% endif %}">
 								<div class="acaro"><div class="image-space">
-									<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+									<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="">
 								</div></div>
 							</div>
 						{% endfor %}
@@ -81,14 +57,14 @@
 					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
-							<img class="img-responsive isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+							<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="">
 						</div>
 					{% endfor %}
 					</div></div>
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space">
-                            <img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
+                            <img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -98,7 +74,7 @@
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
 				<button class="blank image-space video" data-video-src="{{ product.videos[0] }}">
-					<img class="img-responsive isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+					<img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</button>
 			</div></div>
 			{% endif %}
@@ -108,7 +84,7 @@
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-responsive hidden" src="{{prodimg.standard}}" data-image-zoom="" width="450" height="450" alt="">
+						<img id="main-product-image" class="img-fluid d-none" src="{{prodimg.standard}}" data-image-zoom="" width="450" height="450" alt="">
 					</span>
 				</div>
 			</div>
@@ -117,9 +93,32 @@
 	</div>
 	{# End product images #}
 
-	{# Begin Product Details #}
-	<div id="product-details" class="col-lg-5 p-2x">
-		<div class="max-360">
+	<div id="product-intro" class="col-lg-5 mb-3">
+		<div class="max-450 text-center">
+			{% if product.brand is not empty %}
+			<div class="brand mb-2">
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
+			</div>
+			{% endif %}
+			<h1 class="product-name">{{product.name}}</h1>
+			{% spaceless %}
+			{% set review_score = reviews|average('score') %}
+			{% if review_score > 0 %}
+			<div class="fsd1 rating">
+				<a class="btn btn-link btn-sm ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
+				<span class="dib">
+					<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
+				</span>
+				</a>
+			</div>
+			{% else %}
+			<a class="btn btn-link btn-sm" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>
+			{% endif %}
+			{% endspaceless %}
+		</div>
+	
+	
+		<div class="max-360" id="product-details">
 			<div class="p-2x text-center variations" data-id="{{product.id}}">
 				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
     				{% set needsku = product.variant|values_in('sku') %}
@@ -127,7 +126,7 @@
     					<div class="sku">Item: <span>{{variation.sku}}</span></div>
     				{% endif %}
     					<div class="pricing">
-    						<div class="p-mini price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
+    						<div class="mb-2 price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
     				{% set needprices = product.variant|max('save_percent') %}
     				{% if needprices|length > 0 %}
     					{% if (variation.compare_price - variation.price) > 1 %}
@@ -175,7 +174,7 @@
 							{% if vsimgsrc is empty %}
 								{% set vsimgsrc = varimgs[0].standard %}
 							{% endif %}
-							<button class="blank image-space"><img class="img-responsive isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
+							<button class="blank image-space"><img class="img-fluid isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
 						{% else %}
 							<button class="btn btn-default btn-lg">{{v}}</button>
 						{% endif %}
@@ -217,7 +216,7 @@
 			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
 				<div class="actions">
 					<div class="" id="div-quantity-{{product.id}}">
-						<div class="form-group divide pad-b p-mini">
+						<div class="form-group divide pb-3 mb-2">
 							<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
 							<div class="input-group input-group-qty igq-mod">
 								<div class="btn-group btn-group-qty">
@@ -225,7 +224,7 @@
 									<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
 									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 								</div>
-								<div class="input-group-btn">
+								<div class="input-group-append">
 									<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
 									   <span>Add to Cart</span>
 								   </button>

@@ -21,7 +21,7 @@
 
 <h1>Create a Return</h1>
 
-<div class="divide p">
+<div class="divide mb-3">
 	<p>Return items for <strong>Order #{{ order.order_number }}</strong></p>
 </div>
 
@@ -42,7 +42,7 @@
 	{% if products[item.variant_id][0].inventory_returnable == "1" and q > 0 %}
 		{% set ret = ret + 1 %}
 		{% set available = q %}
-		<div class="divide g p pad-b">
+		<div class="divide g mb-3 pb-3">
 			<div class="media media-cart">
 				<div class="media-left">
 					<img class="media-object" src="{{ products[item.variant_id][0].thumbnail }}" width="250" height="250" alt="">

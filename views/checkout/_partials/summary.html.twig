@@ -10,7 +10,7 @@ var acendaCheckoutStep = '{{ step }}';
 <div class="fsd1">
 	{% for item in cartitems %}
 	{% set product = api.get('/variant/' ~ item.product_id) %}
-	<div class="divide g p pad-b">
+	<div class="divide g mb-3 pb-3">
 		<div class="media">
 			{# Begin product image #}
 			<div class="media-left">
@@ -39,13 +39,13 @@ var acendaCheckoutStep = '{{ step }}';
 				<div class="pricing"><div class="price">Price: {{ prod.currency(product.price|number_format(2, '.')) }} <span class="each">each</span></div></div>
 				{% if item.wishlist_id is not empty %}
 					{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
-					<div class="wishlist p">
+					<div class="wishlist mb-3">
 						<a href="{{ app.url }}/wishlist/{{ item.wishlist_id }}"><i class="icon icon-list"></i> For {{ wishlist.name }}</a>
 					</div>
 				{% endif %}
 				{% if item.registry_id is not empty %}
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
-					<div class="registry p">
+					<div class="registry mb-3">
 						<a href="{{ app.url }}/registry/{{ item.registry_id }}"><i class="icon icon-gift"></i> For {{ registry.name }}</a>
 					</div>
 				{% endif %}
@@ -55,7 +55,7 @@ var acendaCheckoutStep = '{{ step }}';
 	</div>
 	{% endfor %}
 	{# Begin product actions #}
-	<div class="actions text-right pad-b">
+	<div class="actions text-right pb-3">
 		<a class="btn btn-default btn-xs" href="{{ app.url }}/cart">Edit Cart</a>
 	</div>
 	{# End product actions #}

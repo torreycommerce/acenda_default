@@ -2,11 +2,11 @@
 	<p>There are currently no reviews for this item.</p>
 	<a class="btn btn-default" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a>
 {% else %}
-	<div class="divide p-2x">
-		<p><a class="btn btn-default p" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a></p>
+	<div class="divide mb-4">
+		<p><a class="btn btn-default mb-3" href="{{ app.url }}/review/id/{{product.id}}">Write a Review</a></p>
 	</div>
 	{% for review in reviews %}
-	   <div class="review divide g p-2x pad-b">
+	   <div class="review divide g mb-4 pb-3">
 			<div class="fsd1 rating"><span>{{ base.rating(review.score, {'id':'star-rating-' ~ loop.index}) }}</span><span class="dib">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_created|strtotime|date("m-d-Y") }}</span></div>
 			<div id="review-title"><b>{{ review.title }}</b></div>
 			<p>{{ review.comment|unescape }}</p>

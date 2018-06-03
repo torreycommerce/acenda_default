@@ -2,7 +2,7 @@
 
     <h2>What's Hot</h2>
 
-    <div class="products row c-c text-center">
+    <div class="products row text-center">
         {% set collection_ids = [] %}
         {% set product_count = 1 %}
         {% set products = api.get('/catalog',{query:"group:product,custom_field_name:1"}, {sort:"product.popularity:-1",limit:12}) %}
@@ -16,7 +16,7 @@
             {% endif %}
             {% set product_count = product_count + 1 %}
             {# Begin product #}
-            <div class="col-6 col-md-3 p-2x">
+            <div class="col-6 col-md-3 mb-4">
                 {{ prod.gridproduct(product, ['image','details']) }}
             </div>
             {# End product #}

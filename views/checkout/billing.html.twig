@@ -81,28 +81,28 @@
 							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-responsive isd cc-visa" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-fluid isd cc-visa" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
 							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-responsive isd cc-mastercard" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-fluid isd cc-mastercard" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
 							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-responsive isd cc-amex" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-fluid isd cc-amex" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
 							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-responsive isd cc-discover" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-fluid isd cc-discover" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
@@ -187,28 +187,28 @@
 				</div>
 			{% else %}
 
-				<div class="checkout-display-address p" id="display_billing_address">
+				<div class="checkout-display-address mb-3" id="display_billing_address">
 					<address>{{ shipping_address }}</address>
 					<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>
 				</div>
 			{% endif %}
 		</fieldset>
 		<div class="row">
-			<div class="col-lg-6 p">
+			<div class="col-lg-6 mb-3">
 				<fieldset>
 					<legend>Shipping Address</legend>
-					<div class="checkout-display-address p" id="display_shipping_address">
+					<div class="checkout-display-address mb-3" id="display_shipping_address">
 						<address>{{ shipping_address }}</address>
 						<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout">Change Address</a>
 					</div>
 				</fieldset>
 
 			</div>
-			<div class="col-lg-6 p">
+			<div class="col-lg-6 mb-3">
 				{% set method = api.get('shippingmethod/' ~ cart.shipping_method )%}
 				<fieldset>
 					<legend>Shipping Method</legend>
-					<div class="checkout-display-address p" id="display_shipping_address">
+					<div class="checkout-display-address mb-3" id="display_shipping_address">
 						<address>
 							<div><b>Method: </b>{{ method.name }}</div>
 							<div><b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )</div>

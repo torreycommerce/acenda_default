@@ -1,13 +1,13 @@
 <div class="col-12 g">
 {% if product.description is not empty %}
-	<div class="divide p-2x pad-b-2x" id="description">
+	<div class="divide mb-4 pb-4" id="description">
 		<h2>Description</h2>
 		{% set full_description = product.description %}
 		<div class="g" itemprop="description">{{full_description}}</div>
 	</div>
 {% endif %}
 {% if product.dynamic_attributes is not empty %}
-	<div class="divide g p-2x pad-b-2x" id="features">
+	<div class="divide g mb-4 pb-4" id="features">
 		<h2>Features</h2>
 		<ul>
 		{% for feature in product.dynamic_attributes %}
@@ -18,7 +18,7 @@
 		</ul>
 	</div>
 {% endif %}
-	<div class="divide g p-2x pad-b-2x" id="reviews">
+	<div class="divide g mb-4 pb-4" id="reviews">
 		<h2>Reviews</h2>
 		{% include "/product/_partials/reviews.html.twig" %}
 	</div>

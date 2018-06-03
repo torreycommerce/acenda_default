@@ -68,11 +68,11 @@
 		{% if final_order is not empty %}
 		<div class="card">
 			<div class="card-body">
-			    <h2 class="divide pad-b">Invoice: <span class="float-right">#{{ final_order.order_number }}</span></h2>
+			    <h2 class="divide pb-3">Invoice: <span class="float-right">#{{ final_order.order_number }}</span></h2>
 				<div class="row">
 					<div class="col-md-7">
 						<div class="row">
-							<div class="col-12 p">
+							<div class="col-12 mb-3">
 								<h3>Ship To</h3>
 								<address class="fsd1">
 									<div>{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
@@ -115,7 +115,7 @@
 							<div class="col-8">Total Before Tax:</div>
 							<div class="col-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
 						</div>
-						<div class="divide p pad-b">
+						<div class="divide mb-3 pb-3">
     						<div class="row">
     							<div class="col-8">Sales Tax:</div>
     							<div class="col-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
@@ -131,7 +131,7 @@
 		</div>
 		<div class="card">
             <div class="card-body">
-                <h2 class="divide pad-b">Items Ordered</h2>
+                <h2 class="divide pb-3">Items Ordered</h2>
             {% for item in items %}
                 <div class="row">
                     <div class="col-8">

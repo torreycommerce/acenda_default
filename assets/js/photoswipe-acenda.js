@@ -1,4 +1,4 @@
-$('html').on("click", ".active .slick-heroic .img-responsive", function() {
+$('html').on("click", ".active .slick-heroic .img-fluid", function() {
 	var match = $(this).attr('src');
 	fixSizes();
 	$('#product-images .active.variation .ztrig img[src=\''+match+'\']').click();
@@ -36,7 +36,7 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
 		}
 
 		var parents = [];
-		var p = el.parentNode;
+		var mb-3 = el.parentNode;
 
 		while (p !== parentSelector) {
 			var o = p;
