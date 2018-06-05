@@ -64,7 +64,7 @@
             {% set quantity = 1 %}
         {% endif %}
         {% if quantity > 0 %}
-            {% set result = api.post('/wishlistitem', {"wishlist_id":wishlist.id, "product_id":item, "quantity":quantity}) %}
+            {% set result = api.post('/wishlistitem', {"wishlist_id":wishlist.id, "variant_id":item, "quantity":quantity}) %}
         {% endif %}
     {% endfor %}
 {% elseif action == 'registry' %}
