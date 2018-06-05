@@ -90,7 +90,7 @@ function updateCartTotals(qtyField, cartItemId) {
 	});
 }
 
-$('div#wishlist .modal_list_quantity, div#registry .modal_list_quantity').on('hidden.bs.modal', function () {
+$('div#wishlist .modal_list_quantity, div#registry, .modal_list_quantity').on('hidden.bs.modal', function () {
 	document.location.reload();
 })
 

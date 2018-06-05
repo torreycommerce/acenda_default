@@ -62,29 +62,29 @@
 
 {% if registries is not empty %}
 <div class="search-results">
-    <div class="well">
+    <div class="card"><div class="card-body">
         {% for registry in registries %}
         <div class="registry">
             <div class="row">        
-                <div class="col-sm-3">
+                <div class="col-md-3">
                     <div>Date: {{ registry.event_date }}</div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <div><a href="{{app.url}}/registry/{{registry.id}}">{{ registry.name }}</a></div>
                 </div>            
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <div>{{ registry.first_name }}&nbsp;{{registry.last_name}}</div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <div>{{ registry.city }}, {{ registry.state }}</div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-md-3">
                     <a class="btn-link" href="{{app.url}}/registry/{{registry.id}}"><i class="fa fa-arrow-right"></i> See registry</a>
                 </div>
             </div>
         </div>   
         {% endfor %}
-    </div>
+    </div></div>
 </div>
 {% endif %}
 </div>

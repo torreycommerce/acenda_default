@@ -77,7 +77,8 @@
     {% import _self as elements %}
 
     <input type="hidden" name="{{ name }}" value="">
-    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
+    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" class="form-check-input" id="{{ name }}" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
+    
 {% endspaceless %}
 {% endmacro %}
 
@@ -115,7 +116,7 @@
     {# print out all errors that were not assigned to a form field #}
     {% set errors = app.form.error %}
     {% if errors|length %}
-        <div class="col-md-offset-4 col-md-8 alert alert-danger">
+        <div class="col-lg-offset-4 col-lg-8 alert alert-danger">
             {% for error in errors %}
                 {{error|join('<br />')}}<br />
             {% endfor %}

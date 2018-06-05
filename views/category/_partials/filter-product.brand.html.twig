@@ -1,6 +1,6 @@
 <button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
-    <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-caret-down"></i>
+    <span>Brand</span><i class="fa fa-caret-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse">
     <div class="card-body">

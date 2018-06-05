@@ -142,21 +142,16 @@ function VariantsManager (product, img, isCollection) {
 		//console.log('setSelIma')
 
 		if(standard_img_url){
-			//console.log('setSelIma: is standard')
 			if(!this.isCollection) {
 				//$('#main-product-image').attr('src', standard_img_url).attr('data-image-zoom', large_img_url).attr('alt', img_alt);
 			} else {
 				$('#variant-selected-image-'+this.product_id+' img').attr('src', standard_img_url);
 			}
 
-			//if(!this.isCollection) $('#main-product-image').imageZoom(); //Enable zoom effect on teh new image if not on collection page
 		}else{
 			//console.log('setSelIma: is NOT standard - does this ever happen?')
 			$('#variant-selected-image-'+this.product_id+' span.isd .media-object').attr('src', standard_img_url);
-			//clonedImg.appendTo( "#variant-selected-image-"+this.product_id+' span.isd'); //Append the new image to the dom
 		}
-		
-		//clonedImg.show();
 	}
 
 	this.showImage = function() {
@@ -175,7 +170,6 @@ function VariantsManager (product, img, isCollection) {
 		Updates images and videos of the page according to the provided variant object provided
 	*/
 	this.updateImagesAndVideo = function(obj_variant) {
-		//console.log('o_v pos: '+obj_variant.position)
 		if(typeof obj_variant.images == 'undefined') return;
 		var images = [];
 		if (obj_variant.images.length > 0 ) { //Look for variant images first, or for product images if product images not available
@@ -220,10 +214,10 @@ function VariantsManager (product, img, isCollection) {
 			}
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-					vHTML += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
-					htmlHeroic += '<div class="hidden"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
-					htmlHeroicNav += '<div class="hidden"><div class="acaro"><div class="image-space"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
-					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-responsive isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
+					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+					htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
+					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
 				}
 			}
 			i++;
@@ -245,30 +239,18 @@ function VariantsManager (product, img, isCollection) {
 		}
 		//
 		var _this = this;
-		//The first time the page load and the images are set, wait for
-		//the main product image to be loaded before showing it with carousel
-		
-		/*$('#variant-selected-image-'+this.product_id+' img').on("load", function() {
-			_this.showImage();
-			$('#image-carousel-'+_this.product_id).show();
-		});
-		$( window ).load(function() {
-			_this.showImage();
-		});
-		*/
+
 	}
 	/*
 		Updates variant available quantity and sku
 	*/
 	this.updateQuantitySku = function(obj_variant) {
 		//Hides quantity selector
-		//$('#div-quantity-'+this.product_id).hide();
 		//If the product has a valid price and is available => Set new product quandtity limit according to policy set and display quantity seelctor back
 		if ( this.getNumber(obj_variant.price) > 0 && typeof obj_variant.inventory_quantity != 'undefined'
 			&& typeof obj_variant.inventory_minimum_quantity != 'undefined'
 			&& typeof obj_variant.inventory_policy != 'undefined'
 			&& obj_variant.has_stock == '1') {
-				//$('#div-quantity-'+this.product_id).show();
 				$("#variant-input-"+this.product_id).attr('name', 'items['+obj_variant.id+']');
 				if(obj_variant.inventory_policy != 'continue'){
 					var limit = !obj_variant.inventory_minimum_quantity ? obj_variant.inventory_quantity : obj_variant.inventory_quantity - obj_variant.inventory_minimum_quantity;
@@ -436,14 +418,14 @@ function VariantsManager (product, img, isCollection) {
 			if ($('#singleProduct').length) {
 				//newdesire = getQueryParams(document.location.search);
 				//if (newdesire.variant) {
-					console.log('change URL v9: '+filteredVariants[0].id);
+					//console.log('change URL v9: '+filteredVariants[0].id);
 					if (inorganic !== 1) {
-						console.log('organic')
+						//console.log('organic')
 						//updateUrlParameter('variant',filteredVariants[0].id);
 						updateQueryStringParam('variant',filteredVariants[0].id);
 					} else {
-						console.log('inorganic')
-						$('select.vopt').trigger('change');
+						//console.log('inorganic')
+						//$('select.vopt').trigger('change');
 					}
 				//} else {
 					//console.log('attempt to blank the variant URL v4');
@@ -594,7 +576,7 @@ function VariantsManager (product, img, isCollection) {
 	/* */
 	this.getAImage = function(selectName, optionValue, url){
 		if (url !== false)
-			return tag =  $('<img>', {"src": url, "class" : "img-responsive", "data-toggle" : "tooltip", "data-original-title" : optionValue});
+			return tag =  $('<img>', {"src": url, "class" : "img-fluid", "data-toggle" : "tooltip", "data-original-title" : optionValue});
 		else
 			return tag =  $('<a>', {"class": "", "title":optionValue}).text(optionValue);
 	}
@@ -624,6 +606,11 @@ function VariantsManager (product, img, isCollection) {
 					//console.log('detected beChip click')
 					_this.updateVariants(selectName, optionValue);
 				});
+			});
+			//
+			$(document).on('change', 'select.vopt-'+selectName, function() {
+				console.log('val is: '+$(this).val())
+				_this.updateVariants(selectName, $(this).val());
 			});
 		});
 		//
@@ -739,17 +726,16 @@ function VariantsManager (product, img, isCollection) {
 		//
 		window.onpopstate = function(event) {
 			if ($('#singleProduct').length) {
-				console.log('popState v4.2');
+				//console.log('popState v4.2');
 				newdesire = getQueryParams(document.location.search);
 				//console.log('onpopstate begin...');
 				//console.log(newdesire)
 				if (newdesire.variant) {
-					console.log('was newdesire.variant')
+					//console.log('was newdesire.variant')
 					$.each(_this.variants, function(index,variant){
-						console.log('each loop')
 						//console.log('var col: '+variant.color)
 						if( variant.id == newdesire.variant ){
-							console.log('each loop found matching variant')
+							//console.log('each loop found matching variant')
 							//console.log('desire this one, select it: '+variant.color);
 							selected_variant = variant;
 							return false;
@@ -760,7 +746,7 @@ function VariantsManager (product, img, isCollection) {
 				}
 				//
 				$.each(_this.selectsData, function(selectName,optionArray){
-					console.log('each Data loop v3');
+					//console.log('each Data loop v3');
 					_this.selectedValues[selectName] = selected_variant[selectName];
 				});
 				//

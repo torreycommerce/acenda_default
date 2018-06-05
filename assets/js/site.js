@@ -36,22 +36,17 @@ $(document).ready(function() {
    	 // Disable caching of AJAX responses
 	    cache: false
 	});	
-	$.get(acendaBaseUrl+'/account/tools', function(data) {
+	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) { options.async = true; });
+	$.get(acendaBaseUrl+'/account/tools.html', function(data) {
 		$('#header .my-account').append(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//
 		$('.yta-launch').parent('.nav-mobile').after('<div class="navajax"></div>');
-		$('.navajax').load(acendaBaseUrl+'/account/nav', function() {
-			//alert( "Load was performed." );
+	    $('.navajax').load(acendaBaseUrl+'/account/nav.html', function() {
 			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
 			});
 		});
-		//
-		$.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
-			$('li.cart a.tool-tab span.item-count').html(data.result.item_count);
-		});
-		//$('li.tool .my-account').load(acendaBaseUrl + '/account/toolbar');
 		//
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/quickcart.js",function(){
 		});
@@ -59,10 +54,12 @@ $(document).ready(function() {
 	//
 	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome-4.7.0/css/font-awecenda.min.css">');
 	//
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomify.js",function(){
-		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.zoomcenda.js",function(){
-		});
+	$(document).on('click','[data-image-swap]', function() {
+        var src = $(this).attr('data-image-swap-src');
+        var el = $('#'+$(this).attr('data-image-swap'));
+        el.attr('src',src);
 	});
+	
 	//
 	if ($('.btn-add').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/shop-qty.js",function(){
@@ -97,17 +94,38 @@ $(document).ready(function() {
 });
 
 
-$('img').error(function() {
-	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
+$('img').on( "error", function() {
+    if ($(this).attr('width') == "450") {
+        $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-450x450.gif');
+    } else {
+        $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
+    }
 });
 
-$(window).load(function() {
+
+$(window).on("load", function (e) {
 	$('img').each(function() {
 		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');	
+			if ($(this).attr('width') == "450") {
+                $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-450x450.gif');
+            } else {
+                $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
+            }
 		}
 	});
 });
+
+
+$('body').on('mouseenter mouseleave','.addAccess > li',function(e){
+    //var _d=$(e.target).closest('.dropdown');
+    var _d=$(this);
+    var _e=$(_d).find('.dropdown-menu:first');_e.addClass('show');
+    setTimeout(function(){
+        _e[_d.is(':hover')?'addClass':'removeClass']('show');
+        $('[data-toggle="dropdown"]', _d).attr('aria-expanded',_d.is(':hover'));
+    },100);
+});
+
 
 
 
@@ -195,7 +213,7 @@ function productSlick() {
 	$('#slick-heroic-nav-'+who).slick('resize'); // why
 	//
 	//
-	$('.slick-heroic-go .hidden, .slick-heroic-nav-go .hidden').removeClass('hidden');
+	$('.slick-heroic-go .d-none, .slick-heroic-nav-go .d-none').removeClass('d-none');
 	$('.slick-heroic-go').removeClass('slick-heroic-go');
 	$('.slick-heroic-nav-go').removeClass('slick-heroic-nav-go');
     
@@ -209,6 +227,18 @@ function productSlick() {
 if ($('.slick').length) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.7.1/slick.min.js",function(){
 		slickReady = 1;
+		if ($('.slick-1').length) {
+			$('.slick-1').slick({
+        		dots: false,
+        		//infinite: false,
+        		speed: 500,
+        		slidesToShow: 1,
+        		slidesToScroll: 1,
+        		fade: true,
+                cssEase: 'linear'
+        	});
+        	$('.slick-1 .hidden').removeClass('hidden');
+		}
 		if ($('.slick-heroic.slick-heroic-go').length) {
 			//console.log('pS call s')
 			productSlick();
@@ -247,32 +277,6 @@ if ($('.ztrig').length) {
 }
 
 
-if ($('select.vopt').length) {
-    IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/jquery.selectric.mod.js",function(){
-		$('select.vopt').on('change', function() {
-			//console.log($(this).val())
-			$('select.vopt').selectric('refresh');
-			var desVal = $(this).val();
-			var desInd = 0;
-			$(this).find('option').each(function() {
-				if ($(this).attr('value') == desVal) {
-					desInd = $(this).attr('data-index');
-					return false;
-				}
-			});
-			$(this).parents('.selector-details').find('.selectric-vopt li[data-index="'+desInd+'"]').click();
-		});
-		//
-		$('select.vopt').selectric({
-			
-		});
-		//console.log('Selectric applied')
-	});
-}
-
-
-
-
 
 
 
@@ -281,11 +285,9 @@ if ($('select.vopt').length) {
 /* store locator */
 function ChangeUrl(title, url) {
 	if (typeof (history.pushState) != "undefined") {
-		console.log('can pushState')
 		var obj = { Title: title, Url: url };
 		history.pushState(obj, obj.Title, obj.Url);
 	} else {
-		console.log('can not pushState')
 		//alert("Browser does not support HTML5.");
 	}
 }
@@ -313,43 +315,42 @@ function getQueryParams(qs) {
 
 
 var updateQueryStringParam = function (key, value) {
-console.log('uQSP key: '+key+' , value: '+value)
+//console.log('uQSP key: '+key+' , value: '+value)
     var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
         urlQueryString = document.location.search,
         newParam = key + '=' + value,
         params = '?' + newParam;
 
-    console.log('urlQS v10');
+    //console.log('urlQS v10');
     // If the "search" string exists, then build params from it
     //if (urlQueryString) {
     if (urlQueryString) {
 
         updateRegex = new RegExp('([\?&])' + key + '[^&]*');
         removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
-        console.log('has urlQS');
-        console.log('value: '+value);
+        //console.log('has urlQS');
         if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
-            console.log('path 1');
+            //console.log('path 1');
             if (urlQueryString.indexOf(key) !== -1) {
-                console.log('path 1 actual MODDed');
+                //console.log('path 1 actual MODDed');
                 params = urlQueryString.replace(removeRegex, "$1");
                 //params = urlQueryString.replace(updateRegex, "$1" + newParam); me
                 params = params.replace( /[&;]$/, "" );
             }
 
         } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
-            console.log('path 2');
+           // console.log('path 2');
             params = urlQueryString.replace(updateRegex, "$1" + newParam);
 
         } else { // Otherwise, add it to end of query string
-            console.log('path 3');
+            //console.log('path 3');
             params = urlQueryString + '&' + newParam;
 
         }
         //window.history.pushState({}, "", baseUrl + params);
 
     } else {
-        console.log('has NO urlQS');
+        //console.log('has NO urlQS');
         //window.history.pushState({}, "", baseUrl);
     }
     params = params == '?' ? '' : params;

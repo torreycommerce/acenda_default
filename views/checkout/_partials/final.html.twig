@@ -13,11 +13,11 @@
 
 <div class="row">
 	{# begin print page #} 
-	<div class="{{ app.user.isLoggedIn() ? "col-xs-12" : "col-xs-12 col-md-8" }}">
+	<div class="{{ app.user.isLoggedIn() ? "col-12" : "col-lg-8" }}">
 
 		{% if final_order is not empty %}
-		<div class="panel">
-			<div class="panel-body">
+		<div class="card">
+			<div class="card-body">
 				<h2>Thank You, your order has been placed!</h2>
 				<p>We have sent you an e-mail confirmation.</p>
 				{% if request.customer_id is defined %}
@@ -66,13 +66,13 @@
 		{% endif %}
 		
 		{% if final_order is not empty %}
-		<div class="panel">
-			<div class="panel-body">
-			    <h2 class="divide pad-b">Invoice: <span class="pull-right">#{{ final_order.order_number }}</span></h2>
+		<div class="card">
+			<div class="card-body">
+			    <h2 class="divide pb-3">Invoice: <span class="float-right">#{{ final_order.order_number }}</span></h2>
 				<div class="row">
-					<div class="col-xs-12 col-sm-7">
+					<div class="col-md-7">
 						<div class="row">
-							<div class="col-xs-12 p">
+							<div class="col-12 mb-3">
 								<h3>Ship To</h3>
 								<address class="fsd1">
 									<div>{{ final_order.shipping_first_name }} {{ final_order.shipping_last_name }}</div>
@@ -80,7 +80,7 @@
 									<div>{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
 								</address>
 							</div>
-							<div class="col-xs-12 g p-xs-2x">
+							<div class="col-12 g p-xs-2x">
 								{% if final_order.billing_first_name %}
 								<h3>Payment</h3>
 								<address class="fsd1">
@@ -93,53 +93,53 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-5">
+					<div class="col-md-5">
 					    <h3>Order Total</h3>
 						<div class="row">
-							<div class="col-xs-8">Subtotal:</div>
-							<div class="col-xs-4 text-right">{{ prod.currency( final_order.item_subtotal|number_format(2, '.')) }}</div>
+							<div class="col-8">Subtotal:</div>
+							<div class="col-4 text-right">{{ prod.currency( final_order.item_subtotal|number_format(2, '.')) }}</div>
 						</div>
 						<div class="row">
-							<div class="col-xs-8">Shipping:</div>
-							<div class="col-xs-4 text-right">{{ prod.currency( final_order.shipping_rate|number_format(2, '.')) }}</div>
+							<div class="col-8">Shipping:</div>
+							<div class="col-4 text-right">{{ prod.currency( final_order.shipping_rate|number_format(2, '.')) }}</div>
 						</div>
 						{% if final_order.discount_price > 0 %}
 						<div class="row">
-							<div class="col-xs-8">Discount:</div>
-							<div class="col-xs-4 price-discount text-right">
+							<div class="col-8">Discount:</div>
+							<div class="col-4 price-discount text-right">
 								-{{ prod.currency(final_order.discount_price|number_format(2, '.')) }}
 							</div>
 						</div>
 						{% endif %}
 						<div class="row">
-							<div class="col-xs-8">Total Before Tax:</div>
-							<div class="col-xs-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
+							<div class="col-8">Total Before Tax:</div>
+							<div class="col-4 text-right">{{ prod.currency((final_order.subtotal + final_order.shipping_rate)|number_format(2, '.')) }}</div>
 						</div>
-						<div class="divide p pad-b">
+						<div class="divide mb-3 pb-3">
     						<div class="row">
-    							<div class="col-xs-8">Sales Tax:</div>
-    							<div class="col-xs-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
+    							<div class="col-8">Sales Tax:</div>
+    							<div class="col-4 text-right">{{ prod.currency(final_order.tax|number_format(2, '.')) }}</div>
     						</div>
 						</div>
 						<div class="row totals-total">
-							<div class="col-xs-8">Total:</div>
-							<div class="col-xs-4 text-right">{{ prod.currency(final_order.total|number_format(2, '.')) }}</div>
+							<div class="col-8">Total:</div>
+							<div class="col-4 text-right">{{ prod.currency(final_order.total|number_format(2, '.')) }}</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="panel">
-            <div class="panel-body">
-                <h2 class="divide pad-b">Items Ordered</h2>
+		<div class="card">
+            <div class="card-body">
+                <h2 class="divide pb-3">Items Ordered</h2>
             {% for item in items %}
                 <div class="row">
-                    <div class="col-xs-8">
+                    <div class="col-8">
                         <div class="product-name">{{item.quantity}} x {{ item.name }}</div>
                     </div>
                     {% set price = item.price * item.quantity %}
                     {% set subtotal = subtotal + price %}
-                    <div class="col-xs-4 pricing text-right">
+                    <div class="col-4 pricing text-right">
                         <div class="price">{{ prod.currency(item.price|number_format(2, '.')) }}</div>
                     </div>
                 </div>
@@ -150,8 +150,8 @@
 	</div>
 
 	{% if app.user.isLoggedIn() == false %}
-	<div class="col-xs-12 col-md-4">
-		<div class="panel"><div class="panel-body">
+	<div class="col-lg-4">
+		<div class="card"><div class="card-body">
 			<h2>Create a New Account</h2>
 			<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more!</p>
 			{{ forms.begin('create', app.url ~ '/account/create', 'post') }}
@@ -180,9 +180,9 @@
 </div>
 {% if final_order is not empty %}
 <div class="row">
-	<div class="{{ app.user.isLoggedIn() ? "col-xs-12" : "col-xs-12 col-md-8" }}">
+	<div class="{{ app.user.isLoggedIn() ? "col-12" : "col-lg-8" }}">
 		<a class="btn btn-xs-block btn-default p-xs" href="{{app.url}}">Continue Shopping</a>
-		<a href="#" class="btn btn-xs-block btn-default pull-right" onclick="window.print();return false;">Print Page</a>
+		<a href="#" class="btn btn-xs-block btn-default float-right" onclick="window.print();return false;">Print Page</a>
 	</div>
 </div>
 {% endif %}

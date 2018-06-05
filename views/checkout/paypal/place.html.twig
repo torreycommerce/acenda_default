@@ -16,7 +16,7 @@
     {% set coupons = api.get('/ordercoupon?email=' ~ final_order.email ~ '&order_number=' ~ final_order.order_number, {query:{'order_id':final_order.id}}) %}
     {% set product_ids = items|values_in('product_id') %}
     {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
-    {% set col_ = app.user.isLoggedIn() ? "col-md-12 col-lg-12" : "col-md-8 col-lg-8"%}
+    {% set col_ = app.user.isLoggedIn() ? "col-lg-12 col-xl-12" : "col-lg-8 col-xl-8"%}
 {% endif %}
 
 

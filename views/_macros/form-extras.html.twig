@@ -5,14 +5,14 @@
 		{% set name = name ~ '_' %}
 	{% endif %}
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="first-name">First Name</label>
 				{{ forms.text(form ~ '[' ~ name ~ 'first_name]', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'first-name', placeholder:"First Name", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="last-name">Last Name</label>
 				{{ forms.text(form ~ '[' ~ name ~ 'last_name]', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'last-name', placeholder:"Last Name", required:true}) }}
@@ -31,7 +31,7 @@
 		<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-6">
+		<div class="col-md-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="country">Country</label>
 				{{ forms.select(form ~ '[' ~ name ~ 'country]', address[name ~ 'country'], {}, {class:'form-control parsley-validated', id:'country'}) }}
@@ -40,14 +40,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="city">City</label>
 				{{ forms.text(form ~ '[' ~ name ~ 'city]', address[name ~ 'city'], {class:'form-control parsley-validated', id:'city', placeholder:"City", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" id="state-label" for="state">State</label>
                 {{ forms.hidden('address[state_select]', address[name ~ 'state']) }}
@@ -57,14 +57,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq normalizable">
 				<label class="control-label" for="zip"><span class="postziplang">Zip Code</span></label>
 				{{ forms.text(form ~ '[' ~ name ~ 'zip]', address[name ~ 'zip'], {class:'form-control parsley-validated', id:'zip', placeholder:"Zip Code", required:true}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-6">
 			<div class="form-group fgq">
 				<label class="control-label" for="phone">Phone Number</label>
 				{{ forms.text(form ~ '[' ~ name ~ 'phone_number]', address[name ~ 'phone_number'], {class:'form-control parsley-validated', id:'phone', placeholder:"Phone Number", required: true}) }}

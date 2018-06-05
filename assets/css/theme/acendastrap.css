@@ -1288,7 +1288,7 @@ output {
 }
 .form-control:focus {
   border-color: #66afe9;
-  outline: 0;
+  /*outline: 0;*/
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
@@ -1720,7 +1720,7 @@ select[multiple].input-lg {
 .btn:active,
 .btn.active {
   background-image: none;
-  outline: 0;
+  /*outline: 0;*/
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
           box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
@@ -1857,6 +1857,12 @@ fieldset[disabled] a.btn {
   background-color: #fff;
   border-color: #fff;
 }
+.btn-blank,
+.btn-blank:focus,
+.btn-blank.focus,
+.btn-blank:hover, 
+.btn-blank:active,
+.btn-blank.active {color:#000!important; background-color:transparent; border-color:transparent;}
 .btn-link {
   font-weight: normal;
   color: #000;
@@ -2018,7 +2024,6 @@ tbody.collapse.in {
   color: #fff;
   text-decoration: none;
   background-color: #337ab7;
-  outline: 0;
 }
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -2035,9 +2040,6 @@ tbody.collapse.in {
 }
 .open > .dropdown-menu {
   display: block;
-}
-.open > a {
-  outline: 0;
 }
 .dropdown-menu-right {
   right: 0;
@@ -2152,10 +2154,6 @@ tbody.collapse.in {
 .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-.btn-group .dropdown-toggle:active,
-.btn-group.open .dropdown-toggle {
-  outline: 0;
 }
 .btn-group > .btn + .dropdown-toggle {
   padding-right: 8px;
@@ -2713,9 +2711,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 2px;
-}
-.navbar-toggle:focus {
-  outline: 0;
 }
 .navbar-toggle .icon-bar {
   display: block;
@@ -3898,9 +3893,10 @@ div:focus, section:focus {outline:none;}
 .fsd1, form .validation, .dropdown-menu {font-size:87.5%;}
 .fsi1 {font-size:112.5%;}
 
-.bgg {background-color:#fcfcfc;}
+.bgw {background:#fff;}
 .frame {position:relative; box-shadow:0 0 2px rgba(0,0,0,.2);}
 .d-b {display:block!important;}
+.d-t {display:table; margin-right:auto; margin-left:auto;}
 .pos-a {position:absolute;}
 .pos-r {position:relative;}
 

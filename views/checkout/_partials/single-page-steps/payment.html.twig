@@ -13,42 +13,42 @@
 {% else %}
 <h3>Credit Card</h3>	
 	<div class="row">
-		<div class="col-xs-6 col-md-7">
+		<div class="col-6 col-lg-7">
 			<div class="form-group fgq">
 				<label class="control-label" for="checkout_card_number">Card Number</label>
 				{{ forms.text('card_number', checkout.card_number, {id:'checkout_card_number',class:'form-control parsley-validated', placeholder:"Card Number", required:true, 'parsley-luhn': true, 'parsley-type': 'number'}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, 'card_number') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-6 col-md-5">
+		<div class="col-6 col-lg-5">
 			<div style="margin: auto;" class="form-group" id="checkout-cards">
 				<label>&nbsp;</label>
 				<div class="row row-thin">
-					<div class="col-xs-3 col-thin">
+					<div class="col-3 col-thin">
 						<div class="checkout-card">
 							<div class="image-space is60 checkout-card">
-								<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-responsive isd cc-visa" width="73" height="44" alt="">
+								<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-fluid isd cc-visa" width="73" height="44" alt="">
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-3 col-thin">
+					<div class="col-3 col-thin">
 						<div class="checkout-card">
 							<div class="image-space is60 checkout-card">
-								<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-responsive isd cc-mastercard" width="73" height="44" alt="">
+								<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-fluid isd cc-mastercard" width="73" height="44" alt="">
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-3 col-thin">
+					<div class="col-3 col-thin">
 						<div class="checkout-card">
 							<div class="image-space is60 checkout-card">
-								<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-responsive isd cc-amex" width="73" height="44" alt="">
+								<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-fluid isd cc-amex" width="73" height="44" alt="">
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-3 col-thin">
+					<div class="col-3 col-thin">
 						<div class="checkout-card">
 							<div class="image-space is60 checkout-card">
-								<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-responsive isd cc-discover" width="73" height="44" alt="">
+								<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-fluid isd cc-discover" width="73" height="44" alt="">
 							</div>
 						</div>
 					</div>
@@ -57,14 +57,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4">
+		<div class="col-4">
 			<div class="form-group fgq">
 				<label class="control-label" for="ccv">CVV2</label>
 				{{ forms.text('card_cvv2', checkout.card_cvv2, {class:'form-control parsley-validated', id:'ccv', placeholder:"CVV2", required:true, 'pattern':'^[0-9]{3,4}$'}) }}
 				<div class="validation">{{ forms.errorlist(form_errors, 'card_cvv2') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-4">
+		<div class="col-4">
 			<div class="form-group fgq">
 				<label class="control-label" for="exp-m">Exp Month</label>
 				{% set months = {} %}
@@ -76,7 +76,7 @@
 				<div class="validation">{{ forms.errorlist(form_errors, 'card_exp_month') }}</div>
 			</div>
 		</div>
-		<div class="col-xs-4">
+		<div class="col-4">
 			<div class="form-group fgq">
 				<label class="control-label" for="exp-y">Exp Year</label>
 				{% set years = {} %}
@@ -93,10 +93,9 @@
 <div class="row" id="billing-address-preview">
 </div>
 <div class="copy-shipping-flag">
-	<div class="form-group">
-		<div class="checkbox">
-		  <label><input type="checkbox" name="copy_shipping_to_billing" value="">Billing Address is the same as the Shipping Address</label>
-		</div>
+	<div class="form-group form-check">
+		<input type="checkbox" class="form-check-input" id="copy_shipping_to_billing2" name="copy_shipping_to_billing" value="">
+		<label class="form-check-label" for="copy_shipping_to_billing2">Billing Address is the same as the Shipping Address</label>
 	</div>
 </div>
 <div id="billing-address" style="display:block;">
@@ -112,14 +111,14 @@
 	<div id="billing-address-form">
 		<div class="hide-billing">
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq">
 						<label class="control-label" for="billing-first-name">First Name</label>
 						{{ forms.text('billing_first_name', '', {class:'form-control parsley-validated', id:'billing-first-name', placeholder:"First Name", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq">
 						<label class="control-label" for="billing-last-name">Last Name</label>
 						{{ forms.text('billing_last_name', '', {class:'form-control parsley-validated', id:'billing-last-name', placeholder:"Last Name", required:true}) }}
@@ -129,7 +128,7 @@
 			</div>
 	     	<fieldset class="verify-change-billing">
 	     	<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-md-6">
 					<div class="form-group fgq normalizable">
 						<label class="control-label" for="billing-country">Country</label>
 						{{ forms.select('billing_country', '', {}, {class:'form-control parsley-validated', id:'billing-country', required:true}) }}
@@ -148,14 +147,14 @@
 				<div class="validation">{{ forms.errorlist(form_errors, name ~ 'street_line2') }}</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq normalizable">
 						<label class="control-label" for="billing-city">City</label>
 						{{ forms.text('billing_city','', {class:'form-control parsley-validated', id:'billing-city', placeholder:"City", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'city') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq normalizable">
 						<label class="control-label" id="billing-state-label" for="billing-state">State/Province</label>
 		                {{ forms.select('billing_state_select', '', {}, {class:'form-control parsley-validated', placeholder:"State", id:'billing-state-select'}) }}
@@ -165,14 +164,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq normalizable">
 						<label class="control-label" for="billing-zip" id="billing-zip-label">Zip Code</label>
 						{{ forms.text('billing_zip', '', {class:'form-control parsley-validated', id:'billing-zip', placeholder:"Zip Code", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'zip') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-6">
+				<div class="col-6">
 					<div class="form-group fgq">
 						<label class="control-label" for="billing-phone">Phone Number</label>
 						{{ forms.text('billing_phone_number', '', {class:'form-control parsley-validated', id:'billing-phone', placeholder:"Phone Number", required: true}) }}
@@ -181,10 +180,9 @@
 				</div>
 			</div>
 			<div id="billing-save" style="display: none;">
-				<div class="form-group">
-					<div class="checkbox">
-					  <label><input type="checkbox" name="billing_save" value="">Save this address for future use?</label>
-					</div>
+				<div class="form-group form-check">
+					<input type="checkbox" class="form-check-input" id="billing_save" name="billing_save" value="">
+					<label class="form-check-label" for="billing_save">Save this address for future use?</label>
 				</div>
 			</div>
 		  </fieldset>
@@ -195,5 +193,5 @@
 <div id="address-verify"></div>
 </form>
 
-<button id="btn-continue-payment" class="btn btn-lg btn-primary btn-cart btn-xs-block pull-right">Continue</button>
+<button id="btn-continue-payment" class="btn btn-lg btn-primary btn-cart btn-xs-block float-right">Continue</button>
 	

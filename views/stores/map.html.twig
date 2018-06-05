@@ -32,15 +32,15 @@
 {% include "/stores/css.html.twig" %}
 
 <div class="row">
-	<div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 p">
+	<div class="col-md-8 col-lg-9 col-xl-10 mb-3">
 		<div class="input-group">
 			 <input class="controls form-control" type="text" id="loc-loc" placeholder="City, Address or Zipcode..." title="Search Location">
-			<span class="input-group-btn">
+			<span class="input-group-append">
 				<button class="btn btn-default" id="loc-search" type="button"><i class="fa fa-search"><i class="sr-only">Search</i></i></button>
 			</span>
 		</div>
 	</div>
-	<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 p">
+	<div class="col-md-4 col-lg-3 col-xl-2 mb-3">
 		<select class="form-control" id="loc-radius">
 		{% for rad in locRadiusArray %}
 			<option value="{{rad}}" {% if rad == locDesiredRadius%}selected{% endif %}>{{rad}} Miles</option>
@@ -49,12 +49,12 @@
 	</div>
 </div>
 
-<div class="bgg embed-responsive is60 p">
+<div class="bgg embed-responsive is60 mb-3">
 	<div class="embed-responsive-item stores-map" id="map"></div>
 </div>
 
 <div class="avai-list">
-	<p class="p-mini">Stores within <span class="show-loc" id="show-loc-radius">50</span> Miles of <span class="show-loc" id="show-loc-search"></span></p>
+	<p class="mb-2">Stores within <span class="show-loc" id="show-loc-radius">50</span> Miles of <span class="show-loc" id="show-loc-search"></span></p>
 	<div class="avai-list-list">
 		<div class="c-c ok-list row"></div>
 	</div>
@@ -231,7 +231,7 @@ function isoAcendaAPI(ala,alo) {
 			}
 		} else {
 			map.setCenter({lat: ala, lng: alo});
-			$('.ok-list').append('<div class="col-xs-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius, or search a different location.</div></div>');
+			$('.ok-list').append('<div class="col-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius, or search a different location.</div></div>');
 		}
 	});
 	//
@@ -293,7 +293,7 @@ function createMarker(location,id){
 	//
 	//console.log('now fC is:')
 	//console.log(formattedContent);
-	$('.ok-list').append('<div class="col-xs-12 col-sm-6 col-md-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="d-b p" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-xs-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
+	$('.ok-list').append('<div class="col-md-6 col-lg-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="d-b mb-3" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
 	//
 }
 

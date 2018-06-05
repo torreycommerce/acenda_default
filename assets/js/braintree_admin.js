@@ -40,8 +40,6 @@ var paymentMethodsView = Backbone.View.extend({
 			  authorization: that.bt_client_token 
 			}).then(function (client) {
 			    that.bt_client = client;
-
-
 			  braintree.paypal.create({
 			    client: that.bt_client
 			  }, function (paypalErr, paypalInstance) {

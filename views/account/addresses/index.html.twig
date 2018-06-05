@@ -57,15 +57,15 @@ set in the array in /account/_macros/base.html.twig
 {% if addresses is empty %}
 <p>You have yet to save an address.</p>
 {% else %}
-<div class="row c-c">
+<div class="row">
 	{% for row,address in addresses %}
-	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<div class="panel {% if address.verified == 0 %} panel-danger{% else %}{% endif %} {% if address.default == 1 %} panel-success{% endif %}">
-			<div class="panel-heading">
+	<div class="col-md-6 col-xl-4">
+		<div class="card {% if address.verified == 0 %} bg-light{% else %}{% endif %} {% if address.default == 1 %} bg-light{% endif %}">
+			<div class="card-header">
 				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
 			</div>
-			<div class="panel-body">
-				<address class="pad-b divide p g">
+			<div class="card-body">
+				<address class="pad-b divide mb-3 g">
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>
 					{% endif %}
@@ -92,21 +92,14 @@ set in the array in /account/_macros/base.html.twig
 					<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						<span>Options</span><i class="fa fa-caret-down"></i>
 					</a>
-					<ul class="dropdown-menu fa-fa-balance" role="menu">
-						<li>
-							<span>
-								<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="btn btn-link" name="edit_address">
-									<i class="fa fa-pencil"></i><span>Edit Address</span>
-								</a>
-							</span>
-						</li>
-						<li>
-							{{ forms.submit('address[action]', 'primary/' ~  (row + 1), '<i class="fa fa-star"></i><span>Use as Default Address</span>', {class:'btn btn-link'})}}
-						</li>
-						<li>
-							{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), '<i class="fa fa-times"></i><span>Delete</span>', {class:'btn btn-link'})}}
-						</li>
-					</ul>
+					<div class="dropdown-menu fa-fa-balance" role="menu">
+						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item" name="edit_address">
+							Edit Address <span class="sr-only">for {{ address.street_line1 }}</span>
+						</a>
+						{{ forms.submit('address[action]', 'primary/' ~  (row + 1), 'Use <span class="sr-only">{{ address.street_line1 }}</span> as Default Address', {class:'btn dropdown-item'})}}
+						<div class="dropdown-divider"></div>
+						{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), 'Delete Address <span class="sr-only">for {{ address.street_line1 }}</span>', {class:'btn dropdown-item'})}}
+					</div>
 				</div>
 			</div>
 		</div>

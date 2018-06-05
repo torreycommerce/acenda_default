@@ -1,17 +1,17 @@
-<div class="well">
+<div class="card"><div class="card-body">
 	{{ forms.begin('address','','post',{ class:'form-region-customer' }) }}
 		<fieldset>
 			<legend>Address Information</legend>
 			<div id="custom-address">
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq">
 							<label class="control-label" for="first-name">First Name</label>
 							{{ forms.text('address[first_name]', address.first_name, {class:'form-control parsley-validated', placeholder:"First Name", id:"first-name", required:true}) }}
 							<div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq">
 							<label class="control-label" for="last-name">Last Name</label>
 							{{ forms.text('address[last_name]', address.last_name, {class:'form-control parsley-validated', placeholder:"Last Name", id:"last-name", required:true}) }}
@@ -25,7 +25,7 @@
 					<div class="validation">{{ forms.errorlist(form_errors, 'company') }}</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq normalizable">
 							<label class="control-label" for="country">Country</label>
 							{{ forms.select('address[country]', address.country, {}, {required:true, class:'form-control parsley-validated', id:'country'}) }}
@@ -45,14 +45,14 @@
 					<div class="validation">{{ forms.errorlist(form_errors, 'street_line2') }}</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq normalizable">
 							<label class="control-label" for="city">City</label>
 							{{ forms.text('address[city]', address.city, {class:'form-control parsley-validated', placeholder:"City", id:"city", required:true}) }}
 							<div class="validation">{{ forms.errorlist(form_errors, 'city') }}</div>
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq normalizable">
 							<label class="control-label" id="state-label" for="state">State/Province</label>
                             {{ forms.select('address[state]', address.state, {}, {required:true, class:'form-control parsley-validated', id:'state_select' }) }}
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq normalizable">
 							<label class="control-label" for="zip" id="zip-label"><span class="postziplang">Zip Code</span></label>
 							{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip Code", id:"zip", required:true}) }}
@@ -71,7 +71,7 @@
 							<div class="validation">{{ forms.errorlist(form_errors, 'zip') }}</div>
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-6">
 						<div class="form-group fgq">
 							<label class="control-label" for="phone">Phone Number</label>
 							{{ forms.text('address[phone_number]', address.phone_number, {class:'form-control parsley-validated', id:"phone", placeholder:"Phone Number", required:true}) }}
@@ -80,12 +80,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="checkbox">
-					<label class="control-label">
-						{{ forms.checkbox('address[make_default]', 1) }}Make this your default address
-					</label>
-				</div>
+			<div class="form-group form-check">
+				{{ forms.checkbox('address[make_default]', 1) }}
+				<label class="form-check-label" for="address[make_default]">Make this your default address</label>
 			</div>
 			{{ normalizer.normalizer() }}
 			<div class="form-group actions">
@@ -97,4 +94,4 @@
 			</div>
 		</fieldset>
 	{{ form.end() }}
-</div>
+</div></div>

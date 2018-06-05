@@ -1,17 +1,17 @@
 {# Begin product description for google rich snippets, not showing in the preview! #}
 {% if product.description is not empty %}
 	{% set full_description = product.description %}
-		<div class="hidden"><span itemprop="description">{{full_description}}</span></div>
+		<div class="d-none"><span itemprop="description">{{full_description}}</span></div>
 {% endif %}
 
 {% set id = 0 %}
 {% for sku in product.variant %}
 	{% set id = id + 1 %}
-		<div class="sku-details hidden" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
+		<div class="sku-details d-none" id="div-sku-{{product.id}}"><strong>ITEM: </strong> #<span itemprop="sku">{{ product.variant[id].sku }}</span></div>
 {% endfor %} 
 {% set id = 0 %}
 {% for barcode in product.variant %}   
-		<div class="hidden"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
+		<div class="d-none"><span itemprop="gtin12">{{ product.variant[id].barcode }}</span></div> 
 {% endfor %}      
 {# End product descriptiong for google rich snippets, not showing in the preview! #}
 

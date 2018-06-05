@@ -2,47 +2,46 @@
 
 html,body {color:#666; font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif; background-color:#fff;}
 
-a {color:#000;}
-a:hover, a:focus {color:#000;}
+a {}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
+h1,.h1 {padding:0 0 .5rem; text-align:center; border-bottom:1px solid #ccc;}
 
-.btn {transition:all 0.2s ease;}
-.btn-primary {font-weight:bold; box-shadow:0 .333333em .6666667em rgba(0,0,0,0.15);}
-.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {box-shadow:0 .333333em 1em rgba(0,0,0,0.25);}
-
-.bgb {color:#bbb; background-color:#303030;}
-.bgb a {color:#fff;}
-.bgb a:hover, .bgb a:focus {color:#fff;}
-.bgb .btn-link {color:#fff;}
+.btn {}
+.btn-primary {}
+.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {}
 
 .max-400 {max-width:400px; margin-right:auto; margin-left:auto;}
 /* */
 
 
 /* acenda global */
-#toolbar {padding-top:6px; padding-bottom:6px;}
+#toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
+#header {}
 #header .omm {position:absolute; top:0; left:0;}
-#header .logo {margin-left:50px; width:160px; font-size:120%;}
+#header .logo {margin-left:60px; width:160px; font-size:120%;}
 #header .logo .image-space {padding-top:48px;}
-#header .search {position:absolute; top:0; right:108px; left:50%;}
-#header .mya {position:absolute; top:0; right:50px;}
+#header .search {position:absolute; top:54px; right:0; left:0;}
+#header .search .btn {position:absolute; top:0; right:0;}
+#header .mya {position:absolute; top:0; right:60px;}
 #header .cart {position:absolute; top:0; right:0;}
-#header .btn-link.btn-sq-lg {width:40px;}
+#header .cart .dropdown-menu {opacity:0; visibility:hidden; transition:opacity 300ms ease;}
+#header .cart .qc-ready .dropdown-menu {opacity:1; visibility:visible;}
+#qc-btn .item-count {position:absolute; top:0; right:0; height:1.25em; font-size:50%; line-height:1.1em; background:#fff; border:1px solid rgba(0,0,0,.5); border-radius:100%; opacity:0; visibility:hidden; transition:all 300ms ease;}
+#qc-btn .item-count.ready {opacity:1; visibility:visible;}
 
-#nav .navbar-nav {float:none; padding:10px 0;}
-#nav a {font-weight:bold; text-transform:uppercase;}
+#nav .navbar-expand .navbar-nav .nav-link {padding:1rem;}
+#nav .navbar-nav {float:none;}
 #nav .navbar-nav > li > ul > li > ul a {font-weight:normal;}
 #nav .nav > li > a:hover, #nav .nav > li > a:focus {background-color:transparent;}
 #nav .fa {display:none;}
 #nav .dropdown-menu {padding:0 0 10px 5px;}
 #nav .navbar-nav > li > .dropdown-menu {padding:30px;}
 #nav .dropdown-submenu>.dropdown-menu {display:block; position:static; float:none; border:none; box-shadow:none;}
-#footer .list-unstyled {line-height:2;}
 
 #content {border-bottom:1px solid #f0f0f0;}
 
-.category a, .product a {display:block;}
-.product-grid .brand-product {min-height:2.2em; font-size:112.5%;}
+.category a, .product a {display:block; border:1px solid transparent;}
+h3.category-name, h3.brand-product {min-height:2.2em; font-size:112.5%;}
 .product-grid .pricing {min-height:3.8em;}
 .product-grid .pricing ul {font-size:87.5%;}
 .pricing .price, .totals-total {color:#000; font-weight:bold;}
@@ -52,16 +51,19 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}
 
+
+@media (min-width:768px) {
+
+}
+
 @media (min-width:992px) {
 #toolbar {padding-top:30px; padding-bottom:30px;}
+#toolbar {height:auto;}
+#header .search {top:0; right:120px; left:50%;}
 #header .logo {width:200px; margin-left:0;}
-#header .mya {right:50px;}
 }
 
 @media (max-width:991px) {
-body {font-size:87.5%;}
-.fsd1, form .validation {font-size:85.714285%;}
-.fsi1 {font-size:114.285714%;}
 }
 
 @media (max-width:374px) {
@@ -70,5 +72,22 @@ body {font-size:87.5%;}
 /* */
 
 
-.promo-sample h1 {margin:0; padding:15% 0 0; text-transform:uppercase; border:none;}
-.promo-sample span.isd {color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.5);}
+
+/* default widgets */
+.promo-hero .image-space {padding-top:240px;}
+.promo-hero .isd {top:65%;}
+.promo-hero h1 {font-weight:bold; border:none;}
+
+.promo-siblings h3.isd {top:72%; font-weight:bold;}
+
+@media (min-width:768px) {
+.promo-hero .image-space {padding-top:360px;}
+.promo-hero h1 {font-size:240%;}
+}
+
+@media (min-width:992px) {
+.promo-hero .image-space {padding-top:480px;}
+.promo-hero h1 {font-size:280%;}
+}
+
+/* */

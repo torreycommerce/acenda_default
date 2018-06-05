@@ -1,10 +1,10 @@
 {% set category = api.get('/category',{'query':{'id':{'$in':filter_set|keys}}})|group_by('id') %}
 
-<button class="btn btn-block btn-default btn-lg" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     <span>Category</span><i class="fa fa-caret-down"></i>
 </button>
-<div id="filter-{{ safename }}-items" class="panel-collapse collapse out">
-    <div class="panel-body">
+<div id="filter-{{ safename }}-items" class="collapse">
+    <div class="card-body">
         <ul class="list-unstyled">                    
             {% for item,count in filter_set %}
                 {% set selected = item in filter_request[(name)]|keys ? 1 : 0 %}

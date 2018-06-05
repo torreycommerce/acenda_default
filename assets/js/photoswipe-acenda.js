@@ -1,4 +1,4 @@
-$('html').on("click", ".active .slick-heroic .img-responsive", function() {
+$('html').on("click", ".active .slick-heroic .img-fluid", function() {
 	var match = $(this).attr('src');
 	fixSizes();
 	$('#product-images .active.variation .ztrig img[src=\''+match+'\']').click();

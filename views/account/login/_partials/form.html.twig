@@ -60,12 +60,9 @@
             <div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
             <a href="{{ app.url }}/account/reset-password">Forgot your password?</a>
         </div>
-        <div class="form-group">
-            <div class="checkbox">
-                <label>
-                    {{ forms.checkbox('login[remember_me]','', {}) }}Remember Me
-                </label>
-            </div>
+        <div class="form-group form-check">
+            {{ forms.checkbox('login[remember_me]','', {}) }}
+            <label class="form-check-label" for="login[remember_me]">Remember Me</label>
             <div class="validation">{{ forms.errorlist(form_errors, 'remember_me') }}</div>
         </div>
 
