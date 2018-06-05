@@ -26,31 +26,27 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# Load in the main content positioned in /_layouts/main/base.html.twig #}
 {% block content %}
     {{account.navigation('payment-methods')}}
-	{% if platform!="Braintree" %}
-			<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform activated. </div>
-	{% else %}
-	{% set m = api.get('braintree/getPaymentMethods') %}
-<h1 style="border-bottom: 0px;">Payment Methods</h1>
-<div class="table-responsive">
-  <table class="table">
-	   {% for method in m.methods %}
-	   		<tr> <td><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle; line-height: 40px"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }} ending in {{ method.object.last4 }} {% endif %}</td>
-	   			<td style="text-align: right; vertical-align: middle; line-height: 40px"><button class="btn btn-primary"> Update </button> <button class="btn btn-danger"> Delete </button> </td></tr>
-	   {% endfor %}
-  </table>
-</div>
-
-
-		<pre>
-		  {{ dump(m) }}
-		</pre>
-	<div id="payment-methods">
+    <div id="payment-methods">
+			{% if platform!="Braintree" %}
+					<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform activated. </div>
+			{% else %}
+			{% set m = api.get('braintree/getPaymentMethods') %}
+		<h1 style="border-bottom: 0px;">Payment Methods</h1>
+		<div class="table-responsive">
+		  <table class="table">
+			   {% for token,method in m.methods %}
+			   		<tr> <td><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle; line-height: 40px"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }} ending in {{ method.object.last4 }} {% endif %}</td>
+			   			<td style="text-align: right; vertical-align: middle; line-height: 40px"><button class="btn btn-primary pm-update" id="pm-update-{{ token }}"> Update </button> <button class="btn btn-danger pm-delete" id="pm-delete-{{ token }}"> Delete </button> </td></tr>
+			   {% endfor %}
+		  </table>
+		</div>
+		<div style="text-align: center;"><button class="btn btn-info" id="button-add-creditcard">Add Credit Card</button><button style="margin-left: 5px;"id="button-add-paypal" class="btn btn-info">Add Paypal Account</button></div>	
 	</div>
-	<div><button>Add Credit Card</button><button>Add Paypal Account</button></div>	
 
 	{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
 	{{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
 	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/client.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/paypal.min.js') }}
 	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/vault-manager.min.js') }}
     {{ app.asset.js(app.url_asset ~ '/assets/js/braintree_admin.js') }}
 	{% endif %}

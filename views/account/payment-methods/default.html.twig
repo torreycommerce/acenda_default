@@ -1,0 +1,20 @@
+{% if not app.user.isLoggedIn() %}
+    {% do app.redirect('/account/login/'~app.request.url) %}
+{% endif %}
+
+{# Route logic, requires a url like /<id>/<action> #}
+{% set id     = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
+
+{% if id is empty or action not in ['update','delete'] %}
+    {% do app.redirect('/account/payment-methods') %}
+{% endif %}
+
+{% include '/account/payment-methods/_partials/' ~ action ~ '.html.twig' %}
+{% block js %}
+	{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
+	{{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/client.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/vault-manager.min.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/braintree_admin.js') }}
+{% endblock %}
