@@ -51,16 +51,16 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	{% else %}
 	{% for registry in registries %}
 	{# Begin registry #}
-	<div class="col-lg-4 col-md-4 col-sm-6">
-		<div class="panel panel-info ">
+	<div class="col-xl-4 col-lg-4 col-md-6">
+		<div class="card">
 			{# Begin registry details #}
-			<div class="panel-heading">
+			<div class="card-header">
 				{% if registry.default %}<i class="fa fa-star"></i>{% endif %} <strong>{{ registry.name }}</strong>
 			</div>
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="item-count">{{ registry.item_count }} item(s)</div>
 				<div class="registry-privacy">{{ registry.privacy }}</div>
-				<div class="fsd1 mar-t pad-b divide p g">
+				<div class="fsd1 mar-t pb-3 divide mb-3 g">
 				{% if registry.default %}
 					<u>Default Wish List</u>
 				{% else %}

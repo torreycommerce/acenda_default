@@ -1,7 +1,7 @@
 {% set registry_items = api.get('/registryitem', {query:{'registry_id': registry.id}}) %}
 {% if (registry_items is empty) %}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-lg-12">
         <i>There are no items in this registry.</i><br />
         <i>Please browse the store to add more items.</i><br /><br />  
         <a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
@@ -58,14 +58,14 @@
     <div class="product">
         <div class="row">{# End Row #}
             {# Begin product header - Mobile #}
-            <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+            <div class="col-md-12 hidden-md hidden-lg">
                 <header class="mobile">
                     <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
                 </header>
             </div>
             {# End product header - Mobile #}
             {# Begin product image #}
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+            <div class="col-md-3 col-lg-3 col-xl-2">
                 <div class="images">
                     <div class="thumbnail">
                         <img src="{{ variant.thumbnail }}" />
@@ -74,7 +74,7 @@
             </div>
             {# End product image #}
             {# Begin product details #}
-            <div class="col-xs-12 col-sm-3 col-md-5 col-lg-5"> {# Begin col-sm-3 col-md-5 #}
+            <div class="col-md-3 col-lg-5 col-xl-5"> {# Begin col-md-3 col-lg-5 #}
                 {# Begin desktop product header#}
                 <header class="desktop hidden-xs hidden-sm">
                     <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
@@ -118,17 +118,17 @@
                                 <div class="modal-body"> {# Begin Modal-body #} 
                                     <div class="row">
                                         <div class="input-group-qty">
-                                            <div class="col-md-12">
+                                            <div class="col-lg-12">
                                                 <h5>Quantity Purchased</h5>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-lg-12">
                                                 <div class="quantity">
                                                     <div class="input-group">
-                                                        <div class="input-group-btn">
+                                                        <div class="input-group-append">
                                                             <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                         </div>
                                                         <input class="form-control quantity-selector" type="text" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
-                                                        <div class="input-group-btn">
+                                                        <div class="input-group-append">
                                                             <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
@@ -137,23 +137,23 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-lg-12">
                                             <hr>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-group-qty">
-                                            <div class="col-md-12">
+                                            <div class="col-lg-12">
                                                 <h5>Quantity Wanted</h5>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-lg-12">
                                                 <div class="quantity">
                                                     <div class="input-group">
-                                                        <div class="input-group-btn">
+                                                        <div class="input-group-append">
                                                             <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                                         </div>
                                                         <input class="form-control quantity-selector" type="text" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="registryitem_quantity[{{ item.id }}]">
-                                                        <div class="input-group-btn">
+                                                        <div class="input-group-append">
                                                             <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                                         </div>
                                                     </div>
@@ -192,22 +192,22 @@
                     </div>
                     {# End remove modal #}
             {# End quantities #}
-            </div>{# End col-sm-3 col-md-5 #}
+            </div>{# End col-md-3 col-lg-5 #}
             {# Begin product quantity and actions #}
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-5">
+            <div class="col-md-6 col-lg-4 col-xl-5">
                 <div class="actions">
                     <div class="row">
                         {# Begin product quantity #}
-                        <div class="col-xs-2 col-sm-5 col-md-8 col-md-offset-1 col-lg-3 col-lg-offset-0">
+                        <div class="col-2 col-md-5 col-lg-8 col-lg-offset-1 col-xl-3 col-xl-offset-0">
                             <div class="quantity">
                                 <div class="input-group-qty">
                                 <label for="quantity-selector" class="control-label">Qty</label>
                                     <div class="input-group">
-                                        <div class="input-group-btn">
+                                        <div class="input-group-append">
                                             <button class="btn btn-default btn-remove" type="button"><i class="fa fa-minus"></i></button>
                                         </div>
                                         <input class="form-control quantity-selector" type="text" value="1" maxlength="2" placeholder="1" name="add_to_cart[{{ item.id }}]">
-                                        <div class="input-group-btn">
+                                        <div class="input-group-append">
                                             <button class="btn btn-default btn-add" type="button"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
@@ -216,7 +216,7 @@
                         </div>
                         {# End product quantity #}
                         {# Begin add to cart #}
-                        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-12 col-sm-offset-0 col-lg-5 col-lg-offset-4 pull-right">
+                        <div class="col-md-6 col-md-offset-6 col-lg-12 col-md-offset-0 col-xl-5 col-xl-offset-4 float-right">
                             <div class="add-to-cart">
                                 <button class="btn btn-cart btn-block" name="action" value="add/{{ item.id }}">Add to Cart</button>
                             </div>
@@ -232,7 +232,7 @@
     {# Begin registry menu #}
     <div class="actions">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-md-9">
                 {% if registry.privacy == 'public' or registry.privacy == 'unlisted' %}
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-share"></i> Share this registry :</span>
@@ -240,9 +240,9 @@
                 </div>
                 {% endif %}
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 {% if registry.customer_id == app.user.id %}
-                <a class="btn btn-default pull-right" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage Registry</a>
+                <a class="btn btn-default float-right" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage Registry</a>
                 {% endif %}
             </div>
         </div>       

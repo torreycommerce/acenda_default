@@ -22,27 +22,15 @@
 	'account-settings':'<i class="fa fa-cogs"></i><span>Account Settings</span>',
 } %}
 <div class="row">
-	<div class="navigation hidden-xs hidden-sm">
-		<div class="col-xs-12 col-md-3">
-			<div class="navbar navbar-default fsd1 fa-fa-balance">
-				{# Begin menu #}
-				<div class="sidebar">
-					<ul class="nav nav-sidebar">
-						{% for page,title in tabs %}
-						<li {% if current_page == page or page == '' and current_page not in tabs|keys %}class="active"{% endif %}>
-							<a href="{{app.url}}/account/{{page}}">{{title}}</a>
-						</li>
-						{% endfor %}
-					</ul>        
-				</div>
-				<div class="logout">
-					<a class="btn btn-default btn-block" href="{{app.url}}/account/logout">Log Out</a>
-				</div>
-				{# End menu #}
-			</div>
-		</div>
+	<div class="col-lg-3 d-xsm-none fa-fa-balance">
+		<div class="list-group mb-3">
+			{% for page,title in tabs %}
+			<a class="list-group-item{% if current_page == page or page == '' and current_page not in tabs|keys %} active{% endif %}" href="{{app.url}}/account/{{page}}">{{title}}</a>
+			{% endfor %}
+		</div>        
+		<a class="btn btn-default" href="{{app.url}}/account/logout">Log Out</a>
 	</div>
-	<div class="col-xs-12 col-md-9">
+	<div class="col-lg-9">
 {% endmacro %}
 
 {% macro navigatend() %}

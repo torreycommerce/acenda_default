@@ -4,11 +4,11 @@
     {# Begin registry name #}
     <legend><i class="fa fa-gift"></i> Registry Info</legend>
     <div class="form-group fgq">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Event Name</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input1">Event Name</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.text('registry[name]',registry.name, {class:'form-control parsley-validated', placeholder:"Registry Name", required:true}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'name') }}</div>
         </div>
     </div>
@@ -38,22 +38,22 @@
     {# End privacy modal #}
     {# Begin registry privacy #}
     <div class="form-group fgq">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input2">Privacy <b style="cursor: pointer;" data-target="#modal-privacy" data-toggle="modal"><i class="fa fa-question-circle"></i></b></label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input2">Privacy <b style="cursor: pointer;" data-target="#modal-privacy" data-toggle="modal"><i class="fa fa-question-circle"></i></b></label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.select('registry[privacy]',registry.privacy, {'public':'Public','private':'Private','unlisted':'Unlisted'}, {class:'form-control parsley-validated', required:true}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'privacy') }}</div>
         </div>
     </div>
     {# End registry privacy #}
     {# Begin event date #}
     <div class="form-group fgq">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input3">Event Date</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input3">Event Date</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.date('registry[event_date]', registry.event_date,  {class:'form-control parsley-validated', placeholder:'Event Date', required:true}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'event_date') }}</div>
         </div>
     </div>
@@ -64,20 +64,20 @@
 <fieldset class="registrant-info">
     <legend><i class="fa fa-user"></i> Registrant Info</legend>
     <div class="form-group">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">First Name</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input1">First Name</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.text('registry[first_name]',registry.first_name, {class:'form-control parsley-validated', placeholder:"Registrant First Name", required:true}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Last Name</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input1">Last Name</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.text('registry[last_name]',registry.last_name, {class:'form-control parsley-validated', placeholder:"Registrant Last Name", required:true}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
         </div>
     </div>
@@ -87,20 +87,20 @@
 <fieldset class="co-registrant-info">
     <legend><i class="fa fa-user"></i> Co-registrant Info <small>(Optional)</small></legend>
     <div class="form-group">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">First Name</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input1">First Name</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.text('registry[co_first_name]',registry.co_first_name, {class:'form-control parsley-validated', placeholder:"Co-Registrant Last Name"}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'co_first_name') }}</div>
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="input1">Last Name</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="input1">Last Name</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {{ forms.text('registry[co_last_name]',registry.co_last_name, {class:'form-control parsley-validated', placeholder:"Co-Registrant Last Name"}) }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'co_last_name') }}</div>
         </div>
     </div>
@@ -110,8 +110,8 @@
 <fieldset class="shipping-info">
     <legend><i class="fa fa-truck"></i> Shipping Info</legend>
     <div class="form-group fgq">
-        <label class="control-label col-sm-3 col-md-2 col-lg-2" for="registry_address_id">Address</label>
-        <div class="col-sm-9 col-md-5 col-lg-5">
+        <label class="control-label col-md-3 col-lg-2 col-xl-2" for="registry_address_id">Address</label>
+        <div class="col-md-9 col-lg-5 col-xl-5">
             {% set address_select = {} %}
             {% for address in addresses %}
             {% set address_select = address_select + {(address.id):(address.one_line)} %}
@@ -122,20 +122,17 @@
             {{ forms.select('registry[address_id]', registry.address_id, address_select, {class:'form-control parsley-validated', placeholder: 'Address', required:true}) }}
             {% endif %}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-5 col-md-offset-0 col-lg-5">
+        <div class="col-md-9 offset-lg-3 col-lg-5 col-lg-offset-0 col-xl-5">
             <div class="validation">{{ forms.errorlist(form_errors, 'address_id') }}</div>
         </div>
     </div>
 </fieldset>
 <fieldset class="settings">
     <legend><i class="fa fa-cogs"></i> Settings</legend>
-    <div class="form-group">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">								
-            <div class="checkbox">
-                <label class="control-label">
-                    {{ forms.checkbox('registry[make_default]', 1) }}Make this your default registry
-                </label>
-            </div>
+    <div class="form-group form-check">
+        <div class="col-md-9 offset-lg-3 col-lg-10 col-lg-offset-2 col-xl-10 col-xl-offset-2">			
+            {{ forms.checkbox('registry[make_default]', 1) }}
+            <label class="form-check-label">Make this your default registry</label>
         </div>
     </div>
 </fieldset>
@@ -143,7 +140,7 @@
 {# Begin actions #}
 <div class="actions">
     <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+        <div class="col-md-9 offset-lg-3 col-lg-10 col-lg-offset-2 col-xl-10 col-xl-offset-2">
             {% if create %}
             {{ forms.submit('registry[action]', 'create', 'Create', {class:'btn btn-primary'})}}
             <a class="btn btn-default" href="{{ app.url }}/account/registries">Cancel</a>

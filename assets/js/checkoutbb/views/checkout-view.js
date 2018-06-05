@@ -192,7 +192,7 @@ var checkout = checkout || {};
 		fetchCart: function (callback) {  
 		    var that = this; 
 		    this.cart.fetch()
-		    .success(function(data) {
+		    .always(function(data) {
 		    	if(data.result.item_count == 'undefined' || data.result.item_count == 0) {
 		    		window.location = acendaBaseUrl + '/cart';
 		    	}
@@ -752,7 +752,7 @@ var checkout = checkout || {};
 					k = k.replace('shipping_','billing_');
 					$('[name="' + k +  '"]').val(v);
 				});
-			    var tpl = _.template('<div class="col-xs-12 col-sm-6"><div class="alert alert-info fsd1 p"><button id="btn-edit-billing-address" class="btn btn-info btn-xs pull-right">Edit</button><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div></div>');
+			    var tpl = _.template('<div class="col-md-6"><div class="alert alert-info fsd1 mb-3"><button id="btn-edit-billing-address" class="btn btn-info btn-xs float-right">Edit</button><%=shipping_first_name%> <%=shipping_last_name%><br><%=shipping_street_line1%> <%=shipping_street_line2%><br><%=shipping_city%>,<%=shipping_state%> <%=shipping_zip%></div></div>');
 
 				$('div#billing-address-preview').html(tpl(form));
 				$('.checkoutapp #payment-panel .copy-shipping-flag').hide();				
@@ -822,7 +822,7 @@ var checkout = checkout || {};
 			if(typeof e !=='undefined') e.preventDefault();
 			if(!this.validateStep('shipping-method')) return;
   			var form = this.getFormData('#shipping-method-form');
-			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="hidden"><%= method.price %></div>');
+			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="d-none"><%= method.price %></div>');
 			var method = this.shipping_methods.get(form.shipping_method);
 			$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));
 			var temp = $('#shipping-methods .val:first').parent('label').html();

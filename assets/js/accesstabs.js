@@ -8,7 +8,7 @@ var keyCodeMap = {
 $.fn.setup_navigation = function(settings) {
 
 	settings = jQuery.extend({
-		menuHoverClass: 'show-menu',
+		menuHoverClass: 'show',
 	}, settings);
 	
 	// Add ARIA role to menubar and menu items
@@ -35,6 +35,7 @@ $.fn.setup_navigation = function(settings) {
 	});
 
 	$(top_level_links).focus(function(){
+	    console.log('top level call')
 		$(this).closest('ul')
 			// Removed by Terrill 
 			// The following was adding aria-hidden="false" to root ul since menu is never hidden
@@ -79,6 +80,7 @@ $.fn.setup_navigation = function(settings) {
 						.first().focus();
 		} else if(e.keyCode == 27) {
 			e.preventDefault();
+			console.log('event 27')
 			$('.'+settings.menuHoverClass)
 				.attr('aria-hidden', 'true')
 				.removeClass(settings.menuHoverClass)
@@ -135,19 +137,39 @@ $.fn.setup_navigation = function(settings) {
 	$(this).find('a').last().keydown(function(e){ 
 		if(e.keyCode == 9) {
 			// If the user tabs out of the navigation hide all menus
-			$('.'+settings.menuHoverClass)
+			/*$('.'+settings.menuHoverClasss)
 				.attr('aria-hidden', 'true')
 				.removeClass(settings.menuHoverClass)
+				.find('a')
+					.attr('tabIndex',-1);*/
+			$('.addAccess').find('.show')
+				.attr('aria-hidden', 'true')
+				.removeClass('show')
 				.find('a')
 					.attr('tabIndex',-1);
 		}
 	});
-	$(document).click(function(){ $('.'+settings.menuHoverClass).attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
+	
+	$(this).find('a').first().keydown(function(e){ 
+		if(e.shiftKey && e.keyCode == 9) {
+		    console.log('happ off first')
+			// If the user tabs out of the navigation hide all menus
+			/*$('.addAccess').find('.'+settings.menuHoverClasss)
+				.attr('aria-hidden', 'true')
+				.removeClass(settings.menuHoverClass)
+				.find('a')
+					.attr('tabIndex',-1);*/
+			$('.addAccess').find('.show')
+				.attr('aria-hidden', 'true')
+				.removeClass('show')
+				.find('a')
+					.attr('tabIndex',-1);
+		}
+	});
+	console.log('v24')
+	$(document).click(function(){ $('.'+settings.menuHoverClass+':not(.collapse)').attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
 	
 	$(this).click(function(e){
 		e.stopPropagation();
 	});
 }
-
-
-$('.nav.navbar-nav').setup_navigation();

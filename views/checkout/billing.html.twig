@@ -63,46 +63,46 @@
 	{% endif %}
 {% endset %}
 <div class="row">
-	<div class="col-xs-12 col-sm-7 col-md-8">
+	<div class="col-md-7 col-lg-8">
 		<fieldset>
 			<legend>Credit Card Information</legend>
 			<div class="row">
-				<div class="col-xs-6 col-md-7">
+				<div class="col-6 col-lg-7">
 					<div class="form-group fgq">
 						<label class="control-label" for="checkout_card_number">Card Number</label>
 						{{ forms.text('checkout[card_number]', checkout.card_number, {id:'checkout_card_number',class:'form-control parsley-validated', placeholder:"Card Number", required:true, 'parsley-luhn': true, 'parsley-type': 'number'}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, 'card_number') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-6 col-md-5">
+				<div class="col-6 col-lg-5">
 					<div class="form-group" id="checkout-cards">
 						<label>&nbsp;</label>
 						<div class="row row-thin">
-							<div class="col-xs-3 col-thin">
+							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-responsive isd cc-visa" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/visa.png" class="img-fluid isd cc-visa" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
-							<div class="col-xs-3 col-thin">
+							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-responsive isd cc-mastercard" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/mastercard.png" class="img-fluid isd cc-mastercard" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
-							<div class="col-xs-3 col-thin">
+							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-responsive isd cc-amex" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/amex.png" class="img-fluid isd cc-amex" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
-							<div class="col-xs-3 col-thin">
+							<div class="col-3 col-thin">
 								<div class="checkout-card">
 									<div class="image-space is60 checkout-card">
-										<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-responsive isd cc-discover" width="73" height="44" alt="">
+										<img src="{{app.url_asset}}/assets/images/creditcards/discover.png" class="img-fluid isd cc-discover" width="73" height="44" alt="">
 									</div>
 								</div>
 							</div>
@@ -111,14 +111,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-4">
+				<div class="col-4">
 					<div class="form-group fgq">
 						<label class="control-label" for="ccv">CVV2</label>
 						{{ forms.text('checkout[card_cvv2]', checkout.card_cvv2, {class:'form-control parsley-validated', id:'ccv', placeholder:"CVV2", required:true, 'pattern':'^[0-9]{3,4}$'}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, 'card_cvv2') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-4">
 					<div class="form-group fgq">
 						<label class="control-label" for="exp-m">Exp Month</label>
 						{% set months = {} %}
@@ -130,7 +130,7 @@
 						<div class="validation">{{ forms.errorlist(form_errors, 'card_exp_month') }}</div>
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-4">
 					<div class="form-group fgq">
 						<label class="control-label" for="exp-y">Exp Year</label>
 						{% set years = {} %}
@@ -176,40 +176,39 @@
 						{{ extras.address('checkout','billing', addr) }}
 					</div>
 					{% if app.user.id is not empty %}
-					<div class="form-group">
+					<div class="form-group form-check">
 						{% set checked = {} %}
 						{% if app.user.getState('billing_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
-						<div class="checkbox">
-							<label for="save-billing-address">{{ forms.checkbox('checkout[billing_save]', false, checked) }} Save Billing Address</label>
-						</div>
+						{{ forms.checkbox('checkout[billing_save]', false, checked) }}
+						<label class="form-check-label" for="checkout[billing_save]">Save Billing Address</label>
 						<div class="validation">{{ forms.errorlist(form_errors, 'billing_save') }}</div>
 					</div>
 					{% endif %}
 				</div>
 			{% else %}
 
-				<div class="checkout-display-address p" id="display_billing_address">
+				<div class="checkout-display-address mb-3" id="display_billing_address">
 					<address>{{ shipping_address }}</address>
 					<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout/billing?clear=same">Change Address</a>
 				</div>
 			{% endif %}
 		</fieldset>
 		<div class="row">
-			<div class="col-xs-12 col-md-6 p">
+			<div class="col-lg-6 mb-3">
 				<fieldset>
 					<legend>Shipping Address</legend>
-					<div class="checkout-display-address p" id="display_shipping_address">
+					<div class="checkout-display-address mb-3" id="display_shipping_address">
 						<address>{{ shipping_address }}</address>
 						<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout">Change Address</a>
 					</div>
 				</fieldset>
 
 			</div>
-			<div class="col-xs-12 col-md-6 p">
+			<div class="col-lg-6 mb-3">
 				{% set method = api.get('shippingmethod/' ~ cart.shipping_method )%}
 				<fieldset>
 					<legend>Shipping Method</legend>
-					<div class="checkout-display-address p" id="display_shipping_address">
+					<div class="checkout-display-address mb-3" id="display_shipping_address">
 						<address>
 							<div><b>Method: </b>{{ method.name }}</div>
 							<div><b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )</div>
@@ -229,14 +228,14 @@
 		</div>		
 
 	</div>
-	<section id="order-summary" class="col-xs-12 col-sm-5 col-md-4">
-		<div class="well" id="summary-well">
+	<section id="order-summary" class="col-md-5 col-lg-4">
+		<div class="card"><div class="card-body" id="summary-well">
 		    {% include "/checkout/_partials/summary.html.twig" %}
-		</div>
+		</div></div>
 		{% include "/checkout/_partials/entercoupon.html.twig" %}									
 		
 		<div class="row hidden-sm hidden-md hidden-lg">
-			<div class="col-xs-12">
+			<div class="col-12">
 				<div class="actions">
 					<input type="hidden" name="step" value="billing">
 					{% set works = {} %}

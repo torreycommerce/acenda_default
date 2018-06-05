@@ -34,7 +34,7 @@ var limit_feed = ["text", "tel", "email", "password", "url", "datetime", "time",
 					  elem.after('<span class="fa fa-ok form-control-feedback"></span>');
 					}
 
-					elem.tooltip("destroy");
+					elem.tooltip("dispose");
 				}
 			}
 		});

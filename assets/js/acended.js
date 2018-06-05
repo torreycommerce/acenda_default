@@ -1,10 +1,9 @@
 // asynced bonus fluff good
-
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/device.min.js",function(){
 });
 
 IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/accesstabs.js",function(){
-    $('.nav.navbar-nav, .addAccess').each(function() {
+    $('.addAccess').each(function() {
         $(this).setup_navigation();
     });
 });

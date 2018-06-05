@@ -1,16 +1,16 @@
-<div class="well">
+<div class="card"><div class="card-body">
 	<div class="form-group">
 		{{ forms.begin('coupon',  app.url ~ '/cart', 'post', { class:'form-region' }) }}
 		<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
 		<div class="row">
-			<div class="col-xs-6 col-sm-7">
+			<div class="col-6 col-md-7">
 				{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
 			</div>
-			<div class="col-xs-6 col-sm-5">
+			<div class="col-6 col-md-5">
 				{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'checkout_enter_coupon','onclick':'return false;'})}}
 			</div>
 		</div>
 		<div id="enter_coupon_validation"></div>
 		{{ forms.end() }}
 	</div>
-</div>
+</div></div>
