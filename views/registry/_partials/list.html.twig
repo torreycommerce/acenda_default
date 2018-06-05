@@ -15,22 +15,32 @@
     <h1><i class="fa fa-gift"></i><span>{{ registry.name }}</span></h1>
 
     {{ forms.begin('registry-form', app.url ~ '/registry/' ~ registry.id ~ '/route') }}   
-    {% set product_ids = registry_items|values_in('product_id') %}
-    {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
-    {# Remove products that were disabled or removed #}
+    {% set variant_ids = registry_items|values_in('variant_id') %}
+	
+	{#
+	FIXME the api is currently broken using the below conditions
+	when the API is fixed, restore this and get rid of the api workaround
+	#}
+	{% set variants = api.get('/variant',{ query:{id:{'$in':variant_ids}}, attributes:'*,product.*' } )|group_by('id') %}
+	
+	
+    {# Remove variants that were disabled or removed #}
     {% set items_deleted = false %}
     {% for item in registry_items %}
-        {% set product = products[item.product_id][0] %}
-        {% if product.status != 'active' %}
+        
+		{% set variant = variants[item.variant_id][0] %}
+		
+		{#% if variant.status != 'active' %#}
+		{% if false %}
             {% do api.delete('/registryitem/' ~ item.id) %}
             {% if registry.customer_id == app.user.id %}
                 {# FIXME: These flash messages don't work sometimes #}
-                {% if product.title is defined %}
-                    {# This product is disabled or removed #}
-                    {% do app.user.setFlash(product.title ~ ' is no longer available.', 'info') %}
+                {% if variant.title is defined %}
+                    {# This variant is disabled or removed #}
+                    {% do app.user.setFlash(variant.title ~ ' is no longer available.', 'info') %}
                 {% else %}
-                    {# This product doesn't exist anymore (deleted) #}
-                    {% do app.user.setFlash('A product you have selected is no longer available.', 'info') %}
+                    {# This variant doesn't exist anymore (deleted) #}
+					{% do app.user.setFlash('A product you have selected is no longer available.', 'info') %}
                 {% endif %}
             {% endif %}
             {% set items_deleted = true %}
@@ -41,14 +51,16 @@
     {% endfor %}
     {% for item in registry_items %}
         {% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
-        {% set product = products[item.product_id][0] %}
-        {# Begin product #}
+		
+		{% set variant = variants[item.variant_id][0] %}
+		
+        {# Begin variant #}
     <div class="product">
         <div class="row">{# End Row #}
             {# Begin product header - Mobile #}
             <div class="col-md-12 hidden-md hidden-lg">
                 <header class="mobile">
-                    <div class="name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></div>
+                    <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
                 </header>
             </div>
             {# End product header - Mobile #}
@@ -56,7 +68,7 @@
             <div class="col-md-3 col-lg-3 col-xl-2">
                 <div class="images">
                     <div class="thumbnail">
-                        <img src="{{ product.thumbnail }}" />
+                        <img src="{{ variant.thumbnail }}" />
                     </div>
                 </div>
             </div>
@@ -64,18 +76,18 @@
             {# Begin product details #}
             <div class="col-md-3 col-lg-5 col-xl-5"> {# Begin col-md-3 col-lg-5 #}
                 {# Begin desktop product header#}
-                <header class="desktop d-xsm-none">
-                    <div class="name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></div>
+                <header class="desktop hidden-xs hidden-sm">
+                    <div class="name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.product.name }} — {{ variant.name }}</a></div>
                 </header>
                 {# End desktop product header #}
                 {# Begin pricing #}
                 <div class="pricing">
                     <div class="price">
-                        {{ prod.currency(product.price) }}
+                        {{ prod.currency(variant.price) }}
                     </div>
-                    {% if product.compare_price %}
+                    {% if variant.compare_price %}
                     <div class="price-regular">
-                        {{ prod.currency(product.compare_price) }}
+                        {{ prod.currency(variant.compare_price) }}
                     </div>
                     {% endif %}                            
                 </div>
@@ -93,10 +105,10 @@
                     </div>
                     {% if registry.customer_id == app.user.id %}
                     <div class="qty-update">
-                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
+                        <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
                     </div>
                     {# Begin quantity modal #}
-                    <div class="modal fade modal_list_quantity" id="modal_{{ product.id }}">
+                    <div class="modal fade modal_list_quantity" id="modal_{{ variant.id }}">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -157,9 +169,9 @@
                 {# End quantity modal #} 
                 {% endif %}
                 {% if registry.customer_id == app.user.id %}
-                <a class="btn btn-default btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ product.id }}" href="#">Remove</a>
+                <a class="btn btn-default btn-xs"  data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" href="#">Remove</a>
                  {# Begin remove modal #}
-                    <div class="modal fade modal_list_quantity" id="modal_remove_{{ product.id }}">
+                    <div class="modal fade modal_list_quantity" id="modal_remove_{{ variant.id }}">
                         <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -168,7 +180,7 @@
                                 </div>
                                 <div class="modal-body">                                            
                                     <P>Remove this item from your Registry?</P>
-                                    <b>{{ product.name }}</b>                                            
+                                    <b>{{ variant.product.name }} -- {{ variant.name }}</b>                                            
                                 </div>
                                 <div class="modal-footer">
                                     <a href="" class="btn btn-default" data-dismiss="modal">Cancel</a>

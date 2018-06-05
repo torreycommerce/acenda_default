@@ -201,7 +201,7 @@
 					{% for registry in registries %}
 						{% set registry_ids = registry_ids|merge([registry.id]) %}
 					{% endfor %}
-					{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},product_id:product.id}}) %}
+					{% set items_in_registry = api.get('/registryitem', {query:{registry_id:{'$in':registry_ids},variant_id:product.id}}) %}
 				{% endif %}
 				{% set wishlists = api.get('/wishlist', {query:{customer_id:app.user.id}}) %}
 				{% if wishlists is not empty %}
@@ -209,7 +209,7 @@
 					{% for wishlist in wishlists %}
 						{% set wishlist_ids = wishlist_ids|merge([wishlist.id]) %}
 					{% endfor %}
-					{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},product_id:product.id}}) %}
+					{% set items_in_wishlist = api.get('/wishlistitem', {query:{wishlist_id:{'$in':wishlist_ids},variant_id:product.id}}) %}
 				{% endif %}
 			{% endif %}
 
@@ -234,6 +234,43 @@
 					   {% include "/product/_partials/list/actions-single.html.twig" %}
 				   </div>
 				</div>
+				
+				
+				
+				{# Begin registry button #}
+				
+				{% if items_in_registry is empty %}
+					{% set added = false %}
+				{% else %}
+					{% set added = true %}
+				{% endif %}
+				{% if registries is empty %}
+					<div class="p">
+						<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default">
+							{% if added %}
+								<i class="fa fa-check"></i>
+							{% else %}
+								<i class="fa fa-gift"></i>
+							{% endif %}<span>Add to Registry</span>
+						</button>
+					</div>
+					{% else %}
+					<div class="p">
+						<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
+							{% if added %}
+								<i class="fa fa-check"></i>
+							{% else %}
+								<i class="fa fa-gift"></i>
+							{% endif %}<span>Add to Registry</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							{% for registry in registries %}
+								<li><button type="submit" class="btn btn-link" name="action" value="registry/{{registry.id}}">Add to '{{registry.name}}'</button></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+				
 			</form>
 		</div>
 	</div>
