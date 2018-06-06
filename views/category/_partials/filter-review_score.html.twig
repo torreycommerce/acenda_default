@@ -1,4 +1,4 @@
-<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="btn btn-block btn-default card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     <span>Customer Reviews</span><i class="fa fa-caret-down"></i>
 </button>
 {% set selected = app.request.get.f.review_score.range|split(',')|last %}

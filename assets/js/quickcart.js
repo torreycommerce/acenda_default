@@ -247,7 +247,7 @@ function ajaxCart(data, r) {
                         if(typeof result[id]['error'] != 'undefined') {
                             message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
                         }
-                        var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
+                        var error = $('<div>', {"class": "alert alert-danger mt-3"}).html(message);
                         errors.append(error);
                     }
                 });

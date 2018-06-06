@@ -118,8 +118,8 @@
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
 		<div class="max-250 color-chips mb-2">
-			<div class="pad-w">
-				<div class="row row-thin">
+			<div class="px-2">
+				<div class="row row-thin justify-content-center">
 				{% set colors = [] %}
 				{% for item,child in product.variant if 
 					child.status == 'active' 

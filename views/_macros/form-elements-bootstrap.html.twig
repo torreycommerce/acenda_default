@@ -77,7 +77,7 @@
     {% import _self as elements %}
 
     <input type="hidden" name="{{ name }}" value="">
-    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" class="form-check-input" id="{{ name }}" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
+    <input data-tooltip="" data-placement="top" data-toggle="tooltip" data-trigger="manual" data-original-title="" type="checkbox" class="custom-control-input" id="{{ name }}" name="{{ name }}" value="{{ value|default('1')|e }}" {{ elements._attrHtml(attributes) }}{{ check }}>
     
 {% endspaceless %}
 {% endmacro %}

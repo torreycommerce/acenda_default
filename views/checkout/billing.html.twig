@@ -176,11 +176,11 @@
 						{{ extras.address('checkout','billing', addr) }}
 					</div>
 					{% if app.user.id is not empty %}
-					<div class="form-group form-check">
+					<div class="form-group custom-control custom-checkbox">
 						{% set checked = {} %}
 						{% if app.user.getState('billing_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
 						{{ forms.checkbox('checkout[billing_save]', false, checked) }}
-						<label class="form-check-label" for="checkout[billing_save]">Save Billing Address</label>
+						<label class="custom-control-label" for="checkout[billing_save]">Save Billing Address</label>
 						<div class="validation">{{ forms.errorlist(form_errors, 'billing_save') }}</div>
 					</div>
 					{% endif %}

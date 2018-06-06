@@ -1,6 +1,6 @@
 {% set category = api.get('/category',{'query':{'id':{'$in':filter_set|keys}}})|group_by('id') %}
 
-<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="btn btn-block btn-default card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     <span>Category</span><i class="fa fa-caret-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse">

@@ -65,7 +65,7 @@ set in the array in /account/_macros/base.html.twig
 				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
 			</div>
 			<div class="card-body">
-				<address class="pad-b divide mb-3 g">
+				<address class="pb-3 divide mb-3 g">
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>
 					{% endif %}
@@ -77,7 +77,7 @@ set in the array in /account/_macros/base.html.twig
 					<div class="country">{{ address.country }}</div>
 					{#{% if address.street_line2 == '' %}<br />{% endif %}#}
 					{#{% if address.company == '' %}<br />{% endif %}#}
-					<div class="fsd1 mar-t">
+					<div class="fsd1 mt-3">
 					{% if address.default == 1 %}
 						<u>Default Address</u>
 					{% else %}

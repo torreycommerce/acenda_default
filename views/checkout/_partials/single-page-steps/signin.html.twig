@@ -8,17 +8,17 @@
 		    <input type="email" class="form-control parsley-validated" id="guestEmail" name="email" value="{{ app.user.getState('email') }}" placeholder="Email Address" required>
 		  </div>
 			<div class="form-group">
-			    <div class="form-check">
+			    <div class="custom-control custom-checkbox">
 				{% set checked = '' %}
 				{% if app.user.getState('newsletter') == '1' %}{% set checked = 'checked' %}{% endif %}
-				<input type="checkbox" class="form-check-input" id="newsletter" name="newsletter" {{ checked }} value="1">	
-				<label class="form-check-label" for="newsletter">Signup for special offers!</label>
+				<input type="checkbox" class="custom-control-input" id="newsletter" name="newsletter" {{ checked }} value="1">	
+				<label class="custom-control-label" for="newsletter">Signup for special offers!</label>
     			</div>				  
-    			<div class="form-check">
+    			<div class="custom-control custom-checkbox">
     			 	{% set create_checked = '' %}
     			  	{% if app.user.getState('create_account') == '1' %}{% set create_checked = 'checked' %}{% endif %}
-    			  	<input type="checkbox" class="form-check-input" id="create_account" name="create_account" {{ create_checked }} value="1">
-    				<label class="form-check-label" for="create_account">Create an Account!</label>
+    			  	<input type="checkbox" class="custom-control-input" id="create_account" name="create_account" {{ create_checked }} value="1">
+    				<label class="custom-control-label" for="create_account">Create an Account!</label>
     			</div>
     		</div>
 

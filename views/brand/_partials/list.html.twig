@@ -5,7 +5,7 @@
 	{% set last_letter = "" %}
 	{% for brand in brands|keys %}
 	    {% if brand != "" %}
-		<div class="col-6 col-md-4 col-lg-3 col-xl-2 pad"><div class="bgg brand"><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}"><span class="image-space is80"><span class="isd pad-w">{{brand|title}}</span></span></a></div></div>
+		<div class="col-6 col-md-4 col-lg-3 col-xl-2 pad"><div class="bgg brand"><a href="{{app.url}}/brand/{{ brand|replace({' ':'+'}) }}"><span class="image-space is80"><span class="isd px-3">{{brand|title}}</span></span></a></div></div>
 		{% endif %}
 	{% endfor %}
 </div>

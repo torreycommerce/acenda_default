@@ -109,7 +109,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			{% if field.validator == 'boolean' %}
 			<div class="form-group {{ field.required ? 'fgq' : ''}}">
 				forms.checkbox('account_settings['~field.name~']', app.user[field.name], {id:'additionalfields'~field.name}, true) }} {{ field.name|replace({'_':' '})|title }}
-				<label class="form-check-label" for="{{ 'additionalfields'~field.name }}">{{ </label>
+				<label class="custom-control-label" for="{{ 'additionalfields'~field.name }}">{{ </label>
 			</div>
 
 			{% elseif field.validator == 'numerical' %}

@@ -89,7 +89,7 @@ set in the array in /account/_macros/base.html.twig
 					<div class="order-info">                    
 						<div class="order-id"><b>Order:</b> #{{ order.order_number }}</div>
 						<div class="order-date"><b>Ordered:</b> {{ order.date_created}}</div>
-						<div class="order-status mar-t"><b>Status:</b> {{order.status}}</div>
+						<div class="order-status mt-3"><b>Status:</b> {{order.status}}</div>
 					</div>
 				</div>
 				<div class="order-items col-md-4 mb-3">
@@ -127,7 +127,7 @@ set in the array in /account/_macros/base.html.twig
 		
 		{% for item in items %}
 			{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
-			<div class="pad-b divide mb-3 g">
+			<div class="pb-3 divide mb-3 g">
 			<div class="media media-cart">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">

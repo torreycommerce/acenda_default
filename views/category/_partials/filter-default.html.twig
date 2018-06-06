@@ -1,4 +1,4 @@
-<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="btn btn-block btn-default card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
     <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-caret-down"></i>
 </button>

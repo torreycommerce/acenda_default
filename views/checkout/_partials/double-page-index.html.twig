@@ -41,9 +41,9 @@
 										{{ forms.email('shipping[email]', app.user.getState('email'), {required: true, class: "form-control parsley-validated", id:'email', placeholder: "Email Address"}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
 									</div>
-									<div class="form-group form-check">
+									<div class="form-group custom-control custom-checkbox">
 										{{ forms.checkbox('shipping[newsletter]', true, '', true) }}
-										<label class="form-check-label" for="shipping[newsletter]">Subscribe to our Newsletter
+										<label class="custom-control-label" for="shipping[newsletter]">Subscribe to our Newsletter
 										</label>
 									</div>
 								</fieldset>
@@ -193,11 +193,11 @@
                                     {# End Shipping In line Form #}
 								</div>
 								{% if app.user.id is not empty %}
-								<div class="form-group form-check">
+								<div class="form-group custom-control custom-checkbox">
 									{% set checked = {} %}
 									{% if app.user.getState('shipping_save') == '1' %}{% set checked = {'checked': 'checked'} %}{% endif %}
 									{{ forms.checkbox('shipping[shipping_save]', false, checked) }}
-									<label class="form-check-label" for="shipping[shipping_save]">Save shipping address</label>
+									<label class="custom-control-label" for="shipping[shipping_save]">Save shipping address</label>
 								</div>
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_save') }}</div>
 								{% endif %}
@@ -208,11 +208,11 @@
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_method') }}</div>
 							</div>
 							{% if giftlist_present != true %}
-							<div class="form-group form-check">
+							<div class="form-group custom-control custom-checkbox">
 								{% set same = {} %}
 								{% if app.user.getState('shipping_same_as_billing') is not null and  app.user.getState('shipping_same_as_billing') == '' %} {% set same = {} %} {% endif %}
 								{{ forms.checkbox('shipping[shipping_same_as_billing]', false, same+{'id': 'shipping_same_as_billing'}) }}
-								<label class="form-check-label" for="shipping_same_as_billing">Shipping Address is the same as the Billing Address</label>
+								<label class="custom-control-label" for="shipping_same_as_billing">Shipping Address is the same as the Billing Address</label>
 								<div class="validation">{{ forms.errorlist(form_errors, 'shipping_same_as_billing') }}</div>
 							</div>
 							{% endif %}

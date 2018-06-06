@@ -1,6 +1,6 @@
 {% spaceless %}
 <footer class="text-center" id="footer">
-    <section class="frame newsletter pad-h-3x">
+    <section class="frame newsletter py-5">
         <div class="container">
             <div class="max-400 divide mb-3 pb-3">
     			<h2>Be the first to know about <span class="wsnw">new products and sales.</span></h2>
@@ -25,7 +25,7 @@
             </ul>
 		</div>
 	</section>
-	<div class="bgg pad-h-3x"><div class="container">
+	<div class="bgg py-5"><div class="container">
 	{% if app.request.url != "store-protected" %}	
 	
 	{# get content available #}
@@ -55,7 +55,7 @@
 		</ul>
 	
 	{% endif %}
-		<div class="copyright g mar-t-2x">
+		<div class="copyright g mt-4">
 			<ul class="list-inline list-inline-obvi fsd1">
 				<li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
 				<li>All Rights Reserved.</li>

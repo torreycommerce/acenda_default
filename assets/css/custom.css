@@ -1,16 +1,14 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
-html,body {color:#666; font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif; background-color:#fff;}
+body {font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;}
 
 a {}
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000;}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 h1,.h1 {padding:0 0 .5rem; text-align:center; border-bottom:1px solid #ccc;}
 
 .btn {}
 .btn-primary {}
 .btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {}
-
-.max-400 {max-width:400px; margin-right:auto; margin-left:auto;}
 /* */
 
 
