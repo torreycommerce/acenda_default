@@ -39,29 +39,26 @@ var paymentMethodsView = Backbone.View.extend({
 			braintree.client.create({
 			  authorization: that.bt_client_token 
 			}).then(function (client) {
-			    that.bt_client = client;
-			  braintree.paypal.create({
-			    client: that.bt_client
-			  }, function (paypalErr, paypalInstance) {
-			       if (paypalErr) {
-			         console.error('Error creating PayPal:', paypalErr);
-			          return;
-			      }	
-			      console.log('created paypal');
-			      that.bt_paypal = paypalInstance;
-		    	}, false);
+			    that.bt_client = client;			  
+			    braintree.paypal.create({
+				    client: that.bt_client
+				  }, function (paypalErr, paypalInstance) {
+				       if (paypalErr) {
+				         console.error('Error creating PayPal:', paypalErr);
+				          return;
+				      }	
+				      that.bt_paypal = paypalInstance;
+			    });
 
-				braintree.vaultManager.create({
-					client: that.bt_client
-				},function(err,vm) {
-					vm.fetchPaymentMethods(function(err, payload) {
-						console.log('paydirt',payload);
-
-
-			            that.render();  
-					});
-				}); 
-			});
+					braintree.vaultManager.create({
+						client: that.bt_client
+					},function(err,vm) {
+						vm.fetchPaymentMethods(function(err, payload) {
+							console.log('paydirt',payload);
+				            that.render();  
+						});
+					}); 
+				});
 		});
 	},
 	openAddCreditCard: function(e) {
@@ -84,10 +81,10 @@ var paymentMethodsView = Backbone.View.extend({
 	          }
 	          return;
 	        }
-
 	        // Tokenization succeeded
 	        console.log('Got a nonce! You should submit this to your server.');
 	        console.log(payload.nonce);
+	        location.reload();
 	      });
 
 	},
@@ -100,7 +97,15 @@ var paymentMethodsView = Backbone.View.extend({
 	deletePaymentMethod : function(e) {
 		var elm = $(e.currentTarget);
         var token = elm.attr('id').split("-").pop(-1);	
-        console.log(token);
+
+        this.bt_client.request(function() {
+
+
+
+        });
+	    // location.reload();
+
+     //    console.log(token);
 
 	},
 	render: function() {

@@ -6,7 +6,7 @@
 {% set id     = app.request.path|split('/')|first|integer %}
 {% set action = app.request.path|split('/')|last %}
 
-{% if id is empty or action not in ['update','delete'] %}
+{% if id is empty or action not in ['delete'] %}
     {% do app.redirect('/account/payment-methods') %}
 {% endif %}
 
