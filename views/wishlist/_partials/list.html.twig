@@ -58,7 +58,7 @@
 
 			<div class="media-body">
 
-				<h3 class="product-name"><a href="{{app.url}}{{ product.url }}">{{ product.name }}</a></h3>
+				<h3 class="product-name"><a href="{{app.url}}{{ product.url }}">{{ variant.name }}</a></h3>
 
 				{# Begin pricing #}
 				<ul class="list-inline pricing">
@@ -83,7 +83,7 @@
 				<ul class="list-inline">
 				{% if wishlist.customer_id == app.user.id %}
 					<li class="qty-update">
-						<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ product.id }}">Update Qty</a>
+						<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
 					{# Begin quantity modal #}
 					<div class="modal fade modal_list_quantity" id="modal_{{ variant.id }}">
 						<div class="modal-dialog modal-sm">
