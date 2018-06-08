@@ -5,22 +5,34 @@
 {% endif %}
 {% endmacro %}
 
-{# 'registries':'<i class="fa fa-gift"></i><span>Registries</span>', #}
-
 {% macro navigation(current_page = '') %}
 {% set tabs = {
 	'':'<i class="fa fa-user"></i><span>Account Center</span>',
 	'notifications':'<i class="fa fa-exclamation-circle"></i><span>Notifications</span>',
 	'addresses':'<i class="fa fa-map-marker"></i><span>Addresses</span>',
 	'orders':'<i class="fa fa-shopping-bag"></i><span>Orders</span>',
-	'wishlists':'<i class="fa fa-gift"></i><span>Wish Lists</span>',
-	
-	'registries':'<i class="fa fa-gift"></i><span>Registries</span>',
-	
+} %}
+
+{% set config = api.get('/config') %}
+
+{% set tabs2 = { 'wishlists':'<i class="fa fa-gift"></i><span>Wish Lists</span>', } %}
+{% if config.params['show-wishlist'] == '1' %}
+	{% set tabs = tabs | merge( tabs2 ) %}
+{% endif %}
+
+{% set tabs2 = { 'registries':'<i class="fa fa-gift"></i><span>Registries</span>', } %}
+{% if config.params['show-registry'] == '1' %}
+	{% set tabs = tabs | merge( tabs2 ) %}
+{% endif %}
+
+
+{% set tabs2 = {
 	'reviews':'<i class="fa fa-star"></i><span>Reviews</span>',
 	'returns':'<i class="fa fa-reply"></i><span>Returns</span>',
 	'account-settings':'<i class="fa fa-cogs"></i><span>Account Settings</span>',
 } %}
+
+{% set tabs = tabs | merge( tabs2 ) %}
 <div class="row">
 	<div class="col-lg-3 d-xsm-none fa-fa-balance">
 		<div class="list-group mb-3">

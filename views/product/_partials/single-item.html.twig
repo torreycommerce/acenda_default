@@ -237,38 +237,40 @@
 				
 				
 				
-				{# Begin registry button #}
-				
-				{% if items_in_registry is empty %}
-					{% set added = false %}
-				{% else %}
-					{% set added = true %}
-				{% endif %}
-				{% if registries is empty %}
-					<div class="p">
-						<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default">
-							{% if added %}
-								<i class="fa fa-check"></i>
-							{% else %}
-								<i class="fa fa-gift"></i>
-							{% endif %}<span>Add to Registry</span>
-						</button>
-					</div>
+				{# Begin registry button #}				
+				{% set config = api.get('/config') %}
+				{% if config.params['show-registry'] == '1' %}
+					{% if items_in_registry is empty %}
+						{% set added = false %}
 					{% else %}
-					<div class="p">
-						<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
-							{% if added %}
-								<i class="fa fa-check"></i>
-							{% else %}
-								<i class="fa fa-gift"></i>
-							{% endif %}<span>Add to Registry</span>
-						</button>
-						<ul class="dropdown-menu" role="menu">
-							{% for registry in registries %}
-								<li><button type="submit" class="btn btn-link" name="action" value="registry/{{registry.id}}">Add to '{{registry.name}}'</button></li>
-							{% endfor %}
-						</ul>
-					</div>
+						{% set added = true %}
+					{% endif %}
+					{% if registries is empty %}
+						<div class="p">
+							<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default">
+								{% if added %}
+									<i class="fa fa-check"></i>
+								{% else %}
+									<i class="fa fa-gift"></i>
+								{% endif %}<span>Add to Registry</span>
+							</button>
+						</div>
+						{% else %}
+						<div class="p">
+							<button type="submit" name="action" value="registry" class="btn btn-block btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
+								{% if added %}
+									<i class="fa fa-check"></i>
+								{% else %}
+									<i class="fa fa-gift"></i>
+								{% endif %}<span>Add to Registry</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								{% for registry in registries %}
+									<li><button type="submit" class="btn btn-link" name="action" value="registry/{{registry.id}}">Add to '{{registry.name}}'</button></li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 				{% endif %}
 				
 			</form>
