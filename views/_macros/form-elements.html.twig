@@ -126,7 +126,7 @@
 
         <div class="col-lg-offset-4 col-lg-8">
             <div class="radio">
-                <label class="control-label">
+                <label>
                     <input type="radio" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in value %} checked="checked"{% endif %}/>
                     {{ item }}</label>
             </div>
@@ -146,7 +146,7 @@
     <div class="form-group{% if field.error %} has-error{% endif %}">
         <div class="col-lg-offset-4 col-lg-8">
             <div class="checkbox">
-                <label class="control-label">
+                <label>
                     <input type="hidden" name="{{ field.name }}" value="" />
                     <input type="checkbox" name="{{ field.name }}" value="{{ field.attributes.value|default('1')|e }}" class="{{ field.class }}" {% if field.value %} checked="checked"{% endif %}/>
                     {{ field.label }}</label>
@@ -169,7 +169,7 @@
 
         <div class="col-lg-offset-4 col-lg-8">
             <div class="checkbox">
-                <label class="control-label">
+                <label>
                     <input type="checkbox" id="{{ field.id }}" name="{{ field.name }}[]" value="{{ key|e }}" class="{{ field.class }}" {% if key in field.value %} checked="checked"{% endif %}/>
                     {{ item }}</label>
             </div>

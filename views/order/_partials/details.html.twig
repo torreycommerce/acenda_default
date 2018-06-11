@@ -85,7 +85,7 @@
 							{{ forms.begin('guestreturn', app.url ~ '/return/create','post', {class:''}) }}
 								{{ forms.hidden('guestreturn[email]', email) }}
 								{{ forms.hidden('guestreturn[order_number]', order_number) }}
-								{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-default btn-mobile'}) }}
+								{{ forms.submit('guestreturn[action]', 'create', 'Return Item(s)', {class:'btn btn-default'}) }}
 							{{ forms.end()}}
 						</div>
 					{% endif %}

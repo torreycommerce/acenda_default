@@ -1,18 +1,18 @@
 {# {% if app.request.path is not empty and app.request.path != 'checkout' %}
-	{% if 'http://' not in app.request.path and 'https://' not in app.request.path %}
-		{% do app.user.setState('login_referer', app.request.path) %}
-	{% endif %}
-	{% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.' ~ app.request.path}) %}
+    {% if 'http://' not in app.request.path and 'https://' not in app.request.path %}
+        {% do app.user.setState('login_referer', app.request.path) %}
+    {% endif %}
+    {% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.' ~ app.request.path}) %}
 {% endif %} #}
 {% if app.request.post is not empty and app.request.post.login is empty %}
-	{% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.'}) %}
+    {% do app.redirect('/account/login',{'error': 'You must be logged in to perform this action.'}) %}
 {% endif %}
 {% if app.user.isLoggedIn() %}
     {% set login_redirect_url = app.user.getState('login_referer') %}
     {% if login_redirect_url is not empty %}
-    	{% do app.redirect(login_redirect_url) %}
+        {% do app.redirect(login_redirect_url) %}
     {% else %}
-		{% do app.redirect('/account') %}
+        {% do app.redirect('/account') %}
     {% endif %}
 {% endif %}
 
@@ -32,30 +32,11 @@
 
 <h1>{{ title|title }}</h1>
 
-{{ lonelyform.begin('account-login')}}
-    {{ lonelyform.beginintro() }}
-    <div class="card">
-        <div class="card-header">
-            <h2>Have a {{ app.params.site.title }} account?</h2>
-        </div>
-        <div class="card-body">
-            {% include "/account/login/_partials/form.html.twig" %}
-        </div>
-    </div>
-    {{ lonelyform.endintro() }}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+    {% include "/account/login/_partials/form.html.twig" %}
+{{ lonelyform.endcard() }}
+    <p class="text-center">Don’t have an account? <a href="{{app.url}}/account/create/{{ app.request.path }}">Sign Up</a>.</p>
 {{ lonelyform.end() }}
 
-{{ lonelyform.begin('account-create')}}
-    {{ lonelyform.beginintro() }}
-        <div class="card">
-            <div class="card-header">
-        		<h2>Create a New Account</h2>
-        	</div>
-        	<div class="card-body">
-        		<p>Create an account and you'll be able to place orders, create registries, create wish lists, check the status of your orders, write reviews, and more. </p>
-        		<a class="btn btn-lg btn-primary" href="{{app.url}}/account/create/{{ app.request.path }}">Create Account</a>
-        	</div>
-        </div>
-	{{ lonelyform.endintro() }}
-{{ lonelyform.end() }}
 {% endblock %}

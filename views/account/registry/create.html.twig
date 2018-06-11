@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/account/_macros/base.html.twig" as account %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {% do account.login() %}
 
@@ -42,17 +43,10 @@
     {% endif %}
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{customer_id:app.user.id}}) %}
-<div id="registry-create">
-    <div class="row">
-    	{# Begin content #}
-    	<div class="col-md-9 col-lg-9 col-xl-10">
-            
-        	<h1 class="page-header"><i class="fa fa-gift"></i><span>Create a Registry</span></h1>
-        	
-			{% set create = true %}
-			{% include '/account/registry/_partials/form.html.twig' %}
-    	</div>
-    	{# End content #}
-    </div>
-</div>
+
+    <h1>Create Registry</h1>
+    {{ lonelyform.begin('create-registry')}}
+    {% set create = true %}
+    {% include '/account/registry/_partials/form.html.twig' %}
+    {{ lonelyform.end() }}
 {% endblock %}

@@ -35,7 +35,7 @@ $.fn.setup_navigation = function(settings) {
 	});
 
 	$(top_level_links).focus(function(){
-	    console.log('top level call')
+	    //console.log('top level call')
 		$(this).closest('ul')
 			// Removed by Terrill 
 			// The following was adding aria-hidden="false" to root ul since menu is never hidden
@@ -152,7 +152,7 @@ $.fn.setup_navigation = function(settings) {
 	
 	$(this).find('a').first().keydown(function(e){ 
 		if(e.shiftKey && e.keyCode == 9) {
-		    console.log('happ off first')
+		    //console.log('happ off first')
 			// If the user tabs out of the navigation hide all menus
 			/*$('.addAccess').find('.'+settings.menuHoverClasss)
 				.attr('aria-hidden', 'true')
@@ -166,8 +166,8 @@ $.fn.setup_navigation = function(settings) {
 					.attr('tabIndex',-1);
 		}
 	});
-	console.log('v24')
-	$(document).click(function(){ $('.'+settings.menuHoverClass+':not(.collapse)').attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
+	console.log('v29')
+	$(document).click(function(){ $('.addAccess .'+settings.menuHoverClass+':not(.collapse)').attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
 	
 	$(this).click(function(e){
 		e.stopPropagation();

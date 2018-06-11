@@ -9,10 +9,8 @@
 .variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; overflow:hidden; visibility:hidden; transition:all 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}
 /**/
-.vopt {margin-right:-2px; margin-left:-2px;}
-.vopt-color {font-size:0;}
-.vopt li {margin:0; padding:2px;}
-.vopt-color li {width:16.666666%; cursor:pointer;}
+.vopt-color {margin-right:-2px; margin-left:-2px; font-size:0;}
+.vopt-color li {width:16.666666%; margin:0; padding:2px;}
 .vopt li .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb; border:1px solid rgba(0,0,0,.1); transition:all 300ms ease;}
 .vopt li:hover .image-space:after {border:1px solid rgba(0,0,0,.25)}
 .vopt li.selected .image-space:after {border:1px solid #000; border:1px solid rgba(0,0,0,.5); border:1px solid #66afe9; box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);}
@@ -28,10 +26,8 @@
 @media (min-width:479px) and (max-width:767px) {
 .piece .vopt-color li {width:16.666666%;}
 }
-.selector-details select {margin:2px 0 0;}
 /**/
 .has-video .vari-video-scase {position:absolute; z-index:3; top:0; width:100%;}
-.image-space.video {cursor:pointer;}
 .video-icon {color:#fff; font-size:150%; text-shadow:0 1px 5px rgba(0,0,0,.75);}
 /**/
 .variant-selected-image {display:block; width:80px;}

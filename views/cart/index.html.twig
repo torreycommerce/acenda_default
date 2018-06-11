@@ -220,7 +220,7 @@
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
 					<p><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
-					<button class="btn btn-link btn-xs btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
+					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
 					<div class="error alert alert-danger" style="display:none"></div>
 
 				</div>
@@ -228,7 +228,7 @@
 		</div>
 
 		<div class="col-md-6 col-lg-5 offset-lg-1">
-            <label for="quantity-selector-{{id}}" class="control-label">Qty</label>
+            <label for="quantity-selector-{{id}}">Qty</label>
 			<div class="row quantity">
                 <div class="col-8 cart-indiv">
 					<div class="input-group igq-mod">
@@ -295,7 +295,7 @@
         {% endif %}
 
 		<div class="form-group">
-			<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
+			<label for="cart_coupon_code">Enter Coupon Code:</label>
 			<div class="row">
 				<div class="col-6 col-md-8">
 					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}

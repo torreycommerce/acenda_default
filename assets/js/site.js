@@ -123,7 +123,7 @@ $('body').on('mouseenter mouseleave','.addAccess > li',function(e){
     setTimeout(function(){
         _e[_d.is(':hover')?'addClass':'removeClass']('show');
         $('[data-toggle="dropdown"]', _d).attr('aria-expanded',_d.is(':hover'));
-    },100);
+    },25);
 });
 
 

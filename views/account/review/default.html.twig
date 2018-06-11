@@ -27,37 +27,35 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 Load in the tabs for the page, pass in the name of this page, and make sure it's
 set in the array in /account/_macros/base.html.twig
 #}
-<div id="review-edit">
-	<div class="row">
-		{% set id = app.request.path|split('/')|first|integer %}
-		{% set action = app.request.path|split('/')|last %}
+{% set id = app.request.path|split('/')|first|integer %}
+{% set action = app.request.path|split('/')|last %}
 
-		{% set reviews = api.get('/productreview',{'query':{'customer_id':app.user.id,'id':id}}) %}
-		{% set review = reviews.0 %}
-		{% if id == 0 or action not in ['edit','delete','default'] or review.id is not defined %}
-		{% do app.redirect('/account/reviews') %}
-		{% endif %}
+{% set reviews = api.get('/productreview',{'query':{'customer_id':app.user.id,'id':id}}) %}
+{% set review = reviews.0 %}
+{% if id == 0 or action not in ['edit','delete','default'] or review.id is not defined %}
+{% do app.redirect('/account/reviews') %}
+{% endif %}
 
-		{% if action == 'delete' %}
-		{% do api.delete('/productreview/' ~ review.id) %}
-		{% do app.redirect('/account/reviews') %}
-		{% endif %}
+{% set product = api.get('/product/'~review.product_id) %}
 
-		{% if app.request.post.review is defined %}
-		{% set data = app.request.post.review|merge({'status':'pending'}) %}
-		{% if api.put('/productreview/' ~ review.id, data) %}
-		{% do app.redirect('/account/reviews') %}
-		{% endif %}
-		{% endif %}
+{% if action == 'delete' %}
+{% do api.delete('/productreview/' ~ review.id) %}
+{% do app.redirect('/account/reviews') %}
+{% endif %}
 
-		<div class="col-lg-12">
-			<h1>Edit Review</h1>
-		</div>
+{% if app.request.post.review is defined %}
+{% set data = app.request.post.review|merge({'status':'pending'}) %}
+{% if api.put('/productreview/' ~ review.id, data) %}
+{% do app.redirect('/account/reviews') %}
+{% endif %}
+{% endif %}
+
+<h1>Edit Review</h1>
+
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+{% include "/account/review/_form.html.twig" %}
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 		
-		{{ lonelyform.begin('edit-review')}}
-			{% include "/account/review/_form.html.twig" %}
-		{{ lonelyform.end() }}
-		
-	</div>
-</div>
 {% endblock %}
