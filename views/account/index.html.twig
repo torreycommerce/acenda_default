@@ -49,7 +49,7 @@ set in the array in /account/_macros/base.html.twig
 		<p>No notifications have been found.</p>
 		{% else %}
 		<div class="table-responsive g">
-			<table class="table table-hover table-striped tablesorter">
+			<table class="table table-sm fsd1 table-hover table-striped tablesorter">
 				<tbody>
 					{% for notif in notifications %}
 						<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
@@ -63,9 +63,7 @@ set in the array in /account/_macros/base.html.twig
 			</table>
 		</div>
 		{% endif %}
-		<div class="btn-group">
-		    <a href="{{app.url}}/account/notifications" class="btn btn-default">View All Notifications</a>
-	    </div>
+        <a href="{{app.url}}/account/notifications" class="btn btn-default btn-xs-block float-right">View All Notifications</a>
 	</div>
 </div>
 
@@ -99,13 +97,13 @@ set in the array in /account/_macros/base.html.twig
 					{% endfor %}
 				</div>
 				<div class="actions col-md-3 text-right mb-3">                                        
-					<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>
+					<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-xs-block float-right">Order Details</a>
 				</div>
 			</div>
 		</div>
 		{% endfor %}
 		{% endif %}
-		<a class="btn btn-default" href="{{ app.url }}/account/orders">View All Orders</a>
+		<a class="btn btn-default btn-xs-block float-right" href="{{ app.url }}/account/orders">View All Orders</a>
 	</div>
 </div>
 
@@ -148,7 +146,7 @@ set in the array in /account/_macros/base.html.twig
 			</div>
 		{% endfor %}
 		{% endif %}
-		<a href="{{ app.url }}/account/wishlists" class="btn btn-default">View All Wish Lists</a>
+		<a href="{{ app.url }}/account/wishlists" class="btn btn-default btn-xs-block float-right">View All Wish Lists</a>
 	</div>
 </div>
 

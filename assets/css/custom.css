@@ -33,7 +33,7 @@ h1,.h1 {padding:0 0 .5rem; text-align:center; border-bottom:1px solid #ccc;}
 #nav .nav > li > a:hover, #nav .nav > li > a:focus {background-color:transparent;}
 #nav .fa {display:none;}
 #nav .dropdown-menu {padding:0 0 10px 5px;}
-#nav .navbar-nav > li > .dropdown-menu {padding:30px;}
+#nav .navbar-nav > li > .dropdown-menu {margin-top:0; padding:1.25rem;}
 #nav .dropdown-submenu>.dropdown-menu {display:block; position:static; float:none; border:none; box-shadow:none;}
 
 #content {border-bottom:1px solid #f0f0f0;}

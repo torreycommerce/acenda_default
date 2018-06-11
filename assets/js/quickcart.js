@@ -1,18 +1,18 @@
-console.log('qc v50');
+console.log('qc v52');
 
 var qcrecalc = 1;
 var qcwearego = 0;
 
 // boots v4
 $('body').on('mouseenter focusin','#header .cart',function(e){
-    console.log('e event only IN');
+    //console.log('e event only IN');
     if (qcwearego != 1) {
         if (!$('#qc-parent').hasClass('show')) {
             qcwearego = 1;
             $('#qc-btn').dropdown('toggle');
         }
     } else {
-        console.log('e event has already happened, no dupe');
+        //console.log('e event has already happened, no dupe');
     }
 });
 
@@ -23,20 +23,22 @@ $('body').on('mouseleave focusout','#header .cart',function(e){
 
 $('#qc-parent').on('show.bs.dropdown', function () {
     if (qcrecalc == 1) {
-        console.log('bs show, now try qc fetch');
+        //console.log('bs show, now try qc fetch');
         ajaxCart("{}", true);
     } else {
-        displayCart();
+        if ($('.quickcart .item-count') > 0) {
+            displayCart();
+        }
     }
 });
 
-$('#qc-parent').on('shown.bs.dropdown', function () {
+/*$('#qc-parent').on('shown.bs.dropdown', function () {
     console.log('bs shown, do nothing');
-});
+});*/
 
 $('#qc-parent').on('hidden.bs.dropdown', function () {
-    console.log('qc hidden');
-    $('#qc-parent').removeClass('qc-ready');
+    //console.log('qc hidden, but not remove ready');
+    //$('#qc-parent').removeClass('qc-ready');
     resetErrors();
 });
 
@@ -50,10 +52,6 @@ $(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('#header .item-count').html(data.result.item_count).addClass('ready');
     });
-});
-
-$('html').on("click", "#ajaxcart-close", function() {
-    $('#qc-btn').dropdown('toggle'); //hide
 });
 
 var pData;

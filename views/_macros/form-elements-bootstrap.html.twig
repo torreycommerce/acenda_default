@@ -235,16 +235,16 @@
     {% set score = field.value %}
     {% set num_active = (score*5)|round %}
     {% spaceless %}
-    <div id="{{id}}" class="star-rating star-rating-input">
+    <div class="star-rating star-rating-input">
         {{ elements.hidden(name,score) }}
         <div class="star-rating-stars">
             {% for stars in 0..4 %}
                 {% if loop.index <= num_active %}
-                    {% set class = 'active-choosing'%}
+                    {% set class = 'chosen'%}
                 {% else %}
-                    {% set class = 'disabled-choosing'%}
+                    {% set class = ''%}
                 {% endif %}
-                <span id="rating-star-{{ loop.index }}" class="star-rating-star fa fa-star {{ class }}"></span>
+                <button class="btn btn-lg btn-blank star-rating-star {{ class }}" id="rating-star-{{ loop.index }}" type="button" data-i="{{ loop.index }}"><i class="fa fa-star"></i></button>
             {% endfor %}
         </div>
     </div>

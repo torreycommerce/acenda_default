@@ -56,13 +56,13 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 <div class="row">
 	{% for wishlist in wishlists %}
 	<div class="col-md-6 col-xl-4">
-		<div class="card{% if wishlist.default %} panel-success{% endif %}">
+		<div class="card{% if wishlist.default %} bg-light{% endif %}">
 			<div class="card-header">
 				<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 			</div>
 			<div class="card-body">
-				<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
-				<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
+				<div class="item-count"><b>{{ wishlist.item_count }}</b> Item(s)</div>
+				<div><i>{{ wishlist.privacy|capitalize }}</i></div>
 				<div class="fsd1 mt-3 pb-3 divide mb-3 g">
 				{% if wishlist.default %}
 					<u>Default Wish List</u>
@@ -72,7 +72,6 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				</div>
 				<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>
 			</div>
-			
 		</div>
 	</div>
 {% endfor %}
@@ -80,9 +79,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# End wishlists #}
 {% endif %}
 {# Begin actions #}
-<div class="form-group actions">
-	<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i><span>Create a New Wish List</span></a>
-</div>
+<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create">Create a New Wish List</a>
 {# End actions #}
 {{ forms.end() }}
 {# End wishlists #}

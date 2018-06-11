@@ -1,25 +1,5 @@
 <div class="divide mb-4 pb-4">
 <div class="{% if product.videos is not empty %}has-video{% endif %} row" itemscope itemtype="http://schema.org/Product">
-	<div id="product-intro" class="col-md-5 float-right mb-3 text-center">
-		<div class="max-450">
-			<div class="brand mb-2">
-				<a href="{{app.url}}/brand/{{product.brand|url_encode}}" itemprop="brand">{{product.brand}}</a>
-			</div>
-			<h1 class="product-name" itemprop="name">{{product.name}}</h1>
-			{# Begin review stars #}
-			{% spaceless %}
-			{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
-			{% if review_score > 0 %}
-			<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
-				<span class="dib">
-					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
-				</span>
-			</div>
-			{% endif %}
-			{% endspaceless %}
-		</div>
-	</div>
 
 	<div class="col-md-7 mb-4" id="product-images">
 		<div class="pos-r pi-contain">
@@ -91,6 +71,7 @@
 						</div>
 					{% endfor %}
 					</div></div>
+					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space">
                             <img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
@@ -102,7 +83,7 @@
 			
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
-				<button class="blank image-space video" data-video-src="{{ product.videos[0] }}">
+				<button class="btn blank image-space video" data-video-src="{{ product.videos[0] }}">
 					<img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</button>
 			</div></div>
@@ -112,19 +93,35 @@
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
-						<img id="main-product-image" class="img-fluid" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" itemprop="image" alt="">
+						<img id="main-product-image" class="img-fluid d-none" src="{{app.image.getImageUrl("product","standard",main_image_id) }}" itemprop="image" alt="">
 					</span>
 				</div>
 			</div>
 
 		</div>
-		
 	</div>
-	{# End product images #}
-	{# Begin Product Details #}
-	<div id="product-details" class="col-md-5 mb-4 text-center">
-		<div class="max-360">
-			
+	
+	<div class="col-md-5 mb-3 text-center">
+		<div class="max-450" id="product-intro">
+			<div class="brand mb-2">
+				<a href="{{app.url}}/brand/{{product.brand|url_encode}}" itemprop="brand">{{product.brand}}</a>
+			</div>
+			<h1 class="product-name" itemprop="name">{{product.name}}</h1>
+			{# Begin review stars #}
+			{% spaceless %}
+			{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
+			{% if review_score > 0 %}
+			<div class="fsd1 rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
+				<span class="dib">
+					<span itemprop="ratingValue">{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span itemprop="reviewCount">{{ reviews.num_total }}</span>){% endif %}
+				</span>
+			</div>
+			{% endif %}
+			{% endspaceless %}
+		</div>
+
+		<div class="max-360" id="product-details">
 			{% set prices = product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent']) %}
 			{% if prices.price|first > 0 %}
 			<div class="pricing g mb-4" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -226,18 +223,18 @@
 						</ul>
 						<div class="actions">
 							<div class="quantity" id="div-quantity-{{bundle.id}}">
-								<label for="variant-input-{{bundle.id}}" class="control-label">Qty</label>
-								<div class="input-group input-group-qty igq-mod">
-									<div class="btn-group btn-group-qty">
+								<label for="variant-input-{{bundle.id}}">Qty</label>
+								<div class="input-group igq-mod">
+									<div class="mr-1">
 										<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="bundles[{{ bundle.id }}]">
-										<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+									</div>
+									<div class="btn-group-vertical mr-3">
+									    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
 										<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 									</div>
-									<div class="input-group-append">
-										<button type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
-										   <span>Add to Cart</span>
-									   </button>
-								   </div>
+									<button type="submit" class="btn btn-lg btn-primary btn-cart flex-fill" name="action" value="cart">
+									   <span>Add to Cart</span>
+                                    </button>
 								</div>
 							</div>
 						</div>
@@ -366,8 +363,8 @@
 					<div class="variation-selector-{{product.id}}">
 					{% for vo in product.variant_options %}
 						<div class="p selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
-							<div class="selected-option"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
 							{% if vo.name == 'color' %}
+							<div class="selected-option fsd1 mb-1"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
 							<ul class="list-inline vopt vopt-{{vo.name}}">
 							{% for v in vo.values %}
 								<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-index="{{loop.index0}}" data-value="{{v|e('html')}}">
@@ -390,7 +387,7 @@
 									{% if vsimgsrc is empty %}
 										{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
 									{% endif %}
-									<button class="blank image-space" type="button"><img class="img-fluid isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
+									<button class="btn blank image-space" type="button"><img class="img-fluid isd" src="{{vsimgsrc}}" width="250" height="250" alt="{{v|e('html')}}"></button>
 								{% else %}
 									<button class="btn btn-default btn-lg">{{v}}</button>
 								{% endif %}
@@ -399,7 +396,8 @@
 							</ul>
 							{% endif %}
 							{% if vo.name != 'color' %}
-							<select class="form-control form-control-lg vopt vopt-{{vo.name}}" title="{{vo.name}}">
+							<label class="selected-option" for="{{vo.name}}"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
+							<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}" title="{{vo.name}}">
 							{% for v in vo.values %}
 								<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v|e('html')}}" data-index="{{loop.index0}}">{{v}}</option>
 							{% endfor %}
@@ -414,14 +412,16 @@
 					<div class="actions">
 						<div class="form-group divide pb-3 mb-2">
 							<div class="quantity" id="div-quantity-{{product.id}}">
-								<label for="variant-input-{{product.id}}" class="control-label">Qty</label>
-								<div class="input-group input-group-qty igq-mod">
-									<div class="btn-group btn-group-qty">
+								<label for="variant-input-{{product.id}}">Qty</label>
+								<div class="input-group igq-mod">
+									<div class="mr-1">
 										<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="text" value="0" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
-										<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+									</div>
+									<div class="btn-group-vertical mr-3">
+									    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
 										<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 									</div>
-									<div class="input-group-append">
+									<div class="flex-fill">
 										<button id="variant-atc-{{product.id}}" type="submit" class="btn btn-block btn-lg btn-primary btn-cart" name="action" value="cart">
 											<span>Add to Cart</span>
 										</button>

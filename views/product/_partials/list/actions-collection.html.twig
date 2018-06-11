@@ -55,10 +55,10 @@
 	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
 		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add to Wish List</span>
 	</button>
-	<ul class="dropdown-menu" role="menu">
-		<li class="dropdown-header">Add to:</li>
+	<ul class="dropdown-menu col text-center" role="menu">
+		<li class="dropdown-header">Wish Lists:</li>
 		{% for wishlist in wishlists %}
-		<li><button type="submit" class="btn btn-block btn-link" name="action" value="wishlist/{{wishlist.id}}">'{{wishlist.name}}'</button></li>
+		<li><button type="submit" class="btn dropdown-item" name="action" value="wishlist/{{wishlist.id}}">'{{wishlist.name}}'</button></li>
 		{% endfor %}
 	</ul>
 </div>

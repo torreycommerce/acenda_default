@@ -448,7 +448,7 @@ var checkout = checkout || {};
 		        	defer_methods[k]=$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: total,quantity: quantity}, function(response) {		        		
 		        	    that.shipping_methods.at(k).set('price',response.result.rate);
 		                $('#shipping-methods').html(tpl({methods: that.shipping_methods.toJSON(), current_method: that.cart.get('shipping_method')}));
-		                $('#shipping-methods label .hidden').each(function() {
+		                $('#shipping-methods label .d-none').each(function() {
 		                	$(this).parents('label').find('.val').text($(this).text());
 		                });
 		        	})
@@ -826,7 +826,7 @@ var checkout = checkout || {};
 			var method = this.shipping_methods.get(form.shipping_method);
 			$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));
 			var temp = $('#shipping-methods .val:first').parent('label').html();
-			$(temp).find('.val').text($('#shipping-method-panel .step-data .hidden').text());
+			$(temp).find('.val').text($('#shipping-method-panel .step-data .d-none').text());
 			$('#shipping-method-panel .step-data').append('<div>'+temp+'</div>');
 
 			this.checkout_steps[this.findStep('shipping-method')].completed=true;

@@ -2,7 +2,7 @@
 <h2>Shipping and Tax Estimator</h2>
 {{ forms.begin('cart','','post',{ class:'form-estimate' }) }}
 	<div class="form-group">
-		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
+		<label for="cart_zip_code">Shipping Details:</label>
 		<div class="row">
 			<div class="col-6 mb-3">
 				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country}) }}
