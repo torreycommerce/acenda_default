@@ -1,0 +1,39 @@
+{% extends "/_layouts/base.html.twig" %}
+{% import "/_macros/normalizer.html.twig" as normalizer %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
+{% import "/account/_macros/base.html.twig" as account %}
+
+{# Redirect to the login page if user is not logged in. #}
+{% do account.login() %}
+
+{% set m = api.get('braintree/getPaymentMethods') %}
+
+{% set address = api.get('/customeraddress',{'query':{'customer_id':app.user.id}})[(id - 1)] %}
+{% if address.id is empty %}
+{% do app.redirect('/account/payment-methods') %}
+{% endif %}
+
+{% set page_name = 'Edit Payment Method' %}
+{% block title %}Account - Edit address{% endblock %} 
+
+{% block breadcrumb %}
+{{ base.breadcrumbs({'Account':'/account',(page_name|title):''}) }}
+{% endblock %}
+
+{% block content %}
+{# Begin navigation #}
+
+{{account.navigation('payment-methods')}}
+
+{# End navigation #}
+
+<h1>Edit Payment Methods</h1>
+<p>Edit a previously stored payment method.</p>
+
+
+
+
+
+{{account.navigatend()}}
+{% endblock %}
