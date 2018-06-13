@@ -20,11 +20,10 @@
 {% endif %}
 
 <h1 class="pt-4">{{ app.params.site.title}}</h1>
-{{ lonelyform.begin('reset-password')}}
-{{ lonelyform.beginintro() }}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard() }}
 <h2>Coming soon!</h2>
 <p>To preview the website, please enter the Store Password <span class="wsnw">(found in Admin Tool > Site Settings)</span>.</p>
-{{ lonelyform.endintro() }}
 {{ forms.begin('auth_protection','','post', {class:''}) }}
 <div class="form-group fgq">
 	<label for="password">Password</label>
@@ -34,10 +33,11 @@
 <div class="form-group">
 	{{ forms.captchaHtml() }}
 </div>
-<div class="form-group">
-	{{ forms.submit('auth_protection[submit]', 'submit', 'Access', {class:'btn btn-lg btn-primary'})}}
+<div class="actions">
+	{{ forms.submit('auth_protection[submit]', 'submit', 'Access', {class:'btn btn-lg btn-primary btn-block'})}}
 </div>
 {{ forms.end() }}
+{{ lonelyform.endcard() }}
 {{ lonelyform.end() }}
 			
 {% endblock %}

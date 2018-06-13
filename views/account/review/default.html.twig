@@ -7,7 +7,7 @@
 {% do account.login() %} 
 
 {# Set the page_name - used for the page title, heading, tab selection, and breadcrumb in this page. #}
-{% set page_name = 'reviews' %}
+{% set page_name = 'Edit Review' %}
 
 {# Set the html head title #}
 {% block title %}Account - {{page_name|title}}{% endblock %} 
@@ -18,7 +18,7 @@
 Passed into the macro is a array of key:value pairs as (title):(relative url)
 - The last link should not have a url, as it will be used as a 'you are here' 
 #}
-{{ base.breadcrumbs({'Account':'/account',(page_name|title):''}) }}
+{{ base.breadcrumbs({'Account':'/account','Reviews':'/account/reviews',(page_name|title):''}) }}
 {% endblock %}
 
 {# Load in the main content positioned in /_layouts/main/base.html.twig #}
@@ -50,6 +50,8 @@ set in the array in /account/_macros/base.html.twig
 {% endif %}
 {% endif %}
 
+{{account.navigation('reviews')}}
+
 <h1>Edit Review</h1>
 
 {{ lonelyform.begin()}}
@@ -57,5 +59,11 @@ set in the array in /account/_macros/base.html.twig
 {% include "/account/review/_form.html.twig" %}
 {{ lonelyform.endcard()}}
 {{ lonelyform.end() }}
+
+{{account.navigatend()}}
 		
+{% endblock %}
+
+{% block js %}
+{{ app.asset.js(app.url_asset ~ '/assets/js/rating.js') }}
 {% endblock %}

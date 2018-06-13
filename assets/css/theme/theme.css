@@ -81,6 +81,10 @@ blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child
 .btn-blank {background-color:transparent;}
 button.blank {background:none; border-width:0;}
 button.blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding-left:0;}
+.fgq label:after {content:'*'; margin-left:.25em; color:#f55;}
+
+.card-header {overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    
 
 .fsd1 {font-size:.875rem;}
 

@@ -49,14 +49,14 @@ set in the array in /account/_macros/base.html.twig
 		<p>No notifications have been found.</p>
 		{% else %}
 		<div class="table-responsive g">
-			<table class="table table-sm fsd1 table-hover table-striped tablesorter">
+			<table class="table fsd1 table-hover table-striped tablesorter">
 				<tbody>
 					{% for notif in notifications %}
 						<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
 							<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
 							<td>{{ notif.subject}}</td>
 							<!-- March 30th 9:06pm -->
-							<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
+							<td class="text-right"><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }}</span></td>
 						</tr>
 					{% endfor %}
 				</tbody>

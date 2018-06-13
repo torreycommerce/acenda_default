@@ -19,10 +19,9 @@
 
 <h1>Gift Registry</h1>
 
-{{ lonelyform.begin('registry-find')}}
-    {{ lonelyform.beginintro() }}
-        <h3>Find a Registry</h3>
-    {{ lonelyform.endintro() }}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+    <h3>Find a Registry</h3>
     {{ forms.begin('registry_search','','get') }}
         <div class="form-group">
             <label for="first_name">First Name</label>
@@ -51,13 +50,13 @@
         <div class="alert alert-warning">Sorry, there were no matching registries found. Please try broadening your search.</div>
         {% endif %}
     {{ forms.end() }}
+{{ lonelyform.endcard() }}
 {{ lonelyform.end() }}
-{{ lonelyform.begin('registry-create')}}
-    {{ lonelyform.beginintro() }}
-        <h3>Create a New Registry</h3>
-        <p>Please login to create a new registry.</p>
-        <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create a New Registry</a>
-    {{ lonelyform.endintro() }}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+    <h3>Create a New Registry</h3>
+    <p>Please login to create a new registry.</p>
+    <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create a New Registry</a>
 {{ lonelyform.end() }}
 
 {% if registries is not empty %}
@@ -88,4 +87,7 @@
 </div>
 {% endif %}
 </div>
+
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 {% endblock %}
