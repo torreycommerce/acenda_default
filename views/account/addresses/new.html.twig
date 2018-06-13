@@ -2,6 +2,7 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/normalizer.html.twig" as normalizer %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -35,7 +36,6 @@ set in the array in /account/_macros/base.html.twig #}
 {# Begin content #}
 
 <h1>New Address</h1>
-<p>Add a new address.</p>
 
 {% if app.request.post.address is defined %}
 	{% set post_data = app.request.post.address|merge( {'customer_id':app.user.id} ) %}
@@ -56,7 +56,12 @@ set in the array in /account/_macros/base.html.twig #}
 		{% set form_errors = api.error() %}
 	{% endif %}
 {% endif %}
+
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard() }}
 {% include "/account/addresses/_partials/form.html.twig" %}
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 
 {{account.navigatend()}}
 {% endblock %}

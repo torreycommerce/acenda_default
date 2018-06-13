@@ -13,7 +13,7 @@
 {% endif %}
 
 {% set page_name = 'address' %}
-{% block title %}Account - Edit address{% endblock %} 
+{% block title %}Account - Edit Address{% endblock %} 
 
 {% block breadcrumb %}
 {{ base.breadcrumbs({'Account':'/account','Addresses':'/account/addresses','Edit Address':''}) }}
@@ -27,7 +27,6 @@
 {# End navigation #}
 
 <h1>Edit Address</h1>
-<p>Edit a previously stored address.</p>
 
 {% if app.request.post.address is defined %}
 	{% if app.request.post.address.make_default %}
@@ -46,7 +45,11 @@
 		{% set form_errors = api.error() %}
 	{% endif %}
 {% endif %}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard() }}
 {% include "/account/addresses/_partials/form.html.twig" %}
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 
 {{account.navigatend()}}
 {% endblock %}

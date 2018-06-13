@@ -75,10 +75,6 @@ $(document).ready(function() {
 		});
 	}
 	//
-	if ($('.star-rating-input').length) {
-		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/rating.js",function(){
-		});
-	}
 	//
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
 	});

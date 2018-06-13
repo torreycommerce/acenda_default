@@ -280,7 +280,7 @@
     {% endfor %}
 	<div class="col-lg-7">
 		<h2>Coupon Code</h2>
-        {{ forms.begin('cart','','post', {class:'form-coupon divide pb-4 p-2x',id:'coupon-code'}) }}
+        {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
         {% if has_bundle %}
         <div class="p divide" id="bundles">
 			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
@@ -298,7 +298,7 @@
 			<label for="cart_coupon_code">Enter Coupon Code:</label>
 			<div class="row">
 				<div class="col-6 col-md-8">
-					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
+					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:true}) }}
 				</div>
 				<div class="col-6 col-md-4">
 					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
