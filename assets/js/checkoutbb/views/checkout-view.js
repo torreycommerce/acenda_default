@@ -87,7 +87,10 @@ var checkout = checkout || {};
 			this.fetchCustomer();
 			this.fetchShippingCountries();
 			this.fetchBillingCountries();
-
+            if(that.logged_in) {
+	            $('#'+'billing'+ '-address-form .hide-billing').hide();
+	            $('#'+'shipping'+ '-address-form .hide-shipping').hide();            
+	        }
 		},
 		findStartStep: function() {
 			var that = this;
