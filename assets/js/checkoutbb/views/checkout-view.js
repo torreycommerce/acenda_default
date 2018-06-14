@@ -17,7 +17,7 @@ var checkout = checkout || {};
 		customer: new checkout.Customer(),
 		customer_addresses: new checkout.CustomerAddresses(),
 		shipping_methods: new checkout.ShippingMethods(),
-		logged_in: false,
+		logged_in: acendaIsLoggedIn,
 		api_unique_token: null,
         bt_client_token: '',
         bt_environment: 'sandbox',
@@ -58,7 +58,7 @@ var checkout = checkout || {};
 			var that = this;
 
 			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
-				//this.start_step=saved_checkout_step;
+				this.start_step=saved_checkout_step;
 			}
 
 			this.summaryView = new checkout.SummaryView();
@@ -68,8 +68,9 @@ var checkout = checkout || {};
 			    }
 			}); 
 			this.customer.on('change',function(e) {
-				if(that.customer.get('email')) that.logged_in=true;
-				else that.logged_in=false;
+				console.log('customer changed');
+				// if(that.customer.get('email'xx)) that.logged_in=true;
+				// else that.logged_in=false;
 				that.checkSignin();
 			   // if(!that.logged_in) this.findStartStep();
 			    if(that.logged_in) that.start_step = 'shipping';
@@ -403,7 +404,7 @@ var checkout = checkout || {};
                 $('#billing-country').html('<option disabled selected>Select a Country</option>');				
 				that.render();
 				that.fetchBillingStates();		
-				that.findStartStep(); 
+				setTimeout(function() { that.findStartStep(); },1000);
 			    $('input[name=create_account]').change();						
 			}});
 		},
