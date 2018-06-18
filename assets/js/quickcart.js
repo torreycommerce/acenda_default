@@ -170,6 +170,7 @@ function ajaxCart(data, r) {
         if (show_all) {
             items = cart_items;
         } else {
+            console.log('attempt not show_all');
             items = $('.productForm').serializeArray(); // Items that were added
         }
         
@@ -179,7 +180,7 @@ function ajaxCart(data, r) {
             });
         }
 
-        $('.quickcart .ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
+        $('.ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
 
 
         for (var i = 0; i < items.length; i++) {
@@ -229,7 +230,7 @@ function ajaxCart(data, r) {
                     $('.ajaxcart-product .product-quantity').html(product_attr[product_id].quantity);
                     first_product_added = true;
                 } else {
-                    var cloned = $('.ajaxcart-product:last').clone().appendTo('.quickcart .ajaxcart-products');
+                    var cloned = $('.ajaxcart-product:last').clone().appendTo('.ajaxcart-products');
                     cloned.find('.product-image').attr('src', product_thumbnail);
                     cloned.find('.product-name').html(product_name);
                     cloned.find('.price .val').html(product_price);
@@ -252,12 +253,12 @@ function ajaxCart(data, r) {
 
             }
             $('#header .item-count').html(cart_item_count).addClass('ready');
-            $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);
+            $('.ajaxcart .subtotal .val').html(cart_subtotal);
 
             if (show_all) {
-                $('.quickcart .ajaxcart .heading').html('');
+                $('.ajaxcart .heading').html('');
             } else
-                $('.quickcart .ajaxcart .heading').html('The following item(s) were added to your cart:');
+                $('.ajaxcart .heading').html('The following item(s) were added to your cart:');
 
             $('#collection .quantity-selector').val(0); // Set collection quantity selector values to 0
 

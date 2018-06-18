@@ -48,9 +48,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% if registries is empty %}
 <p>There are no registries.</p>
 {% else %}
-{% for registry in registries %}
-{# Begin registry #}
+
 <div class="row">
+{% for registry in registries %}
 	<div class="col-md-6 col-xl-4">
 		<div class="card{% if registry.default %} bg-light{% endif %}">
 			<div class="card-header">
@@ -66,11 +66,10 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					<br>
 				{% endif %}
 				</div>
-				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
+				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View <span class="sr-only">{{ registry.name }}</span></a>
 			</div>
 		</div>
 	</div>
-	{# End registry #}
 {% endfor %}
 </div>
 {# End registries #}

@@ -1,5 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% block title %}Shopping Cart{% endblock %}
 {% block breadcrumb %}
 {{ base.breadcrumbs({'Shopping Cart':''}) }}
@@ -163,8 +164,12 @@
 
 {% if (cart.items is empty) %}
 
-<p>Your Shopping Cart is empty.</p>
-<a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard() }}
+<p class="text-center">Your Shopping Cart is empty.</p>
+<a class="btn btn-default btn-lg btn-block" href="{{app.url}}">Continue Shopping</a>
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 
 {% else %}
 
