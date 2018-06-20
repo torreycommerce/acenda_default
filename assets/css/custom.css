@@ -15,8 +15,9 @@ h1,.h1 {padding:0 0 .5rem; text-align:center; border-bottom:1px solid #ccc;}
 /* acenda global */
 #toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
 #header {}
+
 #header .omm {position:absolute; top:0; left:0;}
-#header .logo {margin-left:60px; width:160px; font-size:120%;}
+#header .logo {position:absolute; left:50%; margin-left:-80px; width:160px; font-size:120%;}
 #header .logo .image-space {padding-top:48px;}
 #header .search {position:absolute; top:54px; right:0; left:0;}
 #header .search .btn {position:absolute; top:0; right:0;}
@@ -55,17 +56,15 @@ h3.category-name, h3.brand-product {min-height:2.2em; font-size:112.5%;}
 }
 
 @media (min-width:992px) {
-#toolbar {padding-top:30px; padding-bottom:30px;}
-#toolbar {height:auto;}
+#toolbar {height:108px; padding-top:30px; padding-bottom:30px;}
 #header .search {top:0; right:120px; left:50%;}
-#header .logo {width:200px; margin-left:0;}
+#header .logo {left:0; width:200px; margin-left:0;}
 }
 
 @media (max-width:991px) {
 }
 
 @media (max-width:374px) {
-#header .mya {display:none;}
 }
 /* */
 

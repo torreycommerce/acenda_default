@@ -44,9 +44,15 @@
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{customer_id:app.user.id}}) %}
 
-    <h1>Create Registry</h1>
-    {{ lonelyform.begin('create-registry')}}
-    {% set create = true %}
-    {% include '/account/registry/_partials/form.html.twig' %}
-    {{ lonelyform.end() }}
+{{account.navigation('registries')}}
+
+<h1>Create Registry</h1>
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+{% set create = true %}
+{% include '/account/registry/_partials/form.html.twig' %}
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
+{{account.navigatend()}}
 {% endblock %}

@@ -218,7 +218,7 @@
 							{% endif %}
 						</fieldset>
 						{{ normalizer.normalizer() }}
-						<div class="form-group hidden-xs">
+						<div class="form-group d-none d-md-block">
 							<div class="actions text-right">
 								{{ forms.hidden('shipping[test_order]', app.request.get.test_order) }}
 								<input type="hidden" name="step" value="shipping">

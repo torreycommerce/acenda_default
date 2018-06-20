@@ -39,10 +39,15 @@
     {% endif %}
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
+
+{{account.navigation('wishlists')}}
+
 <h1>Edit {{ wishlist.name }}</h1>
 {{ lonelyform.begin()}}
 {{ lonelyform.begincard()}}
     {% include '/account/wishlist/_partials/form.html.twig' %}
 {{ lonelyform.endcard()}}
 {{ lonelyform.end() }}
+
+{{account.navigatend()}}
 {% endblock %}

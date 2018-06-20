@@ -15,7 +15,7 @@
 
 {% set config = api.get('/config') %}
 
-{% set tabs2 = { 'wishlists':'<i class="fa fa-gift"></i><span>Wish Lists</span>', } %}
+{% set tabs2 = { 'wishlists':'<i class="fa fa-heart"></i><span>Wish Lists</span>', } %}
 {% if config.params['show-wishlist'] == '1' %}
 	{% set tabs = tabs | merge( tabs2 ) %}
 {% endif %}

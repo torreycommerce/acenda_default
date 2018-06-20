@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements.html.twig" as form %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -46,11 +47,16 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {{ form.begin('registry') }}
 {% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
 {% if registries is empty %}
-<p>There are no registries.</p>
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+<p>You have yet to create a Registry.</p>
+<a class="btn btn-primary btn-block btn-lg" href="{{app.url}}/account/registry/create">Create New Registry</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
-{% for registry in registries %}
-{# Begin registry #}
+
 <div class="row">
+{% for registry in registries %}
 	<div class="col-md-6 col-xl-4">
 		<div class="card{% if registry.default %} bg-light{% endif %}">
 			<div class="card-header">
@@ -66,19 +72,16 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 					<br>
 				{% endif %}
 				</div>
-				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
+				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View <span class="sr-only">{{ registry.name }}</span></a>
 			</div>
 		</div>
 	</div>
-	{# End registry #}
 {% endfor %}
 </div>
 {# End registries #}
+<a class="btn btn-default" href="{{app.url}}/account/registry/create">Create New Registry</a>
 {% endif %}
-{# Begin bottom actions #}
-<a class="btn btn-default" href="{{app.url}}/account/registry/create">Create a New Registry</a>
-{# End bottom actions #}
+
 {{ form.end() }}
-{# End registries #}
 {{account.navigatend()}}
 {% endblock %}

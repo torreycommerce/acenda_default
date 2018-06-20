@@ -87,6 +87,13 @@ $(document).ready(function() {
 			window.location=($(this).attr('href'));
 		}
 	});
+	//
+	//
+	$('a[data-toggle=dropdown]').click(function () {
+        if ($(this).attr('href')){
+            window.location = $(this).attr('href');
+        }
+    });
 });
 
 
@@ -110,6 +117,7 @@ $(window).on("load", function (e) {
 		}
 	});
 });
+
 
 
 $('body').on('mouseenter mouseleave','.addAccess > li',function(e){

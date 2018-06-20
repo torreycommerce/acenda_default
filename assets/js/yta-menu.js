@@ -10,12 +10,12 @@ var depth = len('.yta-body ul:first');
 var i = 1;
 while (i < depth) {
 	//console.log('build body');
-	$('.yta-bodies').append('<div class="yta-body bgg frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-chevron-left"></i><span>Back to</span></button></div></div>');
+	$('.yta-bodies').append('<div class="yta-body bgg frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-angle-left"></i><span></span></button></div></div>');
 	i++;
 }
 
 $('#yta-menu a').addClass('btn btn-lg btn-blank');
-$('#yta-menu a + ul').after('<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">Office Subcategories</i></i></button>')
+$('#yta-menu a + ul').after('<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">Office Subcategories</i></i></button>')
 $(document).on( "click", '.yta-toggle', function() {
 	$('html').toggleClass('yta-open');
 	$('a,button,.form-control,input').each(function() {
@@ -48,7 +48,7 @@ $(document).on( "click", '.yta-getsub', function() {
 		}
 	});
 	$(this).siblings('ul').clone().appendTo('.yta-body[data-depth='+depth+']');
-	$('.yta-body[data-depth='+depth+'] .yta-getpar span').text('Back to '+name);
+	$('.yta-body[data-depth='+depth+'] .yta-getpar span').text(name);
 	$(this).parent().addClass('ytapar');
 	$(this).parents('.yta-body').addClass('burr');
 	$('.yta-body[data-depth='+depth+']').removeClass('deep');

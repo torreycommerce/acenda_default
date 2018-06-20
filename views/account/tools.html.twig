@@ -1,7 +1,7 @@
 {% if app.request.isAjaxRequest() %}				
 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-account">
 {% if app.user.id is null %}
-	<li><a class="dropdown-item" href="{{app.url}}/account/login">Sign In / Sign Up</a></li>
+	<li><a class="dropdown-item" href="{{app.url}}/account/login">Log In / Sign Up</a></li>
 	<div class="dropdown-divider"></div>
 	<li><a class="dropdown-item" href="{{app.url}}/order">Order Status</a></li>
 	<li><a class="dropdown-item" href="{{app.url}}/return">Returns</a></li>
@@ -11,7 +11,7 @@
 	<div class="dropdown-divider"></div>
 	<li><a class="dropdown-item" href="{{app.url}}/account/orders">Orders</a></li>
 	<li><a class="dropdown-item" href="{{app.url}}/account/returns">Returns</a></li>
-	<li><a class="dropdown-item" href="{{app.url}}/account/wishlists">Wish Lists</a></li>
+	<li><a class="dropdown-item" href="{{app.url}}/account/account-settings">Settings</a></li>
 	<div class="dropdown-divider"></div>
 	<li><a class="dropdown-item" href="{{app.url}}/account/logout">Not {{ customer.first_name}}? <u>Logout</u></a></li>
 {% endif %}

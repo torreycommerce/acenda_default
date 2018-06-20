@@ -3,12 +3,12 @@
     {% import _self as list %}
     <form method="POST" action="{{item_link|replace({'{id}':''})}}edit.html">
     <div class="table-responsive">
-        <div id="actions" style="display:none">
+        <div class="form-group" id="actions" style="display:none">
             {% for option in options %}
                 {% if option == 'edit' %}
                     <button class="btn btn-default btn-edit">Edit</button>
                 {% elseif option == 'delete' %}
-                    <a class="btn btn-danger btn-{{option}}">{{option|capitalize}}</a>
+                    <button class="btn btn-danger btn-{{option}}" type="button">{{option|capitalize}}</button>
                 {% endif %}
             {% endfor %}
             <input type="hidden" id="item_link" name="item_link" value="{{app.url}}{{item_link}}">
@@ -16,7 +16,7 @@
       <table class="table fsd1 table-hover table-striped tablesorter">
         <thead>
           <tr>
-              <td></td>
+              <th></th>
             {% for column in columns %}
                 {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
                 <th {% if loop.last%}class="text-right"{% endif %} onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><span>{{column|replace({'_':'&nbsp;'})|title}}</span><i class="fa fa-sort"></i></th>

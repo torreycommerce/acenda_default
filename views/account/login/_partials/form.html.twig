@@ -69,7 +69,7 @@
         <div class="form-group actions">
             {{ forms.submit('login[login]', 'login', 'Log In', {class:'btn btn-lg btn-primary btn-block'})}}
         </div>
-        <div class="form-group custom-control custom-checkbox text-center">
+        <div class="form-group custom-control custom-checkbox actions text-center">
             {{ forms.checkbox('login[remember_me]','', {}) }}
             <label class="custom-control-label" for="login[remember_me]">Remember Me</label>
             <div class="validation">{{ forms.errorlist(form_errors, 'remember_me') }}</div>

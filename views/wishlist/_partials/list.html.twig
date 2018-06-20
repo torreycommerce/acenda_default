@@ -1,14 +1,19 @@
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% set wishlist_items = api.get('/wishlist/' ~ wishlist.id ~ '/items') %}
+
+<h1>{{ wishlist.name }}</h1>
+
 {% if (wishlist_items is empty) %}
 
-<p>There are no items in this wishlist. <br />Please browse the store to add more items.</p>      
-<a class="btn btn-primary" href="{{app.url}}">Continue Shopping</a>
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+<p>There are no items in this Wish List.</p>
 {% if wishlist.customer_id == app.user.id %}
-<a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
+<a class="btn btn-default btn-lg btn-block {#btn-edit editwishlistLink#}" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Change Settings</a>
 {% endif %}
-
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
-<h1>{{ wishlist.name }}</h1>
 
 {{ forms.begin('wishlist-form', app.url ~ '/wishlist/' ~ wishlist.id ~ '/route') }}   
 	{% set product_ids = wishlist_items|values_in('variant_id') %}
@@ -38,7 +43,7 @@
 	{% endfor %}
 		{% spaceless %}
 		<div class="products p divide">
-		<h2>Products</h2>
+		<h2 class="sr-only">Products</h2>
 {% for item in wishlist_items %}
 	{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 	{% set variant = variants[item.variant_id][0] %}
@@ -46,14 +51,14 @@
 	<div class="divide g mb-4 pb-4">
 		<div class="row">
 			<div class="col-md-6">
-		<div class="media media-cart p-xs">
+		<div class="media media-cart mb-3 mb-md-0">
 			<div class="media-left">
 				<img class="media-object" src="{{ variant.thumbnail }}" width="250" height="250" alt="">
 			</div>
 
-			<div class="media-body">
+			<div class="media-body g">
 
-				<h3 class="product-name"><a href="{{app.url}}{{ variant.url }}">{{ variant.name }}</a></h3>
+				<h3 class="product-name"><a href="{{app.url}}{{ variant.product.slug }}">{{ variant.name }}</a></h3>
 
 				{# Begin pricing #}
 				<ul class="list-inline pricing">
@@ -75,7 +80,7 @@
 					</div>
 				</div>
 				
-				<ul class="list-inline p-0">
+				<ul class="list-inline mb-0">
 				{% if wishlist.customer_id == app.user.id %}
 					<li class="qty-update">
 						<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
@@ -182,15 +187,24 @@
 {% endfor %}
 </div>
 
-<div class="text-center">
-{% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
-<a class="btn btn-default btn-xs-block mr-md-3 p-xs" id="btn-share" href="#" data-placement="top" data-content="A link to this wish list has been copied to the clipboard." data-clipboard-text="{{ app.url}}/wishlist/{{wishlist.id}}">Share Wish List</a>
-{% endif %}
 
-{% if wishlist.customer_id == app.user.id %}
-<a class="btn btn-default btn-xs-block btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Manage Wish List</a>
-{% endif %}
+{% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
+<div class="dropdown text-right">
+	<button class="btn btn-default dropdown-toggle btn-xs-block" type="button" id="dropMana" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Manage Wish List</span><i class="fa fa-angle-down"></i></button>
+	<div class="dropdown-menu dropdown-menu-right col col-md-auto px-0" aria-labelledby="dropMana">
+		<div class="px-4 py-1">
+			<label for="shareregi">Share this Wish List:</label>
+			<input class="form-control" type="text" onclick="this.select()" value="{{ app.url}}/wishlist/{{wishlist.id}}" readonly="readonly">
+		</div>
+		<div class="dropdown-divider"></div>
+		{% if wishlist.customer_id == app.user.id %}
+		<a class="btn dropdown-item" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Change Settings</a>
+		{% else %}
+		<a class="btn dropdown-item disabled" href="#">Change Settings</a>
+		{% endif %}
+	</div>
 </div>
+{% endif %}
 
 {% endspaceless %}
 {{ forms.end() }}
