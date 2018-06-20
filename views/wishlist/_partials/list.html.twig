@@ -1,13 +1,19 @@
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% set wishlist_items = api.get('/wishlist/' ~ wishlist.id ~ '/items') %}
+
+<h1>{{ wishlist.name }}</h1>
+
 {% if (wishlist_items is empty) %}
 
-<p>There are no items in this wish list. <br />Please browse the store to add more items.</p>      
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+<p>There are no items in this Wish List.</p>
 {% if wishlist.customer_id == app.user.id %}
-<a class="btn btn-default btn-edit editwishlistLink" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Change Settings</a>
+<a class="btn btn-default btn-lg btn-block {#btn-edit editwishlistLink#}" href="{{ app.url }}/account/wishlist/{{ wishlist.id }}/edit">Change Settings</a>
 {% endif %}
-
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
-<h1>{{ wishlist.name }}</h1>
 
 {{ forms.begin('wishlist-form', app.url ~ '/wishlist/' ~ wishlist.id ~ '/route') }}   
 	{% set product_ids = wishlist_items|values_in('variant_id') %}

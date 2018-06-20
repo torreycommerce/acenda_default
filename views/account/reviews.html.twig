@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -38,7 +39,11 @@ set in the array in /account/_macros/base.html.twig
 <h1>Reviews</h1>
 
 {% if reviews is empty %}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
 <p>You have yet to write a review.</p>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
 
 <div class="table-responsive">

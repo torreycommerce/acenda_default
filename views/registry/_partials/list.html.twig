@@ -1,14 +1,17 @@
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% set registry_items = api.get('/registryitem', {query:{'registry_id': registry.id}}) %}
-{% if (registry_items is empty) %}
 
-<p>There are no items in this registry. <br />Please browse the store to add more items.</p>      
-<a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+<h1>{{ registry.name }}</h1>
+
+{% if (registry_items is empty) %}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+<p>There are no items in this Registry.</p>
 {% if registry.customer_id == app.user.id %}
-<a class="btn btn-default btn-edit editregistryLink" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Manage Registry</a>
+<a class="btn btn-default btn-lg btn-block {#btn-edit editregistryLink#}" href="{{ app.url }}/account/registry/{{ registry.id }}/edit">Change Settings</a>
 {% endif %}
 
 {% else %}
-<h1>{{ registry.name }}</h1>
 
 {{ forms.begin('registry-form', app.url ~ '/registry/' ~ registry.id ~ '/route') }}   
 {% set variant_ids = registry_items|values_in('variant_id') %}

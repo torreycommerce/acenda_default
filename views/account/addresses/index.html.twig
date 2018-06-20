@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -55,7 +56,14 @@ set in the array in /account/_macros/base.html.twig
 
 {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
 {% if addresses is empty %}
+
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
 <p>You have yet to save an address.</p>
+<a href="{{app.url}}/account/addresses/new" class="btn btn-primary btn-lg btn-block">Add New Address</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
 {% else %}
 <div class="row">
 	{% for row,address in addresses %}
@@ -106,12 +114,9 @@ set in the array in /account/_macros/base.html.twig
 	</div>
 	{% endfor %}
 </div>
-{% endif %}
 
-{% if addresses is not empty %}
-<p>Click the edit button to adjust, set as default, or remove an address.</p>
+<a href="{{app.url}}/account/addresses/new" class="btn btn-default">Add New Address</a>
 {% endif %}
-<a href="{{app.url}}/account/addresses/new" class="btn btn-default"><i class="fa fa-plus"></i><span>Add New Address</span></a>
 
 {{ forms.end() }}
 

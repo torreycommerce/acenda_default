@@ -148,9 +148,6 @@ div:focus, section:focus {outline:none;}
 
 @media (max-width:767px){
 .btn-xs-block {display:block; width:100%;}
-
-.p-xs {margin-bottom:1rem;}
-.p-xs-2x {margin-bottom:2rem;}
 }
 
 .p-thin {margin-bottom:10px;}

@@ -36,7 +36,7 @@
 <ul>
 	<li>
 	{% if app.user.id %}
-		<a href="{{ app.url }}/account"><i class="fa fa-user"></i><span>My Account</span></a><button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">Account Subcategories</i></i></button>
+		<a href="{{ app.url }}/account"><i class="fa fa-user"></i><span>My Account</span></a><button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">Account Subcategories</i></i></button>
 		<ul>
 			<li><a href="{{ app.url }}/account/notifications">Notifications</a></li>
 			<li><a href="{{ app.url }}/account/addresses">Addresses</a></li>
@@ -58,7 +58,7 @@
 	<li class="bgw yta-shop">
 		<a{% if items.limb|length %} class="yta-hassub"{% endif %} href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>
 		{% if items.limb|length %}
-		<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
+		<button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
 		<ul>
 			{% set i = 0 %}
 			{% for category,subitems in items.limb %}
@@ -80,6 +80,6 @@
 </ul>
 </div>
 </div>
-<button class="btn btn-lg btn-blank float-right yta-toggle"><i class="fa fa-close"><i class="sr-only">Close Mobile Menu</i></i></button>
+<button class="btn btn-lg btn-blank yta-toggle"><i class="fa fa-close"><i class="sr-only">Close Mobile Menu</i></i></button>
 </nav>
 {% endspaceless %}

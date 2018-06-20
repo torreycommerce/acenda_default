@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -50,7 +51,12 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {{ forms.begin('wishlist','','post',{ class:'' }) }}
 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 {% if wishlists is empty %}
-<p>There are no wishlists.</p>
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+<p>You have yet to create a Wish List.</p>
+<a class="btn btn-primary btn-block btn-lg" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
 {# Begin wishlists #}
 <div class="row">
@@ -77,11 +83,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% endfor %}
 </div>
 {# End wishlists #}
+<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
 {% endif %}
-{# Begin actions #}
-<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create">Create a New Wish List</a>
-{# End actions #}
+
 {{ forms.end() }}
-{# End wishlists #}
 {{account.navigatend()}}
 {% endblock %}

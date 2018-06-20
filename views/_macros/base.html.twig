@@ -21,7 +21,7 @@
     </a>#}
     <a class="btn btn-lg btn-blank" href="{{app.url}}/category/{{ items.slug }}">{{main_category}}</a>
     {% if items.limb|length %}
-    <button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-chevron-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
+    <button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>
     <ul>
         {% for category,subitems in items.limb %}
             {% set i = i + 1 %}
