@@ -42,7 +42,8 @@
 {% if returns is empty %}
 {{ lonelyform.begin()}}
 {{ lonelyform.begincard()}}
-<p>You have yet to make a return.</p>
+<p class="text-center">You have yet to create a return.</p>
+<a href="{{app.url}}/return" class="btn btn-primary btn-lg btn-block">Create Return</a>
 {{ lonelyform.endcard()}}
 {{ lonelyform.end() }}
 {% else %}

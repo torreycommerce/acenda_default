@@ -76,7 +76,8 @@
 
 .ac-help {font-size:.875rem; text-align:right;}
 
-blockquote>*:last-child, form>*:last-child, .alert>*:last-child, .g>*:last-child, .card-header>*:last-child, .card-body>*:last-child, .card-body fieldset:last-of-type .actions:last-child, .modal-body>*:last-child,.table-responsive>*:last-child {margin-bottom:0;}
+blockquote>*:last-child, form>*:last-child {margin-bottom:0;}
+.alert>*:last-child, .g>*:last-child, .card-header>*:last-child, .card-body>*:last-child, .card-body fieldset:last-of-type .actions:last-child, .modal-body>*:last-child,.table-responsive>*:last-child  {margin-bottom:0!important;}
 .card-body::after{display:block; clear:both; content:""}
 
 .btn-blank {background-color:transparent;}
@@ -125,7 +126,7 @@ div:focus, section:focus {outline:none;}
 .dib {display:inline-block; min-width:1.25em; margin-right:.5em; margin-left:.5em; text-align:center;}
 .dib:last-child {margin-right:0;}
 .dib:first-child {margin-left:0;}
-.divide {border-bottom:1px solid #ccc;}
+.divide {border-bottom:1px solid rgba(0,0,0,.125);}
 .divide:last-child {border-bottom:none;}
 .divide.pb-3:last-child, .divide.pb-4:last-child {padding-bottom:0!important;}
 .no-of {overflow:hidden;}

@@ -181,15 +181,15 @@
 .quantity .cart-total.input-group-btn {width:34%;}
 */
 </style>
+
+<div class="card"><div class="card-body">
 <h2>Products</h2>
-
-
-{{ forms.begin('cart','','post', {class:'form-cart g mb-4 divide'}) }}
+{{ forms.begin('cart','','post', {class:'form-cart mb-4 divide'}) }}
 {% for id, item in cart.items %}
 {% set product = products[item.product_id].0 %}
 {% set parent = api.get('product/' ~ product.product_id)%}
 {% spaceless %}
-<div class="divide item mb-4 pb-4" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
+<div class="item{% if not loop.last %} divide mb-4 pb-4{% endif %}" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="media media-cart mb-0 mb-3 mb-md-0">
@@ -276,6 +276,7 @@
 {% endspaceless %}
 {% endfor %}
 {{ forms.end() }}
+</div></div>
 <div class="row">
     {% set has_bundle = false %}
     {% for index, discount in cart.discount_collection.discounts %}
@@ -394,11 +395,11 @@
 					</div>
 				</div>
 				{% endif %}
-				<div class="row estimate-total totals-total">
-					<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
-					<div class="col-5 text-right">
-						{{ prod.currency(cart.total|number_format(2)) }}
-					</div>
+			</div>
+			<div class="row mb-3 estimate-total totals-total">
+				<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+				<div class="col-5 text-right">
+					{{ prod.currency(cart.total|number_format(2)) }}
 				</div>
 			</div>
 			{% set permissions = api.get('/customer/permissions') %}
