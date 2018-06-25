@@ -38,16 +38,13 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# Begin navigation #}
 
 {{account.navigation('registries')}}
-
-{# End navigation #}
-	
-<h1>Registries</h1>
 				
 {# Begin registries #}
 {{ form.begin('registry') }}
 {% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
 {% if registries is empty %}
 {{ lonelyform.begin()}}
+<h1>Registries</h1>
 {{ lonelyform.begincard()}}
 <p>You have yet to create a Registry.</p>
 <a class="btn btn-primary btn-block btn-lg" href="{{app.url}}/account/registry/create">Create New Registry</a>
@@ -55,6 +52,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {{ lonelyform.end() }}
 {% else %}
 
+<h1>Registries</h1>
 <div class="row">
 {% for registry in registries %}
 	<div class="col-md-6 col-xl-4">

@@ -52,12 +52,11 @@ set in the array in /account/_macros/base.html.twig
 {# End navigation #}
 {{ forms.begin('address','','post', {class:'form-region'}) }}
 
-<h1>Addresses</h1>
-
 {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
 {% if addresses is empty %}
 
 {{ lonelyform.begin()}}
+<h1>Addresses</h1>
 {{ lonelyform.begincard()}}
 <p class="text-center">You have yet to save an address.</p>
 <a href="{{app.url}}/account/addresses/new" class="btn btn-primary btn-lg btn-block">Add New Address</a>
@@ -65,6 +64,8 @@ set in the array in /account/_macros/base.html.twig
 {{ lonelyform.end() }}
 
 {% else %}
+
+<h1>Addresses</h1>
 <div class="row">
 	{% for row,address in addresses %}
 	<div class="col-md-6 col-xl-4">

@@ -120,6 +120,14 @@ $(window).on("load", function (e) {
 
 
 
+$('#nav .navbar-nav > li > ul').each(function() {
+    if ($(this).children('li').length > 10) {
+        $(this).parent('li').addClass('make-cols');
+    }
+});
+
+
+
 $('body').on('mouseenter mouseleave','.addAccess > li',function(e){
     //var _d=$(e.target).closest('.dropdown');
     var _d=$(this);

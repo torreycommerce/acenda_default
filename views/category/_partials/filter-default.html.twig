@@ -1,9 +1,9 @@
-<button class="btn btn-block btn-default card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="list-group-item" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
     <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse">
-    <div class="card-body">
+    <div class="card"><div class="card-body">
         <ul class="list-unstyled">                    
             {% for item,count in filter_set %}
                 {% set selected = item in filter_request[(name)]|keys ? 1 : 0 %}
@@ -25,15 +25,15 @@
                 </li>
             {% endfor %}
         </ul>
-    </div>
-</div>
-<div class="filter-clear">
+        <div class="filter-clear">
 {% for item,key in filter_request[(name)] if item in filter_set|keys %}
     {% set link = [] %}
     {% for key,i in app.request.get.f[(name)] if key != item %}
         {% set link = link + {(key):i} %}
     {% endfor %}
     {% set link = filter_request|merge({(name):link}) %}
-    <a href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{item}}</span></a>
+    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{item}}</span></a>
 {% endfor %}
+</div>
+    </div></div>
 </div>

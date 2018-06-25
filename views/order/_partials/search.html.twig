@@ -1,16 +1,14 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
-{% block title %}
-Order Status &amp; History
-{% endblock %}
+{% block title %}Order Status &amp; History{% endblock %}
 {% block breadcrumb %}
     {{ base.breadcrumbs({'Order Status &amp; History':''}) }}
 {% endblock %}
 {% block content %}
-<h1>Order Status &amp; History</h1>
 
 {{ lonelyform.begin()}}
+<h1>Order Status &amp; History</h1>
 {{ lonelyform.begincard() }}
     <p>To view your current and past orders, please either <strong><a href="{{app.url}}/account/login/">log in to your account</a></strong> or enter your information below.</p>
     {{ forms.begin('order','','post') }}

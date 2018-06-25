@@ -42,8 +42,8 @@
 
 {{account.navigation('wishlists')}}
 
-<h1>Edit {{ wishlist.name }}</h1>
 {{ lonelyform.begin()}}
+<h1>Edit {{ wishlist.name }}</h1>
 {{ lonelyform.begincard()}}
     {% include '/account/wishlist/_partials/form.html.twig' %}
 {{ lonelyform.endcard()}}

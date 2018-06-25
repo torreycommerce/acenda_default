@@ -22,15 +22,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% endblock %}
 
 {% block content %}
-	
-{# Begin navigation #}
 
 {{account.navigation('account-settings')}}
-	
-{# End navigation #}
-{# Begin account settings #}
-	
-<h1>Account Settings</h1>
 
 {% if app.request.post.change_password %}
 	{% if (api.post('/customer/'~ app.user.id ~'/validatepassword', {'password':app.request.post.change_password.current_password} )) %}
@@ -54,6 +47,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% endif %}
 
 {{ lonelyform.begin()}}
+<h1>Account Settings</h1>
 {{ lonelyform.begincard() }}
 {{ forms.begin('account_settings','','post', {class:''}) }}
 <fieldset>

@@ -18,12 +18,13 @@
 #yta-menu li:before, #yta-menu .yta-par:before {content:''; display:block; position:absolute; bottom:0; left:0; width:100%; border-bottom:1px solid #ddd;}
 #yta-menu .yta-par {position:relative; margin:0 0 1px;}
 #yta-menu a.btn {position:relative; display:block; text-align:left; overflow:hidden; text-overflow:ellipsis;}
+#yta-menu a.btn:not(:only-child) {padding-right:3.25rem;}
 #yta-menu ul ul {position:fixed; visibility:hidden; opacity:0;}
 
 #yta-menu button {display:block;}
 #yta-menu .yta-toggle {position:absolute; top:12px; left:100%; color:#fff!important;}
 #yta-menu .yta-getsub {position:absolute; top:0; right:0;}
-#yta-menu .yta-getpar {width:100%; text-align:left;}
+#yta-menu .yta-getpar {width:100%; text-align:left; overflow:hidden; text-overflow:ellipsis;}
 </style>
 
 {% spaceless %}
