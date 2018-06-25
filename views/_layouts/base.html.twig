@@ -120,7 +120,7 @@ var acendaBaseThemeUrl = '{{app.url_asset}}';
 </header>
 {# End Header #}
 {# Begin Content #}
-<section class="{% if url_based_class != 'store-home-page' %}pt-3 {% endif %}pb-4" id="content" tabindex="-1">
+<section class="{% if url_based_class != 'store-home-page' %} {% endif %}pt-3 pb-4" id="content" tabindex="-1">
 	<div class="container">
 		{% block breadcrumb %}{% endblock %}
 		{% block stage %}

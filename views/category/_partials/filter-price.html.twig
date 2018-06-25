@@ -1,11 +1,11 @@
 {% set prices = ['10','20','40','60','100','200','400','600','1000','2000','3000','4000','5000','8000','10000'] %}
 {% set deselect = '' %}
 
-<button class="btn btn-block btn-default card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
 	<span>Price</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse">
-	<div class="card-body price price-range">
+	<div class="card"><div class="card-body price price-range">
 		<ul class="list-unstyled">
 			{% set last_price = 0 %}
 			{% set selected_first = app.request.get.f.price.range|split(',')|first %}
@@ -21,7 +21,7 @@
 					{% set selected = true %}
 					{% set link = app.request.getUrl({'page':1,'f':filter_request|merge({'price':null})}) %}
 					{% set deselect %}
-							<a href="{{ link }}"><i class="fa fa-times"></i>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</a>
+							<a class="btn btn-default btn-sm" href="{{ link }}"><i class="fa fa-times"></i>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</a>
 					{% endset %}
 				{% endif %}
 				{% if total > 0 %}
@@ -33,8 +33,10 @@
 				{% set last_price = price %}
 			{% endfor %}
 		</ul>
-	</div>
-</div>
-<div class="filter-clear">
+		{% if deselect %}
+		<div class="filter-clear">
 	{{ deselect }}
+</div>
+{% endif %}
+	</div></div>
 </div>

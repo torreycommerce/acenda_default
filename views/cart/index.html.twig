@@ -160,11 +160,11 @@
 	<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
 
 {% else %}
-<h1>Shopping Cart</h1>
 
 {% if (cart.items is empty) %}
 
 {{ lonelyform.begin()}}
+<h1>Shopping Cart</h1>
 {{ lonelyform.begincard() }}
 <p class="text-center">Your Shopping Cart is empty.</p>
 <a class="btn btn-default btn-lg btn-block" href="{{app.url}}">Continue Shopping</a>
@@ -173,17 +173,9 @@
 
 {% else %}
 
-<style>
-/*
-.quantity>.input-group {width:100%;}
-.quantity .input-group-btn {width:1%;}
-.quantity .cart-indiv.input-group-btn {width:26%;}
-.quantity .cart-total.input-group-btn {width:34%;}
-*/
-</style>
-
+<h1>Shopping Cart</h1>
 <div class="card"><div class="card-body">
-<h2>Products</h2>
+<h2 class="sr-only">Products</h2>
 {{ forms.begin('cart','','post', {class:'form-cart mb-4 divide'}) }}
 {% for id, item in cart.items %}
 {% set product = products[item.product_id].0 %}

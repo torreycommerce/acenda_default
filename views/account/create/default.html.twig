@@ -32,8 +32,8 @@
 {% set form_extras = api.get('/customer/group/fields', {name:'Default Customer'}) %}
 {% block content %}
 
-<h1>{{title}}</h1>
 {{ lonelyform.begin()}}
+<h1>{{title}}</h1>
 {{ lonelyform.begincard()}}
     <p>New to {{ app.params.site.title }}? Create an account by filling out the form below.</p>
 

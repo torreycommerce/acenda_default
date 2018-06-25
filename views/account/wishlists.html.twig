@@ -44,21 +44,19 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {{account.navigation('wishlists')}}
 
-{# End navigation #}
-{# Begin wishlists #}
-<h1>Your Wish Lists</h1>
-{# Begin wishlist #}
 {{ forms.begin('wishlist','','post',{ class:'' }) }}
 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 {% if wishlists is empty %}
 {{ lonelyform.begin()}}
+<h1>Your Wish Lists</h1>
 {{ lonelyform.begincard()}}
 <p>You have yet to create a Wish List.</p>
 <a class="btn btn-primary btn-block btn-lg" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
 {{ lonelyform.endcard()}}
 {{ lonelyform.end() }}
 {% else %}
-{# Begin wishlists #}
+
+<h1>Your Wish Lists</h1>
 <div class="row">
 	{% for wishlist in wishlists %}
 	<div class="col-md-6 col-xl-4">

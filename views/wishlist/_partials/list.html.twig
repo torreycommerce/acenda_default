@@ -1,11 +1,10 @@
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% set wishlist_items = api.get('/wishlist/' ~ wishlist.id ~ '/items') %}
 
-<h1>{{ wishlist.name }}</h1>
-
 {% if (wishlist_items is empty) %}
 
 {{ lonelyform.begin()}}
+<h1>{{ wishlist.name }}</h1>
 {{ lonelyform.begincard()}}
 <p>There are no items in this Wish List.</p>
 {% if wishlist.customer_id == app.user.id %}
@@ -42,8 +41,9 @@
 	{% endif %}
 	{% endfor %}
 		{% spaceless %}
-		<div class="products p divide">
-		<h2 class="sr-only">Products</h2>
+<h1>{{ wishlist.name }}</h1>
+<div class="products p divide">
+<h2 class="sr-only">Products</h2>
 {% for item in wishlist_items %}
 	{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
 	{% set variant = variants[item.variant_id][0] %}

@@ -1,10 +1,9 @@
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% set registry_items = api.get('/registryitem', {query:{'registry_id': registry.id}}) %}
 
-<h1>{{ registry.name }}</h1>
-
 {% if (registry_items is empty) %}
 {{ lonelyform.begin()}}
+<h1>{{ registry.name }}</h1>
 {{ lonelyform.begincard()}}
 <p>There are no items in this Registry.</p>
 {% if registry.customer_id == app.user.id %}
@@ -49,6 +48,8 @@ when the API is fixed, restore this and get rid of the api workaround
     {% endif %}
 {% endfor %}
 {% spaceless %}
+
+<h1>{{ registry.name }}</h1>
 <div class="products p divide">
 <h2 class="sr-only">Products</h2>
 {% for item in registry_items %}

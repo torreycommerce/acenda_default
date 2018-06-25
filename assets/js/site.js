@@ -42,7 +42,7 @@ $(document).ready(function() {
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//
-		$('.yta-launch').parent('.nav-mobile').after('<div class="navajax"></div>');
+		$('.yta-launch').parent().after('<div class="navajax"></div>');
 	    $('.navajax').load(acendaBaseUrl+'/account/nav.html', function() {
 			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
 			});
@@ -116,6 +116,14 @@ $(window).on("load", function (e) {
             }
 		}
 	});
+});
+
+
+
+$('#nav .navbar-nav > li > ul').each(function() {
+    if ($(this).children('li').length > 10) {
+        $(this).parent('li').addClass('make-cols');
+    }
 });
 
 

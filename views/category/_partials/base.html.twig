@@ -157,9 +157,9 @@
 	{# Begin category filters #}
 	<div class="category-filters col-lg-3">
 		{% if categories is not empty %}
-		<div class="list-sub-categories d-xsm-none">
+		<div class="list-sub-categories fsd1 d-xsm-none">
 			<ul class="list-unstyled fa-fa-gentle">
-				<li class="current-category">{{ name|default(category.name) }}</li>
+				<li><span class="sr-only">Other</span> {{ name|default(category.name) }}</li>
 				{% for category in categories %}
 				<li class="sub-category">
 					<i class="fa fa-angle-right"></i><a href="{{app.url}}/category/{{category.slug}}">{{ category.name }}</a>
@@ -174,7 +174,12 @@
 		{% if filter_set|length > 1 %}
 			{% if hasFilters == 0 %}
 			<button class="btn btn-block btn-lg btn-default mb-3 d-lg-none" data-toggle="collapse" data-target="#collapseFilters"><i class="fa fa-sliders"></i><span>Refine</span></button>
-			<div class="collapse show d-lg-block fa-fa-balance" id="collapseFilters">
+			<div class="collapse show d-lg-block fa-fa-balance" id="collapseFilters"><div class="list-group mb-3">
+<style>
+#collapseFilters .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
+#collapseFilters .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
+#collapseFilters .list-group-item .fa {position:absolute; right:1.25rem; line-height:1.5;}
+</style>
 			{% set hasFilters = 1 %}
 			{% endif %}
 			
@@ -202,15 +207,15 @@
 			{% endif %}
 
             {% set safename = name|replace({'.':'-'})  %}
-            <div class="filter card" id="filter-{{safename}}">
+            {#<div class="filter" id="filter-{{safename}}">#}
 			{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
 			{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
-            </div>
+            {#</div>#}
 			{% endif %}
 		{% endif %}
 		{% if loop.last %}
 			{% if hasFilters == 1 %}
-				</div>
+				</div></div>
 				{% set hasFilters = 2 %}
 			{% endif %}
 		{% endif %}
@@ -236,7 +241,7 @@
 		{% if categories is not empty %}
 		<div class="category-grid {% if products.num_total > 0 %} divide mb-4 pb-3{% endif %}">
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Categories</h2>
-			<div class="row text-center">
+			<div class="row{# ifcentercat #}">
 				{% for category in categories %}
 				{# Begin category #}
 				<div class="col-6 col-md-4 mb-4">
@@ -262,9 +267,9 @@
 		<div class="page-filters divide mb-3">
 			<div class="row">                    
 				{# Begin search bar #}
-				<div class="col-lg-4 col-12 mb-3">
+				<div class="col-12 col-md-4 mb-3">
 					<form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
-						<div class="input-group twitter-typeahead">
+						<div class="input-group">
 							<input class="form-control typeahead search-autocomplete" id="category-search" data-provide="typeahead" autocomplete="off" type="text" name="fs" value="{{app.request.get.s|e}}" placeholder="Search within">
 							<span class="input-group-append">
 								<button class="btn btn-default" type="submit">
@@ -276,36 +281,34 @@
 				</div>
 				{# End search bar #}
 				{# Begin paging #}
-				<div class="col-lg-8 col-12 text-center text-md-right">
+				<div class="col-12 col-md-8 text-center text-md-right">
 					<ul class="list-inline">
 						<li>
 							<div class="btn-group">
 								<form class="form-inline">
-									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										<span>{{ sortByTitle }}</span><i class="fa fa-angle-down"></i>
 									</button>
-									<ul class="dropdown-menu text-left float-right">
+									<div class="dropdown-menu dropdown-menu-right text-left">
 										{% for name,sort in sort_options %}
-										<li><a href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a></li>
+										<a class="dropdown-item" href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a>
 										{% endfor %}
-									</ul>
+									</div>
 								</form>
 							</div>
 						</li><li>
 							<div class="btn-group">
 								<form class="form-inline">
-									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"><span>{{ limit }}</span><i class="fa fa-angle-down"></i>
+									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span>{{ limit }}</span><i class="fa fa-angle-down"></i>
 									</button>
-									<ul class="dropdown-menu float-right text-left">                                
-										<li><a href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a></li>
-										<li><a href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a></li>
-										<li><a href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a></li>
-										<li><a href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a></li>
-									</ul>
+									<div class="dropdown-menu dropdown-menu-right text-left">                                
+										<a class="dropdown-item" href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a>
+										<a class="dropdown-item" href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a>
+										<a class="dropdown-item" href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a>
+										<a class="dropdown-item" href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a>
+									</div>
 								</form>
 							</div>
-						</li><li>
-						    {{ base.pagination(products.num_total,limit,5) }}
 						</li>
 					</ul>
 				</div>
@@ -328,7 +331,7 @@
 		{% if products.num_total > 0 %}
 		<div class="product-grid">
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Products</h2>
-			<div class="products row text-center">
+			<div class="products row{# ifcentercat #}">
 				{% set collection_ids = [] %}
 				{% for row,product in products %}
 				{# if product.id not in collection_ids #}
@@ -361,7 +364,7 @@
 			<h2>Results for <strong><i>{{search_suggestion}}</i></strong></h2>
 			
 			{% endif %}
-			<div class="products row text-center">
+			<div class="products row{# ifcentercat #}">
 				{% set collection_ids = [] %}
 				{% for row,product in product_suggest if product.id not in collection_ids %}
 					{% if product.group == 'product' %}

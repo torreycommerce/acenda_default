@@ -29,10 +29,6 @@
 
 {{account.navigation('returns')}}
 
-{# End navigation #}
-
-<h1>Returns</h1>
-
 {% set query = {} %}
 {% if app.request.get.returnsearch.daterange != '' %}
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
@@ -41,6 +37,7 @@
 
 {% if returns is empty %}
 {{ lonelyform.begin()}}
+<h1>Returns</h1>
 {{ lonelyform.begincard()}}
 <p class="text-center">You have yet to create a return.</p>
 <a href="{{app.url}}/return" class="btn btn-primary btn-lg btn-block">Create Return</a>
@@ -48,6 +45,7 @@
 {{ lonelyform.end() }}
 {% else %}
 
+<h1>Returns</h1>
 <div class="page-filters divide mb-3">
 	<div class="row">
 		{# Begin return filter #}
