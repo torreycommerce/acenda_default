@@ -277,14 +277,14 @@
 {% import _self as this %}
 {% spaceless %}
 	{% if percents is not iterable %}
-		<span class="percs d-none d-md-block"> (<span class="val">{{ percents }}</span>%)</span>
+		<span class="percs d-none d-md-inline"> (<span class="val">{{ percents }}</span>%)</span>
 	{% else %}
 		{% set max = percents[0] %}
 		{% for percent in percents %}
 			{% set max = max < percent ? percent : max %}
 		{% endfor %}
 		{% if max > 0 %}
-			<span class="percs d-none d-md-block"> (<span class="val">{{ max }}</span>%)</span>
+			<span class="percs d-none d-md-inline"> (<span class="val">{{ max }}</span>%)</span>
 		{% endif %}
 	{% endif %}
 {% endspaceless %}

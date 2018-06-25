@@ -159,7 +159,7 @@
 		{% if categories is not empty %}
 		<div class="list-sub-categories fsd1 d-xsm-none">
 			<ul class="list-unstyled fa-fa-gentle">
-				<li>Other {{ name|default(category.name) }}</li>
+				<li><span class="sr-only">Other</span> {{ name|default(category.name) }}</li>
 				{% for category in categories %}
 				<li class="sub-category">
 					<i class="fa fa-angle-right"></i><a href="{{app.url}}/category/{{category.slug}}">{{ category.name }}</a>

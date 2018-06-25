@@ -1,4 +1,4 @@
-<button class="list-group-item" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
     <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-angle-down"></i>
 </button>
@@ -25,15 +25,15 @@
                 </li>
             {% endfor %}
         </ul>
-        <div class="filter-clear">
 {% for item,key in filter_request[(name)] if item in filter_set|keys %}
     {% set link = [] %}
     {% for key,i in app.request.get.f[(name)] if key != item %}
         {% set link = link + {(key):i} %}
     {% endfor %}
     {% set link = filter_request|merge({(name):link}) %}
+    <div class="filter-clear">
     <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{item}}</span></a>
+    </div>
 {% endfor %}
-</div>
     </div></div>
 </div>
