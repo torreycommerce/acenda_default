@@ -117,32 +117,30 @@
 {# Begin image carousel #}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
-		<div class="max-250 color-chips mb-2">
-			<div class="px-2">
-				<div class="row row-thin justify-content-center">
-				{% set colors = [] %}
-				{% for item,child in product.variant if 
-					child.status == 'active' 
-					and child.images is not empty
-					and child.color not in colors %}
-					{% set image_url0 = "" %}
-				    {% set image_url = "" %}
-				    {% set thiscolor = child.color %}
-					{% set colors = colors|merge([child.color]) %}
-					{% set imagevar = product.images %}
-					{% set image_url0 = imagevar|find({'name':thiscolor,'type':'swatch'}) %}
-					{% if image_url0 is not empty %}
-					    {% set image_url = image_url0[0].thumbnail %}
-				    {% endif %}
-				    {% set image_urlB = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
-					{% if image_url is empty %}
-					    {% set image_url = image_urlB %}
-				    {% endif %}
-					<div class="col-2 col-thin mb-2 color-chip">
-						<button class="btn blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
-					</div>
-				{% endfor %}
+		<div class="color-chips mb-2">
+			<div class="row row-thin">
+			{% set colors = [] %}
+			{% for item,child in product.variant if 
+				child.status == 'active' 
+				and child.images is not empty
+				and child.color not in colors %}
+				{% set image_url0 = "" %}
+			    {% set image_url = "" %}
+			    {% set thiscolor = child.color %}
+				{% set colors = colors|merge([child.color]) %}
+				{% set imagevar = product.images %}
+				{% set image_url0 = imagevar|find({'name':thiscolor,'type':'swatch'}) %}
+				{% if image_url0 is not empty %}
+				    {% set image_url = image_url0[0].thumbnail %}
+			    {% endif %}
+			    {% set image_urlB = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
+				{% if image_url is empty %}
+				    {% set image_url = image_urlB %}
+			    {% endif %}
+				<div class="col-2 col-thin mb-2 color-chip">
+					<button class="btn blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
 				</div>
+			{% endfor %}
 			</div>
 		</div>
 	{% endif %}
