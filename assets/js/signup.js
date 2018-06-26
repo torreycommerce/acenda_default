@@ -15,7 +15,8 @@ $('#SignupButton').click(function() {
 	}
 	$(this).prop('disabled', true).addClass('wait');
 	$.post(acendaBaseUrl + '/api/email', {
-		email: $('#SignupInput').val()
+		email: $('#SignupInput').val(),
+		verify:true
 	}).done(function(response) {
 		$('#SignupButton').prop('disabled', false).removeClass('wait');
 		$('html').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for signing up.</div>');
