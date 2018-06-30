@@ -52,7 +52,7 @@ $(document).ready(function() {
 		});
 	});
 	//
-	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/font-awesome-4.7.0/css/font-awecenda.min.css">');
+	$('head').append('<link rel="stylesheet" type="text/css" href="'+acendaBaseThemeUrl+'/assets/fonts/fa-5.1.0/css/trim.css">');
 	//
 	$(document).on('click','[data-image-swap]', function() {
         var src = $(this).attr('data-image-swap-src');
@@ -237,11 +237,14 @@ function productSlick() {
 
 
 if ($('.slick').length) {
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.7.1/slick.min.js",function(){
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick/slick-1.9.0.min.js",function(){
 		slickReady = 1;
-		if ($('.slick-1').length) {
-			$('.slick-1').slick({
-        		dots: false,
+		$('.slick-1').each(function() {
+		    var togArrows = $(this).hasClass('use-arrows') ? true : false;
+		    var togDots = $(this).hasClass('use-dots') ? true : false;
+			$(this).slick({
+			    arrows: togArrows,
+        		dots: togDots,
         		//infinite: false,
         		speed: 500,
         		slidesToShow: 1,
@@ -249,8 +252,8 @@ if ($('.slick').length) {
         		fade: true,
                 cssEase: 'linear'
         	});
-        	$('.slick-1 .hidden').removeClass('hidden');
-		}
+        	$(this).find('.d-none').removeClass('d-none');
+		});
 		if ($('.slick-heroic.slick-heroic-go').length) {
 			//console.log('pS call s')
 			productSlick();
