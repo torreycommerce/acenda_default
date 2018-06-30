@@ -137,7 +137,7 @@ when the API is fixed, restore this and get rid of the api workaround
 
                         {% if registry.customer_id == app.user.id %}
                         <li class="qty-remove">
-                            <button class="btn btn-link btn-xs px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-close"></i><span>Remove</span></button>
+                            <button class="btn btn-link btn-xs px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-times"></i><span>Remove</span></button>
                             {# Begin remove modal #}
                             <div class="modal fade" id="modal_remove_{{ variant.id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
