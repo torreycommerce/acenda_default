@@ -1,0 +1,7 @@
+
+{% macro addresponses() %}
+	{% set email_verify_message = 'Sorry, your email could not be verified.' %}
+	
+	
+	{{  '<script>var email_verify_message = "'~email_verify_message~'"</script>' }}
+{% endmacro %}
