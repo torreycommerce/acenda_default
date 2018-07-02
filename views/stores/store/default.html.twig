@@ -28,14 +28,14 @@
 {% endif %}
 	<div>{{location.city}}, {{location.state}} {{location.zip}}</div>
 {% if location.email is not empty %}
-	<div><i class="fa fa-envelope-o"></i><span>{{location.email}}</span></div>
+	<div><i class="far fa-envelope"></i><span>{{location.email}}</span></div>
 {% endif %}
 </address>
 {% if location.contact_phone is not empty %}
 <div><i class="fa fa-phone-square"></i><span>{{location.contact_phone}}</span></div>
 {% endif %}
 {% if location.email is not empty %}
-<div><i class="fa fa-envelope-o"></i><span>{{location.email}}</span></div>
+<div><i class="far fa-envelope"></i><span>{{location.email}}</span></div>
 {% endif %}
 {% if location.hours is not empty %}
 <div><i class="fa fa-calendar"></i><span>{{location.hours}}</span></div>

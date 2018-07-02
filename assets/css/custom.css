@@ -32,6 +32,7 @@ h1,.h1 {}
 #nav .navbar-nav {float:none;}
 #nav .navbar-nav > li > ul > li > ul a {font-weight:normal;}
 #nav .nav > li > a:hover, #nav .nav > li > a:focus {background-color:transparent;}
+#nav .navbar-nav li a {white-space:nowrap;}
 #nav .fa {display:none;}
 #nav .dropdown-menu {padding:0 0 10px 5px;}
 #nav .navbar-nav > li > .dropdown-menu {margin-top:0; padding:1.25rem;}
@@ -39,7 +40,6 @@ h1,.h1 {}
 
 #nav .navbar-nav > li.make-cols > .dropdown-menu {-webkit-column-count:3; -moz-column-count:3; column-count:2; column-rule:1px solid rgba(0,0,0,.1); break-inside:avoid-column; -webkit-column-break-inside:avoid; -webkit-column-gap:40px; -moz-column-gap:40px; column-gap:40px;}
 #nav .navbar-nav > li.make-cols > .dropdown-menu li {display:block;}
-#nav .navbar-nav > li.make-cols > .dropdown-menu li a {white-space:nowrap;}
 #nav .navbar-nav > li.make-cols > .dropdown-menu li ul {display:none;}
 
 #content {border-bottom:1px solid #f0f0f0;}
