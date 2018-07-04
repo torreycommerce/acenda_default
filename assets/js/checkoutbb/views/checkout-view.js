@@ -805,6 +805,7 @@ var checkout = checkout || {};
 			this.gotoStep('shipping');			
 		},
 		renderSigninSummary: function() {
+			var form = this.getFormData('#guest-form');			
 			if(this.logged_in) {
 			    var tpl = _.template('Logged in as <%=first_name%> <%=last_name%> ');				
                 $('#signin-panel .step-data').html(tpl(this.customer.attributes));
