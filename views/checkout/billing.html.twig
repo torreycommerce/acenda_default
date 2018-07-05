@@ -220,7 +220,7 @@
 			</div>
 		</div>
 		{{ normalizer.normalizer() }}
-		<div class="actions text-right hidden-xs">
+		<div class="actions text-right d-none d-md-block">
 			<input type="hidden" name="step" value="billing">
 			{% set works = {} %}
 			{% if app.user.getState('order_sent') == true %} {% set works = {'disabled': true } %} {% endif %}

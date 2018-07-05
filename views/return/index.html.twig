@@ -6,14 +6,13 @@
 {% block title %}Create a Return{% endblock %}
 
 {% block breadcrumb %}
-{{ base.breadcrumbs({'Create a Return':''}) }}
+{{ base.breadcrumbs({'Create Return':''}) }}
 {% endblock %}
 
 {% block content %}
 
-<h1>Create a Return</h1>
-
 {{ lonelyform.begin()}}
+<h1>Create Return</h1>
 {{ lonelyform.begincard() }}
 	<p>To return an item you've already received, please enter the following details:</p>
 	{{ forms.begin('guestreturn',app.url ~ '/return/create','post') }}

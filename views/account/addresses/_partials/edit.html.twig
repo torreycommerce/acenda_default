@@ -26,8 +26,6 @@
 
 {# End navigation #}
 
-<h1>Edit Address</h1>
-
 {% if app.request.post.address is defined %}
 	{% if app.request.post.address.make_default %}
 		{% set result = api.post('/customeraddress/' ~ address.id ~ '/makeDefault') %}
@@ -46,6 +44,7 @@
 	{% endif %}
 {% endif %}
 {{ lonelyform.begin()}}
+<h1>Edit Address</h1>
 {{ lonelyform.begincard() }}
 {% include "/account/addresses/_partials/form.html.twig" %}
 {{ lonelyform.endcard() }}

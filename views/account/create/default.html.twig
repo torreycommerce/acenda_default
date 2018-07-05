@@ -1,4 +1,3 @@
-{% spaceless %}
 {% if app.user.isLoggedIn() %}
     {% do app.redirect('/account') %}
 {% endif %}
@@ -21,20 +20,20 @@
         {% set create = app.request.post.create %}
     {% endif %}
 {% endif %}
-{% endspaceless %}
+
+{% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
-{% extends "/_layouts/base.html.twig" %}
 {% set title = 'Create an Account' %}
 {% block title %}{{title}}{% endblock %}
 {% block breadcrumb %}
 {{ base.breadcrumbs({'Account':'/account', (title):''}) }}
 {% endblock %}
-{% block content %}
 {% set form_extras = api.get('/customer/group/fields', {name:'Default Customer'}) %}
+{% block content %}
 
-<h1>{{title}}</h1>
 {{ lonelyform.begin()}}
+<h1>{{title}}</h1>
 {{ lonelyform.begincard()}}
     <p>New to {{ app.params.site.title }}? Create an account by filling out the form below.</p>
 
@@ -147,14 +146,14 @@
     {% endfor %}
 </fieldset>
 {% endif %}
-{# Begin actions #}
+
 <div class="form-group actions">
     {{ forms.submit('create[action]', 'create', 'Create Account', {class:'btn btn-lg btn-primary btn-block'})}}
 </div>
-{# End actions #}
 {{ forms.end() }}
-{{ lonelyform.endard()}}
-<p class="text-center">Already have an account? <a href="{{app.url}}/account/login/{{ app.request.path }}">Login</a>.</p>
+
+{{ lonelyform.endcard()}}
+<p class="text-center">Already have an account? <a href="{{app.url}}/account/login/{{ app.request.path }}">Log In</a>.</p>
 {{ lonelyform.end() }}
 
 {% endblock %}

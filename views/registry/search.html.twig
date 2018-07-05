@@ -17,9 +17,8 @@
 {% endif %}
 <div id="registry_search">
 
-<h1>Gift Registry</h1>
-
 {{ lonelyform.begin()}}
+<h1>Gift Registry</h1>
 {{ lonelyform.begincard()}}
     <h3>Find a Registry</h3>
     {{ forms.begin('registry_search','','get') }}
@@ -56,7 +55,7 @@
 {{ lonelyform.begincard()}}
     <h3>Create a New Registry</h3>
     <p>Please login to create a new registry.</p>
-    <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create a New Registry</a>
+    <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create New Registry</a>
 {{ lonelyform.end() }}
 
 {% if registries is not empty %}

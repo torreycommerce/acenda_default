@@ -2,6 +2,7 @@
 {% import "/_macros/form-elements.html.twig" as form %}
 {% import "/_macros/list.html.twig" as list %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -32,25 +33,32 @@ set in the array in /account/_macros/base.html.twig
 
 {{account.navigation('notifications')}}
 
-{# End navigation #}
-
-{# Begin header #}
-<h1>Notifications</h1>
+{% set sort   = app.request.get.sort is defined ? app.request.get.sort : 'id:-1' %}
+{% set search = app.request.get.s is defined ? app.request.get.s : '' %}
+{% set query  = app.request.get.query is defined ? app.request.get.query : [] %}
+{% set columns         = ['unread','subject','date_created'] %}
+{% set limit = 64 %}
+{# If the search contains special characters ':' or '=' assume the search is a query #}
+{% if '=' in search or ':' in search %}
+{% set query = search|replace({'=':':'}) %}
+{% set search = '' %}
+{% endif %}
+{% set notifications = api.get('/customernotification',{'sort':sort,'page':app.request.get.page,'query':query + {customer_id:app.user.id},'search':search,'attributes':columns,'limit':  limit }) %}
 			
-{# End header #}
+{% if notifications is empty %}
+
+{{ lonelyform.begin()}}
+<h1>Notifications</h1>
+{{ lonelyform.begincard()}}
+<p class="text-center">You do not have any notifications.</p>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
+{% else %}
+
+<h1>Notifications</h1>
 <div class="page-filters divide mb-3">
 	<div class="row">
-		{% set sort   = app.request.get.sort is defined ? app.request.get.sort : 'id:-1' %}
-		{% set search = app.request.get.s is defined ? app.request.get.s : '' %}
-		{% set query  = app.request.get.query is defined ? app.request.get.query : [] %}
-		{% set columns         = ['unread','subject','date_created'] %}
-		{% set limit = 64 %}
-		{# If the search contains special characters ':' or '=' assume the search is a query #}
-		{% if '=' in search or ':' in search %}
-		{% set query = search|replace({'=':':'}) %}
-		{% set search = '' %}
-		{% endif %}
-		{% set notifications = api.get('/customernotification',{'sort':sort,'page':app.request.get.page,'query':query + {customer_id:app.user.id},'search':search,'attributes':columns,'limit':  limit }) %}
 		<div class="col-md-4 mb-3 float-right">
 			<form method="get" class="input-group" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'sort':(sort),'s':''})}}'+''+$('#searchlist').val();return false;">
 				<input type="search" id="searchlist" name="s" value="{{app.request.get.s|e}}" class="form-control" placeholder="Search">
@@ -59,14 +67,12 @@ set in the array in /account/_macros/base.html.twig
 		</div>
 	</div>
 </div>
-<div class="text-center">
-	{{ base.pagination(notifications.num_total , limit ) }}
-</div>
 
-<div class="card">
+<div class="card"><div class="card-body">
 	{{ list.create(columns, notifications, '/account/notification/{id}', 'sort', {'unread':'boolean','date_created':'date'}, ['delete']) }}
-</div>
+</div></div>
 
+{% endif %}
 
 {{account.navigatend()}}
 {% endblock %}

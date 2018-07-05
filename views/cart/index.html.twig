@@ -1,5 +1,6 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% block title %}Shopping Cart{% endblock %}
 {% block breadcrumb %}
 {{ base.breadcrumbs({'Shopping Cart':''}) }}
@@ -159,43 +160,39 @@
 	<p>Acenda is not properly set up for checkout. Please add an active shipping method with at least one valid shipping zone.</p>
 
 {% else %}
-<h1>Shopping Cart</h1>
 
 {% if (cart.items is empty) %}
 
-<p>Your Shopping Cart is empty.</p>
-<a class="btn btn-default" href="{{app.url}}">Continue Shopping</a>
+{{ lonelyform.begin()}}
+<h1>Shopping Cart</h1>
+{{ lonelyform.begincard() }}
+<p class="text-center">Your Shopping Cart is empty.</p>
+<a class="btn btn-default btn-lg btn-block" href="{{app.url}}">Continue Shopping</a>
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 
 {% else %}
 
-<style>
-/*
-.quantity>.input-group {width:100%;}
-.quantity .input-group-btn {width:1%;}
-.quantity .cart-indiv.input-group-btn {width:26%;}
-.quantity .cart-total.input-group-btn {width:34%;}
-*/
-</style>
-<h2>Products</h2>
-
-
-{{ forms.begin('cart','','post', {class:'form-cart g mb-4 divide'}) }}
+<h1>Shopping Cart</h1>
+<div class="card"><div class="card-body">
+<h2 class="sr-only">Products</h2>
+{{ forms.begin('cart','','post', {class:'form-cart mb-4 divide'}) }}
 {% for id, item in cart.items %}
 {% set product = products[item.product_id].0 %}
 {% set parent = api.get('product/' ~ product.product_id)%}
 {% spaceless %}
-<div class="divide item mb-4 pb-4" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
+<div class="item{% if not loop.last %} divide mb-4 pb-4{% endif %}" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
 		<div class="col-md-6">
-			<div class="media media-cart mb-0 p-xs">
+			<div class="media media-cart mb-0 mb-3 mb-md-0">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 				</div>
-				<div class="media-body">
+				<div class="media-body g">
 				{% if product.brand is not empty %}
-    				<div class="brand mb-2">
+    				{#<div class="brand mb-1">
     					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
-    				</div>
+    				</div>#}
     			{% endif %}
 					<div><h3 class="product-name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></h3></div>
 					
@@ -220,7 +217,7 @@
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
 					<p><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
-					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
+					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
 					<div class="error alert alert-danger" style="display:none"></div>
 
 				</div>
@@ -271,6 +268,7 @@
 {% endspaceless %}
 {% endfor %}
 {{ forms.end() }}
+</div></div>
 <div class="row">
     {% set has_bundle = false %}
     {% for index, discount in cart.discount_collection.discounts %}
@@ -278,7 +276,7 @@
             {% set has_bundle = true %}
         {% endif %}
     {% endfor %}
-	<div class="col-lg-7">
+	<div class="col-lg-7"><div class="card"><div class="card-body">
 		<h2>Coupon Code</h2>
         {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
         {% if has_bundle %}
@@ -295,7 +293,7 @@
         {% endif %}
 
 		<div class="form-group">
-			<label for="cart_coupon_code">Enter Coupon Code:</label>
+			<label for="cart_coupon_code">Coupon Code</label>
 			<div class="row">
 				<div class="col-6 col-md-8">
 					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:true}) }}
@@ -308,7 +306,7 @@
 		</div>
 		{% for id, discount in cart.discount_collection.discounts %}
 			{% if discount.type == 'coupon' %}
-			<div class="discount">
+			<div class="discount g">
 				<div class="alert alert-info">
 					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
 					
@@ -324,14 +322,14 @@
 		{% endfor %}
         {{ forms.end() }}
 		{# Begin shipping estimator #}
-        <div class="mb-4" id="shipping-estimator">
+        <div id="shipping-estimator">
 			{% include "/cart/_partials/estimator.html.twig" %}
 		</div>
 		{# End shipping estimator #}
-	</div>
+	</div></div></div>
 	<div class="col-lg-5">
 		<div class="card"><div class="card-body">
-			<div class="p">
+			<div class="divide pb-3 mb-3">
 				<div class="row estimate-subtotal">
 					<div class="col-7">Subtotal:</div>
 					<div class="col-5 text-right">
@@ -389,31 +387,30 @@
 					</div>
 				</div>
 				{% endif %}
-				<hr>
-				<div class="row estimate-total totals-total">
-					<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
-					<div class="col-5 text-right">
-						{{ prod.currency(cart.total|number_format(2)) }}
-					</div>
+			</div>
+			<div class="row mb-3 estimate-total totals-total">
+				<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+				<div class="col-5 text-right">
+					{{ prod.currency(cart.total|number_format(2)) }}
 				</div>
 			</div>
 			{% set permissions = api.get('/customer/permissions') %}
 			{% if permissions.browse_catalog and permissions.show_prices and permissions.place_order %}
 				{% if site_payments.has_regular_checkout == true %}
 
-					<div class="p" id="proceed-to-checkout">
+					<div id="proceed-to-checkout">
 						<a class="btn btn-block btn-lg btn-primary btn-cart" href="{{ app.url }}/checkout">Proceed To Checkout</a>
 					</div>
 
 				{% endif %}
 				{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
 
-					<div class="text-center" id="paypal">
+					<div class="text-center mt-3" id="paypal">
 						<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out" width="145" height="42"></a>
 					</div>
 				{% endif %}
 			{% else %}
-				<div class="text-center" id="paypal">
+				<div class="alert alert-warning" role="alert">
 					You cannot place an order at this time.
 				</div>
 			{% endif %}

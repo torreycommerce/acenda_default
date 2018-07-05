@@ -2,6 +2,7 @@
 {% import "/_macros/base.html.twig" as base %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -28,18 +29,29 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {{account.navigation('orders')}}
 
-{# End navigation #}
-{# Begin order history list #}
+{% set query = {} %}
+{% if app.request.get.daterange != '' %}
+	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
+{% endif %}
+{% set orders = api.get('/order', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
+
+{% if orders is empty %}
+{{ lonelyform.begin()}}
+<h1>Orders</h1>
+{{ lonelyform.begincard()}}
+<p class="text-center">You have yet to place an order.</p>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+{% else %}
 
 <h1>Orders</h1>
-
 <div class="page-filters divide mb-3">
 	<div class="row">
 		{# Begin order filter #}
 		<div class="col-6 col-md-4 mb-3">
 			<div class="order-filter">
 				{{ forms.begin('ordersearch', app.url ~ '/account/orders', 'get') }}
-				{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control'}) }}
+				{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control form-control-autosubmit'}) }}
 			</div>
 		</div>
 		{# End order filter #}
@@ -54,99 +66,84 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		{{ forms.end() }}
 	</div>
 </div>
-{# End header #}
-{# Begin pagination #}
-{% set query = {} %}
-{% if app.request.get.daterange != '' %}
-	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
-{% endif %}
-{% set orders = api.get('/order', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
-<div class="text-center">
-	{{ base.pagination(orders.num_total,limit) }}
-</div>
-{# End pagination #}
-{% if orders is empty %}
-<p>There are no orders.</p>
-{% endif %}
+
 {% for order in orders %}
 {# Begin order #}
-<div class="order">
-	<div class="card"><div class="card-body">
-		<div class="row">
-			{# Begin order details #}
-			<div class="order-details col-md-4 fsd1 p-xs-2x">
-				<div class="order-info mb-3">
-					<div><strong>Order Info</strong></div>
-					<div>Order: #{{ order.order_number }}</div>
-					<div>Status: {{ order.status }}</div>
-					<div>Ordered: {{ order.date_created }}</div>
-				</div>
-				{% if order.hide_shipping != true %}
-				<div class="shipping-address divide g mb-3 pb-3">
-					<div><strong>Shipping Address</strong></div>
-					<address>
-						{{ order.shipping_street_line1 }}<br>
-						{% if order.shipping_street_line2 %}{{ order.shipping_street_line2 }}<br>{% endif %}
-						{% if order.shipping_company %}{{ order.shipping_company }}<br>{% endif %}
-						{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}<br>
-						{{ order.shipping_country }}
-					</address>
-				</div>
-				{% endif %}
-				<div class="totals-total mb-3">
-					Total: {{ prod.currency(order.total|number_format(2)) }}
-				</div>
-				{# Begin actions #}
-				<div class="actions">
-					<a class="btn btn-default" href="{{ app.url }}/account/order/{{ order.order_number }}">Order Details</a>
-				</div>
-				{# Begin actions #}
+<div class="card"><div class="card-body">
+	<div class="row">
+		{# Begin order details #}
+		<div class="order-details col-md-4 fsd1 mb-4 mb-md-0">
+			<div class="order-info mb-3">
+				<div><strong>Order Info</strong></div>
+				<div>Order: #{{ order.order_number }}</div>
+				<div>Status: {{ order.status }}</div>
+				<div>Ordered: {{ order.date_created }}</div>
 			</div>
-			{# End order details #}
-			{# Begin order items #}
-			<div class="col-md-8 fsd1 g">
-				{% if order.fraud_check is not empty %}
-				<div class="alert alert-warning">
-					Please call customer service for faster processing on this order.
-				</div>
-				{% endif %}
-				{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
-				{% set product_ids = items|values_in('product_id') %}
-				{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
-				{% for item in items %}
-					{% set product = products[item.product_id].0 %}
-					<div class="divide pb-3 g mb-3">
-						<div class="media">
-							{# Begin item image #}
-							<div class="media-left">
-								<a href="{{ app.url ~ product.url }}">
-									<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
-								</a>
-							</div>
-							{# End item image #}
-							{# Begin item details #}
-							<div class="media-body">
-								<a href="{{ app.url ~ product.url }}">{{ product.name }}</a>
-							</div>
-							{# End item details #}
-						</div>
-					</div>
-				{% endfor %}
+			{% if order.hide_shipping != true %}
+			<div class="shipping-address divide g mb-3 pb-3">
+				<div><strong>Shipping Address</strong></div>
+				<address>
+					{{ order.shipping_street_line1 }}<br>
+					{% if order.shipping_street_line2 %}{{ order.shipping_street_line2 }}<br>{% endif %}
+					{% if order.shipping_company %}{{ order.shipping_company }}<br>{% endif %}
+					{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}<br>
+					{{ order.shipping_country }}
+				</address>
 			</div>
-			{# End order items #}
+			{% endif %}
+			<div class="totals-total mb-3">
+				Total: {{ prod.currency(order.total|number_format(2)) }}
+			</div>
+			{# Begin actions #}
+			<div class="actions">
+				<a class="btn btn-default" href="{{ app.url }}/account/order/{{ order.order_number }}">Order Details</a>
+			</div>
+			{# Begin actions #}
 		</div>
-	</div></div>
-</div>
+		{# End order details #}
+		{# Begin order items #}
+		<div class="col-md-8 fsd1 g">
+			{% if order.fraud_check is not empty %}
+			<div class="alert alert-warning">
+				Please call customer service for faster processing on this order.
+			</div>
+			{% endif %}
+			{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+			{% set product_ids = items|values_in('product_id') %}
+			{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+			{% for item in items %}
+				{% set product = products[item.product_id].0 %}
+				<div class="divide pb-3 g mb-3">
+					<div class="media">
+						{# Begin item image #}
+						<div class="media-left">
+							<a href="{{ app.url ~ product.url }}">
+								<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+							</a>
+						</div>
+						{# End item image #}
+						{# Begin item details #}
+						<div class="media-body">
+							<a href="{{ app.url ~ product.url }}">{{ product.name }}</a>
+						</div>
+						{# End item details #}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{# End order items #}
+	</div>
+</div></div>
 {# End order #}
 {% endfor %}
 {# Begin pagination #}
 <div class="text-center">
 	{{ base.pagination(orders.num_total,limit) }}
 </div>
-{# End pagination #}
-{# End order history list #}
+{% endif %}
+
 {{account.navigatend()}}
 {% endblock %}
 {% block js %}
-{{ app.asset.js(app.url_asset ~ '/assets/js/orders.js?v=06192014') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/account.js') }}
 {% endblock %}

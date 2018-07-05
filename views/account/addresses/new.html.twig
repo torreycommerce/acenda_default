@@ -32,11 +32,6 @@ set in the array in /account/_macros/base.html.twig #}
 
 {{account.navigation('addresses')}}
 
-{# End navigation #}
-{# Begin content #}
-
-<h1>New Address</h1>
-
 {% if app.request.post.address is defined %}
 	{% set post_data = app.request.post.address|merge( {'customer_id':app.user.id} ) %}
 	{% set result = api.post('/customeraddress', post_data) %}
@@ -58,6 +53,7 @@ set in the array in /account/_macros/base.html.twig #}
 {% endif %}
 
 {{ lonelyform.begin()}}
+<h1>New Address</h1>
 {{ lonelyform.begincard() }}
 {% include "/account/addresses/_partials/form.html.twig" %}
 {{ lonelyform.endcard() }}

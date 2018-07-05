@@ -9,9 +9,9 @@
 			{% if items.limb|length %}
 				<li class="navcat-{{items.id}} dropdown">
 					<a class="dropdown-toggle nav-link" href="{{app.url}}/category/{{items.slug}}" data-toggle="dropdown">
-						<span>{{main_category}}</span><i class="fa fa-caret-down"></i>
+						<span>{{main_category}}</span><i class="fa fa-angle-down"></i>
 					</a>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu{% if loop.last %} dropdown-menu-right{% endif %}">
 						{% for category,subitems in items.limb %}
 							{% if subitems.limb|length %}
 								  {{ base.subcategory(category,subitems) }}

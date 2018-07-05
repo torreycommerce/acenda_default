@@ -5,7 +5,9 @@ $(document).ready(function() {
     } else {
         $('#actions').hide();
     }
-    $('form[name=address]').attachNormalizer();
+    if ($('form[name=address]').length) {
+        $('form[name=address]').attachNormalizer();
+    }
 });
 
 $('tbody tr input:checkbox').click(function(e) {
@@ -27,4 +29,8 @@ $('.btn-delete').click(function(e) {
     .always(function() {
         location.reload();
     });
+});
+
+$('select.form-control-autosubmit').change(function(){
+    $(this).closest('form').submit();
 });
