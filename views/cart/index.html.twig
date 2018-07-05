@@ -217,7 +217,7 @@
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
 					<p><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
-					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-close"></i><span>Remove</span></button>
+					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
 					<div class="error alert alert-danger" style="display:none"></div>
 
 				</div>

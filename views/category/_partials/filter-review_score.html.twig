@@ -4,11 +4,11 @@
 {% set selected = app.request.get.f.review_score.range|split(',')|last %}
 <div id="filter-{{ safename }}-items" class="collapse{% if selected is not empty %} show{% endif %}">
     <div class="card"><div class="card-body filter-stars">
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.0,0.25'}})})}}" class="{% if selected >= 0.25 %}active{% endif %}"><span class="glyphicon glyphicon-star"></span></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.2,0.45'}})})}}" class="{% if selected >= 0.45 %}active{% endif %}"><span class="glyphicon glyphicon-star"></span></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.4,0.65'}})})}}" class="{% if selected >= 0.65 %}active{% endif %}"><span class="glyphicon glyphicon-star"></span></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.6,0.9'}})})}}" class="{% if selected >= 0.9 %}active{% endif %}"><span class="glyphicon glyphicon-star"></span></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.9,1'}})})}}" class="{% if selected == 1 %}active{% endif %}"><span class="glyphicon glyphicon-star"></span></a>
+        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.0,0.25'}})})}}" class="{% if selected >= 0.25 %}active{% endif %}"><i class="fa fa-star"></i></a>
+        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.2,0.45'}})})}}" class="{% if selected >= 0.45 %}active{% endif %}"><i class="fa fa-star"></i></a>
+        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.4,0.65'}})})}}" class="{% if selected >= 0.65 %}active{% endif %}"><i class="fa fa-star"></i></a>
+        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.6,0.9'}})})}}" class="{% if selected >= 0.9 %}active{% endif %}"><i class="fa fa-star"></i></a>
+        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.9,1'}})})}}" class="{% if selected == 1 %}active{% endif %}"><i class="fa fa-star"></i></a>
         <div class="filter-clear">
 {% if selected is not empty %}
     <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i><span>Clear Review Stars</span></a>

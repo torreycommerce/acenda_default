@@ -20,7 +20,7 @@
                 {% endif %}
                 <li class="{% if selected %}active{% endif %}">
                     {% if item != '' %}
-                    <a class=" {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item|title}} ({{current_count}})</a>
+                    <a class=" {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item|title}} <span class="filter-count">({{current_count}})</span></a>
                     {% endif %}
                 </li>
             {% endfor %}
