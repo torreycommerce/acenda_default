@@ -6,9 +6,8 @@
 
 <script type="application/javascript">
   var checkout_product_prices_include_tax = '{{ app.params.order.product_prices_include_tax }}';
-  var saved_checkout_step = '{{ app.user.getState('current_step') }}';
+  var saved_checkout_step = '{{ cart.current_step }}';
 </script>
-
 
 <h1>Secure Checkout</h1>
 

@@ -490,7 +490,7 @@ var checkout = checkout || {};
 				$.when.apply($,defer_methods).then(function() {
    				    that.render();
              	    that.changedShippingMethod();
-             	    callback();
+             	    if(typeof callback !== 'undefined' )callback();
 
 				})
 
@@ -526,18 +526,21 @@ var checkout = checkout || {};
 		// open the checkout step and close others. Also deal with edit buttons and step data
 		gotoStep: function(name) {
 			var that = this;
+			if(that.logged_in && name == 'signin') name = 'shipping';
 			console.log('gotostep',name);
-	
 			_.each(this.checkout_steps,function(step,k){
 
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
 				if(step.name==name) {
-					that.current_step = name;
-				    that.checkout_steps[k].open=true;					
-					$(step.collapse).collapse('show');
-			     	$('#'+step.name+'-panel .step-data').hide();
+
 					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name.replace('-','')}).always(function(response){
+						that.current_step = name;
+					    that.checkout_steps[k].open=true;					
+				     	$('#'+step.name+'-panel .step-data').hide();	
+	         			$(step.collapse).collapse('show');				     													
+						$('#'+step.name+'-panel')[0].scrollIntoView({behavior: 'smooth'});
+
 						console.log('posted current step as : ' + name.replace('-',''));
 					});	    
 
@@ -1025,6 +1028,8 @@ var checkout = checkout || {};
 				if(response.code == 200) {
 					that.fetchCustomer();
 					that.fetchCart('reloadToolbar');
+					that.logged_in=true;
+					that.gotoStep('shipping');
 				} 				
 			}).fail(function(response){
 				$('#signin-error').html(response.responseJSON.error.password[0]);
