@@ -56,3 +56,58 @@ $('#SignupButton').click(function() {
 });
 
 
+
+$('#InStockAlertEmail').keyup(function() {
+	$('#InStockAlertEmail').removeClass('has_error');
+	//$('.newsletter-response').html('');
+});
+$('#InStockAlertEmailButton').click(function() {
+	var email = $('#InStockAlertEmail').val();
+	if (!email || !validateEmailAddress(email)) {
+		$('#InStockAlertEmail').addClass('has_error');
+		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
+		return false;
+	}
+	$(this).prop('disabled', true).addClass('wait');
+	
+	var variant_name = $('select.vopt').val();
+	//var variant_name = $('#selection').val();
+	var product_id = $('div.variations').data('id');
+	
+	$.get({
+		url:acendaBaseUrl + '/api/variant',
+		data:{query:{
+			name:variant_name,
+			product_id:product_id
+		},attributes:'id' },
+		success:function (response) {
+			var variant_id = response.result[0].id;
+			var email = $('#InStockAlertEmail').val();
+			submitInStockEmail(email, variant_id);
+		}
+	});
+});
+
+
+function submitInStockEmail(email, variant_id)
+{
+	$.post(acendaBaseUrl + '/api/instockemail', {
+		email: email,
+		variant_id: variant_id
+	}).done(function(response) {
+		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
+		$('html').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
+		console.log(response);
+	}).fail(function(response) {
+		var error = 'undefined error';
+		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
+		console.log(response.responseJSON.error.email[0]);
+		if (typeof response.responseJSON.error.email[0] != 'undefined') {
+			error = response.responseJSON.error.email[0];
+		}
+		$('#InStockAlertEmail').addClass('has_error');
+		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + error + '</div>');
+	});
+}
+
+

@@ -134,10 +134,14 @@
     					{% endif %}
     				{% endif %}
     					</div>
-    				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
+						
+    				{% set needstockmsg = product.variant|find({'has_stock':false})  %}
     				{% if needstockmsg|length > 0 %}
     					{% if variation.has_stock == false %}
-    					<div class="fsd1 stock stock-oos"><button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button></div>
+							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+							{% if  variation.enable_instockemail %}
+								<br/><div class="fsd1 stock stock-oos"><button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button></div>
+							{% endif %}
     					{% else %}
     					<div class="fsd1 stock"><div class="input-group-text bg-white border-white">&nbsp;</div></div>
     					{% endif %}
