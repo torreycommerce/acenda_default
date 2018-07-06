@@ -533,7 +533,6 @@ var checkout = checkout || {};
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
 				if(step.name==name) {
-					window.location.hash = name;
 					that.current_step = name;
 				    that.checkout_steps[k].open=true;					
 					$(step.collapse).collapse('show');
@@ -937,8 +936,6 @@ var checkout = checkout || {};
 		},
 		placeOrder: function(e) {			
 			e.preventDefault();
-		    window.location.hash = 'processing';
-
 			var that = this;
 			var form = this.buildCheckoutForm();
             $("html, body").animate({ scrollTop: 0 }, "slow");			
