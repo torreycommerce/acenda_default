@@ -45,7 +45,8 @@ $('#InStockAlertEmailButton').click(function() {
 	}
 	$(this).prop('disabled', true).addClass('wait');
 	
-	var variant_name = $('#selection').val();
+	var variant_name = $('select.vopt').val();
+	//var variant_name = $('#selection').val();
 	var product_id = $('div.variations').data('id');
 	
 	$.get({
