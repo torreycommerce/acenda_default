@@ -137,9 +137,9 @@
     				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
     				{% if needstockmsg|length > 0 %}
     					{% if variation.has_stock == false %}
-    					<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
+    					<div class="fsd1 stock stock-oos"><button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button></div>
     					{% else %}
-    					<div class="fsd1 stock"><div class="stock-msg"><br></div></div>
+    					<div class="fsd1 stock"><div class="input-group-text bg-white border-white">&nbsp;</div></div>
     					{% endif %}
     				{% endif %}
 				</div>
@@ -238,9 +238,30 @@
 	</div>
 
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
-	
-	{% include "/product/_partials/single-item-product-instock-email.html.twig" %}
-	
+    
+	<div class="modal fade" id="emailStock" tabindex="-1" role="dialog" aria-labelledby="emailStock-label" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="h3 modal-title" id="delete-modal-label">Email me when available</div>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Get notified via email when this product is back in stock.</p>
+					<form>
+						<label class="sr-only" for="InStockAlertEmail">Email Address</label>
+						<input type="search" placeholder="Email Address" class="form-control" id="InStockAlertEmail" name="email">
+					</form>  
+				</div>
+				{% spaceless %}<div class="modal-footer">
+				<div class="flex-fill">
+					<button type="button" class="btn btn-primary btn-block" id="InStockAlertEmailButton" data-dismiss="modal" type="button">Email me when available</button>
+				</div>
+				</div>{% endspaceless %}
+			</div>
+		</div>
+	</div>
+
 </div>
 <script type="application/ld+json">
 {
