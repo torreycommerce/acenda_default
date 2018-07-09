@@ -768,13 +768,12 @@ $('#InStockAlertEmailButton').click(function() {
 		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
 		return false;
 	}
-	$(this).prop('disabled', true).addClass('wait');
+	$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
 	
 	var product_id = $('.variations').data('id');
 	var variant_id = $('.variation.active').data('vid');
 	var email = $('#InStockAlertEmail').val();
 	submitInStockEmail(email, variant_id);
-	
 });
 
 function submitInStockEmail(email, variant_id)
@@ -785,7 +784,8 @@ function submitInStockEmail(email, variant_id)
 	}).done(function(response) {
 		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
 		$('html').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
-		console.log(response);
+		
+		$('#emailStock').modal('hide');
 	}).fail(function(response) {
 		var error = 'undefined error';
 		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
