@@ -372,9 +372,9 @@ function VariantsManager (product, img, isCollection) {
 					$(vHTML).find('.pricing ul').html('<li>&nbsp;</li>');
 				}
 				if (filteredVariants[0].has_stock == false) {
-					$(vHTML).find('.stock').addClass('stock-oos').html('<div class="stock-msg">Out of Stock</div>');
+					$(vHTML).find('.stock').addClass('stock-oos').html('<button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>');
 				} else {
-					$(vHTML).find('.stock').removeClass('stock-oos').html('<div class="stock-msg"><br></div>');
+					$(vHTML).find('.stock').removeClass('stock-oos').html('<div class="input-group-text bg-white border-white">&nbsp;</div>');
 				}
 				//
 				$('#product-details .variations').append(vHTML);
@@ -754,4 +754,46 @@ function VariantsManager (product, img, isCollection) {
 			}
     	};
 	}
+}
+
+
+$('#InStockAlertEmail').keyup(function() {
+	$('#InStockAlertEmail').removeClass('has_error');
+	//$('.newsletter-response').html('');
+});
+$('#InStockAlertEmailButton').click(function() {
+	var email = $('#InStockAlertEmail').val();
+	if (!email || !validateEmailAddress(email)) {
+		$('#InStockAlertEmail').addClass('has_error');
+		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
+		return false;
+	}
+	$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
+	
+	var product_id = $('.variations').data('id');
+	var variant_id = $('.variation.active').data('vid');
+	var email = $('#InStockAlertEmail').val();
+	submitInStockEmail(email, variant_id);
+});
+
+function submitInStockEmail(email, variant_id)
+{
+	$.post(acendaBaseUrl + '/api/instockemail', {
+		email: email,
+		variant_id: variant_id
+	}).done(function(response) {
+		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
+		$('html').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
+		
+		$('#emailStock').modal('hide');
+	}).fail(function(response) {
+		var error = 'undefined error';
+		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
+		console.log(response.responseJSON.error.email[0]);
+		if (typeof response.responseJSON.error.email[0] != 'undefined') {
+			error = response.responseJSON.error.email[0];
+		}
+		$('#InStockAlertEmail').addClass('has_error');
+		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + error + '</div>');
+	});
 }
