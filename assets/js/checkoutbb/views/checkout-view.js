@@ -3,7 +3,7 @@ var checkout = checkout || {};
 (function ($) {
 	'use strict';
 	checkout.CheckoutView = Backbone.View.extend({
-		start_step: 'signin',
+		start_step: '',
 		el: '.checkoutapp',
 		summaryView: null,
 		cart: new checkout.Cart(),
@@ -101,8 +101,9 @@ var checkout = checkout || {};
 		},		
 		findStartStep: function() {
 			var that = this;
+			if(that.start_step=='') that.start_step = 'signin';
+			if(that.start_step=='review') that.start_step='payment';
 			_.each(this.checkout_steps,function(step) {
-
 				if(step.name == 'shipping') {
 					that.checkShipping(void 0, true);
 				}
@@ -110,9 +111,8 @@ var checkout = checkout || {};
 				if(step.name == that.start_step) {   
 					that.gotoStep(step.name);
 					return; 
-				}
+				}				
 				step.completed=true;
-
 			});
 
 		},
@@ -127,7 +127,7 @@ var checkout = checkout || {};
 			    console.log('got everything!');
  				that.findStartStep(); 
  				that.renderShippingAddressSummary();
-			    that.renderSigninSummary(); 				
+			    that.renderSigninSummary(); 			
 			}else {
 			     setTimeout(function() { that.waitForEverything(count++); } ,200);				
 			}
@@ -529,26 +529,30 @@ var checkout = checkout || {};
 			if(that.logged_in && name == 'signin') name = 'shipping';
 			console.log('gotostep',name);
 			_.each(this.checkout_steps,function(step,k){
-
+				$(step.edit).hide();
+				$('#'+step.name+'-loading' ).show();
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
 				if(step.name==name) {
-
 					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name.replace('-','')}).always(function(response){
-						that.current_step = name;
-					    that.checkout_steps[k].open=true;					
-				     	$('#'+step.name+'-panel .step-data').hide();	
-	         			$(step.collapse).collapse('show');				     													
-						$('#'+step.name+'-panel')[0].scrollIntoView({behavior: 'smooth'});
-
-						console.log('posted current step as : ' + name.replace('-',''));
+						setTimeout(function() {
+							that.current_step = name;
+						    that.checkout_steps[k].open=true;					
+					     	$('#'+step.name+'-panel .step-data').hide();	
+		         			$(step.collapse).collapse('show');				     													
+							$('#'+step.name+'-panel')[0].scrollIntoView({behavior: 'smooth'});
+				         	$('#'+step.name+'-loading' ).hide();						
+				            that.render();
+							console.log('posted current step as : ' + name.replace('-',''));
+						},1000);
 					});	    
 
 				} else {
+			        $('#'+step.name+'-loading' ).hide();						
 					$(step.collapse).collapse('hide');
 				}
 			});
-			that.render();
+
 			if(this.logged_in) {
 				$('#billing-save').show();
 			}
@@ -836,6 +840,11 @@ var checkout = checkout || {};
 				$('#shipping-method-panel .step-data').append('<div>'+temp+'</div>');
 			}
 		},
+		renderPaymentSummary: function() {
+  			var form = this.getFormData('#payment-form');				
+ 			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');			
+			$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
+		},
 		checkShipping: function(e, dontGo) {
 			var that = this;
 			if(typeof e !=='undefined') e.preventDefault();
@@ -871,11 +880,10 @@ var checkout = checkout || {};
 
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				that.fetchCart('fetchShippingMethods');
+				that.checkout_steps[that.findStep('shipping')].completed=true;
+				if(!dontGo) that.gotoStep('shipping-method');				
 			});			
-			this.checkout_steps[this.findStep('shipping')].completed=true;
 
-
-			if(!dontGo) this.gotoStep('shipping-method');
 			return false;
 		},
 		checkShippingMethod: function(e) {
@@ -887,9 +895,10 @@ var checkout = checkout || {};
 			this.checkout_steps[this.findStep('shipping-method')].completed=true;
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				that.fetchCart();
+		    	that.gotoStep('payment');				
 			});
 	
-			this.gotoStep('payment');
+
 			return false;
 		},
 		checkPayment: function(e) {
@@ -900,7 +909,7 @@ var checkout = checkout || {};
 			    if(!this.verifyAddress('payment')) return;		
 			}	
   			var form = this.getFormData('#payment-form');				
- 			var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
+
 			if(typeof form.card_number !=='undefined') { 
 		        var currentTime = new Date()
 		        var month = currentTime.getMonth() + 1
@@ -915,9 +924,12 @@ var checkout = checkout || {};
 	                 $('select#exp-y').parent().removeClass('has-error'); 
 	                 $('select#exp-m').parent().removeClass('has-error');                                      
 	            }
-				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
-				that.checkout_steps[this.findStep('payment')].completed=true;
-		     	that.gotoStep('review');
+	            that.renderPaymentSummary();
+        		that.checkout_steps[this.findStep('payment')].completed=true;
+				$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+		     	     that.gotoStep('review');
+				});	        		
+
 	            $("html, body").animate({ scrollTop: 0 }, "slow");					
 			} else {
 				 console.log('checking dropin',that.bt_dropin_instance);

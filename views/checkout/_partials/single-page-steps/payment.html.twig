@@ -89,6 +89,9 @@
 		</div>
 	</div>
 {% endif %}
+{% set cart = api.get('cart') %}
+{% set address = cart %}
+{% set name ="billing_" %}
 <h3>Billing Address</h3>
 <div class="row" id="billing-address-preview">
 </div>
@@ -114,14 +117,14 @@
 				<div class="col-6">
 					<div class="form-group fgq">
 						<label for="billing-first-name">First Name</label>
-						{{ forms.text('billing_first_name', '', {class:'form-control parsley-validated', id:'billing-first-name', placeholder:"First Name", required:true}) }}
+						{{ forms.text('billing_first_name', address[name ~ 'first_name'], {class:'form-control parsley-validated', id:'billing-first-name', placeholder:"First Name", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'first_name') }}</div>
 					</div>
 				</div>
 				<div class="col-6">
 					<div class="form-group fgq">
 						<label for="billing-last-name">Last Name</label>
-						{{ forms.text('billing_last_name', '', {class:'form-control parsley-validated', id:'billing-last-name', placeholder:"Last Name", required:true}) }}
+						{{ forms.text('billing_last_name', address[name ~ 'last_name'], {class:'form-control parsley-validated', id:'billing-last-name', placeholder:"Last Name", required:true}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, name ~ 'last_name') }}</div>
 					</div>
 				</div>

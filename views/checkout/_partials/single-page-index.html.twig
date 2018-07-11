@@ -28,6 +28,7 @@
 			    <div class="card">
 			        <div id="signin-panel" class="card-header">
 			        	<button id="btn-edit-signin" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+						<i id="signin-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>1. Sign In</h2>
 			            <div class="step-data"></div>
 			        </div>
@@ -40,6 +41,7 @@
 			    <div id="shipping-panel" class="card">
 			        <div class="card-header">
 			        	<button id="btn-edit-shipping" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps" >Edit</button>
+			        	<i id="shipping-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>2. Shipping Address</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -51,7 +53,8 @@
 			    </div>
 			    <div id="shipping-method-panel" class="card">
 			        <div class="card-header">
-			        	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+		            	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			        	<i id="shipping-method-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>			        		
 			            <h2>3. Shipping Method</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -62,8 +65,9 @@
 			        </div>
 			    </div>					    
 			    <div id="payment-panel" class="card">
-			        <div class="card-header">
+			        <div class="card-header">			        				        	
 			        	<button id="btn-edit-payment" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			        	<i id="payment-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>4. Payment</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -75,6 +79,7 @@
 			    </div>					    
 			    <div id="review-panel" class="card">
 			        <div class="card-header">
+			        	<i id="review-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>			        	
 			            <h2>5. Review Your Order</h2>
 			        </div>
 			        <div id="collapseReview" class=" collapse">

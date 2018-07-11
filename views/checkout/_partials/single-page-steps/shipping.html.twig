@@ -8,7 +8,8 @@
         <div class="validation"></div>			
 	</div>
 </div>
-{% set address = app.user.getCheckoutStates('shipping') %}
+{% set cart = api.get('cart') %}
+{% set address = cart %}	
 {% set name ="shipping_" %}
 <script type="application/javascript">
 	var shipping_state_val = '{{ address['shipping_state'] }}';
