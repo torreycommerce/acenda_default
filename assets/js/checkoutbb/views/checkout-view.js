@@ -105,22 +105,28 @@ var checkout = checkout || {};
 			var that = this;
 			if(that.start_step=='') that.start_step = 'signin';
 			if(that.start_step=='review') that.start_step='payment';
+			console.log('looping steps', that.start_step);
+			var stop = false;
 			_.each(this.checkout_steps,function(step) {
-				if(step.name == 'shipping') {
-					that.checkShipping(void 0, true);
-				}
+				if(!stop) { 
+					if(step.name == 'shipping') {
+						that.checkShipping(void 0, true);
+					}
 
-				if(step.name == that.start_step) {   
-					that.gotoStep(step.name);
-					return; 
-				}				
-				that.setStepCompleted(step.name);
+					if(step.name == that.start_step) {   
+						that.gotoStep(step.name);
+						stop = true; 
+					} else { 				
+	    				that.setStepCompleted(step.name);
+	    			}
+	    		}
 			});
 
 		},
 		gotEverything: function() {
 			var that = this;
 			var shipping_address_selected = that.cart.get('shipping_address_selected');
+			var billing_address_selected = that.cart.get('billing_address_selected');			
 			var shipping_method = that.cart.get('shipping_method');
 			var copy_shipping = that.cart.get('copy_shipping');	
 			if(that.logged_in) {		
@@ -128,13 +134,24 @@ var checkout = checkout || {};
 			    	$('#shipping-customer-addresses-select').val(that.default_address);
 			    	that.changedSavedAddress({target: $('#shipping-customer-addresses-select')[0]},'shipping');	
 			    } 
+		        if(that.default_address!==null && (typeof billing_address_selected == undefined || billing_address_selected == null) ) {
+			    	$('#billing-customer-addresses-select').val(that.default_address);
+			    	that.changedSavedAddress({target: $('#billing-customer-addresses-select')[0]},'billing');	
+			    } 			    
 			    if(typeof shipping_address_selected !== 'undefined' && shipping_address_selected !==null) {
 			    	$('#shipping-customer-addresses-select').val(shipping_address_selected);
 			    	that.changedSavedAddress({target: $('#shipping-customer-addresses-select')[0]},'shipping');	
 			    }
+			    if(typeof billing_address_selected !== 'undefined' && billing_address_selected !==null) {
+			    	$('#billing-customer-addresses-select').val(billing_address_selected);
+			    	that.changedSavedAddress({target: $('#billing-customer-addresses-select')[0]},'billing');	
+			    }			    
 				if(!this.customer_addresses.length) {
 			     	$('#shipping-address-form .hide-shipping').slideDown();	
 				}
+				if(!this.customer_addresses.length) {
+			     	$('#billing-address-form .hide-billing').slideDown();	
+				}				
 			}
 
 		    if(typeof shipping_method !== 'undefined' && shipping_method !==null) {
@@ -174,8 +191,9 @@ var checkout = checkout || {};
 			}
 		},
 		render: function () {
-			var that = this;
+			var that = this;			
 			var passed_current = false;
+			console.log('steps',that.checkout_steps);
 			$('.btn-edit').css({display: 'none'});
 			_.each(this.checkout_steps,function(step){ 
     			 if(step.name == that.current_step) {
@@ -418,6 +436,7 @@ var checkout = checkout || {};
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
                     	$('[id=customer-addresses]').show();
                     	$('#customer-addresses select').html('<option value="0">New Address</option>');
+                        $('#billing-customer-addresses-select').html('<option value="0">New Address</option>'); 	
                     	var count_addy_shipping=0;
                     	var count_addy_billing=0;                    	
                     	that.customer_addresses.each(function(addy){
@@ -903,7 +922,7 @@ var checkout = checkout || {};
 			}
 		},
 		renderShippingMethodSummary:  function() {
-			if(!this.checkout_steps[this.findStep('shipping-method')].completed) return;	
+			if(!this.checkout_steps[this.findStep('shipping-method')].completed || this.cart.get('shipping_method') == null) return;	
   			var form = this.getFormData('#shipping-method-form');			
 			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="d-none"><%= method.price %></div>');
 			var method = this.shipping_methods.get(form.shipping_method);
