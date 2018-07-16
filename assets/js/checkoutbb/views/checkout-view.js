@@ -969,7 +969,7 @@ var checkout = checkout || {};
             $('#signin-error').html('');
             $('#btn-login-signin').attr('disabled',true);
             var oldBtnText  = $('#btn-login-signin').html();
-            $('#btn-login-signin').html('<i class="fa fa-gear fa-spin"></i>');
+            $('#btn-login-signin').html('<i class="fas fa-cog fa-spin"></i>');
 
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
 				if(response.code == 200) {

@@ -6,12 +6,12 @@
 .yta-mask {visibility:hidden; opacity:0; position:fixed; z-index:1061; top:0; bottom:0; left:0; right:0; background:rgba(0,0,0,.5); transition:all 300ms ease;}
 .yta-open .yta-mask {visibility:visible; opacity:1;}
 
-#yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-320px; width:320px; line-height:1.6; opacity:0; visibility:hidden; transition:all 300ms ease;}
+#yta-menu {position:fixed; z-index:1062; top:0; bottom:0; left:-274px; width:274px; line-height:1.6; opacity:0; visibility:hidden; transition:all 300ms ease;}
 .yta-open #yta-menu {left:0; opacity:1; visibility:visible;}
-.yta-bodies {position:absolute; top:0; right:0; bottom:0; width:320px; overflow:hidden;}
-.yta-body {position:absolute; top:0; right:0; bottom:0; width:320px; padding:12px 0 0; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto; transition:all 300ms ease;}
+.yta-bodies {position:absolute; top:0; right:0; bottom:0; width:274px; overflow:hidden;}
+.yta-body {position:absolute; top:0; right:0; bottom:0; width:274px; padding:12px 0 0; -webkit-overflow-scrolling:touch; overflow:scroll; overflow-x:hidden; overflow-y:auto; transition:all 300ms ease;}
 .yta-open .yta-body:not(.deep, .burr) {opacity:1; visibility:visible;}
-.yta-body.deep {right:-320px; visibility:hidden; opacity:0;}
+.yta-body.deep {right:-274px; visibility:hidden; opacity:0;}
 .yta-body.burr {right:40px; visibility:hidden; opacity:0;}
 #yta-menu ul {list-style:none; padding:0;}
 #yta-menu li {position:relative; margin:0 0 1px;}
@@ -25,6 +25,15 @@
 #yta-menu .yta-toggle {position:absolute; top:12px; left:100%; color:#fff!important;}
 #yta-menu .yta-getsub {position:absolute; top:0; right:0;}
 #yta-menu .yta-getpar {width:100%; text-align:left; overflow:hidden; text-overflow:ellipsis;}
+
+
+@media (min-width:375px) {
+#yta-menu {left:-320px; width:320px;}
+.yta-open #yta-menu {left:0;}
+.yta-bodies {width:320px;}
+.yta-body {width:320px;}
+.yta-body.deep {right:-320px;}
+}
 </style>
 
 {% spaceless %}
@@ -81,6 +90,6 @@
 </ul>
 </div>
 </div>
-<button class="btn btn-lg btn-blank yta-toggle"><i class="fa fa-times"><i class="sr-only">Close Mobile Menu</i></i></button>
+<button class="btn btn-lg btn-blank tight yta-toggle"><i class="fa fa-times"><i class="sr-only">Close Mobile Menu</i></i></button>
 </nav>
 {% endspaceless %}
