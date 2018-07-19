@@ -199,7 +199,6 @@ var checkout = checkout || {};
     			 if(step.name == that.current_step) {
     			 	passed_current=true;
     			 }
-
 				 if( !(step.name=='signin' && that.logged_in) && (step.completed && !step.open) && !passed_current) {
 				 	 $(step.edit).show();
 				 } else {
@@ -288,7 +287,7 @@ var checkout = checkout || {};
 		    	}
 		    }).done(function() {
 	    		if(typeof callback !=='undefined') {
-	    		    that[callback]();
+	    		     callback();
 	    		}
 		    })
 		},
@@ -296,6 +295,7 @@ var checkout = checkout || {};
 		setupBrainTree: function() {
   			var that = this;
 
+			if(that.bt_dropin_instance !== null) that.bt_dropin_instance.teardown();
   			$.post(acendaBaseUrl+'/api/braintree/token', function(data) {
   				that.bt_client_token = data.result.client_token;
   				that.bt_environment = data.result.environment;
@@ -425,8 +425,14 @@ var checkout = checkout || {};
 	        }
 	    },
 		// Fetch current cart state
-		fetchCustomer: function () {   
+		fetchCustomer: function (callback) {   
 			var that = this;				
+			if(!that.logged_in) { 
+                that.waits.got_customer = true; 	
+ 				that.waits.got_customer_addresses = true;               			
+ 				if(typeof callback !== 'undefined') callback();
+				return;
+			}
 		    this.customer.fetch({error: function() {  that.logged_in=false; that.waits.got_customer = true; that.waits.got_customer_addresses = true;},success: function(data) {
                 that.waits.got_customer = true;		    	
 		    	that.customer_addresses.fetch({success: function() {
@@ -461,7 +467,9 @@ var checkout = checkout || {};
                     		if(!count_addy_billing) {
                                  $('#shipping-panel [id=customer-addresses]').hide();                    			
                     		}
- 
+ 							if(typeof callback !== 'undefined') {
+ 								callback();
+ 							}
                     	},100)
                     } else {
                     	$('[id=customer-addresses]').hide();
@@ -726,8 +734,10 @@ var checkout = checkout || {};
 			if(current !== 'shipping' && current !=='billing') return;
 			$(e.target).parents('.panel').find('#address-verify').html('');
 			if(val!='0') {
-				$('#'+current+ '-address-form .hide-'+current).slideUp();			
 				var addy = this.customer_addresses.get(val);
+				if(!addy) return;				
+				$('#'+current+ '-address-form .hide-'+current).slideUp();			
+
 				if(current =='shipping') {
 					that.selected_shipping_address = val;
 					var country = addy.get('country');
@@ -749,12 +759,7 @@ var checkout = checkout || {};
 					if(field=='state') {
 				     	$('[name=' + current + '_' + field +'_select]').val(addy.get(field));						
 				     	$('[name=' + current + '_' + field +'_text]').val(addy.get(field));						
-					} 
-					if(field=='country') {
-						that.changedShippingCountry();
-						that.changedBillingCountry();						
-					} 					
-
+					} 				
 				});
 			} else {
 				$('#'+current+ '-address-form .hide-'+current).slideDown();				
@@ -792,13 +797,11 @@ var checkout = checkout || {};
 			if(!that.logged_in) {
 				$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 			    	that.setStepCompleted('signin',true);					
-					that.setupBrainTree();
 					that.gotoStep('shipping');				
 				});	
 			}
             else {
 			    that.setStepCompleted('signin',true);	
-				that.setupBrainTree();
 				that.gotoStep('shipping');
 			}
 			return false;
@@ -984,7 +987,7 @@ var checkout = checkout || {};
             $('#shipping-methods').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');			
 
 			$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
-				that.fetchCart('fetchShippingMethods');
+				that.fetchCart(function() {  that.fetchShippingMethods(); });
 				that.setStepCompleted('shipping',true);
 				if(!dontGo) that.gotoStep('shipping-method');				
 			});			
@@ -1151,14 +1154,20 @@ var checkout = checkout || {};
             $('#signin-error').html('');
             $('#btn-login-signin').attr('disabled',true);
             var oldBtnText  = $('#btn-login-signin').html();
-            $('#btn-login-signin').html('<i class="fa fa-gear fa-spin"></i>');
+            $('#btn-login-signin').html('<i class="fas fa-cog fa-spin"></i>');
 
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
 				if(response.code == 200) {
-					that.fetchCustomer();
-					that.fetchCart('reloadToolbar');
-					that.logged_in=true;
-					that.gotoStep('shipping');
+					that.logged_in=true;					
+					that.fetchCart(function() {
+						that.fetchCustomer(function() {
+							that.setStepCompleted('signin');
+				     		that.setupBrainTree();	
+							that.reloadToolbar();				
+							that.gotoStep('shipping');							
+						});
+					});
+
 				} 				
 			}).fail(function(response){
 				$('#signin-error').html(response.responseJSON.error.password[0]);
