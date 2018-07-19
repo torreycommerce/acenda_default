@@ -789,7 +789,7 @@ function submitInStockEmail(email, variant_id)
 	}).fail(function(response) {
 		var error = 'undefined error';
 		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
-		console.log(response.responseJSON.error.email[0]);
+		//console.log(response.responseJSON.error.email[0]);
 		if (typeof response.responseJSON.error.email[0] != 'undefined') {
 			error = response.responseJSON.error.email[0];
 		}
