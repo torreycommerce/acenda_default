@@ -19,7 +19,7 @@
 		<div class="card">
 			<div class="card-body">
 				<h2>Thank You, your order has been placed!</h2>
-				<p>We have sent you an e-mail confirmation.</p>
+				<p>We e-mailed you an order confirmation.</p>
 				{% if request.customer_id is defined %}
 					<a class="btn btn-default" href="{{app.url}}/account/order/{{final_order.order_number}}">Review Order: #{{ final_order.order_number }}</a>
 					

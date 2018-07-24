@@ -17,3 +17,10 @@ if (useGMapNorm) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/google_map_normalizer.js",function(){
 	});
 }
+
+
+// fully activate within views/_macros/product
+if ($('[data-rot]').length) {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/ace-data-rot.js",function(){
+	});
+}
