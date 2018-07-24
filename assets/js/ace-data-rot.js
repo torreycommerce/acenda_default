@@ -1,49 +1,57 @@
-var imgToRot;
-var myAni;
+var aceDRimgI; // img to rotate
+var aceDRimgD; // img to rotate, default img
+var aceDRarrI = [];
+var aceDRimg2 = new Image();
 //
-var imgToReturn;
-var img2 = new Image();
+var aceDRloopC;
+var aceDRloopM = 2; // max imgs to show. 2 only.
+var aceDRloopS;
 //
+var aceDRtog;
+var aceDRhov; // is it currently hovered?
 
-img2.onload = function() {
-	//console.log('onload ran 3')
-	myAni = setInterval(function(){ Ani() }, 1000);
-	Ani();
+aceDRimg2.onload = function() {
+	//console.log('onload ran v9, loop: '+aceDRloopC);
+	if (aceDRhov && !aceDRtog) {
+		aceDRtog = setInterval(function(){ Ani() }, 1000);
+		Ani();
+	}
 }
 
 $('body').on('mouseenter focusin','.product a',function(e){
-	if ($('html').hasClass('desktop') && $(this).find('[data-rot]').length && !myAni) {
-		imgToReturn = $(this).find('[data-rot]').attr('src');
-		imgToRot = $(this).find('[data-rot]');
+	if ($('html').hasClass('desktop') && $(this).find('[data-rot]').length && !aceDRtog) {
+		aceDRhov = 1;
+		aceDRimgI = $(this).find('[data-rot]');
+		aceDRimgD = aceDRimgI.attr('src');
 
-		iArr = imgToRot.data('rot');
-		iArr = iArr.split(',');
-		loopSize = iArr.length;
-		loopCount = 1;
-		loopMax = 2;
+		aceDRarrI = aceDRimgI.data('rot');
+		aceDRarrI = aceDRarrI.split(',');
+		aceDRloopS = aceDRarrI.length;
+		aceDRloopC = 1;
 
-		img2.src = iArr[loopCount];
+		aceDRimg2.src = aceDRarrI[aceDRloopC];
 	}
 });
 
 $('body').on('mouseleave focusout','.product a',function(e){
 	if ($('html').hasClass('desktop') && $(this).find('[data-rot]').length) {
+		aceDRhov = 0;
 		//console.log('mouseout focusout ran')
 		stopAni();
 	}
 });
 
 function Ani() {
-	$(imgToRot).attr('src',iArr[loopCount]);
+	$(aceDRimgI).attr('src',aceDRarrI[aceDRloopC]);
 	//
-	loopCount++;
-	if ((loopCount == loopSize) || (loopCount == loopMax)) {
-		loopCount = 0;
+	aceDRloopC++;
+	if ((aceDRloopC == aceDRloopS) || (aceDRloopC == aceDRloopM)) {
+		aceDRloopC = 0;
 	}
 }
 
 function stopAni() {
-	clearInterval(myAni);
-	myAni = null;
-	$(imgToRot).attr('src',imgToReturn);
+	clearInterval(aceDRtog);
+	aceDRtog = null;
+	$(aceDRimgI).attr('src',aceDRimgD);
 }
