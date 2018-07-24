@@ -1,0 +1,2 @@
+{% set response = api.get('braintree/createpaymentmethod',{ 'nonce': id}) %}
+{{ dump(response.getArray()) }}

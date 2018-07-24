@@ -1,18 +1,18 @@
-console.log('qc v50');
+console.log('qc v52');
 
 var qcrecalc = 1;
 var qcwearego = 0;
 
 // boots v4
 $('body').on('mouseenter focusin','#header .cart',function(e){
-    console.log('e event only IN');
+    //console.log('e event only IN');
     if (qcwearego != 1) {
         if (!$('#qc-parent').hasClass('show')) {
             qcwearego = 1;
             $('#qc-btn').dropdown('toggle');
         }
     } else {
-        console.log('e event has already happened, no dupe');
+        //console.log('e event has already happened, no dupe');
     }
 });
 
@@ -23,20 +23,22 @@ $('body').on('mouseleave focusout','#header .cart',function(e){
 
 $('#qc-parent').on('show.bs.dropdown', function () {
     if (qcrecalc == 1) {
-        console.log('bs show, now try qc fetch');
+        //console.log('bs show, now try qc fetch');
         ajaxCart("{}", true);
     } else {
-        displayCart();
+        if ($('.quickcart .item-count') > 0) {
+            displayCart();
+        }
     }
 });
 
-$('#qc-parent').on('shown.bs.dropdown', function () {
+/*$('#qc-parent').on('shown.bs.dropdown', function () {
     console.log('bs shown, do nothing');
-});
+});*/
 
 $('#qc-parent').on('hidden.bs.dropdown', function () {
-    console.log('qc hidden');
-    $('#qc-parent').removeClass('qc-ready');
+    //console.log('qc hidden, but not remove ready');
+    //$('#qc-parent').removeClass('qc-ready');
     resetErrors();
 });
 
@@ -50,10 +52,6 @@ $(function() {
     $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
         $('#header .item-count').html(data.result.item_count).addClass('ready');
     });
-});
-
-$('html').on("click", "#ajaxcart-close", function() {
-    $('#qc-btn').dropdown('toggle'); //hide
 });
 
 var pData;
@@ -172,6 +170,7 @@ function ajaxCart(data, r) {
         if (show_all) {
             items = cart_items;
         } else {
+            console.log('attempt not show_all');
             items = $('.productForm').serializeArray(); // Items that were added
         }
         
@@ -181,7 +180,7 @@ function ajaxCart(data, r) {
             });
         }
 
-        $('.quickcart .ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
+        $('.ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
 
 
         for (var i = 0; i < items.length; i++) {
@@ -213,7 +212,6 @@ function ajaxCart(data, r) {
         }
         var defer = $.when.apply($, requests); // Run all requests
         defer.done(function() {
-
             // Sort the responses by most recently added to the cart (by cart item ID)
             response.sort(function(a, b) {
                 return product_cart_id[a.id] > product_cart_id[b.id];
@@ -231,7 +229,7 @@ function ajaxCart(data, r) {
                     $('.ajaxcart-product .product-quantity').html(product_attr[product_id].quantity);
                     first_product_added = true;
                 } else {
-                    var cloned = $('.ajaxcart-product:last').clone().appendTo('.quickcart .ajaxcart-products');
+                    var cloned = $('.ajaxcart-product:last').clone().appendTo('.ajaxcart-products');
                     cloned.find('.product-image').attr('src', product_thumbnail);
                     cloned.find('.product-name').html(product_name);
                     cloned.find('.price .val').html(product_price);
@@ -247,19 +245,19 @@ function ajaxCart(data, r) {
                         if(typeof result[id]['error'] != 'undefined') {
                             message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
                         }
-                        var error = $('<div>', {"class": "alert alert-danger mar-t"}).html(message);
+                        var error = $('<div>', {"class": "alert alert-danger mt-3"}).html(message);
                         errors.append(error);
                     }
                 });
 
             }
             $('#header .item-count').html(cart_item_count).addClass('ready');
-            $('.quickcart .ajaxcart .subtotal .val').html(cart_subtotal);
+            $('.ajaxcart .subtotal .val').html(cart_subtotal);
 
             if (show_all) {
-                $('.quickcart .ajaxcart .heading').html('');
+                $('.ajaxcart .heading').html('');
             } else
-                $('.quickcart .ajaxcart .heading').html('The following item(s) were added to your cart:');
+                $('.ajaxcart .heading').html('The following item(s) were added to your cart:');
 
             $('#collection .quantity-selector').val(0); // Set collection quantity selector values to 0
 

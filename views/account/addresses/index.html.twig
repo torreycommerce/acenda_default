@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -51,21 +52,29 @@ set in the array in /account/_macros/base.html.twig
 {# End navigation #}
 {{ forms.begin('address','','post', {class:'form-region'}) }}
 
-<h1>Addresses</h1>
-
 {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
 {% if addresses is empty %}
-<p>You have yet to save an address.</p>
+
+{{ lonelyform.begin()}}
+<h1>Addresses</h1>
+{{ lonelyform.begincard()}}
+<p class="text-center">You have yet to save an address.</p>
+<a href="{{app.url}}/account/addresses/new" class="btn btn-primary btn-lg btn-block">Add New Address</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
 {% else %}
+
+<h1>Addresses</h1>
 <div class="row">
 	{% for row,address in addresses %}
 	<div class="col-md-6 col-xl-4">
-		<div class="card {% if address.verified == 0 %} bg-light{% else %}{% endif %} {% if address.default == 1 %} bg-light{% endif %}">
+		<div class="card {% if address.verified == 0 %} {# consider#}{% else %}{% endif %} {% if address.default == 1 %} bg-light{% endif %}">
 			<div class="card-header">
 				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
 			</div>
 			<div class="card-body">
-				<address class="pad-b divide mb-3 g">
+				<address class="pb-3 divide mb-3 g">
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>
 					{% endif %}
@@ -77,7 +86,7 @@ set in the array in /account/_macros/base.html.twig
 					<div class="country">{{ address.country }}</div>
 					{#{% if address.street_line2 == '' %}<br />{% endif %}#}
 					{#{% if address.company == '' %}<br />{% endif %}#}
-					<div class="fsd1 mar-t">
+					<div class="fsd1 mt-3">
 					{% if address.default == 1 %}
 						<u>Default Address</u>
 					{% else %}
@@ -89,9 +98,9 @@ set in the array in /account/_macros/base.html.twig
     				{% endif %}
 				</address>
 				<div class="btn-group">
-					<a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						<span>Options</span><i class="fa fa-caret-down"></i>
-					</a>
+					<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span>Options</span><i class="fa fa-angle-down"></i>
+					</button>
 					<div class="dropdown-menu fa-fa-balance" role="menu">
 						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item" name="edit_address">
 							Edit Address <span class="sr-only">for {{ address.street_line1 }}</span>
@@ -106,12 +115,9 @@ set in the array in /account/_macros/base.html.twig
 	</div>
 	{% endfor %}
 </div>
-{% endif %}
 
-{% if addresses is not empty %}
-<p>Click the edit button to adjust, set as default, or remove an address.</p>
+<a href="{{app.url}}/account/addresses/new" class="btn btn-default">Add New Address</a>
 {% endif %}
-<a href="{{app.url}}/account/addresses/new" class="btn btn-default"><i class="fa fa-plus"></i><span>Add New Address</span></a>
 
 {{ forms.end() }}
 

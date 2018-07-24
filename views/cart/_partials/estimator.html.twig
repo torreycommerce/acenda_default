@@ -1,24 +1,27 @@
 <div id="estimator-error"></div>
 <h2>Shipping and Tax Estimator</h2>
-{{ forms.begin('cart','','post',{ class:'form-estimate' }) }}
+{{ forms.begin('cart','','post',{ class:'form-estimate needs-validation' }) }}
 	<div class="form-group">
-		<label class="control-label" for="cart_zip_code">Shipping Details:</label>
+	    <label for="country">Shipping Country</label>
 		<div class="row">
 			<div class="col-6 mb-3">
-				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country}) }}
+				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country, required:true}) }}
 			</div>
 			<div class="col-6 mb-3">
-				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state}) }}
+			    <label class="sr-only" for="state_select">Shipping State</label>
+				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state, required:true}) }}
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-6 col-md-4 mb-3">
-				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip}) }}
+			<div class="col-6 col-md-4 mb-3 mb-md-0">
+			    <label class="sr-only" for="cart_zip_code">Shipping Zip Code</label>
+				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip, required:true}) }}
 			</div>
-			<div class="col-6 col-md-4 mb-3">
-				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method}) }}
+			<div class="col-6 col-md-4 mb-3 mb-md-0">
+			    <label class="sr-only" for="cart_shipping_method">Shipping Method</label>
+				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method, required:true}) }}
 			</div>
-			<div class="col-md-4 mb-3">
+			<div class="col-md-4">
 				{{ forms.submit('action', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
 			</div>
 		</div>
@@ -98,6 +101,5 @@
 	</div></div>
 </div>
 {% endif %}
-{# End estimates #}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}

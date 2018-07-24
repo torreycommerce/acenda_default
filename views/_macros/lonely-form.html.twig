@@ -1,15 +1,15 @@
 {% macro begin(id) %}
-<div class="lonely-form" id="{{id}}"><div class="row"><div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+<div class="lonely-form {% if id %}lf-{{id}}{% endif %}"><div class="max-lonely">
 {% endmacro %}
 
-{% macro beginintro() %}
-<div class="lonely-intro mb-3">
+{% macro begincard(id) %}
+<div class="card"><div class="card-body">
 {% endmacro %}
 
-{% macro endintro() %}
-</div>
+{% macro endcard() %}
+</div></div>
 {% endmacro %}
 
 {% macro end() %}
-</div></div></div>
+</div></div>
 {% endmacro %}

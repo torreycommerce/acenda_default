@@ -231,7 +231,7 @@ function isoAcendaAPI(ala,alo) {
 			}
 		} else {
 			map.setCenter({lat: ala, lng: alo});
-			$('.ok-list').append('<div class="col-12 g mar-t"><div class="alert alert-danger">No results! Try expanding your search radius, or search a different location.</div></div>');
+			$('.ok-list').append('<div class="col-12 g mt-3"><div class="alert alert-danger">No results! Try expanding your search radius, or search a different location.</div></div>');
 		}
 	});
 	//
@@ -293,7 +293,7 @@ function createMarker(location,id){
 	//
 	//console.log('now fC is:')
 	//console.log(formattedContent);
-	$('.ok-list').append('<div class="col-md-6 col-lg-4 pad-h"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="d-b mb-3" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="fa fa-building-o"></i><span>Store Info</span></a></div><div class="col-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
+	$('.ok-list').append('<div class="col-md-6 col-lg-4 py-3"><div class="location pad" data-num="'+(markerArray.length-1)+'"><a class="d-b mb-3" href="javascript:goToMarker(' + (markerArray.length-1) + ')">'+formattedContent+'</a><div class="row"><div class="col-6"><a class="btn btn-block btn-default btn-sm" href="'+acendaBaseUrl+'/stores/store/map/'+location.id+''+buildURL()+'"><i class="far fa-building"></i><span>Store Info</span></a></div><div class="col-6"><a class="btn btn-block btn-default btn-sm" target=_blank href="https://www.google.com/maps/dir/' + userCoord.lat + ',' + userCoord.lon + '/' + location.lat + ',' + location.lon +  '"><span>Directions</span><i class="fa fa-arrow-right fa-tilt"></i></a></div></div></div></div>');
 	//
 }
 

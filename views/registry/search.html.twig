@@ -17,30 +17,28 @@
 {% endif %}
 <div id="registry_search">
 
+{{ lonelyform.begin()}}
 <h1>Gift Registry</h1>
-
-{{ lonelyform.begin('registry-find')}}
-    {{ lonelyform.beginintro() }}
-        <h3>Find a Registry</h3>
-    {{ lonelyform.endintro() }}
+{{ lonelyform.begincard()}}
+    <h3>Find a Registry</h3>
     {{ forms.begin('registry_search','','get') }}
         <div class="form-group">
-            <label class="control-label" for="first_name">First Name</label>
+            <label for="first_name">First Name</label>
             {{ forms.text('registry_search[first_name]',registry_search.first_name, {class:'form-control parsley-validated', id:'first_name', placeholder:"First Name"}) }}
             <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="last_name">Last Name</label>
+            <label for="last_name">Last Name</label>
             {{ forms.text('registry_search[last_name]',registry_search.last_name, {class:'form-control parsley-validated', id:'last_name', placeholder:"Last Name"}) }}
             <div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="city">City</label>
+            <label for="city">City</label>
             {{ forms.text('registry_search[city]',registry_search.city, {class:'form-control parsley-validated', id:'city', placeholder:"City"}) }}
             <div class="validation">{{ forms.errorlist(form_errors, 'city') }}</div>
         </div>
         <div class="form-group">
-            <label class="control-label" for="state">State</label>
+            <label for="state">State</label>
             {{ forms.text('registry_search[state]',registry_search.state, {class:'form-control parsley-validated', id:'state', placeholder: "ST"}) }}
             <div class="validation">{{ forms.errorlist(form_errors, 'state') }}</div>
         </div>
@@ -51,13 +49,13 @@
         <div class="alert alert-warning">Sorry, there were no matching registries found. Please try broadening your search.</div>
         {% endif %}
     {{ forms.end() }}
+{{ lonelyform.endcard() }}
 {{ lonelyform.end() }}
-{{ lonelyform.begin('registry-create')}}
-    {{ lonelyform.beginintro() }}
-        <h3>Create a New Registry</h3>
-        <p>Please login to create a new registry.</p>
-        <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create a New Registry</a>
-    {{ lonelyform.endintro() }}
+{{ lonelyform.begin()}}
+{{ lonelyform.begincard()}}
+    <h3>Create a New Registry</h3>
+    <p>Please login to create a new registry.</p>
+    <a class="btn btn-lg btn-primary" href="{{ app.url }}/account/registries">Create New Registry</a>
 {{ lonelyform.end() }}
 
 {% if registries is not empty %}
@@ -88,4 +86,7 @@
 </div>
 {% endif %}
 </div>
+
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 {% endblock %}

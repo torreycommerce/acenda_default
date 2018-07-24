@@ -3,23 +3,23 @@
     {% import _self as list %}
     <form method="POST" action="{{item_link|replace({'{id}':''})}}edit.html">
     <div class="table-responsive">
-        <div id="actions" style="display:none">
+        <div class="form-group" id="actions" style="display:none">
             {% for option in options %}
                 {% if option == 'edit' %}
                     <button class="btn btn-default btn-edit">Edit</button>
                 {% elseif option == 'delete' %}
-                    <a class="btn btn-danger btn-{{option}}">{{option|capitalize}}</a>
+                    <button class="btn btn-danger btn-{{option}}" type="button">{{option|capitalize}}</button>
                 {% endif %}
             {% endfor %}
             <input type="hidden" id="item_link" name="item_link" value="{{app.url}}{{item_link}}">
         </div>
-      <table class="table table-hover table-striped tablesorter">
+      <table class="table fsd1 table-hover table-striped tablesorter">
         <thead>
           <tr>
-              <td></td>
+              <th></th>
             {% for column in columns %}
                 {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
-                <th onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><small>{{column|replace({'_':'&nbsp;'})|title}}</small>&nbsp;<i class="fa fa-sort"></i></th>
+                <th {% if loop.last%}class="text-right"{% endif %} onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><span>{{column|replace({'_':'&nbsp;'})|title}}</span><i class="fa fa-sort"></i></th>
             {% endfor %}
           </tr>
         </thead>
@@ -38,7 +38,7 @@
                         {% endfor %}
                     {% endset %}
                 {% endif %}
-                <td>
+                <td {% if loop.last%}class="text-right"{% endif %}>
                     
                     {% if extras is not empty %}
                         <span data-tooltip="" data-toggle="tooltip" data-original-title="{{extras}}">{{list.format_field(row[column], column_format[column])}} <i class="fa fa-info-circle"></i></span>
@@ -69,7 +69,7 @@
             No
         {% endif %}
     {% elseif type == 'date' %}
-        <span data-tooltip="" data-toggle="tooltip" data-original-title="{{ value|date("F jS g:ia") }}">{{ value|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span>
+        <span data-tooltip="" data-toggle="tooltip" data-original-title="{{ value|date("F jS g:ia") }}">{{ value|date("m/d/Y") }}</span>
     {% elseif type == 'boolean' %}
         {% if value %}
             <i class="fa fa-check"></i>

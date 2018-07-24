@@ -56,7 +56,7 @@
 				<ul><li>{{ error }}</li></ul>
 				{% endif %}
 			{% endif %}
-		<div class="mar-t">
+		<div class="mt-3">
 			{% if request.token is defined %}
 			<a class="btn btn-primary" href="{{app.url}}/checkout/paypal">Please Try Again</a>
 			{% else %}
@@ -80,7 +80,7 @@
 									<div>{{ final_order.shipping_city }}, {{ final_order.shipping_state }} {{ final_order.shipping_zip }}</div>
 								</address>
 							</div>
-							<div class="col-12 g p-xs-2x">
+							<div class="col-12 g mb-4 mb-md-0">
 								{% if final_order.billing_first_name %}
 								<h3>Payment</h3>
 								<address class="fsd1">
@@ -162,7 +162,7 @@
 					{{ forms.hidden('create[email]',final_order.email) }}
 					{{ forms.hidden('create[confirm_email]',final_order.email) }}
 					<div class="form-group">
-						<label for="create-pass" class="control-label">Password (4-14 Characters)</label>
+						<label for="create-pass">Password (4-14 Characters)</label>
 						{{ forms.password('create[password]', "", {class:'form-control parsley-validated', id:'create-pass', placeholder:"Password", required:true}) }}
 					</div>
 					<div class="form-group">
@@ -181,7 +181,7 @@
 {% if final_order is not empty %}
 <div class="row">
 	<div class="{{ app.user.isLoggedIn() ? "col-12" : "col-lg-8" }}">
-		<a class="btn btn-xs-block btn-default p-xs" href="{{app.url}}">Continue Shopping</a>
+		<a class="btn btn-xs-block btn-default mb-3 mb-md-0" href="{{app.url}}">Continue Shopping</a>
 		<a href="#" class="btn btn-xs-block btn-default float-right" onclick="window.print();return false;">Print Page</a>
 	</div>
 </div>

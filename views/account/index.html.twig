@@ -40,32 +40,28 @@ set in the array in /account/_macros/base.html.twig
 {# Begin notifications #}
 
 <div class="card">
-	<div class="card-header">
-		<h2>Notifications</h2>
-		{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
-	</div>
-	<div class="card-body fsd1">
+	{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
+	<div class="card-body">
+	    <h2>Notifications</h2>
 		{% if notifications is empty %}
-		<p>No notifications have been found.</p>
+		<p>You do not have any notifications.</p>
 		{% else %}
 		<div class="table-responsive g">
-			<table class="table table-hover table-striped tablesorter">
+			<table class="table fsd1 table-hover table-striped tablesorter">
 				<tbody>
 					{% for notif in notifications %}
 						<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
 							<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
 							<td>{{ notif.subject}}</td>
 							<!-- March 30th 9:06pm -->
-							<td><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }} <i class="fa fa-clock-o"></i></span></td>
+							<td class="text-right"><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }}</span></td>
 						</tr>
 					{% endfor %}
 				</tbody>
 			</table>
 		</div>
+		<a href="{{app.url}}/account/notifications" class="btn btn-default btn-xs-block float-right">View All Notifications</a>
 		{% endif %}
-		<div class="btn-group">
-		    <a href="{{app.url}}/account/notifications" class="btn btn-default">View All Notifications</a>
-	    </div>
 	</div>
 </div>
 
@@ -73,23 +69,20 @@ set in the array in /account/_macros/base.html.twig
 {# Begin recent orders #}
 
 <div class="card">
-	<div class="card-header">
-		<h2>Recent Orders</h2>
-		{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
-	</div>
-	{# Begin order #}
-	<div class="card-body fsd1">
+	{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
+	<div class="card-body">
+	    <h2>Recent Orders</h2>
 		{% if orders is empty %}
-		<p>No recent orders have been found.</p>
+		<p>You have yet to place an order.</p>
 		{% else %}
 		{% for order in orders %}
-		<div class="order divide mb-3">
+		<div class="order fsd1 divide mb-3">
 			<div class="row">
 				<div class="order-details col-md-5 mb-3">
 					<div class="order-info">                    
 						<div class="order-id"><b>Order:</b> #{{ order.order_number }}</div>
 						<div class="order-date"><b>Ordered:</b> {{ order.date_created}}</div>
-						<div class="order-status mar-t"><b>Status:</b> {{order.status}}</div>
+						<div class="order-status mt-3"><b>Status:</b> {{order.status}}</div>
 					</div>
 				</div>
 				<div class="order-items col-md-4 mb-3">
@@ -99,13 +92,13 @@ set in the array in /account/_macros/base.html.twig
 					{% endfor %}
 				</div>
 				<div class="actions col-md-3 text-right mb-3">                                        
-					<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-mobile">Order Details</a>
+					<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-xs-block float-right">Order Details</a>
 				</div>
 			</div>
 		</div>
 		{% endfor %}
+		<a class="btn btn-default btn-xs-block float-right" href="{{ app.url }}/account/orders">View All Orders</a>
 		{% endif %}
-		<a class="btn btn-default" href="{{ app.url }}/account/orders">View All Orders</a>
 	</div>
 </div>
 
@@ -113,26 +106,24 @@ set in the array in /account/_macros/base.html.twig
 {# Begin recent favorites #}
 
 <div class="card">
-	<div class="card-header">
-		<h2>Recent Wish List Items</h2>
-		{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
-		{% set _in = [] %}
-		{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
-		{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
-	</div>
-	<div class="card-body fsd1">
+	{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
+	{% set _in = [] %}
+	{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
+	{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
+	<div class="card-body">
+        <h2>Recent Wish List Items</h2>
 		{% if items is empty %}
-		<p>No recent wish list items have been found.</p>
+		<p>You have yet to add items to a Wish List.</p>
 		{% else %}
 		
 		{% for item in items %}
 			{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
-			<div class="pad-b divide mb-3 g">
+			<div class="pb-3 divide mb-3 fsd1">
 			<div class="media media-cart">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">
 				</div>
-				<div class="media-body">
+				<div class="media-body g">
 					<div class="product-name"><a href="{{ app.url ~ product.url }}">{{ product.name }}</a></div>
 					
 					<div class="pricing mb-3">
@@ -147,8 +138,8 @@ set in the array in /account/_macros/base.html.twig
 			</div>
 			</div>
 		{% endfor %}
+		<a href="{{ app.url }}/account/wishlists" class="btn btn-default btn-xs-block float-right">View All Wish Lists</a>
 		{% endif %}
-		<a href="{{ app.url }}/account/wishlists" class="btn btn-default">View All Wish Lists</a>
 	</div>
 </div>
 

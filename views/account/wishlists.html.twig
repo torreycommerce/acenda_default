@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -43,48 +44,46 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {{account.navigation('wishlists')}}
 
-{# End navigation #}
-{# Begin wishlists #}
-<h1>Your Wish Lists</h1>
-{# Begin wishlist #}
 {{ forms.begin('wishlist','','post',{ class:'' }) }}
 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 {% if wishlists is empty %}
-<p>There are no wishlists.</p>
+{{ lonelyform.begin()}}
+<h1>Your Wish Lists</h1>
+{{ lonelyform.begincard()}}
+<p>You have yet to create a Wish List.</p>
+<a class="btn btn-primary btn-block btn-lg" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {% else %}
-{# Begin wishlists #}
+
+<h1>Your Wish Lists</h1>
 <div class="row">
 	{% for wishlist in wishlists %}
 	<div class="col-md-6 col-xl-4">
-		<div class="card{% if wishlist.default %} panel-success{% endif %}">
+		<div class="card{% if wishlist.default %} bg-light{% endif %}">
 			<div class="card-header">
 				<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
 			</div>
 			<div class="card-body">
-				<div class="item-count"><b>{{ wishlist.item_count }}</b> Items</div>
-				<div class="privacy"><i>{{ wishlist.privacy|capitalize }}</i></div>
-				<div class="fsd1 mar-t pb-3 divide mb-3 g">
+				<div class="item-count"><b>{{ wishlist.item_count }}</b> Item(s)</div>
+				<div><i>{{ wishlist.privacy|capitalize }}</i></div>
+				<div class="fsd1 mt-3 pb-3 divide mb-3 g">
 				{% if wishlist.default %}
 					<u>Default Wish List</u>
 				{% else %}
 					<br>
 				{% endif %}
 				</div>
-				<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View</a>
+				<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View <span class="sr-only">{{ wishlist.name }}</span></a>
 			</div>
-			
 		</div>
 	</div>
 {% endfor %}
 </div>
 {# End wishlists #}
+<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
 {% endif %}
-{# Begin actions #}
-<div class="form-group actions">
-	<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create"><i class="fa fa-plus"></i><span>Create a New Wish List</span></a>
-</div>
-{# End actions #}
+
 {{ forms.end() }}
-{# End wishlists #}
 {{account.navigatend()}}
 {% endblock %}

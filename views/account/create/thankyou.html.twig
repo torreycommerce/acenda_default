@@ -1,7 +1,7 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/lonely-form.html.twig" as lonelyform %}
 {% extends "/_layouts/base.html.twig" %}
-{% set title = 'Create An Account - Thank you' %}
+{% set title = 'Create Account - Thank You' %}
 {% block title %}{{title}}{% endblock %}
 {% block breadcrumb %}
 {{ base.breadcrumbs({'Account':'/account', (title):''}) }}
@@ -9,17 +9,11 @@
 {% block content %}
 {% set form_extras = api.get('/customer/group/fields', {name:'Default Customer'}) %}
 
-<div class="row">
-    <div class="col-12">
-        <h1>{{title|title}}</h1>
-        <div>
-        <p>
-        	Thank you for applying for an account! We'll notify you once we approve your request.
-        </p>
-        <p>
-        	Please contact customer support for futher assistance.
-        </p>
-    </div>
-    </div>
-</div>
+{{ lonelyform.begin()}}
+<h1>Thank You</h1>
+{{ lonelyform.begincard()}}
+<p>Thank you for applying for an account! We'll notify you once we approve your request.</p>
+<p>Please contact customer support for futher assistance.</p>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end()}}
 {% endblock %}

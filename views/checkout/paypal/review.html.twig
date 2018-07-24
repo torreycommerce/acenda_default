@@ -14,11 +14,9 @@
 {% set step = 'express' %}
 {% set expressdetails = api.get('/order/paypalExpressDetails/' ~ token) %}
 <section id="checkout">
-	<div class="row">
-		<div class="col-lg-12">
-			<h1>Checkout: Paypal Express</h1>
-		</div>
-	</div>
+	
+	<h1>Checkout: Paypal Express</h1>
+	
 	<div class="row">
 		<div class="col-lg-12">
 			{% set address = {'shipping_first_name':expressdetails.FIRSTNAME,
@@ -87,9 +85,9 @@
 
 							</div>
 						{% if app.user.id is not empty %}
-						<div class="form-group form-check">
+						<div class="form-group custom-control custom-checkbox">
 							{{ forms.checkbox('express[shipping_save]', false) }}
-							<label class="form-check-label" for="express[shipping_save]">Save Shipping Address</label>
+							<label class="custom-control-label" for="express[shipping_save]">Save Shipping Address</label>
 						</div>
 						{% endif %}
 						</div>

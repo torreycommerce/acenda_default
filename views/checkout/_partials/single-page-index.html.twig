@@ -6,9 +6,8 @@
 
 <script type="application/javascript">
   var checkout_product_prices_include_tax = '{{ app.params.order.product_prices_include_tax }}';
-  var saved_checkout_step = '{{ app.user.getState('current_step') }}';
+  var saved_checkout_step = '{{ cart.current_step }}';
 </script>
-
 
 <h1>Secure Checkout</h1>
 
@@ -29,6 +28,7 @@
 			    <div class="card">
 			        <div id="signin-panel" class="card-header">
 			        	<button id="btn-edit-signin" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+						<i id="signin-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>1. Sign In</h2>
 			            <div class="step-data"></div>
 			        </div>
@@ -41,6 +41,7 @@
 			    <div id="shipping-panel" class="card">
 			        <div class="card-header">
 			        	<button id="btn-edit-shipping" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps" >Edit</button>
+			        	<i id="shipping-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>2. Shipping Address</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -52,7 +53,8 @@
 			    </div>
 			    <div id="shipping-method-panel" class="card">
 			        <div class="card-header">
-			        	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+		            	<button id="btn-edit-shipping-method" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			        	<i id="shipping-method-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>			        		
 			            <h2>3. Shipping Method</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -63,8 +65,9 @@
 			        </div>
 			    </div>					    
 			    <div id="payment-panel" class="card">
-			        <div class="card-header">
+			        <div class="card-header">			        				        	
 			        	<button id="btn-edit-payment" class="btn btn-default btn-xs float-right btn-edit" data-parent="#checkout-steps">Edit</button>
+			        	<i id="payment-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>
 			            <h2>4. Payment</h2>
 			            <div class="step-data"></div>					            
 			        </div>
@@ -76,6 +79,7 @@
 			    </div>					    
 			    <div id="review-panel" class="card">
 			        <div class="card-header">
+			        	<i id="review-loading" class="fa fa-spinner fa-spin float-right" style="display:none; font-size:24px"></i>			        	
 			            <h2>5. Review Your Order</h2>
 			        </div>
 			        <div id="collapseReview" class=" collapse">
@@ -163,7 +167,7 @@
                         <h3>Coupon Code</h3>
 						<form name="coupon">
 							<div class="form-group">
-								<label class="control-label" for="cart_coupon_code">Enter Coupon Code:</label>
+								<label for="cart_coupon_code">Enter Coupon Code:</label>
 								<div class="row">
 									<div class="col-6 col-md-9 col-lg-7 col-xl-8">
 										{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
@@ -239,7 +243,7 @@
 	<thead>
         <tr>
 		    <th>Method</th>
-			<th>Est<span class="hidden-xs">imated</span> Arrival</th>
+			<th>Est<span class="d-none d-md-block">imated</span> Arrival</th>
 			<th class="text-right">Price</th>
 		</tr>
 	</thead>
@@ -247,7 +251,7 @@
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
 			    <tr>
-			        <td><div class="form-check form-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="form-check-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="form-check-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
+			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
 			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
 			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
 			    </tr>

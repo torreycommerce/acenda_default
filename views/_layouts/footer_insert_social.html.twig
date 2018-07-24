@@ -2,7 +2,7 @@
 {# if social settings is not set in the config file, just do nothing #}
 {% if app.params.social_settings is defined and app.params.social_settings is not empty %}
 {#<div class="row">
-	<div class="col-12 pad-h">
+	<div class="col-12 py-3">
 		  {{ social.social_parseConfig(app.params.social_settings) }}
 	</div>
 </div>#}

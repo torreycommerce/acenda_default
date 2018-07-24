@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/account/_macros/base.html.twig" as account %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {% do account.login() %}
 
@@ -38,16 +39,15 @@
     {% endif %}
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-<div id="registry-edit">
-    <div class="row">
-        {# Begin content #}    
-        <div class="col-md-8 col-lg-9 col-xl-10">
-            
-            <h1><i class="fa fa-pencil-square-o"></i><span>Edit {{ registry.name }}</span></h1>
 
-            {% include '/account/registry/_partials/form.html.twig' %}
-        </div>    
-        {# End content #}
-    </div>
-</div>
+{{account.navigation('registries')}}
+
+{{ lonelyform.begin()}}
+<h1>Edit {{ registry.name }}</h1>
+{{ lonelyform.begincard()}}
+    {% include '/account/registry/_partials/form.html.twig' %}
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
+{{account.navigatend()}}
 {% endblock %}

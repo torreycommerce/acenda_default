@@ -209,14 +209,14 @@ if ($('.form-region').length) {
 						//review/id
 						//If State array is empty, then show state as a text input.
 						if (!$.isArray(data.result) || ($.isArray(data.result) && data.result.length == 0)) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_input").removeClass('d-none').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('d-none').prop( "disabled", true )
                             $('select#state_select').parent().removeClass('has-error');							
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('d-none').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control')
+							$("#state_select").removeClass('d-none').prop( "disabled", false ).addClass('form-control')
                             $('select#state_select').parent().removeClass('has-error');
 						}
 
@@ -414,13 +414,13 @@ if ($('.form-region-customer').length) {
 					if ($('select[id$=country]').val() == "US") {
 						$('#zip-label').prop('for','zip');
 						$(".postziplang").html("Zip Code");
-						$("#postal").addClass('hidden').prop( "disabled", true )
-						$("#zip").removeClass('hidden').prop( "disabled", false )
+						$("#postal").addClass('d-none').prop( "disabled", true )
+						$("#zip").removeClass('d-none').prop( "disabled", false )
 					} else {
 						$('#zip-label').prop('for','postal');
 						$(".postziplang").html("Postal Code");
-						$("#zip").addClass('hidden').prop( "disabled", true )
-						$("#postal").removeClass('hidden').prop( "disabled", false )
+						$("#zip").addClass('d-none').prop( "disabled", true )
+						$("#postal").removeClass('d-none').prop( "disabled", false )
 					}
 
 					if (typeof data.result !== 'undefined') {
@@ -428,13 +428,13 @@ if ($('.form-region-customer').length) {
 						//console.log('acct2')
 						//If State array is empty, then show state as a text input.
 						if ($.isArray(data.result) && data.result.length == 0) {
-							$("#state_input").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_input").removeClass('d-none').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
-							$("#state_select").addClass('hidden').prop( "disabled", true )
+							$("#state_select").addClass('d-none').prop( "disabled", true )
 						} else {
-							$("#state_input").addClass('hidden').prop( "disabled", true );
+							$("#state_input").addClass('d-none').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
-							$("#state_select").removeClass('hidden').prop( "disabled", false ).addClass('form-control').show();
+							$("#state_select").removeClass('d-none').prop( "disabled", false ).addClass('form-control').show();
 						}
 					}
 

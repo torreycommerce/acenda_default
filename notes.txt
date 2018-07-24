@@ -1,0 +1,7 @@
+If you change something other than the obvious header/footer + custom.css... leave note of it here:
+
+-----------------
+Example:
+assets/js/site.js (custom carousels)
+views/acount/login/default.html (custom greeting message)
+-----------------

@@ -1,9 +1,9 @@
-<button class="btn btn-block btn-default btn-lg card-header" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
-    <span>Brand</span><i class="fa fa-caret-down"></i>
+    <span>Brand</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse">
-    <div class="card-body">
+    <div class="card"><div class="card-body">
         <ul class="list-unstyled">                    
             {% for item,count in filter_set %}
                 {% set selected = item in filter_request[(name)]|keys ? 1 : 0 %}
@@ -20,20 +20,20 @@
                 {% endif %}
                 <li class="{% if selected %}active{% endif %}">
                     {% if item != '' %}
-                    <a class=" {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item|title}} ({{current_count}})</a>
+                    <a class=" {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item|title}} <span class="filter-count">({{current_count}})</span></a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
-    </div>
-</div>
-<div class="filter-clear">
 {% for item,key in filter_request[(name)] if item in filter_set|keys %}
     {% set link = [] %}
     {% for key,i in app.request.get.f[(name)] if key != item %}
         {% set link = link + {(key):i} %}
     {% endfor %}
     {% set link = filter_request|merge({(name):link}) %}
-    <a href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{item}}</span></a>
+    <div class="filter-clear">
+    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{item}}</span></a>
+    </div>
 {% endfor %}
+    </div></div>
 </div>

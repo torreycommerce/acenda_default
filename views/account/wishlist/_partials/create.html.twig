@@ -13,27 +13,32 @@
 
 
 {% block content %}
-    <!-- HERE -->
-    {% if app.request.post.wishlist is not empty %}
-        {% set wishlistdata = app.request.post.wishlist + {'customer_id':app.user.id} %}
-        {# Make wishlist the default if the default checkbox is checked #}
-        {% set result = api.post('/wishlist', wishlistdata) %}
-        {% if wishlistdata.make_default %}
-            {% do api.post('/wishlist/' ~ result ~ '/makeDefault') %}
-        {% endif %}
-        {% if result %}
-            {% do app.user.setFlash('Wish List created successfully') %}
-            {% do app.redirect('/account/wishlists') %}
-        {% else %}
-            {% set form_errors = api.error() %}
-            {% set wishlist = app.request.post.wishlist %}
-        {% endif %}
-    {% endif %}
-    {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
-    <h1>Create a New Wish List</h1>
-    <div id="wishlist-create">
-    {{ lonelyform.begin('create-wish-list')}}
-        {% include '/account/wishlist/_partials/form.html.twig' %}
-    {{ lonelyform.end() }}
-    </div>
+
+{% if app.request.post.wishlist is not empty %}
+	{% set wishlistdata = app.request.post.wishlist + {'customer_id':app.user.id} %}
+	{# Make wishlist the default if the default checkbox is checked #}
+	{% set result = api.post('/wishlist', wishlistdata) %}
+	{% if wishlistdata.make_default %}
+	    {% do api.post('/wishlist/' ~ result ~ '/makeDefault') %}
+	{% endif %}
+	{% if result %}
+	    {% do app.user.setFlash('Wish List created successfully') %}
+	    {% do app.redirect('/account/wishlists') %}
+	{% else %}
+	    {% set form_errors = api.error() %}
+	    {% set wishlist = app.request.post.wishlist %}
+	{% endif %}
+{% endif %}
+{% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
+
+{{account.navigation('wishlists')}}
+
+{{ lonelyform.begin()}}
+<h1>Create Wish List</h1>
+{{ lonelyform.begincard()}}
+{% include '/account/wishlist/_partials/form.html.twig' %}
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+
+{{account.navigatend()}}
 {% endblock %}

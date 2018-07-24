@@ -15,7 +15,7 @@
 		}
 	}) %}
 	{% for location in locations %}
-		<div class="divide g location pad-h" id="{{location.id}}">
+		<div class="divide g location py-3" id="{{location.id}}">
 		{% if useIndivStorePage == 1 %}
 			<h3><a href="{{app.url}}/stores/store/{{location.id}}">{{location.title}}</a></h3>
 		{% else %}

@@ -1,6 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements.html.twig" as form %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -37,51 +38,48 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {# Begin navigation #}
 
 {{account.navigation('registries')}}
-
-{# End navigation #}
-	
-<h1>Registries</h1>
 				
 {# Begin registries #}
+{{ form.begin('registry') }}
+{% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
+{% if registries is empty %}
+{{ lonelyform.begin()}}
+<h1>Registries</h1>
+{{ lonelyform.begincard()}}
+<p>You have yet to create a Registry.</p>
+<a class="btn btn-primary btn-block btn-lg" href="{{app.url}}/account/registry/create">Create New Registry</a>
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+{% else %}
+
+<h1>Registries</h1>
 <div class="row">
-	{{ form.begin('registry') }}
-	{% set registries = api.get('/registry',{query:{"customer_id":app.user.id}}) %}
-	{% if registries is empty %}
-	<p>There are no registries.</p>
-	{% else %}
-	{% for registry in registries %}
-	{# Begin registry #}
-	<div class="col-xl-4 col-lg-4 col-md-6">
-		<div class="card">
-			{# Begin registry details #}
+{% for registry in registries %}
+	<div class="col-md-6 col-xl-4">
+		<div class="card{% if registry.default %} bg-light{% endif %}">
 			<div class="card-header">
 				{% if registry.default %}<i class="fa fa-star"></i>{% endif %} <strong>{{ registry.name }}</strong>
 			</div>
 			<div class="card-body">
-				<div class="item-count">{{ registry.item_count }} item(s)</div>
-				<div class="registry-privacy">{{ registry.privacy }}</div>
-				<div class="fsd1 mar-t pb-3 divide mb-3 g">
+				<div class="item-count"><b>{{ registry.item_count }}</b> Item(s)</div>
+				<div>{{ registry.privacy }}</div>
+				<div class="fsd1 mt-3 pb-3 divide mb-3 g">
 				{% if registry.default %}
 					<u>Default Wish List</u>
 				{% else %}
 					<br>
 				{% endif %}
 				</div>
-				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View</a>
+				<a class="btn btn-default" href="{{app.url}}/registry/{{registry.id}}">View <span class="sr-only">{{ registry.name }}</span></a>
 			</div>
-			{# End registry details #}
-
 		</div>
 	</div>
-	{# End registry #}
-	{% endfor %}
-	{% endif %}
-	{{ form.end() }}                
+{% endfor %}
 </div>
 {# End registries #}
-{# Begin bottom actions #}
-<a class="btn btn-primary" href="{{app.url}}/account/registry/create"><i class="fa fa-plus"></i><span>Create a New Registry</span></a>
-{# End bottom actions #}
-{# End registries #}
+<a class="btn btn-default" href="{{app.url}}/account/registry/create">Create New Registry</a>
+{% endif %}
+
+{{ form.end() }}
 {{account.navigatend()}}
 {% endblock %}

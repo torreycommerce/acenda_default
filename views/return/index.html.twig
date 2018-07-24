@@ -6,31 +6,30 @@
 {% block title %}Create a Return{% endblock %}
 
 {% block breadcrumb %}
-{{ base.breadcrumbs({'Create a Return':''}) }}
+{{ base.breadcrumbs({'Create Return':''}) }}
 {% endblock %}
 
 {% block content %}
 
-<h1>Create a Return</h1>
-
-{{ lonelyform.begin('contact')}}
-	{{ lonelyform.beginintro() }}
-		<p>To return an item you've already received, please enter the following details:</p>
-	{{ lonelyform.endintro() }}
+{{ lonelyform.begin()}}
+<h1>Create Return</h1>
+{{ lonelyform.begincard() }}
+	<p>To return an item you've already received, please enter the following details:</p>
 	{{ forms.begin('guestreturn',app.url ~ '/return/create','post') }}
 	<div class="form-group fgq">
-		<label class="control-label" for="return-email">Email Address</label>
+		<label for="return-email">Email Address</label>
 		{{ forms.email('guestreturn[email]', form.email, {placeholder:'Email Address', class:'form-control parsley-validated', id:'return-email', required:true}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
 	</div>
 	<div class="form-group fgq">
-		<label class="control-label" for="return-number">Order Number</label>
+		<label for="return-number">Order Number</label>
 		{{ forms.text('guestreturn[order_number]', form.order_id, {placeholder:'Order Number', class:'form-control parsley-validated', id:'return-number', required:true}) }}
 		<div class="validation">{{ forms.errorlist(form_errors, 'order_number') }}</div>
 	</div>
 	<div class="actions">
-		{{ forms.submit('guestreturn[action]', 'create', 'Submit', {class:'btn btn-lg btn-primary'}) }}
+		{{ forms.submit('guestreturn[action]', 'create', 'Create Return', {class:'btn btn-lg btn-primary btn-block'}) }}
 	</div>
 	{{ forms.end() }}
 {{ lonelyform.end() }}
+{{ lonelyform.endcard() }}
 {% endblock %}

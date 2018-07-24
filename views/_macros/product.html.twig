@@ -73,7 +73,7 @@
 			<div class="price mb-2"><span>{{ this.price(product.attributes.price) }}</span></div>
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
-			<div class="price-per-month hidden-xs">
+			<div class="price-per-month d-none d-md-block">
 				<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
 			</div>
 			{% endif #}
@@ -117,32 +117,30 @@
 {# Begin image carousel #}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
-		<div class="max-250 color-chips mb-2">
-			<div class="pad-w">
-				<div class="row row-thin">
-				{% set colors = [] %}
-				{% for item,child in product.variant if 
-					child.status == 'active' 
-					and child.images is not empty
-					and child.color not in colors %}
-					{% set image_url0 = "" %}
-				    {% set image_url = "" %}
-				    {% set thiscolor = child.color %}
-					{% set colors = colors|merge([child.color]) %}
-					{% set imagevar = product.images %}
-					{% set image_url0 = imagevar|find({'name':thiscolor,'type':'swatch'}) %}
-					{% if image_url0 is not empty %}
-					    {% set image_url = image_url0[0].thumbnail %}
-				    {% endif %}
-				    {% set image_urlB = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
-					{% if image_url is empty %}
-					    {% set image_url = image_urlB %}
-				    {% endif %}
-					<div class="col-2 col-thin mb-2 color-chip">
-						<button class="blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
-					</div>
-				{% endfor %}
+		<div class="color-chips mb-2">
+			<div class="row row-thin">
+			{% set colors = [] %}
+			{% for item,child in product.variant if 
+				child.status == 'active' 
+				and child.images is not empty
+				and child.color not in colors %}
+				{% set image_url0 = "" %}
+			    {% set image_url = "" %}
+			    {% set thiscolor = child.color %}
+				{% set colors = colors|merge([child.color]) %}
+				{% set imagevar = product.images %}
+				{% set image_url0 = imagevar|find({'name':thiscolor,'type':'swatch'}) %}
+				{% if image_url0 is not empty %}
+				    {% set image_url = image_url0[0].thumbnail %}
+			    {% endif %}
+			    {% set image_urlB = app.image.getImageUrl('product','thumbnail', child.images[0].id) %}
+				{% if image_url is empty %}
+				    {% set image_url = image_urlB %}
+			    {% endif %}
+				<div class="col-2 col-thin mb-2 color-chip">
+					<button class="btn blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
 				</div>
+			{% endfor %}
 			</div>
 		</div>
 	{% endif %}
@@ -277,14 +275,14 @@
 {% import _self as this %}
 {% spaceless %}
 	{% if percents is not iterable %}
-		<span class="percs hidden-xs"> (<span class="val">{{ percents }}</span>%)</span>
+		<span class="percs d-none d-md-inline"> (<span class="val">{{ percents }}</span>%)</span>
 	{% else %}
 		{% set max = percents[0] %}
 		{% for percent in percents %}
 			{% set max = max < percent ? percent : max %}
 		{% endfor %}
 		{% if max > 0 %}
-			<span class="percs hidden-xs"> (<span class="val">{{ max }}</span>%)</span>
+			<span class="percs d-none d-md-inline"> (<span class="val">{{ max }}</span>%)</span>
 		{% endif %}
 	{% endif %}
 {% endspaceless %}

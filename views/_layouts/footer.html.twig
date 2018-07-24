@@ -1,6 +1,6 @@
 {% spaceless %}
 <footer class="text-center" id="footer">
-    <section class="frame newsletter pad-h-3x">
+    <section class="frame newsletter py-5">
         <div class="container">
             <div class="max-400 divide mb-3 pb-3">
     			<h2>Be the first to know about <span class="wsnw">new products and sales.</span></h2>
@@ -16,16 +16,16 @@
     				<div class="newsletter-response"></div>
     			</form>
     		</div>
-    		<ul class="list-inline list-inline-obvi fsi1 social">
-                <li><a class="btn btn-link" href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
-                </li><li><a class="btn btn-link" href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
-                </li><li><a class="btn btn-link" href="#" target="_blank"><i class="fa fa-youtube" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Youtube</i></i></a>
-                </li><li><a class="btn btn-link" href="#" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Pinterest</i></i></a>
+    		<ul class="list-inline fsi1 social">
+                <li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-facebook" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-twitter" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-youtube" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Youtube</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-pinterest" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Pinterest</i></i></a>
                 </li>
             </ul>
 		</div>
 	</section>
-	<div class="bgg pad-h-3x"><div class="container">
+	<div class="bgg py-5"><div class="container">
 	{% if app.request.url != "store-protected" %}	
 	
 	{# get content available #}
@@ -41,7 +41,7 @@
 	{% set contents_available = contents_available|merge([content.slug]) %}
 	{% endfor %}
 		
-		<ul class="list-inline list-inline-obvi fsd1">
+		<ul class="list-inline fsd1">
 			<li><a href="{{app.url}}/contact">Contact</a></li>
 			{% if "faq" in contents_available %}
 			<li><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
@@ -55,8 +55,8 @@
 		</ul>
 	
 	{% endif %}
-		<div class="copyright g mar-t-2x">
-			<ul class="list-inline list-inline-obvi fsd1">
+		<div class="copyright g mt-4">
+			<ul class="list-inline fsd1">
 				<li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
 				<li>All Rights Reserved.</li>
 				<li>Powered by <a target=_blank href="http://acenda.com/">Acenda</a>.</li>
@@ -65,3 +65,4 @@
 	</div></div>
 </footer>
 {% endspaceless %}
+
