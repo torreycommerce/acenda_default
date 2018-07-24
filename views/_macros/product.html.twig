@@ -4,6 +4,7 @@
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
 	{% import _self as this %}
 	{% import "/_macros/base.html.twig" as base %}
+	{% set useAutoRot = 0 %}
 	<div class="product g">
 		<a href="{{app.url}}/product/{{product.slug}}">
 		{% if 'image' in options %}
@@ -39,10 +40,20 @@
 					{% set image_url = fallback %}
 				{% endif %}
 			{% endif %}
+			{% if useAutoRot and potentialImages|length > 1 %}
+                {% set dataRot = "" %}
+                {% for pI in potentialImages %}
+                    {% if loop.first %}
+                        {% set dataRot = app.image.getImageUrl('product','thumbnail', pI.id) %}
+                    {% else %}
+                        {% set dataRot = dataRot ~ "," ~ app.image.getImageUrl('product','thumbnail', pI.id) %}
+			        {% endif %}
+                {% endfor %}
+			{% endif %}
 
 			<div class="max-250 mb-3">
 				<div class="image-space">
-					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="">
+					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid isd" {% if dataRot %}data-rot="{{dataRot}}"{% endif %}width="250" height="250" alt="">
 					<div class="badges">
 					{% for tag in product.tags %}
 						{% if tag == 'new' %}

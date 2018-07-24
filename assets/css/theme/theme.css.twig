@@ -81,6 +81,8 @@ blockquote>*:last-child, form>*:last-child {margin-bottom:0;}
 .alert>*:last-child, .g>*:last-child, .card-header>*:last-child, .card-body>*:last-child, .card-body fieldset:last-of-type .actions:last-child, .modal-body>*:last-child,.table-responsive>*:last-child  {margin-bottom:0!important;}
 .card-body::after{display:block; clear:both; content:""}
 
+.alert {border-left-width:.5rem;}
+
 .btn-blank {background-color:transparent;}
 button.blank {background:none; border-width:0;}
 button.blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding-left:0;}
@@ -208,7 +210,7 @@ div:focus, section:focus {outline:none;}
 
 /* coolguy */
 @media (min-width:1px){
-.flash-note {position:fixed; z-index:1071; top:50%; left:50%; width:75%; max-width:960px; text-align:center; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
+.flash-note {position:fixed; z-index:1071; top:50%; left:50%; width:75%; max-width:540px; text-align:left; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
 .flash-note .alert {display:block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
 }
 
@@ -257,8 +259,10 @@ div:focus, section:focus {outline:none;}
 
 
 li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#collapseFilters li a:not(.btn) {padding-right:2rem;}
+.filter-count {position:absolute; right:1.25rem;}
 
-.filter .color-chips {padding-bottom:4px;}
+.category-filters .color-chips {padding-bottom:10px;}
 .color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
 .color-chip .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb;}
 .color-chip .disabled {opacity:.1;}
