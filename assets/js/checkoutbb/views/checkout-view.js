@@ -307,7 +307,7 @@ var checkout = checkout || {};
 		            flow: 'vault'
 		          },
 				  dataCollector: {
-				    kount: {environment: 'sandbox'},
+				    kount: true,
 				    paypal: true
 				  }
 		        }, function (createErr, instance) {
