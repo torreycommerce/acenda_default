@@ -1,0 +1,183 @@
+{% extends "/_layouts/base.html.twig" %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/account/_macros/base.html.twig" as account %}
+
+{# Redirect to the login page if user is not logged in. #}
+{% do account.login() %}
+
+{% set platform = api.get('order/platform').platform %}
+
+
+{# Set the page_name - used for the page title, heading, tab selection, and breadcrumb in this page. #}
+{% set page_name = 'payment methods' %}
+
+{# Set the html head title #}
+{% block title %}Account - {{page_name|title}}{% endblock %}
+
+{# Load in the breadcrumbs positioned in /_layouts/main/base.html.twig #}
+{% block breadcrumb %}
+{#
+Passed into the macro is a array of key:value pairs as (title):(relative url)
+- The last link should not have a url, as it will be used as a 'you are here'
+#}
+{{ base.breadcrumbs({'Account':'/account',(page_name|title):''}) }}
+{% endblock %}
+
+{# Load in the main content positioned in /_layouts/main/base.html.twig #}
+{% block content %}
+    {{account.navigation('payment-methods')}}
+    <div id="payment-methods">
+			{% if platform!="Braintree" %}
+					<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform activated. </div>
+			{% else %}
+			{% set m = api.get('braintree/getPaymentMethods') %}
+		<h1 style="border-bottom: 0px;">Payment Methods</h1>
+		<div class="table-responsive">
+		  <table class="table">
+			   {% for token,method in m.methods %}
+			   		<tr class="braintreerow {{ method.type | lower | slice(10) }} {{ method.object.cardType | lower | replace({' ': ''}) }}"> <td style="width: 40px;vertical-align: middle; line-height: 40px"><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle;"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }}  *****{{ method.object.last4 }} <br/>Expires {{ method.object.expirationMonth}}/{{method.object.expirationYear}}{% endif %}</td>
+			   			<td style="text-align: right; vertical-align: middle; line-height: 40px">{% if  method.type == 'Braintree\\CreditCardxx'%}<button class="btn btn-primary pm-update" id="pm-update-{{ token }}"> Update </button> {% endif %}<button class="btn btn-danger pm-delete" id="pm-delete-{{ token }}"> Delete </button></td></tr>
+			   {% endfor %}
+		  </table>
+		</div>
+		<div style="text-align: center;"><button class="btn btn-info" id="button-add-creditcard">Add Credit Card</button><button style="margin-left: 5px;"id="button-add-paypal" class="btn btn-info">Add Paypal Account</button></div>	
+	</div>
+
+	<div id="hosted-fields-form">
+
+		<style>
+			div#hosted-fields-form {
+				display:none;
+			}		
+			.hosted-field {
+			  height: 50px;
+			  box-sizing: border-box;
+			  padding: 12px;
+			  width: 100%;
+			  display: inline-block;
+			  box-shadow: none;
+			  font-weight: 600;
+			  font-size: 14px;
+			  border-radius: 6px;
+			  border: 1px solid #dddddd;
+			  line-height: 20px;
+			  background: #fcfcfc;
+			  margin-bottom: 12px;
+			  background: linear-gradient(to right, white 50%, #fcfcfc 50%);
+			  background-size: 200% 100%;
+			  background-position: right bottom;
+			  transition: all 300ms ease-in-out;
+			}
+
+			.hosted-fields--label {
+			  font-family: courier, monospace;
+			  text-transform: uppercase;
+			  font-size: 14px;
+			  display: block;
+			  margin-bottom: 6px;
+			}
+
+			.button-container {
+			  display: block;
+			  text-align: center;
+			}
+
+			.button {
+			  cursor: pointer;
+			  font-weight: 500;
+			  line-height: inherit;
+			  position: relative;
+			  text-decoration: none;
+			  text-align: center;
+			  border-style: solid;
+			  border-width: 1px;
+			  border-radius: 3px;
+			  -webkit-appearance: none;
+			  -moz-appearance: none;
+			  display: inline-block;
+			}
+
+			.button--small {
+			  padding: 10px 20px;
+			  font-size: 0.875rem;
+			}
+
+			.button--green {
+			  outline: none;
+			  background-color: #64d18a;
+			  border-color: #64d18a;
+			  color: white;
+			  transition: all 200ms ease;
+			}
+
+			.button--green:hover {
+			  background-color: #8bdda8;
+			  color: white;
+			}
+
+			.braintree-hosted-fields-focused {
+			  border: 1px solid #64d18a;
+			  border-radius: 1px;
+			  background-position: left bottom;
+			}
+
+			.braintree-hosted-fields-invalid {
+			  border: 1px solid #ed574a;
+			}
+
+			.braintree-hosted-fields-valid {
+			}
+
+			#cardForm {
+			  max-width: 50.75em;
+			  margin: 0 auto;
+			  padding: 1.875em;
+			}
+			#card-number {
+				width: 100%;
+			}			
+			#expiration-date {
+				width: 100%%;
+			}			
+			#cvv {
+				width: 100%%;
+			}
+		</style>
+	    <form action="/" id="create-card-form" method="post">    	
+	    	   <h1 style="margin: auto"> Add a new card</h1>
+			    <div style="width: 300px;  margin: 10px;" >
+			    	<div style="display: inline-block; width: 100%;" >
+					   <label class="hosted-fields--label" for="card-number">Card Number</label>
+					   <div id="card-number" class="hosted-field"></div>
+				   	</div>
+				</div>				   
+			   	<div style="width: 300px;  margin: 10px;">
+			    	<div style='display: inline-block; width: 60%'>		   	
+					   <label class="hosted-fields--label" for="expiration-date">Expiration Date</label>
+					   <div id="expiration-date" class="hosted-field"></div>
+				    </div>
+			    	<div style='display: inline-block; width: 38%'>		    
+					   <label class="hosted-fields--label" for="cvv">CVV</label>
+					   <div id="cvv" class="hosted-field"></div>
+				    </div>
+				</div>
+				<div style="width: 300px;  margin: 10px;">
+					     <div id="card-error" style="overflow-wrap: break-word;"></div>					
+				</div>
+			    <div style="width: 300px;  margin: 10px;" >				
+				     <div style="float: right">
+				        <input type="reset" id="card-cancel-btn" class="btn btn-warning" value="Cancel" style="margin-right: 5px;"></input><input type="submit" id="card-submit-btn" class="btn btn-primary" value="Save Card" disabled></input>
+				    </div>	
+				</div>
+        </form>	        
+	</div>
+
+	{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
+	{{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/client.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/paypal.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/vault-manager.min.js') }}
+	{{ app.asset.js('https://js.braintreegateway.com/web/3.34.0/js/hosted-fields.min.js') }}	
+    {{ app.asset.js(app.url_asset ~ '/assets/js/braintree_admin.js') }}
+	{% endif %}
+{% endblock %}

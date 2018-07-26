@@ -1,0 +1,72 @@
+{%- import "/_macros/base.html.twig" as base -%}
+{% set categories = api.get('/category/sapling') %}
+
+{% spaceless %}
+<ul class="fa-fa-balance">
+	<li>
+		<a href="{{app.url}}"><i class="fa fa-home"></i><span>Home</span></a>
+	</li>
+
+	{% if app.user.id %}
+	<li>
+		<span><i class="fa fa-user"></i><span>My Account</span></span>
+		<ul class="fa-fa-balance">
+			<li><a href="{{ app.url }}/account/notifications"><i class="fa fa-bell"></i><span>Notifications</span></a></li>
+			<li><a href="{{ app.url }}/account/addresses"><i class="fa fa-truck"></i><span>Addresses</span></a></li>
+			<li><a href="{{ app.url }}/account/payment-methods">Payment Methods</a></li>		
+			<li><a href="{{ app.url }}/account/orders"><i class="fa fa-credit-card"></i><span>Orders</span></a></li>
+			<li><a href="{{ app.url }}/account/wishlists"><i class="fa fa-check-square-o"></i><span>Wish Lists</span></a></li>
+			<li><a href="{{ app.url }}/account/reviews"><i class="fa fa-comments"></i><span>Reviews</span></a></li>
+			<li><a href="{{ app.url }}/account/returns"><i class="fa fa-exchange"></i><span>Returns</span></a></li>
+			<li><a href="{{ app.url }}/account/account-settings"><i class="fa fa-cogs"></i><span>Settings</span></a></li>
+			<li><a href="{{ app.url }}/account/logout"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+		</ul>
+	</li>
+	{% else %}
+	<li>
+		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i><span>Sign In / Sign Up</span></a>
+	</li>
+	{% endif %}
+	<li>
+		<a href="{{app.url}}/contact"><i class="fa fa-comment"></i><span>Contact</span></a>
+	</li>
+	
+	<li><span>
+		<form role="search" action="{{ app.url }}/search" method="get">
+			<div class="input-group input-group-lg">
+				<input class="form-control" type="text" value="" name="s" placeholder="Enter search term(s)">
+				<div class="input-group-btn">
+					<button class="btn btn-primary" type="submit"><i class="fa fa-search"><i class="sr-only">Search</i></i></button>
+				</div>
+			</div>
+		</form>
+	</span></li>
+
+	{% set id = 0 %}
+	{% for main_category,items in categories %}
+		{% set id = id + 1 %}
+		<li>
+			<a href="{{app.url}}/category/{{ items.slug }}">
+				<i class="fa fa-star-o"></i><span>{{main_category}}</span>
+			</a>
+			{% if items.limb|length %}
+			<ul class="fa-fa-balance">
+				{% set i = 0 %}
+				{% for category,subitems in items.limb %}
+					{% set i = i + 1 %}
+					{% if subitems.limb|length %}
+						{% set subid = "submenu-" ~ id ~ "-" ~ i %}
+						{{ base.subcategory_mobile(category, subitems, subid) }}
+					{% else %}
+						<li>
+							<a href="{{app.url}}/category/{{subitems.slug}}"><i class="fa fa-star-o"></i><span>{{category}}</span></a>
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</li>
+	{% endfor %}
+	
+</ul>
+{% endspaceless %}
