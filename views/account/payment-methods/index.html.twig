@@ -35,8 +35,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		<div class="table-responsive">
 		  <table class="table">
 			   {% for token,method in m.methods %}
-			   		<tr> <td style="width: 40px"><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle; line-height: 40px"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }} ending in {{ method.object.last4 }} {% endif %}</td>
-			   			<td style="text-align: right; vertical-align: middle; line-height: 40px">{% if  method.type == 'Braintree\\CreditCardxx'%}<button class="btn btn-primary pm-update" id="pm-update-{{ token }}"> Update </button> {% endif %}<button class="btn btn-danger pm-delete" id="pm-delete-{{ token }}"> Delete </button> </td></tr>
+			   		<tr class="braintreerow {{ method.type | lower | slice(10) }} {{ method.object.cardType | lower | replace({' ': ''}) }}"> <td style="width: 40px;vertical-align: middle; line-height: 40px"><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle;"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }}  *****{{ method.object.last4 }} <br/>Expires {{ method.object.expirationMonth}}/{{method.object.expirationYear}}{% endif %}</td>
+			   			<td style="text-align: right; vertical-align: middle; line-height: 40px">{% if  method.type == 'Braintree\\CreditCardxx'%}<button class="btn btn-primary pm-update" id="pm-update-{{ token }}"> Update </button> {% endif %}<button class="btn btn-danger pm-delete" id="pm-delete-{{ token }}"> Delete </button></td></tr>
 			   {% endfor %}
 		  </table>
 		</div>
