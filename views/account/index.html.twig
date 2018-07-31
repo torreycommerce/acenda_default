@@ -109,7 +109,11 @@ set in the array in /account/_macros/base.html.twig
 	{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 	{% set _in = [] %}
 	{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
-	{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}}, sort: 'date_created:-1', limit:3}) %}
+	{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}},
+		attributes:'variant.name,variant.id,variant.product.slug,,variant.thumbnail',
+		sort: 'date_created:-1', limit:3}) %}
+	
+	
 	<div class="card-body">
         <h2>Recent Wish List Items</h2>
 		{% if items is empty %}
@@ -117,21 +121,20 @@ set in the array in /account/_macros/base.html.twig
 		{% else %}
 		
 		{% for item in items %}
-			{% set product = api.get('/variant',{query:{id: item.product_id}})[0] %}
 			<div class="pb-3 divide mb-3 fsd1">
 			<div class="media media-cart">
 				<div class="media-left">
-					<img class="media-object" src="{{ product.thumbnail}}" id="product-image-{{ product.id }}" width="250" height="250" alt="">
+					<img class="media-object" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="250" height="250" alt="">
 				</div>
 				<div class="media-body g">
-					<div class="product-name"><a href="{{ app.url ~ product.url }}">{{ product.name }}</a></div>
+					<div class="product-name"><a href="{{app.url}}/product/{{ item.variant.product.slug }}?variant={{item.variant.id}}">{{ item.variant.name }}</a></div>
 					
 					<div class="pricing mb-3">
 						<div class="price">
 							{{ prod.currency(product.price|number_format(2)) }}
 						</div>
 					</div>
-					{% set it = api.get('/wishlistitem', {query:{'product_id': product.id}})[0] %}
+					{% set it = api.get('/wishlistitem', {query:{'product_id': variant.product.id}})[0] %}
 					{% set wi = api.get('/wishlist',{query:{"customer_id":app.user.id, "id": it.wishlist_id}})[0] %}
 					<a href="{{ app.url }}/account/wishlist/{{ wi.id }}"><i><u>{{ wi.name }}</u></i></a>
 				</div>
