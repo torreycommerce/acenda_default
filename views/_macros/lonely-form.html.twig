@@ -2,8 +2,8 @@
 <div class="lonely-form {% if id %}lf-{{id}}{% endif %}"><div class="max-lonely">
 {% endmacro %}
 
-{% macro begincard(id) %}
-<div class="card"><div class="card-body">
+{% macro begincard(cl,cl2) %}
+<div class="card {% if cl %}{{cl}}{% endif %}"><div class="card-body {% if cl2 %}{{cl2}}{% endif %}">
 {% endmacro %}
 
 {% macro endcard() %}

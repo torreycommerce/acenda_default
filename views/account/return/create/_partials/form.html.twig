@@ -15,14 +15,12 @@
 	{% endif %}
 {% endif %}
 
-{# Begin returns #}
 
-<h1>Create a Return</h1>
+{{ lonelyform.begin()}}
+<h1>Create Return</h1>
+<p>Return items for: Order #{{ order.order_number }}.</p>
 
-<div class="divide mb-3">
-	<p>Return items for <strong>Order #{{ order.order_number }}</strong></p>
-</div>
-
+{{ lonelyform.begincard() }}
 {% set where = app.user.email is empty ? "" : "/account" %}
 {{ forms.begin('createreturn', app.url ~ where ~'/return/create/' ~ order.order_number, 'post', {class:''}) }}
 {% set global_available = order.returnable_items %}
@@ -44,31 +42,26 @@
 				<div class="media-left">
 					<img class="media-object" src="{{ products[item.product_id][0].thumbnail }}" width="250" height="250" alt="">
 				</div>
-				{# Begin item details #}
 				<div class="media-body">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-6 mb-3 mb-lg-0">
 						    <div class="product-name mb-3">
 							    <a href="{{ app.url ~ products[item.product_id][0].url }}">{{ item.name }}</a>
 						    </div>
 							<div><b>{{ available }}</b> available for return.</div>
 						</div>
-					{# End item detials #}
 					{# Begin return form #}
 					{% if available > 0 %}
 						<div class="col-lg-6">
 							<div class="row">
-								{# Begin return quantity #}
-								<div class="col-6 col-lg-4">
+								<div class="col-4 g">
 									<div class="form-group fgq">
 										<label for="return-qty[{{item.id}}]">Qty</label>
 										{{ forms.select('createreturn[quantity][' ~ item.id ~ ']', '0', range(0,available), {class:'form-control parsley-validated', id:'return-qty[' ~ item.id ~']', label:'Quantity', required:true, 'parsley-min':0,'parsley-max':available}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'quantity[' ~ item.id ~ ']') }}</div>
 									</div>
 								</div>
-								{# End return quantity #}
-								{# Begin return reason #}
-								<div class="col-md-8">
+								<div class="col-8 g">
 									<div class="form-group">
 										<label for="return-reason[{{item.id}}]">Reason</label>
 										{{ forms.select('createreturn[reason][' ~ item.id ~ ']', '', {'': 'Please select',
@@ -85,13 +78,11 @@
 										<div class="validation">{{ forms.errorlist(form_errors, 'reason[' ~ item.id ~ ']') }}</div>
 									</div>
 								</div>
-								{# End return quantity #}
 							</div>
 						</div>
 					</div>
 				</div>	
 			</div>
-			{# end return form #}
 			{% endif %}
 		</div>
 	{% endif %}
@@ -105,10 +96,12 @@
 {% endif %}
 <div class="form-group actions">
 	{% if global_available > 0 %}
-	{{ forms.submit('createreturn[action]','submit','Create Return',{class:'btn btn-default float-right'}) }}
+	{{ forms.submit('createreturn[action]','submit','Create Return',{class:'btn btn-default btn-lg btn-xsm-block float-right'}) }}
 	{% else %}
-	<a class="btn btn-default float-left" href="javascript:history.go(-1)">Back</a>
+	<a class="btn btn-default btn-lg btn-xsm-block float-left" href="javascript:history.go(-1)">Back</a>
 	{% endif %}
 </div>
 
 {{ forms.end() }}
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}

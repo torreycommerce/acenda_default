@@ -45,13 +45,13 @@ h1,.h1 {}
 #content {border-bottom:1px solid #f0f0f0;}
 
 .category a, .product a {display:block; border:1px solid transparent;}
-h3.category-name, h3.brand-product {font-size:100%;}
+h3.category-name, h3.brand-product, h3.product-name {font-size:1rem;}
 h3.brand-product {min-height:2.2em;}
 .product-grid .pricing {min-height:3.8em;}
-.product-grid .pricing ul {font-size:87.5%;}
+.product-grid .pricing ul {font-size:.875rem;}
 .pricing .price, .totals-total {color:#000; font-weight:bold;}
-#product-details .pricing .price {font-size:150%;}
-#collection .pricing .price, .totals-total {font-size:125%;}
+#product-details .pricing .price {font-size:1.5rem;}
+#collection .pricing .price, .totals-total {font-size:1.25rem;}
 .pricing .price-regular, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .percent {color:#f55;}
 .availability {color:#558C89;}
