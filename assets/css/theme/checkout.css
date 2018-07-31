@@ -1,5 +1,5 @@
 .card-header h2 {margin:0;}
-.card-header .step-data {display:none; margin:10px 0 0;}
+.card-header .step-data {display:none; margin:1rem 0 0; font-size:.875rem;}
 .checkoutapp .btn-edit {display:none;}
 #processing-panel {
 	margin: auto;
@@ -13,7 +13,4 @@
 #checkout-cards img {max-height:34px; width:auto;}
 .checkout-card {max-width:56px; height:34px;}
 
-@media (min-width:992px) {
-.card-header .step-data {margin:15px 0 0;}
-}
 .card-header .step-data:empty {margin:0;}

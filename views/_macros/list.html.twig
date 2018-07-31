@@ -19,7 +19,11 @@
               <th></th>
             {% for column in columns %}
                 {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
-                <th {% if loop.last%}class="text-right"{% endif %} onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><span>{{column|replace({'_':'&nbsp;'})|title}}</span><i class="fa fa-sort"></i></th>
+                {% set coltitle = column|replace({'_':'&nbsp;'})|title %}
+                {% if coltitle == "Date&nbsp;created" %}
+                    {% set coltitle = "Date" %}
+                {% endif %}
+                <th {% if loop.last%}class="text-right"{% endif %} onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><span>{{coltitle}}</span><i class="fa fa-sort"><i class="sr-only">Sort by {{coltitle}}</i></i></th>
             {% endfor %}
           </tr>
         </thead>

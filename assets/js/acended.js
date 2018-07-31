@@ -8,6 +8,16 @@ IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/accesstabs.js",function(){
     });
 });
 
+$('body').on('mouseenter','.ace-bs-access:not(.show) [data-toggle=dropdown]',function(e){
+    $(this).addClass('ace-bs-accessed').dropdown('toggle');
+});
+$('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
+    if ($(this).hasClass('show')) {
+        $(this).find('.ace-bs-accessed[data-toggle=dropdown]').dropdown('toggle');
+    }
+    $(this).find('.ace-bs-accessed[data-toggle=dropdown]').removeClass('ace-bs-accessed');
+});
+
 // https://github.com/twbs/bootstrap/issues/14040
 // TODO: Add any custom classes with 'position: fixed' to the selector below
 var fixedCls = '.navbar-fixed-top,.navbar-fixed-bottom,.mobile.yta-open';

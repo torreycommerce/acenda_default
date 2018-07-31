@@ -46,6 +46,7 @@
 }
 
 .dropdown-toggle::after {content:none;}
+.ace-bs-access > .dropdown-menu, .cart .dropdown > .dropdown-menu {margin:0;}
 
 .btn.wait.disabled, .btn.wait[disabled] {cursor:wait;}
 
@@ -123,7 +124,7 @@ div:focus, section:focus {outline:none;}
 .max-250,.max-400,.max-450,.max-lonely {max-width:250px; margin-right:auto; margin-left:auto;}
 .max-400 {max-width:400px;}
 .max-450 {max-width:450px;}
-.max-lonely {max-width:360px;}
+.max-lonely {max-width:400px;}
 
 
 .img-c {margin-left:auto; margin-right:auto;}
@@ -133,6 +134,7 @@ div:focus, section:focus {outline:none;}
 .dib:first-child {margin-left:0;}
 .divide {border-bottom:1px solid rgba(0,0,0,.125);}
 .divide:last-child {border-bottom:none;}
+.divide.mb-3:last-child, .divide.mb-4:last-child {margin-bottom:0!important;}
 .divide.pb-3:last-child, .divide.pb-4:last-child {padding-bottom:0!important;}
 .no-of {overflow:hidden;}
 .uc {text-transform:uppercase;}
@@ -149,8 +151,15 @@ div:focus, section:focus {outline:none;}
 }
 
 @media (min-width:768px) {
-.max-lonely {max-width:400px;}
-.max-lonely .card-body {padding:1.5rem;}
+.max-lonely {max-width:500px;}
+}
+
+@media (min-width:992px) {
+.lonely-form-lim .max-lonely {max-width:none;}
+}
+
+@media (max-width:991.98px){
+.btn-xsm-block {display:block; width:100%;}
 }
 
 @media (max-width:767px){

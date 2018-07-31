@@ -2,6 +2,7 @@
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/list.html.twig" as list %}
 {% import "/account/_macros/base.html.twig" as account %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -24,88 +25,70 @@ Load in the tabs for the page, pass in the name of this page, and make sure it's
 set in the array in /account/_macros/base.html.twig
 #}
 
-{# Begin navigation #}
-
 {{account.navigation()}}
 
-{# End navigation #}
-{# Begin account center #}
 
-{# Begin page header #}
-
-<h1><span>Hi, {{ app.user.first_name|title }}!</span></h1>
+{{ lonelyform.begin()}}
+<h1>Hi, {{ app.user.first_name|title }}!</h1>
 <p>Welcome to your account center.</p>
 
-{# End page header #}            
-{# Begin notifications #}
 
-<div class="card">
+{{ lonelyform.begincard() }}
 	{% set notifications = api.get('/customernotification',{query: {customer_id: app.user.id, date_viewed: {'$exists': false}}, sort: 'date_created:-1','attributes': ['unread','subject','date_created'],'limit':3}) %}
-	<div class="card-body">
-	    <h2>Notifications</h2>
-		{% if notifications is empty %}
-		<p>You do not have any notifications.</p>
-		{% else %}
-		<div class="table-responsive g">
-			<table class="table fsd1 table-hover table-striped tablesorter">
-				<tbody>
-					{% for notif in notifications %}
-						<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
-							<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
-							<td>{{ notif.subject}}</td>
-							<!-- March 30th 9:06pm -->
-							<td class="text-right"><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }}</span></td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-		<a href="{{app.url}}/account/notifications" class="btn btn-default btn-xs-block float-right">View All Notifications</a>
-		{% endif %}
+
+    <h2>Recent Notifications</h2>
+	{% if notifications is empty %}
+	<p>You do not have any notifications.</p>
+	{% else %}
+	<div class="table-responsive g">
+		<table class="table fsd1 table-hover table-striped tablesorter">
+			<tbody>
+				{% for notif in notifications %}
+					<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
+						<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
+						<td>{{ notif.subject}}</td>
+						<!-- March 30th 9:06pm -->
+						<td class="text-right"><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }}</span></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</div>
-</div>
+	<a href="{{app.url}}/account/notifications" class="btn btn-default btn-lg btn-xsm-block float-right">View All Notifications</a>
+	{% endif %}
+{{ lonelyform.endcard() }}
 
-{# End notifications #}
-{# Begin recent orders #}
 
-<div class="card">
+{{ lonelyform.begincard() }}
 	{% set orders = api.get('/order', {query:{customer_id:app.user.id},sort:'id:-1',limit:3}) %}
-	<div class="card-body">
-	    <h2>Recent Orders</h2>
-		{% if orders is empty %}
-		<p>You have yet to place an order.</p>
-		{% else %}
-		{% for order in orders %}
-		<div class="order fsd1 divide mb-3">
-			<div class="row">
-				<div class="order-details col-md-5 mb-3">
-					<div class="order-info">                    
-						<div class="order-id"><b>Order:</b> #{{ order.order_number }}</div>
-						<div class="order-date"><b>Ordered:</b> {{ order.date_created}}</div>
-						<div class="order-status mt-3"><b>Status:</b> {{order.status}}</div>
-					</div>
-				</div>
-				<div class="order-items col-md-4 mb-3">
-					{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
-					{% for item in items %}
-					<div class="item">{{ item.name }}</div>
-					{% endfor %}
-				</div>
-				<div class="actions col-md-3 text-right mb-3">                                        
-					<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-xs-block float-right">Order Details</a>
-				</div>
+    <h2>Recent Orders</h2>
+	{% if orders is empty %}
+	<p>You have yet to place an order.</p>
+	{% else %}
+	{% for order in orders %}
+	<div class="fsd1 divide mb-3">
+		<div class="row">
+			<div class="col-lg-5 mb-3">
+				<h3>Order: #{{ order.order_number }}</h3>
+				<div>Status: {{order.status}}</div>
+				<div class="mb-3">{{ order.date_created}}</div>
+				<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-xsm-block">Order Details</a>
+			</div>
+			<div class="col-lg-7 mb-3">
+				{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
+				{% for item in items %}
+				<div class="product-name">{{ item.name }}</div>
+				{% endfor %}
 			</div>
 		</div>
-		{% endfor %}
-		<a class="btn btn-default btn-xs-block float-right" href="{{ app.url }}/account/orders">View All Orders</a>
-		{% endif %}
 	</div>
-</div>
+	{% endfor %}
+	<a class="btn btn-default btn-lg btn-xsm-block float-right" href="{{ app.url }}/account/orders">View All Orders</a>
+	{% endif %}
+{{ lonelyform.endcard() }}
 
-{# End recent orders #}
-{# Begin recent favorites #}
 
-<div class="card">
+{{ lonelyform.begincard() }}
 	{% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
 	{% set _in = [] %}
 	{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
@@ -144,8 +127,8 @@ set in the array in /account/_macros/base.html.twig
 		<a href="{{ app.url }}/account/wishlists" class="btn btn-default btn-xs-block float-right">View All Wish Lists</a>
 		{% endif %}
 	</div>
-</div>
+{{ lonelyform.endcard() }}
+{{ lonelyform.end() }}
 
-{# End account center #}
 {{account.navigatend()}}
 {% endblock %}

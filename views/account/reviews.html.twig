@@ -1,7 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
-{% import "/_macros/lonely-form.html.twig" as lonelyform %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -33,16 +33,16 @@ set in the array in /account/_macros/base.html.twig
 
 {{account.navigation('reviews')}}
 
-{% if reviews is empty %}
 {{ lonelyform.begin()}}
 <h1>Reviews</h1>
 {{ lonelyform.begincard()}}
+
+{% if reviews is empty %}
+
 <p class="text-center">You have yet to write a review.</p>
-{{ lonelyform.endcard()}}
-{{ lonelyform.end() }}
+
 {% else %}
 
-<h1>Reviews</h1>
 <div class="table-responsive">
 	<table class="table fsd1 table-hover table-striped tablesorter">
 		<thead>
@@ -53,7 +53,6 @@ set in the array in /account/_macros/base.html.twig
 			</tr>
 		</thead>
 		<tbody>
-			{# Begin review #}
 			{% for review in reviews %}
 			{% set product = api.get('/product/'~review.product_id) %}
 			<tr>
@@ -62,11 +61,12 @@ set in the array in /account/_macros/base.html.twig
 				<td class="text-right">{{ review.date|strtotime|date("Y/m/d") }}</td>
 			</tr>
 			{% endfor %}
-			{# End review #}
 		</tbody>
 	</table>
 </div>
 {% endif %}
-{# End reviews #}
+
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
 {{account.navigatend()}}
 {% endblock %}

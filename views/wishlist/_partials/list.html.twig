@@ -42,7 +42,7 @@
 	{% endfor %}
 		{% spaceless %}
 <h1>{{ wishlist.name }}</h1>
-<div class="products p divide">
+<div class="card"><div class="card-body">
 <h2 class="sr-only">Products</h2>
 {% for item in wishlist_items %}
 	{% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
@@ -60,15 +60,12 @@
 
 				<h3 class="product-name"><a href="{{app.url}}/product/{{ variant.product.slug }}?variant={{variant.id}}">{{ variant.name }}</a></h3>
 
-				{# Begin pricing #}
 				<ul class="list-inline pricing">
 					<li class="price">{{ prod.currency(variant.price) }}</li>
 					{% if variant.compare_price %}
 						<li class="price-regular">{{ prod.currency(variant.compare_price) }}</li>
 					{% endif %}
 				</ul>
-				{# End pricing #}
-				{# Begin quantities #}
 				
 				<div class="fsd1 qty-wanted mb-3">
 					<div class="{{ left ? "fg-green" : "fg-red" }}">
@@ -80,7 +77,7 @@
 					</div>
 				</div>
 				
-				<ul class="list-inline mb-0">
+				<ul class="list-inline">
 				{% if wishlist.customer_id == app.user.id %}
 					<li class="qty-update">
 						<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
@@ -163,8 +160,7 @@
 			</div>
 		</div>
 	</div>
-			{# End product details #}
-			{# Begin product quantity and actions #}
+
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="quantity-selector-{{ item.id }}">Qty</label>
@@ -182,11 +178,9 @@
 			</div>
 			</div>
 			</div>
-		
-	{# End product #}
-{% endfor %}
-</div>
 
+{% endfor %}
+</div></div>
 
 {% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
 <div class="dropdown text-right">

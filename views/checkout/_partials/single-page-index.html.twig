@@ -96,7 +96,7 @@
 					<div class="card-header"><h2>Order Summary</h2></div>
 					<div class="card-body" >
 						<h3>Items (<span id="num-items"></span>)</h3>
-							<div id="item-list">
+							<div class="fsd1" id="item-list">
 							</div>
 							<div class="d-none" id="item-list-copy">
 								<div class="divide g item mb-3 pb-3">
@@ -122,7 +122,7 @@
 							<div class="d-none" id="item-list-data">
 							</div>
 						<hr/>
-						<div id="totals-section">
+						<div class="fsd1" id="totals-section">
 						</div>
 						<div class="d-none" id="totals-section-copy">
 						    <div class="divide mb-3 pb-3">
@@ -167,13 +167,13 @@
                         <h3>Coupon Code</h3>
 						<form name="coupon">
 							<div class="form-group">
-								<label for="cart_coupon_code">Enter Coupon Code:</label>
+								<label for="cart_coupon_code">Coupon Code</label>
 								<div class="row">
-									<div class="col-6 col-md-9 col-lg-7 col-xl-8">
+									<div class="col-6">
 										{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code"}) }}
 									</div>
-									<div class="col-6 col-md-3 col-lg-5 col-xl-4">
-										<button id="checkout_enter_coupon" class="btn btn-primary btn-block">Apply</button>
+									<div class="col-6">
+										<button id="checkout_enter_coupon" class="btn btn-default btn-block">Apply</button>
 
 									</div>
 								</div>
@@ -238,12 +238,12 @@
 </script>
 
 <script id="shipping-methods-template" type="text/template">
-    <div class="table-responsive">
+    <div class="table-responsive fsd1">
 	<table  class="table">
 	<thead>
         <tr>
 		    <th>Method</th>
-			<th>Est<span class="d-none d-md-block">imated</span> Arrival</th>
+			<th>Est<span class="d-none d-md-inline">imated</span> Arrival</th>
 			<th class="text-right">Price</th>
 		</tr>
 	</thead>

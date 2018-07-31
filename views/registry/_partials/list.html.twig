@@ -50,14 +50,13 @@ when the API is fixed, restore this and get rid of the api workaround
 {% spaceless %}
 
 <h1>{{ registry.name }}</h1>
-<div class="products p divide">
+<div class="card"><div class="card-body">
 <h2 class="sr-only">Products</h2>
 {% for item in registry_items %}
     {% set left = item.quantity - item.quantity_purchased < 0 ? 0 : item.quantity - item.quantity_purchased %}
     
     {% set variant = variants[item.variant_id][0] %}
     
-    {# Begin variant #}
 <div class="divide g mb-4 pb-4">
     <div class="row">
         <div class="col-md-6">
@@ -66,7 +65,7 @@ when the API is fixed, restore this and get rid of the api workaround
                     <img class="media-object" src="{{ variant.thumbnail }}" width="250" height="250" alt="">
                 </div>
                 <div class="media-body g">
-                    <h3 class="product-name"><a href="{{app.url}}{{ variant.product.slug }}">{{ variant.name }}</a></h3>
+                    <h3 class="product-name"><a href="{{app.url}}/product/{{ variant.product.slug }}">{{ variant.name }}</a></h3>
 
                     <ul class="list-inline pricing">
                         <li class="price">{{ prod.currency(variant.price) }}</li>
@@ -185,7 +184,7 @@ when the API is fixed, restore this and get rid of the api workaround
 </div>
         
 {% endfor %}
-</div>
+</div></div>
 
 {% if registry.privacy == 'public' or registry.privacy == 'unlisted' %}
 <div class="dropdown text-right">

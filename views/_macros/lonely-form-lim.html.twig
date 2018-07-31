@@ -1,0 +1,15 @@
+{% macro begin(id) %}
+<div class="lonely-form-lim {% if id %}lf-{{id}}{% endif %}"><div class="max-lonely">
+{% endmacro %}
+
+{% macro begincard(cl,cl2) %}
+<div class="card {% if cl %}{{cl}}{% endif %}"><div class="card-body {% if cl2 %}{{cl2}}{% endif %}">
+{% endmacro %}
+
+{% macro endcard() %}
+</div></div>
+{% endmacro %}
+
+{% macro end() %}
+</div></div>
+{% endmacro %}
