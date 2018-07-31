@@ -93,7 +93,7 @@ set in the array in /account/_macros/base.html.twig
 	{% set _in = [] %}
 	{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
 	{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}},
-		attributes:'variant.name,variant.id,variant.product.slug,,variant.thumbnail',
+		attributes:'variant.name,variant.id,variant.price,variant.product.slug,,variant.thumbnail',
 		sort: 'date_created:-1', limit:3}) %}
 	
 	
@@ -114,7 +114,7 @@ set in the array in /account/_macros/base.html.twig
 					
 					<div class="pricing mb-3">
 						<div class="price">
-							{{ prod.currency(product.price|number_format(2)) }}
+							{{ prod.currency(item.variant.price|number_format(2)) }}
 						</div>
 					</div>
 					{% set it = api.get('/wishlistitem', {query:{'product_id': variant.product.id}})[0] %}
