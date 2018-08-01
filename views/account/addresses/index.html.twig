@@ -1,7 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
-{% import "/_macros/lonely-form.html.twig" as lonelyform %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
@@ -53,28 +53,30 @@ set in the array in /account/_macros/base.html.twig
 {{ forms.begin('address','','post', {class:'form-region'}) }}
 
 {% set addresses = api.get('/customeraddress',{'query':{'customer_id':app.user.id}}) %}
-{% if addresses is empty %}
 
 {{ lonelyform.begin()}}
 <h1>Addresses</h1>
-{{ lonelyform.begincard()}}
-<p class="text-center">You have yet to save an address.</p>
-<a href="{{app.url}}/account/addresses/new" class="btn btn-primary btn-lg btn-block">Add New Address</a>
+{{ lonelyform.begincard('bg-light')}}
+<div class="row">
+	<div class="col-lg-6">
+		<a href="{{app.url}}/account/addresses/new" class="btn btn-default btn-block">Add New Address</a>
+	</div>
+</div>
 {{ lonelyform.endcard()}}
-{{ lonelyform.end() }}
+
+{% if addresses is empty %}
+
+<p>You have yet to save an address.</p>
 
 {% else %}
 
-<h1>Addresses</h1>
-<div class="row">
+<div class="row card-height fsd1">
 	{% for row,address in addresses %}
-	<div class="col-md-6 col-xl-4">
+	<div class="col-md-6 col-xl-4 g mb-3">
 		<div class="card {% if address.verified == 0 %} {# consider#}{% else %}{% endif %} {% if address.default == 1 %} bg-light{% endif %}">
-			<div class="card-header">
-				{% if row == 0 %}<i class="fa fa-star"></i>{% endif %}<strong>{{ address.first_name }} {{ address.last_name }}</strong>
-			</div>
 			<div class="card-body">
-				<address class="pb-3 divide mb-3 g">
+				<h2 class="h3">{% if row == 0 %}<i class="fa fa-home"></i>{% endif %}<span>{{ address.first_name }} {{ address.last_name }}</span></h2>
+				<address>
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>
 					{% endif %}
@@ -84,30 +86,26 @@ set in the array in /account/_macros/base.html.twig
 					{% endif %}
 					<div class="zip">{{ address.city }}, {{ address.state }} {{ address.zip }}</div>
 					<div class="country">{{ address.country }}</div>
-					{#{% if address.street_line2 == '' %}<br />{% endif %}#}
-					{#{% if address.company == '' %}<br />{% endif %}#}
-					<div class="fsd1 mt-3">
 					{% if address.default == 1 %}
-						<u>Default Address</u>
-					{% else %}
-						<br>
+						<div class="fsd1 mt-3"><u>Default Address</u></div>
 					{% endif %}
-					</div>
 					{% if address.verified == 0 %}
     				{#<span class="text-danger">Please verify this address by clicking the edit address link under options below and fill in any missing information.</span>#}
     				{% endif %}
 				</address>
-				<div class="btn-group">
-					<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						<span>Options</span><i class="fa fa-angle-down"></i>
+			</div>
+			<div class="card-footer">
+				<div class="btn-group btn-block">
+					<button class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">
+						<span>Options</span><i class="fa fa-angle-down"><span class="sr-only">for {{ address.street_line1 }}</span></i>
 					</button>
-					<div class="dropdown-menu fa-fa-balance" role="menu">
-						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item" name="edit_address">
+					<div class="dropdown-menu w-100" role="menu">
+						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item fsd1" name="edit_address">
 							Edit Address <span class="sr-only">for {{ address.street_line1 }}</span>
 						</a>
-						{{ forms.submit('address[action]', 'primary/' ~  (row + 1), 'Use <span class="sr-only">{{ address.street_line1 }}</span> as Default Address', {class:'btn dropdown-item'})}}
+						{{ forms.submit('address[action]', 'primary/' ~  (row + 1), 'Use <span class="sr-only">' ~ (address.street_line1) ~ '</span> as Default Address', {class:'btn fsd1 dropdown-item'})}}
 						<div class="dropdown-divider"></div>
-						{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), 'Delete Address <span class="sr-only">for {{ address.street_line1 }}</span>', {class:'btn dropdown-item'})}}
+						{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), 'Delete Address <span class="sr-only">for ' ~ (address.street_line1) ~ '</span>', {class:'btn fsd1 dropdown-item'})}}
 					</div>
 				</div>
 			</div>
@@ -116,8 +114,8 @@ set in the array in /account/_macros/base.html.twig
 	{% endfor %}
 </div>
 
-<a href="{{app.url}}/account/addresses/new" class="btn btn-default">Add New Address</a>
 {% endif %}
+{{ lonelyform.end() }}
 
 {{ forms.end() }}
 

@@ -1,7 +1,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/account/_macros/base.html.twig" as account %}
-{% import "/_macros/lonely-form.html.twig" as lonelyform %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
 
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %} 
@@ -40,50 +40,55 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% endif %}
 {% endif %}
 
-{# Begin navigation #}
 
 {{account.navigation('wishlists')}}
 
 {{ forms.begin('wishlist','','post',{ class:'' }) }}
 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}
-{% if wishlists is empty %}
+
 {{ lonelyform.begin()}}
-<h1>Your Wish Lists</h1>
-{{ lonelyform.begincard()}}
-<p>You have yet to create a Wish List.</p>
-<a class="btn btn-primary btn-block btn-lg" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
+<h1>Wish Lists</h1>
+{{ lonelyform.begincard('bg-light')}}
+<div class="row">
+	<div class="col-lg-6">
+		<a href="{{app.url}}/account/wishlist/create" class="btn btn-default btn-block">Create New Wish List</a>
+	</div>
+</div>
 {{ lonelyform.endcard()}}
-{{ lonelyform.end() }}
+
+{% if wishlists is empty %}
+
+<p>You have yet to create a Wish List.</p>
+
 {% else %}
 
-<h1>Your Wish Lists</h1>
-<div class="row">
+<div class="row card-height fsd1">
 	{% for wishlist in wishlists %}
-	<div class="col-md-6 col-xl-4">
+	<div class="col-md-6 col-xl-4 g mb-3">
 		<div class="card{% if wishlist.default %} bg-light{% endif %}">
-			<div class="card-header">
-				<strong>{% if wishlist.default %}<i class="fa fa-star"></i>{% endif %}<span>{{ wishlist.name }}</span></strong>
-			</div>
 			<div class="card-body">
+			    <h2 class="h3">{% if wishlist.default %}<i class="fa fa-heart"></i>{% endif %}<span>{{ wishlist.name }}</span></h2>
 				<div class="item-count"><b>{{ wishlist.item_count }}</b> Item(s)</div>
 				<div><i>{{ wishlist.privacy|capitalize }}</i></div>
-				<div class="fsd1 mt-3 pb-3 divide mb-3 g">
 				{% if wishlist.default %}
+				<div class="fsd1 mt-3">
 					<u>Default Wish List</u>
-				{% else %}
-					<br>
-				{% endif %}
 				</div>
-				<a class="btn btn-default" href="{{app.url}}/wishlist/{{wishlist.id}}">View <span class="sr-only">{{ wishlist.name }}</span></a>
+				{% endif %}
 			</div>
+			<div class="card-footer">
+                <a class="btn btn-default btn-block" href="{{app.url}}/wishlist/{{wishlist.id}}">View <span class="sr-only">{{ wishlist.name }}</span> List</a>
+            </div>
 		</div>
 	</div>
 {% endfor %}
 </div>
-{# End wishlists #}
-<a class="btn btn-default" href="{{ app.request.base}}/account/wishlist/create">Create New Wish List</a>
 {% endif %}
 
+
 {{ forms.end() }}
+
+{{ lonelyform.end() }}
+
 {{account.navigatend()}}
 {% endblock %}

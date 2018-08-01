@@ -29,20 +29,18 @@ set in the array in /account/_macros/base.html.twig
 #}
 {% set reviews = api.get('/productreview',{'query': {'customer_id':app.user.id } }) %}
 
-{# Begin navigation #}
-
 {{account.navigation('reviews')}}
 
 {{ lonelyform.begin()}}
 <h1>Reviews</h1>
-{{ lonelyform.begincard()}}
 
 {% if reviews is empty %}
 
-<p class="text-center">You have yet to write a review.</p>
+<p>You have yet to write a review.</p>
 
 {% else %}
 
+{{ lonelyform.begincard()}}
 <div class="table-responsive">
 	<table class="table fsd1 table-hover table-striped tablesorter">
 		<thead>
@@ -64,9 +62,9 @@ set in the array in /account/_macros/base.html.twig
 		</tbody>
 	</table>
 </div>
+{{ lonelyform.endcard()}}
 {% endif %}
 
-{{ lonelyform.endcard()}}
 {{ lonelyform.end() }}
 {{account.navigatend()}}
 {% endblock %}

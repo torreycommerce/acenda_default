@@ -27,6 +27,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {{account.navigation('orders')}}
 
+{% set search = app.request.get.q is defined ? app.request.get.q : '' %}
 {% set query = {} %}
 {% if app.request.get.daterange != '' %}
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
@@ -36,13 +37,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {{ lonelyform.begin()}}
 <h1>Orders</h1>
 
-{% if orders is empty %}
-
-{{ lonelyform.begincard()}}
-<p class="text-center">You have yet to place an order.</p>
-{{ lonelyform.endcard()}}
-
-{% else %}
+{% if query is not empty or search is not empty or orders is not empty %}
 
 {{ lonelyform.begincard('bg-light')}}
 {{ forms.begin('ordersearch', app.url ~ '/account/orders', 'get') }}
@@ -60,6 +55,19 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 </div>
 {{ forms.end() }}
 {{ lonelyform.endcard()}}
+
+{% endif %}
+
+{% if orders is empty %}
+
+{% if query is empty and search is empty %}
+<p>You have yet to place an order.</p>
+{% else %}
+<p>You do not have any matching orders. Try adjusting your search.</p>
+{% endif %}
+
+
+{% else %}
 
 {% for order in orders %}
 
