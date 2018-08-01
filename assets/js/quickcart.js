@@ -32,9 +32,6 @@ $('#qc-parent').on('show.bs.dropdown', function () {
     }
 });
 
-/*$('#qc-parent').on('shown.bs.dropdown', function () {
-    console.log('bs shown, do nothing');
-});*/
 
 $('#qc-parent').on('hidden.bs.dropdown', function () {
     //console.log('qc hidden, but not remove ready');
@@ -49,9 +46,7 @@ $('#qc-parent').on('hidden.bs.dropdown', function () {
 
 
 $(function() {
-    $.getJSON(acendaBaseUrl + '/api/sessioncart', function(data) {
-        $('#header .item-count').html(data.result.item_count).addClass('ready');
-    });
+    ajaxCart("{}", true);
 });
 
 var pData;
@@ -111,8 +106,7 @@ $('button[value=cart]').click(function(event) {
 });
 
 function ajaxCart(data, r) {
-    console.log('f ajaxCart()');
-    //console.log('dataLayer add');
+    //console.log('f ajaxCart()');
     //
     if ($(vData).find('.sku').length) {
         var dLID = $(vData).find('.sku span').text();
@@ -170,7 +164,7 @@ function ajaxCart(data, r) {
         if (show_all) {
             items = cart_items;
         } else {
-            console.log('attempt not show_all');
+            //console.log('attempt not show_all');
             items = $('.productForm').serializeArray(); // Items that were added
         }
         
@@ -264,14 +258,14 @@ function ajaxCart(data, r) {
             if(cart_items.length > 0) {
                 displayCart();
             }
-            console.log('set qcrecalc to 0');
+            //console.log('set qcrecalc to 0');
             qcrecalc = 0;
         });
     });
 }
 
 function displayCart(){
-    console.log('f displayCart(), add qc-ready');
+    //console.log('f displayCart(), add qc-ready');
     setTimeout(function() {
         $('#qc-parent').addClass('qc-ready');
     }, 50);
