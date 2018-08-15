@@ -2,20 +2,31 @@
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
-{% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
-{# Variables passed in: order_id, return_id #}
+{% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set product_ids = item|values_in('variant_id') %}
+{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+{% set product = products[item.variant_id].0 %}
+<tr>
+    <td>
+        <br><br>return: {{dump(return)}}
+        <br><br>
+        <br><br>item: {{dump(items)}}
+        <br><br>product_ids: {{dump(product_ids)}}
+        <br><br>products: {{dump(products)}}
+    </td>
+</tr>
 <tr>
 	<td {{ ema.divform() }}>
 		<table {{ ema.tform() }}>
 			<tr>
 				<td {{ ema.titform() }}>
-					Order Return
+					Order Return v11
 				</td>
 			</tr>
 			<tr>
 				<td {{ ema.comformA() }}>
 				Your <b>{{ params['site']['title']|default("") }}</b> order status return has been confirmed!
-				<br><b>Order ID:</b> {{ order.order_number }}
+				<br><b>Order #:</b> {{ order.order_number }}
 				</td>
 			</tr>
 		</table>
@@ -26,16 +37,25 @@
 		<table {{ ema.tform() }}>
 		    <tr>
 				<td {{ ema.minititform() }}>
-					Returned Product
+					Product
 				</td>
 			</tr>
 			<tr>
 				<td {{ ema.comformB() }}>
-					<b>{{item.name}}</b>
-					<br><b>RMA #:</b> {{return.rma}}
-					<br><b>SKU:</b> {{item.sku}}
-					<br><b>Qty:</b> {{ return.quantity }}
-					<br><b>Reason:</b> {{ return.reason }}
+				    <table {{ ema.tform() }}>
+				        <tr>
+				            <td style="width:80px;" valign="top">
+        				        <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
+        				    </td>
+        				    <td style="padding:0 0 0 20px;" valign="top">
+            				    <a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{item.name}}</b></a>
+            				    <br><b>RMA #:</b> {{return.rma}}
+            				    <br><b>SKU:</b> {{item.sku}}
+            					<br><b>Qty:</b> {{return.quantity}}
+            					<br><b>Reason:</b> {{return.reason}}
+            				</td>
+            			</tr>
+            		</table>
 				</td>
 			</tr>
 	  </table>

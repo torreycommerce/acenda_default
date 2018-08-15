@@ -21,14 +21,14 @@
 				<h2>Thank You, your order has been placed!</h2>
 				<p>We e-mailed you an order confirmation.</p>
 				{% if request.customer_id is defined %}
-					<a class="btn btn-default" href="{{app.url}}/account/order/{{final_order.order_number}}">Review Order: #{{ final_order.order_number }}</a>
+					<a class="btn btn-default" href="{{app.url}}/account/order/{{final_order.order_number}}">Review Order #:{{ final_order.order_number }}</a>
 					
 					<div>Order Placed: {{ final_order.date_created|date("F jS, Y") }}</div>
 				{% else %}
 					<form name="order" action="{{app.url}}/order", method="POST", class="" id="view-order">
 						<input type="hidden" name="order[id]" value="{{ final_order.order_number }}" />
 						<input type="hidden" name="order[email]" value="{{ final_order.email}}" />
-						<a class="btn btn-default" href="javascript: $('form#view-order').submit();">Review Order: #{{ final_order.order_number }}</a>
+						<a class="btn btn-default" href="javascript: $('form#view-order').submit();">Review Order #:{{ final_order.order_number }}</a>
 					</form>
 				{% endif %}
 			</div>

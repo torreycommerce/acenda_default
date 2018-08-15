@@ -75,7 +75,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	<div class="row">
 		<div class="col-lg-5 fsd1 mb-4 mb-lg-0">
 
-			<h2>Order: #{{ order.order_number }}</h2>
+			<h2>Order #:{{ order.order_number }}</h2>
 			<div>Status: {{ order.status }}</div>
 			<div class="mb-3">{{ order.date_created }}</div>
 
@@ -103,10 +103,10 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			</div>
 			{% endif %}
 			{% set items = api.get('/orderitem', {query:{order_id:order.id}}) %}
-			{% set product_ids = items|values_in('product_id') %}
+			{% set product_ids = items|values_in('variant_id') %}
 			{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 			{% for item in items %}
-				{% set product = products[item.product_id].0 %}
+				{% set product = products[item.variant_id].0 %}
 				<div class="divide pb-3 g mb-3">
 					<div class="media">
 						<div class="media-left">

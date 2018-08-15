@@ -1,6 +1,8 @@
 {% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
-{% block title %}Create a Return{% endblock %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
+
+{% block title %}Create Return{% endblock %}
 {% block content %}
 {% if app.request.post.guestreturn is not empty or app.request.post.createreturn is not empty %}
     {% do app.request.validateToken() %}
@@ -11,17 +13,17 @@
         {% do app.redirect('/return') %}
     {% endif %}
     {% set page_name = 'return' %}
-	{% set orderitems = api.get('/orderitem?email='~form.email~'&order_number='~form.order_number, {query:{order_id: order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
+    {% set orderitems = api.get('/orderitem?email='~form.email~'&order_number='~form.order_number, {query:{order_id: order.id, fulfillment_status:{'$in':['complete', 'partial']}}}) %}
     {% set returns = api.get('/orderreturn?email='~form.email~'&order_number='~form.order_number, {query:{order_id: order.id, status: {'$in': ['pending','returned']}}}) %}
-	{% if order.date_created|strtotime > app.params.returnTime|strtotime %}
-    	{% do app.user.setFlash('Order is too old for returns.', 'danger') %}
-    	{% do app.redirect('/return') %}
-	{% else %}
-		{% include '/return/create/_partials/form.html.twig' %}
-	{% endif %}
+    {% if order.date_created|strtotime > app.params.returnTime|strtotime %}
+        {% do app.user.setFlash('Order is too old for returns.', 'danger') %}
+        {% do app.redirect('/return') %}
+    {% else %}
+        {% include '/return/create/_partials/form.html.twig' %}
+    {% endif %}
 {% else %}
-	{% do app.user.setFlash('No query submitted.', 'danger') %}
-	{% do app.redirect('/return') %}
+    {% do app.user.setFlash('No query submitted.', 'danger') %}
+    {% do app.redirect('/return') %}
 {% endif %}
 
 {% endblock %}

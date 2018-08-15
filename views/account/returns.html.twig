@@ -73,7 +73,7 @@
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-			<h2>RMA: #{{ return.rma }}</h2>
+			<h2>RMA #: #{{ return.rma }}</h2>
 			<div>Status: {{ return.status }}</div>
 			<div>{{ return.date_created }}</div>
 
@@ -103,7 +103,7 @@
 
 		<div class="col-lg-7 g">
 			{% set item = api.get('/orderitem/' ~ return.item_id) %}
-			{% set product = api.get('/variant/' ~ item.product_id) %}
+			{% set product = api.get('/variant/' ~ item.variant_id) %}
 			<div class="divide g mb-3 pb-3">
 				<div class="media">
 					<div class="media-left">

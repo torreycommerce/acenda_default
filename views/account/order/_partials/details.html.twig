@@ -20,7 +20,7 @@
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-		    <h2>Order: #{{ order.order_number }}</h2>
+		    <h2>Order #:{{ order.order_number }}</h2>
 			<div>{{ order.date_created }}</div>
 			<div class="mb-3">Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 
@@ -38,11 +38,33 @@
 
 			{% set method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 			<h3>Shipping Method</h3>
-			<div class="mb-3">Shipping Method: ({{method.name}})</div>
+			<p>Shipping Method: ({{method.name}})</p>
 
+            <h3>Billing Address</h3>
+			{% if order.transaction_type == 'PayPal' %}
+			<address>
+				<div>{{ order.billing_first_name}} {{ order.billing_last_name}}</div>
+				<div>{{ order.billing_street_line1}}</div>
+				{% if order.billing_street_line2 is not empty %}
+				<div>{{ order.billing_street_line2}}</div>
+				{% endif %}
+				<div>{{ order.billing_city}}, {{ order.billing_state}} {{ order.billing_zip}}</div>
+			</address>
+			{% else %}
+			    <p>Express order</p>
+			{% endif %}
+			
+			<h3>Billing Method</h3>
+			<p>
+			{% if order.transaction_type == 'PayPal Express' %} {# Express order #}
+				PayPal Express
+			{% else %}
+				{{ order.card_type|capitalize }} x-{{ order.card_last4 }} Credit Card
+			{% endif %}
+			</p>
 
 			{% if order.status == 'pending' %}
-			<a class="btn btn-default" data-toggle="modal" data-target="#cancel-modal">Cancel Order</a>
+			<a class="btn btn-default btn-xsm-block" data-toggle="modal" data-target="#cancel-modal">Cancel Order</a>
 			<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -72,12 +94,12 @@
 			    <h3 class="sr-only">Ordered Items</h3>
 				{# Begin order items #}
 				{% set items = api.get('/orderitem?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
-				{% set product_ids = items|values_in('product_id') %}
+				{% set product_ids = items|values_in('variant_id') %}
 				{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 				{% if items is not empty %}
 				{% set subtotal = 0 %}
 				{% for item in items %}
-				{% set product = products[item.product_id].0 %}
+				{% set product = products[item.variant_id].0 %}
 				{% set subtotal = subtotal + (product.price * item.quantity) %}
 				<div class="divide g pb-3 mb-3">
 				<div class="media">
@@ -116,12 +138,11 @@
 				</div>
 				{% endfor %}
 			</div>
-
 			{% set fulfillments = api.get('/orderfulfillment?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number) %}
 			{% if fulfillments is not empty and fulfillments|length > 0 %}
 			<div class="divide mb-3">
 				{% for f in fulfillments %}
-					<p class="mb-3">
+					<p>
 						On {{ f.date_created|date("m/d/Y") }} at {{ f.date_created|date("H:i:s") }} a shipment left our warehouse
 						{% if f.tracking_numbers is not empty and f.tracking_numbers|length > 0 %}
 							with the following tracking number(s):</p>
@@ -138,64 +159,36 @@
 			{% endif %}
 
 			<div class="row">
-				<div class="col-md-6">
-					<h3>Billing Address</h3>
-					{% if order.transaction_type == 'PayPal' %}
-					<address>
-						<div>{{ order.billing_first_name}} {{ order.billing_last_name}}</div>
-						<div>{{ order.billing_street_line1}}</div>
-						{% if order.billing_street_line2 is not empty %}
-						<div>{{ order.billing_street_line2}}</div>
-						{% endif %}
-						<div>{{ order.billing_city}}, {{ order.billing_state}} {{ order.billing_zip}}</div>
-					</address>
-					{% else %}
-					    <div class="mb-3">Express order</div>
-					{% endif %}
-					
-						<h3>Billing Method</h3>
-						<div class="mb-3 mb-md-0">
-						{% if order.transaction_type == 'PayPal Express' %} {# Express order #}
-							PayPal Express
-						{% else %}
-							{{ order.card_type|capitalize }} x-{{ order.card_last4 }} Credit Card
-						{% endif %}
-						</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-6">Subtotal:</div>
-						<div class="col-6 text-right">{{ prod.currency(order.item_subtotal|number_format(2, '.')) }}</div>
-					</div>
-					<div class="row">
-						<div class="col-6">Shipping:</div>
-						<div class="col-6 text-right">{{ prod.currency(order.shipping_rate|number_format(2, '.')) }}</div>
-					</div>
-					{% if order.discount_price > 0 %}
-					<div class="row">
-						<div class="col-6">Discount:</div>
-						<div class="col-6 price-discount text-right">-{{ prod.currency( order.discount_price|number_format(2, '.')) }}</div>
-					</div>
-					{% endif %}
-					<div class="row">
-						{% set total_before_tax = order.item_subtotal - order.discount_price + order.shipping_rate %}
-						<div class="col-8">Total Before Tax:</div>
-						<div class="col-4 text-right">{{ prod.currency(total_before_tax|number_format(2, '.')) }}</div>
-					</div>
-					<div class="row">
-						<div class="col-6">Sales Tax:</div>
-						<div class="col-6 text-right">{{ prod.currency(order.tax|number_format(2, '.')) }}</div>
-					</div>
-					<hr>
-					<div class="row totals-total">
-						<div class="col-6">Total:</div>
-						<div class="col-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
-					</div>
-				</div>
-				{# End order totals #}
-			{% endif %}
+				<div class="col-6">Subtotal:</div>
+				<div class="col-6 text-right">{{ prod.currency(order.item_subtotal|number_format(2, '.')) }}</div>
 			</div>
+			<div class="row">
+				<div class="col-6">Shipping:</div>
+				<div class="col-6 text-right">{{ prod.currency(order.shipping_rate|number_format(2, '.')) }}</div>
+			</div>
+			{% if order.discount_price > 0 %}
+			<div class="row">
+				<div class="col-6">Discount:</div>
+				<div class="col-6 price-discount text-right">-{{ prod.currency( order.discount_price|number_format(2, '.')) }}</div>
+			</div>
+			{% endif %}
+			<div class="row">
+				{% set total_before_tax = order.item_subtotal - order.discount_price + order.shipping_rate %}
+				<div class="col-8">Total Before Tax:</div>
+				<div class="col-4 text-right">{{ prod.currency(total_before_tax|number_format(2, '.')) }}</div>
+			</div>
+			<div class="row">
+				<div class="col-6">Sales Tax:</div>
+				<div class="col-6 text-right">{{ prod.currency(order.tax|number_format(2, '.')) }}</div>
+			</div>
+			<hr>
+			<div class="row totals-total">
+				<div class="col-6">Total:</div>
+				<div class="col-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
+			</div>
+			
+			{% endif %}
+			
 		</div>
 	</div>
 {{ lonelyform.endcard()}}
@@ -222,7 +215,7 @@
 		</div>
 		{# End actions #}
 		{% endif %}
-		<div><b>RMA:</b> {{ return.rma }}</div>
+		<div><b>RMA #:</b> {{ return.rma }}</div>
 		<div class="product-name">{{ item.name }}</div>
 		<div><b>Qty:</b> {{ return.quantity }}, <b>Status:</b> {{ return.status }}</div>
 	</div>

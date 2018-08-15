@@ -28,13 +28,13 @@
 {% set items = api.get('/orderitem?email='~app.request.get.email~'&order_number='~app.request.get.order_number, {query:{id:{'$in':orderitem_ids}}})|group_by('id') %}
 
 <p>You have successfully created a return and a copy of the return instructions below have been emailed to you.</p>
-<legend> In order for us to process your return, your items must meet the following criteria: </legend>
+<h2>In order for us to process your return, your items must meet the following criteria:</h2>
 <ol>
 	<li>Items must be unused and returned with the original product tags.</li>
 	<li>Items must be returned in their original, undamaged packaging.</li>
 	<li>Please do not place shipping labels on product packaging, only place shipping labels on the cardboard shipping box.</li>
 </ol>
-<legend>What happens next:</legend>
+<h2>What happens next:</h2>
 <ul>
 	<li>Print this page.</li>
 	<li>Place the packing slip inside the box with the items you are returning.</li>
@@ -43,12 +43,12 @@
 	<li>If you do not currently have access to a printer, you can write your Return # and return shipping address on the shipping box. </li>
 	<li> Please ship your items to the specified fulfillment center address below.</li>
 </ul>
-<legend>Your RMA numbers and their products are:</legend>
+<h2>Your RMA numbers and their products are:</h2>
 {% for return in returns %}
 <ul class="list-unstyled">
+<li><strong>{{ items[return.item_id].0.name }}</strong></li>
 <li><strong>RMA #:</strong> {{ return.rma }}</li>
 <li><strong>Qty:</strong>  {{ return.quantity }}</li>
-<li><strong>Product Name:</strong>  {{ items[return.item_id].0.name }}</li>
 <li><strong>Reason:</strong>  {{ return.reason }}</li>
 </ul>
 {% endfor %}

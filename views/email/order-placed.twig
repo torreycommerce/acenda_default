@@ -9,7 +9,7 @@ Thank you for placing your order with {{ params['site']['title'] }}!
 
 This email is to confirm your recent order.
 
-Order ID: {{ order.order_number }}
+Order #: {{ order.order_number }}
 Date: {{ order.date_created }}
 Subtotal: ${{ order.item_subtotal|number_format(2) }}
 Shipping: ${{ order.shipping_rate|number_format(2, '.') }}

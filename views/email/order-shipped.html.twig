@@ -3,6 +3,8 @@
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set product_ids = items|values_in('variant_id') %}
+{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
@@ -17,7 +19,7 @@
 			<tr>
 				<td {{ ema.comformA() }}>
 				Your <b>{{ params['site']['title']|default("") }}</b> Order has Shipped!
-				<br><b>Order ID:</b> {{ order.order_number }}
+				<br><b>Order #:</b> {{ order.order_number }}
 				</td>
 			</tr>
 	  </table>
@@ -36,7 +38,7 @@
 			</tr>
 			<tr>
 				<td {{ ema.halfcomform() }}>
-					<b>Order ID:</b> {{ order.order_number }}
+					<b>Order #:</b> {{ order.order_number }}
 					<br><b>Date:</b> {{ order.date_created }}
 					<br><br><b>Subtotal:</b> {{ mac.currency(order.item_subtotal|number_format(2)) }}
 					<br><b>Shipping:</b> {{ mac.currency(order.shipping_rate|number_format(2, '.')) }}
@@ -82,12 +84,22 @@
 				</td>
 			</tr>
 			{% for item in items %}
+			{% set product = products[item.variant_id].0 %}
 			<tr>
 				<td {{ ema.comformB() }}>
-					<a href="{{ params['url']['current']}}{{products[item.product_id].0.url}}" style="color:#000; text-decoration:none;"><b>{{ item.name }}</b></a>
-					<br><b>SKU:</b> {{item.sku}}
-					<br><b>Price:</b> {{ mac.currency(item.price|number_format(2)) }}
-					<br><b>Qty:</b> {{ item.quantity }}
+				    <table {{ ema.tform() }}>
+				        <tr>
+				            <td style="width:80px;" valign="top">
+				                <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
+        				    </td>
+        				    <td style="padding:0 0 0 20px;" valign="top">
+            					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{ item.name }}</b></a>
+            					<br><b>SKU:</b> {{item.sku}}
+            					<br><b>Price:</b> {{ mac.currency(item.price|number_format(2)) }}
+            					<br><b>Qty:</b> {{ item.quantity }}
+            				</td>
+            			</tr>
+            		</table>
 				</td>
 			</tr>
 			{% endfor %}

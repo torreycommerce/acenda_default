@@ -3,6 +3,9 @@
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set return = api.get('/orderreturn/' ~ return_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set item = api.get('/orderitem/' ~ return.item_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set product_ids = item|values_in('variant_id') %}
+{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+{% set product = products[item.variant_id].0 %}
 <tr>
 	<td {{ ema.divform() }}>
 		<table {{ ema.tform() }}>
@@ -14,7 +17,7 @@
 			<tr>
 				<td {{ ema.comformA() }}>
 				Your <b>{{ params['site']['title']|default("") }}</b> order status return has been updated!
-				<br><b>Order ID:</b> {{ order.order_number }}
+				<br><b>Order #:</b> {{ order.order_number }}
 				</td>
 			</tr>
 	  </table>
@@ -30,12 +33,21 @@
 			</tr>
 			<tr>
 				<td {{ ema.comformB() }}>
-				    <b>{{item.name}}</b>
-				    <br><b>RMA #:</b> {{return.rma}}
-				    <br><b>SKU:</b> {{item.sku}}
-					<br><b>Qty:</b> {{return.quantity}}
-					<br><b>Reason:</b> {{return.reason}}
-					<br><b>Status:</b> {{return.status }}
+				    <table {{ ema.tform() }}>
+				        <tr>
+				            <td style="width:80px;" valign="top">
+        				        <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
+        				    </td>
+        				    <td style="padding:0 0 0 20px;" valign="top">
+            				    <a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{item.name}}</b></a>
+            				    <br><b>RMA #:</b> {{return.rma}}
+            				    <br><b>SKU:</b> {{item.sku}}
+            					<br><b>Qty:</b> {{return.quantity}}
+            					<br><b>Reason:</b> {{return.reason}}
+            					<br><b>Status:</b> {{return.status }}
+            				</td>
+            			</tr>
+            		</table>
 				</td>
 		</table>
 	</td>
