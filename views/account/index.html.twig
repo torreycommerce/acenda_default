@@ -93,7 +93,7 @@ set in the array in /account/_macros/base.html.twig
 	{% set _in = [] %}
 	{% for wishlist in wishlists %} {% set _in = _in|merge([wishlist.id]) %} {% endfor %}
 	{% set items = api.get('/wishlistitem', {query:{'wishlist_id': {'$in': _in}},
-		attributes:'variant.name,variant.id,variant.price,variant.product.slug,,variant.thumbnail',
+		attributes:'variant.name,variant.id,variant.price,variant.regular_price,variant.product.slug,variant.thumbnail',
 		sort: 'date_created:-1', limit:3}) %}
 
         <h2>Recent Wish List Items</h2>
@@ -102,19 +102,29 @@ set in the array in /account/_macros/base.html.twig
 		{% else %}
 		
 		{% for item in items %}
+		    {% set priceclass = "" %}
+		    {% set usespecial = 0 %}
 			<div class="divide fsd1 g pb-3 mb-3">
 			<div class="media media-cart">
 				<div class="media-left">
 					<img class="media-object" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="250" height="250" alt="">
 				</div>
 				<div class="media-body g">
-					<div class="product-name"><a href="{{app.url}}/product/{{ item.variant.product.slug }}?variant={{item.variant.id}}">{{ item.variant.name }}</a></div>
-					
+					<a href="{{app.url}}/product/{{ item.variant.product.slug }}?variant={{item.variant.id}}"><div class="product-name">{{ item.variant.name }}</div></a>
+					{% if item.variant.regular_price is not empty %}
+                        {% set shownprice = item.variant.regular_price %}
+                        {% set priceclass = " price-special" %}
+                        {% set usespecial = 1 %}
+                    {% else  %}
+                        {% set shownprice = item.variant.price %}
+					{% endif %}
+					{% spaceless %}
 					<div class="pricing mb-3">
-						<div class="price">
-							{{ prod.currency(item.variant.price|number_format(2)) }}
+						<div class="price{{priceclass}}">
+							{{ prod.currency(shownprice|number_format(2)) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}
 						</div>
 					</div>
+					{% endspaceless %}
 					{% set it = api.get('/wishlistitem', {query:{'product_id': variant.product.id}})[0] %}
 					{% set wi = api.get('/wishlist',{query:{"customer_id":app.user.id, "id": it.wishlist_id}})[0] %}
 					<a href="{{ app.url }}/account/wishlist/{{ wi.id }}"><i><u>{{ wi.name }}</u></i></a>

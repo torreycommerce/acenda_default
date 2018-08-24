@@ -205,8 +205,6 @@ function VariantsManager (product, img, isCollection) {
 			//on first iteration set main image
 			if (i == 0){
 				if(this.currentImage != id){
-					//$('#image-carousel-'+this.product_id).hide();
-					//$('#variant-selected-image-'+this.product_id+' img').hide();
 					if(!this.isCollection && $.fn.stopVideo) stopVideo();
 					this.setSelectImage(standard_img_url,large_img_url,img_alt);
 					this.currentImage = id;
@@ -359,22 +357,45 @@ function VariantsManager (product, img, isCollection) {
 				} else {
 					$(vHTML).find('.sku span').html('<br>');
 				}
-				$(vHTML).find('.price .val').html(filteredVariants[0].price.toFixed(2));
-				if ((filteredVariants[0].compare_price - filteredVariants[0].price) > 1) {
+				/* */
+				var shownsaveprice = filteredVariants[0].save_price;
+				var shownsavepercent = filteredVariants[0].save_percent;
+				var priceclass = "";
+				if (filteredVariants[0].regular_price != null) {
+					$(vHTML).find('.price').addClass('price-special');
+					var shownprice = filteredVariants[0].regular_price;
+					var shownsaveprice = (filteredVariants[0].compare_price - shownprice).toFixed(0);
+					var shownsavepercent = (parseFloat(1 - (shownprice / filteredVariants[0].compare_price)) * 100).toFixed(0);
+					var priceclass = " price-special";
+					if (!$(vHTML).find('.price .special').length) {
+						$(vHTML).find('.price').append('<span class="special">Lower Price in Cart</span>');
+					}
+				} else {
+					$(vHTML).find('.price').removeClass('price-special');
+					$(vHTML).find('.price .special').remove();
+					var shownprice = filteredVariants[0].price;
+				}
+				$(vHTML).find('.price .val').html(parseFloat(shownprice).toFixed(2));
+				/* */
+				if ((filteredVariants[0].compare_price - shownprice) > 1) {
 					if (!$(vHTML).find('.pricing ul .val').length) {
-						$(vHTML).find('.pricing .price-regular').html($(vHTML).find('.pricing .price-regular').attr('data-c')).removeAttr('data-c');
+						$(vHTML).find('.pricing .price-compare').html($(vHTML).find('.pricing .price-compare').attr('data-c')).removeAttr('data-c');
 						$(vHTML).find('.pricing .percent').html($(vHTML).find('.pricing .percent').attr('data-c')).removeAttr('data-c');	
 					}
-					$(vHTML).find('.pricing .price-regular .val').text(filteredVariants[0].compare_price.toFixed(2));
-					$(vHTML).find('.pricing .percent .val').text(parseFloat(filteredVariants[0].save_price).toFixed(2));
-					$(vHTML).find('.pricing .percent .percs .val').text(parseFloat(filteredVariants[0].save_percent));
+					$(vHTML).find('.pricing .price-compare .val').text(filteredVariants[0].compare_price.toFixed(2));
+					$(vHTML).find('.pricing .percent .val').text(parseFloat(shownsaveprice).toFixed(0));
+					$(vHTML).find('.pricing .percent .percs .val').text(parseFloat(shownsavepercent));
 				} else {
 					$(vHTML).find('.pricing ul').html('<li>&nbsp;</li>');
 				}
 				if (filteredVariants[0].has_stock == false) {
-					$(vHTML).find('.stock').addClass('stock-oos').html('<button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>');
+					if (filteredVariants[0].enable_instockemail) {
+						$(vHTML).find('.stock').html('<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>');
+					} else {
+						$(vHTML).find('.stock').html('<div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>');
+					}
 				} else {
-					$(vHTML).find('.stock').removeClass('stock-oos').html('<div class="input-group-text bg-white border-white">&nbsp;</div>');
+					$(vHTML).find('.stock').html('<div class="input-group-prepend"><div class="dib input-group-text text-success bg-white border-white px-0">In Stock</div></div>');
 				}
 				//
 				$('#product-details .variations').append(vHTML);
@@ -609,7 +630,7 @@ function VariantsManager (product, img, isCollection) {
 			});
 			//
 			$(document).on('change', 'select.vopt-'+selectName, function() {
-				console.log('val is: '+$(this).val())
+				//console.log('val is: '+$(this).val())
 				_this.updateVariants(selectName, $(this).val());
 			});
 		});
@@ -757,6 +778,12 @@ function VariantsManager (product, img, isCollection) {
 }
 
 
+var iseVariant;
+
+$('.stock .btn').click(function() {
+	iseVariant = $(this).parents('.variation').data('vid');
+});
+
 $('#InStockAlertEmail').keyup(function() {
 	$('#InStockAlertEmail').removeClass('has_error');
 	//$('.newsletter-response').html('');
@@ -769,9 +796,8 @@ $('#InStockAlertEmailButton').click(function() {
 		return false;
 	}
 	$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
-	
-	var product_id = $('.variations').data('id');
-	var variant_id = $('.variation.active').data('vid');
+
+	var variant_id = iseVariant;
 	var email = $('#InStockAlertEmail').val();
 	submitInStockEmail(email, variant_id);
 });

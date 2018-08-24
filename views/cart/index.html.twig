@@ -180,6 +180,7 @@
 {% for id, item in cart.items %}
 {% set product = products[item.product_id].0 %}
 {% set parent = api.get('product/' ~ product.product_id)%}
+
 {% spaceless %}
 <div class="item{% if not loop.last %} divide mb-4 pb-4{% endif %}" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
 	<div class="row">
@@ -194,7 +195,7 @@
     					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
     				</div>#}
     			{% endif %}
-					<div><h3 class="product-name"><a href="{{ app.url ~ '/product/' ~ parent.slug }}">{{ product.name }}</a></h3></div>
+					<a href="{{ app.url ~ '/product/' ~ parent.slug ~ '?variant=' ~ product.id }}"><h3 class="product-name">{{ product.name }}</h3></a>
 					
 					{#<div class="availability mb-3">
 						{% if product.has_stock %}
@@ -211,11 +212,11 @@
 					</div>#}
 					{% if (item.wishlist_id is not empty) %}
 					{% set wishlist = api.get('/wishlist/' ~ item.wishlist_id) %}
-					<p><a href="{{ app.url }}/wishlist/{{ wishlist.id }}"><i class="fa fa-list"></i><span>For {{ wishlist.name }}</span></a></p>
+					<p class="fsd1"><a href="{{ app.url }}/wishlist/{{ wishlist.id }}"><i class="fa fa-heart"></i><span>For {{ wishlist.name }}</span></a></p>
 					{% endif %}
 					{% if (item.registry_id is not empty) %}
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
-					<p><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
+					<p class="fsd1"><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
 					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
 					<div class="error alert alert-danger" style="display:none"></div>
@@ -230,9 +231,9 @@
                 <div class="col-8 cart-indiv">
 					<div class="input-group igq-mod">
 						<div class="mr-1">
-							<input type="text" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" value="{{ item.quantity }}">
+							<input type="number" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" max="{{product.inventory_quantity}}" value="{{ item.quantity }}">
 						</div>
-						<div class="btn-group-vertical mr-4">
+						<div class="btn-group-vertical mr-3">
 						    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
 						    <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
 						</div>
@@ -241,7 +242,7 @@
 								{{ prod.currency(product.price|number_format(2)) }}
 							</div>
 							{% if product.compare_price is not empty and product.compare_price > product.price %}
-							<div class="fsd1 price-regular">
+							<div class="fsd1 price-compare">
 								{{ prod.currency(product.compare_price|number_format(2)) }}
 							</div>
 							{% endif %}

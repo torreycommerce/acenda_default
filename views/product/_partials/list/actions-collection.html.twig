@@ -1,43 +1,3 @@
-
-{# Begin registry button #}
-{#
-{% if items_in_registry is empty %}
-{% set added = false %}
-{% else %}
-{% set added = true %}
-{% endif %}
-{% if registries is empty %}
-
-<button type="submit" name="action" value="registry" class="btn btn-block btn-link">
-	{% if added %}
-	<i class="fa fa-check"></i>
-	{% else %}
-	<i class="fa fa-gift"></i>
-	{% endif %}
-	<span>Add to Registry</span>
-</button>
-
-{% else %}
-
-<div class="btn-groupp">
-	<button type="submit" name="action" value="registry" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
-		{% if added %}
-		<i class="fa fa-check"></i>
-		{% else %}
-		<i class="fa fa-gift"></i>
-		{% endif %}
-		<span>Add to Registry</span>
-	</button>
-	<ul class="dropdown-menu" role="menu">
-		{% for registry in registries %}
-		<li><button type="submit" class="btn btn-link" name="action" value="registry/{{registry.id}}">Add to '{{registry.name}}'</button></li>
-		{% endfor %}
-	</ul>
-</div>
-{% endif %}
-#}
-{# End registry button #}
-{# Begin wishlist button #}
 {% if items_in_wishlist is empty %}
 {% set added = false %}
 {% else %}
@@ -63,4 +23,31 @@
 	</ul>
 </div>
 
+{% endif %}
+
+
+{% if items_in_registry is empty %}
+{% set added = false %}
+{% else %}
+{% set added = true %}
+{% endif %}
+{% if registries is empty %}
+
+<button type="submit" name="action" value="registry" class="btn btn-block btn-link">
+	{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
+</button>
+
+{% else %}
+
+<div class="btn-group btn-block">
+	<button type="submit" name="action" value="registry" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
+		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
+	</button>
+	<ul class="dropdown-menu col text-center" role="menu">
+	    <li class="dropdown-header">Registries:</li>
+		{% for registry in registries %}
+		<li><button type="submit" class="btn dropdown-item" name="action" value="registry/{{registry.id}}">'{{registry.name}}'</button></li>
+		{% endfor %}
+	</ul>
+</div>
 {% endif %}

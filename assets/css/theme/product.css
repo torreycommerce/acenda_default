@@ -3,8 +3,6 @@
 .max-sm-360 {max-width:360px; margin-right:auto; margin-left:auto;}
 }
 
-.stock .stock-msg {display:inline-block; padding:5px 10px; font-weight:bold; text-transform:uppercase;}
-.stock-oos .stock-msg {color:#fff; background:#ff3344;}
 /**/
 .variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; overflow:hidden; visibility:hidden; transition:opacity 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}

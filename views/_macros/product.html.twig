@@ -1,11 +1,38 @@
 {% macro gridproduct(product, options=['carousel','image','details']) %}
 	{% spaceless %}
 	{% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
-	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
+	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
+	
 	{% import _self as this %}
 	{% import "/_macros/base.html.twig" as base %}
 	{% set useAutoRot = 0 %}
 	<div class="product g">
+        {% set pricearray = [] %}
+        {% set minValue = 0 %}
+        {% set maxValue = 0 %}
+    	{% for p in product.variant %}
+            {#<p class="fsd1">d. p: {{p.price}} | pr: {{p.regular_price}}</p>#}
+            {% if loop.first %}
+                {% if p.regular_price is empty %}
+                    {% set minValue = p.price %}
+                    {% set maxValue = p.price %}
+                {% else %}
+                    {% set minValue = p.regular_price %}
+                    {% set maxValue = p.regular_price %}
+                {% endif %}
+            {% else %}
+                {% if p.regular_price is empty %}
+                    {% set minValue = min(p.price, minValue) %}
+                    {% set maxValue = max(p.price, maxValue) %}
+                {% else %}
+                    {% set minValue = min(p.regular_price, minValue) %}
+                    {% set maxValue = max(p.regular_price, maxValue) %}
+                {% endif %}
+            {% endif %}
+            {#<p>during: min: {{minValue}}, max: {{maxValue}}</p>#}
+    	{% endfor %}
+    	{% set pricearray = pricearray|merge([minValue,maxValue]) %}
+    	{#<p>after: min: {{minValue}}, max: {{maxValue}}</p>#}
 		<a href="{{app.url}}/product/{{product.slug}}">
 		{% if 'image' in options %}
 			{# Grab image based on color facets #}
@@ -71,28 +98,49 @@
 			</div>                            
 
 		{% endif %}
-		{% if 'details' in options %}
-		
 			<h3 class="brand-product">
 				<span class="brand"><span>{{product.brand}} </span></span><span class="product-name"><span>{{product.name}}</span></span>
 			</h3>
 		
 		</a>
-		
+	{% if 'details' in options %}
 		<div class="pricing mb-2">
-			{% if product.attributes.price is not empty %}
-			<div class="price mb-2"><span>{{ this.price(product.attributes.price) }}</span></div>
+		    {#<div>1. {{dump(product.attributes.regular_price)}}</div>
+		    <div>2. {{dump(product.attributes.price)}}</div>#}
+		    {#<div>3. {{dump(product.variant.regular_price)}}</div>
+		    <div>4. {{dump(product.variant.attributes.regular_price)}}</div>#}
+		    {#<div>3. {{dump(product.attributes)}}</div>#}
+            {% set shownsaveprice = product.attributes.save_price %}
+            {% set shownsavepercent = product.attributes.save_percent %}
+            {% set priceclass = "" %}
+		    {% if product.attributes.regular_price is not empty %}
+		        {% set priceclass = " price-special" %}
+		        {% if product.group == 'product' %}
+    		        {% set shownprice = product.attributes.regular_price %}
+    		        {% set shownsaveprice = (product.attributes.compare_price|max - shownprice|max)|number_format(1) %}
+    		        {% set shownsavepercent = (1 - (shownprice|max / product.attributes.compare_price|max)|number_format(2)) * 100 %}
+                {% else %}
+                    {% set shownprice = product.attributes.price %}
+                {% endif %}
+		    {% elseif product.attributes.price is not empty %}
+    		    {% set shownprice = product.attributes.price %}
+		    {% endif %}
+		    {#<div>sp: {{dump(shownprice)}}</div>#}
+			{% if shownprice is not empty %}
+			    <div class="price{{priceclass}} mb-2"><span>{{ this.price(pricearray) }}</span></div>
 			{% endif %}
 			{# if product.attributes.price.0 >= 100 %}
 			<div class="price-per-month d-none d-md-block">
 				<span data-tooltip data-toggle="tooltip" data-original-title="Spread payments over six months by selecting &quot;Checkout with Paypal&quot; on the Shopping Cart page. Then log in and apply for a &quot;Bill Me Later&quot; account.">{{ this.billmelater(product.attributes.price) }}</span>
 			</div>
 			{% endif #}
-			{% if product.attributes.compare_price|max - product.attributes.price|max > 1 %}
+			{#<p>pacp: {{dump(product.attributes.compare_price)}}</p>
+			<p>pacpm: {{product.attributes.compare_price|max}}</p>#}
+			{% if product.attributes.compare_price|max - shownprice|max > 1 %}
 			{% spaceless %}
 			<ul class="list-inline">
-				<li class="price-regular">{{ this.cprice(product.attributes.compare_price) }}</li>
-				<li class="percent">{{ this.saveprice(product.attributes.save_price) }}{{ this.savepercent(product.attributes.save_percent) }}</li>
+				<li class="price-compare">{{ this.cprice(product.attributes.compare_price|max) }}</li>
+				<li class="percent">{{ this.saveprice(shownsaveprice) }}{{ this.savepercent(shownsavepercent) }}</li>
 			</ul>
 			{% endspaceless %}
 			{% endif %}
@@ -269,14 +317,14 @@
 {% import _self as this %}
 {% spaceless %}
 	{% if saveprices is not iterable %}
-		<span class="lang">Save </span>{{ this.currency(saveprices|number_format(2)) }}
+		<span class="lang">Save </span>{{ this.currency(saveprices|number_format(0)) }}
 	{% else %}
 		{% set max = saveprices[0] %}
 		{% for price in saveprices %}
 			{% set max = max < price ? price : max %}
 		{% endfor %}
 		{% if max > 1 %}
-			<span class="lang">Save </span>{{ this.currency(max|number_format()) }}
+			<span class="lang">Save </span>{{ this.currency(max|number_format(0)) }}
 		{% endif %}
 	{% endif %}
 {% endspaceless %}

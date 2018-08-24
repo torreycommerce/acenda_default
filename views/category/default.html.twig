@@ -3,8 +3,13 @@
 
 {% set category = api.get('/category',{"query":{"status":"active","slug":app.request.path}})|first %}
 {% if category is empty %}
-    {% do app.user.setFlash('Sorry, the category you requested is unavailable.','danger') %}
-    {% do app.redirect('/') %}
+    {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
+    {% if response and response[0].destination %}
+       {% do app.redirect(response[0].destination ,response[0].code) %}
+    {% else %}
+        {% do app.user.setFlash('Sorry, the category you requested is unavailable.','danger') %}
+        {% do app.redirect('/') %}
+    {% endif %} 
 {% endif %}
 
 {% set categories = api.get('/category/' ~ category.id ~ '/children') %}
@@ -17,13 +22,21 @@
 
 {% set title = 'Browse' %}
 
+{% if app.request.get.s is not empty %}
+    {% set propername = app.request.get.s | e %}
+{% elseif category.display_name is empty %}
+    {% set propername = name|default(category.name) %}
+{% else %}
+    {% set propername = category.display_name %}
+{% endif %}
+
 {% block breadcrumb %}
     {% set categories = app.request.path|split('/') %}
     {% set category_crumbs = [] %}
     {% for category in categories %}
         {% set category_title = category|replace('-',' ')|title %}
         {% if loop.last %}
-            {% set category_crumbs = category_crumbs|merge({(category_title):''})%}
+            {% set category_crumbs = category_crumbs|merge({(propername):''})%}
         {% else %}
             {% set category_link = category_link ~ '/' ~ category %}
             {% set category_crumbs = category_crumbs|merge({(category_title):('/category' ~ category_link)})%}

@@ -1,15 +1,22 @@
 {% extends "/_layouts/base.html.twig" %}
 {% set default_query = {"status":"active","brand":app.request.path} %}
 {% set default_attributes = "category_id,color,type,gender,size,price,review_score" %}
-{% set name = app.request.path|title %}
+{% set name = app.request.path %}
 
 {% if name == "" %}
     {% set title = 'Shop By Brand' %}
     {% set dync = 'shop-by-brand' %}
 {% else %}
-    {% set title = 'Shop By Brand - ' ~ (app.request.path|title) %}
+    {% set products = api.get('/catalog', {
+    	"query":default_query,
+    	"page":app.request.get.page,
+    	"limit":1
+    }) %}
+    {% set name = products|first.brand %}
+    {% set title = 'Shop By Brand - ' ~ name %}
     {% set dync = 'shop-by-brand-' ~ name %}
 {% endif %}
+
 {% block title %}{{title}}{% endblock %}
 
 {% block dynamicclasses %}

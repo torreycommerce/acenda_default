@@ -154,7 +154,6 @@
 ##
 #}
 <div class="row">
-	{# Begin category filters #}
 	<div class="category-filters col-lg-3">
 		{% if categories is not empty %}
 		<div class="list-sub-categories fsd1 d-xsm-none">
@@ -207,10 +206,8 @@
 			{% endif %}
 
             {% set safename = name|replace({'.':'-'})  %}
-            {#<div class="filter" id="filter-{{safename}}">#}
 			{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
 			{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
-            {#</div>#}
 			{% endif %}
 		{% endif %}
 		{% if loop.last %}

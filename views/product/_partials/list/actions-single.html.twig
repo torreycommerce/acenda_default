@@ -8,12 +8,12 @@
 {% if config.params['show-wishlist'] == '1' %}
 
 	{% if wishlists is empty %}
-	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link p">
+	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link">
 		{% if added %}
 		<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add to Wish List</span>
 	</button>
 {% else %}
-	<div class="btn-group btn-block p">
+	<div class="btn-group btn-block">
 		<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
 			{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add to Wish List</span>
 		</button>
@@ -31,12 +31,12 @@
 {% if config.params['show-registry'] == '1' %}
 
 {% if registries is empty %}
-	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link p">
+	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link">
 		{% if added %}
 		<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
 	</button>
 {% else %}
-	<div class="btn-group btn-block p">
+	<div class="btn-group btn-block">
 		<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
 			{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
 		</button>

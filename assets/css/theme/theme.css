@@ -3,9 +3,7 @@
 .igq-mod .form-control {width:52px;}
 .igq-mod .input-group-btn {width:100%;}
 
-@media (min-width:992px) {
-
-}
+input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
 
 .btn-group-qty {width:80px; margin-right:20px;}
 .igq-mod .btn-group-qty .form-control {margin:0;}

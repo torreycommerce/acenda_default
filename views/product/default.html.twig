@@ -27,9 +27,9 @@
 {% set reviews = api.get('/productreview', { query:{ product_id: item.id,status:"active" } }) %}
 
 {% if item.page_title is not empty %}
-    {% set title = item.page_title|title %}
+    {% set title = item.page_title %}
 {% else %}
-    {% set title = item.name|title %}
+    {% set title = item.name %}
 {% endif %}
 
 {% block breadcrumb %}

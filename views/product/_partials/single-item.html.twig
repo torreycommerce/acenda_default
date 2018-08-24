@@ -1,4 +1,4 @@
-{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','color'])}) %}
+{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
 <div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row">
 
 {# set variation = product.variant[0] #}
@@ -95,8 +95,8 @@
 	<div class="col-md-5 mb-4">
 	    <div class="mb-3" id="product-intro">
     		{% if product.brand is not empty %}
-    		<div class="brand mb-2">
-    			<a href="{{app.url}}/brand/{{product.brand|url_encode}}">{{product.brand}}</a>
+    		<div class="brand mb-1">
+    			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}">{{product.brand}}</a>
     		</div>
     		{% endif %}
     		<h1 class="product-name">{{product.name}}</h1>
@@ -123,29 +123,44 @@
     				{% if needsku[0] is not empty %}
     					<div class="sku">Item: <span>{{variation.sku}}</span></div>
     				{% endif %}
-    					<div class="pricing">
-    						<div class="mb-2 price">{{ prod.currency(variation.price|number_format(2),1) }}</div>
+    				{% set shownsaveprice = variation.save_price %}
+                    {% set shownsavepercent = variation.save_percent %}
+                    {% set priceclass = "" %}
+                    {% if variation.regular_price is not empty %}
+        		        {% set shownprice = variation.regular_price %}
+        		        {% set shownsaveprice = (variation.compare_price|max - shownprice|max)|number_format(0) %}
+        		        {% set shownsavepercent = (1 - (shownprice|max / variation.compare_price|max)|number_format(2)) * 100 %}
+        		        {% set priceclass = " price-special" %}
+        		        {% set usespecial = 1 %}
+        		    {% elseif variation.price is not empty %}
+        		        
+            		    {% set shownprice = variation.price %}
+        		    {% endif %}
+        		    {% spaceless %}
+    					<div class="pricing g mb-3">
+    						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
     				{% set needprices = product.variant|max('save_percent') %}
     				{% if needprices|length > 0 %}
     					{% if (variation.compare_price - variation.price) > 1 %}
-    						<ul class="list-inline"><li class="price-regular">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(variation.save_price|number_format(2)) }}{{ prod.savepercent(variation.save_percent) }}</li></ul>
+    						<ul class="list-inline"><li class="price-compare">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
     					{% else %}
-    						<ul class="list-inline"><li class="price-regular" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
+    						<ul class="list-inline"><li class="price-compare" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
     					{% endif %}
     				{% endif %}
     					</div>
-						
-    				{% set needstockmsg = product.variant|find({'has_stock':false})  %}
-    				{% if needstockmsg|length > 0 %}
+					{% endspaceless %}	
+    				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
+    				<div class="stock{% if needstockmsg|length == 0 %} stock-all-in-stock{% endif %} input-group-sm">
     					{% if variation.has_stock == false %}
-							<div class="fsd1 stock stock-oos"><div class="stock-msg">Out of Stock</div></div>
-							{% if  variation.enable_instockemail %}
-								<br/><div class="fsd1 stock stock-oos"><button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button></div>
+							{% if variation.enable_instockemail %}
+								<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>
+							{% else %}
+                                <div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>
 							{% endif %}
     					{% else %}
-    					<div class="fsd1 stock"><div class="input-group-text bg-white border-white">&nbsp;</div></div>
+    					    <div class="input-group-prepend"><div class="dib input-group-text text-success bg-white border-white px-0">In Stock</div></div>
     					{% endif %}
-    				{% endif %}
+    				</div>
 				</div>
 			</div>
 			{% spaceless %}
@@ -223,7 +238,7 @@
 							<label for="variant-input-{{product.id}}">Qty</label>
 							<div class="input-group igq-mod">
 								<div class="mr-1">
-									<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector px-1 text-center" type="text" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+									<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector px-1 text-center" type="number" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
 								</div>
 								<div class="btn-group-vertical mr-3">
 								    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
@@ -242,29 +257,8 @@
 	</div>
 
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
-    
-	<div class="modal fade" id="emailStock" tabindex="-1" role="dialog" aria-labelledby="emailStock-label" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="h3 modal-title" id="delete-modal-label">Email me when available</div>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">
-					<p>Get notified via email when this product is back in stock.</p>
-					<form>
-						<label class="sr-only" for="InStockAlertEmail">Email Address</label>
-						<input type="search" placeholder="Email Address" class="form-control" id="InStockAlertEmail" name="email">
-					</form>  
-				</div>
-				{% spaceless %}<div class="modal-footer">
-				<div class="flex-fill">
-					<button type="button" class="btn btn-primary btn-block" id="InStockAlertEmailButton" data-dismiss="modal"  >Email me when available</button>
-				</div>
-				</div>{% endspaceless %}
-			</div>
-		</div>
-	</div>
+
+    {% include "/product/_partials/email-in-stock.html.twig" %}
 
 </div>
 <script type="application/ld+json">

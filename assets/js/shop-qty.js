@@ -14,7 +14,7 @@ function updateCartTotals(qtyField, cartItemId) {
 		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
 
 		amount = parseFloat(priceElement * dataQty).toFixed(2);
-		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-regular .val').html() - priceElement ) * dataQty).toFixed(2);
+		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-compare .val').html() - priceElement ) * dataQty).toFixed(2);
 		//
 		if ($(v2Data).attr('data-sid')) {
             var dLID = $(v2Data).attr('data-sid');
@@ -78,7 +78,7 @@ function updateCartTotals(qtyField, cartItemId) {
         //
         //
 		v2Data.find('.cart-total .price .val').text(amount);
-		v2Data.find('.cart-total .percent .val').text(savings);
+		v2Data.find('.cart-total .percent .val').text(parseFloat(savings).toFixed(0));
 
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
@@ -98,10 +98,11 @@ $('form#wishlist-form .modal_list_quantity, section#registry .modal_list_quantit
 
 // Adjusts the quantity of the +/- fields
 function adjustQuantity(qtyField, increment, postForm) {
+    console.log('aQ started')
 	if (isNaN(qtyField.val())) {
 		qtyField.val(0);
 	}
-	var limit = parseInt(qtyField.data('limit'));
+	var limit = parseInt(qtyField.attr('max'));
 	var previousValue = parseInt(qtyField.val());
 	var id = qtyField.data('id');
 	var model = qtyField.data('model');
@@ -130,13 +131,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 	}
 
 	//Set qty to limit if entered value is above
-	if(limit){
-	  if(!isNaN(limit)){
-		if(previousValue > limit){
-		  qtyField.val(limit);
-		}
-	  }
-	}
+	
 
 	// Because of our situation with OAuth, we need to use the form to update wishlist and registry items; however, we can use the api to update sessioncart items.
 	if (typeof id !== 'undefined') { // We need to submit the updated quantity to the server
@@ -165,7 +160,9 @@ function adjustQuantity(qtyField, increment, postForm) {
 			}).always(function(e) {
 				qtyField.parents('.quantity').find('input,button').prop('disabled',false);
 			}).fail(function(e) {
+			    console.log('errror')
 				data = $.parseJSON(e.responseText);
+				//console.log(data)
 				qtyField.val(previousValue -= increment);
 				if (data.code === 400 && model === 'cart/item') { // Bad request for the cart - not enough inventory
 					if(typeof data.error != 'undefined') {
@@ -177,6 +174,21 @@ function adjustQuantity(qtyField, increment, postForm) {
 				} else { // Probably a connection failure
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}
+				console.log('it reached here')
+            	if(limit){
+            	  if(!isNaN(limit)){
+            		if(previousValue > limit){
+            		    console.log('was too big, qualified, set to limit: '+limit);
+            		  qtyField.val(limit);
+            		}
+            	  }
+            	}
+            	/*
+            	if (qtyField.val() > qtyField.attr('max')) {
+                    console.log('was too big, set to: '+qtyField.attr('max'));
+                    qtyField.val(qtyField.attr('max'));
+                }
+                */
 				qtyField.parents('.item').find('.error').show();
 			}).done(function(e) {
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
@@ -185,26 +197,31 @@ function adjustQuantity(qtyField, increment, postForm) {
 			});
 		}
 	}
+            	
 }
 
 
 // +/- buttons on single page and collections
 $('.btn-add').click(function(e) {
+    console.log('ran 1')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), 1);
 });
 $('.btn-remove').click(function(e) {
+    console.log('ran 2')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), -1);
 });
 // Hitting the enter key on the add quantity fields
 $('.quantity-selector').change(function(e) {
+    console.log('ran 3')
 	adjustQuantity($(this), 0); // Quantity was adjusted externally
 });
 $('.quantity-selector').keypress(function(e){
 	// Run adjust quantity action when numbers are entered in field
 	if (e.which == 13)
 	{
+	       console.log('ran 4')
 		e.preventDefault();
 		adjustQuantity($(this), 0); // Quantity was adjusted externally
 	}
