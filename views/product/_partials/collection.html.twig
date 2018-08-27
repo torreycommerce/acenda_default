@@ -122,59 +122,56 @@
 		</div>
 
 		<div id="product-details">
-		    {% set priceclass = "" %}
-		    {% set usespecialc = 0 %}
-            {% set pricearray = [] %}
-            {% set minValue = 0 %}
-            {% set maxValue = 0 %}
+		    {% set pricearray = [] %}
+            {% set minValue, maxValue, bestComp, bestSave, bestSaveP, loopPrice, loopComp, loopSave, loopSaveP = 0,0,0,0,0,0,0,0,0 %}
             {% for pro, pr in product.product %}
             {% for p in pr.variant %}
-            {#<p class="fsd1">d. p: {{p.price}} | pr: {{p.regular_price}}</p>#}
-                {% if loop.parent.loop.first and loop.first %}
-                    {% if p.regular_price is empty %}
-                        {% set minValue = p.price %}
-                        {% set maxValue = p.price %}
-                    {% else %}
-                        {% set priceclass = " price-special" %}
-                        {% set usespecialc = 1 %}
-                        {% set minValue = p.regular_price %}
-                        {% set maxValue = p.regular_price %}
-                    {% endif %}
+                {#<p class="fsd1 mb-1">l. p: {{p.price}} | pr: {{p.regular_price}} | pc: {{p.compare_price}}</p>#}
+                {% if p.regular_price is empty %}
+                    {% set loopPrice = p.price %}
                 {% else %}
-                    {% if p.regular_price is empty %}
-                        {% set minValue = min(p.price, minValue) %}
-                        {% set maxValue = max(p.price, maxValue) %}
-                    {% else %}
-                        {% set priceclass = " price-special" %}
-                        {% set usespecialc = 1 %}
-                        {% set minValue = min(p.regular_price, minValue) %}
-                        {% set maxValue = max(p.regular_price, maxValue) %}
+                    {% set loopPrice = p.regular_price %}
+                {% endif %}
+                {% if loop.parent.loop.first and loop.first %}
+                    {% set minValue, maxValue = loopPrice, loopPrice %}
+                {% else %}
+                    {% set minValue = min(loopPrice, minValue) %}
+                    {% set maxValue = max(loopPrice, maxValue) %}
+                {% endif %}
+                {% if minValue == 0 %}
+                    {% set minValue = loopPrice %}
+                {% endif %}
+                {% if p.compare_price > 0 and loopPrice > 0 %}
+                    {% set loopSave = p.compare_price - loopPrice %}
+                    {% set loopSaveP = (1 - (loopPrice / p.compare_price)|number_format(2)) * 100 %}
+                    {% if loopSaveP > bestSaveP or (loopSaveP == bestSaveP and loopSave > bestSave) %}
+                        {% set bestComp = p.compare_price %}
+                        {% set bestSave = (p.compare_price - loopPrice)|number_format(1) %}
+                        {% set bestSaveP = loopSaveP %}
                     {% endif %}
                 {% endif %}
-                {#<p>during:n: {{p.name}} <br>min: {{minValue}}, max: {{maxValue}}</p>#}
+                {#<p class="fsd1">d: mn:{{minValue}}, mx:{{maxValue}}, bc:{{bestComp}}, bs:{{bestSave}}, bsp:{{bestSaveP}}</p>#}
             {% endfor %}
         	{% endfor %}
         	{% set pricearray = pricearray|merge([minValue,maxValue]) %}
         	{#<p>after: min: {{minValue}}, max: {{maxValue}}</p>#}
 			{% set prices = product.product|values_in('variant')|values_in(['price','compare_price','save_price','save_percent','regular_price']) %}
-			{#<p>p: {{dump(pricearray)}}</p>#}
+			
+			{% set priceclass = "" %}
+			{% if prices.regular_price is not empty %}
+		        {% set priceclass = " price-special" %}
+		    {% endif %}
 			{% if prices.price|first > 0 %}
 			<div class="pricing g mb-4" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-				<div class="mb-2 price{{priceclass}} price-range">{{ prod.price(pricearray) }}{% if usespecialc %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
-				{% if (prices.compare_price is not empty and prices.compare_price != prices.price) or (prices.save_price is not empty and prices.save_percent is not empty) %}
-				{# if (prices[0].compare_price - prices[0].price) > 1 #}
-				{# if (prices.compare_price is not empty and (prices.compare_price - prices.price) > 1) #}
-					{% spaceless %}
-					{#<ul class="list-inline">
-						{% if prices.compare_price is not empty and prices.compare_price != prices.price %}
-						<li class="price-compare">{{ prod.cprice(prices.compare_price) }}</li>
-						{% endif %}
-						{% if prices.save_price is not empty and prices.save_percent is not empty %}
-						<li class="percent">{{ prod.saveprice(prices.save_price) }} {{ prod.savepercent(prices.save_percent) }}</li>
-					{% endif %}
-					</ul>#}
-					{% endspaceless %}
-				{% endif %}
+				<div class="mb-2 price{{priceclass}} price-range">{{ prod.price(pricearray) }}{% if priceclass is not empty %}{#<span class="special">Lower Price in Cart</span>#}{% endif %}</div>
+    			{% if bestComp > 0 %}
+    			{% spaceless %}
+    			<ul class="list-inline">
+    				<li class="price-compare">{{ prod.cprice(bestComp) }}</li>
+    				<li class="percent">{{ prod.saveprice(bestSave) }}{{ prod.savepercent(bestSaveP) }}</li>
+    			</ul>
+    			{% endspaceless %}
+    			{% endif %}
 			</div>
 			{% endif %}
 			

@@ -275,8 +275,9 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 .filter-count {position:absolute; right:1.25rem;}
 
 .category-filters .color-chips {padding-bottom:10px;}
-.color-chip {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
+.color-chip a {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
 .color-chip .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb;}
+.color-chip .isd {font-size:.75rem;}
 .color-chip .disabled {opacity:.1;}
 .color-chip .red {background-color:#9b1e20;}
 .color-chip .orange {background-color:#f90;}
@@ -289,10 +290,10 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 .color-chip .gray, .color-chip .grey {background-color:#aaa;}
 .color-chip .white {color:#666; background:#fcfcfc; text-shadow:0 1px 1px rgba(255,255,255,.5);}
 .color-chip .multi {background:#88bfe8; background:linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);}
-.color-chip:hover {color:#fff; text-decoration:none; opacity:1;}
-.color-chip:hover .image-space:after {border-color:#000;}
+.color-chip a:hover, .color-chip a:focus, .color-chip button:hover, .color-chip button:focus {color:#fff; text-decoration:none; opacity:1;}
+.color-chip a:hover .image-space:after, .color-chip a:focus .image-space:after, .color-chip button:hover:after, .color-chip button:focus:after {border-color:#000;}
 .color-chip.active .image-space:after {border-color:#000; opacity:1;}
-.color-chip .white:hover, .color-chip .white:focus {color:#666;}
+.color-chip .white a:hover, .color-chip .white a:focus {color:#666;}
 
 .product-grid .color-chips .col-xs-2 {float:none; display:inline-block; width:20%;}
 .product-grid .color-chips .col-xs-2:nth-child(n+6) {display:none;}
@@ -300,7 +301,13 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 @media (min-width:992px) {
 #collapseFilters {height:auto!important;}
 .filter .color-chips {padding-bottom:10px;}
-.color-chip {font-size:100%;}
+.color-chip a {font-size:100%;}
+.color-chip .isd {font-size:.875rem;}
+}
+
+@media (max-width:767px) {
+.product-grid .color-chips .row-thin {margin-right:-2px; margin-left:-2px;}
+.product-grid .color-chips .col-thin {padding-right:2px; padding-right:2px;}
 }
 
 

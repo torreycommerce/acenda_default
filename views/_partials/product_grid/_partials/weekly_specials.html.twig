@@ -14,7 +14,7 @@
         {% set products = api.get('/catalog', {query:{id:{'$in':product_ids}}}) %}
         {% for row,product in products %}
         {# Begin product #}
-        <div class="col-6 col-md-3 mb-3">
+        <div class="col-6 col-md-3 mb-5">
             {{ prod.gridproduct(product, ['image','details']) }}
         </div>
         {# End product #}

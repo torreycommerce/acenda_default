@@ -6,7 +6,9 @@ function updateCartTotals(qtyField, cartItemId) {
 	})
 	.done(function(data) {
 	    //console.log(data)
-		//console.log('v2')
+		console.log('uCT 2')
+		console.log(data.result)
+		console.log('drcd: '+data.result.coupon_discount)
 		var dataQty = data.result.items[cartItemId].quantity;
 		//console.log('dataQty: '+dataQty);
 		var v2Data = qtyField.parents('.item');
@@ -82,7 +84,7 @@ function updateCartTotals(qtyField, cartItemId) {
 
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
-		$('.estimate-coupons .val').text(data.result.coupon_discount);
+		$('.estimate-coupons .val').text(data.result.discount_price);
 		$('.estimate-bundles .val').text(data.result.bundle_discount);
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
 		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
@@ -190,6 +192,9 @@ function adjustQuantity(qtyField, increment, postForm) {
                 }
                 */
 				qtyField.parents('.item').find('.error').show();
+				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
+					updateCartTotals(qtyField, id);
+				}
 			}).done(function(e) {
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);

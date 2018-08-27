@@ -46,7 +46,7 @@ h1,.h1 {}
 
 .category a, .product a {display:block; border:1px solid transparent;}
 h3.category-name, h3.brand-product, h3.product-name {font-size:1rem;}
-h3.brand-product {min-height:2.2em;}
+h3.brand-product {min-height:2.375em;}
 .product-grid .pricing {min-height:3.8em;}
 .pricing ul {margin-bottom:0; font-size:.875rem;}
 .pricing .price, .totals-total {color:#000; font-weight:bold;}
