@@ -178,7 +178,7 @@
 				{% set hasBox = hasBox + 1 %}
 			{% endfor %}
 			{% if hasBox > maxBox %}
-                {% set surBox = hasBox - (maxBox + 1) %}
+                {% set surBox = hasBox - (maxBox - 1) %}
                 {% set hasBox = 4 %}
 			{% endif %}
 			{#<p>s:{{surBox}}, h:{{hasBox}}, m:{{maxBox}}</p>#}

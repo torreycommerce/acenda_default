@@ -12,7 +12,7 @@
 .selected-option {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 
 .vopt-color {margin-right:-2px; margin-left:-2px; font-size:0;}
-.vopt-color li {width:16.666666%; margin:0; padding:2px;}
+.vopt-color li {width:16.666666%; margin:0; padding:0 2px 4px;}
 .vopt li .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb; border:1px solid rgba(0,0,0,.1); transition:all 300ms ease;}
 .vopt li:hover .image-space:after {border:1px solid rgba(0,0,0,.25)}
 .vopt li.selected .image-space:after {border:1px solid #000; border:1px solid rgba(0,0,0,.5); border:1px solid #66afe9; box-shadow:inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);}
@@ -25,16 +25,31 @@
 .vopt li.not-avail-sel:hover {opacity:.4;}
 .vopt li.not-avail-sel:hover .image-space:after {border:2px dashed red;}
 
-@media (min-width:479px) and (max-width:767px) {
-.piece .vopt-color li {width:16.666666%;}
+@media (min-width:449px) and (max-width:508px) {
+.vopt-color li {width:14.285%;}
+}
+
+@media (min-width:509px) and (max-width:767px) {
+.vopt-color li {width:12.5%;}
+}
+@media (min-width:768px) and (max-width:991.98px) {
+.vopt-color li {width:20%;}
 }
 /**/
 .has-video .vari-video-scase {position:absolute; z-index:3; top:0; width:100%;}
 .video-icon {color:#fff; font-size:150%; text-shadow:0 1px 5px rgba(0,0,0,.75);}
 /**/
 .variant-selected-image {display:block; width:80px;}
+
 @media (min-width:992px) {
+.vopt-color {margin-right:-4px; margin-left:-4px;}
+.vopt-color li {width:16.666666%; margin:0; padding:0 4px 8px;}
+
 .variant-selected-image {width:120px;}
+}
+
+@media (max-width:374px) {
+.vopt-color li {width:20%;}
 }
 
 
