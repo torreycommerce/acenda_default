@@ -105,7 +105,11 @@ var checkout = checkout || {};
 				var listItem = $('#item-list-copy .item').clone();
 				$(listItem).find('.media-object').attr('src',($(this).find('.t').text()));
 				$(listItem).find('.product-name').text($(this).find('.n').text());
-				$(listItem).find('.availability').text($(this).find('.s').text());
+				if ($(this).find('.s').text() == "In Stock") {
+				    $(listItem).find('.stock').html('<div class="text-success">'+$(this).find('.s').text()+'</div>');
+				} else {
+				    $(listItem).find('.stock').html('<div class="text-danger">'+$(this).find('.s').text()+'</div>');
+				}
 				$(listItem).find('.qty').text($(this).find('.q').text());
 				$(listItem).find('.price .val').text($(this).find('.p').text());
 				var temp = $(listItem).find('.price .val').text();

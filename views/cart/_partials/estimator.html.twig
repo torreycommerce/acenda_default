@@ -32,8 +32,8 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
+			    <div class="h3 modal-title" id="myModalLabel">Estimated Arrival</div>
 				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-				<h4 class="modal-title" id="myModalLabel">Estimated Arrival</h4>
 			</div>
 			<div class="modal-body">
 				<p>These dates are based on carrier shipping practices, destination and the items you order. (Expected delivery dates are estimates. Orders can be delayed due to verification or time of order being placed. Items that are not regularly stocked cannot be held to the expected delivery dates.)</p>
@@ -46,8 +46,8 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
+			    <div class="h3 modal-title" id="myModalLabel">Shipping Rate</div>
 				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-				<h4 class="modal-title" id="myModalLabel">Shipping Rate</h4>
 			</div>
 			<div class="modal-body">
 				<p>Shipping estimates are based on shipping costs to an address within the ZIP Code displayed.
@@ -56,49 +56,40 @@
 		</div>
 	</div>
 </div>
-<div class="fsd1" id="estimate">
-	<div class="card"><div class="card-body">
-		<div class="row rate-estimate-checkout">
-			<div class="col-8">
-				<span data-target="#modal-shipping-rate" data-toggle="modal">Estimated Shipping Rate <i class="fa fa-question-circle"></i></span>:
-			</div>
-			<div class="col-4 text-right">
-				{{ prod.currency(cart.shipping_rate|number_format(2)) }}
-			</div>
-		</div>
-		{# End shipping rate #}
+<div class="divide pb-4 mb-4"></div>
+<div class="fsd1 mt-3" id="estimate">
+    <h3>Estimated Arrival <a href="#" data-target="#modal-arrival-date" data-toggle="modal"><i class="fa fa-question-circle"></i></a></h3>
+    <p id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span> <span class="dib wsnw">(for <span class="stock"><span class="text-success">In Stock</span></span> products)</p>
 
-		{# Begin arrival date #}
-		<div class="row">
-			<div class="col-5">
-				<span data-target="#modal-arrival-date" data-toggle="modal">Arrives <i class="fa fa-question-circle"></i></span>:
-			</div>
-			<div class="col-7 text-right">
-				<span id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span><span class="dib wsnw">(for <span class="availability">In Stock</span> products)</span>
-			</div>
+	<div class="row rate-estimate-checkout">
+		<div class="col-8">
+			Estimated Shipping Rate <a href="#" data-target="#modal-shipping-rate" data-toggle="modal"><i class="fa fa-question-circle"></i></a>:
 		</div>
-		{# End arrival date #}
-		{# Begin estimated tax #}
-		<div class="row tax-estimate-checkout">
-			<div class="col-8">
-				Estimated Sales Tax:
-			</div>
-			<div class="col-4 text-right">
-				{{ prod.currency(cart.tax_rate|number_format(2)) }}
-			</div>
+		<div class="col-4 text-right">
+			{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 		</div>
-		{# End estimated tax #}
-		{# Begin estimated total #}
-		<div class="row total estimate-total">
-			<div class="col-8">
-				Estimated Total:
-			</div>
-			<div class="col-4 text-right">
-				{{ prod.currency(cart.total|number_format(2)) }}
-			</div>
+	</div>
+	{# End shipping rate #}
+
+	{# Begin estimated tax #}
+	<div class="row tax-estimate-checkout">
+		<div class="col-8">
+			Estimated Sales Tax:
 		</div>
-		{# End estimated total #}
-	</div></div>
+		<div class="col-4 text-right">
+			{{ prod.currency(cart.tax_rate|number_format(2)) }}
+		</div>
+	</div>
+	{# End estimated tax #}
+	{# Begin estimated total #}
+	<div class="row total estimate-total">
+		<div class="col-8">
+			Estimated Total:
+		</div>
+		<div class="col-4 text-right">
+			{{ prod.currency(cart.total|number_format(2)) }}
+		</div>
+	</div>
 </div>
 {% endif %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}

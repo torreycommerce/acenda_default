@@ -276,7 +276,7 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 
 .category-filters .color-chips {padding-bottom:10px;}
 .color-chip a {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
-.color-chip .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid #bbb;}
+.color-chip .image-space:after {content:''; display:block; position:absolute; top:0; right:0; bottom:0; left:0; border:1px solid rgba(0,0,0,.25);}
 .color-chip .isd {font-size:.75rem;}
 .color-chip .disabled {opacity:.1;}
 .color-chip .red {background-color:#9b1e20;}
@@ -291,11 +291,13 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 .color-chip .white {color:#666; background:#fcfcfc; text-shadow:0 1px 1px rgba(255,255,255,.5);}
 .color-chip .multi {background:#88bfe8; background:linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%);}
 .color-chip a:hover, .color-chip a:focus, .color-chip button:hover, .color-chip button:focus {color:#fff; text-decoration:none; opacity:1;}
-.color-chip a:hover .image-space:after, .color-chip a:focus .image-space:after, .color-chip button:hover:after, .color-chip button:focus:after {border-color:#000;}
+.color-chip a:hover .image-space:after, .color-chip a:focus .image-space:after, .color-chip button:hover:after, .color-chip button:focus:after {border-color:rgba(0,0,0,.75);}
 .color-chip.active .image-space:after {border-color:#000; opacity:1;}
 .color-chip .white a:hover, .color-chip .white a:focus {color:#666;}
 
-.product-grid .color-chips .row-thin {margin-right:-4px; margin-left:-4px;}
+.category-grid .category, .product-grid .product {max-width:250px; margin-right:auto; margin-left:auto;}
+.category-grid .category a, .product-grid .product a {display:block;}
+.product-grid .color-chips .row-thin {margin-right:-4px; margin-left:-4px; line-height:1;}
 .product-grid .color-chips .col-thin {padding-right:4px; padding-left:4px;}
 
 
@@ -349,8 +351,8 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 .slick-dots li {position:relative; display:inline-block; width:28px; height:28px; margin:0; padding:0; cursor:pointer;}
 .slick-dots li button {font-size:0; line-height:0; display:block; width:28px; height:28px; padding:0; cursor:pointer; color:transparent; border:0; outline:none; background:transparent;}
 .slick-dots li:not(.slick-active) button {font-weight:400;}
-.slick-dots li button:before {content:"\f111"; line-height:28px; opacity:.6;}
-.slick-dots li.slick-active button:before {content:"\f111"; opacity:.8;}
+.slick-dots li button:before {content:"\f111"; font-weight:400; line-height:28px; opacity:.6;}
+.slick-dots li.slick-active button:before {content:"\f111"; font-weight:900; opacity:.8;}
 .slick-dots li button:hover:before, .slick-dots li button:focus:before {opacity:1;}
 
 .slick-vertical .slick-prev, .slick-vertical .slick-next {left:50%; width:32px; -webkit-transform:translate(-50%,0); -ms-transform:translate(-50%,0); transform:translate(-50%,0%);}

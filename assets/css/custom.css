@@ -5,10 +5,6 @@ body {font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;}
 a {}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 h1,.h1 {}
-
-.btn {}
-.btn-primary {}
-.btn-primary:focus,.btn-primary.focus,.btn-primary:hover,.btn-primary:active,.btn-primary.active {}
 /* */
 
 
@@ -44,7 +40,6 @@ h1,.h1 {}
 
 #content {border-bottom:1px solid #f0f0f0;}
 
-.category a, .product a {display:block; border:1px solid transparent;}
 h3.category-name, h3.brand-product, h3.product-name {font-size:1rem;}
 h3.brand-product {min-height:2.375em;}
 .product-grid .pricing {min-height:3.8em;}
@@ -58,7 +53,6 @@ h3.brand-product {min-height:2.375em;}
 .pricing .special {display:inline-block; margin:0 0 0 .375rem; padding:.125rem .375rem; color:#fff; font-size:.625rem; vertical-align:middle; background:#f55; border-radius:.25rem;}
 #product-details .pricing .price .special {margin:0 0 0 .5rem; padding:.25rem .5rem; font-size:.75rem;}
 .pricing .percent {color:#f55;}
-.availability {color:#558C89;}
 
 
 @media (min-width:768px) {
