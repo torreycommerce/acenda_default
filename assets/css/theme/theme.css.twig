@@ -97,6 +97,9 @@ button.blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding
     
 
 .fsd1 {font-size:.875rem;}
+.fsd2 {font-size:.75rem;}
+.fsi1 {font-size:1.125rem;}
+.fsi2 {font-size:1.25rem;}
 
 .image-space {display:block; position:relative; padding-top:100%;}
 a.image-space:focus {outline:5px auto -webkit-focus-ring-color; box-shadow:0 0 0 .2rem rgba(0,123,255,.25)}
@@ -139,13 +142,11 @@ div:focus, section:focus {outline:none;}
 .divide.mb-3:last-child, .divide.mb-4:last-child {margin-bottom:0!important;}
 .divide.pb-3:last-child, .divide.pb-4:last-child {padding-bottom:0!important;}
 .no-of {overflow:hidden;}
+.tdn, a.tdn {text-decoration:none;}
 .uc {text-transform:uppercase;}
 .wsnw {white-space:nowrap;}
 
-.mb-col {margin-bottom:20px;}
 .p {margin-bottom:1rem;}
-.p-2x {margin-bottom:2rem;}
-.p-3x {margin-bottom:3rem;}
 
 
 @media (min-width:1px){
@@ -258,7 +259,7 @@ div:focus, section:focus {outline:none;}
 .star-rating .active {position:absolute; left:0; top:0; white-space:nowrap; overflow:hidden;}
 .star-rating .disabled,.star-rating .disabled-choosing {color:#ccc;}
 .star-rating .active,.star-rating .choosing,.star-rating .active-choosing {color:#FFC125;}
-.star-rating .fa {margin:0;}
+.star-rating .fa {min-width:1.15em; margin:0;}
 .btn-lg.star-rating-star {padding:0 .2rem; font-size:1.5rem;}
 .star-rating-star {color:#ccc;}
 .star-rating-star.choosing {color:#bbb;}
@@ -351,8 +352,8 @@ li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap
 .slick-dots li {position:relative; display:inline-block; width:28px; height:28px; margin:0; padding:0; cursor:pointer;}
 .slick-dots li button {font-size:0; line-height:0; display:block; width:28px; height:28px; padding:0; cursor:pointer; color:transparent; border:0; outline:none; background:transparent;}
 .slick-dots li:not(.slick-active) button {font-weight:400;}
-.slick-dots li button:before {content:"\f111"; font-weight:400; line-height:28px; opacity:.6;}
-.slick-dots li.slick-active button:before {content:"\f111"; font-weight:900; opacity:.8;}
+.slick-dots li button:before {content:"\f111"; line-height:28px; opacity:.6;}
+.slick-dots li.slick-active button:before {content:"\f111"; opacity:.8;}
 .slick-dots li button:hover:before, .slick-dots li button:focus:before {opacity:1;}
 
 .slick-vertical .slick-prev, .slick-vertical .slick-next {left:50%; width:32px; -webkit-transform:translate(-50%,0); -ms-transform:translate(-50%,0); transform:translate(-50%,0%);}

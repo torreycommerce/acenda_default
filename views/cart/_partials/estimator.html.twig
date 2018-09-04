@@ -58,20 +58,18 @@
 </div>
 <div class="divide pb-4 mb-4"></div>
 <div class="fsd1 mt-3" id="estimate">
-    <h3>Estimated Arrival <a href="#" data-target="#modal-arrival-date" data-toggle="modal"><i class="fa fa-question-circle"></i></a></h3>
+    <h3 class="h2">Estimated Arrival <a href="#" data-target="#modal-arrival-date" data-toggle="modal"><i class="fa fa-question-circle"><i class="sr-only">Info about Estimated Arrival Date</i></i></i></a></h3>
     <p id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span> <span class="dib wsnw">(for <span class="stock"><span class="text-success">In Stock</span></span> products)</p>
 
 	<div class="row rate-estimate-checkout">
 		<div class="col-8">
-			Estimated Shipping Rate <a href="#" data-target="#modal-shipping-rate" data-toggle="modal"><i class="fa fa-question-circle"></i></a>:
+			Estimated Shipping Rate <a href="#" data-target="#modal-shipping-rate" data-toggle="modal"><i class="fa fa-question-circle"><i class="sr-only">Info about Estimated Shipping Rate</i></i></a>:
 		</div>
 		<div class="col-4 text-right">
 			{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 		</div>
 	</div>
-	{# End shipping rate #}
 
-	{# Begin estimated tax #}
 	<div class="row tax-estimate-checkout">
 		<div class="col-8">
 			Estimated Sales Tax:
@@ -80,8 +78,7 @@
 			{{ prod.currency(cart.tax_rate|number_format(2)) }}
 		</div>
 	</div>
-	{# End estimated tax #}
-	{# Begin estimated total #}
+
 	<div class="row total estimate-total">
 		<div class="col-8">
 			Estimated Total:

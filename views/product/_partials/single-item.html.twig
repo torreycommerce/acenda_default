@@ -166,7 +166,7 @@
 			{% spaceless %}
 			<div class="variation-selector-{{product.id}}">
 			{% for vo in product.variant_options %}
-				<div class="p selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
+				<div class="mb-3 selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
 					{% if vo.name == 'color' %}
 					<div class="selected-option fsd1 mb-1"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
 					<ul class="list-inline vopt vopt-{{vo.name}}">

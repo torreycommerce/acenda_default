@@ -281,7 +281,7 @@
 		<h2>Coupon Code</h2>
         {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
         {% if has_bundle %}
-        <div class="p divide" id="bundles">
+        <div class="mb-3 divide" id="bundles">
 			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
 			<div class="form-group">
 				{% for index, discount in cart.discount_collection.discounts %}
