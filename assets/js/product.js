@@ -780,7 +780,7 @@ function VariantsManager (product, img, isCollection) {
 
 var iseVariant;
 
-$('.stock .btn').click(function() {
+$(document).on('click','.stock .btn', function() {
 	iseVariant = $(this).parents('.variation').data('vid');
 });
 
