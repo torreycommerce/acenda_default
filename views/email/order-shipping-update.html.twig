@@ -5,7 +5,7 @@
 {% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
 {% set product_ids = items|values_in('variant_id') %}
 {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
-{% set fulfillment = api.get('/orderfulfillment/' ~ fulfillment_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
+{% set fulfillment = api.get('/order/' ~ order_id ~ '/fulfillments') %}
 {% set shipping_method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 {# Variables passed in: order_id #}
 <tr>
@@ -56,9 +56,17 @@
 					<br><br><b>Using:</b> {{ shipping_method.name }}
 					<br><b>Shipping Method:</b> {{ fulfillment.shipping_method }}
 					<br><b>Tracking number(s):</b>
-					{% for tracking_url in fulfillment.tracking_urls %}
-					<br>{{ tracking_url }}
-					{% endfor %}
+					{% if fulfillment is not empty %}
+						{% for f in fulfillment %}
+							{% if f.tracking_numbers is not empty %}
+								<br><{{ f.tracking_numbers[0] }}
+							{% elseif f.tracking_urls is not empty %}
+								<br><br><a href="{{ f.tracking_urls[0] }}" style="display:inline-block; padding:9px 29px; color:#000; font-size:16px; font-weight:bold; text-decoration:none; border:1px solid #000;">Track Package</a>
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						There are no tracking numbers available for this shipment.
+					{% endif %}
 				</td>
 			</tr>
 		</table>

@@ -70,7 +70,6 @@ var checkout = checkout || {};
 
 			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
 				if(saved_checkout_step == 'shippingmethod') saved_checkout_step = 'shipping-method';				
-				console.log('saved checkout step',saved_checkout_step);
 				this.start_step=saved_checkout_step;
 			}
 
@@ -81,8 +80,7 @@ var checkout = checkout || {};
 			    }
 			}); 
 			this.customer.on('change',function(e) {
-				console.log('customer changed');
-				//that.checkSignin();
+
 			}); 
 			// setup edit buttons
 			_.each(this.checkout_steps,function(step,k){ 
@@ -91,7 +89,6 @@ var checkout = checkout || {};
 				})
 			});
 			this.fetchCart();
-			this.fetchCustomer();
 			this.fetchShippingCountries();
 			this.fetchBillingCountries();
             if(that.logged_in) {
@@ -105,7 +102,6 @@ var checkout = checkout || {};
 			var that = this;
 			if(that.start_step=='') that.start_step = 'signin';
 			if(that.start_step=='review') that.start_step='payment';
-			console.log('looping steps', that.start_step);
 			var stop = false;
 			_.each(this.checkout_steps,function(step) {
 				if(!stop) { 
@@ -155,7 +151,6 @@ var checkout = checkout || {};
 			}
 
 		    if(typeof shipping_method !== 'undefined' && shipping_method !==null) {
-		    	console.log('fetching shipping methods');
 		    	that.fetchShippingMethods();
 		    }		    
 		    if(typeof copy_shipping !== 'undefined' && copy_shipping !==null) {
@@ -182,7 +177,6 @@ var checkout = checkout || {};
 				alert('There was a problem loading the checkout process');
 			}
 			if(got_everything) {
-			    console.log('got everything!');
  				that.findStartStep(); 
  				that.render();
 			    that.gotEverything();
@@ -193,7 +187,6 @@ var checkout = checkout || {};
 		render: function () {
 			var that = this;			
 			var passed_current = false;
-			console.log('steps',that.checkout_steps);
 			$('.btn-edit').css({display: 'none'});
 			_.each(this.checkout_steps,function(step){ 
     			 if(step.name == that.current_step) {
@@ -520,6 +513,7 @@ var checkout = checkout || {};
 				that.waits.got_billing_states = true;				
 		        $('#billing-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
+		     	that.fetchCustomer();				
 			}});
 		},
 		fetchShippingMethods: function(callback) {
@@ -585,7 +579,7 @@ var checkout = checkout || {};
 		setStepCompleted: function(step,val) {
 			if(typeof val == 'undefined') var val = true;
 			if (val) { 
-				console.log(step + ' completed');
+				//console.log(step + ' completed');
 		    }
 		    this.checkout_steps[this.findStep(step)].completed=val;
 		},
@@ -601,7 +595,6 @@ var checkout = checkout || {};
 		gotoStep: function(name) {
 			var that = this;
 			if(that.logged_in && name == 'signin') name = 'shipping';
-			console.log('gotostep',name);
 			_.each(this.checkout_steps,function(step,k){
 				$(step.edit).hide();
 				$('#'+step.name+'-loading' ).show();
@@ -616,10 +609,8 @@ var checkout = checkout || {};
 		         			$(step.collapse).collapse('show');				     													
 							$('#'+step.name+'-panel')[0].scrollIntoView({behavior: 'smooth'});
                            //  $('#'+step.name+'-panel').scrollintoview();							
-							console.log('scrolling into view',$('#'+step.name+'-panel')[0]);
 				         	$('#'+step.name+'-loading' ).hide();						
 				            that.render();
-							console.log('posted current step as : ' + name.replace('-',''));
 						},100);
 					});	    
 
@@ -675,7 +666,6 @@ var checkout = checkout || {};
 			if(this.logged_in) {
 				checkoutForm = $.extend(checkoutForm,{customer_id: this.customer.get('id')});
 			}
-			console.log('checkoutform',checkoutForm);
 			return checkoutForm;
 		},
 		changedAddress: function(e) {
@@ -723,7 +713,6 @@ var checkout = checkout || {};
 			this.renderShippingMethodSummary();
 		},		
 		changedSavedAddress: function(e,current) {
-			console.log('changing 1');
 			var that = this;
 			var val = $(e.target).val();
 			if(typeof current === 'undefined') {
