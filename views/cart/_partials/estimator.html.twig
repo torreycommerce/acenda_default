@@ -2,24 +2,11 @@
 <h2>Shipping and Tax Estimator</h2>
 {{ forms.begin('cart','','post',{ class:'form-estimate needs-validation' }) }}
 	<div class="form-group">
-	    <label for="country">Shipping Country</label>
-		<div class="row">
-			<div class="col-6 mb-3">
-				{{ forms.select('cart[shipping_country]', '', {}, {class:'form-control', id:'country', 'data-value':cart.shipping_country, required:true}) }}
-			</div>
-			<div class="col-6 mb-3">
-			    <label class="sr-only" for="state_select">Shipping State</label>
-				{{ forms.select('cart[shipping_state]', '', {}, {class:'form-control', id:'state_select', 'data-value':cart.shipping_state, required:true}) }}
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-6 col-md-4 mb-3 mb-md-0">
 			    <label class="sr-only" for="cart_zip_code">Shipping Zip Code</label>
+				{{ forms.hidden('cart[shipping_country]', 'US') }}			    
 				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip, required:true}) }}
-			</div>
-			<div class="col-6 col-md-4 mb-3 mb-md-0">
-			    <label class="sr-only" for="cart_shipping_method">Shipping Method</label>
-				{{ forms.select('cart[shipping_method]', cart.shipping_method, {}, {class:'form-control', id:'cart_shipping_method', 'data-value':cart.shipping_method, required:true}) }}
 			</div>
 			<div class="col-md-4">
 				{{ forms.submit('action', 'submit', 'Estimate', {class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
@@ -27,43 +14,18 @@
 		</div>
 	</div>
 {{ forms.end() }}
-{% if cart.shipping_rate != 0 %}
-<div class="modal fade" id="modal-arrival-date" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-			    <div class="h3 modal-title" id="myModalLabel">Estimated Arrival</div>
-				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-			</div>
-			<div class="modal-body">
-				<p>These dates are based on carrier shipping practices, destination and the items you order. (Expected delivery dates are estimates. Orders can be delayed due to verification or time of order being placed. Items that are not regularly stocked cannot be held to the expected delivery dates.)</p>
-			</div>
-		</div>
-	</div>
-</div>
 
-<div class="modal fade" id="modal-shipping-rate" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-			    <div class="h3 modal-title" id="myModalLabel">Shipping Rate</div>
-				<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
-			</div>
-			<div class="modal-body">
-				<p>Shipping estimates are based on shipping costs to an address within the ZIP Code displayed.
-					Exact shipping cost will be calculated during checkout.</p>
-			</div>
-		</div>
-	</div>
-</div>
 <div class="divide pb-4 mb-4"></div>
 <div class="fsd1 mt-3" id="estimate">
-    <h3 class="h2">Estimated Arrival <a href="#" data-target="#modal-arrival-date" data-toggle="modal"><i class="fa fa-question-circle"><i class="sr-only">Info about Estimated Arrival Date</i></i></i></a></h3>
+    <h3 class="h2">Estimated Delivery</h3>
     <p id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span> <span class="dib wsnw">(for <span class="stock"><span class="text-success">In Stock</span></span> products)</p>
+
+
+<div class="divide pb-4 mb-4"></div>
 
 	<div class="row rate-estimate-checkout">
 		<div class="col-8">
-			Estimated Shipping Rate <a href="#" data-target="#modal-shipping-rate" data-toggle="modal"><i class="fa fa-question-circle"><i class="sr-only">Info about Estimated Shipping Rate</i></i></a>:
+			Estimated Shipping Rate 
 		</div>
 		<div class="col-4 text-right">
 			{{ prod.currency(cart.shipping_rate|number_format(2)) }}
@@ -88,6 +50,6 @@
 		</div>
 	</div>
 </div>
-{% endif %}
+
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}
