@@ -4,15 +4,17 @@
 {% set selected = app.request.get.f.review_score.range|split(',')|last %}
 <div id="filter-{{ safename }}-items" class="collapse{% if selected is not empty %} show{% endif %}">
     <div class="card"><div class="card-body filter-stars">
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.0,0.25'}})})}}" class="{% if selected >= 0.25 %}active{% endif %}"><i class="fa fa-star"></i></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.2,0.45'}})})}}" class="{% if selected >= 0.45 %}active{% endif %}"><i class="fa fa-star"></i></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.4,0.65'}})})}}" class="{% if selected >= 0.65 %}active{% endif %}"><i class="fa fa-star"></i></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.6,0.9'}})})}}" class="{% if selected >= 0.9 %}active{% endif %}"><i class="fa fa-star"></i></a>
-        <a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.9,1'}})})}}" class="{% if selected == 1 %}active{% endif %}"><i class="fa fa-star"></i></a>
-        <div class="filter-clear">
+    <ul class="list-unstyled">
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.9,1'}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 1 ) }}</span><span class="sr-only">5 Stars</span></div></a></li>
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.6,0.9'}})})}}" class="{% if selected >= 0.9 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.8 ) }}</span><span class="sr-only">4 Stars</span></div></a></li>
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.4,0.65'}})})}}" class="{% if selected >= 0.65 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.6 ) }}</span><span class="sr-only">3 Stars</span></div></a></li>
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.2,0.45'}})})}}" class="{% if selected >= 0.45 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.4 ) }}</span><span class="sr-only">2 Stars</span></div></a></li>
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.0,0.25'}})})}}" class="{% if selected >= 0.25 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.2 ) }}</span><span class="sr-only">1 Star</span></div></a></li>
+    </ul>
 {% if selected is not empty %}
-    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i><span>Clear Review Stars</span></a>
+    <div class="filter-clear">
+        <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>Review Stars</span></a>
+    </div>
 {% endif %}
-</div>
     </div></div>
 </div>

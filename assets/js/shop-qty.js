@@ -85,6 +85,7 @@ function updateCartTotals(qtyField, cartItemId) {
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
 		$('.estimate-coupons .val').text(data.result.discount_price);
+		if (data.result.discount_price > 0 ) { $('.estimate-coupons').removeClass('d-none'); }
 		$('.estimate-bundles .val').text(data.result.bundle_discount);
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
 		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
