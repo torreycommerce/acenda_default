@@ -48,7 +48,6 @@ input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
 
 .btn.wait.disabled, .btn.wait[disabled] {cursor:wait;}
 
-.validation .bg-danger {padding-top:.25em; padding-bottom:.25rem; padding-left:2rem; color:#fff!important;}
 
 .media-left {margin-right:1rem;}
 .media-right {margin-left:1rem;}
@@ -271,7 +270,8 @@ div:focus, section:focus {outline:none;}
 
 
 
-li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#collapseFilters a.btn {display:inline-block; max-width:168px; text-align:left;}
 #collapseFilters li a:not(.btn) {padding-right:2rem;}
 .category-filters .card-body {font-size:.875rem;}
 .filter-count {position:absolute; right:1.25rem;}

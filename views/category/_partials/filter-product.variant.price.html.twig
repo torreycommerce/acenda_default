@@ -22,7 +22,7 @@
 					{% set selected = true %}
 					{% set link = app.request.getUrl({'page':1,'f':filter_request|merge({'price':null})}) %}
 					{% set deselect %}
-							<a class="btn btn-default btn-sm" href="{{ link }}"><i class="fa fa-times"></i>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</a>
+							<a class="btn btn-default btn-sm" href="{{ link }}"><i class="fa fa-times"><span class="sr-only">Clear</span></i>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</a>
 					{% endset %}
 				{% endif %}
 				{% if total > 0 %}

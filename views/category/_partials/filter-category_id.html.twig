@@ -33,7 +33,7 @@
     {% endfor %}
     {% set link = filter_request|merge({(name):link}) %}
     <div class="filter-clear">
-    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"></i><span>{{category[item][0].name}}</span></a>
+    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>{{category[item][0].name}}</span></a>
     </div>
 {% endfor %}
     </div></div>
