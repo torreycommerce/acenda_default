@@ -10,7 +10,13 @@
 })|first %}
 
 {% if content.id is empty %}
-    {% do app.redirect('content/base/' ~ app.request.path) %}
+    {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
+    {% if response and response[0].destination %}
+       {% do app.redirect(response[0].destination ,response[0].code) %}
+    {% else %}
+        {% do app.user.setFlash('Sorry, the page you requested is unavailable.','danger') %}
+        {% do app.redirect('/') %}
+    {% endif %}     
 {% endif %}
 {% extends "/content/_partials/templates/" ~ content.template ~ ".html.twig" %}
 
