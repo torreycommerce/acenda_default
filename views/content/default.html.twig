@@ -17,7 +17,7 @@
         {% do app.user.setFlash('Sorry, the page you requested is unavailable.','danger') %}
         {% do app.redirect('/') %}
     {% endif %}     
-{% endif %}
+{% endif %} 
 {% extends "/content/_partials/templates/" ~ content.template ~ ".html.twig" %}
 
 {% block dynamicclasses %}
