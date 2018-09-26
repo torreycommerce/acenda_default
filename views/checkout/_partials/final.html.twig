@@ -87,7 +87,10 @@
 									<div>{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
 									<div>{{ final_order.billing_street_line1 }}</div>
 									<div>{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
-									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+									{% if final_order.card_type == 'paypal' %}
+    									<div>Paypal: {{ final_order.card_last4 }} </div>
+									{% else %}
+    									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>										
 								</address>
 								{% endif %}
 							</div>
