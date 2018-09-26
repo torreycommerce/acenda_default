@@ -90,7 +90,8 @@
 									{% if final_order.card_type == 'paypal' %}
     									<div>Paypal: {{ final_order.card_last4 }} </div>
 									{% else %}
-    									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>										
+    									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+    								{% endif %}										
 								</address>
 								{% endif %}
 							</div>
