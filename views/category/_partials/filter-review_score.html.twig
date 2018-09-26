@@ -1,19 +1,73 @@
+{% set selected = app.request.get.f.review_score.range|split(',')|last %}
+{% if selected >= 0.81 %}
+    {% set seleected = 5 %}
+{% elseif selected >= 0.61 %}
+    {% set seleected = 4 %}
+{% elseif selected >= 0.41 %}
+    {% set seleected = 3 %}
+{% elseif selected >= 0.21 %}
+    {% set seleected = 2 %}
+{% elseif selected > 0 %}
+    {% set seleected = 1 %}
+{% else %}
+    {% set seleected = 0 %}
+{% endif %}
+{% set star_array = [5, 4, 3, 2, 1] %}
+{% set min_array = [0.81, 0.61, 0.41, 0.21, 0.0] %}
+{% set count_array = [] %}
+{% set count_1 = 0 %}
+{% set count_2 = 0 %}
+{% set count_3 = 0 %}
+{% set count_4 = 0 %}
+{% set count_5 = 0 %}
+{% set link_array = ["0.81,1", "0.61,0.8", "0.41,0.60", "0.21,0.4", "0.0,0.2"] %}
+{% set link_length = 5 %} {# levels of stars to show #}
+
+{% for item,count in filter_set %}
+    {% set break = false %}
+    {#<div class="fsd1">item: {{item}}</div>
+    <div class="fsd1">pre c's: {{count_1}}, {{count_2}}, {{count_3}}, {{count_4}}, {{count_5}}</div>#}
+    {% for min in min_array if not break %}
+        {% if item >= min and item > 0 %}
+            {% if loop.index0 == 0 %}
+                {% set count_5 = count_5 + filter_count[name][item] %}
+            {% elseif loop.index0 == 1 %}
+                {% set count_4 = count_4 + filter_count[name][item] %}
+            {% elseif loop.index0 == 2 %}
+                {% set count_3 = count_3 + filter_count[name][item] %}
+            {% elseif loop.index0 == 3 %}
+                {% set count_2 = count_2 + filter_count[name][item] %}
+            {% elseif loop.index0 == 4 %}
+                {% set count_1 = count_1 + filter_count[name][item] %}
+            {% endif %}
+            {% set break = true %}
+        {% else %}
+        {% endif %}
+    {% endfor %}
+
+{% endfor %}
+
 <button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     <span>Customer Reviews</span><i class="fa fa-angle-down"></i>
 </button>
-{% set selected = app.request.get.f.review_score.range|split(',')|last %}
-<div id="filter-{{ safename }}-items" class="collapse{% if selected is not empty %} show{% endif %}">
+
+<div id="filter-{{ safename }}-items" class="collapse{% if selected is not empty and selected > 0 %} show{% endif %}">
     <div class="card"><div class="card-body filter-stars">
+
     <ul class="list-unstyled">
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.9,1'}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 1 ) }}</span><span class="sr-only">5 Stars</span></div></a></li>
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.6,0.9'}})})}}" class="{% if selected >= 0.9 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.8 ) }}</span><span class="sr-only">4 Stars</span></div></a></li>
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.4,0.65'}})})}}" class="{% if selected >= 0.65 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.6 ) }}</span><span class="sr-only">3 Stars</span></div></a></li>
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.2,0.45'}})})}}" class="{% if selected >= 0.45 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.4 ) }}</span><span class="sr-only">2 Stars</span></div></a></li>
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':'0.0,0.25'}})})}}" class="{% if selected >= 0.25 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( 0.2 ) }}</span><span class="sr-only">1 Star</span></div></a></li>
+        {% set count_array = [count_5, count_4, count_3, count_2, count_1] %}
+        {% for linka in link_array %}
+            {% if count_array[loop.index0] > 0 %}
+                <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':linka}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( star_array[loop.index0] / 5 ) }}</span><span class="sr-only">{{star_array[loop.index0]}} Stars</span></div><span class="filter-count">({{count_array[loop.index0]}})</span></a></li>
+            {% else %}
+                {#<li>zero count</li>#}
+            {% endif %}
+        {% endfor %}
     </ul>
-{% if selected is not empty %}
+
+{% if selected is not empty and selected > 0 %}
     <div class="filter-clear">
-        <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>Review Stars</span></a>
+        <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i><span>{{seleected}} Review Stars</span></a>
     </div>
 {% endif %}
     </div></div>
