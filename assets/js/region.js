@@ -123,7 +123,14 @@ if ($('.form-region').length) {
 				$('#state-label').prop('for','state_input');
 				$("#state_select").addClass('hidden-x').prop( "disabled", true )
                 $('select#state_select').parent().removeClass('has-error');
-				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
+                
+                var url = acendaBaseUrl + '/api/shippingmethod/country';
+                if( $("#country").data('allcountries') )
+                {
+                    url = acendaBaseUrl + '/api/region';
+                }
+                
+				$.getJSON(url, request, function(data) {
 					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
 					if ((country == undefined || country == '') && data.result.length > 0) {
 						//data.result.sort(function(a, b) { return a.value > b.value});
