@@ -234,7 +234,7 @@
                 <div class="col-8 cart-indiv">
 					<div class="input-group igq-mod">
 						<div class="mr-1">
-							<input type="number" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" max="{{product.inventory_quantity}}" value="{{ item.quantity }}">
+							<input type="number" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" max="{{product.inventory_quantity - product.inventory_minimum_quantity}}" value="{{ item.quantity }}">
 						</div>
 						<div class="btn-group-vertical mr-3">
 						    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
@@ -315,7 +315,7 @@
 		{% for id, discount in cart.discount_collection.discounts %}
 			{% if discount.type == 'coupon' %}
 			<div class="discount g">
-				<div class="alert alert-info">
+				<div class="alert alert-info fsd1">
 					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
 					
 					<p>

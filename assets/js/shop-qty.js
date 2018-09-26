@@ -5,7 +5,7 @@ function updateCartTotals(qtyField, cartItemId) {
 		//
 	})
 	.done(function(data) {
-	    //console.log(data)
+		//console.log(data)
 		console.log('uCT 2')
 		console.log(data.result)
 		console.log('drcd: '+data.result.coupon_discount)
@@ -19,66 +19,66 @@ function updateCartTotals(qtyField, cartItemId) {
 		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-compare .val').html() - priceElement ) * dataQty).toFixed(2);
 		//
 		if ($(v2Data).attr('data-sid')) {
-            var dLID = $(v2Data).attr('data-sid');
-        } else {
-            var dLID = $(v2Data).attr('data-id');
-        }
+			var dLID = $(v2Data).attr('data-sid');
+		} else {
+			var dLID = $(v2Data).attr('data-id');
+		}
 		//
 		var oldQty = v2Data.find('.cart-total .price .val').text() / priceElement;
 		//console.log('oldQty: '+oldQty);
 		var changeQty = parseInt(dataQty - oldQty);
 		//console.log('changeQty: '+changeQty);
 		var absChangeQty = Math.abs(changeQty);
-        //
-        //
-        if (typeof dataLayer !== "undefined") {
-            if (dataLayer !== null) {
-                if (oldQty < dataQty) {
-                    //console.log('dataLayer add');
-                    dataLayer.push({
-                        'event': 'addToCart',
-                        'ecommerce': {
-                            'currencyCode': 'USD',
-                            'add': {                                // 'add' actionFieldObject measures.
-                                'products': [{                        //  adding a product to a shopping cart.
-                                    'name': $(v2Data).find('h3').text(),
-                                    'id': dLID,
-                                    'price': priceElement,
-                                    'brand': $(v2Data).find('.brand').text(),
-                                    //'category': 'Apparel',
-                                    //'variant': $(v2Data).attr('data-vid'),
-                                    'quantity': absChangeQty
-                                }]
-                            }
-                        }
-                    });
-                    
-                }
-                if (oldQty > dataQty) {
-                    //console.log('dataLayer remove');
-                    dataLayer.push({
-                        'event': 'removeFromCart',
-                        'ecommerce': {
-                            'currencyCode': 'USD',
-                            'remove': {                                // 'add' actionFieldObject measures.
-                                'products': [{                        //  adding a product to a shopping cart.
-                                    'name': $(v2Data).find('h3').text(),
-                                    'id': dLID,
-                                    'price': priceElement,
-                                    'brand': $(v2Data).find('.brand').text(),
-                                    //'category': 'Apparel',
-                                    //'variant': $(v2Data).attr('data-vid'),
-                                    'quantity': absChangeQty
-                                }]
-                            }
-                        }
-                    });
-        
-                }
-            }
-        }
-        //
-        //
+		//
+		//
+		if (typeof dataLayer !== "undefined") {
+			if (dataLayer !== null) {
+				if (oldQty < dataQty) {
+					//console.log('dataLayer add');
+					dataLayer.push({
+						'event': 'addToCart',
+						'ecommerce': {
+							'currencyCode': 'USD',
+							'add': {                                // 'add' actionFieldObject measures.
+								'products': [{                        //  adding a product to a shopping cart.
+									'name': $(v2Data).find('h3').text(),
+									'id': dLID,
+									'price': priceElement,
+									'brand': $(v2Data).find('.brand').text(),
+									//'category': 'Apparel',
+									//'variant': $(v2Data).attr('data-vid'),
+									'quantity': absChangeQty
+								}]
+							}
+						}
+					});
+					
+				}
+				if (oldQty > dataQty) {
+					//console.log('dataLayer remove');
+					dataLayer.push({
+						'event': 'removeFromCart',
+						'ecommerce': {
+							'currencyCode': 'USD',
+							'remove': {                                // 'add' actionFieldObject measures.
+								'products': [{                        //  adding a product to a shopping cart.
+									'name': $(v2Data).find('h3').text(),
+									'id': dLID,
+									'price': priceElement,
+									'brand': $(v2Data).find('.brand').text(),
+									//'category': 'Apparel',
+									//'variant': $(v2Data).attr('data-vid'),
+									'quantity': absChangeQty
+								}]
+							}
+						}
+					});
+		
+				}
+			}
+		}
+		//
+		//
 		v2Data.find('.cart-total .price .val').text(amount);
 		v2Data.find('.cart-total .percent .val').text(parseFloat(savings).toFixed(0));
 
@@ -101,7 +101,7 @@ $('form#wishlist-form .modal_list_quantity, section#registry .modal_list_quantit
 
 // Adjusts the quantity of the +/- fields
 function adjustQuantity(qtyField, increment, postForm) {
-    console.log('aQ started')
+	console.log('aQ started')
 	if (isNaN(qtyField.val())) {
 		qtyField.val(0);
 	}
@@ -134,7 +134,6 @@ function adjustQuantity(qtyField, increment, postForm) {
 	}
 
 	//Set qty to limit if entered value is above
-	
 
 	// Because of our situation with OAuth, we need to use the form to update wishlist and registry items; however, we can use the api to update sessioncart items.
 	if (typeof id !== 'undefined') { // We need to submit the updated quantity to the server
@@ -163,7 +162,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 			}).always(function(e) {
 				qtyField.parents('.quantity').find('input,button').prop('disabled',false);
 			}).fail(function(e) {
-			    console.log('errror')
+				console.log('errror')
 				data = $.parseJSON(e.responseText);
 				//console.log(data)
 				qtyField.val(previousValue -= increment);
@@ -178,20 +177,20 @@ function adjustQuantity(qtyField, increment, postForm) {
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}
 				console.log('it reached here')
-            	if(limit){
-            	  if(!isNaN(limit)){
-            		if(previousValue > limit){
-            		    console.log('was too big, qualified, set to limit: '+limit);
-            		  qtyField.val(limit);
-            		}
-            	  }
-            	}
-            	/*
-            	if (qtyField.val() > qtyField.attr('max')) {
-                    console.log('was too big, set to: '+qtyField.attr('max'));
-                    qtyField.val(qtyField.attr('max'));
-                }
-                */
+				if(limit){
+				  if(!isNaN(limit)){
+					if(previousValue > limit){
+						console.log('was too big, qualified, set to limit: '+limit);
+					  qtyField.val(limit);
+					}
+				  }
+				}
+				/*
+				if (qtyField.val() > qtyField.attr('max')) {
+					console.log('was too big, set to: '+qtyField.attr('max'));
+					qtyField.val(qtyField.attr('max'));
+				}
+				*/
 				qtyField.parents('.item').find('.error').show();
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
@@ -201,6 +200,12 @@ function adjustQuantity(qtyField, increment, postForm) {
 					updateCartTotals(qtyField, id);
 				}
 			});
+		}
+	} else {
+		console.log('detect prod page')
+		if(qtyField.val() > limit) {
+			console.log('detect prod page val too high, adjust')
+			qtyField.val(limit);
 		}
 	}
             	
@@ -217,6 +222,11 @@ $('.btn-remove').click(function(e) {
     console.log('ran 2')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), -1);
+});
+
+$('.quantity-selector').on('focusin', function(){
+    console.log("Saving value " + $(this).val());
+    $(this).data('cur', $(this).val());
 });
 // Hitting the enter key on the add quantity fields
 $('.quantity-selector').change(function(e) {
@@ -236,45 +246,45 @@ $('.quantity-selector').keypress(function(e){
 var sendDLFirst = 1;
 
 $('.btn-remove-all').click(function(e) {
-    if (sendDLFirst == 1) {
-        e.preventDefault();
-        //console.log('gotcha');
-        //
-        var v2Data = $(this).parents('.item');
-        var curQty = $(v2Data).find('.quantity-selector').val();
-        //
-        if ($(v2Data).attr('data-sid')) {
-            var dLID = $(v2Data).attr('data-sid');
-        } else {
-            var dLID = $(v2Data).attr('data-id');
-        }
-        //
-        if (typeof dataLayer !== "undefined") {
-            if (dataLayer !== null) {
-                dataLayer.push({
-                    'event': 'removeFromCart',
-                    'ecommerce': {
-                        'currencyCode': 'USD',
-                        'remove': {
-                            'products': [{
-                                'name': $(v2Data).find('h3').text(),
-                                'id': dLID,
-                                'price': $(v2Data).find('.cart-indiv .price .val').text(),
-                                'brand': $(v2Data).find('.brand').text(),
-                                //'category': 'Apparel',
-                                //'variant': $(v2Data).attr('data-vid'),
-                                'quantity': curQty
-                            }]
-                        }
-                    }
-                });
-            }
-        }
-        //
-        sendDLFirst = 0;
-        $(this).click();
-    } else {
-        
-    }
+	if (sendDLFirst == 1) {
+		e.preventDefault();
+		//console.log('gotcha');
+		//
+		var v2Data = $(this).parents('.item');
+		var curQty = $(v2Data).find('.quantity-selector').val();
+		//
+		if ($(v2Data).attr('data-sid')) {
+			var dLID = $(v2Data).attr('data-sid');
+		} else {
+			var dLID = $(v2Data).attr('data-id');
+		}
+		//
+		if (typeof dataLayer !== "undefined") {
+			if (dataLayer !== null) {
+				dataLayer.push({
+					'event': 'removeFromCart',
+					'ecommerce': {
+						'currencyCode': 'USD',
+						'remove': {
+							'products': [{
+								'name': $(v2Data).find('h3').text(),
+								'id': dLID,
+								'price': $(v2Data).find('.cart-indiv .price .val').text(),
+								'brand': $(v2Data).find('.brand').text(),
+								//'category': 'Apparel',
+								//'variant': $(v2Data).attr('data-vid'),
+								'quantity': curQty
+							}]
+						}
+					}
+				});
+			}
+		}
+		//
+		sendDLFirst = 0;
+		$(this).click();
+	} else {
+		
+	}
 });
 

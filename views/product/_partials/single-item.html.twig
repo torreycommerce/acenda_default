@@ -238,7 +238,7 @@
 							<label for="variant-input-{{product.id}}">Qty</label>
 							<div class="input-group igq-mod">
 								<div class="mr-1">
-									<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector px-1 text-center" type="number" value="1" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
+									<input id="variant-input-{{product.id}}" class="form-control form-control-lg quantity-selector px-1 text-center" type="number" value="1" max="{{variation.inventory_quantity - variation.inventory_minimum_quantity}}" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
 								</div>
 								<div class="btn-group-vertical mr-3">
 								    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>

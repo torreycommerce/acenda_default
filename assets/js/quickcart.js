@@ -20,7 +20,6 @@ $('body').on('mouseleave focusout','#header .cart',function(e){
     qcwearego = 0;
 });
 
-
 $('#qc-parent').on('show.bs.dropdown', function () {
     if (qcrecalc == 1) {
         //console.log('bs show, now try qc fetch');
@@ -53,6 +52,7 @@ var pData;
 var vData = $('#product-details .active');
 
 $('button[value=cart]').click(function(event) {
+    $('#qc-parent').removeClass('qc-ready');
     qcrecalc = 1;
     event.preventDefault();
     if ($('#singleProduct').length) {
