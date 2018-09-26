@@ -20,6 +20,8 @@ var checkout = checkout || {};
 		shipping_methods: new checkout.ShippingMethods(),
 		logged_in: acendaIsLoggedIn,
 		api_unique_token: null,
+		card_type: '',
+		card_last_four: '',
         bt_client_token: '',
         bt_payment_details: '',
         bt_environment: 'sandbox',
@@ -659,10 +661,8 @@ var checkout = checkout || {};
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});	
-
-
-				checkoutForm = $.extend(checkoutForm,{device_data: JSON.stringify( this.bt_device_data) });
-		
+			checkoutForm = $.extend(checkoutForm,{card_type: that.card_type,card_last4: that.card_last_four});
+			checkoutForm = $.extend(checkoutForm,{device_data: JSON.stringify( this.bt_device_data) });
 			if(this.logged_in) {
 				checkoutForm = $.extend(checkoutForm,{customer_id: this.customer.get('id')});
 			}
@@ -932,8 +932,11 @@ var checkout = checkout || {};
 				$('#payment-panel .step-data').html(this.bt_payment_details);
 			} else if(typeof form.card_number !== 'undefined'){
 				
- 				var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');			
-				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
+ 				var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');		
+ 				var vars = 	{card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)};
+				this.card_type = vars.card_type;
+				this.card_last_four = vars.last_four; 				
+				$('#payment-panel .step-data').html(tpl(vars));
 			}
 		},
 		checkShipping: function(e, dontGo) {
@@ -1044,8 +1047,12 @@ var checkout = checkout || {};
 				        }
 				        if(payload.type=="CreditCard") {
 				            that.bt_payment_details = payload.details.cardType + " Card ending in " + payload.details.lastFour;
+				            that.card_last_four = payload.details.lastFour;
+				            that.card_type = payload.details.cardType;
 				        }
 				        if(payload.type=="PayPalAccount") {
+				            that.card_type = 'paypal';				        	
+				            that.card_last_four = payload.details.email;				            
 				            that.bt_payment_details = "Paypal: " + payload.details.email;
 				        }				        			        
 		            	that.setStepCompleted('payment',true);	
