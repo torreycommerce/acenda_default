@@ -14,42 +14,33 @@
 		</div>
 	</div>
 {{ forms.end() }}
-
-<div class="divide pb-4 mb-4"></div>
-<div class="fsd1 mt-3" id="estimate">
-    <h3 class="h2">Estimated Delivery</h3>
-    <p id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span> <span class="dib wsnw">(for <span class="stock"><span class="text-success">In Stock</span></span> products)</p>
-
-
-<div class="divide pb-4 mb-4"></div>
-
-	<div class="row rate-estimate-checkout">
-		<div class="col-8">
-			Estimated Shipping Rate 
+{% if cart.tax_rate %}
+	<div class="divide pb-4 mb-4"></div>
+	<div class="fsd1 mt-3" id="estimate">
+	    <h3 class="h2">Estimated Delivery Options</h3>
+{# 	    <p id="date-estimate">{{cart.shipping_estimate_start}} to {{cart.shipping_estimate_end}}</span> <span class="dib wsnw">(for <span class="stock"><span class="text-success">In Stock</span></span> products)</p>
+ #}
+    {% set estimates = api.get('shippingtools/deliveryestimates') %}
+	<div class="divide pb-4 mb-4"></div>
+		<div class="row tax-estimate-checkout">
+			<div class="col-8">
+				Estimated Sales Tax:
+			</div>
+			<div class="col-4 text-right">
+				{{ prod.currency(cart.tax_rate|number_format(2)) }}
+			</div>
 		</div>
-		<div class="col-4 text-right">
-			{{ prod.currency(cart.shipping_rate|number_format(2)) }}
-		</div>
-	</div>
 
-	<div class="row tax-estimate-checkout">
-		<div class="col-8">
-			Estimated Sales Tax:
-		</div>
-		<div class="col-4 text-right">
-			{{ prod.currency(cart.tax_rate|number_format(2)) }}
-		</div>
-	</div>
-
-	<div class="row total estimate-total">
-		<div class="col-8">
-			Estimated Total:
-		</div>
-		<div class="col-4 text-right">
-			{{ prod.currency(cart.total|number_format(2)) }}
+		<div class="row total estimate-total">
+			<div class="col-8">
+				Estimated Total:
+			</div>
+			<div class="col-4 text-right">
+				{{ prod.currency(cart.total|number_format(2)) }}
+			</div>
 		</div>
 	</div>
-</div>
+{% endif %}
 
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}
