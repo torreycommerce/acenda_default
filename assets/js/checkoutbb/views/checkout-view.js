@@ -502,7 +502,7 @@ var checkout = checkout || {};
 		fetchShippingStates: function() {
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
-			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
+			this.shipping_states.fetch({url: this.shipping_states.url + '?country=' + $('#shipping-country').val() ,success: function() {
 				that.waits.got_shipping_states = true;				
 		        $('#shipping-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
