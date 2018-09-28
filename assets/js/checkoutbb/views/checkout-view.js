@@ -351,10 +351,10 @@ var checkout = checkout || {};
 
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
-				if(formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line1'] &&
-				    formData[formData.step + '_street_line2'].toUpperCase() == addy['street_line2'] &&
-				    formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
-				    formData[formData.step + '_zip'] == addy['zip']) {
+				if(formData[formData.step + '_street_line1'].toUpperCase().trim() == addy['street_line1'] &&
+				    formData[formData.step + '_street_line2'].toUpperCase().trim() == addy['street_line2'] &&
+				    formData[formData.step + '_city'].toUpperCase().trim() == addy['city'] &&
+				    formData[formData.step + '_zip'] == addy['zip'].trim()) {
                     form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
 
 					switch(stepName) {
@@ -602,6 +602,10 @@ var checkout = checkout || {};
 				$('#'+step.name+'-loading' ).show();
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
+				if(step.name!=='review') {
+					$('#review-panel #error-text').html('');
+                        $('#review-panel #review-text').show();					
+				}
 				if(step.name==name) {
 					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name.replace('-','')}).always(function(response){
 						setTimeout(function() {
@@ -1134,6 +1138,7 @@ var checkout = checkout || {};
 						$('.checkoutapp #summary-panel').fadeIn();	
 						that.api_unique_token = null; 
                         $('#review-panel #review-text').hide();
+                        console.log(response);
 						$('#review-panel #error-text').html('<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.</p>');
 	                }					
 				});
