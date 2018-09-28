@@ -16,15 +16,15 @@
                 {% else %}
                     {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.' ~ request.1 | split('-') | last}) %}
                 {% endif %}
-    
+
             {% else %}
                 {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.'}) %}
             {% endif %}
         {% endif %}
-    {% endif %}        
+    {% endif %}
 {% endif %}
 
-{% set reviews = api.get('/productreview', { query:{ product_id: item.id,status:"active" } }) %}
+{% set reviews = api.get('/productreview', { query:{ product_id: item.id,status:"active" },sort:{date_reviewed:-1} }) %}
 
 {% if item.page_title is not empty %}
     {% set title = item.page_title %}
