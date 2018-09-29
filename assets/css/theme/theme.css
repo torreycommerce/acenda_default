@@ -267,7 +267,9 @@ div:focus, section:focus {outline:none;}
 .star-rating-star.chosen {color:#FFC125;}
 
 
-.badges {position:absolute; right:0; top:0; padding:0;}
+.badges .badge {margin:0 .5rem 0 0; vertical-align:top;}
+.product-grid .badges {position:absolute; top:0; left:0; padding:.5rem 0 0 .5rem;}
+
 
 
 

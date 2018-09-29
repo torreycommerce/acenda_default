@@ -103,6 +103,17 @@
 	
 	<div class="col-md-5 mb-4">
 		<div class="mb-4" id="product-intro">
+            {% if product.tags is not empty %}
+	        <div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
+				{% if tag == 'new' %}
+					<span class="badge badge-success">{{ tag|capitalize }}</span>
+				{% elseif tag == 'sale' %}
+					<span class="badge badge-danger">{{ tag|capitalize }}</span>
+				{% else %}
+					<span class="badge badge-primary">{{ tag|capitalize }}</span>
+				{% endif %}
+			{% endspaceless %}{% endfor %}</div>
+			{% endif %}
 			<div class="brand mb-1">
 				<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}" itemprop="brand">{{product.brand}}</a>
 			</div>

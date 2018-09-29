@@ -14,7 +14,7 @@
 {% endif %}
 {% if variations is empty %}
 	{% set variation = product.variant[0] %}
-{% else %}
+{% else %}	
 	{% set variation = variations[0] %}
 {% endif %}
 
@@ -53,7 +53,7 @@
 						{% endfor %}
 						</div>
 					</div>
-
+					
 					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
@@ -70,7 +70,7 @@
 					{% endif %}
 				</div>
 			</div>
-
+			
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
 				<button class="btn blank image-space video" data-video-src="{{ product.videos[0] }}">
@@ -78,7 +78,7 @@
 				</button>
 			</div></div>
 			{% endif %}
-
+			
 			<div id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
@@ -94,6 +94,17 @@
 
 	<div class="col-md-5 mb-4">
 	    <div class="mb-3" id="product-intro">
+	        {% if product.tags is not empty %}
+	        <div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
+				{% if tag == 'new' %}
+					<span class="badge badge-success">{{ tag|capitalize }}</span>
+				{% elseif tag == 'sale' %}
+					<span class="badge badge-danger">{{ tag|capitalize }}</span>
+				{% else %}
+					<span class="badge badge-primary">{{ tag|capitalize }}</span>
+				{% endif %}
+			{% endspaceless %}{% endfor %}</div>
+			{% endif %}
     		{% if product.brand is not empty %}
     		<div class="brand mb-1">
     			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}">{{product.brand}}</a>
@@ -115,7 +126,7 @@
     		{% endif %}
     		{% endspaceless %}
 	    </div>
-
+	
 		<div id="product-details">
 			<div class="mb-3 variations" data-id="{{product.id}}">
 				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
@@ -133,7 +144,7 @@
         		        {% set priceclass = " price-special" %}
         		        {% set usespecial = 1 %}
         		    {% elseif variation.price is not empty %}
-
+        		        
             		    {% set shownprice = variation.price %}
         		    {% endif %}
         		    {% spaceless %}
@@ -148,7 +159,7 @@
     					{% endif %}
     				{% endif %}
     					</div>
-					{% endspaceless %}
+					{% endspaceless %}	
     				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
     				<div class="stock{% if needstockmsg|length == 0 %} stock-all-in-stock{% endif %} input-group-sm">
     					{% if variation.has_stock == false %}
@@ -184,7 +195,7 @@
 								{% set vsimgsrc = validvar[0].images[0].thumbnail %}
 								{% for variation in product.variant %}
 									{% if variation.color == v %}
-
+									
 									{% endif %}
 								{% endfor %}
 							{% endif %}
@@ -265,12 +276,12 @@
 {
     "@context": "http://schema.org/",
     "@type": "Product",
-    "name": {{product.name|json_encode}},
+    "name": "{{product.name}}",
     "image": "{{prodimg.standard}}",
-    "description": {{product.description|striptags|json_encode}},
+    "description": "{{product.description|striptags}}",
     "brand": {
         "@type": "Thing",
-        "name": {{product.brand|json_encode}}
+        "name": "{{product.brand}}"
     },
     {% if review_score > 0 %}
     "aggregateRating": {
@@ -282,10 +293,10 @@
         {% for rev in reviews %}
         {
             "@type": "Review",
-            "author": {{rev.first_name|json_encode}},
+            "author": "{{rev.first_name}}",
             "datePublished": "{{rev.date_created}}",
-            "description": {{rev.comment|json_encode}},
-            "name": {{rev.title|json_encode}},
+            "description": "{{rev.comment}}",
+            "name": "{{rev.title}}",
             "reviewRating": {
                 "@type": "Rating",
                 "bestRating": "5",
