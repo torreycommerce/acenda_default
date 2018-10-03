@@ -20,6 +20,8 @@ var checkout = checkout || {};
 		shipping_methods: new checkout.ShippingMethods(),
 		logged_in: acendaIsLoggedIn,
 		api_unique_token: null,
+		card_type: '',
+		card_last_four: '',
         bt_client_token: '',
         bt_payment_details: '',
         bt_environment: 'sandbox',
@@ -349,10 +351,10 @@ var checkout = checkout || {};
 
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
-				if(formData[formData.step + '_street_line1'].toUpperCase() == addy['street_line1'] &&
-				    formData[formData.step + '_street_line2'].toUpperCase() == addy['street_line2'] &&
-				    formData[formData.step + '_city'].toUpperCase() == addy['city'] &&
-				    formData[formData.step + '_zip'] == addy['zip']) {
+				if(formData[formData.step + '_street_line1'].toUpperCase().trim() == addy['street_line1'] &&
+				    formData[formData.step + '_street_line2'].toUpperCase().trim() == addy['street_line2'] &&
+				    formData[formData.step + '_city'].toUpperCase().trim() == addy['city'] &&
+				    formData[formData.step + '_zip'] == addy['zip'].trim()) {
                     form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
 
 					switch(stepName) {
@@ -500,7 +502,7 @@ var checkout = checkout || {};
 		fetchShippingStates: function() {
 			var that = this;			
 			this.shipping_states = new checkout.ShippingStates();
-			this.shipping_states.fetch({url: this.shipping_states.url + '/' + $('#shipping-country').val() ,success: function() {
+			this.shipping_states.fetch({url: this.shipping_states.url + '?country=' + $('#shipping-country').val() ,success: function() {
 				that.waits.got_shipping_states = true;				
 		        $('#shipping-state-select').html('<option disabled selected>Select a State</option>');				
 				that.render();
@@ -600,6 +602,10 @@ var checkout = checkout || {};
 				$('#'+step.name+'-loading' ).show();
 				$('#'+step.name+'-panel .step-data').show();
 				that.checkout_steps[k].open=false;
+				if(step.name!=='review') {
+					$('#review-panel #error-text').html('');
+                        $('#review-panel #review-text').show();					
+				}
 				if(step.name==name) {
 					$.post(acendaBaseUrl + '/api/cart/checkout',{'current_step':name.replace('-','')}).always(function(response){
 						setTimeout(function() {
@@ -659,10 +665,8 @@ var checkout = checkout || {};
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});	
-
-
-				checkoutForm = $.extend(checkoutForm,{device_data: JSON.stringify( this.bt_device_data) });
-		
+			checkoutForm = $.extend(checkoutForm,{card_type: that.card_type,card_last4: that.card_last_four});
+			checkoutForm = $.extend(checkoutForm,{device_data: JSON.stringify( this.bt_device_data) });
 			if(this.logged_in) {
 				checkoutForm = $.extend(checkoutForm,{customer_id: this.customer.get('id')});
 			}
@@ -932,8 +936,11 @@ var checkout = checkout || {};
 				$('#payment-panel .step-data').html(this.bt_payment_details);
 			} else if(typeof form.card_number !== 'undefined'){
 				
- 				var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');			
-				$('#payment-panel .step-data').html(tpl({card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)}));
+ 				var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');		
+ 				var vars = 	{card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)};
+				this.card_type = vars.card_type;
+				this.card_last_four = vars.last_four; 				
+				$('#payment-panel .step-data').html(tpl(vars));
 			}
 		},
 		checkShipping: function(e, dontGo) {
@@ -1044,8 +1051,12 @@ var checkout = checkout || {};
 				        }
 				        if(payload.type=="CreditCard") {
 				            that.bt_payment_details = payload.details.cardType + " Card ending in " + payload.details.lastFour;
+				            that.card_last_four = payload.details.lastFour;
+				            that.card_type = payload.details.cardType;
 				        }
 				        if(payload.type=="PayPalAccount") {
+				            that.card_type = 'paypal';				        	
+				            that.card_last_four = payload.details.email;				            
 				            that.bt_payment_details = "Paypal: " + payload.details.email;
 				        }				        			        
 		            	that.setStepCompleted('payment',true);	
@@ -1127,6 +1138,7 @@ var checkout = checkout || {};
 						$('.checkoutapp #summary-panel').fadeIn();	
 						that.api_unique_token = null; 
                         $('#review-panel #review-text').hide();
+                        console.log(response);
 						$('#review-panel #error-text').html('<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.</p>');
 	                }					
 				});

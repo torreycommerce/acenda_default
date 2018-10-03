@@ -70,7 +70,7 @@
 			<div class="card-body">
 			    <h2 class="divide pb-3">Invoice: <span class="float-right">#{{ final_order.order_number }}</span></h2>
 				<div class="row">
-					<div class="col-md-7">
+					<div class="col-md-6">
 						<div class="row">
 							<div class="col-12 mb-3">
 								<h3>Ship To</h3>
@@ -87,13 +87,17 @@
 									<div>{{ final_order.billing_first_name }} {{ final_order.billing_last_name }}</div>
 									<div>{{ final_order.billing_street_line1 }}</div>
 									<div>{{ final_order.billing_city }}, {{ final_order.billing_state }} {{ final_order.billing_zip }}</div>
-									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+									{% if final_order.card_type == 'paypal' %}
+    									<div>Paypal: {{ final_order.card_last4 }} </div>
+									{% else %}
+    									<div>Card: {{ final_order.card_type }} | Last Digits {{ final_order.card_last4 }} </div>
+    								{% endif %}										
 								</address>
 								{% endif %}
 							</div>
 						</div>
 					</div>
-					<div class="col-md-5">
+					<div class="col-md-6">
 					    <h3>Order Total</h3>
 						<div class="row">
 							<div class="col-8">Subtotal:</div>

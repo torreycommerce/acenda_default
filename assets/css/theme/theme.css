@@ -3,7 +3,8 @@
 .igq-mod .form-control {width:52px;}
 .igq-mod .input-group-btn {width:100%;}
 
-input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
+input[type=number] {-moz-appearance:textfield;}
 
 .btn-group-qty {width:80px; margin-right:20px;}
 .igq-mod .btn-group-qty .form-control {margin:0;}
@@ -48,7 +49,6 @@ input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
 
 .btn.wait.disabled, .btn.wait[disabled] {cursor:wait;}
 
-.validation .bg-danger {padding-top:.25em; padding-bottom:.25rem; padding-left:2rem; color:#fff!important;}
 
 .media-left {margin-right:1rem;}
 .media-right {margin-left:1rem;}
@@ -271,10 +271,11 @@ div:focus, section:focus {outline:none;}
 
 
 
-li.sub-category, #collapseFilters a:not(.btn) {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-#collapseFilters li a:not(.btn) {padding-right:2rem;}
+li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#collapseFilters a.btn {display:inline-block; max-width:168px; text-align:left;}
+#collapseFilters li a:not(.btn) {position:relative; padding-right:2rem;}
 .category-filters .card-body {font-size:.875rem;}
-.filter-count {position:absolute; right:1.25rem;}
+.filter-count {position:absolute; top:0; right:0;}
 
 .category-filters .color-chips {padding-bottom:10px;}
 .color-chip a {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}
