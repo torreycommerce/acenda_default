@@ -134,23 +134,29 @@
     				{% if needsku[0] is not empty %}
     					<div class="sku">Item: <span>{{variation.sku}}</span></div>
     				{% endif %}
-    				{% set shownsaveprice = variation.save_price %}
-                    {% set shownsavepercent = variation.save_percent %}
+    				{% set needprices = product.variant|max('save_percent') %}
+    				
                     {% set priceclass = "" %}
                     {% if variation.regular_price is not empty %}
         		        {% set shownprice = variation.regular_price %}
-        		        {% set shownsaveprice = (variation.compare_price|max - shownprice|max)|number_format(0) %}
-        		        {% set shownsavepercent = (1 - (shownprice|max / variation.compare_price|max)|number_format(2)) * 100 %}
+        		        {% if needprices|length > 0 %}
+        		            {% if (variation.compare_price - variation.price) > 1 %}
+        		                {% set shownsaveprice = (variation.compare_price - shownprice)|number_format(0) %}
+        		                {% set shownsavepercent = (1 - (shownprice / variation.compare_price)|number_format(2)) * 100 %}
+                            {% endif %}
+                        {% endif %}
         		        {% set priceclass = " price-special" %}
         		        {% set usespecial = 1 %}
         		    {% elseif variation.price is not empty %}
         		        
             		    {% set shownprice = variation.price %}
+            		    {% set shownsaveprice = variation.save_price %}
+                        {% set shownsavepercent = variation.save_percent %}
         		    {% endif %}
         		    {% spaceless %}
     					<div class="pricing g mb-3">
     						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
-    				{% set needprices = product.variant|max('save_percent') %}
+    				
     				{% if needprices|length > 0 %}
     					{% if (variation.compare_price - variation.price) > 1 %}
     						<ul class="list-inline"><li class="price-compare">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
