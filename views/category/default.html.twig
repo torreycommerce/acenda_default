@@ -9,10 +9,10 @@
     {% else %}
         {% do app.user.setFlash('Sorry, the category you requested is unavailable.','danger') %}
         {% do app.redirect('/') %}
-    {% endif %} 
+    {% endif %}
 {% endif %}
 
-{% set categories = api.get('/category/' ~ category.id ~ '/children') %}
+{% set categories = api.get('/category/' ~ category.id ~ '/children', {"query":{"status":"active"},"sort":{"position":"1"}}) | find({"has_items":true}) %}
 
 {% if category.query is not empty and category.selection == 'automatic' %}
     {% set default_query = category.query %}
