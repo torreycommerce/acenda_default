@@ -250,10 +250,19 @@ var checkout = checkout || {};
 					$('#billing-state-select').hide();
 					$('#billing-state-text').show();
 					$('#billing-state-label').prop('for','billing-state-text');
+					$('#billing-state-text').parsley('addConstraint', {
+	                    required: true 
+	                });
+					$('#billing-state-select').parsley('removeConstraint','required');
 				} else {
 					$('#billing-state-select').show();
 					$('#billing-state-text').hide();
 					$('#billing-state-label').prop('for','billing-state-select');
+					$('#billing-state-text').parsley('removeConstraint', 'required');
+					$('#billing-state-select').parsley('addConstraint', {
+	                    required: true 
+	                });	
+
 				}
 			}
 
