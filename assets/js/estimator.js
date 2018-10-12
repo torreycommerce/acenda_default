@@ -1,4 +1,5 @@
 function estimator() {
+    console.log('estimator');
     var zip_code = $('[name="cart[zip_code]"]').val();
     var shipping_method = $('[name="cart[method]"]').val();
     var shipping_country = $('[name="cart[country]"]').val();
