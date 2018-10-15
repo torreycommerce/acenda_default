@@ -4,9 +4,13 @@
 {% block content %}
 {% set token = api.get('/order/paypalExpressToken') %}
 {% set sandbox_url = api.get('/order/sandbox?token=' ~ token) %}
-{% if sandbox_url %}
+{% if token and sandbox_url %}
     	{% do app.redirect(sandbox_url) %}
 {% endif %}
-<h1>PayPal Express Payment error</h1>
-{{ api.error}}. Please <a href="{{app.url}}/cart">try again later</a>.
+{% if not token %}
+   {% set error = 'Could not connect to PayPal express' %}
+{% endif %}
+
+<h1>PayPal Express Error</h1>
+{{ error }}{{ api.error}}. Please <a href="{{app.url}}/cart">try again later</a>.
 {% endblock %}
