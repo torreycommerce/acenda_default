@@ -1,4 +1,3 @@
-{% extends "/_layouts/base.html.twig" %}
 {% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
 {% import "/_macros/form-extras.html.twig" as extras %}
 {% block content %}
@@ -8,9 +7,10 @@
     	{% do app.redirect(sandbox_url) %}
 {% endif %}
 {% if not token %}
-   {% set error = 'Could not connect to PayPal express' %}
+   {% set error = 'Could not connect to PayPal express.' %}
+{% else %}
+   {% set error = api.error %}
 {% endif %}
 
-<h1>PayPal Express Error</h1>
-{{ error }}{{ api.error}}. Please <a href="{{app.url}}/cart">try again later</a>.
+   {% do app.redirect(app.request.referer,{'error':error}) %}
 {% endblock %}
