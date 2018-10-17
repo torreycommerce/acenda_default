@@ -2,15 +2,9 @@
 function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
-		//
 	})
 	.done(function(data) {
-		//console.log(data)
-		console.log('uCT 2')
-		console.log(data.result)
-		console.log('drcd: '+data.result.coupon_discount)
 		var dataQty = data.result.items[cartItemId].quantity;
-		//console.log('dataQty: '+dataQty);
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();
 		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
@@ -23,7 +17,6 @@ function updateCartTotals(qtyField, cartItemId) {
 		} else {
 			var dLID = $(v2Data).attr('data-id');
 		}
-		//
 		var oldQty = v2Data.find('.cart-total .price .val').text() / priceElement;
 		//console.log('oldQty: '+oldQty);
 		var changeQty = parseInt(dataQty - oldQty);
@@ -87,6 +80,9 @@ function updateCartTotals(qtyField, cartItemId) {
 		$('.estimate-coupons .val').text(data.result.discount_price);
 		if (data.result.discount_price > 0 ) { $('.estimate-coupons').removeClass('d-none'); }
 		$('.estimate-bundles .val').text(data.result.bundle_discount);
+		if(typeof data.result.shipping_rate == 'undefined' ||  !data.result.shipping_rate  ) {
+			data.result.shipping_rate = 0.00;
+		}
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
 		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
 		$('.estimate-total .val').text(data.result.total);
