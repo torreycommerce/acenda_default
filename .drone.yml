@@ -21,6 +21,7 @@ pipeline:
       branch:
         - master
       event: [push, tag]
+
   deploy:
     image: quay.io/torreycommerce/scalr_deploy:latest
     pull: true
@@ -40,6 +41,7 @@ pipeline:
       event: [push, tag]
       branch:
         - master
+
   build-finished:
     image: plugins/slack
     webhook: https://hooks.slack.com/services/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
