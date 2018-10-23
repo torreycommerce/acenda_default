@@ -81,6 +81,7 @@ var acendaBaseName = '{{app.params.site.title}}';
 var acendaBaseUrl = '{{app.url}}';
 var acendaBaseThemeUrl = '{{app.url_asset}}';
 var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;
+var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
 </script>
 <script>
 	{% block acenda %}

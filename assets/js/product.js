@@ -431,8 +431,13 @@ function VariantsManager (product, img, isCollection) {
 				this.disableAddToCart(true);
 
 			} else {
-				this.disabled = false;
-				this.disableAddToCart(false);
+				if (!$('button[value=cart]').hasClass('virg')) {
+					//console.log('NOT too early - 437b')
+					this.disabled = false;
+					this.disableAddToCart(false);
+				} else {
+					//console.log('too early - AVERT - 440')
+				}
 			}
 			//
 			//
@@ -464,12 +469,15 @@ function VariantsManager (product, img, isCollection) {
 		Disables or enables add to cart, registry and wishlist buttons
 	*/
 	this.disableAddToCart = function(boolean){
+		console.log('f disabledAddToCart: '+boolean);
+		
 		//console.log('dATC: id:'+this.product_id+' bool: '+boolean)
 		var extCSS = "#singleProduct";
 		if(this.isCollection){
 			var extCSS = ".piece-"+this.product_id;
 		}
 		//
+		
 		$(extCSS+' button[value=cart]').attr('disabled',boolean);
 		$(extCSS+' button.btn-remove').attr('disabled',boolean);
 		$(extCSS+' button.btn-add').attr('disabled',boolean);

@@ -1,0 +1,60 @@
+clone:
+  git:
+    image: plugins/git
+    depth: 1
+
+pipeline:
+  build-started:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    channel: builds
+    username: drone
+    template: >
+      {{#success build.status}}
+        {{uppercasefirst repo.name}} build {{build.number}} started:  {{build.link}}
+        Commit: ${DRONE_COMMIT_LINK}
+      {{else}}
+        {{uppercasefirst repo.name}} build {{build.number}} failed: {{build.link}}
+      {{/success}}
+    when:
+      status: [success, failure]
+      branch:
+        - master
+      event: [push, tag]
+
+  deploy:
+    image: quay.io/torreycommerce/scalr_deploy:latest
+    pull: true
+    secrets:
+      - docker_username
+      - docker_password
+    environment:
+      SCALR_URL: "https://scalr.acenda.com/api/api.php"
+      SCALR_API_KEY: "a4b981d54ef74e4"
+      SCALR_API_SECRET: "/3Aq94PRjcECQn+ulcRB+UVs92y6gaTotzVlZpsRsvZsc4b0qsegf7pFSQ786LraYxC9UcgyxfsE5ihxkRYXFBhTbl7erezn+VF8qAESJYh4807u/YD/Fp2EKP9EvPu8"
+      DEPLOY_PATH: "/var/www/themes/mia"
+      REPOSITORY: "git@github.com:torreycommerce/mia.git"
+      BRANCH: "master"
+    commands:
+      - ruby /usr/src/app/scalr.rb
+    when:
+      event: [push, tag]
+      branch:
+        - master
+
+  build-finished:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    username: drone
+    channel: builds
+    template: >
+      {{#success build.status}}
+        {{uppercasefirst repo.name}} build {{build.number}} succeeded after {{since build.started}}: {{build.link}}
+      {{else}}
+        {{uppercasefirst repo.name}} build {{build.number}} failed after {{since build.started}}: {{build.link}}
+      {{/success}}
+    when:
+      status: [ success, failure ]
+      branch:
+        - master
+      event: [push, tag]

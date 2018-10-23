@@ -1,4 +1,4 @@
-console.log('qc v52');
+//console.log('qc v56');
 
 var qcrecalc = 1;
 var qcwearego = 0;
@@ -89,9 +89,10 @@ $('button[value=cart]').click(function(event) {
     .always(function(data) {
         // Make sure to reenable it, success or failure
         $('button[value=cart]').each(function() {
+            //if ($('button[value=cart]').hasClass('wait')) { console.log('too early 92')}
             $(this).removeClass('wait');
             // only enable the cart button if it wasn't disabled due to lack of Stock/Price
-            if (!$(this).parents('.piece').find('.quantity-selector').attr('disabled')) {
+            if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
                 $(this).attr('disabled',false);
             }
         });
@@ -260,6 +261,19 @@ function ajaxCart(data, r) {
             }
             //console.log('set qcrecalc to 0');
             qcrecalc = 0;
+            //
+            //
+            $('button[value=cart]').each(function() {
+                if ($(this).hasClass('virg')) {
+                    //console.log('virg check 268b')
+                    $(this).removeClass('virg');
+                    $(this).removeClass('wait');
+                    // only enable the cart button if it wasn't disabled due to lack of Stock/Price
+                    if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
+                        $(this).attr('disabled',false);
+                    }
+                }
+            });
         });
     });
 }

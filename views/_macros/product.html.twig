@@ -58,11 +58,9 @@
 					<div class="badges">
 					{% for tag in product.tags %}
 						{% if tag == 'new' %}
-							<span class="label label-new">{{ tag|capitalize }}</span>
+							<span class="badge badge-success">{{ tag|capitalize }}</span>
 						{% elseif tag == 'sale' %}
-							<span class="label label-sale">{{ tag|capitalize }}</span>
-						{% elseif tag == 'popular' %}
-							<span class="label label-hot">{{ tag|capitalize }}</span>
+							<span class="badge badge-danger">{{ tag|capitalize }}</span>
 						{% else %}
 							<span class="badge badge-primary">{{ tag|capitalize }}</span>
 						{% endif %}

@@ -250,10 +250,19 @@ var checkout = checkout || {};
 					$('#billing-state-select').hide();
 					$('#billing-state-text').show();
 					$('#billing-state-label').prop('for','billing-state-text');
+					$('#billing-state-text').parsley('addConstraint', {
+	                    required: true 
+	                });
+					$('#billing-state-select').parsley('removeConstraint','required');
 				} else {
 					$('#billing-state-select').show();
 					$('#billing-state-text').hide();
 					$('#billing-state-label').prop('for','billing-state-select');
+					$('#billing-state-text').parsley('removeConstraint', 'required');
+					$('#billing-state-select').parsley('addConstraint', {
+	                    required: true 
+	                });	
+
 				}
 			}
 
@@ -289,7 +298,7 @@ var checkout = checkout || {};
 
 		setupBrainTree: function() {
   			var that = this;
-
+            if(typeof acendaPaymentPlatform !== 'undefined' && acendaPaymentPlatform.toLowerCase()!='braintree') return;
 			if(that.bt_dropin_instance !== null) that.bt_dropin_instance.teardown();
   			$.post(acendaBaseUrl+'/api/braintree/token', function(data) {
   				that.bt_client_token = data.result.client_token;
@@ -433,13 +442,14 @@ var checkout = checkout || {};
 		    	that.customer_addresses.fetch({success: function() {
                     that.logged_in=true; 
                     that.waits.got_customer_addresses = true;
+                	var count_addy_shipping=0;
+                	var count_addy_billing=0;                     
                     if(that.customer_addresses.length) {
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
                     	$('[id=customer-addresses]').show();
                     	$('#customer-addresses select').html('<option value="0">New Address</option>');
                         $('#billing-customer-addresses-select').html('<option value="0">New Address</option>'); 	
-                    	var count_addy_shipping=0;
-                    	var count_addy_billing=0;                    	
+                   	
                     	that.customer_addresses.each(function(addy){
                     		var state = addy.get('state');
                     		var country = addy.get('country');
@@ -454,8 +464,10 @@ var checkout = checkout || {};
 	                    		$('#billing-customer-addresses-select').append(tpl(addy.toJSON())); 
 	                    	} 
                     	});
-
-                    	setTimeout(function() {
+                    } else {
+                    	$('[id=customer-addresses]').hide();
+                    }
+                 	setTimeout(function() {
                     		if(!count_addy_shipping) {
                                  $('#shipping-panel [id=customer-addresses]').hide();                    			
                     		}
@@ -465,11 +477,16 @@ var checkout = checkout || {};
  							if(typeof callback !== 'undefined') {
  								callback();
  							}
-                    	},100)
-                    } else {
-                    	$('[id=customer-addresses]').hide();
-                    }
-		    	} ,fail: function() {                     that.waits.got_customer_addresses = true; }  });
+                    	},100);                    
+		    	} ,fail: function() {
+		    	    that.logged_in=true;                  
+		    	    that.waits.got_customer_addresses = true; 
+                    	setTimeout(function() {
+ 							if(typeof callback !== 'undefined') {
+ 								callback();
+ 							}
+                    	},100);		    	    
+		    	}  });
 		    }});	
 		},
 		reloadToolbar: function() {
@@ -1159,12 +1176,13 @@ var checkout = checkout || {};
 
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
 				if(response.code == 200) {
-					that.logged_in=true;					
+					that.logged_in=true;	
 					that.fetchCart(function() {
+					that.logged_in=true;					    
 						that.fetchCustomer(function() {
 							that.setStepCompleted('signin');
 				     		that.setupBrainTree();	
-							that.reloadToolbar();				
+							that.reloadToolbar();
 							that.gotoStep('shipping');							
 						});
 					});
