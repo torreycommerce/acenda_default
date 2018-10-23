@@ -166,7 +166,7 @@ $.fn.setup_navigation = function(settings) {
 					.attr('tabIndex',-1);
 		}
 	});
-	console.log('v29')
+	//console.log('v29')
 	$(document).click(function(){ $('.addAccess .'+settings.menuHoverClass+':not(.collapse)').attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
 	
 	$(this).click(function(e){

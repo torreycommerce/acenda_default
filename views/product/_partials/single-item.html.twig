@@ -115,14 +115,14 @@
     		{% set review_score = reviews|average('score') %}
     		{% if review_score > 0 %}
     		<div class="fsd1 rating">
-    			<a class="btn btn-link btn-sm px-0 ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
+    			<a class="btn btn-link btn-sm p-0 ttc" href="#reviews"><span class="dib">{{ base.rating( review_score ) }}</span>
     			<span class="dib">
     				<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
     			</span>
     			</a>
     		</div>
     		{% else %}
-    		{#<a class="btn btn-link btn-sm px-0" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>#}
+    		{#<a class="btn btn-link btn-sm p-0" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>#}
     		{% endif %}
     		{% endspaceless %}
 	    </div>
@@ -249,26 +249,22 @@
 			{% endif %}
 
 			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
-				<div class="actions">
-					<div class="" id="div-quantity-{{product.id}}">
-						<div class="form-group divide pb-3 mb-2">
-							<label for="variant-input-{{product.id}}">Qty</label>
-							<div class="input-group igq-mod">
-								<div class="mr-1">
-									<input id="variant-input-{{product.id}}" class="form-control form-control-lg quantity-selector px-1 text-center" type="number" value="1" max="{{variation.inventory_quantity - variation.inventory_minimum_quantity}}" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
-								</div>
-								<div class="btn-group-vertical mr-3">
-								    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
-									<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
-								</div>
-								<button type="submit" class="btn btn-lg btn-primary btn-cart flex-fill" name="action" value="cart">
-								   <span>Add to Cart</span>
-							   </button>
-							</div>
+				<div class="form-group divide pb-3 mb-2" id="div-quantity-{{product.id}}">
+					<label for="variant-input-{{product.id}}">Qty</label>
+					<div class="input-group igq-mod">
+						<div class="mr-1">
+							<input id="variant-input-{{product.id}}" class="form-control form-control-lg quantity-selector px-1 text-center" type="number" value="1" max="{{variation.inventory_quantity - variation.inventory_minimum_quantity}}" maxlength="2" placeholder="1" name="items[{{variation.id}}]">
 						</div>
-					   {% include "/product/_partials/list/actions-single.html.twig" %}
-				   </div>
+						<div class="btn-group-vertical mr-3">
+							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+						</div>
+						<button type="submit" class="btn btn-lg btn-primary btn-cart flex-fill virg wait" name="action" value="cart" disabled>
+						   <span>Add to Cart</span>
+					   </button>
+					</div>
 				</div>
+			   {% include "/product/_partials/list/actions-single.html.twig" %}
 			</form>
 		</div>
 	</div>
