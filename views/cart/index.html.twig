@@ -103,6 +103,8 @@
 {% endif %}
 
 {% block content %}
+	<pre>
+{{ dump(cart)}}</pre>
 {# DISPLAY CART LOGIC #}
     {% set display_cart = [] %}
     {% set new_quantities = [] %}
@@ -296,8 +298,8 @@
 						{{ prod.currency(cart.item_subtotal|number_format(2)) }}
 					</div>
 				</div>
-				{% if cart.shipping_rate != null %}
-				<div class="row rate-estimate-checkout">
+
+				<div class="row rate-estimate-checkout" {%if cart.shipping_rate == null %}style="display:none"{% endif %}>
 					<div class="col-7">
 						Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 					</div>
@@ -305,7 +307,7 @@
 						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 					</div>
 				</div>
-				{% endif %}
+
 				{% set coupon_discount = 0 %}
 				{% set bundle_discount = 0 %}
 				{% for dsc in cart.discount_collection.discounts %}
@@ -324,27 +326,26 @@
 				</div>
 				
 				{% if bundle_discount > 0 %}
-				<div class="row estimate-bundles">
+				<div class="row estimate-bundles" style="display:none">
 					<div class="col-7">Bundles:</div>
 					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(bundle_discount|number_format(2)) }}
 					</div>
 				</div>
 				{% endif %}
-				{% if cart.tax_rate != 0 %}
-				<div class="row total-before-tax">
+
+				<div class="row total-before-tax" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
 					<div class="col-7">Total Before Tax:</div>
 					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
 					</div>
 				</div>
-				<div class="row tax-estimate-checkout">
+				<div class="row tax-estimate-checkout" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
 					<div class="col-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.tax_rate|number_format(2)) }}
 					</div>
 				</div>
-				{% endif %}
 			</div>
 			<div class="row mb-3 estimate-total totals-total">
 				<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
@@ -430,9 +431,7 @@
 			{% endif  %}
 		{% endfor %}
         {{ forms.end() }}
-
         </div></div>
-
 	</div>
 </div>
 

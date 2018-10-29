@@ -1,10 +1,13 @@
 function estimator() {
+
     console.log('estimator');
-    var zip_code = $('[name="cart[zip_code]"]').val();
+    var zip_code = $('[name="cart[shipping_zip]"]').val();
     var shipping_method = $('[name="cart[method]"]').val();
-    var shipping_country = $('[name="cart[country]"]').val();
+    var shipping_country = 'US';
     var shipping_state = $('[name="cart[state]"]').val();
-    if(!shipping_method || !shipping_country ) {  
+
+    console.log(zip_code);
+    if(!zip_code) {  
           $('#summary-shipping,#summary-before-tax,#summary-tax').hide();
           return;
     } else {
@@ -19,46 +22,24 @@ function estimator() {
 
 
     $.post(acendaBaseUrl + '/api/cart',{
-        shipping_method:shipping_method,
-        shipping_country:shipping_country,
-        shipping_state:shipping_state,
-        shipping_zip:zip_code
+        'shipping_method':shipping_method,
+        'shipping_country':shipping_country,
+        'shipping_state':shipping_state,
+        'shipping_zip':zip_code
     }, 'json')
     .done(function(data) {
-
-        $.getJSON(acendaBaseUrl + '/api/cart')
-        .then(function(response) {
-            cart_data = response.result;
-            $('#form').hide();
-            $('#estimate').show();
-            $('#rate-estimate .val').html(cart_data.shipping_rate);
-            setRateEstimatedShipping(cart_data.shipping_rate);
-            var total_before_tax = parseFloat(cart_data.subtotal) + parseFloat(cart_data.shipping_rate);
-            var total_before_tax = total_before_tax.toFixed(2).toLocaleString();
-            setTotalBeforeTax(total_before_tax);
-            if (cart_data.shipping_estimate_end){
-                $('#block-date-estimate').show();
-                $('#date-estimate').html(cart_data.shipping_estimate_start + ' to ' + cart_data.shipping_estimate_end);
-            }else{
-                $('#block-date-estimate').hide();
-            }
-            $('#tax-estimate .val').html(cart_data.tax_rate);
-            setTaxEstimated(cart_data.tax_rate);
-            var total = parseFloat(cart_data.subtotal) + parseFloat(cart_data.tax_rate) + parseFloat(cart_data.shipping_rate);
-            $('#total-estimate .val').html(total.toFixed(2).toLocaleString());
-            console.log('setting total estimate to ' +  total.toFixed(2).toLocaleString());
-            setTotalEstimated(total.toFixed(2).toLocaleString());
-        });
+        if(typeof updateCartTotals !== 'undefined') {
+            updateCartTotals($(''),0);
+        }
     });
     
     return false;
 }
 
 $('#cart_Estimate').click(function(e) {
-    e.preventDefault();
-    estimator();
+   e.preventDefault();
+   estimator();
 });
-
 $('#cart_ClearEstimate').click(function(e) {
     e.preventDefault();
     clearEstimated();
@@ -90,3 +71,6 @@ function clearEstimated(){
     var estimate_total = $('#estimate-total .val');
     estimate_total.text( estimate_total.data("old-value") );
 }
+
+
+

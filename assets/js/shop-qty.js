@@ -75,6 +75,7 @@ function updateCartTotals(qtyField, cartItemId) {
 		v2Data.find('.cart-total .price .val').text(amount);
 		v2Data.find('.cart-total .percent .val').text(parseFloat(savings).toFixed(0));
 
+
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
 		$('.estimate-coupons .val').text(data.result.discount_price);
@@ -83,6 +84,19 @@ function updateCartTotals(qtyField, cartItemId) {
 		if(typeof data.result.shipping_rate == 'undefined' ||  !data.result.shipping_rate  ) {
 			data.result.shipping_rate = 0.00;
 		}
+		if(data.result.shipping_rate!='') {
+			$('.rate-estimate-checkout').show();
+		} else {
+			$('.rate-estimate-checkout').hide();
+		}
+		if(data.result.tax_rate) {
+			$('.total-before-tax').show();
+			$('.tax-estimate-checkout').show();			
+		} else {
+			$('.total-before-tax').hide();
+			$('.tax-estimate-checkout').hide();				
+		}
+
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
 		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
 		$('.estimate-total .val').text(data.result.total);
@@ -283,4 +297,8 @@ $('.btn-remove-all').click(function(e) {
 		
 	}
 });
+
+$(document).ready(function() {
+   updateCartTotals($(''),0);
+})
 
