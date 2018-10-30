@@ -70,23 +70,29 @@ $.fn.setup_navigation = function(settings) {
 			} else {
 				$(this).parent('li').next('li').find('a').first().focus();
 			}
-		} else if(e.keyCode == 13 || e.keyCode == 32) {
+		} else if(e.keyCode == 13) {
 			// If submenu is hidden, open it
 			e.preventDefault();
-			$(this).parent('li').find('ul[aria-hidden=true]')
-					.attr('aria-hidden', 'false')
-					.addClass(settings.menuHoverClass)
-					.find('a').attr('tabIndex',0)
-						.first().focus();
+			if ($(this).parent('li').find('ul[aria-hidden=true]').length) {
+				$(this).parent('li').find('ul[aria-hidden=true]')
+				.attr('aria-hidden', 'false')
+				.addClass(settings.menuHoverClass)
+				/*.find('a').attr('tabIndex',0)
+				.first().focus();*/
+			} else {
+				window.location = $(this).attr('href');
+			}
+				
 		} else if(e.keyCode == 27) {
 			e.preventDefault();
-			console.log('event 27')
-			$('.'+settings.menuHoverClass)
+			//console.log('event 27 new')
+			$(this).siblings('ul')
 				.attr('aria-hidden', 'true')
 				.removeClass(settings.menuHoverClass)
 				.find('a')
 					.attr('tabIndex',-1);
 		} else {
+		       //console.log('when run last top')
 			$(this).parent('li').find('ul[aria-hidden=false] a').each(function(){
 				if($(this).text().substring(0,1).toLowerCase() == keyCodeMap[e.keyCode]) {
 					$(this).focus();
@@ -110,7 +116,6 @@ $.fn.setup_navigation = function(settings) {
 							.attr('tabIndex',-1);
 		} else if(e.keyCode == 32) {
 			e.preventDefault();
-			window.location = $(this).attr('href');
 		} else {
 			var found = false;
 			$(this).parent('li').nextAll('li').find('a').each(function(){
@@ -166,10 +171,11 @@ $.fn.setup_navigation = function(settings) {
 					.attr('tabIndex',-1);
 		}
 	});
-	//console.log('v29')
+	//console.log('v41')
 	$(document).click(function(){ $('.addAccess .'+settings.menuHoverClass+':not(.collapse)').attr('aria-hidden', 'true').removeClass(settings.menuHoverClass).find('a').attr('tabIndex',-1); });
 	
 	$(this).click(function(e){
+	    //console.log('e Prop removed 173')
 		e.stopPropagation();
 	});
 }

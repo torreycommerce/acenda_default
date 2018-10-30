@@ -89,7 +89,12 @@ $(document).ready(function() {
 	});
 	//
 	//
-	$('a[data-toggle=dropdown]').click(function () {
+	$('a.btn[data-toggle=dropdown]').click(function () {
+        if ($(this).attr('href')){
+            window.location = $(this).attr('href');
+        }
+    });
+	$(document).on('click','.addAccess a[data-toggle=dropdown]', function() {
         if ($(this).attr('href')){
             window.location = $(this).attr('href');
         }
