@@ -75,7 +75,6 @@ function updateCartTotals(qtyField, cartItemId) {
 		v2Data.find('.cart-total .price .val').text(amount);
 		v2Data.find('.cart-total .percent .val').text(parseFloat(savings).toFixed(0));
 
-
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
 		$('.estimate-coupons .val').text(data.result.discount_price);
@@ -89,11 +88,15 @@ function updateCartTotals(qtyField, cartItemId) {
 		} else {
 			$('.rate-estimate-checkout').hide();
 		}
-		if(data.result.tax_rate) {
+		if(data.result.tax_rate!=0 && data.result.shipping_rate!='') {
 			$('.total-before-tax').show();
+		} else {
+			$('.total-before-tax').hide();		
+		}
+		if(data.result.tax_rate != 0) {
 			$('.tax-estimate-checkout').show();			
 		} else {
-			$('.total-before-tax').hide();
+
 			$('.tax-estimate-checkout').hide();				
 		}
 

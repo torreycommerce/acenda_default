@@ -103,8 +103,6 @@
 {% endif %}
 
 {% block content %}
-	<pre>
-{{ dump(cart)}}</pre>
 {# DISPLAY CART LOGIC #}
     {% set display_cart = [] %}
     {% set new_quantities = [] %}
@@ -334,7 +332,7 @@
 				</div>
 				{% endif %}
 
-				<div class="row total-before-tax" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
+				<div class="row total-before-tax" {% if  cart.tax_rate == 0 or not cart.shipping_rate %}style="display:none"{% endif %}>
 					<div class="col-7">Total Before Tax:</div>
 					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
