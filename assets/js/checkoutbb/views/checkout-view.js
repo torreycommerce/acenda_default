@@ -94,6 +94,7 @@ var checkout = checkout || {};
 			this.fetchShippingCountries();
 			this.fetchBillingCountries();
             if(that.logged_in) {
+            	//this.setStepCompleted('signin',true)
 	            $('#'+'billing'+ '-address-form .hide-billing').hide();
 	            $('#'+'shipping'+ '-address-form .hide-shipping').hide();
 	        }
@@ -441,6 +442,7 @@ var checkout = checkout || {};
                 that.waits.got_customer = true;
 		    	that.customer_addresses.fetch({success: function() {
                     that.logged_in=true;
+                    that.setStepCompleted('signin');
                     that.waits.got_customer_addresses = true;
                 	var count_addy_shipping=0;
                 	var count_addy_billing=0;
@@ -480,6 +482,7 @@ var checkout = checkout || {};
                     	},100);
 		    	} ,fail: function() {
 		    	    that.logged_in=true;
+                    that.setStepCompleted('signin');		    	    
 		    	    that.waits.got_customer_addresses = true;
                     	setTimeout(function() {
  							if(typeof callback !== 'undefined') {
@@ -909,13 +912,12 @@ var checkout = checkout || {};
 			if(!this.checkout_steps[this.findStep('signin')].completed) return;
 			var form = this.getFormData('#guest-form');
 			if(this.logged_in) {
-			    var tpl = _.template('Logged in as <%=first_name%> <%=last_name%> ');
+			    var tpl = _.template('Logged in as <%=first_name%> <%=last_name%>');
                 $('#signin-panel .step-data').html(tpl(this.customer.attributes));
                 $('input[name=email]').val(this.customer.get('email'));
 			} else {
 			    var tpl = _.template('<%=email%>');
     			$('#signin-panel .step-data').html(tpl(form));
-
     		}
 		},
 		renderShippingAddressSummary: function() {
@@ -1181,7 +1183,7 @@ var checkout = checkout || {};
 					that.fetchCart(function() {
 					that.logged_in=true;
 						that.fetchCustomer(function() {
-							that.setStepCompleted('signin');
+							that.setStepCompleted('signin',true);
 				     		that.setupBrainTree();
 							that.reloadToolbar();
 							that.gotoStep('shipping');
