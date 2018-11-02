@@ -1,12 +1,9 @@
 function estimator() {
-
-    console.log('estimator');
     var zip_code = $('[name="cart[shipping_zip]"]').val();
     var shipping_method = $('[name="cart[method]"]').val();
     var shipping_country = 'US';
     var shipping_state = $('[name="cart[state]"]').val();
 
-    console.log(zip_code);
     if(!zip_code) {  
           $('#summary-shipping,#summary-before-tax,#summary-tax').hide();
           return;
@@ -19,8 +16,6 @@ function estimator() {
 
         $('#summary-before-tax,#summary-tax').show();
     }
-
-
     $.post(acendaBaseUrl + '/api/cart',{
         'shipping_method':shipping_method,
         'shipping_country':shipping_country,
