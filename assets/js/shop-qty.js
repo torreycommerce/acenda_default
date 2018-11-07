@@ -4,7 +4,12 @@ function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
 	})
-	.done(function(data) {		
+	.done(function(data) {	
+		var dataQty = 0.0;		
+		if(typeof data.result.items[cartItemId] !== 'undefined') {
+			dataQty = data.result.items[cartItemId].quantity;	
+		}
+
 		var dataQty = data.result.items[cartItemId].quantity;
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();

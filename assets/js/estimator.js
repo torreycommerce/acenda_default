@@ -49,10 +49,8 @@ function refreshShippingMethods() {
                     first = false;
         });
         $.when.apply($,defer_methods).then(function() {
-            console.log('got rates');
             $('#shipping-method-selection').html(shipping_method_tpl({methods: shipping_methods, current_method: cartData.shipping_method}));
             $('[name="shipping_method"]').change(function() {
-                console.log('change');
                 shipping_method = this.value;
                 estimator();
             });            
