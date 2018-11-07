@@ -39,7 +39,7 @@
 		{% set error="The coupon code you entered is invalid." %}
 	{% endif %}
 {% endif %}
-{% if app.request.post.cart.shipping_country is not empty %}
+{% if app.request.post.cart.shipping_method is not empty  or  app.request.post.cart.shipping_country is not empty %}
 	{% set result = api.post('/cart', app.request.post.cart) %}
 {% endif %}
 {% if api.error is not empty  and not error %}

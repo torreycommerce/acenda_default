@@ -22,19 +22,31 @@
 			</div>
 		</div>
       </div>
-      <div class="col-md-8">
-      	 {% set methods = api.get('shippingmethod/byregion',{zip: cart.shipping_zip}) %}
+      <div class="col-md-8" id="shipping-method-selection"> 	
 
-  	     {% for method in methods %}
-      	 <pre>
-      	 	{{ dump( method) }}
-      	 </pre>  	     	
-  	     	{{ method.name }}
- 	 	 {% endfor %}
       </div>
 	</div>
 {{ forms.end() }}
 </div>
+<script id="shipping-methods-template" type="text/template">
+    <div class="table-responsive fsd1">
+	<table  class="table">
+
+	<tbody>
+		<% _.each(methods,function(method) { %>
+			<% if(method.status=='active') { %>
+			    <tr>
+			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
+			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
+			        <td class="text-right"><label for="method_<%= method.id %>_input">$<%= method.price %></label></td>
+			    </tr>
+			    <% } %>
+	    <% }) %>
+	</tbody>
+	</table>
+	</div>
+</script>
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/estimator.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}

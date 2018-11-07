@@ -1,13 +1,16 @@
 // Updates the subtotal and current item total.
+var cartData = null;
 function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
 	})
-	.done(function(data) {
+	.done(function(data) {		
 		var dataQty = data.result.items[cartItemId].quantity;
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();
 		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
+
+		cartData = data.result;
 
 		amount = parseFloat(priceElement * dataQty).toFixed(2);
 		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-compare .val').html() - priceElement ) * dataQty).toFixed(2);
