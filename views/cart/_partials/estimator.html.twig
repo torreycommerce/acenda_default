@@ -36,8 +36,8 @@
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
 			    <tr method="<%= method.id %>">
-			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" carrier="<%= method.carrier_name %>"  carrier_method="<%= method.carrier_method %>"><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
-			        <td class="estimate-column"><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
+			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" carrier="<%= method.carrier_name %>" ><label class="custom-control-label " for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
+			        <td class="estimate-column" style="text-align: center;"><label for="method_<%= method.id %>_input" class="<%= method.carrier_method %>"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
 			        <td class="text-right"><label for="method_<%= method.id %>_input">$<%= method.price %></label></td>
 			    </tr>
 			    <% } %>
@@ -48,5 +48,6 @@
 </script>
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/moment-with-locales.min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/estimator.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/region.js') }}

@@ -33,13 +33,25 @@ function getTaxEstimates() {
     return false;
 }
 function getDeliveryEstimates(shipping_methods) {
-  //  if(!$('[name="cart[shipping_zip]"]').val()) return;
+    if(!$('[name="cart[shipping_zip]"]').val()) return;
     shipping_methods.forEach(function(method,k) {
         console.log('getting estimate for ' + method.id);
         $('tr[method="' +  method.id + '"] #spinner').show();
         $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.carrier_name).done(function(data) {
             $('tr[method="' +  method.id + '"] #spinner').hide();
-            console.log('got estimate for ' + method.id);
+            var estimates = data.result;
+            $.each(estimates,function(ek,estimate){
+                if(typeof estimate.estimate == 'undefined') return;
+                var estimate_string = 'By ' + moment(estimate.estimate).calendar(null, {
+                    sameDay: '[Today]',
+                    nextDay: '[Tomorrow], MM/DD',
+                    nextWeek: 'dddd, MM/DD',
+                    lastDay: '[Yesterday], MM/DD',
+                    lastWeek: '[Last] dddd, MM/DD',
+                    sameElse: 'dddd, MM/DD/YYYY'
+                });
+                var elem = $('label.' +ek).html(estimate_string);
+            });
         }).always(function(){
             $('tr[method="' +  method.id + '"] #spinner').hide();
         })
