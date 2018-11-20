@@ -1,11 +1,13 @@
-function estimator() {
-    var zip_code = $('[name="cart[zip_code]"]').val();
-    var shipping_method = $('[name="cart[method]"]').val();
-    var shipping_country = $('[name="cart[country]"]').val();
+var shipping_methods = [];
+function getTaxEstimates() {
+    var zip_code = $('[name="cart[shipping_zip]"]').val();
+    var shipping_method = $('[name="shipping_method"]:checked').val();
+    var shipping_country = 'US';
     var shipping_state = $('[name="cart[state]"]').val();
-    if(!shipping_method || !shipping_country ) {  
+
+    if(!zip_code) {  
           $('#summary-shipping,#summary-before-tax,#summary-tax').hide();
-          return;
+        //  return;
     } else {
            $('#summary-shipping').show();       
     }
@@ -15,77 +17,89 @@ function estimator() {
 
         $('#summary-before-tax,#summary-tax').show();
     }
-
-
     $.post(acendaBaseUrl + '/api/cart',{
-        shipping_method:shipping_method,
-        shipping_country:shipping_country,
-        shipping_state:shipping_state,
-        shipping_zip:zip_code
+        'shipping_method':shipping_method,
+        'shipping_country':shipping_country,
+        'shipping_state':shipping_state,
+        'shipping_zip':zip_code
     }, 'json')
     .done(function(data) {
-
-        $.getJSON(acendaBaseUrl + '/api/cart')
-        .then(function(response) {
-            cart_data = response.result;
-            $('#form').hide();
-            $('#estimate').show();
-            $('#rate-estimate .val').html(cart_data.shipping_rate);
-            setRateEstimatedShipping(cart_data.shipping_rate);
-            var total_before_tax = parseFloat(cart_data.subtotal) + parseFloat(cart_data.shipping_rate);
-            var total_before_tax = total_before_tax.toFixed(2).toLocaleString();
-            setTotalBeforeTax(total_before_tax);
-            if (cart_data.shipping_estimate_end){
-                $('#block-date-estimate').show();
-                $('#date-estimate').html(cart_data.shipping_estimate_start + ' to ' + cart_data.shipping_estimate_end);
-            }else{
-                $('#block-date-estimate').hide();
-            }
-            $('#tax-estimate .val').html(cart_data.tax_rate);
-            setTaxEstimated(cart_data.tax_rate);
-            var total = parseFloat(cart_data.subtotal) + parseFloat(cart_data.tax_rate) + parseFloat(cart_data.shipping_rate);
-            $('#total-estimate .val').html(total.toFixed(2).toLocaleString());
-            console.log('setting total estimate to ' +  total.toFixed(2).toLocaleString());
-            setTotalEstimated(total.toFixed(2).toLocaleString());
-        });
+        if(typeof updateCartTotals !== 'undefined') {
+            updateCartTotals($(''),0);
+        }
+       getDeliveryEstimates(shipping_methods);        
     });
     
     return false;
 }
+function getDeliveryEstimates(shipping_methods) {
+    if(!$('[name="cart[shipping_zip]"]').val()) return;
+    shipping_methods.forEach(function(method,k) {
+        console.log('getting estimate for ' + method.id);
+        $('tr[method="' +  method.id + '"] #spinner').show();   
+        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.carrier_name).done(function(data) {
+            var estimates = data.result;
+            $.each(estimates,function(ek,estimate){
+                if(typeof estimate.estimate == 'undefined') return;
+                var estimate_string = moment(estimate.estimate).calendar(null, {
+                    sameDay: 'By [Today]',
+                    nextDay: 'By [Tomorrow], MM/DD',
+                    nextWeek: 'By dddd, MM/DD',
+                    lastDay: '[Yesterday], MM/DD',
+                    lastWeek: '[Last] dddd, MM/DD',
+                    sameElse: 'By MM/DD/YYYY'
+                });
+                var elem = $('label.' +ek).html(estimate_string);
+            });
+        }).always(function(){
+            $('tr[method="' +  method.id + '"] #spinner').hide();
+        })
+    });
+} 
+function refreshShippingMethods() {
+    if(typeof cartData === 'undefined' || cartData == null) {
+        setTimeout(refreshShippingMethods,200);
+        return;
+    }
+    var zip_code = $('[name="cart[shipping_zip]"]').val(); 
+    var shipping_method_tpl = _.template($('#shipping-methods-template').html()); 
+    $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function(data) {
+        var defer_methods = [];
+        var first = true;
+        shipping_methods = data.result;   
+        shipping_methods.forEach(function(method,k) {
+            defer_methods[k]=$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: cartData.subtotal,quantity: cartData.item_count}, function(response) {
+                shipping_methods[k].price = response.result.rate;
+            })
+            first = false;
+        });
 
+        $.when.apply($,defer_methods).then(function() {
+            $('#shipping-method-selection').html(shipping_method_tpl({methods: shipping_methods, current_method: cartData.shipping_method}));
+            getDeliveryEstimates(shipping_methods);               
+            $('[name="shipping_method"]').change(function() {
+                var shipping_method = $('[name="shipping_method"]:checked').val();
+                $.post(acendaBaseUrl + '/api/cart',{
+                    'shipping_method':shipping_method
+                }, 'json')
+                .done(function(data) {
+                    if(typeof updateCartTotals !== 'undefined') {
+                        updateCartTotals($(''),0);                        
+                    }    
+                });
+    
+            });            
+        });
+    });
+}
+$(document).ready(function() {
+    refreshShippingMethods();
+});
 $('#cart_Estimate').click(function(e) {
-    e.preventDefault();
-    estimator();
+   e.preventDefault();
+   getTaxEstimates();   
 });
 
-$('#cart_ClearEstimate').click(function(e) {
-    e.preventDefault();
-    clearEstimated();
-    $('#estimate').hide();
-    $('#form').show();
-});
-function setRateEstimatedShipping(rate){
-    $('#rate-estimate-checkout .val').text(rate);
-    $('#rate-estimate-checkout').show();
-}
-function setTaxEstimated(tax){
-    $('#tax-estimate-checkout .val').text(tax);
-    $('#tax-estimate-checkout').show();
-}
-function setTotalEstimated(total){
-    var estimate_total = $('#estimate-total .val');
-    estimate_total.data("old-value", estimate_total.text());
-    estimate_total.text(total);
-}
-function setTotalBeforeTax(total){
-    $('#total-before-tax .val').text(total);
-    $('#total-before-tax').show();
-}
-function clearEstimated(){
-    $('#rate-estimate-checkout').hide();
-    $('#tax-estimate-checkout').hide();
-    $('#total-before-tax').hide();
-    //Restore total
-    var estimate_total = $('#estimate-total .val');
-    estimate_total.text( estimate_total.data("old-value") );
-}
+
+
+

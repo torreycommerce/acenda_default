@@ -41,7 +41,7 @@
         {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}		
 	{% endif %}
 {% endif %}
-{% if app.request.post.cart.shipping_country is not empty %}
+{% if app.request.post.cart.shipping_method is not empty  or  app.request.post.cart.shipping_country is not empty %}
 	{% set result = api.post('/cart', app.request.post.cart) %}
 {% endif %}
 {% if api.error is not empty  and not error %}
@@ -176,7 +176,10 @@
 {% else %}
 
 <h1>Shopping Cart</h1>
-<div class="card"><div class="card-body">
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="card"><div class="card-body">
 <h2 class="sr-only">Products</h2>
 {{ forms.begin('cart','','post', {class:'form-cart mb-4 divide'}) }}
 {% for id, item in cart.items %}
@@ -184,10 +187,11 @@
 {% set parent = api.get('product/' ~ product.product_id)%}
 
 {% spaceless %}
-<div class="item{% if not loop.last %} divide mb-4 pb-4{% endif %}" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
+<div class="item{% if not loop.last %} divide mb-4 pb-4{% endif %}" data-brand="{{parent.brand}}" data-cat="{{parent.category_id.0}}" data-id="{{product.product_id}}" data-vid="{{product.id}}"{% if product.sku is not empty %} data-sid="{{product.sku}}"{% endif %}>
+    {#<p>dump: {{dump(parent)}}</p>#}
 	<div class="row">
 		<div class="col-md-6">
-			<div class="media media-cart mb-0 mb-3 mb-md-0">
+			<div class="media mb-0 mb-3 mb-md-0">
 				<div class="media-left">
 					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
 				</div>
@@ -197,8 +201,10 @@
     					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
     				</div>#}
     			{% endif %}
-					<a href="{{ app.url ~ '/product/' ~ parent.slug ~ '?variant=' ~ product.id }}"><h3 class="product-name">{{ product.name }}</h3></a>
-					
+					<a href="{{ app.url ~ '/product/' ~ parent.slug ~ '?variant=' ~ product.id }}"><h3 class="product-name mb-0">{{ product.name }}</h3></a>
+					{% if product.sku is not empty %}
+					<div class="fsd1 mb-2 sku">SKU: <span>{{product.sku}}</span></div>
+					{% endif %}
 					{#<div class="availability mb-3">
 						{% if product.has_stock %}
 							In Stock
@@ -223,14 +229,14 @@
 					{% if product.discountable == false %}
                         <div class="alert alert-warning fsd2 mb-2 p-2">This item may not be discountable.</div>
                     {% endif %}
+                    <div class="error alert alert-danger fsd2 mb-2 p-2" style="display:none"></div>
 					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
-					<div class="error alert alert-danger" style="display:none"></div>
 
 				</div>
 			</div>
 		</div>
 
-		<div class="col-md-6 col-lg-5 offset-lg-1">
+		<div class="col-md-6 pl-md-4">
             <label for="quantity-selector-{{id}}">Qty</label>
 			<div class="row quantity">
                 <div class="col-8 cart-indiv">
@@ -275,69 +281,15 @@
 {% endfor %}
 {{ forms.end() }}
 </div></div>
-<div class="row">
-    {% set has_bundle = false %}
-    {% for index, discount in cart.discount_collection.discounts %}
-        {% if discount.type == 'bundle' and discount.affected_items is not empty %}
-            {% set has_bundle = true %}
-        {% endif %}
-    {% endfor %}
-	<div class="col-lg-7"><div class="card"><div class="card-body">
-		<h2>Coupon Code</h2>
-        {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
-        {% if has_bundle %}
-        <div class="mb-3 divide" id="bundles">
-			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
-			<div class="form-group">
-				{% for index, discount in cart.discount_collection.discounts %}
-					{% if discount.type == 'bundle' %}
-						<p><i class="fa fa-caret-square-o-right"></i><span>A few of your items are part of the bundle "{{ discount.model.name }}" that gives you ${{ discount.amount }} off your total cart amount.</span></p>
-					{% endif %}
-				{% endfor %}
-			</div>
-		</div>
-        {% endif %}
+		<div class="card">
 
-        {% set coupreq = 1 %}
-        {% if cart.discount_collection.discounts is not empty %}
-            {% set coupreq = 0 %}
-        {% endif %}
-		<div class="form-group">
-			<label for="cart_coupon_code">Coupon Code</label>
-			<div class="row">
-				<div class="col-6 col-md-8">
-					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:coupreq}) }}
-				</div>
-				<div class="col-6 col-md-4">
-					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
-				</div>
-			</div>
-			<div class="validation">{{ forms.errorlist(form_errors, 'coupon_code') }}</div>
-		</div>
-		{% for id, discount in cart.discount_collection.discounts %}
-			{% if discount.type == 'coupon' %}
-			<div class="discount g">
-				<div class="alert alert-info fsd1">
-					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
-					
-					<p>
-					<b>Coupon: {{ discount.code }}</b>
-					{% if discount.description is not empty %}<br>{% endif %}
-					{{ discount.description }}
-					</p>
-
-				</div>
-			</div>
-			{% endif  %}
-		{% endfor %}
-        {{ forms.end() }}
 		{# Begin shipping estimator #}
         <div id="shipping-estimator">
 			{% include "/cart/_partials/estimator.html.twig" %}
 		</div>
 		{# End shipping estimator #}
-	</div></div></div>
-	<div class="col-lg-5">
+	    </div></div>
+	<div class="col-lg-4">
 		<div class="card"><div class="card-body">
 			<div class="divide pb-3 mb-3">
 				<div class="row estimate-subtotal">
@@ -346,8 +298,8 @@
 						{{ prod.currency(cart.item_subtotal|number_format(2)) }}
 					</div>
 				</div>
-				{% if cart.shipping_rate != null %}
-				<div class="row rate-estimate-checkout">
+
+				<div class="row rate-estimate-checkout" {%if cart.shipping_rate == null %}style="display:none"{% endif %}>
 					<div class="col-7">
 						Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
 					</div>
@@ -355,7 +307,7 @@
 						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
 					</div>
 				</div>
-				{% endif %}
+
 				{% set coupon_discount = 0 %}
 				{% set bundle_discount = 0 %}
 				{% for dsc in cart.discount_collection.discounts %}
@@ -374,27 +326,26 @@
 				</div>
 				
 				{% if bundle_discount > 0 %}
-				<div class="row estimate-bundles">
+				<div class="row estimate-bundles" style="display:none">
 					<div class="col-7">Bundles:</div>
 					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(bundle_discount|number_format(2)) }}
 					</div>
 				</div>
 				{% endif %}
-				{% if cart.tax_rate != null %}
-				<div class="row total-before-tax">
+
+				<div class="row total-before-tax" {% if  cart.tax_rate == 0 or not cart.shipping_rate %}style="display:none"{% endif %}>
 					<div class="col-7">Total Before Tax:</div>
 					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
 					</div>
 				</div>
-				<div class="row tax-estimate-checkout">
+				<div class="row tax-estimate-checkout" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
 					<div class="col-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.tax_rate|number_format(2)) }}
 					</div>
 				</div>
-				{% endif %}
 			</div>
 			<div class="row mb-3 estimate-total totals-total">
 				<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
@@ -424,6 +375,63 @@
 			{% endif %}
 
 		</div></div>
+
+
+    {% set has_bundle = false %}
+    {% for index, discount in cart.discount_collection.discounts %}
+        {% if discount.type == 'bundle' and discount.affected_items is not empty %}
+            {% set has_bundle = true %}
+        {% endif %}
+    {% endfor %}
+		<div class="card"><div class="card-body">    
+        {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
+        {% if has_bundle %}
+        <div class="mb-3 divide" id="bundles">
+			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
+			<div class="form-group">
+				{% for index, discount in cart.discount_collection.discounts %}
+					{% if discount.type == 'bundle' %}
+						<p><i class="fa fa-caret-square-o-right"></i><span>A few of your items are part of the bundle "{{ discount.model.name }}" that gives you ${{ discount.amount }} off your total cart amount.</span></p>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+        {% endif %}
+
+        {% set coupreq = 1 %}
+        {% if cart.discount_collection.discounts is not empty %}
+            {% set coupreq = 0 %}
+        {% endif %}
+		<div class="form-group">
+	{# 		<label for="cart_coupon_code">Coupon Code</label> #}
+			<div class="row">
+				<div class="col-6 col-md-8">
+					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:coupreq}) }}
+				</div>
+				<div class="col-6 col-md-4">
+					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
+				</div>
+			</div>
+			<div class="validation">{{ forms.errorlist(form_errors, 'coupon_code') }}</div>
+		</div>
+		{% for id, discount in cart.discount_collection.discounts %}
+			{% if discount.type == 'coupon' %}
+			<div class="discount g">
+				<div class="alert alert-info fsd1">
+					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
+					
+					<p>
+					<b>Coupon: {{ discount.code }}</b>
+					{% if discount.description is not empty %}<br>{% endif %}
+					{{ discount.description }}
+					</p>
+
+				</div>
+			</div>
+			{% endif  %}
+		{% endfor %}
+        {{ forms.end() }}
+        </div></div>
 	</div>
 </div>
 

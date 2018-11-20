@@ -454,7 +454,7 @@ if ($('.form-region-customer').length) {
 }
 
 
-if ($('.form-estimate').length) {
+if ($('.form-estimatex').length) {
 	$('.form-estimate').cascadingDropdown({
 		selectBoxes: [
 		{
