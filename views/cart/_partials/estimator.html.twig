@@ -37,8 +37,8 @@
 			<% if(method.status=='active') { %>
 			    <tr method="<%= method.id %>">
 			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" carrier="<%= method.carrier_name %>" ><label class="custom-control-label " for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
-			        <td class="estimate-column" style="text-align: center;"><label for="method_<%= method.id %>_input" class="<%= method.carrier_method %>"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
-			        <td class="text-right"><label for="method_<%= method.id %>_input">$<%= method.price %></label></td>
+			        <td class="estimate-column" style="text-align: center; padding-left:2; padding-right:2"><label style=" white-space: nowrap; "for="method_<%= method.id %>_input" class="<%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %> </label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
+			        <td class="text-right"  style="text-align: left; padding-left:2; padding-right:2"><label for="method_<%= method.id %>_input">$<%= method.price %></label></td>
 			    </tr>
 			    <% } %>
 	    <% }) %>

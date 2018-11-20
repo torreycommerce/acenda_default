@@ -36,19 +36,18 @@ function getDeliveryEstimates(shipping_methods) {
     if(!$('[name="cart[shipping_zip]"]').val()) return;
     shipping_methods.forEach(function(method,k) {
         console.log('getting estimate for ' + method.id);
-        $('tr[method="' +  method.id + '"] #spinner').show();
+        $('tr[method="' +  method.id + '"] #spinner').show();   
         $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.carrier_name).done(function(data) {
-            $('tr[method="' +  method.id + '"] #spinner').hide();
             var estimates = data.result;
             $.each(estimates,function(ek,estimate){
                 if(typeof estimate.estimate == 'undefined') return;
-                var estimate_string = 'By ' + moment(estimate.estimate).calendar(null, {
-                    sameDay: '[Today]',
-                    nextDay: '[Tomorrow], MM/DD',
-                    nextWeek: 'dddd, MM/DD',
+                var estimate_string = moment(estimate.estimate).calendar(null, {
+                    sameDay: 'By [Today]',
+                    nextDay: 'By [Tomorrow], MM/DD',
+                    nextWeek: 'By dddd, MM/DD',
                     lastDay: '[Yesterday], MM/DD',
                     lastWeek: '[Last] dddd, MM/DD',
-                    sameElse: 'dddd, MM/DD/YYYY'
+                    sameElse: 'By MM/DD/YYYY'
                 });
                 var elem = $('label.' +ek).html(estimate_string);
             });
