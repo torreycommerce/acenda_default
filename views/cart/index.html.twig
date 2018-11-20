@@ -31,6 +31,7 @@
 	{% set cart  = api.get('/cart') %}
 	{% set coupon_id = app.request.post.cart.action|split('/')|last %}
 	{% set result = api.delete('/cart/discount/' ~ coupon_id) %}
+        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}	
 {% endif %}
 {# Add coupon #}
 {% if app.request.post.cart.coupon_code is not empty %}
