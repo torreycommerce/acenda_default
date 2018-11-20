@@ -37,6 +37,8 @@
 	{% set result = api.post('/cart/discount', {"type":"coupon", "code":app.request.post.cart.coupon_code}) %}
 	{% if api.error %}
 		{% set error="The coupon code you entered is invalid." %}
+        {% else %}
+        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}		
 	{% endif %}
 {% endif %}
 {% if app.request.post.cart.shipping_country is not empty %}
