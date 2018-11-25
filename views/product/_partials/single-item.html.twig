@@ -96,12 +96,13 @@
 	    <div class="mb-3" id="product-intro">
 	        {% if product.tags is not empty %}
 	        <div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
+				{% set tagd = tag|title|replace({'-':' '}) %}
 				{% if tag == 'new' %}
-					<span class="badge badge-success">{{ tag|capitalize }}</span>
+					<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
 				{% elseif tag == 'sale' %}
-					<span class="badge badge-danger">{{ tag|capitalize }}</span>
+					<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
 				{% else %}
-					<span class="badge badge-primary">{{ tag|capitalize }}</span>
+					<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
 				{% endif %}
 			{% endspaceless %}{% endfor %}</div>
 			{% endif %}

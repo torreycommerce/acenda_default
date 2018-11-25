@@ -57,12 +57,13 @@
 					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid isd" {% if dataRot %}data-rot="{{dataRot}}"{% endif %}width="250" height="250" alt="">
 					<div class="badges">
 					{% for tag in product.tags %}
+                        {% set tagd = tag|title|replace({'-':' '}) %}
 						{% if tag == 'new' %}
-							<span class="badge badge-success">{{ tag|capitalize }}</span>
+							<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
 						{% elseif tag == 'sale' %}
-							<span class="badge badge-danger">{{ tag|capitalize }}</span>
+							<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
 						{% else %}
-							<span class="badge badge-primary">{{ tag|capitalize }}</span>
+							<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
 						{% endif %}
 					{% endfor %}
 					</div>
