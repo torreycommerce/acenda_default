@@ -98,7 +98,8 @@ var checkout = checkout || {};
 	            $('#'+'billing'+ '-address-form .hide-billing').hide();
 	            $('#'+'shipping'+ '-address-form .hide-shipping').hide();
 	        }
-			this.setupBrainTree();
+			this.setup
+			();
 			this.waitForEverything();
 		},
 		findStartStep: function() {
@@ -317,7 +318,10 @@ var checkout = checkout || {};
 				  }
 		        }, function (createErr, instance) {
 		            that.bt_dropin_instance = instance;
-				    that.bt_device_data = null;
+		            that.bt_device_data = null;
+			    if(createErr) {
+			  	  console.log('braintree error output',createErr);
+			    }				
 		        });
 		    });
 
