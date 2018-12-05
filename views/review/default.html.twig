@@ -18,8 +18,8 @@
 	{% do app.redirect('/') %}
 {% endif %}
 
-{% if address_result.0 is defined %}
-	{% set address = address_result.0 %}
+{% if address_result|first is not empty %}
+    {% set address = address_result|first %}
 {% endif %}
 
 {% if not app.user.isLoggedIn() %}
