@@ -1,5 +1,7 @@
 {% set brands = api.get("/catalog",{attributes:"brand",format:"attributes"}).brand %}
 
+<h1>Brands</h1>
+
 {% block page_content %}
 <div class="row text-center" id="brands">
 	{% set last_letter = "" %}

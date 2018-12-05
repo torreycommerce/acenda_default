@@ -3,6 +3,7 @@
 {% extends "/_layouts/base.html.twig" %}
 {% set title = 'Write a Review' %}
 {% block title %}{{title}}{% endblock %}
+{% block meta_more %}<meta name="robots" content="noindex">{% endblock %}
 {% set product_id = app.request.path|split('/')|last %}
 {% if not product_id or product_id is not integer %}
 	{% do app.redirect('/',{'error':'The review you requested is not available.'}) %}
