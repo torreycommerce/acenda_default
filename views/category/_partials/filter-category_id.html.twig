@@ -1,9 +1,9 @@
 {% set category = api.get('/category',{'query':{'id':{'$in':filter_set|keys}}})|group_by('id') %}
-
+{% set open_filter = app.request.get.f[safename] %}
 <button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     <span>Category</span><i class="fa fa-angle-down"></i>
 </button>
-<div id="filter-{{ safename }}-items" class="collapse">
+<div id="filter-{{ safename }}-items" class="collapse{% if open_filter is not empty %} show{% endif %}">
     <div class="card"><div class="card-body">
         <ul class="list-unstyled">                    
             {% for item,count in filter_set %}
@@ -32,9 +32,11 @@
         {% set link = link + {(key):i} %}
     {% endfor %}
     {% set link = filter_request|merge({(name):link}) %}
-    <div class="filter-clear">
-    <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>{{category[item][0].name}}</span></a>
-    </div>
+	{% if category[item][0] is not empty %}
+	<div class="filter-clear">
+		<a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>{{category[item][0].name}}</span></a>
+	</div>
+	{% endif %}
 {% endfor %}
     </div></div>
 </div>
