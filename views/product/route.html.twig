@@ -42,7 +42,7 @@
 {% elseif action == 'wishlist' %}
     {# Check for default wishlist, otherwise add to wishlist with specified id #}
     {% if id == 0 %}
-        {% set wishlist = api.get('/wishlist', {query:{"default":true, "customer_id":app.user.id}}).0 %}
+        {% set wishlist = api.get('/wishlist', {query:{"default":true, "customer_id":app.user.id}}) | first%}
         {% set redirect = 'wishlist' %}
     {% else %}
         {% set wishlist = api.get('/wishlist/' ~ id) %}
@@ -69,7 +69,7 @@
     {% endfor %}
 {% elseif action == 'registry' %}
     {% if id == 0 %}
-        {% set registry = api.get('/registry', {query:{"default":true, "customer_id":app.user.id}}).0 %}
+        {% set registry = api.get('/registry', {query:{"default":true, "customer_id":app.user.id}}) | first %}
         {% set redirect = 'registry' %}
     {% else %}
         {% set registry = api.get('/registry/' ~ id) %}
