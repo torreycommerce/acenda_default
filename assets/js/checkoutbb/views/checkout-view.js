@@ -252,18 +252,24 @@ var checkout = checkout || {};
 					$('#billing-state-select').hide();
 					$('#billing-state-text').show();
 					$('#billing-state-label').prop('for','billing-state-text');
-					$('#billing-state-text').parsley('addConstraint', {
-	                    required: true
-	                });
-					$('#billing-state-select').parsley('removeConstraint','required');
+					if(typeof $('#billing-state-text').parsley !== 'undefined') {
+						$('#billing-state-text').parsley('addConstraint', {
+		                    required: true
+		                });
+
+						$('#billing-state-select').parsley('removeConstraint','required');
+
+					}					
 				} else {
 					$('#billing-state-select').show();
 					$('#billing-state-text').hide();
 					$('#billing-state-label').prop('for','billing-state-select');
-					$('#billing-state-text').parsley('removeConstraint', 'required');
-					$('#billing-state-select').parsley('addConstraint', {
-	                    required: true
-	                });
+					if(typeof $('#billing-state-text').parsley !== 'undefined') {					
+						$('#billing-state-text').parsley('removeConstraint', 'required');
+						$('#billing-state-select').parsley('addConstraint', {
+		                    required: true
+		                });
+					}
 
 				}
 			}
@@ -572,7 +578,35 @@ var checkout = checkout || {};
 		                $('#shipping-methods label .d-none').each(function() {
 		                	$(this).parents('label').find('.val').text($(this).text());
 		                });
+		                setTimeout(function() {
+					        console.log('getting estimate for ' + method.id);
+					        console.log(method);
+					        $('tr[method="' +  method.id + '"] #spinner').show();  
+					        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.get('carrier_name')).done(function(data) {
+					            var estimates = data.result;
+					            $.each(estimates,function(ek,estimate){
+					                if(typeof estimate.estimate == 'undefined') return;
+					                var estimate_string = moment(estimate.estimate).calendar(null, {
+					                    sameDay: 'By [Today]',
+					                    nextDay: 'By [Tomorrow], MM/DD',
+					                    nextWeek: 'By dddd, MM/DD',
+					                    lastDay: '[Yesterday], MM/DD',
+					                    lastWeek: '[Last] dddd, MM/DD',
+					                    sameElse: 'By MM/DD/YYYY'
+					                });
+					                var elem = $('label.' +ek).html(estimate_string);
+					            });
+					        }).always(function(){
+					        	console.log('got estimate for' +method.id);
+					            $('tr[method="' +  method.id + '"] #spinner').hide();
+					        });
+					    },100);
+
+
 		        	})
+
+
+
 		            first = false;
 		        });
 				$.when.apply($,defer_methods).then(function() {

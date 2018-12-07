@@ -250,9 +250,9 @@
 	<tbody>
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
-			    <tr>
+			    <tr method="<%= method.id %>">
 			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
-			        <td><label for="method_<%= method.id %>_input"><%= method.bottom_days_range %> - <%= method.top_days_range %> days</label></td>
+			        <td><label for="method_<%= method.id %>_input" class="<%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %> </label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
 			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
 			    </tr>
 			    <% } %>
@@ -266,6 +266,7 @@
 
 {% block js %}
     {{ app.asset.js(app.url_asset ~ '/assets/js/sticky-kit.min.js') }}	
+	{{ app.asset.js(app.url_asset ~ '/assets/js/moment-with-locales.min.js') }}    
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/customer.js') }}	        
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/order.js') }}	
     {{ app.asset.js(app.url_asset ~ '/assets/js/checkoutbb/models/product.js') }}

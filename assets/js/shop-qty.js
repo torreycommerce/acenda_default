@@ -1,13 +1,21 @@
 // Updates the subtotal and current item total.
+var cartData = null;
 function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
 	.always(function(e) {
 	})
-	.done(function(data) {
+	.done(function(data) {	
+		var dataQty = 0.0;		
+		if(typeof data.result.items[cartItemId] !== 'undefined') {
+			dataQty = data.result.items[cartItemId].quantity;	
+		}
+
 		var dataQty = data.result.items[cartItemId].quantity;
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();
 		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
+
+		cartData = data.result;
 
 		amount = parseFloat(priceElement * dataQty).toFixed(2);
 		var savings = parseFloat( ( v2Data.find('.cart-indiv .price-compare .val').html() - priceElement ) * dataQty).toFixed(2);
@@ -83,6 +91,23 @@ function updateCartTotals(qtyField, cartItemId) {
 		if(typeof data.result.shipping_rate == 'undefined' ||  !data.result.shipping_rate  ) {
 			data.result.shipping_rate = 0.00;
 		}
+		if(data.result.shipping_rate!='') {
+			$('.rate-estimate-checkout').show();
+		} else {
+			$('.rate-estimate-checkout').hide();
+		}
+		if(data.result.tax_rate!=0 && data.result.shipping_rate!='') {
+			$('.total-before-tax').show();
+		} else {
+			$('.total-before-tax').hide();		
+		}
+		if(data.result.tax_rate != 0) {
+			$('.tax-estimate-checkout').show();			
+		} else {
+
+			$('.tax-estimate-checkout').hide();				
+		}
+
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
 		$('.tax-estimate-checkout .val').text(data.result.tax_rate);
 		$('.estimate-total .val').text(data.result.total);
@@ -283,4 +308,8 @@ $('.btn-remove-all').click(function(e) {
 		
 	}
 });
+
+$(document).ready(function() {
+   updateCartTotals($(''),0);
+})
 
