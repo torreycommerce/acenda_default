@@ -98,8 +98,7 @@ var checkout = checkout || {};
 	            $('#'+'billing'+ '-address-form .hide-billing').hide();
 	            $('#'+'shipping'+ '-address-form .hide-shipping').hide();
 	        }
-			this.setup
-			();
+			this.setupBrainTree();
 			this.waitForEverything();
 		},
 		findStartStep: function() {

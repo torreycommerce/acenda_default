@@ -16,7 +16,7 @@
     <p>Please visit our new <a href="{{ app.url }}">homepage.</a></p>
     {% if app.error.code != 404 %}
         <h2>Errmerhgerd <small>A undiscovered feature was discovered</small></h2>
-        {{app.error.message}}<br /><br />
+        {{app.error.message}}  {{app.error.line}}  {{app.error.file}}<br /><br />
         <p>While rendering <b>{{app.error.view}}</b></p>
 {{ lonelyform.endcard() }}
 {{ lonelyform.end() }}
