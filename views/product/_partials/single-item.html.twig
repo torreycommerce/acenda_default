@@ -1,7 +1,7 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
-<div id="singleProduct" class="{% if product.videos is not empty %}has-video{% endif %} row">
+<div class="divide pb-4 mb-4 {% if product.videos is not empty %}has-video{% endif %} prodpage" id="singleProduct">
+<div class="row">
 
-{# set variation = product.variant[0] #}
 {% set startColor = app.request.get.color %}
 {% set startVar = app.request.get.variant %}
 {% if startColor is not empty %}
@@ -111,7 +111,7 @@
     			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}">{{product.brand}}</a>
     		</div>
     		{% endif %}
-    		<h1 class="product-name">{{product.name}}</h1>
+    		<h1 class="product-name mb-2">{{product.name}}</h1>
     		{% spaceless %}
     		{% set review_score = reviews|average('score') %}
     		{% if review_score > 0 %}
@@ -130,47 +130,15 @@
 	
 		<div id="product-details">
 			<div class="mb-3 variations" data-id="{{product.id}}">
-				<div class="active variation {% if variation.has_stock == false %}variation-oos{% endif %}" data-vid="{{variation.id}}">
+			{% for vind in product.variant %}
+				<div class="variation{% if vind.id == variation.id %} active{% endif %}{% if vind.has_stock == false %} variation-oos{% endif %}" data-vid="{{vind.id}}">
     				{% set needsku = product.variant|values_in('sku') %}
     				{% if needsku[0] is not empty %}
-    					<div class="sku">Item: <span>{{variation.sku}}</span></div>
+    					<div class="sku">Item: <span>{{vind.sku}}</span></div>
     				{% endif %}
-    				{% set needprices = product.variant|max('save_percent') %}
-    				
-                    {% set priceclass = "" %}
-                    {% if variation.regular_price is not empty %}
-        		        {% set shownprice = variation.regular_price %}
-        		        {% if needprices|length > 0 %}
-        		            {% if (variation.compare_price - variation.price) > 1 %}
-        		                {% set shownsaveprice = (variation.compare_price - shownprice)|number_format(0) %}
-        		                {% set shownsavepercent = (1 - (shownprice / variation.compare_price)|number_format(2)) * 100 %}
-                            {% endif %}
-                        {% endif %}
-        		        {% set priceclass = " price-special" %}
-        		        {% set usespecial = 1 %}
-        		    {% elseif variation.price is not empty %}
-        		        
-            		    {% set shownprice = variation.price %}
-            		    {% set shownsaveprice = variation.save_price %}
-                        {% set shownsavepercent = variation.save_percent %}
-        		    {% endif %}
-        		    {% spaceless %}
-    					<div class="pricing g mb-3">
-    						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
-    				
-    				{% if needprices|length > 0 %}
-    					{% if (variation.compare_price - variation.price) > 1 %}
-    						<ul class="list-inline"><li class="price-compare">{{ prod.currency(variation.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
-    					{% else %}
-    						<ul class="list-inline"><li class="price-compare" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
-    					{% endif %}
-    				{% endif %}
-    					</div>
-					{% endspaceless %}	
-    				{% set needstockmsg = product.variant|find({'has_stock':false}) %}
-    				<div class="stock{% if needstockmsg|length == 0 %} stock-all-in-stock{% endif %} input-group-sm">
-    					{% if variation.has_stock == false %}
-							{% if variation.enable_instockemail %}
+					<div class="stock input-group-sm">
+    					{% if vind.has_stock == false %}
+							{% if vind.enable_instockemail %}
 								<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>
 							{% else %}
                                 <div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>
@@ -179,7 +147,41 @@
     					    <div class="input-group-prepend"><div class="dib input-group-text text-success bg-white border-white px-0">In Stock</div></div>
     					{% endif %}
     				</div>
+
+    				{% set needprices = product.variant|max('save_percent') %}
+
+                    {% set priceclass = "" %}
+                    {% if vind.regular_price is not empty %}
+        		        {% set shownprice = vind.regular_price %}
+        		        {% if needprices|length > 0 %}
+        		            {% if (vind.compare_price - vind.price) > 1 %}
+        		                {% set shownsaveprice = (vind.compare_price - shownprice)|number_format(0) %}
+        		                {% set shownsavepercent = (1 - (shownprice / vind.compare_price)|number_format(2)) * 100 %}
+                            {% endif %}
+                        {% endif %}
+        		        {% set priceclass = " price-special" %}
+        		        {% set usespecial = 1 %}
+        		    {% elseif vind.price is not empty %}
+        		        {% set usespecial = 0 %}
+            		    {% set shownprice = vind.price %}
+            		    {% set shownsaveprice = vind.save_price %}
+                        {% set shownsavepercent = vind.save_percent %}
+        		    {% endif %}
+        		    {% spaceless %}
+    					<div class="pricing g">
+    						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
+    				
+    				{% if needprices|length > 0 %}
+    					{% if (vind.compare_price - vind.price) > 1 %}
+    						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
+    					{% else %}
+    						<ul class="list-inline"><li class="price-compare" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
+    					{% endif %}
+    				{% endif %}
+    					</div>
+					{% endspaceless %}	
 				</div>
+			{% endfor %}
 			</div>
 			{% spaceless %}
 			<div class="variation-selector-{{product.id}}">
@@ -275,6 +277,12 @@
     {% include "/product/_partials/email-in-stock.html.twig" %}
 
 </div>
+</div>
+
+<div id="topsellers">
+	{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
+</div>
+
 <script type="application/ld+json">
 {
     "@context": "http://schema.org/",

@@ -341,70 +341,8 @@ function VariantsManager (product, img, isCollection) {
 		//Set variant description element on teh page of the selected variant
 		if(filteredVariants.length == 1){
 			var desired_id = filteredVariants[0].id;
-			//console.log('des pos: '+desired_id);
-			if (!$('#product-details .variation[data-vid='+desired_id+']').length && !$('.piece-'+this.product_id+' .variation[data-vid='+desired_id+']').length) {
-				//
-				var extCSS = "#product-details";
-				if(this.isCollection){
-					var extCSS = ".piece-"+this.product_id;
-				}
-				var vHTML = "";
-				//
-				vHTML = $(extCSS+' .variations[data-id='+this.product_id+'] .variation:first-child').clone();
-				$(vHTML).attr('data-vid',desired_id);
-				if (filteredVariants[0].sku != null) {
-					$(vHTML).find('.sku span').html(filteredVariants[0].sku);
-				} else {
-					$(vHTML).find('.sku span').html('<br>');
-				}
-				/* */
-				var shownsaveprice = filteredVariants[0].save_price;
-				var shownsavepercent = filteredVariants[0].save_percent;
-				var priceclass = "";
-				if (filteredVariants[0].regular_price != null) {
-					$(vHTML).find('.price').addClass('price-special');
-					var shownprice = filteredVariants[0].regular_price;
-					var shownsaveprice = (filteredVariants[0].compare_price - shownprice).toFixed(0);
-					var shownsavepercent = (parseFloat(1 - (shownprice / filteredVariants[0].compare_price)) * 100).toFixed(0);
-					var priceclass = " price-special";
-					if (!$(vHTML).find('.price .special').length) {
-						$(vHTML).find('.price').append('<span class="special">Lower Price in Cart</span>');
-					}
-				} else {
-					$(vHTML).find('.price').removeClass('price-special');
-					$(vHTML).find('.price .special').remove();
-					var shownprice = filteredVariants[0].price;
-				}
-				$(vHTML).find('.price .val').html(parseFloat(shownprice).toFixed(2));
-				/* */
-				if ((filteredVariants[0].compare_price - shownprice) > 1) {
-					if (!$(vHTML).find('.pricing ul .val').length) {
-						$(vHTML).find('.pricing .price-compare').html($(vHTML).find('.pricing .price-compare').attr('data-c')).removeAttr('data-c');
-						$(vHTML).find('.pricing .percent').html($(vHTML).find('.pricing .percent').attr('data-c')).removeAttr('data-c');	
-					}
-					$(vHTML).find('.pricing .price-compare .val').text(filteredVariants[0].compare_price.toFixed(2));
-					$(vHTML).find('.pricing .percent .val').text(parseFloat(shownsaveprice).toFixed(0));
-					$(vHTML).find('.pricing .percent .percs .val').text(parseFloat(shownsavepercent));
-				} else {
-					$(vHTML).find('.pricing ul').html('<li>&nbsp;</li>');
-				}
-				if (filteredVariants[0].has_stock == false) {
-					if (filteredVariants[0].enable_instockemail) {
-						$(vHTML).find('.stock').html('<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>');
-					} else {
-						$(vHTML).find('.stock').html('<div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>');
-					}
-				} else {
-					$(vHTML).find('.stock').html('<div class="input-group-prepend"><div class="dib input-group-text text-success bg-white border-white px-0">In Stock</div></div>');
-				}
-				//
-				$('#product-details .variations').append(vHTML);
-				$('.piece-'+this.product_id+' .variations').append(vHTML);
-			}
 
 			var quantityInput = "#variant-input-"+this.product_id; //Gets quatity input css selector
-			//console.log('fVs:');
-			//console.log(filteredVariants[0]);
 			var extCSS = "#singleProduct";
 			if(this.isCollection){
 				var extCSS = ".piece-"+this.product_id;
@@ -415,9 +353,6 @@ function VariantsManager (product, img, isCollection) {
 			//
 			this.updateImagesAndVideo(filteredVariants[0]);
 			this.updateQuantitySku(filteredVariants[0]);
-			//
-			
-			//$(extCSS+' .variation[data-vid='+desired_id+']').addClass('active');
 			//
 			//Reset quantity inputs
 			if(this.isCollection){
@@ -442,22 +377,14 @@ function VariantsManager (product, img, isCollection) {
 			//
 			//
 			if ($('#singleProduct').length) {
-				//newdesire = getQueryParams(document.location.search);
-				//if (newdesire.variant) {
-					//console.log('change URL v9: '+filteredVariants[0].id);
-					if (inorganic !== 1) {
-						//console.log('organic')
-						//updateUrlParameter('variant',filteredVariants[0].id);
-						updateQueryStringParam('variant',filteredVariants[0].id);
-					} else {
-						//console.log('inorganic')
-						//$('select.vopt').trigger('change');
-					}
-				//} else {
-					//console.log('attempt to blank the variant URL v4');
-					//updateQueryStringParam('variant','');
-					//updateQueryStringParam('variant',filteredVariants[0].id);
-				//}
+				//console.log('change URL v9: '+filteredVariants[0].id);
+				if (inorganic !== 1) {
+					//console.log('organic')
+					updateQueryStringParam('variant',filteredVariants[0].id);
+				} else {
+					//console.log('inorganic')
+					//$('select.vopt').trigger('change');
+				}
 			}
 		}else{ //If no variant exist for teh currently selected chips
 			//Disable the add to cart buttons accordingly
@@ -469,8 +396,6 @@ function VariantsManager (product, img, isCollection) {
 		Disables or enables add to cart, registry and wishlist buttons
 	*/
 	this.disableAddToCart = function(boolean){
-		console.log('f disabledAddToCart: '+boolean);
-		
 		//console.log('dATC: id:'+this.product_id+' bool: '+boolean)
 		var extCSS = "#singleProduct";
 		if(this.isCollection){
