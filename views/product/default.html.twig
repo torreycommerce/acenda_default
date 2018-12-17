@@ -18,7 +18,7 @@
                 {% endif %}
 
             {% else %}
-                {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.'}) %}
+                {% set error = 'Sorry, the product you requested is unavailable.' %}
             {% endif %}
         {% endif %}
     {% endif %}
@@ -85,13 +85,18 @@
 {% endblock %}
 
 {% block content %}
-    {% if item.product|length == 1%}
-        {% set product = item.product|first %}
-        {% include "/product/_partials/single-item.html.twig" %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+        {% do app.HTTPCode(404) %}   
     {% else %}
-        {% set product = item %}
-        {% include "/product/_partials/collection.html.twig" %}
-    {% endif %}
+        {% if item.product|length == 1%}
+            {% set product = item.product|first %}
+            {% include "/product/_partials/single-item.html.twig" %}
+        {% else %}
+            {% set product = item %}
+            {% include "/product/_partials/collection.html.twig" %}
+        {% endif %}
+     {% endif %}
 {% endblock %}
 
 {% block js %}
