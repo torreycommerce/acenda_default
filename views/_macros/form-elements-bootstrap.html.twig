@@ -102,7 +102,7 @@
 {% macro errorlist(list, name) %}
 {% spaceless %}
 {% if list[name] is defined %}
-<ul class="bg-danger">
+<ul class="bg-danger fsd1 py-2 text-white">
     {% for error in list[name] %}
     <li>{{error}}</li>
     {% endfor %}
