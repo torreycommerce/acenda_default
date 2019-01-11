@@ -179,7 +179,7 @@
 <h1>Shopping Cart</h1>
 
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-lg-8">
 		<div class="card"><div class="card-body">
 <h2 class="sr-only">Products</h2>
 {{ forms.begin('cart','','post', {class:'form-cart mb-4 divide'}) }}
@@ -406,10 +406,10 @@
 		<div class="form-group">
 	{# 		<label for="cart_coupon_code">Coupon Code</label> #}
 			<div class="row">
-				<div class="col-6 col-md-8">
+				<div class="col-6">
 					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:coupreq}) }}
 				</div>
-				<div class="col-6 col-md-4">
+				<div class="col-6">
 					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
 				</div>
 			</div>

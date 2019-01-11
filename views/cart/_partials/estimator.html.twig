@@ -1,28 +1,25 @@
-
-<div class="card-header">
-<h2>Shipping and Tax</h2>
-</div>
 <div class="card-body">
+<h2>Shipping and Tax</h2>
 
 <div id="estimator-error"></div>
 
 {{ forms.begin('cart','','post',{ class:'form-estimate needs-validation' }) }}
 	<div class="row">
-	  <div class="col-md-4">	
-		<div class="form-group">
-			<div class="row">
-				<div class="col-md-12">
+	  <div class="col-lg-5 mb-3 mb-lg-0">	
+	    <label class="sr-only" for="cart_zip_code">Shipping Zip Code</label>
+		<div class="row">
+			<div class="col-6">
+				{{ forms.hidden('cart[shipping_country]', 'US') }}			    
+				{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip, required:true}) }}
+			</div>
+			<div class="col-6">
+				{{ forms.submit('action', 'submit', 'Estimate', { class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
+			</div>
 
-				    <label class="sr-only" for="cart_zip_code">Shipping Zip Code</label>
-					{{ forms.hidden('cart[shipping_country]', 'US') }}			    
-					{{ forms.text('cart[shipping_zip]', cart.shipping_zip, {style: 'vertical-align: middle;  display:inline-block; width: 6em', placeholder: "Zip Code", class:'form-control', id:'cart_zip_code', 'data-value':cart.shipping_zip, required:true}) }}
-					{{ forms.submit('action', 'submit', 'Estimate', { style: 'vertical-align: middle; display: inline-block; width: 6em;' ,class:'btn btn-default btn-block', id: 'cart_Estimate'})}}
-
-				</div>
 			</div>
 		</div>
-      </div>
-      <div class="col-md-8" id="shipping-method-selection"> 	
+      
+      <div class="col-lg-7 g" id="shipping-method-selection"> 	
 
       </div>
 	</div>
