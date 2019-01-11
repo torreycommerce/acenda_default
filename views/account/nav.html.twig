@@ -44,8 +44,8 @@
 <div class="bgg yta-bodies">
 <div class="yta-body bgg frame" data-depth="0">
 <ul>
-	<li>
 	{% if app.user.id %}
+	<li>
 		<a href="{{ app.url }}/account"><i class="fa fa-user"></i><span>My Account</span></a><button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">Account Subcategories</i></i></button>
 		<ul>
 			<li><a href="{{ app.url }}/account/notifications">Notifications</a></li>
@@ -58,10 +58,20 @@
 			<li><a href="{{ app.url }}/account/account-settings">Settings</a></li>
 			<li><a href="{{ app.url }}/account/logout">Logout</a></li>
 		</ul>
-	{% else %}
-		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i><span>Log In / Sign Up</span></a>
-	{% endif %}
 	</li>
+	{% else %}
+    
+    <li>
+		<a href="{{app.url}}/account/login"><i class="fa fa-user"></i><span>Log In</span></a>
+	</li>
+	<li>
+		<a href="{{app.url}}/account/create"><i class="fa fa-plus"></i><span>Create Account</span></a>
+	</li>
+	<li>
+		<a href="{{app.url}}/account/reset-password"><i class="fa fa-question-circle"></i><span>Forgot password?</span></a>
+	</li>
+	{% endif %}
+	
 
 {% set id = 0 %}
 {% for main_category,items in categories %}
