@@ -124,7 +124,12 @@
             {% elseif field.validator == 'in' %}
             <div class="form-group {{ field.required ? 'fgq' : ''}}">
                 <label for="{{ 'additionalfields'~field.name }}">{{ field.name|replace({'_':' '})|title }}</label>
-                {{ forms.select('create['~field.name~']',create[field.name], field.range|split(','),{class:'form-control parsley-validated', id:'additionalfields'~field.name, placeholder:field.name|replace({'_':' '})|title, required:field.required}) }}
+                {% set in_values = field.range|split(',') %}
+                {% set in_kv = {} %}
+                {% for value in in_values %}
+                    {% set in_kv = in_kv|merge({(value):(value)}) %}
+                {% endfor %}
+                {{ forms.select('create['~field.name~']',create[field.name], in_kv,{class:'form-control parsley-validated', id:'additionalfields'~field.name, placeholder:field.name|replace({'_':' '})|title, required:field.required}) }}
                 <div class="validation">{{ forms.errorlist(form_errors, field.name) }}</div>
             </div>
             {% elseif field.validator == 'date' %}
@@ -142,7 +147,7 @@
             {% endif %}
         </div>
     </div>
-        
+
     {% endfor %}
 </fieldset>
 {% endif %}
