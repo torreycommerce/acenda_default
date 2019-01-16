@@ -48,7 +48,9 @@
         </div>  
     {% endif %}
 
-    <fieldset>    
+    <fieldset>
+        <legend class="sr-only">Account Log In</legend>
+        {{ forms.reqfieldlang() }}
         <div class="form-group fgq">
             <label for="login-email">Email Address</label>
             {{ forms.email('login[email]','', {class:'form-control parsley-validated', id:'login-email', required:true, placeholder: "Email Address"}) }}

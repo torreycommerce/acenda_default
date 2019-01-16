@@ -40,6 +40,7 @@
 {{ forms.begin('create','','post', {class:''}) }}
 <fieldset>
     <legend class="sr-only">Login Information</legend>
+    {{ forms.reqfieldlang() }}
     <div class="form-group fgq">
         <label for="email">Email Address</label>
         {{ forms.email('create[email]',create.email, {class:'form-control parsley-validated', id:'email', placeholder:"Email Address", required:true}) }}
@@ -147,7 +148,7 @@
             {% endif %}
         </div>
     </div>
-
+        
     {% endfor %}
 </fieldset>
 {% endif %}

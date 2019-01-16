@@ -5,6 +5,7 @@
 {% endfor %}
 	<fieldset>
 	    <legend class="sr-only">Wish List Settings</legend>
+	    {{ forms.reqfieldlang() }}
 		<div class="form-group fgq">
 			<label for="name">Wish List Name</label>
 			{% if address_select is empty %}

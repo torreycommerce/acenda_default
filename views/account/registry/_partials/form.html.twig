@@ -1,6 +1,7 @@
 {{ forms.begin('registry','','post', {class:'form-horizontal'}) }}
 <fieldset class="divide mb-3">
     <legend class="sr-only">Registry Settings</legend>
+    {{ forms.reqfieldlang() }}
     <div class="form-group fgq">
         <label for="rrname">Registry Name</label>
         {{ forms.text('registry[name]',registry.name, {class:'form-control parsley-validated', id:'rrname', placeholder:"Registry Name", required:true}) }}
