@@ -578,8 +578,6 @@ var checkout = checkout || {};
 		                	$(this).parents('label').find('.val').text($(this).text());
 		                });
 		                setTimeout(function() {
-					        console.log('getting estimate for ' + method.id);
-					        console.log(method);
 					        $('tr[method="' +  method.id + '"] #spinner').show();  
 					        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.get('carrier_name')).done(function(data) {
 					            var estimates = data.result;
@@ -596,7 +594,6 @@ var checkout = checkout || {};
 					                var elem = $('label.' +ek).html(estimate_string);
 					            });
 					        }).always(function(){
-					        	console.log('got estimate for' +method.id);
 					            $('tr[method="' +  method.id + '"] #spinner').hide();
 					        });
 					    },100);
@@ -1195,8 +1192,21 @@ var checkout = checkout || {};
 						$('.checkoutapp #summary-panel').fadeIn();
 						that.api_unique_token = null;
                         $('#review-panel #review-text').hide();
-                        console.log(response);
-						$('#review-panel #error-text').html('<p>Unfortunately we were unable to complete your order. Please review your address and bank information to ensure it is correct. If it is correct, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.</p>');
+						$('#review-panel')[0].scrollIntoView({behavior: 'smooth'});                        
+						$('#review-panel #error-text').html('<p>Unfortunately we were unable to complete your order.<br/>Please review the errors below and correct any mistakes in the steps above. <br/>If you are still unable to checkout, please <a href="' + acendaBaseUrl + '/contact" target="_blank">contact us</a> for assistance.</p>');
+						if(typeof response.error == 'string') {
+						    $('#review-panel #error-text').append('<ul><li>'+response.error +'</li></uL>');					
+						} else if (typeof response.error=='object') {
+							var elem = '<ul>';
+							for (var property in response.error) {
+							    if (response.error.hasOwnProperty(property)) {
+						        	elem += '<li>'+property.replace('_',' ').toLowerCase().replace(/^(.)|\s(.)/g, ($1) => $1.toUpperCase()) + ' - '+response.error[property]+'</li>';
+							    }
+							}
+							elem += '</ul>';
+
+							$('#review-panel #error-text').append(elem);
+						}					
 	                }
 				});
 

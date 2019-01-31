@@ -222,17 +222,17 @@
 
 
 
-{% macro getcur() %}USD{% endmacro %} {# EUR #}
+{% macro getcur() %}{{ app.params.site.currency | upper }}{% endmacro %} {# EUR #}
 
-{% macro getcurs() %}${% endmacro %} {# € #}
+{% macro getcurs() %}{{ app.currency.symbol(app.params.site.currency) }}{% endmacro %} {# € #}
 
 {% macro currency(val,ip,add) %}
 {#	price,
 	optional bool for if itemprop html is desired,
 	optional string for itemprop value other than just "price"
 #}
-	{% set cur = "USD" %} {# EUR #}
-	{% set curs = "$" %} {# € #}
+	{% set cur = app.params.site.currency | upper %} {# EUR #}
+	{% set curs = app.currency.symbol(app.params.site.currency) %} {# € #}
 	{% set show_price = api.get('/customer/permissions').show_prices %}
 
 	{% set add = add %}

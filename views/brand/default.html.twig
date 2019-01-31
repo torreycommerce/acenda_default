@@ -3,6 +3,11 @@
 {% set default_attributes = "category_id,color,type,gender,size,price,review_score" %}
 {% set name = app.request.path %}
 
+{% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
+{% if response and response[0].destination %}
+   {% do app.redirect(response[0].destination ,response[0].code) %}
+{% endif %}
+
 {% if name == "" %}
     {% set title = 'Shop By Brand' %}
     {% set dync = 'shop-by-brand' %}
