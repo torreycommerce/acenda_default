@@ -2,20 +2,56 @@
 {% set payment_platform = api.get('order/platform') %}
 
 <form id="payment-form"  novalidate parsley-validate>
+<style>
+.has-error {
+	border-color: red;
+}
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
 
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+</style>
 {% if payment_platform.platform == 'Braintree' %}
 	<h3>Payment Method</h3>	
 	{{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.12.0/js/dropin.js',null,{'data-cfasync':'false'}) }}
 	 <input id="nonce" name="payment_method_nonce" type="hidden" />
 	    <div id="dropin-container"></div>
 
+{% elseif payment_platform.platform == 'Stripe'%}
+  <div class="row"> 
+  	<div class="col-md-12">
+	    <label for="card-element">
+	      Credit or debit card
+	    </label>
+	    <div id="card-element">
+	      <!-- A Stripe Element will be inserted here. -->
+	    </div>
 
+	    <!-- Used to display Element errors. -->
+	    <div id="card-errors" role="alert"></div>
+    </div>
+  </div>
 {% else %}
-<style>
-.has-error {
-	border-color: red;
-}
-</style>
+
 <h3>Credit Card</h3>	
 	<div class="row">
 		<div class="col-6 col-lg-7">

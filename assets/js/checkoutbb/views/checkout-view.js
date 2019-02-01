@@ -20,11 +20,30 @@ var checkout = checkout || {};
 		shipping_methods: new checkout.ShippingMethods(),
 		logged_in: acendaIsLoggedIn,
 		api_unique_token: null,
+		stripe: null,
+		stripe_elements: null,
+		stripe_card: null,
+		stripe_style : {
+		  base: {
+		    color: '#32325d',
+		    lineHeight: '18px',
+		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+		    fontSmoothing: 'antialiased',
+		    fontSize: '16px',
+		    '::placeholder': {
+		      color: '#aab7c4'
+		    }
+		  },
+		  invalid: {
+		    color: '#fa755a',
+		    iconColor: '#fa755a'
+		  }
+		},	
 		card_type: '',
 		card_last_four: '',
         bt_client_token: '',
         bt_payment_details: '',
-        bt_environment: 'sandbox',
+        bt_environment: 'sandbox',        
         bt_device_data: null,
         bt_dropin_instance: null,
         waits: {
@@ -69,7 +88,8 @@ var checkout = checkout || {};
 		},
 		initialize: function () {
 			var that = this;
-
+			this.stripe = Stripe('pk_test_sfeTZWyK92ZxH5srHuIwWzXs');
+			this.stripe_elements = this.stripe.elements();
 			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
 				if(saved_checkout_step == 'shippingmethod') saved_checkout_step = 'shipping-method';
 				this.start_step=saved_checkout_step;
@@ -99,6 +119,7 @@ var checkout = checkout || {};
 	            $('#'+'shipping'+ '-address-form .hide-shipping').hide();
 	        }
 			this.setupBrainTree();
+			this.setupStripe();
 			this.waitForEverything();
 		},
 		findStartStep: function() {
@@ -302,7 +323,28 @@ var checkout = checkout || {};
 	    		}
 		    })
 		},
+		setupStripe: function() {
+            if(typeof acendaPaymentPlatform !== 'undefined' && acendaPaymentPlatform.toLowerCase()!='stripe') return;
 
+
+
+			console.log('stripe',this.stripe);
+			console.log('stripe_elements',this.stripe_elements);			
+			// Create an instance of the card Element.
+			this.stripe_card = this.stripe_elements.create('card', {style: this.stripe_style});
+			console.log('stripe_card',this.stripe_card);	
+			// Add an instance of the card Element into the `card-element` <div>.
+			this.stripe_card.mount('#card-element');
+			this.stripe_card.addEventListener('change', function(event) {
+			  var displayError = document.getElementById('card-errors');
+			  if (event.error) {
+			    displayError.textContent = event.error.message;
+			  } else {
+			    displayError.textContent = '';
+			  }
+			});			
+
+		},
 		setupBrainTree: function() {
   			var that = this;
             if(typeof acendaPaymentPlatform !== 'undefined' && acendaPaymentPlatform.toLowerCase()!='braintree') return;
@@ -1232,6 +1274,7 @@ var checkout = checkout || {};
 						that.fetchCustomer(function() {
 							that.setStepCompleted('signin',true);
 				     		that.setupBrainTree();
+				     		that.setupStripe();
 							that.reloadToolbar();
 							that.gotoStep('shipping');
 						});
