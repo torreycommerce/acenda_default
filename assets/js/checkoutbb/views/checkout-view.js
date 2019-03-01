@@ -23,6 +23,7 @@ var checkout = checkout || {};
 		stripe: null,
 		stripe_elements: null,
 		stripe_card: null,
+        stripe_payment_details: '',		
 		stripe_style : {
 		  base: {
 		    color: '#32325d',
@@ -42,6 +43,7 @@ var checkout = checkout || {};
 		card_type: '',
 		card_last_four: '',
         bt_client_token: '',
+
         bt_payment_details: '',
         bt_environment: 'sandbox',        
         bt_device_data: null,
@@ -88,8 +90,10 @@ var checkout = checkout || {};
 		},
 		initialize: function () {
 			var that = this;
-			this.stripe = Stripe('pk_test_sfeTZWyK92ZxH5srHuIwWzXs');
-			this.stripe_elements = this.stripe.elements();
+			if(typeof Stripe !=='undefined') {
+				this.stripe = Stripe('pk_test_sfeTZWyK92ZxH5srHuIwWzXs');
+				this.stripe_elements = this.stripe.elements();
+			}
 			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
 				if(saved_checkout_step == 'shippingmethod') saved_checkout_step = 'shipping-method';
 				this.start_step=saved_checkout_step;
@@ -1030,7 +1034,9 @@ var checkout = checkout || {};
   			var form = this.getFormData('#payment-form');
 			if(this.bt_payment_details) {
 				$('#payment-panel .step-data').html(this.bt_payment_details);
-			} else if(typeof form.card_number !== 'undefined'){
+			}  else if(this.stripe_payment_details) {
+				$('#payment-panel .step-data').html(this.stripe_payment_details);
+			}else if(typeof form.card_number !== 'undefined'){
 
  				var tpl = _.template('<%= card_type %> ending in <%= last_four %> expiring on <%= card_exp_month %>/<%= card_exp_year %>');
  				var vars = 	{card_type: this.determinCardType(form.card_number).replace(/^(.)|\s+(.)/g, function ($1) {return $1.toUpperCase()}),card_exp_month: form.card_exp_month,card_exp_year: form.card_exp_year.slice(-2),last_four: form.card_number.slice(-4)};
@@ -1139,22 +1145,30 @@ var checkout = checkout || {};
 				$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 		     	     that.gotoStep('review');
 				});
-			} else {
+			} 
+			else if(acendaPaymentPlatform.toLowerCase()=='stripe') 
+			{
+
+				  that.stripe.createToken(that.stripe_card).then(function(result) {
+				    if (result.error) {
+				      // Inform the customer that there was an error.
+				      var errorElement = document.getElementById('card-errors');
+				      errorElement.textContent = result.error.message;
+				    } else {
+						$('#nonce').val(result.token.id);	
+					//	console.log('stripe result',result);			      
+		            	that.setStepCompleted('payment',true);
+						$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+				     	     that.gotoStep('review');
+						});	
+				    }
+				  });
+
+
+			}
+			else if (acendaPaymentPlatform.toLowerCase()=='braintree'){
 			    that.bt_dropin_instance.requestPaymentMethod(function(err, payload) {
 				        $('#nonce').val(payload.nonce);
-				        if(typeof payload.deviceData !== 'undefined' ) {
-				        	that.bt_device_data = payload.deviceData;
-				        }
-				        if(payload.type=="CreditCard") {
-				            that.bt_payment_details = payload.details.cardType + " Card ending in " + payload.details.lastFour;
-				            that.card_last_four = payload.details.lastFour;
-				            that.card_type = payload.details.cardType;
-				        }
-				        if(payload.type=="PayPalAccount") {
-				            that.card_type = 'paypal';
-				            that.card_last_four = payload.details.email;
-				            that.bt_payment_details = "Paypal: " + payload.details.email;
-				        }
 		            	that.setStepCompleted('payment',true);
 						$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				     	     that.gotoStep('review');
