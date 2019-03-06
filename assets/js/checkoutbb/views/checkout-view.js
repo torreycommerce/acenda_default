@@ -1148,7 +1148,6 @@ var checkout = checkout || {};
 			} 
 			else if(acendaPaymentPlatform.toLowerCase()=='stripe') 
 			{
-
 				  that.stripe.createToken(that.stripe_card).then(function(result) {
 				    if (result.error) {
 				      // Inform the customer that there was an error.
@@ -1156,25 +1155,40 @@ var checkout = checkout || {};
 				      errorElement.textContent = result.error.message;
 				    } else {
 						$('#nonce').val(result.token.id);	
-					//	console.log('stripe result',result);			      
+					    console.log('stripe result',result);	
+					    if(typeof result.token.card !== 'undefined') {
+				            that.stripe_payment_details = result.token.card.brand + " Card ending in " + result.token.card.last4;
+				            that.card_last_four = result.token.card.last4;
+				            that.card_type = result.token.card.brand
+				        }
 		            	that.setStepCompleted('payment',true);
 						$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				     	     that.gotoStep('review');
 						});	
 				    }
 				  });
-
-
 			}
 			else if (acendaPaymentPlatform.toLowerCase()=='braintree'){
 			    that.bt_dropin_instance.requestPaymentMethod(function(err, payload) {
 				        $('#nonce').val(payload.nonce);
+				        if(typeof payload.deviceData !== 'undefined' ) {
+				        	that.bt_device_data = payload.deviceData;
+				        }
+				        if(payload.type=="CreditCard") {
+				            that.bt_payment_details = payload.details.cardType + " Card ending in " + payload.details.lastFour;
+				            that.card_last_four = payload.details.lastFour;
+				            that.card_type = payload.details.cardType;
+				        }
+				        if(payload.type=="PayPalAccount") {
+				            that.card_type = 'paypal';
+				            that.card_last_four = payload.details.email;
+				            that.bt_payment_details = "Paypal: " + payload.details.email;
+				        }
 		            	that.setStepCompleted('payment',true);
 						$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 				     	     that.gotoStep('review');
 						});
 				});
-
 			}
 
 			return false;
