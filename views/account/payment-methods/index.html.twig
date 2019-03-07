@@ -28,9 +28,36 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% block content %}
 {{account.navigation('payment-methods')}}
 
-{% if platform!="Braintree" %}
-	<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform activated. </div>
-{% else %}
+{% if platform!="Braintree" and platform!="Stripe" %}
+	<div style="text-align: center">Editing of payment methods only works with the BrainTree or Stripe payment platforms activated. </div>
+{% elseif platform=='Stripe' %}
+<div id="payment-methods">
+{% set m = api.get('stripe/getPaymentMethods') %}
+
+{{ lonelyform.begin()}}
+<h1>Payment Methods</h1>
+{{ lonelyform.begincard('bg-light')}}
+<div class="row">
+	<div class="col-lg-6 mb-3 mb-lg-0">
+		<button class="btn btn-default btn-block" id="button-add-creditcard">Add Credit Card</button>
+	</div>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+	   {% for token,method in m.methods %}
+	   		<tr class="braintreerow {{ method.type | lower | slice(10) }} {{ method.object.cardType | lower | replace({' ': ''}) }}"> <td style="width: 40px;vertical-align: middle; line-height: 40px"><img src="{{method.object.imageUrl }}"></img></td><td  style="vertical-align: middle;"> {% if method.type == 'Braintree\\PayPalAccount' %} {{ method.object.email }}{% elseif  method.type == 'Braintree\\CreditCard'%}{{ method.object.cardType }}  *****{{ method.object.last4 }} <br/>Expires {{ method.object.expirationMonth}}/{{method.object.expirationYear}}{% endif %}</td>
+	   			<td style="text-align: right; vertical-align: middle; line-height: 40px">{% if  method.type == 'Braintree\\CreditCardxx'%}<button class="btn btn-primary pm-update" id="pm-update-{{ token }}"> Update </button> {% endif %}<button class="btn btn-danger pm-delete" id="pm-delete-{{ token }}"> Delete </button></td></tr>
+	   {% endfor %}
+  </table>
+</div>
+
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+</div>
+
+
+{% elseif platform=='Braintree' %}
 <div id="payment-methods">
 {% set m = api.get('braintree/getPaymentMethods') %}
 

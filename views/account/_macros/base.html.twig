@@ -43,7 +43,7 @@
 	<div class="col-lg-3 d-xsm-none fa-fa-balance">
 		<div class="list-group mb-3">
 			{% for page,title in tabs %}
-                           {% if page != 'payment-methods' or platform == 'Braintree' %}
+                           {% if page != 'payment-methods' or platform == 'Braintree' or platform == 'Stripe' %}
 		        	<a class="list-group-item{% if current_page == page or page == '' and current_page not in tabs|keys %} active{% endif %}" href="{{app.url}}/account/{{page}}">{{title}}</a>
 			   {% endif %}
 			{% endfor %}
