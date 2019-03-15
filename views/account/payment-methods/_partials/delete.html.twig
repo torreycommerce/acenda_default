@@ -1,2 +1,6 @@
-{% set response = api.get('braintree/deletepaymentmethod',{ 'token': id}) %}
-{{ dump(response.getArray()) }}
+{% set platform = api.get('order/platform').platform %}
+{% if platform == 'Braintree' %}
+	{% set response = api.get('braintree/deletepaymentmethod',{ 'token': id}) %}
+{% elseif platform == 'Stripe'%}
+	{% set response = api.get('stripe/deletepaymentmethod',{ 'id': id}) %}
+{% endif %}
