@@ -79,8 +79,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	    </div>	    
 		 <input id="nonce" name="payment_method_nonce" type="hidden" />    
 	  </div>
-	   <div class="text-right">
-		    <input type="reset" id="card-cancel-btn" class="btn btn-lg btn-default btn-xsm-block" value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-lg btn-primary btn-xsm-block ml-lg-2 mt-2 mt-lg-0" value="Save Card" disabled></input>
+	   <div  style="margin-top: 10px; float: right;">
+		    <input type="reset" id="card-cancel-btn" class="btn btn-default " value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-primary " value="Save Card" disabled></input>
 		</div>
 
 	</form>
@@ -226,7 +226,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			width: 100%%;
 		}
 	</style>
-    <form action="/" id="create-card-form" method="post">
+    <form action="" id="create-card-form" method="post">
         <div class="row">
             <div class="col-lg-6">
                 <label class="hosted-fields--label" for="card-number">Card Number</label>
@@ -247,7 +247,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			</div>
 		</div>
 		<div class="text-right">
-		    <input type="reset" id="card-cancel-btn" class="btn btn-lg btn-default btn-xsm-block" value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-lg btn-primary btn-xsm-block ml-lg-2 mt-2 mt-lg-0" value="Save Card" disabled></input>
+		    <input type="reset" id="card-cancel-btn" class="btn btn-default" value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-primary " value="Save Card" ></input>
 		</div>
     </form>
 {{ lonelyform.endcard()}}

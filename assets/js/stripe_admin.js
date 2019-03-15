@@ -42,7 +42,7 @@ var paymentMethodsView = Backbone.View.extend({
 		"click .button.edit":   "openEditDialog",
 		"click .button.delete": "deletePaymentMethod",
 		"click #button-add-creditcard" : "openAddCreditCard",
-		"click #button-add-paypal" : "openAddPaypal",
+		"click #button-add-paypal" : "openAddPaypal",		
 		"click .pm-delete" : "deletePaymentMethod",	
 		"click .pm-update" : "updatePaymentMethod",					
 	},
@@ -54,6 +54,8 @@ var paymentMethodsView = Backbone.View.extend({
 			this.stripe_elements = this.stripe.elements();
             that.setupStripe();			
 		}
+
+
 	},
 	openAddCreditCard: function(e) {
 		var that = this;
@@ -64,6 +66,17 @@ var paymentMethodsView = Backbone.View.extend({
 			$('div#payment-platforms').hide();
 			$('div#stripe-fields-form').show();
         });
+        form.addEventListener('submit', function (event) {
+			var originalText  =  $('#card-submit-btn').html();
+			event.preventDefault();	            
+			$('#card-submit-btn').html('<i class="fas fa-cog fa-spin"> </i>')		            
+			$('#card-submit-btn').prop('disabled',true);	   
+		});
+		$('#card-submit-btn').prop('disabled',false);
+		form.addEventListener('reset', function (event) {
+		  event.preventDefault();	 
+		  location.reload();	                        		               
+		});
 
 	},
 	updatePaymentMethod : function(e) {
@@ -84,6 +97,16 @@ var paymentMethodsView = Backbone.View.extend({
 					        }); 
 			    });
 	    }
+	},
+	resetCard: function(e) {
+		console.log('reset');
+
+
+	},
+	createCard: function() {
+		console.log('create');
+
+
 	},
 	setupStripe: function() {
 		console.log('stripe',this.stripe);
