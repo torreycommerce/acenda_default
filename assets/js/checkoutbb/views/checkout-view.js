@@ -311,7 +311,6 @@ var checkout = checkout || {};
 			this.renderShippingAddressSummary();
 			this.summaryView.render();
 		},
-
 		// Fetch current cart state
 		fetchCart: function (callback) {
 		    var that = this;
@@ -329,9 +328,6 @@ var checkout = checkout || {};
 		},
 		setupStripe: function() {
             if(typeof acendaPaymentPlatform !== 'undefined' && acendaPaymentPlatform.toLowerCase()!='stripe') return;
-
-
-
 			console.log('stripe',this.stripe);
 			console.log('stripe_elements',this.stripe_elements);			
 			// Create an instance of the card Element.
@@ -347,7 +343,6 @@ var checkout = checkout || {};
 			    displayError.textContent = '';
 			  }
 			});			
-
 		},
 		setupBrainTree: function() {
   			var that = this;
@@ -375,7 +370,6 @@ var checkout = checkout || {};
 			    }				
 		        });
 		    });
-
 		},
 		verifyAddress: function(stepName) {
 			var that = this;
@@ -732,7 +726,6 @@ var checkout = checkout || {};
 			}
 			else {
 				$('#billing-save').hide();
-
 			}
 		},
 		buildCheckoutForm: function() {
@@ -761,8 +754,6 @@ var checkout = checkout || {};
 							formData['billing_state'] = formData['billing_state_text'];
 						}
 					}
-
-
 					checkoutForm = $.extend(checkoutForm,formData);
 				}
 			});

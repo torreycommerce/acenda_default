@@ -1,2 +1,7 @@
-{% set response = api.get('braintree/createpaymentmethod',{ 'nonce': id}) %}
+{% set platform = api.get('order/platform').platform %}
+{% if platform == 'Braintree' %}
+	{% set response = api.get('braintree/createpaymentmethod',{ 'nonce': id}) %}
+{% elseif platform == 'Stripe' %}
+	{% set response = api.get('stripe/createpaymentmethod',{ 'nonce': id}) %}
+{% endif %}
 {{ dump(response.getArray()) }}
