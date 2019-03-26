@@ -30,6 +30,7 @@
 }
 
 </style>
+{% set cart = api.get('cart') %}
 {% if payment_platform.platform == 'Braintree' %}
 	<h3>Payment Method</h3>	
 	{{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.12.0/js/dropin.js',null,{'data-cfasync':'false'}) }}
@@ -37,20 +38,32 @@
 	    <div id="dropin-container"></div>
 
 {% elseif payment_platform.platform == 'Stripe'%}
-  <div class="row"> 
-  	<div class="col-md-12">
-	    <label for="card-element">
-	      Credit or debit card
-	    </label>
-	    <div id="card-element">
-	      <!-- A Stripe Element will be inserted here. -->
-	    </div>
-
-	    <!-- Used to display Element errors. -->
-	    <div id="card-errors" role="alert"></div>
-    </div>
-	 <input id="nonce" name="payment_method_nonce" type="hidden" />    
-  </div>
+{% set sources = api.get('stripe/getpaymentmethods').toArray() %}
+	    <label>
+	      Select a payment method
+	    </label>	
+<table class="table ">
+	<tr>
+		<td style="width: 2em;"> <input id="usenonce" type="radio" name="use_card" value="nonce" {% if cart.use_card is null or cart.use_card == 'nonce'%}checked="checked" {% endif %}></td>
+  		<td>
+			    <div id="card-element">
+			      <!-- A Stripe Element will be inserted here. -->
+			    </div>
+		    <!-- Used to display Element errors. -->
+		    <div id="card-errors" role="alert"></div>
+     	</td>
+    </tr>
+  {% for source in sources %}
+	<tr>
+		<td style="width: 2em;"> <input id="{{ source.id }}" type="radio" name="use_card" value="{{ source.id }}" {% if cart.use_card is not null and cart.use_card == source.id %}checked="checked" {% endif %} /></td>
+  		<td>
+  				<label for="{{ source.id }}"><img style="width:40px; display: inline-block;" src="{{ app.request.base }}/assets/images/creditcards/{{source.brand | lower}}.png"></img> <span style="vertical-align: sub;"><b>{{ source.brand }} ending in {{ source.last4 }} Expires {{ source.exp_month}}/{{source.exp_year}}</b></span></label>
+     	</td>
+    </tr>
+  {% endfor %}
+</table>
+  <input id="nonce" name="payment_method_nonce" type="hidden" />    
+  <br/>
 {% else %}
 
 <h3>Credit Card</h3>	
@@ -131,7 +144,7 @@
 	</div>
 	<div id="card-validation" class="text-danger" style="margin-left: 20px;"></div>
 {% endif %}
-{% set cart = api.get('cart') %}
+
 {% set address = cart %}
 {% set name ="billing_" %}
 <h3>Billing Address</h3>

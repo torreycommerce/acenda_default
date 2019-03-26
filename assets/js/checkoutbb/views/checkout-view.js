@@ -342,7 +342,11 @@ var checkout = checkout || {};
 			  } else {
 			    displayError.textContent = '';
 			  }
-			});			
+			});	
+			this.stripe_card.addEventListener('focus', function(event) {
+			    $('input#usenonce').prop("checked", true);
+			});		
+
 		},
 		setupBrainTree: function() {
   			var that = this;
@@ -1139,25 +1143,32 @@ var checkout = checkout || {};
 			} 
 			else if(acendaPaymentPlatform.toLowerCase()=='stripe') 
 			{
-				  that.stripe.createToken(that.stripe_card).then(function(result) {
-				    if (result.error) {
-				      // Inform the customer that there was an error.
-				      var errorElement = document.getElementById('card-errors');
-				      errorElement.textContent = result.error.message;
-				    } else {
-						$('#nonce').val(result.token.id);	
-					    console.log('stripe result',result);	
-					    if(typeof result.token.card !== 'undefined') {
-				            that.stripe_payment_details = result.token.card.brand + " Card ending in " + result.token.card.last4;
-				            that.card_last_four = result.token.card.last4;
-				            that.card_type = result.token.card.brand
-				        }
-		            	that.setStepCompleted('payment',true);
-						$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
-				     	     that.gotoStep('review');
-						});	
-				    }
-				  });
+				if($('input#usenonce').prop("checked")) {
+					  that.stripe.createToken(that.stripe_card).then(function(result) {
+					    if (result.error) {
+					      // Inform the customer that there was an error.
+					      var errorElement = document.getElementById('card-errors');
+					      errorElement.textContent = result.error.message;
+					    } else {
+							$('#nonce').val(result.token.id);	
+						    console.log('stripe result',result);	
+						    if(typeof result.token.card !== 'undefined') {
+					            that.stripe_payment_details = result.token.card.brand + " Card ending in " + result.token.card.last4;
+					            that.card_last_four = result.token.card.last4;
+					            that.card_type = result.token.card.brand
+					        }
+			            	that.setStepCompleted('payment',true);
+							$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+					     	     that.gotoStep('review');
+							});	
+					    }
+					  });
+				} else {
+	            	that.setStepCompleted('payment',true);
+					$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
+			     	     that.gotoStep('review');
+					});						
+				}
 			}
 			else if (acendaPaymentPlatform.toLowerCase()=='braintree'){
 			    that.bt_dropin_instance.requestPaymentMethod(function(err, payload) {

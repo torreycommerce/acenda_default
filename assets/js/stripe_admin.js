@@ -69,12 +69,9 @@ var paymentMethodsView = Backbone.View.extend({
         form.addEventListener('submit', function (event) {
 			var originalText  =  $('#card-submit-btn').html();
 
-
 			event.preventDefault();	            
 			$('#card-submit-btn').html('<i class="fas fa-cog fa-spin"> </i>')		            
 			$('#card-submit-btn').prop('disabled',true);	
-
-
 			that.stripe.createToken(that.stripe_card).then(function(result) {
 			if (result.error) {
 			  // Inform the customer that there was an error.
@@ -84,21 +81,19 @@ var paymentMethodsView = Backbone.View.extend({
 			} else {
 
 				$('#nonce').val(result.token.id);
-		      	var nonce = result.token.id;					
+		      	var nonce = result.token.id;			
 			    $.get(acendaBaseUrl + '/account/payment-methods/create/' + nonce,function(data) { 
 			        location.reload();				   
 			    });
-         		$('#card-submit-btn').prop('disabled',false);			    
+		    
 			}
-
 			});
 		});
-		$('#card-submit-btn').prop('disabled',false);
 		form.addEventListener('reset', function (event) {
 		  event.preventDefault();	 
 		  location.reload();	                        		               
 		});
-
+        $('#card-submit-btn').prop('disabled',false);	
 	},
 	updatePaymentMethod : function(e) {
 		var elm = $(e.currentTarget);
