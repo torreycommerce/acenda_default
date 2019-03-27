@@ -44,7 +44,7 @@
 	    </label>	
 <table class="table ">
 	<tr>
-		<td style="width: 2em;"> <input id="usenonce" type="radio" name="use_card" value="nonce" {% if cart.use_card is null or cart.use_card == 'nonce'%}checked="checked" {% endif %}></td>
+		<td style="width: 2em;"> <input id="usenonce" type="radio" name="payment_method_card" value="nonce" {% if cart.payment_method_card is null or cart.payment_method_card == 'nonce'%}checked="checked" {% endif %}></td>
   		<td>
 			    <div id="card-element">
 			      <!-- A Stripe Element will be inserted here. -->
@@ -55,7 +55,7 @@
     </tr>
   {% for source in sources %}
 	<tr>
-		<td style="width: 2em;"> <input id="{{ source.id }}" type="radio" name="use_card" value="{{ source.id }}" {% if cart.use_card is not null and cart.use_card == source.id %}checked="checked" {% endif %} /></td>
+		<td style="width: 2em;"> <input id="{{ source.id }}" type="radio" name="payment_method_card" value="{{ source.id }}" {% if cart.payment_method_card is not null and cart.payment_method_card == source.id %}checked="checked" {% endif %} /></td>
   		<td>
   				<label for="{{ source.id }}"><img style="width:40px; display: inline-block;" src="{{ app.request.base }}/assets/images/creditcards/{{source.brand | lower}}.png"></img> <span style="vertical-align: sub;"><b>{{ source.brand }} ending in {{ source.last4 }} Expires {{ source.exp_month}}/{{source.exp_year}}</b></span></label>
      	</td>

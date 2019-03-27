@@ -331,7 +331,11 @@ var checkout = checkout || {};
 			console.log('stripe',this.stripe);
 			console.log('stripe_elements',this.stripe_elements);			
 			// Create an instance of the card Element.
-			this.stripe_card = this.stripe_elements.create('card', {style: this.stripe_style});
+			if(this.stripe_card == null) {
+		    	this.stripe_card = this.stripe_elements.create('card', {style: this.stripe_style});
+		    } else {
+		    	this.stripe_card.unmount();
+		    }
 			console.log('stripe_card',this.stripe_card);	
 			// Add an instance of the card Element into the `card-element` <div>.
 			this.stripe_card.mount('#card-element');
@@ -1164,6 +1168,7 @@ var checkout = checkout || {};
 					    }
 					  });
 				} else {
+					$('#nonce').val('use_card');	
 	            	that.setStepCompleted('payment',true);
 					$.post(acendaBaseUrl + '/api/cart/checkout',form).always(function(response){
 			     	     that.gotoStep('review');
@@ -1297,19 +1302,23 @@ var checkout = checkout || {};
             $('#btn-login-signin').html('<i class="fas fa-cog fa-spin"></i>');
 
 			$.post(acendaBaseUrl + '/api/customer/login', $('#login-form').serialize()).done(function(response) {
-				if(response.code == 200) {
+				if(response.code == 200) {			
 					that.logged_in=true;
 					that.fetchCart(function() {
 					that.logged_in=true;
 						that.fetchCustomer(function() {
 							that.setStepCompleted('signin',true);
-				     		that.setupBrainTree();
-				     		that.setupStripe();
+							// reload payment step to fill in stored credit card info
+							$.get(acendaBaseUrl+'/checkout/single-step?step=payment', function(data) {								
+								$('div#payment-panel .card-body').html(data);
+					     		that.setupBrainTree();
+					     		that.setupStripe();								
+						    });							
+
 							that.reloadToolbar();
 							that.gotoStep('shipping');
 						});
 					});
-
 				}
 			}).fail(function(response){
 				$('#signin-error').html(response.responseJSON.error.password[0]);
