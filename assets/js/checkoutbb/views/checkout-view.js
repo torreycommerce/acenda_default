@@ -351,10 +351,6 @@ var checkout = checkout || {};
 					    $('input#usenonce').prop("checked", true);
 					});	
 			});
-
-
-		
-
 		},
 		setupBrainTree: function() {
   			var that = this;
