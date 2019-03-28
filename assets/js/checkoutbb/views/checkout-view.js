@@ -90,10 +90,6 @@ var checkout = checkout || {};
 		},
 		initialize: function () {
 			var that = this;
-			if(typeof Stripe !=='undefined') {
-				this.stripe = Stripe('pk_test_sfeTZWyK92ZxH5srHuIwWzXs');
-				this.stripe_elements = this.stripe.elements();
-			}
 			if(typeof saved_checkout_step !== 'undefined' && saved_checkout_step) {
 				if(saved_checkout_step == 'shippingmethod') saved_checkout_step = 'shipping-method';
 				this.start_step=saved_checkout_step;
@@ -327,29 +323,37 @@ var checkout = checkout || {};
 		    })
 		},
 		setupStripe: function() {
+  			var that = this;			
             if(typeof acendaPaymentPlatform !== 'undefined' && acendaPaymentPlatform.toLowerCase()!='stripe') return;
-			console.log('stripe',this.stripe);
-			console.log('stripe_elements',this.stripe_elements);			
-			// Create an instance of the card Element.
-			if(this.stripe_card == null) {
-		    	this.stripe_card = this.stripe_elements.create('card', {style: this.stripe_style});
-		    } else {
-		    	this.stripe_card.unmount();
-		    }
-			console.log('stripe_card',this.stripe_card);	
-			// Add an instance of the card Element into the `card-element` <div>.
-			this.stripe_card.mount('#card-element');
-			this.stripe_card.addEventListener('change', function(event) {
-			  var displayError = document.getElementById('card-errors');
-			  if (event.error) {
-			    displayError.textContent = event.error.message;
-			  } else {
-			    displayError.textContent = '';
-			  }
-			});	
-			this.stripe_card.addEventListener('focus', function(event) {
-			    $('input#usenonce').prop("checked", true);
-			});		
+			$.post(acendaBaseUrl+'/api/stripe/getpk', function(data) {
+    				var pk = data.result.pk;
+					that.stripe = Stripe(pk);
+					that.stripe_elements = that.stripe.elements();
+
+				// Create an instance of the card Element.
+					if(that.stripe_card == null) {
+				    	that.stripe_card = that.stripe_elements.create('card', {style: that.stripe_style});
+				    } else {
+				    	that.stripe_card.unmount();
+				    }
+					console.log('stripe_card',that.stripe_card);	
+					// Add an instance of the card Element into the `card-element` <div>.
+					that.stripe_card.mount('#card-element');
+					that.stripe_card.addEventListener('change', function(event) {
+					  var displayError = document.getElementById('card-errors');
+					  if (event.error) {
+					    displayError.textContent = event.error.message;
+					  } else {
+					    displayError.textContent = '';
+					  }
+					});	
+					that.stripe_card.addEventListener('focus', function(event) {
+					    $('input#usenonce').prop("checked", true);
+					});	
+			});
+
+
+		
 
 		},
 		setupBrainTree: function() {
