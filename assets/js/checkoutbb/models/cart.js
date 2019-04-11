@@ -3,7 +3,7 @@ var checkout = checkout || {};
 (function () {
 	'use strict';
 	checkout.Cart = Backbone.Model.extend({
-		url: acendaBaseUrl + '/api/sessioncart',
+		url: acendaBaseUrl + '/api/cart',
 		ready: false,
 		products: [],
 		variants: [],

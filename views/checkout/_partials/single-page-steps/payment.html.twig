@@ -2,20 +2,70 @@
 {% set payment_platform = api.get('order/platform') %}
 
 <form id="payment-form"  novalidate parsley-validate>
+<style>
+.has-error {
+	border-color: red;
+}
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
 
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+</style>
+{% set cart = api.get('cart') %}
 {% if payment_platform.platform == 'Braintree' %}
 	<h3>Payment Method</h3>	
 	{{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.12.0/js/dropin.js',null,{'data-cfasync':'false'}) }}
 	 <input id="nonce" name="payment_method_nonce" type="hidden" />
 	    <div id="dropin-container"></div>
 
-
+{% elseif payment_platform.platform == 'Stripe'%}
+{% set sources = api.get('stripe/getpaymentmethods').toArray() %}
+	    <label>
+	      Select a payment method
+	    </label>	
+<table class="table ">
+	<tr>
+		<td style="width: 2em;"> <input id="usenonce" type="radio" name="payment_method_card" value="nonce" {% if cart.payment_method_card is null or cart.payment_method_card == 'nonce'%}checked="checked" {% endif %}></td>
+  		<td>
+			    <div id="card-element">
+			      <!-- A Stripe Element will be inserted here. -->
+			    </div>
+		    <!-- Used to display Element errors. -->
+		    <div id="card-errors" role="alert"></div>
+     	</td>
+    </tr>
+  {% for source in sources %}
+	<tr>
+		<td style="width: 2em;"> <input id="{{ source.id }}" type="radio" name="payment_method_card" value="{{ source.id }}" {% if cart.payment_method_card is not null and cart.payment_method_card == source.id %}checked="checked" {% endif %} /></td>
+  		<td>
+  				<label for="{{ source.id }}"><img style="width:40px; display: inline-block;" src="{{ app.request.base }}/assets/images/creditcards/{{source.brand | lower}}.png"></img> <span style="vertical-align: sub;"><b>{{ source.brand }} ending in {{ source.last4 }} Expires {{ source.exp_month}}/{{source.exp_year}}</b></span></label>
+     	</td>
+    </tr>
+  {% endfor %}
+</table>
+  <input id="nonce" name="payment_method_nonce" type="hidden" />    
+  <br/>
 {% else %}
-<style>
-.has-error {
-	border-color: red;
-}
-</style>
+
 <h3>Credit Card</h3>	
 	<div class="row">
 		<div class="col-6 col-lg-7">
@@ -94,7 +144,7 @@
 	</div>
 	<div id="card-validation" class="text-danger" style="margin-left: 20px;"></div>
 {% endif %}
-{% set cart = api.get('cart') %}
+
 {% set address = cart %}
 {% set name ="billing_" %}
 <h3>Billing Address</h3>

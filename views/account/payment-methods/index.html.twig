@@ -28,9 +28,71 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% block content %}
 {{account.navigation('payment-methods')}}
 
-{% if platform!="Braintree" %}
-	<div style="text-align: center">Editing of payment methods only works with the BrainTree payment platform activated. </div>
-{% else %}
+{% if platform!="Braintree" and platform!="Stripe" %}
+	<div style="text-align: center">Editing of payment methods only works with the BrainTree or Stripe payment platforms activated. </div>
+{% elseif platform=='Stripe' %}
+<div id="payment-methods">
+{% set methods = api.get('stripe/getPaymentMethods') %}
+
+{{ lonelyform.begin()}}
+<h1>Payment Methods</h1>
+{{ lonelyform.begincard('bg-light')}}
+<div class="row">
+	<div class="col-lg-6"></div>
+	<div class="col-lg-6 mb-3 mb-lg-0">
+		<button class="btn btn-default btn-block" id="button-add-creditcard">Add Credit Card</button>
+	</div>
+</div>
+<div style="margin-top: 10px; "class="table-responsive">
+  <table class="table">
+	   {% for token,method in methods %}
+	   		<tr class="braintreerow {{ method.object | lower | slice(10) }} {{ method.brand | lower | replace({' ': ''}) }}"> <td style="width: 40px;vertical-align: middle; line-height: 40px"><img style="width:40px;" src="{{ app.request.base }}/assets/images/creditcards/{{method.brand | lower}}.png"></img></td><td  style="vertical-align: middle;"> {{ method.brand }}  *****{{ method.last4 }} <br/>Expires {{ method.exp_month}}/{{method.exp_year}}</td>
+	   			<td style="text-align: right; vertical-align: middle; line-height: 40px"><button class="btn btn-danger pm-delete" id="pm-delete-{{ method.id }}"> Delete </button></td></tr>
+	   {% endfor %}
+  </table>
+</div>
+
+{{ lonelyform.endcard()}}
+{{ lonelyform.end() }}
+</div>
+<div id="stripe-fields-form">
+	{{ lonelyform.begin()}}
+
+	<style>
+		div#stripe-fields-form{
+			display:none;
+		}		
+	</style>	
+	<h2 class="h1">Add a new card</h1>
+	{{ lonelyform.begincard()}}
+    <form action="/" id="create-card-form" method="post">
+	  <div class="row"> 
+	  	<div class="col-md-12">
+		    <label for="card-element">
+		      Credit or debit card
+		    </label>
+		    <div id="card-element">
+		      <!-- A Stripe Element will be inserted here. -->
+		    </div>
+		    <!-- Used to display Element errors. -->
+		    <div id="card-errors" role="alert"></div>		    
+	    </div>	    
+		 <input id="nonce" name="payment_method_nonce" type="hidden" />    
+	  </div>
+	   <div  style="margin-top: 10px; float: right;">
+		    <input type="reset" id="card-cancel-btn" class="btn btn-default " value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-primary " style="margin-left: 5px;" value="Save Card" disabled></input>
+		</div>
+
+	</form>
+	{{ lonelyform.endcard()}}
+	{{ lonelyform.end() }}
+</div>
+
+	{{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
+	{{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
+    {{ app.asset.js(app.url_asset ~ '/assets/js/stripe_admin.js') }}
+
+{% elseif platform=='Braintree' %}
 <div id="payment-methods">
 {% set m = api.get('braintree/getPaymentMethods') %}
 
@@ -164,7 +226,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			width: 100%%;
 		}
 	</style>
-    <form action="/" id="create-card-form" method="post">
+    <form action="" id="create-card-form" method="post">
         <div class="row">
             <div class="col-lg-6">
                 <label class="hosted-fields--label" for="card-number">Card Number</label>
@@ -185,7 +247,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			</div>
 		</div>
 		<div class="text-right">
-		    <input type="reset" id="card-cancel-btn" class="btn btn-lg btn-default btn-xsm-block" value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-lg btn-primary btn-xsm-block ml-lg-2 mt-2 mt-lg-0" value="Save Card" disabled></input>
+		    <input type="reset" id="card-cancel-btn" class="btn btn-default" value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-primary " value="Save Card" ></input>
 		</div>
     </form>
 {{ lonelyform.endcard()}}
@@ -201,4 +263,5 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
     {{ app.asset.js(app.url_asset ~ '/assets/js/braintree_admin.js') }}
 {{account.navigatend()}}
 {% endif %}
+	
 {% endblock %}
