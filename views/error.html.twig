@@ -17,7 +17,6 @@
     <h1>Twig Parsing Error</h1>
     <p>{{app.error.message}}</p>
     <p>While rendering <b>{{app.error.view}}</b></p>
-    <p>{{(app.error|json_encode)}}</p>
 {% else %}
 
     {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
