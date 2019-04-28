@@ -39,6 +39,7 @@ Contact Us
 <h1>Contact Us</h1>
 {{ lonelyform.begincard() }}
     <p>For questions or comments, please complete the form below.</p>
+	{{ forms.reqfieldlang() }}
     {{ forms.begin('contact','','post', {class:'needs-validation'}) }}
     <div class="form-group fgq">
         <label for="contact-name">Name</label>

@@ -16,14 +16,14 @@ var checkout = checkout || {};
 					keepFocus=true;
 				}
 				if($('#checkout-left').height() > $('#summary-panel').height()) {
-				    $('#checkout-right').height($('#checkout-left').height());
+				    //$('#checkout-right').height($('#checkout-left').height());
 					} else {
-				        $('#checkout-right').height($('#summary-panel').height());		
+				        //$('#checkout-right').height($('#summary-panel').height());		
 					}
 				setTimeout(fixSummaryHeight,1000);		    	
 			}
 			fixSummaryHeight();
-		    this.$el.stick_in_parent({recalc_every: 1});		    
+		    //this.$el.stick_in_parent({recalc_every: 1});		    
 		},
 		render: function () {
 

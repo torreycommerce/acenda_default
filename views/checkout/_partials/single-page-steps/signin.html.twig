@@ -31,8 +31,8 @@
 			  <div class="form-group fgq">
 			    <label for="newPassVerify">Verify Password</label>
 			    <input type="password" class="form-control parsley-validated" id="newPassVerify" name="new_user_password_verify" placeholder="Verify Password" value="{{ app.user.getState('new_user_password_verify') }}" >
+				<div class="fsd1 text-danger" id="create-user-error"></div>  			  
 			  </div>
-		       <div class="text-danger" id="create-user-error"></div>  			  
 			</div>
 
 		  <button id="btn-continue-signin" class="btn btn-lg btn-primary btn-cart btn-xs-block float-right">Continue</button>
@@ -49,8 +49,8 @@
 		  <div class="form-group fgq">
 		    <label for="custPass">Password</label>
 		    <input type="password" class="form-control" id="custPass" name="password" placeholder="Password">
+			<div class="fsd1 text-danger" id="signin-error"></div>
 		  </div>
-		  <div class="text-danger mb-3" id="signin-error"></div>
 		  <button id="btn-login-signin" class="btn btn-lg btn-primary btn-cart btn-xs-block float-right">Sign In</button>
 		</form>
 
