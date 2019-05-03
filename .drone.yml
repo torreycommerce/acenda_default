@@ -33,7 +33,8 @@ steps:
   - name: deploy
     image: quay.io/torreycommerce/scalr_deploy:latest
     environment:
-      SCALR_URL: "https://scalr.acenda.com/api/api.php"
+      SCALR_URL:
+        from_secret: scalr_url
       SCALR_API_KEY:
         from_secret: scalr_api_key
       SCALR_API_SECRET:
