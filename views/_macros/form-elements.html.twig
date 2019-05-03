@@ -6,7 +6,7 @@
     {% do app.form.set(name, action, method, attributes, data, error) %}
 
     {% set defined_attributes = ['name','action','method','class','enctype','data','error'] %}
-    <form name="{{name|e}}" novalidate parsley-validate {% if action is not empty %} action="{{action|e}}"{% endif %} method="{{method|upper}}" class="form-horizontal {{attributes.class|e}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %}{% for key,value in attributes if key not in defined_attributes %} {{key}}="{{value|e}}"{% endfor %}>
+    <form name="{{name|e}}" novalidate {% if action is not empty %} action="{{action|e}}"{% endif %} method="{{method|upper}}" class="form-horizontal {{attributes.class|e}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %}{% for key,value in attributes if key not in defined_attributes %} {{key}}="{{value|e}}"{% endfor %}>
     {% if method == 'post'%}
         <input type="hidden" name="request_token" value="{{ app.request.token() }}">
     {% endif %}

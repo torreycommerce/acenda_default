@@ -9,7 +9,7 @@
 {% macro begin(name,action='',method='post',attributes=[]) %}
 {% spaceless %}
     {% import _self as elements %}
-    <form name="{{name|e}}" novalidate parsley-validate {% if action is not empty %} action="{{action|e}}"{% endif %} method="{{method|upper}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %} {{ elements._attrHtml(attributes) }}>
+    <form name="{{name|e}}" novalidate {% if action is not empty %} action="{{action|e}}"{% endif %} method="{{method|upper}}" {% if method == 'post' %}enctype="multipart/form-data" {% endif %} {{ elements._attrHtml(attributes) }}>
     {% if method == 'post'%}
         <input type="hidden" name="request_token" value="{{ app.request.token() }}">
     {% endif %}

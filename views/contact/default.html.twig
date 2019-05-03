@@ -52,9 +52,9 @@ Contact Us
         <div class="validation">{{ forms.errorlist(form_errors, 'email') }}</div>
     </div>
 
-    <div class="form-group fgq">
+    <div class="form-group">
         <label for="contact-subject">Subject</label>
-        {{ forms.select('contact[subject]', contact.subject, subjects, {class:'form-control parsley-validated', id:'contact-subject', placeholder:"Subject", required:true}) }}
+        {{ forms.select('contact[subject]', contact.subject, subjects, {class:'form-control parsley-validated', id:'contact-subject'}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'subject') }}</div>
     </div>
     <div class="form-group fgq">

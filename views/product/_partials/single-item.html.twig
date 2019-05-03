@@ -139,7 +139,7 @@
 					<div class="stock input-group-sm">
     					{% if vind.has_stock == false %}
 							{% if vind.enable_instockemail %}
-								<button class="btn btn-sm btn-outline-danger" id="btn-emailStock" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>
+								<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>
 							{% else %}
                                 <div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>
 							{% endif %}
