@@ -16,7 +16,6 @@ else if (!debugging || typeof console.log == "undefined") console.log = function
 function IncludeJavaScript(jsFile, onLoadCallback) {
 	var head = document.getElementsByTagName('head')[0] || document.documentElement;
 	var s = document.createElement('script');
-	s.type = 'text/javascript';
 	s.async = true;
 	s.src = jsFile;
 	if (onLoadCallback) {

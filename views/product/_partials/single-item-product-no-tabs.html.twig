@@ -3,7 +3,7 @@
 	<div class="divide mb-4 pb-4" id="description">
 		<h2>Description</h2>
 		{% set full_description = product.description %}
-		<div class="g" itemprop="description">{{full_description}}</div>
+		<div class="g">{{full_description}}</div>
 	</div>
 {% endif %}
 {% if product.dynamic_attributes is not empty %}

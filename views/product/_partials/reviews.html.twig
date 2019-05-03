@@ -7,8 +7,8 @@
 	</div>
 	{% for review in reviews %}
 	   <div class="review divide g mb-4 pb-3">
-			<div class="fsd1 rating"><span>{{ base.rating(review.score, {'id':'star-rating-' ~ loop.index}) }}</span><span class="dib">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_reviewed|strtotime|date("m-d-Y") }}</span></div>
-			<div id="review-title"><b>{{ review.title }}</b></div>
+			<div class="fsd1 rating">{{ base.rating(review.score, {}) }}<span class="dib">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_reviewed|strtotime|date("m-d-Y") }}</span></div>
+			<div class="review-title"><b>{{ review.title }}</b></div>
 			<p>{{ review.comment|unescape }}</p>
 	   </div>
 	{% endfor %}

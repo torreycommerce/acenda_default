@@ -5,16 +5,16 @@
 				<ul class="nav nav-tabs">
 					{% if product.description is not empty %}
 					<li class="active">
-						<a href="#description-desktop" data-toggle="tab">Description</a>
+						<a href="#description" data-toggle="tab">Description</a>
 					</li>
 					{% endif %}
 					{% if product.dynamic_attributes is not empty %}
 						<li {% if product.description is empty %} class="active"{% endif %}>
-							<a href="#features-desktop" data-toggle="tab">Features</a>
+							<a href="#features" data-toggle="tab">Features</a>
 						</li>
 					{% endif %}
 					<li {% if product.description is empty and product.dynamic_attributes is empty %} class="active"{% endif %}>
-						<a href="#reviews-desktop" data-toggle="tab">Reviews</a>
+						<a href="#reviews" data-toggle="tab">Reviews</a>
 					</li>
 				</ul>
 			</div>
@@ -28,10 +28,10 @@
 				{# Begin product description #}
 				{% if product.description is not empty %}
 					{% set full_description = product.description %}
-					<div id="description-desktop" class="tab-pane fade in active">
+					<div id="description" class="tab-pane fade in active">
 						<div class="card">
 							<div class="card-body">
-								<div class="g" itemprop="description">{{full_description}}</div>
+								<div class="g">{{full_description}}</div>
 								<div id="variant-description-{{product.id}}" ></div>
 							</div>
 						</div>
@@ -39,7 +39,7 @@
 				{% endif %}
 				{# Begin features #}
 				{% if product.dynamic_attributes is not empty %}
-					<div id="features-desktop" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
+					<div id="features" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
 						<div class="card">
 							<div class="card-body">
 								<ul>
@@ -54,7 +54,7 @@
 					</div>
 				{% endif %}
 				{# Begin reviews #}
-				<div id="reviews-desktop" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
+				<div id="reviews" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
 					<div class="card">
 						<div class="card-body">
 							{% include "/product/_partials/reviews.html.twig" %}

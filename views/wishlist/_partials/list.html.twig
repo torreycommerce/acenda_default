@@ -102,7 +102,7 @@
 											<label for="quantity_purchased[{{ item.id }}]">Qty <br>Purchased</label>
 											<div class="input-group igq-mod">
     											<div class="mr-1">
-                                                    <input class="form-control form-control-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="number" value="{{ item.quantity_purchased }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
+                                                    <input class="form-control form-control-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="number" value="{{ item.quantity_purchased }}" max="99" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
                                                 </div>
                                                 <div class="btn-group-vertical">
 													<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Purchased Qty</span></i></button>

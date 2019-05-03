@@ -199,7 +199,7 @@
 				<div class="media-body g">
 				{% if product.brand is not empty %}
     				{#<div class="brand mb-1">
-    					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span itemprop="brand">{{product.brand}}</span></a>
+    					<a href="{{app.url}}/brand/{{product.brand|url_encode}}"><span>{{product.brand}}</span></a>
     				</div>#}
     			{% endif %}
 					<a href="{{ app.url ~ '/product/' ~ parent.slug ~ '?variant=' ~ product.id }}"><h3 class="product-name mb-0">{{ product.name }}</h3></a>

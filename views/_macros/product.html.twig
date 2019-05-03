@@ -145,7 +145,7 @@
 		{% if review_score > 0 %}
 		{% spaceless %}
 		<div class="fsd1 rating">
-			<span>{{ base.rating( review_score ) }}</span>
+			{{ base.rating( review_score ) }}
 			<span class="dib"><span>{{ (review_score * 5)|number_format(1) }}</span>
 				{% if reviews.num_total %}(<span>{{ reviews.num_total }}</span>)
 				{% endif %}
