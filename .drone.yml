@@ -1,6 +1,9 @@
 kind: pipeline
 name: default
 
+image_pull_secrets:
+  - dockerconfig
+
 steps:
   - name: build-started
     image: plugins/slack
