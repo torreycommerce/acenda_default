@@ -31,10 +31,10 @@ steps:
     image: quay.io/torreycommerce/scalr_deploy:latest
     environment:
       SCALR_URL: "https://scalr.acenda.com/api/api.php"
-			SCALR_API_KEY:
-				from_secret: scalr_api_key
-			SCALR_API_SECRET:
-				from_secret: scalr_api_secret
+      SCALR_API_KEY:
+        from_secret: scalr_api_key
+      SCALR_API_SECRET:
+        from_secret: scalr_api_secret
       DEPLOY_PATH: "/var/www/themes/mia"
       REPOSITORY: "git@github.com:torreycommerce/mia.git"
       BRANCH: "master"
@@ -44,8 +44,8 @@ steps:
       event:
         - push
         - tag
-			branch:
-				- master
+      branch:
+        - master
 
   - name: build-finished
     image: plugins/slack
