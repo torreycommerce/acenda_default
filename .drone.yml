@@ -1,60 +1,71 @@
-clone:
-  git:
-    image: plugins/git
-    depth: 1
+kind: pipeline
+name: default
 
-pipeline:
-  build-started:
+steps:
+  - name: build-started
     image: plugins/slack
-    webhook: https://hooks.slack.com/services/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
-    channel: builds
-    username: drone
-    template: >
-      {{#success build.status}}
-        {{uppercasefirst repo.name}} build {{build.number}} started:  {{build.link}}
-        Commit: ${DRONE_COMMIT_LINK}
-      {{else}}
-        {{uppercasefirst repo.name}} build {{build.number}} failed: {{build.link}}
-      {{/success}}
+    settings:
+      webhook:
+        from_secret: slackurl
+      channel: builds
+      username: drone
+      icon_url: https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/153/rocket_1f680.png 
+      template: >
+        {{#success build.status}}
+          {{uppercasefirst repo.name}} build {{build.number}} started:  {{build.link}}
+          Commit: ${DRONE_COMMIT_LINK}
+        {{else}}
+          {{uppercasefirst repo.name}} build {{build.number}} failed: {{build.link}}
+        {{/success}}
     when:
-      status: [success, failure]
+      status:
+        - success
+        - failure
       branch:
         - master
-      event: [push, tag]
+      event:
+        - push
+        - tag
 
-  deploy:
+  - name: deploy
     image: quay.io/torreycommerce/scalr_deploy:latest
-    pull: true
-    secrets:
-      - docker_username
-      - docker_password
     environment:
       SCALR_URL: "https://scalr.acenda.com/api/api.php"
-      SCALR_API_KEY: "a4b981d54ef74e4"
-      SCALR_API_SECRET: "/3Aq94PRjcECQn+ulcRB+UVs92y6gaTotzVlZpsRsvZsc4b0qsegf7pFSQ786LraYxC9UcgyxfsE5ihxkRYXFBhTbl7erezn+VF8qAESJYh4807u/YD/Fp2EKP9EvPu8"
+			SCALR_API_KEY:
+				from_secret: scalr_api_key
+			SCALR_API_SECRET:
+				from_secret: scalr_api_secret
       DEPLOY_PATH: "/var/www/themes/mia"
       REPOSITORY: "git@github.com:torreycommerce/mia.git"
       BRANCH: "master"
     commands:
       - ruby /usr/src/app/scalr.rb
     when:
-      event: [push, tag]
-      branch:
-        - master
+      event:
+        - push
+        - tag
+			branch:
+				- master
 
-  build-finished:
+  - name: build-finished
     image: plugins/slack
-    webhook: https://hooks.slack.com/services/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
-    username: drone
-    channel: builds
-    template: >
-      {{#success build.status}}
-        {{uppercasefirst repo.name}} build {{build.number}} succeeded after {{since build.started}}: {{build.link}}
-      {{else}}
-        {{uppercasefirst repo.name}} build {{build.number}} failed after {{since build.started}}: {{build.link}}
-      {{/success}}
+    settings:
+      webhook:
+        from_secret: slackurl
+      channel: builds
+      username: drone
+      template: >
+        {{#success build.status}}
+          {{uppercasefirst repo.name}} build {{build.number}} succeeded after {{since build.started}}: {{build.link}}
+        {{else}}
+          {{uppercasefirst repo.name}} build {{build.number}} failed after {{since build.started}}: {{build.link}}
+        {{/success}}
     when:
-      status: [ success, failure ]
+      status:
+        - success
+        - failure
       branch:
         - master
-      event: [push, tag]
+      event:
+        - push
+        - tag
