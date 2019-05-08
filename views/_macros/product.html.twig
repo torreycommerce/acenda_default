@@ -22,12 +22,12 @@
 				{% endif %}
 			{% endif %}
 			{% if image_url is empty %}
-				{% set fallback = "" %}
+				{% set fallback = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
 				{% set image_url = "" %}
 				{# Look for first variant with images, price>0 and has_stock #}
 				{% for variant in product.variant %}
 					{% if loop.first %}
-						{% set fallback = app.image.getImageUrl('product','thumbnail', variant.images[0].id) %}
+						{% set image_url = app.image.getImageUrl('product','thumbnail', variant.images[0].id) %}
 					{% endif %}
 					{% if variant.status == 'active' 
 					and variant.price>0 

@@ -62,7 +62,7 @@
                     {% if fulfillment is not empty %}
 						{% for f in fulfillment %}
 							{% if f.tracking_numbers is not empty %}
-								<br><{{ f.tracking_numbers[0] }}
+								<br>{{ f.tracking_numbers[0] }}
 							{% elseif f.tracking_urls is not empty %}
 								<br><br><a href="{{ f.tracking_urls[0] }}" style="display:inline-block; padding:9px 29px; color:#000; font-size:16px; font-weight:bold; text-decoration:none; border:1px solid #000;">Track Package</a>
 							{% endif %}

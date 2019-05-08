@@ -279,69 +279,78 @@
 </div>
 </div>
 
-<div id="topsellers">
-	{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
-</div>
+
+{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
+
+
+{% set schemaJsonLD = [] %}
+{% set schemaDescription = product.description|striptags %}
+{% set schemaOffers = [] %}
+    {% for variant in item.product[0].variant %}
+    {% set schemaOfferAvailability = "http://schema.org/InStock" %}
+      {% if variant.has_stock == false %}
+        {% set schemaOfferAvailability = "http://schema.org/OutOfStock" %}
+    {% endif %}
+    {% set schemaOfferPrice = variant.price %}
+        {% if variant.regular_price is not empty %}
+            {% set schemaOfferPrice = variant.regular_price %}
+    {% endif %}
+    {% set schemaOffers = schemaOffers|merge([
+    {
+            '@type': "Offer",
+            'price': schemaOfferPrice,
+            'priceCurrency': "USD",
+            'sku': variant.sku,
+            'gtin12': variant.barcode,
+            'url': app.params.url.current ~ "/product/" ~ product.slug,
+            'itemCondition': "https://schema.org/NewCondition",
+            'availability': schemaOfferAvailability
+    }]) %}
+    {% endfor %}
+{% set schemaReviews = [] %}
+    {% for review in reviews %}
+    {% set schemaReviews = schemaReviews|merge([
+    {
+        '@type': "Review",
+        'author': review.first_name,
+        'datePublished': review.date_created,
+        'description': review.comment,
+        'name': review.title,
+        'reviewRating': {
+                '@type': "Rating",
+                'bestRating': "5",
+                'ratingValue': review.score * 5,
+                'worstRating': "1"}
+    }]) %}
+    {% endfor %}
+{% set schemaAggregateRating = [] %}
+    {% if review_score == 0 %}
+    {% set schemaAggregateRating = null %}
+    
+      {% else %}
+      {% set schemaAggregateRating = schemaAggregateRating|merge(
+               {
+                '@type': "AggregateRating",
+                'ratingValue': review_score * 5,
+                'reviewCount': reviews.num_total
+                }) %}
+    {% endif %}
+
+{% set schemaJsonLD = schemaJsonLD|merge({
+            '@context': "https://schema.org/",
+            '@type': "Product",
+            'name': product.name,
+            'description': schemaDescription,
+            'image': product.images[0].large,
+            'brand': {
+                '@type': "Thing",
+                'name': product.brand
+                },
+            'offers': schemaOffers,
+            'aggregateRating': schemaAggregateRating,
+            'review': schemaReviews
+    }) %}
 
 <script type="application/ld+json">
-{
-    "@context": "http://schema.org/",
-    "@type": "Product",
-    "name": "{{product.name}}",
-    "image": "{{prodimg.standard}}",
-    "description": "{{product.description|striptags}}",
-    "brand": {
-        "@type": "Thing",
-        "name": "{{product.brand}}"
-    },
-    {% if review_score > 0 %}
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "{{(review_score * 5)}}",
-        "reviewCount": "{{ reviews.num_total }}"
-    },
-    "review": [
-        {% for rev in reviews %}
-        {
-            "@type": "Review",
-            "author": "{{rev.first_name}}",
-            "datePublished": "{{rev.date_created}}",
-            "description": "{{rev.comment}}",
-            "name": "{{rev.title}}",
-            "reviewRating": {
-                "@type": "Rating",
-                "bestRating": "5",
-                "ratingValue": "{{(rev.score * 5)}}",
-                "worstRating": "1"
-            }
-        }{% if loop.last == false %},{% endif %}
-        {% endfor %}
-    ],
-    {% endif %}
-    {% if product.videos is not empty %}
-    {% set vidthumb = product.videos[0] %}
-    {% set vidthumb = vidthumb|split('?v=') %}
-    {% set vidthumb = vidthumb[1] %}
-    "video": {
-        "@type": "VideoObject",
-        "description": "Product video.",
-        {#"duration": "T1M33S",#}
-        "name": "{{product.name}} Video",
-        "thumbnail": "{{vidthumb}}"
-    },
-    {% endif %}
-    "offers": [
-        {% set vs = product.variant %}
-        {% for varia in vs %}
-        {
-            "@type": "Offer",
-            "price": "{{varia.price|number_format(2)}}",
-            "priceCurrency": "{{prod.getcur()}}",
-            "sku": "{{varia.sku}}",
-            "itemCondition": "http://schema.org/NewCondition",
-            "availability": {% if varia.has_stock == true %}"http://schema.org/InStock"{% else %}"http://schema.org/OutOfStock"{% endif %}
-        }{% if loop.last == false %},{% endif %}
-        {% endfor %}
-    ]
-}
+{{schemaJsonLD|json_encode}}
 </script>
