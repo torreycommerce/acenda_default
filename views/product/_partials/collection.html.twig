@@ -227,7 +227,7 @@
 						<div class="media-left">
 							<div class="variant-selected-image">
 								<div class="image-space">
-									<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id) }}" class="img-fluid isd" alt="">
+									<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" class="img-fluid isd" alt="">
 								</div>
 							</div>
 						</div>
@@ -350,7 +350,7 @@
 			<div class="media-left">
 				<div class="variant-selected-image" id="variant-selected-image-{{product.id}}">
 					<div class="image-space">
-						<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id) }}" class="img-fluid isd" width="250" height="250" alt="">
+						<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" class="img-fluid isd" width="250" height="250" alt="">
 					</div>
 				</div>
 			</div>
@@ -428,7 +428,7 @@
 				{% for vo in product.variant_options %}
 					<div class="mb-3 selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
 						{% if vo.name == 'color' %}
-						<div class="selected-option fsd1 mb-1"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
+						<div class="selected-option fsd1 mb-1"><span class="selected-name"><span class="sr-only">{{ product.name }}</span> {{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
 						<ul class="list-inline vopt vopt-{{vo.name}}">
 						{% for v in vo.values %}
 							<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-index="{{loop.index0}}" data-value="{{v|e('html')}}">
@@ -460,7 +460,7 @@
 						</ul>
 						{% endif %}
 						{% if vo.name != 'color' %}
-						<label class="selected-option" for="{{vo.name}}-{{product.id}}"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
+						<label class="selected-option" for="{{vo.name}}-{{product.id}}"><span class="selected-name"><span class="sr-only">{{ product.name }}</span> {{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
 						<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}-{{product.id}}" title="{{vo.name}}">
 						{% for v in vo.values %}
 							<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v|e('html')}}" data-index="{{loop.index0}}">{{v}}</option>
@@ -505,6 +505,4 @@
 </div>
 </div>
 
-<div class="divide g pb-4 mb-4" id="topsellers">
-    {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
-</div>
+{% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}

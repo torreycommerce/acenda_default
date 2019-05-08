@@ -11,8 +11,8 @@
 <h1>Order Status &amp; History</h1>
 {{ lonelyform.begincard() }}
     <p>To view your current and past orders, please either <strong><a href="{{app.url}}/account/login/">log in to your account</a></strong> or enter your information below.</p>
-    {{ forms.begin('order','','post') }}
-    {{ forms.reqfieldlang() }}
+	{{ forms.reqfieldlang() }}
+    {{ forms.begin('order','','post') }}<fieldset><legend class="sr-only">Order Status & History</legend>
     <div class="form-group fgq">
         <label for="order-email">Email Address</label>
         {{ forms.email('order[email]', '', {class:'form-control parsley-validated', id:'order-email', required:true, placeholder: "Email Address"}) }}
@@ -26,7 +26,7 @@
     <div class="actions">     
         {{ forms.submit('action', 'search', 'Check Status', {class:'btn btn-lg btn-primary btn-block'})}}
     </div>
-    {{ forms.end() }}
+    </fieldset>{{ forms.end() }}
 {{ lonelyform.end() }}
 {{ lonelyform.endcard() }}
 {% endblock %}

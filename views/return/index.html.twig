@@ -15,8 +15,8 @@
 <h1>Create Return</h1>
 {{ lonelyform.begincard() }}
 	<p>To return an item you've already received, please enter the following details:</p>
-	{{ forms.begin('guestreturn',app.url ~ '/return/create','post') }}
 	{{ forms.reqfieldlang() }}
+	{{ forms.begin('guestreturn',app.url ~ '/return/create','post') }}<fieldset><legend class="sr-only">Create Return</legend>
 	<div class="form-group fgq">
 		<label for="return-email">Email Address</label>
 		{{ forms.email('guestreturn[email]', form.email, {placeholder:'Email Address', class:'form-control parsley-validated', id:'return-email', required:true}) }}
@@ -30,7 +30,7 @@
 	<div class="actions">
 		{{ forms.submit('guestreturn[action]', 'create', 'Create Return', {class:'btn btn-lg btn-primary btn-block'}) }}
 	</div>
-	{{ forms.end() }}
+	</fieldset>{{ forms.end() }}
 {{ lonelyform.end() }}
 {{ lonelyform.endcard() }}
 {% endblock %}

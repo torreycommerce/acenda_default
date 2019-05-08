@@ -40,7 +40,7 @@ Contact Us
 {{ lonelyform.begincard() }}
     <p>For questions or comments, please complete the form below.</p>
 	{{ forms.reqfieldlang() }}
-    {{ forms.begin('contact','','post', {class:'needs-validation'}) }}
+    {{ forms.begin('contact','','post', {class:'needs-validation'}) }}<fieldset><legend class="sr-only">Contact Us</legend>
     <div class="form-group fgq">
         <label for="contact-name">Name</label>
         {{ forms.text('contact[name]', contact.name|default(app.user.full_name), {class:'form-control parsley-validated', id:'contact-name', placeholder:"Name", required:true}) }}
@@ -64,14 +64,14 @@ Contact Us
     </div>
     <div class="form-group">
         {% if captcha_invalid %}
-            <div class="alert alert-warning"> Please complete the CAPTCHA </div>
+            <div class="alert alert-danger">Please complete the CAPTCHA</div>
         {% endif %}
         {{ forms.captchaHtml() }}
     </div>    
     <div class="actions">
         {{ forms.submit('submit', 'create', 'Send Message', {class:'btn btn-lg btn-primary btn-block',id: 'contact-form-submit'})}}
     </div>
-    {{ forms.end() }}
+    </fieldset>{{ forms.end() }}
 {{ lonelyform.end() }}
 {{ lonelyform.endcard() }}
 

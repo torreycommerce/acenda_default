@@ -261,7 +261,8 @@
 			<div class="row">                    
 				{# Begin search bar #}
 				<div class="col-12 col-md-4 mb-3">
-					<form role="search" method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
+					<form method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
+						<label class="sr-only" for="category-search">Search within</label>
 						<div class="input-group">
 							<input class="form-control typeahead search-autocomplete" id="category-search" data-provide="typeahead" autocomplete="off" type="text" name="fs" value="{{app.request.get.s|e}}" placeholder="Search within">
 							<span class="input-group-append">
