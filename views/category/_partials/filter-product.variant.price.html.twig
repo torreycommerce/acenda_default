@@ -3,7 +3,7 @@
 {% set deselect = '' %}
 
 <button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
-	<span>Price</span><i class="fa fa-angle-down"></i>
+	<span>Price</span><i class="fa fa-angle-down float-right"></i>
 </button>
 {% set last_price = 0 %}
 {% set selected_first = app.request.get.f['product.variant.price'].range|split(',')|first %}

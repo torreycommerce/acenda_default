@@ -116,7 +116,7 @@
     		{% set review_score = reviews|average('score') %}
     		{% if review_score > 0 %}
     		<div class="fsd1 rating">
-    			<a class="btn btn-link btn-sm p-0 ttc" href="#reviews"><div class="dib">{{ base.rating( review_score ) }}</div>
+    			<a class="btn btn-link btn-sm p-0 ttc" href="#reviews">{{ base.rating( review_score ) }}
     			<span class="dib">
     				<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
     			</span>

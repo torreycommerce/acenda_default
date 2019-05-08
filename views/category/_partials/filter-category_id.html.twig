@@ -1,7 +1,7 @@
 {% set category = api.get('/category',{'query':{'id':{'$in':filter_set|keys}}})|group_by('id') %}
 {% set open_filter = app.request.get.f[safename] %}
 <button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
-    <span>Category</span><i class="fa fa-angle-down"></i>
+    <span>Category</span><i class="fa fa-angle-down float-right"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse{% if open_filter is not empty %} show{% endif %}">
     <div class="card"><div class="card-body">

@@ -5,7 +5,7 @@
             <div class="max-400 divide mb-3 pb-3">
     			<h2>Be the first to know about <span class="wsnw">new products and sales.</span></h2>
     			<p>Sign up to stay in the loop. Receive updates, access to <span class="wsnw">exclusive deals, and more.</span></p>
-    			<form>
+    			<form><fieldset><legend class="sr-only">{{ app.params.site.title }} Email List Signup</legend>
                     <label class="sr-only" for="SignupInput">Email Address</label>
     				<div class="input-group">
     					<input id="SignupInput" type="search" placeholder="Email Address" class="form-control form-control-lg input-gray" name="email" title="Email Address">
@@ -14,13 +14,13 @@
     					</div>
     				</div>
     				<div class="newsletter-response"></div>
-    			</form>
+    			</fieldset></form>
     		</div>
     		<ul class="list-inline fsi1 social">
-                <li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-facebook" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
-                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-twitter" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
-                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-youtube" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Youtube</i></i></a>
-                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-pinterest" aria-hidden="true"><i class="sr-only">Follow {{ app.params.site.title }} on Pinterest</i></i></a>
+                <li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-facebook"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-twitter"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-youtube"><i class="sr-only">Follow {{ app.params.site.title }} on Youtube</i></i></a>
+                </li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-pinterest"><i class="sr-only">Follow {{ app.params.site.title }} on Pinterest</i></i></a>
                 </li>
             </ul>
 		</div>

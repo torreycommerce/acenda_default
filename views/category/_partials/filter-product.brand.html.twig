@@ -1,6 +1,6 @@
 <button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
     {% set title = name[:6] == 'group_' ? name[6:] : name %}
-    <span>Brand</span><i class="fa fa-angle-down"></i>
+    <span>Brand</span><i class="fa fa-angle-down float-right"></i>
 </button>
 {% set selected_brand = app.request.get.f['product.brand'] %}
 <div id="filter-{{ safename }}-items" class="collapse{% if selected_brand is not empty %} show{% endif %}">

@@ -116,19 +116,22 @@
 				{% endif %}
 			{% endspaceless %}{% endfor %}</div>
 			{% endif %}
+			{% if product.brand is not empty %}
 			<div class="brand mb-1">
 				<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}">{{product.brand}}</a>
 			</div>
+			{% endif %}
 			<h1 class="product-name">{{product.name}}</h1>
 			{# Begin review stars #}
 			{% spaceless %}
 			{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
 			{% if review_score > 0 %}
 			<div class="fsd1 rating">
-				<a class="ttc" href="#reviews">{{ base.rating( review_score ) }}</a>
+				<a class="btn btn-link btn-sm p-0 ttc" href="#reviews">{{ base.rating( review_score ) }}
 				<span class="dib">
 					<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span>{{ reviews.num_total }}</span>){% endif %}
 				</span>
+				</a>
 			</div>
 			{% endif %}
 			{% endspaceless %}
@@ -263,14 +266,14 @@
 					{% endfor %}
 					</ul>
 					<div class="quantity" id="div-quantity-{{bundle.id}}">
-						<label for="variant-input-{{bundle.id}}">Qty</label>
+						<label for="variant-input-{{bundle.id}}"><span class="sr-only">{{bundle.name}}</span> Qty</label>
 						<div class="input-group igq-mod">
 							<div class="mr-1">
 								<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="number" value="0" placeholder="1" name="bundles[{{ bundle.id }}]">
 							</div>
 							<div class="btn-group-vertical mr-3">
-								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
-								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase {{bundle.name}} Qty</span></i></button>
+								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease {{bundle.name}} Qty</span></i></button>
 							</div>
 							<button type="submit" class="btn btn-lg btn-primary btn-cart flex-fill virg wait" name="action" value="cart">
 							   <span>Add to Cart</span>
@@ -457,8 +460,8 @@
 						</ul>
 						{% endif %}
 						{% if vo.name != 'color' %}
-						<label class="selected-option" for="{{vo.name}}"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
-						<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}" title="{{vo.name}}">
+						<label class="selected-option" for="{{vo.name}}-{{product.id}}"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
+						<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}-{{product.id}}" title="{{vo.name}}">
 						{% for v in vo.values %}
 							<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v|e('html')}}" data-index="{{loop.index0}}">{{v}}</option>
 						{% endfor %}
@@ -470,14 +473,14 @@
 			{% endspaceless %}
 
 				<div class="form-group divide pb-3 mb-2 quantiy" id="div-quantity-{{product.id}}">
-					<label for="variant-input-{{product.id}}">Qty</label>
+					<label for="variant-input-{{product.id}}"><span class="sr-only">{{ product.name }}</span> Qty</label>
 					<div class="input-group igq-mod">
 						<div class="mr-1">
 							<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="number" value="0" max="99" placeholder="1" name="items[{{variation.id}}]">
 						</div>
 						<div class="btn-group-vertical mr-3">
-							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
-							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase {{ product.name }} Qty</span></i></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease {{ product.name }} Qty</span></i></button>
 						</div>
 						<button id="variant-atc-{{product.id}}" type="submit" class="btn btn-lg btn-primary btn-cart flex-fill virg wait" name="action" value="cart">
 							<span>Add to Cart</span>
