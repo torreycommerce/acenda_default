@@ -10,7 +10,7 @@ var depth = len('.yta-body ul:first');
 var i = 1;
 while (i < depth) {
 	//console.log('build body');
-	$('.yta-bodies').append('<div class="yta-body bgg frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-angle-left"></i><span></span></button></div></div>');
+	$('.yta-bodies').append('<div class="yta-body bgg frame deep" data-depth="'+i+'"><div class="yta-par"><button class="btn btn-lg btn-blank yta-getpar"><i class="fa fa-angle-left"></i><span>Prepared #'+i+' Subcategories</span></button></div></div>');
 	i++;
 }
 

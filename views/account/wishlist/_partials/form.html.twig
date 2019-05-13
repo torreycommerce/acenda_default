@@ -1,3 +1,4 @@
+{{ forms.reqfieldlang() }}
 {{ forms.begin('wishlist','','post', {class:''}) }}
 {% set address_select = {} %}
 {% for address in addresses %}
@@ -5,7 +6,6 @@
 {% endfor %}
 	<fieldset>
 	    <legend class="sr-only">Wish List Settings</legend>
-	    {{ forms.reqfieldlang() }}
 		<div class="form-group fgq">
 			<label for="name">Wish List Name</label>
 			{% if address_select is empty %}
@@ -36,9 +36,10 @@
 		</div>
 		<div class="form-group custom-control custom-checkbox">
 		    {% if address_select is empty %}
-                {{ forms.checkbox('wishlist[make_default]', 1, {disabled:true}) }}
+				{{ forms.checkbox('wishlist[make_default]', 1, {disabled:true}) }}
             {% else %}
-                {{ forms.checkbox('wishlist[make_default]', 1, {}) }}
+                {# forms.checkbox('wishlist[make_default]', 1, {}) #}
+				{{ forms.checkbox('wishlist[make_default]', false, '', (wishlist.default == 1 ? 1 : 0)) }}
             {% endif %}
 			<label class="custom-control-label" for="wishlist[make_default]">Default Wish List</label>
 			<div class="validation">{{ forms.errorlist(form_errors, 'make_default') }}</div>

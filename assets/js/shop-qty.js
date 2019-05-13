@@ -10,7 +10,6 @@ function updateCartTotals(qtyField, cartItemId) {
 			dataQty = data.result.items[cartItemId].quantity;	
 		}
 
-		var dataQty = data.result.items[cartItemId].quantity;
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();
 		var priceElementTotal = v2Data.find('.cart-total .price .val').html();

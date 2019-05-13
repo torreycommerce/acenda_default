@@ -75,7 +75,7 @@ set in the array in /account/_macros/base.html.twig
 	<div class="col-md-6 col-xl-4 g mb-3">
 		<div class="card {% if address.verified == 0 %} {# consider#}{% else %}{% endif %} {% if address.default == 1 %} bg-light{% endif %}">
 			<div class="card-body">
-				<h2 class="h3">{% if row == 0 %}<i class="fa fa-home"></i>{% endif %}<span>{{ address.first_name }} {{ address.last_name }}</span></h2>
+				<h2 class="h3">{% if row == 0 %}<i class="fa fa-map-marker"></i>{% endif %}<span>{{ address.first_name }} {{ address.last_name }}</span></h2>
 				<address>
 					{% if address.company %}
 						<div class="company">{{ address.company }}</div>

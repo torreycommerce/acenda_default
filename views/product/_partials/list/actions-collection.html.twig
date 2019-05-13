@@ -6,14 +6,14 @@
 {% if wishlists is empty %}
 
 <button type="submit" name="action" value="wishlist" class="btn btn-block btn-link">
-	{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add to Wish List</span>
+	{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add <span class="sr-only">{{ product.name }}</span> to Wish List</span>
 </button>
 
 {% else %}
 
 <div class="btn-group btn-block">
 	<button type="submit" name="action" value="wishlist" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
-		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add to Wish List</span>
+		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-heart"></i>{% endif %}<span>Add <span class="sr-only">{{ product.name }}</span> to Wish List</span>
 	</button>
 	<ul class="dropdown-menu col text-center" role="menu">
 		<li class="dropdown-header">Wish Lists:</li>
@@ -34,14 +34,14 @@
 {% if registries is empty %}
 
 <button type="submit" name="action" value="registry" class="btn btn-block btn-link">
-	{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
+	{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add <span class="sr-only">{{ product.name }}</span> to Registry</span>
 </button>
 
 {% else %}
 
 <div class="btn-group btn-block">
 	<button type="submit" name="action" value="registry" class="btn btn-block btn-link dropdown-toggle" data-toggle="dropdown">
-		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add to Registry</span>
+		{% if added %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-gift"></i>{% endif %}<span>Add <span class="sr-only">{{ product.name }}</span> to Registry</span>
 	</button>
 	<ul class="dropdown-menu col text-center" role="menu">
 	    <li class="dropdown-header">Registries:</li>

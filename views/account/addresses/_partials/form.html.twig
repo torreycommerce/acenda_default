@@ -1,3 +1,4 @@
+{{ forms.reqfieldlang() }}
 {{ forms.begin('address','','post',{ class:'form-region-customer' }) }}
 	<fieldset>
 		<legend class="sr-only">Address Information</legend>
@@ -74,7 +75,7 @@
 			</div>
 		</div>
 		<div class="form-group custom-control custom-checkbox">
-			{{ forms.checkbox('address[make_default]', 1) }}
+			{{ forms.checkbox('address[make_default]', false, '', (address.default == 1 ? 1 : 0)) }}
 			<label class="custom-control-label" for="address[make_default]">Make this your default address</label>
 		</div>
 		{{ normalizer.normalizer() }}
