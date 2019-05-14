@@ -43,7 +43,7 @@ var checkout = checkout || {};
 		card_type: '',
 		card_last_four: '',
         bt_client_token: '',
-
+        bt_enable_fraud_tools: (typeof braintree_enable_fraud_tools !='undefined')? braintree_enable_fraud_tools : false,
         bt_payment_details: '',
         bt_environment: 'sandbox',        
         bt_device_data: null,
@@ -367,7 +367,7 @@ var checkout = checkout || {};
 		            flow: 'vault'
 		          },
 				  dataCollector: {
-				    kount: true,
+				    kount: that.bt_enable_fraud_tools,
 				    paypal: true
 				  }
 		        }, function (createErr, instance) {
