@@ -32,7 +32,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% if app.request.get.daterange != '' %}
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
 {% endif %}
-{% set orders = api.get('/order', {query:{customer_id:app.user.id} + query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
+{% set orders = api.get('/order', {query: query,search:app.request.get.q,sort:'id:-1',limit:limit,page:app.request.get.page}) %}
 
 {{ lonelyform.begin()}}
 <h1>Orders</h1>
