@@ -5,8 +5,11 @@
 {# Redirect to the login page if user is not logged in. #}
 {% do account.login() %}
 
-{% set order = api.get('/order',{query:{customer_id:app.user.id,order_number:id}}).0 %}
-
+{% if not app.user.isLoggedIn() %}
+	{% set order = api.get('/order',{query:{customer_id:app.user.id,order_number:id}}).0 %}
+{% else %}
+	{% set order = api.get('/order',{query:{order_number:id}}).0 %}
+{% endif %}
 {% set page_name = 'order' %}
 
 {% block title %}Account - Order Details{% endblock %}
