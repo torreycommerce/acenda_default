@@ -50,7 +50,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		</div>
 	</div>
 	<div class="col-lg-6">
-		{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control form-control-autosubmit'}) }}
+		<label class="sr-only" for="searchlistdate">Orders by date</label>
+		{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All orders'}, {class:'form-control form-control-autosubmit',id:'searchlistdate'}) }}
 	</div>
 </div>
 {{ forms.end() }}

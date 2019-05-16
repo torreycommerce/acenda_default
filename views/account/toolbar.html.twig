@@ -22,9 +22,9 @@
             </a></div>
             <div class="search">
                 <form class="search-form" method="get" action="{{app.url}}/search">
-                    <label class="sr-only" for="search">Search products</label>
+                    <label class="sr-only" for="search" id="search-label">Search products</label>
                     <div class="form-group twitter-typeahead">
-                        <input class="form-control form-control-lg typeahead search-autocomplete" id="search" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search products">
+                        <input class="form-control form-control-lg typeahead search-autocomplete" id="search" aria-labelledby="search-label" data-provide="typeahead" autocomplete="off" type="text" name="s" placeholder="Search products">
                         <button class="btn btn-link btn-lg" type="submit">
                             <i class="fa fa-search"><i class="sr-only">Search products</i></i>
                         </button>
