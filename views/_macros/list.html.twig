@@ -13,25 +13,34 @@
             {% endfor %}
             <input type="hidden" id="item_link" name="item_link" value="{{app.url}}{{item_link}}">
         </div>
-      <table class="table fsd1 table-hover table-striped tablesorter">
+      <table class="table fsd1 table-striped tablesorter">
         <thead>
           <tr>
-              <th></th>
+              <th class="shrink"><span class="sr-only">Actions</span></th>
             {% for column in columns %}
                 {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
+				{% set colclass = "" %}
                 {% set coltitle = column|replace({'_':'&nbsp;'})|title %}
+				{% if coltitle == "Unread" %}
+                    {% set coltitle = "New" %}
+					{% set colclass = "shrink" %}
+                {% endif %}
                 {% if coltitle == "Date&nbsp;created" %}
                     {% set coltitle = "Date" %}
+					{% set colclass = "shrink text-right" %}
                 {% endif %}
-                <th {% if loop.last%}class="text-right"{% endif %} onclick="window.location='{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}'"><span>{{coltitle}}</span><i class="fa fa-sort"><i class="sr-only">Sort by {{coltitle}}</i></i></th>
+                <th {% if colclass != "" %}class="{{colclass}}"{% endif %}><a href="{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}"><span>{{coltitle}}</span><i class="fa fa-sort"><i class="sr-only">Sort by {{coltitle}}</i></i></a></th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
         
         {% for row in data %}
-          <tr onclick="window.location='{{ app.url ~ item_link|replace({'{id}':row.id}) }}'" style="cursor:pointer">
-            <td><input type="checkbox" class="multi-select" name="{{row.id}}"></td>
+          <tr>
+            <td class="shrink"><div class="pos-r custom-control custom-checkbox">
+                <input type="checkbox" class="multi-select custom-control-input" id="{{row.id}}" name="{{row.id}}">
+                <label class="custom-control-label" for="{{row.id}}"><span class="sr-only">Select {{row.id}}</span>&nbsp;</label>
+            </div></td>
             {% for column in columns %}
                 {% set data = row[column] %}
                 {% set extras = null %}
@@ -42,15 +51,21 @@
                         {% endfor %}
                     {% endset %}
                 {% endif %}
-                <td {% if loop.last%}class="text-right"{% endif %}>
+                <td {% if loop.last%}class="text-right"{% endif %}>{% if loop.first%}{% endif %}
                     
                     {% if extras is not empty %}
-                        <span data-tooltip="" data-toggle="tooltip" data-original-title="{{extras}}">{{list.format_field(row[column], column_format[column])}} <i class="fa fa-info-circle"></i></span>
+                        {{list.format_field(row[column], column_format[column])}} <i class="fa fa-info-circle"></i>
                     {% else %}
-                        {{list.format_field(row[column], column_format[column])}}
+						{% if loop.index == 2 %}
+                        <a href="{{ app.url ~ item_link|replace({'{id}':row.id}) }}">
+						{% endif %}
+							{{list.format_field(row[column], column_format[column])}}
+						{% if loop.index == 2 %}
+						</a>
+						{% endif %}
                     {% endif %}
 
-                </td>
+                {% if loop.first%}{% endif %}</td>
             {% endfor %}
           </tr>
         {% endfor %}
@@ -73,10 +88,10 @@
             No
         {% endif %}
     {% elseif type == 'date' %}
-        <span data-tooltip="" data-toggle="tooltip" data-original-title="{{ value|date("F jS g:ia") }}">{{ value|date("m/d/Y") }}</span>
+        {{ value|date("m/d/Y") }}
     {% elseif type == 'boolean' %}
         {% if value %}
-            <i class="fa fa-check"></i>
+            <i class="fa fa-check"><span class="sr-only">True</span></i>
         {% endif %}
     {% elseif type == 'contact-subject' %}
         {% set subjects = {

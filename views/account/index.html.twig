@@ -41,14 +41,13 @@ set in the array in /account/_macros/base.html.twig
 	<p>You do not have any notifications.</p>
 	{% else %}
 	<div class="table-responsive g">
-		<table class="table fsd1 table-hover table-striped tablesorter">
+		<table class="table fsd1 table-striped tablesorter">
 			<tbody>
 				{% for notif in notifications %}
-					<tr style="cursor:pointer" onclick="window.location='{{ app.url }}/account/notification/{{ notif.id }}'">                                                            
-						<td>{% if notif.unread %}<i class="fa fa-check"></i>{% endif %}</td>
-						<td>{{ notif.subject}}</td>
-						<!-- March 30th 9:06pm -->
-						<td class="text-right"><span data-original-title="{{ notif.date_created|date('F jS h:i a')}}" data-toggle="tooltip" data-tooltip="">{{ notif.date_created|date("m/d/Y") }}</span></td>
+					<tr>
+						<td style="width:1%;">{% if notif.unread %}<i class="fa fa-check"><span class="sr-only">Unread</span></i>{% endif %}</td>
+						<td><a href="{{ app.url }}/account/notification/{{ notif.id }}">{{ notif.subject}}</a></td>
+						<td class="shrink text-right">{{ notif.date_created|date("m/d/Y") }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -69,7 +68,7 @@ set in the array in /account/_macros/base.html.twig
 	<div class="fsd1 divide mb-3">
 		<div class="row">
 			<div class="col-lg-5 mb-3">
-				<h3>Order #:{{ order.order_number }}</h3>
+				<h3>Order #: {{ order.order_number }}</h3>
 				<div>Status: {{order.status}}</div>
 				<div class="mb-3">{{ order.date_created}}</div>
 				<a href="{{app.url}}/account/order/{{ order.order_number }}" class="btn btn-default btn-xsm-block">Order Details</a>

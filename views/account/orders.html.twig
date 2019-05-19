@@ -43,8 +43,8 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {{ forms.begin('ordersearch', app.url ~ '/account/orders', 'get') }}
 <div class="row page-filters">
 	<div class="col-lg-6 mb-3 mb-lg-0">
+		<label class="sr-only" for="searchlist">Search orders</label>
 		<div class="input-group">
-		    <label class="sr-only" for="searchlist">Search orders</label>
 			<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search order details">
 			<span class="input-group-append"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search Orders</i></i></button></span>
 		</div>
@@ -76,7 +76,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 	<div class="row">
 		<div class="col-lg-5 fsd1 mb-4 mb-lg-0">
 
-			<h2>Order #:{{ order.order_number }}</h2>
+			<h2>Order #: {{ order.order_number }}</h2>
 			<div>Status: {{ order.status }}</div>
 			<div class="mb-3">{{ order.date_created }}</div>
 

@@ -7,8 +7,12 @@
 <div id="normalized-address">
 	<div id="address-found" class="alert alert-success" style="display: none;">
 		<p>Please verify your address. Select which address you would like to use:</p>
-		<input type="radio" name="address-radio" value="current" id="address-current" checked> Current address<br>
-		<input type="radio" name="address-radio" value="normalized" id="address-normalized"> <span id="address"></span>
+		<div class="custom-control custom-checkbox">
+			<input type="radio" name="address-radio" value="current" class="custom-control-input" id="address-current" checked><label for="address-current">Current address</label>
+		</div>
+		<div class="custom-control custom-checkbox">
+			<input type="radio" name="address-radio" value="normalized" class="custom-control-input" id="address-normalized"><label for="address-normalized"><span id="address">Pending address</span></label>
+		</div>
 	</div>
 	<div id="address-not-found" class="alert alert-warning" style="display:none">
 		<p>We couldn't verify your address. Please correct your address and try again, or click the button below to continue.</p>

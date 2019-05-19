@@ -47,37 +47,34 @@
 {% else %}
 
 {{ lonelyform.begincard('bg-light')}}
-<div class="page-filters divide mb-3">
-	<div class="row">
+	{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
+	<div class="row page-filters">
 		<div class="col-lg-6 mb-3 mb-lg-0">
-			<label class="sr-only" for="searchlist">Search Returns</label>
+			<label class="sr-only" for="searchlist">Search returns</label>
 			<div class="input-group">
 				<input type="search" id="searchlist" name="q" value="{{app.request.get.q|e}}" class="form-control" placeholder="Search returns">
 				<span class="input-group-append"><button type="submit" class="btn btn-default"><i class="fa fa-search"><i class="sr-only">Search Returns</i></i></button></span>
 			</div>
 		</div>
 		<div class="col-lg-6">
-			<div class="return-filter">
-				{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
-				{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control form-control-autosubmit'}) }}
-			</div>
+			<label class="sr-only" for="searchlist-select">Returns by date</label>
+			{{ forms.select('daterange', app.request.get.daterange|e, {'-6 months':'6 months ago', '-3 months' : '3 months ago', '-1 month' : '1 month ago', '-1 week' : '1 week ago', '-1 day' : '1 day ago', '' : 'All returns'}, {'class':'form-control form-control-autosubmit', id:"searchlist-select"}) }}
 		</div>
-		{{ forms.end() }}
 	</div>
-</div>
+	{{ forms.end() }}
 {{ lonelyform.endcard()}}
 
 {% for return in returns %}
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-			<h2>RMA #: #{{ return.rma }}</h2>
+			<h2>RMA #: {{ return.rma }}</h2>
 			<div>Status: {{ return.status }}</div>
 			<div>{{ return.date_created }}</div>
 
 			{% if return.status == 'pending' %}
 			{# FIXME: This should be a post request and a modal #}
-			<button class="btn btn-default btn-xsm-block mt-3" data-toggle="modal" data-target="#cancel-modal">Cancel Return</button>
+			<button class="btn btn-default btn-xsm-block mt-3" data-toggle="modal" data-target="#cancel-modal">Cancel Return <span class="sr-only">{{ return.rma }}</span></button>
 			<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">

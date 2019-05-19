@@ -52,8 +52,8 @@
 			<div class="col-6">
 				<div class="form-group fgq normalizable">
 					<label id="state-label" for="state">State/Province</label>
-                    {{ forms.select('address[state]', address.state, {}, {required:true, class:'form-control parsley-validated', id:'state_select' }) }}
-                    {{ forms.text('address[state]', address.state, {class:'form-control parsley-validated d-none', placeholder:"State/Province", id:'state_input'}) }}
+                    {{ forms.select('address[state]', address.state, {}, {required:true, class:'form-control parsley-validated', id:'state_select', "aria-labelledby":"state-label" }) }}
+                    {{ forms.text('address[state]', address.state, {class:'form-control parsley-validated d-none', placeholder:"State/Province", id:'state_input', "aria-labelledby":"state-label"}) }}
 					{{ forms.hidden('address[state_select]', address.state) }}
 					<div class="validation">{{ forms.errorlist(form_errors, 'state') }}</div>
 				</div>
@@ -61,8 +61,8 @@
 			<div class="col-6">
 				<div class="form-group fgq normalizable">
 					<label for="zip" id="zip-label"><span class="postziplang">Zip Code</span></label>
-					{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip Code", id:"zip", required:true}) }}
-					{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated d-none', placeholder:"Postal Code", id:"postal"}) }}
+					{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated', placeholder:"Zip Code", id:"zip", required:true, "aria-labelledby":"zip-label"}) }}
+					{{ forms.text('address[zip]', address.zip, {class:'form-control parsley-validated d-none', placeholder:"Postal Code", id:"postal", "aria-labelledby":"zip-label"}) }}
 					<div class="validation">{{ forms.errorlist(form_errors, 'zip') }}</div>
 				</div>
 			</div>
