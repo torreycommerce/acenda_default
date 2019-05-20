@@ -10,8 +10,7 @@
 	text-align: center;
 	width: 75%;
 }
-#checkout-cards img {max-height:40px; width:auto;}
-.checkout-card {max-width:56px; height:40px;}
+.checkout-card {padding-top:40px;}
 
 .card-header .step-data:empty {margin:0;}
 

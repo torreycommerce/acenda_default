@@ -626,7 +626,7 @@ var checkout = checkout || {};
 		                	$(this).parents('label').find('.val').text($(this).text());
 		                });
 		                setTimeout(function() {
-					        $('tr[method="' +  method.id + '"] .spinner').show();  
+					        $('tr[data-method="' +  method.id + '"] .spinner').show();  
 					        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.get('carrier_name')).done(function(data) {
 					            var estimates = data.result;
 					            $.each(estimates,function(ek,estimate){
@@ -642,7 +642,7 @@ var checkout = checkout || {};
 					                var elem = $('label.' +ek).html(estimate_string);
 					            });
 					        }).always(function(){
-					            $('tr[method="' +  method.id + '"] .spinner').hide();
+					            $('tr[data-method="' +  method.id + '"] .spinner').hide();
 					        });
 					    },100);
 
