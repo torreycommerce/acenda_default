@@ -292,7 +292,7 @@
 	    </div></div>
 	<div class="col-lg-4">
 		<div class="card"><div class="card-body">
-			<div class="divide pb-3 mb-3">
+			<div class="divide fsd1 pb-3 mb-3">
 				<div class="row estimate-subtotal">
 					<div class="col-7">Subtotal:</div>
 					<div class="col-5 text-right">
@@ -410,7 +410,7 @@
 					{{ forms.text('cart[coupon_code]', coupon_code, {class:'form-control parsley-validated', id:'cart_coupon_code', placeholder: "Coupon Code", required:coupreq}) }}
 				</div>
 				<div class="col-6">
-					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply <span class="sr-only">Coupon Code</span>', {class:'btn btn-default btn-block', id: 'cart_Enter Coupon'})}}
+					{{ forms.submit('cart[action]', 'enter_coupon', 'Apply <span class="sr-only">Coupon Code</span>', {class:'btn btn-default btn-block'})}}
 				</div>
 			</div>
 			<div class="validation">{{ forms.errorlist(form_errors, 'coupon_code') }}</div>
@@ -419,7 +419,7 @@
 			{% if discount.type == 'coupon' %}
 			<div class="discount g">
 				<div class="alert alert-info fsd1">
-					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs', id: 'cart_Enter Coupon'}) }}
+					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs'}) }}
 					
 					<p>
 					<b>Coupon: {{ discount.code }}</b>

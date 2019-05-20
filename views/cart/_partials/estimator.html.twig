@@ -28,14 +28,14 @@
 <script id="shipping-methods-template" type="text/template">
 <fieldset>
 	<legend class="sr-only">Select a Shipping Method</legend>
-    <div class="table-responsive fsd1">
+    <div class="table-responsive fsd1 mb-0">
 	<table class="table">
 	<tbody>
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
 			    <tr data-method="<%= method.id %>">
-			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" carrier="<%= method.carrier_name %>" ><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
-			        <td class="estimate-column" style="text-align: center; padding-left:2; padding-right:2"><span class="wsnw" <%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %> </span><i class="fa fa-circle-notch fa-spin spinner" style="display:none;"></i></td>
+			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" data-carrier="<%= method.carrier_name %>" ><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
+			        <td class="estimate-column"><span class="wsnw" data-carrier-method="<%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %> </span><i class="fa fa-circle-notch fa-spin spinner" style="display:none;"></i></td>
 			        <td class="shrink text-right">$<%= method.price %></td>
 			    </tr>
 			    <% } %>
