@@ -42,20 +42,20 @@ set in the array in /account/_macros/base.html.twig
 
 {{ lonelyform.begincard()}}
 <div class="table-responsive">
-	<table class="table fsd1 table-hover table-striped tablesorter">
+	<table class="table fsd1 table-striped">
 		<thead>
 			<tr>
 				<th>Product</th>
 				<th>Title</th>
-				<th class="text-right">Date</th>
+				<th class="shrink text-right">Date</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for review in reviews %}
 			{% set product = api.get('/product/'~review.product_id) %}
 			<tr>
-				<td><a href="{{ app.url }}/account/review/{{review.id}}/edit">{{ product.name }}</a></td>
-				<td>{{ review.title }}</td>
+				<td>{{ product.name }}</td>
+				<td><a href="{{ app.url }}/account/review/{{review.id}}/edit">{{ review.title }}</a></td>
 				<td class="text-right">{{ review.date|strtotime|date("Y/m/d") }}</td>
 			</tr>
 			{% endfor %}

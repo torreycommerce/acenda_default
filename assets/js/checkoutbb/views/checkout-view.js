@@ -76,7 +76,7 @@ var checkout = checkout || {};
 			'click #btn-edit-billing-address' : 'editBillingAddress',
 			'change #shipping-country' : 'changedShippingCountry',
 			'change #billing-country' : 'changedBillingCountry',
-			'change #customer-addresses select' : 'changedSavedAddress',
+			'change .customer-addresses select' : 'changedSavedAddress',
 			'change #login-form input' : 'changedLogin'	,
 			'change input[name=shipping_method]' : 'changedShippingMethod',
 			'keyup #checkout_card_number' : 'keyUpCardNumber',
@@ -406,15 +406,15 @@ var checkout = checkout || {};
 
 			formData['step'] = (stepName=='payment')?'billing':'shipping';
 
-			var addySelect = $('.checkoutapp #' + stepName + '-panel #customer-addresses select').val();
+			var addySelect = $('.checkoutapp #' + stepName + '-panel .customer-addresses select').val();
 
 			if(that.logged_in  && addySelect!=0) return true;
 
 			if(typeof formData['verified'] !=='undefined' && formData['verified']==1){
-                form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
+                form_elem.find('.address-verify').html('<input name="verified" value="1" type="hidden"/>');
 				return true;
 			}
-			form_elem.find('#address-verify').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');
+			form_elem.find('.address-verify').html('<div style="margin: auto; padding: 12px 15px; color: #ddd; text-align: center;" ><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>');
 
 			$.post(acendaBaseUrl + '/api/address/verify',formData).done(function(response) {
 				var addy = response.result;
@@ -422,7 +422,7 @@ var checkout = checkout || {};
 				    formData[formData.step + '_street_line2'].toUpperCase().trim() == addy['street_line2'] &&
 				    formData[formData.step + '_city'].toUpperCase().trim() == addy['city'] &&
 				    formData[formData.step + '_zip'] == addy['zip'].trim()) {
-                    form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/>');
+                    form_elem.find('.address-verify').html('<input name="verified" value="1" type="hidden"/>');
 
 					switch(stepName) {
 						case 'shipping':
@@ -435,7 +435,7 @@ var checkout = checkout || {};
 					return true;
 				}
 
-				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' +
+				form_elem.find('.address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-success">Please verify your address. Select which address you would like to use:<br><br>' +
 				'<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-current"  value="current" checked> <label for="useaddress-current" style="display: inline-block; vertical-align:middle; margin-top: 7px">Current Address</label><br><div style="height: 10px"></div>' +
                 '<input style="display:inline-block; vertical-align:middle;" type="radio" name="useaddress" id="useaddress-verified" value="verified"> <label for="useaddress-verified" style="display: inline-block; vertical-align:top;">' + addy['street_line1'] + ' ' +  addy['street_line2']+ '<br>' +  addy['city'] + ', ' + addy['state']	+ ' ' + addy['zip']	+ '</label>' +
 				'</div>');
@@ -456,7 +456,7 @@ var checkout = checkout || {};
 			        }
 				});
 			}).fail(function(response) {
-				form_elem.find('#address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-warning">We couldn\'t verify your address. Please correct your address and try again, or click the button below to continue.</div>');
+				form_elem.find('.address-verify').html('<input name="verified" value="1" type="hidden"/><div class="alert alert-warning">We couldn\'t verify your address. Please correct your address and try again, or click the button below to continue.</div>');
 			});
 			return false;
 		},
@@ -505,8 +505,8 @@ var checkout = checkout || {};
                 	var count_addy_billing=0;
                     if(that.customer_addresses.length) {
                     	var tpl = _.template('<option value="<%= id %>"><%= one_line %></option> ');
-                    	$('[id=customer-addresses]').show();
-                    	$('#customer-addresses select').html('<option value="0">New Address</option>');
+                    	$('.customer-addresses').show();
+                    	$('.customer-addresses select').html('<option value="0">New Address</option>');
                         $('#billing-customer-addresses-select').html('<option value="0">New Address</option>');
 
                     	that.customer_addresses.each(function(addy){
@@ -524,14 +524,14 @@ var checkout = checkout || {};
 	                    	}
                     	});
                     } else {
-                    	$('[id=customer-addresses]').hide();
+                    	$('.customer-addresses').hide();
                     }
                  	setTimeout(function() {
                     		if(!count_addy_shipping) {
-                                 $('#shipping-panel [id=customer-addresses]').hide();
+                                 $('#shipping-panel .customer-addresses').hide();
                     		}
                     		if(!count_addy_billing) {
-                                 $('#shipping-panel [id=customer-addresses]').hide();
+                                 $('#shipping-panel .customer-addresses').hide();
                     		}
  							if(typeof callback !== 'undefined') {
  								callback();
@@ -626,7 +626,7 @@ var checkout = checkout || {};
 		                	$(this).parents('label').find('.val').text($(this).text());
 		                });
 		                setTimeout(function() {
-					        $('tr[method="' +  method.id + '"] #spinner').show();  
+					        $('tr[method="' +  method.id + '"] .spinner').show();  
 					        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.get('carrier_name')).done(function(data) {
 					            var estimates = data.result;
 					            $.each(estimates,function(ek,estimate){
@@ -642,7 +642,7 @@ var checkout = checkout || {};
 					                var elem = $('label.' +ek).html(estimate_string);
 					            });
 					        }).always(function(){
-					            $('tr[method="' +  method.id + '"] #spinner').hide();
+					            $('tr[method="' +  method.id + '"] .spinner').hide();
 					        });
 					    },100);
 
@@ -773,7 +773,7 @@ var checkout = checkout || {};
 			return checkoutForm;
 		},
 		changedAddress: function(e) {
-			$(e.target).parents('.panel').find('#address-verify').html('');
+			$(e.target).parents('.panel').find('.address-verify').html('');
 		},
 		changedShippingCountry: function() {
 			var selectedCountry = $('select#shipping-country').val();
@@ -825,7 +825,7 @@ var checkout = checkout || {};
 			var copy_fields = ['first_name', 'last_name' ,'street_line1','street_line_2','city','state','zip','phone_number','country'];
 
 			if(current !== 'shipping' && current !=='billing') return;
-			$(e.target).parents('.panel').find('#address-verify').html('');
+			$(e.target).parents('.panel').find('.address-verify').html('');
 			if(val!='0') {
 				var addy = this.customer_addresses.get(val);
 				if(!addy) return;

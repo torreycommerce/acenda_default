@@ -199,7 +199,7 @@
 		<p class="p"><%= variant.get('price') %></p>
 		<p class="l">
 		<% if(item.wishlist_id) { %>
-			<div mb-3 class="wishlist mb-3"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
+			<div class="wishlist mb-3"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
 		<% } %>
 		<% if(item.registry_id) { %>
 			<div mb-3 class="registry mb-3"><a href="{{ app.url }}"><i class="icon icon-list"></i> For </a></div>
@@ -241,13 +241,14 @@
 </script>
 
 <script id="shipping-methods-template" type="text/template">
+<fieldset><legend class="sr-only">Select a Shipping Method</legend>
     <div class="table-responsive fsd1">
 	<table  class="table">
 	<thead>
         <tr>
 		    <th>Method</th>
 			<th>Est<span class="d-none d-md-inline">imated</span> Arrival</th>
-			<th class="text-right">Price</th>
+			<th class="shrink text-right">Price</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -255,14 +256,15 @@
 			<% if(method.status=='active') { %>
 			    <tr method="<%= method.id %>">
 			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>"><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
-			        <td><label for="method_<%= method.id %>_input" class="<%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %> </label><i id="spinner" class="fa fa-circle-notch fa-spin" style="display:none;"></i></td>
-			        <td class="text-right"><label for="method_<%= method.id %>_input">{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></label></td>
+			        <td><span><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %></span><i class="fa fa-circle-notch fa-spin spinner" style="display:none;"></i></td>
+			        <td class="shrink text-right"><span>{{ prod.currency("0.00") }}<span class="d-none"><% if(typeof method.price==='undefined') {{ '{' }}  %><span class="price"><i class="fa fa-refresh fa-spin spinner" style="font-size:24px"></i><% {{ '}' }} %><%= method.price %></span></span></span></td>
 			    </tr>
 			    <% } %>
 	    <% }) %>
 	</tbody>
 	</table>
 	</div>
+</fieldset>
 </script>
 {% endblock %}
 

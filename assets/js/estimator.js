@@ -36,7 +36,7 @@ function getDeliveryEstimates(shipping_methods) {
     if(!$('[name="cart[shipping_zip]"]').val()) return;
     shipping_methods.forEach(function(method,k) {
         console.log('getting estimate for ' + method.id);
-        $('tr[method="' +  method.id + '"] #spinner').show();   
+        $('tr[method="' +  method.id + '"] .spinner').show();   
         $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier='+method.carrier_name).done(function(data) {
             var estimates = data.result;
             $.each(estimates,function(ek,estimate){
@@ -52,7 +52,7 @@ function getDeliveryEstimates(shipping_methods) {
                 var elem = $('label.' +ek).html(estimate_string);
             });
         }).always(function(){
-            $('tr[method="' +  method.id + '"] #spinner').hide();
+            $('tr[method="' +  method.id + '"] .spinner').hide();
         })
     });
 } 
