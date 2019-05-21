@@ -62,9 +62,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% if orders is empty %}
 
 {% if query is empty and search is empty %}
-<p>You have yet to place an order.</p>
+<div class="alert alert-info">You have yet to place an order.</div>
 {% else %}
-<p>You do not have any matching orders. Try adjusting your search.</p>
+<div class="alert alert-info">You do not have any matching orders. Try adjusting your search.</div>
 {% endif %}
 
 

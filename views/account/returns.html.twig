@@ -29,6 +29,7 @@
 
 {{account.navigation('returns')}}
 
+{% set search = app.request.get.q is defined ? app.request.get.q : '' %}
 {% set query = {} %}
 {% if app.request.get.returnsearch.daterange != '' %}
 	{% set query = {date_created:{'$gte':strtotime(app.request.get.daterange)|date('Y-m-d')}} %}
@@ -39,12 +40,7 @@
 {{ lonelyform.begin()}}
 <h1>Returns</h1>
 
-{% if returns is empty %}
-
-<p>You have yet to create a return.</p>
-<a href="{{app.url}}/return" class="btn btn-default btn-lg">Create Return</a>
-
-{% else %}
+{% if query is not empty or search is not empty or returns is not empty %}
 
 {{ lonelyform.begincard('bg-light')}}
 	{{ forms.begin('returnsearch', app.url ~ '/account/returns', 'get') }}
@@ -63,6 +59,20 @@
 	</div>
 	{{ forms.end() }}
 {{ lonelyform.endcard()}}
+
+{% endif %}
+
+{% if returns is empty %}
+
+{% if query is empty and search is empty %}
+
+<div class="alert alert-info">You have yet to create a return.</div>
+<a href="{{app.url}}/return" class="btn btn-default">Create Return</a>
+{% else %}
+<div class="alert alert-info">You do not have any matching returns. Try adjusting your search.</div>
+{% endif %}
+
+{% else %}
 
 {% for return in returns %}
 {{ lonelyform.begincard()}}
