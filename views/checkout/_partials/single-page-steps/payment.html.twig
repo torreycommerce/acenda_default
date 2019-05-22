@@ -4,7 +4,9 @@
 <form id="payment-form"  novalidate>
 {% set cart = api.get('cart') %}
 {% if payment_platform.platform == 'Braintree' %}
-	<h3>Payment Method</h3>	
+	<h3>Payment Method</h3>		
+	{% set btParms = api.get('braintree/getParameters') %}
+	<script> var braintree_enable_fraud_tools = {{ btParms.enableFraudTools ? 'true' : 'false' }}; </script>
 	{{ app.asset.js('https://js.braintreegateway.com/web/dropin/1.12.0/js/dropin.js',null,{'data-cfasync':'false'}) }}
 	 <input id="nonce" name="payment_method_nonce" type="hidden" />
 	    <div id="dropin-container"></div>
