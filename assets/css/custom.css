@@ -25,20 +25,14 @@ h1,.h1 {}
 #qc-btn .item-count.ready {opacity:1; visibility:visible;}
 
 #nav .navbar-expand .navbar-nav .nav-link {padding:1rem;}
-#nav .navbar-nav {float:none;}
-#nav .navbar-nav > li > ul > li > ul a {font-weight:normal;}
-#nav .nav > li > a:hover, #nav .nav > li > a:focus {background-color:transparent;}
 #nav .navbar-nav li a {white-space:nowrap;}
 #nav .fa {display:none;}
-#nav .dropdown-menu {padding:0 0 10px 5px;}
-#nav .navbar-nav > li > .dropdown-menu {margin-top:0; padding:1.25rem;}
-#nav .dropdown-submenu>.dropdown-menu {display:block; position:static; float:none; border:none; box-shadow:none;}
+#nav .dropdown-menu {margin-top:0; padding:1.25rem;}
+#nav .dropdown-submenu>.dropdown-menu {display:block; position:static; padding:0 0 .75rem .5rem; border:none; box-shadow:none;}
 
-#nav .navbar-nav > li.make-cols > .dropdown-menu {-webkit-column-count:3; -moz-column-count:3; column-count:2; column-rule:1px solid rgba(0,0,0,.1); break-inside:avoid-column; -webkit-column-break-inside:avoid; -webkit-column-gap:40px; -moz-column-gap:40px; column-gap:40px;}
-#nav .navbar-nav > li.make-cols > .dropdown-menu li {display:block;}
-#nav .navbar-nav > li.make-cols > .dropdown-menu li ul {display:none;}
-
-#content {border-bottom:1px solid #f0f0f0;}
+#nav .make-cols > .dropdown-menu {-webkit-column-count:3; -moz-column-count:3; column-count:2; column-rule:1px solid rgba(0,0,0,.1); break-inside:avoid-column; -webkit-column-break-inside:avoid; -webkit-column-gap:40px; -moz-column-gap:40px; column-gap:40px;}
+#nav .make-cols > .dropdown-menu li {display:block;}
+#nav .make-cols > .dropdown-menu li ul {display:none;}
 
 h3.category-name, h3.brand-product, h3.product-name, .prodpage h4 {font-size:1rem;}
 h3.brand-product {min-height:2.375em;}
@@ -66,25 +60,4 @@ h3.brand-product {min-height:2.375em;}
 
 @media (max-width:991px) {
 }
-/* */
-
-
-
-/* default widgets */
-.promo-hero .image-space {padding-top:240px;}
-.promo-hero .isd {top:65%;}
-.promo-hero h1 {font-weight:bold; border:none;}
-
-.promo-siblings h3.isd {top:72%; font-weight:bold;}
-
-@media (min-width:768px) {
-.promo-hero .image-space {padding-top:360px;}
-.promo-hero h1 {font-size:240%;}
-}
-
-@media (min-width:992px) {
-.promo-hero .image-space {padding-top:480px;}
-.promo-hero h1 {font-size:280%;}
-}
-
 /* */
