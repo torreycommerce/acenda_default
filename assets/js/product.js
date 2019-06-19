@@ -41,17 +41,6 @@ function VariantsManager (product, img, isCollection) {
 	this.outOfStock = "Out of stock, please try another combination"; //Tooltip text displayed on on variant chip hover when option not availble
 	this.currentImage = ""; //Id of the currently displayed image
 	/*
-		Formats the Number received so it has two decimals
-		returns a string
-	*/
-	this.formatPrice = function(price){
-		if(Number(price)){
-			return Number(price).toFixed(2).toString();
-		}else{
-			return price;
-		}
-	}
-	/*
 		Converts string price to a valid js number
 		returns equivalent number or 0 if the string is not a number
 	*/
@@ -97,27 +86,6 @@ function VariantsManager (product, img, isCollection) {
 
 	}
 	/*
-		generates and returns the html tag id of the variant chip with option selectName and value optionValue
-	*/
-	this.getVariationValueId = function(selectName, optionValue){ // 672 + 690
-		var index = this.getOptionIndexes(selectName, optionValue);
-		return "variation-selector-"+this.product_id+"-"+index.option+"-"+index.value;
-	}
-	/*
-		generates and returns the html tag id of the variant chips div for option selectName
-	*/
-	this.getVariationOptionId = function(selectName){
-		var index = this.getOptionIndexes(selectName, null);
-		return "variation-selector-"+this.product_id+"-"+index.option;
-	}
-	/*
-		generates and returns the html tag id of the span displaying the value of the option selected
-	*/
-	this.getVariationSelectedId = function(selectName){
-		var index = this.getOptionIndexes(selectName, null);
-		return "selected-"+index.option+"-"+this.product_id;
-	}
-	/*
 		generates and returns the css selector of the span displaying the value of the option selected
 	*/
 	this.getSelectedValue = function(selectName){
@@ -161,12 +129,6 @@ function VariantsManager (product, img, isCollection) {
 	}
 
 	/*
-		Empties carousel section of the page
-	*/
-	this.resetCarouselSelection = function () {
-		$( "#variant-image-carousel-"+this.product_id ).html('');
-	}
-	/*
 		Updates images and videos of the page according to the provided variant object provided
 	*/
 	this.updateImagesAndVideo = function(obj_variant) {
@@ -184,7 +146,6 @@ function VariantsManager (product, img, isCollection) {
 			this.currentImage = "";
 		}
 		//empties carousel and adds each variant images to it
-		this.resetCarouselSelection();
 		var i = 0;
 		//
 		var vHTML = "";
@@ -213,7 +174,11 @@ function VariantsManager (product, img, isCollection) {
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
 					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
-					htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+					if ($('.url-1-product').length) {
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+					} else {
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>';
+					}
 					htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
 					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
 				}
@@ -258,14 +223,6 @@ function VariantsManager (product, img, isCollection) {
 		}
 	}
 
-	/*
-		Returns In Stock text from has_stock value (true or false) 
-		and whether a custom out of stock message has been set 
-		(in inventory_shipping_estimate attribute. Doesn't make sense, I know...)
-	*/
-	this.getStockDescription = function (obj_variant) {
-		 return obj_variant.has_stock == '1' ? 'In Stock' :  obj_variant.inventory_shipping_estimate ? obj_variant.inventory_shipping_estimate : 'Out of Stock';
-	}
 	/*
 		Updates/Set style state as well as page elements such as product images, and product description fields
 		Chips can have for different states (style), whether the option value corresponding 
@@ -376,7 +333,7 @@ function VariantsManager (product, img, isCollection) {
 			}
 			//
 			//
-			if ($('#singleProduct').length) {
+			if ($('#singleProduct').length && $('.url-1-product').length) {
 				//console.log('change URL v9: '+filteredVariants[0].id);
 				if (inorganic !== 1) {
 					//console.log('organic')
@@ -510,43 +467,7 @@ function VariantsManager (product, img, isCollection) {
 		});
 		return filteredVariants;
 	}
-	/*
-		returns html <a> element with option value optionValue set as text
-	*/
-	this.getATag = function(selectName, optionValue){
-		if (this.isCollection) {
-			return tag =  $('<a>', {'class': "btn btn-default"}).text(optionValue);
-		} else {
-			return tag =  $('<a>', {'class': "btn btn-default btn-lg"}).text(optionValue);
-		}
-		
-	}
-	/*
-		returns html <a> element with style background-color set with given color
-	*/
-	this.getAColorTag = function(selectName, optionValue, color){
-		return tag =  $('<a>', {'class': "btn btn-default btn-lg", "style":"background-color:"+color});
-	}
-	/* */
-	this.getAImage = function(selectName, optionValue, url){
-		if (url !== false)
-			return tag =  $('<img>', {"src": url, "class" : "img-fluid", "data-toggle" : "tooltip", "data-original-title" : optionValue});
-		else
-			return tag =  $('<a>', {"class": "", "title":optionValue}).text(optionValue);
-	}
-	/*
-		takes a slug type string and return a good liking one:
-		"screen_size" => "Screen size"
-	*/
-
-	this.unslugify = function(input){
-		var tmpArray = input.split('_');
-		for(var i = 0; i < tmpArray.length; i++){
-			if (tmpArray[i].length > 2)
-				tmpArray[i] = tmpArray[i].substring(0,1).toUpperCase() + tmpArray[i].substring(1);
-		}
-		return tmpArray.join(" ");
-	}
+	
 	/* rerig buildChips */
 	this.beChips = function(variant_options){
 		//console.log('beChips')
@@ -684,7 +605,7 @@ function VariantsManager (product, img, isCollection) {
 				newdesire = getQueryParams(document.location.search);
 				//console.log('onpopstate begin...');
 				//console.log(newdesire)
-				if (newdesire.variant) {
+				if (newdesire.variant && $('.url-1-product').length) {
 					//console.log('was newdesire.variant')
 					$.each(_this.variants, function(index,variant){
 						//console.log('var col: '+variant.color)
@@ -711,48 +632,48 @@ function VariantsManager (product, img, isCollection) {
 }
 
 
-var iseVariant;
 
-$(document).on('click','.stock .btn', function() {
-	iseVariant = $(this).parents('.variation').data('vid');
-});
+function prodExtras() {
+	var iseVariant;
 
-$('#InStockAlertEmail').keyup(function() {
-	$('#InStockAlertEmail').removeClass('has_error');
-	//$('.newsletter-response').html('');
-});
-$('#InStockAlertEmailButton').click(function() {
-	var email = $('#InStockAlertEmail').val();
-	if (!email || !validateEmailAddress(email)) {
-		$('#InStockAlertEmail').addClass('has_error');
-		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
-		return false;
-	}
-	$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
-
-	var variant_id = iseVariant;
-	var email = $('#InStockAlertEmail').val();
-	submitInStockEmail(email, variant_id);
-});
-
-function submitInStockEmail(email, variant_id)
-{
-	$.post(acendaBaseUrl + '/api/instockemail', {
-		email: email,
-		variant_id: variant_id
-	}).done(function(response) {
-		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
-		$('html').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
-		
-		$('#emailStock').modal('hide');
-	}).fail(function(response) {
-		var error = 'undefined error';
-		$('#InStockAlertEmailButton').prop('disabled', false).removeClass('wait');
-		//console.log(response.responseJSON.error.email[0]);
-		if (typeof response.responseJSON.error.email[0] != 'undefined') {
-			error = response.responseJSON.error.email[0];
-		}
-		$('#InStockAlertEmail').addClass('has_error');
-		$('html').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + error + '</div>');
+	$(document).on('keyup','.stock .form-control-eis', function() {
+		$(this).removeClass('is-invalid');
 	});
+	$(document).on('click','.stock .btn-eis', function() {
+		iseVariant = $(this).parents('.variation').data('vid');
+		var email = $(this).parents('.variation').find('.form-control-eis').val();
+		if (!email || !validateEmailAddress(email)) {
+			$(this).parents('.variation').find('.form-control-eis').addClass('is-invalid');
+			$('body').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
+			return false;
+		}
+		$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
+
+		var variant_id = iseVariant;
+		var email = $(this).parents('.variation').find('.form-control-eis').val();
+		submitInStockEmail(email, variant_id);
+	});
+
+	function submitInStockEmail(email, variant_id)
+	{
+		$.post(acendaBaseUrl + '/api/instockemail', {
+			email: email,
+			variant_id: variant_id
+		}).done(function(response) {
+			$('.btn-eis').prop('disabled', false).removeClass('wait');
+			$('body').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
+		}).fail(function(response) {
+			var error = 'undefined error';
+			$('.btn-eis').prop('disabled', false).removeClass('wait');
+			//console.log(response.responseJSON.error.email[0]);
+			if (typeof response.responseJSON.error.email[0] != 'undefined') {
+				error = response.responseJSON.error.email[0];
+			}
+			$('.variation[data-vid='+variant_id+']').find('.form-control-eis').addClass('is-invalid');
+			$('body').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + error + '</div>');
+		});
+	}
+
+	prodExtras = function() {};
 }
+prodExtras();

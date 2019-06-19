@@ -51,7 +51,7 @@ $(function() {
 var pData;
 var vData = $('#product-details .active');
 
-$('button[value=cart]').click(function(event) {
+$(document).on('click','button[value=cart]', function(event) {
     $('#qc-parent').removeClass('qc-ready');
     qcrecalc = 1;
     event.preventDefault();
@@ -96,6 +96,7 @@ $('button[value=cart]').click(function(event) {
                 $(this).attr('disabled',false);
             }
         });
+		$('#modalQV').modal('hide');
         $("html, body").animate({ scrollTop: 0 }, 600);
         $('#qc-btn').focus();
     })

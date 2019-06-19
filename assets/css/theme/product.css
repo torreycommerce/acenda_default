@@ -4,7 +4,7 @@
 }
 
 /**/
-.variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; overflow:hidden; visibility:hidden; transition:opacity 300ms;}
+.variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; /*overflow:hidden;*/ visibility:hidden; transition:opacity 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}
 #product-details .variations {margin:-10px;}
 #product-details .variation.active {padding:10px;}
@@ -67,7 +67,7 @@
 .slick-heroic {padding:0 30px;}
 .slick-heroic .slick-prev {left:0;}
 .slick-heroic .slick-next {right:0;}
-.slick-heroic.slick-initialized img {cursor:pointer;}
+.url-1-product .slick-heroic.slick-initialized img {cursor:pointer;}
 
 .has-video .vari-video-scase {top:365px; left:5px; width:60px; overflow:hidden;}
 .vari-video-scase .acaro {padding:5px;}

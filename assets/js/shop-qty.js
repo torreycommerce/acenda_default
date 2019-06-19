@@ -205,12 +205,6 @@ function adjustQuantity(qtyField, increment, postForm) {
 					}
 				  }
 				}
-				/*
-				if (qtyField.val() > qtyField.attr('max')) {
-					console.log('was too big, set to: '+qtyField.attr('max'));
-					qtyField.val(qtyField.attr('max'));
-				}
-				*/
 				qtyField.parents('.item').find('.error').show();
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
@@ -233,27 +227,27 @@ function adjustQuantity(qtyField, increment, postForm) {
 
 
 // +/- buttons on single page and collections
-$('.btn-add').click(function(e) {
+$(document).on('click','.btn-add', function(e) {
     console.log('ran 1')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), 1);
 });
-$('.btn-remove').click(function(e) {
+$(document).on('click','.btn-remove', function(e) {
     console.log('ran 2')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), -1);
 });
 
-$('.quantity-selector').on('focusin', function(){
+$(document).on('focusin','.quantity-selector', function(e) {
     console.log("Saving value " + $(this).val());
     $(this).data('cur', $(this).val());
 });
 // Hitting the enter key on the add quantity fields
-$('.quantity-selector').change(function(e) {
+$(document).on('change','.quantity-selector', function(e) {
     console.log('ran 3')
 	adjustQuantity($(this), 0); // Quantity was adjusted externally
 });
-$('.quantity-selector').keypress(function(e){
+$(document).on('keypress','.quantity-selector', function(e) {
 	// Run adjust quantity action when numbers are entered in field
 	if (e.which == 13)
 	{
