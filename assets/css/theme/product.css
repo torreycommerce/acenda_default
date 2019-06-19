@@ -69,10 +69,10 @@
 .slick-heroic .slick-next {right:0;}
 .url-1-product .slick-heroic.slick-initialized img {cursor:pointer;}
 
-.has-video .vari-video-scase {top:365px; left:5px; width:60px; overflow:hidden;}
+.has-video .vari-video-scase {top:365px; left:0; width:60px; overflow:hidden;}
 .vari-video-scase .acaro {padding:5px;}
 
-.ss-contain {position:absolute; top:5px; bottom:auto; left:5px; width:60px; opacity:1; visibility:visible; transition:all 300ms ease;}
+.ss-contain {position:absolute; top:5px; bottom:auto; left:0; width:60px; opacity:1; visibility:visible; transition:all 300ms ease;}
 .slick-heroic-nav {padding:20px 0;}
 .slick-heroic-nav .slick-slide {cursor:pointer;}
 .slick-heroic-nav .acaro {padding:5px;}

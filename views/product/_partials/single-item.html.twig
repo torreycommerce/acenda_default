@@ -139,17 +139,15 @@
 					<div class="stock input-group-sm">
     					{% if vind.has_stock == false %}
 							{% if vind.enable_instockemail %}
-								<div class="dropdown">
-									<button class="btn btn-sm btn-danger" id="emailStock-{{vind.id}}" type="button" aria-expanded="false" data-toggle="dropdown">Email me when <span class="sr-only">{{vind.name}} is</span> available</button>
-									<div class="dropdown-menu" aria-labelledby="emailStock-{{vind.id}}">
-										<div class="px-3 py-1">
-											<p class="fsd1">Get notified via email when this product is back in stock.</p>
-											<label class="sr-only" for="emailStock-{{vind.id}}">Email Address</label>
-											<div class="input-group">
-												<input type="email" placeholder="Email Address" class="form-control form-control-sm form-control-eis" id="emailStock-{{vind.id}}" name="emailStock-{{vind.id}}" title="Email Address">
-												<div class="input-group-append">
-													<button class="btn btn-sm btn-danger btn-eis">Submit</button>
-												</div>
+								<button class="btn btn-sm btn-danger" id="emailStock-{{vind.id}}" aria-expanded="false" data-toggle="dropdown">Email me when <span class="sr-only">{{vind.name}} is</span> available</button>
+								<div class="dropdown-menu" aria-labelledby="emailStock-{{vind.id}}">
+									<div class="px-3 py-1">
+										<p class="fsd1">Get notified via email when this product is back in stock.</p>
+										<label class="sr-only" for="fcemailStock-{{vind.id}}">Email Address</label>
+										<div class="input-group">
+											<input type="email" placeholder="Email Address" class="form-control form-control-sm form-control-eis" id="fcemailStock-{{vind.id}}">
+											<div class="input-group-append">
+												<button class="btn btn-sm btn-danger btn-eis">Submit</button>
 											</div>
 										</div>
 									</div>
@@ -288,11 +286,8 @@
 
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
 
-    {% include "/product/_partials/email-in-stock.html.twig" %}
-
 </div>
 </div>
-
 
 {% include "/_partials/product_grid/_partials/top_sellers.html.twig" %}
 
