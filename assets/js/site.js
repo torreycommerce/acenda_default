@@ -208,9 +208,9 @@ if (useTypeAhead) {
 
 
 var slickReady = 0;
-var spslides = 6;
-if ($('.vari-video-scase').length) spslides = 5
 function productSlick() {
+    var spslides = 6;
+    if ($('.vari-video-scase').length) spslides = 5
     var who = $('#product-images .active').attr('data-vid');
     $('#slick-heroic-'+who).slick({
 		dots: false,
