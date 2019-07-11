@@ -58,12 +58,17 @@ $(document).ready(function() {
         var el = $('#'+$(this).attr('data-image-swap'));
         el.attr('src',src);
 	});
-	
 	//
-	if ($('.btn-add').length) {
+	if ($('.btn-add').length || $('.btn-qv').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/shop-qty.js",function(){
 		});
 	}
+	//
+	if ($('.btn-qv').length) {
+		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/quickview.js",function(){
+		});
+	}
+	//
 	//
 	if ($('form').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.min.js",function(){
@@ -203,9 +208,9 @@ if (useTypeAhead) {
 
 
 var slickReady = 0;
-var spslides = 6;
-if ($('.vari-video-scase').length) spslides = 5
 function productSlick() {
+    var spslides = 6;
+    if ($('.vari-video-scase').length) spslides = 5
     var who = $('#product-images .active').attr('data-vid');
     $('#slick-heroic-'+who).slick({
 		dots: false,
@@ -240,7 +245,7 @@ function productSlick() {
 }
 
 
-if ($('.slick').length) {
+if ($('.slick').length || $('.btn-qv').length) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick/slick-1.9.0.min.js",function(){
 		slickReady = 1;
 		$('.slick-1').each(function() {
@@ -340,7 +345,6 @@ var updateQueryStringParam = function (key, value) {
         newParam = key + '=' + value,
         params = '?' + newParam;
 
-    //console.log('urlQS v10');
     // If the "search" string exists, then build params from it
     //if (urlQueryString) {
     if (urlQueryString) {
@@ -366,11 +370,9 @@ var updateQueryStringParam = function (key, value) {
             params = urlQueryString + '&' + newParam;
 
         }
-        //window.history.pushState({}, "", baseUrl + params);
 
     } else {
         //console.log('has NO urlQS');
-        //window.history.pushState({}, "", baseUrl);
     }
     params = params == '?' ? '' : params;
     

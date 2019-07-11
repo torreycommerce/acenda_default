@@ -16,11 +16,11 @@
 					{% for image in product.images %}
 					{% set name = image.name is not empty ? image.name : product.name %}
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
-							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
-								<a target=_blank href="{{image.retina}}" tabindex="-1">
-									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="">
-								</a>
-							</div></div></div>
+							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space">
+								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{image.retina}}" tabindex="-1">{% endif %}
+									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
+							</div>{% if not app.request.isAjaxRequest() %}</div>{% endif %}</div>
 						</div>
 					{% endfor %}
 					{% if product.images is empty %}
@@ -31,7 +31,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
 								<a target=_blank href="{{image.retina}}" tabindex="-1">
-									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="">
+									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								</a>
 							</div></div></div>
 						</div>
@@ -264,7 +264,7 @@
 						<li>{{ bundle.variant_id[loop.index - 1].quantity }} X {{ item.name }}</li>
 					{% endfor %}
 					</ul>
-					<div class="quantity" id="div-quantity-{{bundle.id}}">
+					<div class="quantity">
 						<label for="variant-input-{{bundle.id}}"><span class="sr-only">{{bundle.name}}</span> Qty</label>
 						<div class="input-group igq-mod">
 							<div class="mr-1">
@@ -373,9 +373,21 @@
 						<div class="stock input-group-sm">
 							{% if vind.has_stock == false %}
     							{% if vind.enable_instockemail %}
-    								<button class="btn btn-sm btn-outline-danger" type="button" data-toggle="modal" data-target="#emailStock">Email me when available</button>
+    								<button class="btn btn-sm btn-danger" id="emailStock-{{vind.id}}" aria-expanded="false" data-toggle="dropdown">Email me when available</button>
+    								<div class="dropdown-menu" aria-labelledby="emailStock-{{vind.id}}">
+									<div class="px-3 py-1">
+										<p class="fsd1">Get notified via email when this product is back in stock.</p>
+										<label class="sr-only" for="fcemailStock-{{vind.id}}">Email Address</label>
+										<div class="input-group">
+											<input type="email" placeholder="Email Address" class="form-control form-control-sm form-control-eis" id="fcemailStock-{{vind.id}}">
+											<div class="input-group-append">
+												<button class="btn btn-sm btn-danger btn-eis">Submit</button>
+											</div>
+										</div>
+									</div>
+								</div>
     							{% else %}
-                                    <div class="input-group-append"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>
+                                    <div class="input-group-prepend"><div class="dib input-group-text text-danger bg-white border-danger">Out of Stock</div></div>
     							{% endif %}
         					{% else %}
         					    <div class="input-group-prepend"><div class="dib input-group-text text-success bg-white border-white px-0">In Stock</div></div>
@@ -471,7 +483,7 @@
 				</div>
 			{% endspaceless %}
 
-				<div class="form-group divide pb-3 mb-2 quantiy" id="div-quantity-{{product.id}}">
+				<div class="form-group divide pb-3 mb-2 quantiy">
 					<label for="variant-input-{{product.id}}"><span class="sr-only">{{ product.name }}</span> Qty</label>
 					<div class="input-group igq-mod">
 						<div class="mr-1">
@@ -499,7 +511,6 @@
 </div>
 </form>
 
-{% include "/product/_partials/email-in-stock.html.twig" %}
 
 </div>
 </div>

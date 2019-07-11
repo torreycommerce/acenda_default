@@ -7,7 +7,7 @@
 	</div>
 	{% for review in reviews %}
 	   <div class="review divide g mb-4 pb-3">
-			<div class="fsd1 rating">{{ base.rating(review.score, {}) }}<span class="dib">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_reviewed|strtotime|date("m-d-Y") }}</span></div>
+			<div class="fsd1 mb-2 rating">{{ base.rating(review.score, {}) }}<span class="dib">{{ review.first_name|title }}, {{review.city|title}} {{ review.state|upper }} on {{ review.date_reviewed|strtotime|date("m-d-Y") }}</span></div>
 			<div class="review-title"><b>{{ review.title }}</b></div>
 			<p>{{ review.comment|unescape }}</p>
 	   </div>

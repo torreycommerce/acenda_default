@@ -1,27 +1,34 @@
-{% extends "/_layouts/base.html.twig" %}
+{% if not app.request.isAjaxRequest() %}
+	{% set extendVar = 1 %}
+{% endif %}
+
+{% extends extendVar == 1
+	? '/_layouts/base.html.twig' 
+	: '/_layouts/base_qv.html.twig' %}
+
 {% do app.cache(1) %}
 {% set request = app.request.path | split('/') %}
 {% set item  = api.get('/catalog', {query:{slug:app.request.path}})|first %}
 {% if item.id is empty %}
-    {% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
-    {% if response and response[0].destination %}
-       {% do app.redirect(response[0].destination ,response[0].code) %}
-    {% else %}
-        {% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
-        {% if item.id is empty %}
-            {% if request.1 | split('-') | last | integer %}
-                {% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}
-                {% if item.url is not empty %}
-                    {% do app.redirect(item.url,{'code':301}) %}
-                {% else %}
-                    {% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.' ~ request.1 | split('-') | last}) %}
-                {% endif %}
+	{% set response = api.get('redirect/resolve',{path: app.request.url, searchterm: false}) %}
+	{% if response and response[0].destination %}
+	   {% do app.redirect(response[0].destination ,response[0].code) %}
+	{% else %}
+		{% set item  = api.get('/catalog',{query:{id:app.request.path}})|first %}
+		{% if item.id is empty %}
+			{% if request.1 | split('-') | last | integer %}
+				{% set item  = api.get('/catalog/' ~ request.1 | split('-') | last ) %}
+				{% if item.url is not empty %}
+					{% do app.redirect(item.url,{'code':301}) %}
+				{% else %}
+					{% do app.redirect(app.request.referer,{'error':'Sorry, the product you requested is unavailable.' ~ request.1 | split('-') | last}) %}
+				{% endif %}
 
-            {% else %}
-                {% set error = 'Sorry, the product you requested is unavailable.' %}
-            {% endif %}
-        {% endif %}
-    {% endif %}
+			{% else %}
+				{% set error = 'Sorry, the product you requested is unavailable.' %}
+			{% endif %}
+		{% endif %}
+	{% endif %}
 {% endif %}
 
 {% set reviews = api.get('/productreview', { query:{ product_id: item.id,status:"active" },sort:{date_reviewed:-1} }) %}
@@ -33,30 +40,30 @@
 {% endif %}
 
 {% block breadcrumb %}
-    {% set categories = app.request.path|split('/') %}
-    {% set crumbs = [] %}
+	{% set categories = app.request.path|split('/') %}
+	{% set crumbs = [] %}
 
-    {% set category_link = '' %}
+	{% set category_link = '' %}
 
-    {% set main_category = item.category|first %}
-    {% if not main_category and item.category_id|first %}
-        {% set c = api.get('category/' ~ item.category_id|first) %}
-        {% set main_category = c.slug %}
-    {% endif %}
-
-
-    {% for category in main_category|split('/') %}
-        {% if category is not empty %}
-            {% set category_link = category_link ~ '/' ~ category %}
-            {% set category_title = category|replace('-',' ')|title %}
-            {% set crumbs = crumbs|merge({(category_title):('/category' ~ category_link)})%}
-        {% endif %}
-    {% endfor %}
+	{% set main_category = item.category|first %}
+	{% if not main_category and item.category_id|first %}
+		{% set c = api.get('category/' ~ item.category_id|first) %}
+		{% set main_category = c.slug %}
+	{% endif %}
 
 
-    {% set crumbs = crumbs|merge({(title):''}) %}
+	{% for category in main_category|split('/') %}
+		{% if category is not empty %}
+			{% set category_link = category_link ~ '/' ~ category %}
+			{% set category_title = category|replace('-',' ')|title %}
+			{% set crumbs = crumbs|merge({(category_title):('/category' ~ category_link)})%}
+		{% endif %}
+	{% endfor %}
 
-    {{ base.breadcrumbs(crumbs) }}
+
+	{% set crumbs = crumbs|merge({(title):''}) %}
+
+	{{ base.breadcrumbs(crumbs) }}
 {% endblock %}
 
 {% block title %}{{ title|default(seo['title']) }}{% endblock %}
@@ -65,23 +72,23 @@
 {% block meta_description %}{{ meta_description|default(seo['description']) }}{% endblock %}
 
 {% block dynamicclasses %}
-    {% if item.product|length == 1%}
-        {% spaceless %}
-            product-id-{{item.product.0.id }} product-slug-{{item.product.0.slug }}
-            {% if item.product.0.category is not empty %}
-                {% for category in item.product.0.category %}
-                    product-category-{{category}}
-                {% endfor %}
-            {% endif %}
-        {% endspaceless %}
-    {% else %}
-        collection-slug-{{app.request.path }}
-        {% for prod in item.product %}
-            {% for category in prod.category %}
-                product-category-{{category}}
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+	{% if item.product|length == 1%}
+		{% spaceless %}
+			product-id-{{item.product.0.id }} product-slug-{{item.product.0.slug }}
+			{% if item.product.0.category is not empty %}
+				{% for category in item.product.0.category %}
+					product-category-{{category}}
+				{% endfor %}
+			{% endif %}
+		{% endspaceless %}
+	{% else %}
+		collection-slug-{{app.request.path }}
+		{% for prod in item.product %}
+			{% for category in prod.category %}
+				product-category-{{category}}
+			{% endfor %}
+		{% endfor %}
+	{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -108,8 +115,14 @@
 {% endblock %}
 
 {% block acenda %}
+	{% if app.request.isAjaxRequest() %}
+	<script>
+	{% endif %}
     {{ parent() }}
     {% include "/product/_partials/acenda.html.twig" %}
+	{% if app.request.isAjaxRequest() %}
+	</script>
+	{% endif %}
 {% endblock %}
 {% block dataLayer %}
     {% include "/product/_partials/dataLayer.html.twig" %}

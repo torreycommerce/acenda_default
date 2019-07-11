@@ -14,9 +14,13 @@
 <div class="alert alert-danger"><h1>This is a test order.</h1></div>
 
 {% endif %}
-
+{% set payment = api.get('order?query=order_number: '~  order.order_number ~' &attributes=payments') %}
+{% if payment.0.payments %}
+   {% set payment = payment.0.payments.0 %}
+{% endif %}
 {{ lonelyform.begin()}}
 <h1>Order Details</h1>
+
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
@@ -39,19 +43,17 @@
 			{% set method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 			<h3>Shipping Method</h3>
 			<p>Shipping Method: ({{method.name}})</p>
-
+			{% if payment.address.first_name %}
             <h3>Billing Address</h3>
-			{% if order.transaction_type == 'PayPal' %}
+
 			<address>
-				<div>{{ order.billing_first_name}} {{ order.billing_last_name}}</div>
-				<div>{{ order.billing_street_line1}}</div>
-				{% if order.billing_street_line2 is not empty %}
-				<div>{{ order.billing_street_line2}}</div>
+				<div>{{ payment.address.first_name}} {{ payment.address.last_name}}</div>
+				<div>{{ payment.address.street_line1}}</div>
+				{% if payment.address.street_line2 is not empty %}
+				<div>{{ payment.address.street_line2}}</div>
 				{% endif %}
-				<div>{{ order.billing_city}}, {{ order.billing_state}} {{ order.billing_zip}}</div>
+				<div>{{ payment.address.city}}, {{ payment.address.state}} {{ payment.address.zip}}</div>
 			</address>
-			{% else %}
-			    <p>Express order</p>
 			{% endif %}
 			
 			<h3>Billing Method</h3>
