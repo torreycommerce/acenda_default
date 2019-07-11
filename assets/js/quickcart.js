@@ -185,7 +185,7 @@ function ajaxCart(data, r) {
                     // skip loop if the property is from prototype
                     if (!items[i].personalization.hasOwnProperty(p)) continue;
                     product_name += '<br>';
-                    product_name += p+': '+items[i].personalization[p];
+                    product_name += items[i].personalization[p].name+': '+items[i].personalization[p].value;
                 }
             }
             var product_price = parseFloat(items[i].variant.price).toFixed(2);

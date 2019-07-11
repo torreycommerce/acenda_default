@@ -229,8 +229,8 @@
 					{% endif %}
 					{% if (item.personalization is not empty) %}
 					<p class="fsd1">
-                    {% for name,value in item.personalization %}
-                        {{name|replace({'_':' '})|title}}: {{value}}<br>
+                    {% for k,item in item.personalization %}
+                        {{item.name|title}}: {{item.value}}<br>
                     {% endfor %}
                     </p>
 					{% endif %}

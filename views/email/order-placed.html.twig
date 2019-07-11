@@ -80,6 +80,9 @@
         				    <td style="padding:0 0 0 20px;">
             					<a href="{{ params['url']['current']}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{ item.name }}</b></a>
             					<br><b>SKU:</b> {{item.sku}}
+                                {% if item.personalization is not empty %}{% for personalization in item.personalization %}
+                                <br>{{personalization.name}}: {{personalization.value}}
+                                {% endfor %}{% endif %}
             					<br><b>Price:</b> {{ mac.currency(item.price|number_format(2)) }}
             					<br><b>Qty:</b> {{ item.quantity }}
             				</td>
