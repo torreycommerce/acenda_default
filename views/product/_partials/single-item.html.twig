@@ -14,7 +14,7 @@
 {% endif %}
 {% if variations is empty %}
 	{% set variation = product.variant[0] %}
-{% else %}	
+{% else %}
 	{% set variation = variations[0] %}
 {% endif %}
 
@@ -53,7 +53,7 @@
 						{% endfor %}
 						</div>
 					</div>
-					
+
 					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
@@ -70,7 +70,7 @@
 					{% endif %}
 				</div>
 			</div>
-			
+
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
 				<button class="btn blank image-space video" data-video-src="{{ product.videos[0] }}">
@@ -78,7 +78,7 @@
 				</button>
 			</div></div>
 			{% endif %}
-			
+
 			<div id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
@@ -127,7 +127,7 @@
     		{% endif %}
     		{% endspaceless %}
 	    </div>
-	
+
 		<div id="product-details">
 			<div class="mb-3 variations" data-id="{{product.id}}">
 			{% for vind in product.variant %}
@@ -170,7 +170,7 @@
         		    {% spaceless %}
     					<div class="pricing g">
     						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
-    				
+
     				{% if needprices|length > 0 %}
     					{% if (vind.compare_price - vind.price) > 1 %}
     						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
@@ -179,7 +179,7 @@
     					{% endif %}
     				{% endif %}
     					</div>
-					{% endspaceless %}	
+					{% endspaceless %}
 				</div>
 			{% endfor %}
 			</div>
@@ -204,7 +204,7 @@
 								{% set vsimgsrc = validvar[0].images[0].thumbnail %}
 								{% for variation in product.variant %}
 									{% if variation.color == v %}
-									
+
 									{% endif %}
 								{% endfor %}
 							{% endif %}
@@ -252,6 +252,31 @@
 			{% endif %}
 
 			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
+                {% if product.personalization_options is not empty %}
+                    {% for option in product.personalization_options %}
+                        <div class="form-group pb-3 mb-2">
+                        <label class="selected-option" for="option_name">
+                            <span class="selected-name">{{option.name|replace({'_':' '})|title}}:</span>
+                        </label>
+                        {% if option.type == 'options' %}
+                            <select class="form-control form-control-lg" id="personalization_options{{loop.index}}" name="personalization[{{option.name}}]">
+                                    <option>Select Option...</option>
+                                {% for o in option.options %}
+                                    <option value="{{o}}">{{o}}</option>
+                                {% endfor %}
+                            </select>
+                        {% elseif option.type == 'number' %}
+                            <input id="personalization_options{{loop.index}}" class="form-control form-control-lg" type="number" value="" max="{{option.max}}" min="{{option.min}}" maxlength="3" placeholder="0" name="personalization[{{option.name}}]">
+                        {% else %}
+                            {% if option.max > 30 %}
+                                <textarea id="personalization_options{{loop.index}}" class="form-control form-control-lg" name="personalization[{{option.name}}]"></textarea>
+                            {% else %}
+                                <input id="personalization_options{{loop.index}}" class="form-control form-control-lg" type="text" value="" maxlength="{{option.max}}" placeholder="" name="personalization[{{option.name}}]">
+                            {% endif %}
+                        {% endif %}
+                        </div>
+    			    {% endfor %}
+                {% endif %}
 				<div class="form-group divide pb-3 mb-2" id="div-quantity-{{product.id}}">
 					<label for="variant-input-{{product.id}}">Qty</label>
 					<div class="input-group igq-mod">
@@ -326,7 +351,7 @@
 {% set schemaAggregateRating = [] %}
     {% if review_score == 0 %}
     {% set schemaAggregateRating = null %}
-    
+
       {% else %}
       {% set schemaAggregateRating = schemaAggregateRating|merge(
                {

@@ -83,7 +83,7 @@ $('button[value=cart]').click(function(event) {
     $('button[value=cart]').addClass('wait').attr('disabled',true);
     //console.log("Add to cart");
     //console.log(form.serialize());
-    
+
     $.post(acendaBaseUrl + '/product/route',
         form.serialize())
     .always(function(data) {
@@ -146,7 +146,7 @@ function ajaxCart(data, r) {
 
     $.ajax({
         dataType: "json",
-        url: acendaBaseUrl + '/api/sessioncart'
+        url: acendaBaseUrl + '/api/cart'
     })
     .done(function(data) {
         // Update cart count and create popover
@@ -168,7 +168,7 @@ function ajaxCart(data, r) {
             //console.log('attempt not show_all');
             items = $('.productForm').serializeArray(); // Items that were added
         }
-        
+
         if(items.length == 0) {
             Object.keys(result).forEach(function(id) {
                 items.push({product_id:id, quantity:1});
@@ -177,103 +177,76 @@ function ajaxCart(data, r) {
 
         $('.ajaxcart-product:gt(0)').remove(); // Remove all but first ajaxcart-product (in case of multiple adds)
 
+        for (var i = (items.length-1); i >= 0; i--) {
+            var product_name = items[i].variant.name;
+            if(typeof items[i].personalization != 'undefined') {
+                for (var p in items[i].personalization) {
+                    // skip loop if the property is from prototype
+                    if (!items[i].personalization.hasOwnProperty(p)) continue;
+                    product_name += '<br>';
+                    product_name += p+': '+items[i].personalization[p];
+                }
+            }
+            var product_price = parseFloat(items[i].variant.price).toFixed(2);
+            var product_thumbnail = items[i].variant.thumbnail;
+            var product_id = items[i].variant.id;
 
-        for (var i = 0; i < items.length; i++) {
-            product_cart_id[items[i].product_id] = i;
-            // Go through and get the id, thumbnail and quantity
-            var product, product_quantity, product_id;
-            if (show_all) {
-                product = items[i];
-                product_quantity = product.quantity;
-                product_id = product.product_id;
+            if (!first_product_added) {
+                $('.ajaxcart-product .product-image').attr('src', product_thumbnail);
+                $('.ajaxcart-product .product-name').html(product_name);
+                $('.ajaxcart-product .price .val').html(product_price);
+                $('.ajaxcart-product .product-quantity').html(items[i].quantity);
+                first_product_added = true;
             } else {
-                product = items[i];
-                product_quantity = product.value;
-                if (product_quantity == '') {
-                    product_quantity = 1;
-                }
-                if (product_quantity == 0) {
-                    continue;
-                }
-                product_id = product.name.match(/\[(.*?)\]/)[1];
+                var cloned = $('.ajaxcart-product:last').clone().appendTo('.ajaxcart-products');
+                cloned.find('.product-image').attr('src', product_thumbnail);
+                cloned.find('.product-name').html(product_name);
+                cloned.find('.price .val').html(product_price);
+                cloned.find('.product-quantity').html(items[i].quantity);
             }
-            product_attr[product_id] = {quantity:product_quantity};
-            // Generate a request for product data
-            var request = $.getJSON(acendaBaseUrl + '/api/variant/' + product_id)
-            .done(function(data) {
-                response.push(data.result);
+
+            //Error management
+            resetErrors();
+
+            Object.keys(result).forEach(function(id) {
+                if(result[id] == false || typeof result[id]['error'] != 'undefined') {
+                    var message = "<b><u>Item Not Added.</u></b>" + '</br>';
+                    if(typeof result[id]['error'] != 'undefined') {
+                        message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
+                    }
+                    var error = $('<div>', {"class": "alert alert-danger mt-3"}).html(message);
+                    errors.append(error);
+                }
             });
-            requests.push(request); // Push request onto array
+
         }
-        var defer = $.when.apply($, requests); // Run all requests
-        defer.done(function() {
-            // Sort the responses by most recently added to the cart (by cart item ID)
-            response.sort(function(a, b) {
-                return product_cart_id[a.id] > product_cart_id[b.id];
-            });
-            for (var i = 0; i < response.length; i++) {
-                var product_name = response[i].name;
-                var product_price = parseFloat(response[i].price).toFixed(2);
-                var product_thumbnail = response[i].thumbnail;
-                var product_id = response[i].id;
+        $('#header .item-count').html(cart_item_count).addClass('ready');
+        $('.ajaxcart .subtotal .val').html(cart_subtotal);
 
-                if (!first_product_added) {
-                    $('.ajaxcart-product .product-image').attr('src', product_thumbnail);
-                    $('.ajaxcart-product .product-name').html(product_name);
-                    $('.ajaxcart-product .price .val').html(product_price);
-                    $('.ajaxcart-product .product-quantity').html(product_attr[product_id].quantity);
-                    first_product_added = true;
-                } else {
-                    var cloned = $('.ajaxcart-product:last').clone().appendTo('.ajaxcart-products');
-                    cloned.find('.product-image').attr('src', product_thumbnail);
-                    cloned.find('.product-name').html(product_name);
-                    cloned.find('.price .val').html(product_price);
-                    cloned.find('.product-quantity').html(product_attr[product_id].quantity);
+        if (show_all) {
+            $('.ajaxcart .heading').html('');
+        } else
+            $('.ajaxcart .heading').html('The following item(s) were added to your cart:');
+
+        $('#collection .quantity-selector').val(0); // Set collection quantity selector values to 0
+
+        if(cart_items.length > 0) {
+            displayCart();
+        }
+        //console.log('set qcrecalc to 0');
+        qcrecalc = 0;
+        //
+        //
+        $('button[value=cart]').each(function() {
+            if ($(this).hasClass('virg')) {
+                //console.log('virg check 268b')
+                $(this).removeClass('virg');
+                $(this).removeClass('wait');
+                // only enable the cart button if it wasn't disabled due to lack of Stock/Price
+                if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
+                    $(this).attr('disabled',false);
                 }
-
-                //Error management
-                resetErrors();
-    
-                Object.keys(result).forEach(function(id) {
-                    if(result[id] == false || typeof result[id]['error'] != 'undefined') {
-                        var message = "<b><u>Item Not Added.</u></b>" + '</br>';
-                        if(typeof result[id]['error'] != 'undefined') {
-                            message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
-                        }
-                        var error = $('<div>', {"class": "alert alert-danger mt-3"}).html(message);
-                        errors.append(error);
-                    }
-                });
-
             }
-            $('#header .item-count').html(cart_item_count).addClass('ready');
-            $('.ajaxcart .subtotal .val').html(cart_subtotal);
-
-            if (show_all) {
-                $('.ajaxcart .heading').html('');
-            } else
-                $('.ajaxcart .heading').html('The following item(s) were added to your cart:');
-
-            $('#collection .quantity-selector').val(0); // Set collection quantity selector values to 0
-
-            if(cart_items.length > 0) {
-                displayCart();
-            }
-            //console.log('set qcrecalc to 0');
-            qcrecalc = 0;
-            //
-            //
-            $('button[value=cart]').each(function() {
-                if ($(this).hasClass('virg')) {
-                    //console.log('virg check 268b')
-                    $(this).removeClass('virg');
-                    $(this).removeClass('wait');
-                    // only enable the cart button if it wasn't disabled due to lack of Stock/Price
-                    if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
-                        $(this).attr('disabled',false);
-                    }
-                }
-            });
         });
     });
 }
