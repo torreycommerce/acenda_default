@@ -79,6 +79,39 @@ $(document).on('click','button[value=cart]', function(event) {
         return false;
     }
 
+
+    var personalization_failed = false;
+    form.find(".personalization-required").each(function() {
+        if ($(this).val() == '') {
+            var name = $(this).parent().find('.selected-name').text().slice(0, -1);
+            alert(name+" is required.");
+            personalization_failed = true;
+        }
+    });
+    if(personalization_failed) return false;
+
+    form.find("input[data-personalization-min],textarea[data-personalization-min]").each(function() {
+        var rule = $(this).attr('data-personalization-min');
+        if ($(this).val().length < rule) {
+            var name = $(this).parent().find('.selected-name').text().slice(0, -1);
+            alert(name+" should be at least "+rule+" characters.");
+            personalization_failed = true;
+        }
+    });
+    if(personalization_failed) return false;
+
+    form.find("input[data-personalization-max],textarea[data-personalization-max]").each(function() {
+        var rule = $(this).attr('data-personalization-max');
+        if ($(this).val().length > rule) {
+            var name = $(this).parent().find('.selected-name').text().slice(0, -1);
+            alert(name+" is too long.");
+            personalization_failed = true;
+        }
+    });
+    if(personalization_failed) return false;
+
+
+
     // Disable submit button
     $('button[value=cart]').addClass('wait').attr('disabled',true);
     //console.log("Add to cart");

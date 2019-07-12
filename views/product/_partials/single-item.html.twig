@@ -266,25 +266,28 @@
 			<form method="post" class="text-left productForm" id="productForm2" action="{{ app.url }}/product/route">
                 {% if product.personalization_options is not empty %}
                     {% for key,option in product.personalization_options %}
+                        {% set requirerule = option.required == true ? "personalization-required":"" %}
+                        {% set minrule = option.min > 0 ? 'data-personalization-min="'~option.min~'"':"" %}
+                        {% set maxrule = option.max > 0 ? 'data-personalization-max="'~option.max~'"':"" %}
                         <div class="form-group divide pb-3 mb-2">
                         <label class="selected-option" for="option_name">
-                            <span class="selected-name">{{option.name|replace({'_':' '})|title}}:</span>
+                            <span class="selected-name">{{option.name}}:</span>
                         </label>
                         <input type="hidden" name="personalization[{{key}}][name]" value="{{option.name}}">
                         {% if option.type == 'options' %}
-                            <select class="form-control form-control-lg" id="personalization_options{{loop.index}}" name="personalization[{{key}}][value]">
+                            <select class="form-control form-control-lg {{requirerule}}" id="personalization_options{{loop.index}}" name="personalization[{{key}}][value]">
                                     <option>Select Option...</option>
                                 {% for o in option.options %}
                                     <option value="{{o}}">{{o}}</option>
                                 {% endfor %}
                             </select>
                         {% elseif option.type == 'number' %}
-                            <input id="personalization_options{{loop.index}}" class="form-control form-control-lg" type="number" value="" max="{{option.max}}" min="{{option.min}}" maxlength="3" placeholder="0" name="personalization[{{key}}][value]">
+                            <input id="personalization_options{{loop.index}}" class="form-control form-control-lg {{requirerule}}" type="number" value="" max="{{option.max}}" min="{{option.min}}" maxlength="4" placeholder="0" name="personalization[{{key}}][value]">
                         {% else %}
-                            {% if option.max > 30 %}
-                                <textarea id="personalization_options{{loop.index}}" class="form-control form-control-lg" name="personalization[{{key}}][value]"></textarea>
+                            {% if option.max > 80 %}
+                                <textarea id="personalization_options{{loop.index}}" class="form-control form-control-lg {{requirerule}}" {{minrule}} {{maxrule}} name="personalization[{{key}}][value]"></textarea>
                             {% else %}
-                                <input id="personalization_options{{loop.index}}" class="form-control form-control-lg" type="text" value="" maxlength="{{option.max}}" placeholder="" name="personalization[{{key}}][value]">
+                                <input id="personalization_options{{loop.index}}" class="form-control form-control-lg {{requirerule}}" {{minrule}} {{maxrule}} type="text" value="" maxlength="{{option.max}}" placeholder="" name="personalization[{{key}}][value]">
                             {% endif %}
                         {% endif %}
                         </div>
