@@ -55,7 +55,7 @@
 				<div>{{ payment.address.city}}, {{ payment.address.state}} {{ payment.address.zip}}</div>
 			</address>
 			{% endif %}
-			
+
 			<h3>Billing Method</h3>
 			<p>
 			{% if order.transaction_type == 'PayPal Express' %} {# Express order #}
@@ -111,12 +111,18 @@
 					<div class="media-body">
 						<a href="{{ app.url ~ product.url }}" target="_blank"><span class="product-name">{{ product.name }}</span></a>
 
-						<div class="pricing">
+                        <div class="pricing">
 							<div class="price">{{ prod.currency(product.price|number_format(2, '.')) }}</div>
 						</div>
 
+                        {% if item.personalization is not empty %}
+                            {% for p in item.personalization %}
+                                <div>{{p.name}}: {{ p.value }}</div>
+                            {% endfor %}
+                        {% endif %}
+
 						<div>Qty: {{ item.quantity }}</div>
-					
+
 						{% if item.tracking_number is not empty %}
 						<div>Tracking Number: <a href="http://www.google.com/search?q={{ item.tracking_number }}">{{ item.tracking_number }}</a>
 						</div>
@@ -188,9 +194,9 @@
 				<div class="col-6">Total:</div>
 				<div class="col-6 text-right">{{ prod.currency(order.total|number_format(2, '.')) }}</div>
 			</div>
-			
+
 			{% endif %}
-			
+
 		</div>
 	</div>
 {{ lonelyform.endcard()}}

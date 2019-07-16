@@ -31,7 +31,7 @@
 	{% set cart  = api.get('/cart') %}
 	{% set coupon_id = app.request.post.cart.action|split('/')|last %}
 	{% set result = api.delete('/cart/discount/' ~ coupon_id) %}
-        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}	
+        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}
 {% endif %}
 {# Add coupon #}
 {% if app.request.post.cart.coupon_code is not empty %}
@@ -39,7 +39,7 @@
 	{% if api.error %}
 		{% set error="The coupon code you entered is invalid." %}
         {% else %}
-        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}		
+        {% do app.redirect('/' ~ app.url ~ '/cart',{}) %}
 	{% endif %}
 {% endif %}
 {% if app.request.post.cart.shipping_method is not empty  or  app.request.post.cart.shipping_country is not empty %}
@@ -227,6 +227,14 @@
 					{% set registry = api.get('/registry/' ~ item.registry_id) %}
 					<p class="fsd1"><a href="{{ app.url }}/registry/{{ registry.id }}"><i class="fa fa-gift"></i><span>For {{ registry.name}}</span></a></p>
 					{% endif %}
+					{% if (item.personalization is not empty) %}
+					<p class="fsd1">
+                    {% for k,item in item.personalization %}
+                        {{item.name|title}}: {{item.value}}<br>
+                    {% endfor %}
+                    </p>
+					{% endif %}
+
 					{% if product.discountable == false %}
                         <div class="alert alert-warning fsd2 mb-2 p-2">This item may not be discountable.</div>
                     {% endif %}
@@ -325,7 +333,7 @@
 						-{{ prod.currency(coupon_discount|number_format(2)) }}
 					</div>
 				</div>
-				
+
 				{% if bundle_discount > 0 %}
 				<div class="row estimate-bundles" style="display:none">
 					<div class="col-7">Bundles:</div>
@@ -384,7 +392,7 @@
             {% set has_bundle = true %}
         {% endif %}
     {% endfor %}
-		<div class="card"><div class="card-body">    
+		<div class="card"><div class="card-body">
         {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
         {% if has_bundle %}
         <div class="mb-3 divide" id="bundles">
@@ -420,7 +428,7 @@
 			<div class="discount g">
 				<div class="alert alert-info fsd1">
 					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs'}) }}
-					
+
 					<p>
 					<b>Coupon: {{ discount.code }}</b>
 					{% if discount.description is not empty %}<br>{% endif %}

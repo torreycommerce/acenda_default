@@ -118,7 +118,13 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 							<div class="pricing">
     							<div class="price">{{ prod.currency(product.price|number_format(2, '.')) }}</div>
     						</div>
-    
+
+                            {% if item.personalization is not empty %}
+                                {% for p in item.personalization %}
+                                    <div>{{p.name}}: {{ p.value }}</div>
+                                {% endfor %}
+                            {% endif %}
+
     						<div>Qty: {{ item.quantity }}</div>
 						</div>
 					</div>

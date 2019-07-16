@@ -33,6 +33,9 @@ using {{ shipping_method.name }}
 URL: {{params['url']['current']}}{{products[item.product_id].0.url}}
 SKU: {{item.sku}}
 Item name: {{ item.name }}
+{% if item.personalization is not empty %}{% for personalization in item.personalization %}
+{{personalization.name}}: {{personalization.value}}
+{% endfor %}{% endif %}
 Price: ${{ item.price|number_format(2) }}
 Qty: {{ item.quantity }}
 --------------------------------------------------------------------------
