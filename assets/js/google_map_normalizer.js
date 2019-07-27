@@ -46,26 +46,26 @@ jQuery.fn.attachGoogleNormalizer = function(callback) {
         * @TODO Change that kind of stuff for underscore...
         */
         var addr = "<div class='alert alert-info' style='margin-top: 10px;'>";
-            addr += "<p style='margin: 0;''><b>";
+            addr += "<p style='margin: 0;''><strong>";
             addr += $('input[name*="first_name"]').val()+" "+$('input[name*="last_name"]').val();
-            addr += "</b></p>";
+            addr += "</strong></p>";
             if ($('input[name*="company"]').val() != undefined && $('input[name*="company"]').val() != ''){
                 addr += "<p style='margin: 0;''><i>";
                 addr += $('input[name*="company"]').val();
                 addr += "</i></p>";
             }
-            addr += "<p style='margin: 0; margin-top: 10px;'><b>";
+            addr += "<p style='margin: 0; margin-top: 10px;'><strong>";
             addr += ad[0];
-            addr += "</b></p>";
+            addr += "</strong></p>";
             addr += "<p style='margin: 0;'><i>";
             addr += $('input[name*="street_line2"]').val();
             addr += "</i></p>";
             addr += "<p style='margin: 0;'>";
             addr += ad[1]+", "+ad[2];
             addr += "</p>";
-            addr += "<p style='margin: 0; margin-top: 10px;'><b>";
+            addr += "<p style='margin: 0; margin-top: 10px;'><strong>";
             addr += ad[3];
-            addr += "</b></p>";
+            addr += "</strong></p>";
             addr += "</div>";
 
         $("#search_place").parent().append(addr);

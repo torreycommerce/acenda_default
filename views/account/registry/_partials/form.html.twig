@@ -3,19 +3,19 @@
     <legend class="sr-only">Registry Settings</legend>
     {{ forms.reqfieldlang() }}
     <div class="form-group fgq">
-        <label for="rrname">Registry Name</label>
+        <label for="rrname">Registry Name{{forms.fgqtext}}</label>
         {{ forms.text('registry[name]',registry.name, {class:'form-control parsley-validated', id:'rrname', placeholder:"Registry Name", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'name') }}</div>
     </div>
 
     <div class="form-group fgq">
         <button type="button" class="btn btn-link p-0 float-right" data-target="#modal-privacy" data-toggle="modal"><i class="fa fa-question-circle"><i class="sr-only">About Privacy</i></i></button>
-        <label for="rpri">Privacy</label>
+        <label for="rpri">Privacy{{forms.fgqtext}}</label>
         {{ forms.select('registry[privacy]',registry.privacy, {'public':'Public','private':'Private','unlisted':'Unlisted'}, {class:'form-control parsley-validated', id:'rpri', required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'privacy') }}</div>
     </div>
     <div class="form-group fgq">
-        <label for="raddr">Mailing Address</label>
+        <label for="raddr">Mailing Address{{forms.fgqtext}}</label>
         <div>
             {% set address_select = {} %}
             {% for address in addresses %}
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="form-group fgq">
-        <label for="reve">Event Date</label>
+        <label for="reve">Event Date{{forms.fgqtext}}</label>
         {{ forms.date('registry[event_date]', registry.event_date,  {class:'form-control parsley-validated', id:'reve', placeholder:'Event Date', required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'event_date') }}</div>
     </div>
@@ -41,12 +41,12 @@
 <fieldset class="divide mb-3">
     <legend>Registrant</legend>
     <div class="form-group fgq">
-        <label for="rfname">Registrant First Name</label>
+        <label for="rfname">Registrant First Name{{forms.fgqtext}}</label>
         {{ forms.text('registry[first_name]',registry.first_name, {class:'form-control parsley-validated', id:'rfname', placeholder:"Registrant First Name", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'first_name') }}</div>
     </div>
     <div class="form-group fgq">
-        <label for="rlname">Registrant Last Name</label>
+        <label for="rlname">Registrant Last Name{{forms.fgqtext}}</label>
         {{ forms.text('registry[last_name]',registry.last_name, {class:'form-control parsley-validated', id:'rlname', placeholder:"Registrant Last Name", required:true}) }}
         <div class="validation">{{ forms.errorlist(form_errors, 'last_name') }}</div>
     </div>
@@ -93,11 +93,11 @@
             </div>
             <div class="modal-body">
                 <div class="h4">Public Registry</div>
-                <p>Guests can search for your name to locate your Registry.<br /><i class="fsd1">The Registry <b>is</b> searchable and accessible to other guests.</i></p>
+                <p>Guests can search for your name to locate your Registry.<br /><i class="fsd1">The Registry <strong>is</strong> searchable and accessible to other guests.</i></p>
                 <div class="h4">Private Registry</div>
-                <p>Only the guest who created the Registry can access it.<br /><i class="fsd1">The Registry is <b>not</b> searchable and not accessible to other guests.</i></p>
+                <p>Only the guest who created the Registry can access it.<br /><i class="fsd1">The Registry is <strong>not</strong> searchable and not accessible to other guests.</i></p>
                 <div class="h4">Unlisted Registry</div>
-                <p>Guests can see the Registry if they have the link to it.<br /><i class="fsd1">The Registry is <b>not</b> searchable but accessible to other guests.</i></p>
+                <p>Guests can see the Registry if they have the link to it.<br /><i class="fsd1">The Registry is <strong>not</strong> searchable but accessible to other guests.</i></p>
             </div>
         </div>
     </div>

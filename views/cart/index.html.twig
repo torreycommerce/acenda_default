@@ -396,7 +396,7 @@
         {{ forms.begin('cart','','post', {class:'form-coupon needs-validation divide pb-4 mb-4',id:'coupon-code'}) }}
         {% if has_bundle %}
         <div class="mb-3 divide" id="bundles">
-			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><b>Bundles</b></div>
+			<div class="title fa-fa-balance"><i class="fa fa-object-group"></i><strong>Bundles</strong></div>
 			<div class="form-group">
 				{% for index, discount in cart.discount_collection.discounts %}
 					{% if discount.type == 'bundle' %}
@@ -430,7 +430,7 @@
 					{{ forms.submit('cart[action]', "removecoupon/" ~ discount.id, 'Remove', {class:' float-right btn btn-info btn-xs'}) }}
 
 					<p>
-					<b>Coupon: {{ discount.code }}</b>
+					<strong>Coupon: {{ discount.code }}</strong>
 					{% if discount.description is not empty %}<br>{% endif %}
 					{{ discount.description }}
 					</p>

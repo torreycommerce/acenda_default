@@ -5,7 +5,7 @@
 		<p> Welcome! An email address is required for order tracking. Please click below if you would like to also create an account.</p>
 		<form id="guest-form">
 		  <div class="form-group fgq">
-		    <label for="guestEmail">Email Address</label>
+		    <label for="guestEmail">Email Address{{forms.fgqtext}}</label>
 		    <input type="email" class="form-control parsley-validated" id="guestEmail" name="email" value="{{ cart.email }}" placeholder="Email Address" required>
 		  </div>
 			<div class="form-group">
@@ -25,11 +25,11 @@
 
 			<div id="new-user-form" style="display:none">
 			  <div class="form-group fgq">
-			    <label for="newPass">Create Password</label>
+			    <label for="newPass">Create Password{{forms.fgqtext}}</label>
 			    <input type="password" class="form-control parsley-validated" id="newPass" name="new_user_password" placeholder="Password"  value="{{ app.user.getState('new_user_password') }}" >
 			  </div>
 			  <div class="form-group fgq">
-			    <label for="newPassVerify">Verify Password</label>
+			    <label for="newPassVerify">Verify Password{{forms.fgqtext}}</label>
 			    <input type="password" class="form-control parsley-validated" id="newPassVerify" name="new_user_password_verify" placeholder="Verify Password" value="{{ app.user.getState('new_user_password_verify') }}" >
 				<div class="fsd1 text-danger" id="create-user-error"></div>  			  
 			  </div>
@@ -43,11 +43,11 @@
 		<p>Welcome back! <br>Simply sign in and let's get started.</p>
 		<form id="login-form">
 		  <div class="form-group fgq">
-		    <label for="custEmail">Email Address</label>
+		    <label for="custEmail">Email Address{{forms.fgqtext}}</label>
 		    <input type="email" class="form-control" id="custEmail" name="email" placeholder="Email Address">
 		  </div>
 		  <div class="form-group fgq">
-		    <label for="custPass">Password</label>
+		    <label for="custPass">Password{{forms.fgqtext}}</label>
 		    <input type="password" class="form-control" id="custPass" name="password" placeholder="Password">
 			<div class="fsd1 text-danger" id="signin-error"></div>
 		  </div>

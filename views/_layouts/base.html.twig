@@ -12,7 +12,7 @@
 {# Scripts #}
 
 
-{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-3.3.1.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/jquery-3.4.1.min.js') }}
 {% if app.request.url == "checkout" %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}

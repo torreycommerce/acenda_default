@@ -37,7 +37,7 @@
 				{% set shipping = api.get('/customeraddress', {query:{id:app.user.getState('shipping_address_id')}}).0 %}
 				{# It must be a registry or wishlist #}
 				Ships to:<br>
-				<b>{{ shipping.first_name }} {{ shipping.last_name }}</b><br>
+				<strong>{{ shipping.first_name }} {{ shipping.last_name }}</strong><br>
 				(full address hidden for privacy)
 			{% else %}
 				{{ shipping.street_line1 }}<br />
@@ -69,7 +69,7 @@
 			<div class="row">
 				<div class="col-6 col-lg-7">
 					<div class="form-group fgq">
-						<label for="checkout_card_number">Card Number</label>
+						<label for="checkout_card_number">Card Number{{forms.fgqtext}}</label>
 						{{ forms.text('checkout[card_number]', checkout.card_number, {id:'checkout_card_number',class:'form-control parsley-validated', placeholder:"Card Number", required:true, 'parsley-luhn': true, 'parsley-type': 'number'}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, 'card_number') }}</div>
 					</div>
@@ -113,14 +113,14 @@
 			<div class="row">
 				<div class="col-4">
 					<div class="form-group fgq">
-						<label for="ccv">CVV2</label>
+						<label for="ccv">CVV2{{forms.fgqtext}}</label>
 						{{ forms.text('checkout[card_cvv2]', checkout.card_cvv2, {class:'form-control parsley-validated', id:'ccv', placeholder:"CVV2", required:true, 'pattern':'^[0-9]{3,4}$'}) }}
 						<div class="validation">{{ forms.errorlist(form_errors, 'card_cvv2') }}</div>
 					</div>
 				</div>
 				<div class="col-4">
 					<div class="form-group fgq">
-						<label for="exp-m">Exp Month</label>
+						<label for="exp-m">Exp Month{{forms.fgqtext}}</label>
 						{% set months = {} %}
 						{% for i in range(1,12) %}
 							{% set month = "%02d"|format(i) %}
@@ -132,7 +132,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-group fgq">
-						<label for="exp-y">Exp Year</label>
+						<label for="exp-y">Exp Year{{forms.fgqtext}}</label>
 						{% set years = {} %}
 						{% for i in range(now|date('Y'),now|date('Y')+15) %}
 							{% set years = years + {(i):i} %}
@@ -210,9 +210,9 @@
 					<legend>Shipping Method</legend>
 					<div class="checkout-display-address mb-3" id="display_shipping_address">
 						<address>
-							<div><b>Method: </b>{{ method.name }}</div>
-							<div><b>Carrier: </b>{{ method.carrier_name }} ( {{ method.carrier_method }} )</div>
-						{% if method.top_days_range %}<div><b>Delivery Estimate:</b> {{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.</div>{% endif %}
+							<div><strong>Method: </strong>{{ method.name }}</div>
+							<div><strong>Carrier: </strong>{{ method.carrier_name }} ( {{ method.carrier_method }} )</div>
+						{% if method.top_days_range %}<div><strong>Delivery Estimate:</strong> {{ method.bottom_days_range ? method.bottom_days_range : 0 }} to {{ method.top_days_range ? method.top_days_range : 0 }} days.</div>{% endif %}
     					</address>
 					</div>
 						<a class="btn btn-sm btn-default" href="{{ app.url }}/checkout">Change Method</a>				

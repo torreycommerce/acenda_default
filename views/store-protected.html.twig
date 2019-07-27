@@ -25,7 +25,7 @@
 <p>To preview the website, please enter the Store Password <span class="wsnw">(found in Admin Tool > Site Settings)</span>.</p>
 {{ forms.begin('auth_protection','','post', {class:''}) }}
 <div class="form-group fgq">
-	<label for="password">Password</label>
+	<label for="password">Password{{forms.fgqtext}}</label>
 	{{ forms.password('auth_protection[password]','', {class:'form-control parsley-validated', id:'password', required:true, placeholder: "Password"}) }}
 	<div class="validation">{{ forms.errorlist(form_errors, 'password') }}</div>
 </div>

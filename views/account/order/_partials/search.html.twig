@@ -9,7 +9,7 @@ Order Status &amp; History
 {% block content %}
 <section id="order_search">
     
-    <h1><i class="fa fa-history"></i><span>Order Status &amp; History</span></h1>
+    <h1>Order Status &amp; History</h1>
     
     <div class="row">
         <div class="col-lg-8">
@@ -20,7 +20,7 @@ Order Status &amp; History
                 </div>
                 {{ forms.begin('order','','post',{ class:'form-horizontal' }) }}
                 <div class="form-group fgq">
-                    <label class="control-label col-md-3" for="input2">Email Address</label>
+                    <label class="control-label col-md-3" for="input2">Email Address{{forms.fgqtext}}</label>
                     <div class="col-md-9">
                         {{ forms.email('order[email]', '', {class:'form-control parsley-validated', required:true, placeholder: "Email Address"}) }}
                     </div>
@@ -29,7 +29,7 @@ Order Status &amp; History
                     </div>
                 </div>
                 <div class="form-group fgq">
-                    <label class="control-label col-md-3" for="input2">Order Number</label>
+                    <label class="control-label col-md-3" for="input2">Order Number{{forms.fgqtext}}</label>
                     <div class="col-md-9">
                         {{ forms.number('order[number]', '', {class:'form-control parsley-validated', required:true, placeholder: "Order Number"}) }}
                     </div>

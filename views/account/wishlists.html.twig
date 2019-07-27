@@ -68,7 +68,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		<div class="card{% if wishlist.default %} bg-light{% endif %}">
 			<div class="card-body">
 			    <h2 class="h3">{% if wishlist.default %}<i class="fa fa-heart"></i>{% endif %}<span>{{ wishlist.name }}</span></h2>
-				<div class="item-count"><b>{{ wishlist.item_count }}</b> Item(s)</div>
+				<div class="item-count"><strong>{{ wishlist.item_count }}</strong> Item(s)</div>
 				<div><i>{{ wishlist.privacy|capitalize }}</i></div>
 				{% if wishlist.default %}
 				<div class="fsd1 mt-3">

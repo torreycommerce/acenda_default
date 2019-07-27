@@ -244,7 +244,7 @@ function ajaxCart(data, r) {
 
             Object.keys(result).forEach(function(id) {
                 if(result[id] == false || typeof result[id]['error'] != 'undefined') {
-                    var message = "<b><u>Item Not Added.</u></b>" + '</br>';
+                    var message = "<strong><u>Item Not Added.</u></strong>" + '</br>';
                     if(typeof result[id]['error'] != 'undefined') {
                         message += result[id]['error'][Object.keys(result[id]['error'])[0]][0];
                     }

@@ -19,9 +19,16 @@
 {% macro reqfieldlang() %}
 {% spaceless %}
 <div class="form-group fgqm fsd1">
-	<p><span class="fgqs">*</span> Denotes a required field</p>
+	<p><span class="text-danger">*</span> Denotes a required field</p>
 	{# Required fields are marked * #}
 </div>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro fgqtext() %}
+{% spaceless %}
+    {% import _self as elements %}
+    <span class="text-danger">*</span>
 {% endspaceless %}
 {% endmacro %}
 

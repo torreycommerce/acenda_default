@@ -16,8 +16,8 @@
 			</tr>
 			<tr>
 				<td {{ ema.comformA() }}>
-				Your <b>{{ params['site']['title']|default("") }}</b> order status return has been updated!
-				<br><b>Order #:</b> {{ order.order_number }}
+				Your <strong>{{ params['site']['title']|default("") }}</strong> order status return has been updated!
+				<br><strong>Order #:</strong> {{ order.order_number }}
 				</td>
 			</tr>
 	  </table>
@@ -39,12 +39,12 @@
         				        <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
         				    </td>
         				    <td style="padding:0 0 0 20px;" valign="top">
-            				    <a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{item.name}}</b></a>
-            				    <br><b>RMA #:</b> {{return.rma}}
-            				    <br><b>SKU:</b> {{item.sku}}
-            					<br><b>Qty:</b> {{return.quantity}}
-            					<br><b>Reason:</b> {{return.reason}}
-            					<br><b>Status:</b> {{return.status }}
+            				    <a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{item.name}}</strong></a>
+            				    <br><strong>RMA #:</strong> {{return.rma}}
+            				    <br><strong>SKU:</strong> {{item.sku}}
+            					<br><strong>Qty:</strong> {{return.quantity}}
+            					<br><strong>Reason:</strong> {{return.reason}}
+            					<br><strong>Status:</strong> {{return.status }}
             				</td>
             			</tr>
             		</table>

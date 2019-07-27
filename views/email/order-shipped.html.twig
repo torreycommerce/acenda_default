@@ -18,8 +18,8 @@
 			</tr>
 			<tr>
 				<td {{ ema.comformA() }}>
-				Your <b>{{ params['site']['title']|default("") }}</b> Order has Shipped!
-				<br><b>Order #:</b> {{ order.order_number }}
+				Your <strong>{{ params['site']['title']|default("") }}</strong> Order has Shipped!
+				<br><strong>Order #:</strong> {{ order.order_number }}
 				</td>
 			</tr>
 	  </table>
@@ -38,16 +38,16 @@
 			</tr>
 			<tr>
 				<td {{ ema.halfcomform() }}>
-					<b>Order #:</b> {{ order.order_number }}
-					<br><b>Date:</b> {{ order.date_created }}
-					<br><br><b>Subtotal:</b> {{ mac.currency(order.item_subtotal|number_format(2)) }}
-					<br><b>Shipping:</b> {{ mac.currency(order.shipping_rate|number_format(2, '.')) }}
+					<strong>Order #:</strong> {{ order.order_number }}
+					<br><strong>Date:</strong> {{ order.date_created }}
+					<br><br><strong>Subtotal:</strong> {{ mac.currency(order.item_subtotal|number_format(2)) }}
+					<br><strong>Shipping:</strong> {{ mac.currency(order.shipping_rate|number_format(2, '.')) }}
                     {% if order.discount_price > 0 %}
-                        <br><b>Discount:</b> {{ mac.currency(order.discount_price|number_format(2, '.')) }}
+                        <br><strong>Discount:</strong> {{ mac.currency(order.discount_price|number_format(2, '.')) }}
                     {% endif %}
-                    <br><b>Total Before Tax:</b> {{ mac.currency(order.adjusted_subtotal|number_format(2, '.')) }}
-					<br><b>Tax:</b> {{ mac.currency(order.tax|number_format(2)) }}
-					<br><b>Total:</b> {{ mac.currency(order.total|number_format(2)) }}
+                    <br><strong>Total Before Tax:</strong> {{ mac.currency(order.adjusted_subtotal|number_format(2, '.')) }}
+					<br><strong>Tax:</strong> {{ mac.currency(order.tax|number_format(2)) }}
+					<br><strong>Total:</strong> {{ mac.currency(order.total|number_format(2)) }}
 				</td>
 				<td {{ ema.halfcomform() }}>
 					{{ order.shipping_first_name }} {{ order.shipping_last_name }}
@@ -56,9 +56,9 @@
 					<br>{{ order.shipping_city }}, {{ order.shipping_state }} {{ order.shipping_zip }}
 					<br>{{ order.shipping_phone_number }}
 					{% endif %}
-					<br><br><b>Using:</b> {{ shipping_method.name }}
-					<br><b>Shipping Method:</b> {{ fulfillment.shipping_method }}
-                    <br><b>Tracking Number(s):</b>
+					<br><br><strong>Using:</strong> {{ shipping_method.name }}
+					<br><strong>Shipping Method:</strong> {{ fulfillment.shipping_method }}
+                    <br><strong>Tracking Number(s):</strong>
                     {% if fulfillment is not empty %}
 						{% for f in fulfillment %}
 							{% if f.tracking_numbers is not empty %}
@@ -93,10 +93,10 @@
 				                <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
         				    </td>
         				    <td style="padding:0 0 0 20px;" valign="top">
-            					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><b>{{ item.name }}</b></a>
-            					<br><b>SKU:</b> {{item.sku}}
-            					<br><b>Price:</b> {{ mac.currency(item.price|number_format(2)) }}
-            					<br><b>Qty:</b> {{ item.quantity }}
+            					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
+            					<br><strong>SKU:</strong> {{item.sku}}
+            					<br><strong>Price:</strong> {{ mac.currency(item.price|number_format(2)) }}
+            					<br><strong>Qty:</strong> {{ item.quantity }}
             				</td>
             			</tr>
             		</table>

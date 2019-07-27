@@ -140,7 +140,7 @@
 						</div>
 						{% endif %}
 
-						<div class="mt-3">Status: <b>{{ item.fulfilled_quantity }}</b> item(s) fulfilled.</div>
+						<div class="mt-3">Status: <strong>{{ item.fulfilled_quantity }}</strong> item(s) fulfilled.</div>
 					</div>
 				</div>
 				</div>
@@ -223,9 +223,9 @@
 		</div>
 		{# End actions #}
 		{% endif %}
-		<div><b>RMA #:</b> {{ return.rma }}</div>
+		<div><strong>RMA #:</strong> {{ return.rma }}</div>
 		<div class="product-name">{{ item.name }}</div>
-		<div><b>Qty:</b> {{ return.quantity }}, <b>Status:</b> {{ return.status }}</div>
+		<div><strong>Qty:</strong> {{ return.quantity }}, <strong>Status:</strong> {{ return.status }}</div>
 	</div>
 	{% endfor %}
 {{ lonelyform.endcard()}}

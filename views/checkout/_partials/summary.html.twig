@@ -67,7 +67,7 @@ var acendaCheckoutStep = '{{ step }}';
 			<div class="alert alert-info">
 				<button class="float-right btn btn-info btn-xs remove-coupon" id="remove-coupon-{{ discount.id }}" onclick="return false;">Remove</button>
 				<p>
-				<b>Coupon: {{ discount.code }}</b>
+				<strong>Coupon: {{ discount.code }}</strong>
 				{% if discount.description is not empty %}<br>{% endif %}
 				{{ discount.description }}
 				</p>

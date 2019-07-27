@@ -1019,7 +1019,7 @@ var checkout = checkout || {};
 		renderShippingMethodSummary:  function() {
 			if(!this.checkout_steps[this.findStep('shipping-method')].completed || this.cart.get('shipping_method') == null) return;
   			var form = this.getFormData('#shipping-method-form');
-			var tpl = _.template('<b><%= method.name %></b><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="d-none"><%= method.price %></div>');
+			var tpl = _.template('<strong><%= method.name %></strong><br/><%= method.bottom_days_range %> - <%= method.top_days_range %> days<div class="d-none"><%= method.price %></div>');
 			var method = this.shipping_methods.get(form.shipping_method);
 			if(typeof method !=='undefined') {
 				$('#shipping-method-panel .step-data').html(tpl({method: method.toJSON()}));

@@ -48,14 +48,14 @@
 						    <div class="mb-3">
 							    <a href="{{ app.url ~ products[item.variant_id].0.url }}"><span class="product-name">{{ item.name }}</span></a>
 						    </div>
-							<p><b>{{ available }}</b> available for return.</p>
+							<p><strong>{{ available }}</strong> available for return.</p>
 						</div>
 					{% if available > 0 %}
 						<div class="col-lg-6">
 							<div class="row">
 								<div class="col-4 g">
 									<div class="form-group fgq">
-										<label for="return-qty[{{item.id}}]">Qty</label>
+										<label for="return-qty[{{item.id}}]">Qty{{forms.fgqtext}}</label>
 										{{ forms.select('createreturn[quantity][' ~ item.id ~ ']', '0', range(0,available), {class:'form-control parsley-validated', id:'return-qty[' ~ item.id ~']', label:'Quantity', required:true, 'parsley-min':0,'parsley-max':available}) }}
 										<div class="validation">{{ forms.errorlist(form_errors, 'quantity[' ~ item.id ~ ']') }}</div>
 									</div>

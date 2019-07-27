@@ -62,7 +62,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 		<div class="card{% if registry.default %} bg-light{% endif %}">
 			<div class="card-body">
 			    <h2 class="h3">{% if registry.default %}<i class="fa fa-gift"></i>{% endif %}<span>{{ registry.name }}</span></h2>
-				<div class="item-count"><b>{{ registry.item_count }}</b> Item(s)</div>
+				<div class="item-count"><strong>{{ registry.item_count }}</strong> Item(s)</div>
 				<div>{{ registry.privacy }}</div>
 				{% if registry.default %}
 				<div class="fsd1 mt-3">

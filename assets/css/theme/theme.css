@@ -92,8 +92,7 @@ button.blank {background:none; border-width:0;}
 button.blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding-left:0;}
 .btn.tight {padding-right:.375rem; padding-left:.375rem;}
 .btn-lg.tight {padding-right:.75rem; padding-left:.75rem;}
-.fgq label:after {content:'*'; margin-left:.25em; color:#f55;}
-.fgqs {color:#f55;}
+.fgq label .text-danger {margin-left:.25em;}
 
 .card-height .card {height:100%;}
 .card-header, .card-body h2 {overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
