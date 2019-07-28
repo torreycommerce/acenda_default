@@ -49,6 +49,10 @@
     category-slug-{{app.request.path}}
 {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/product.css" />
+{% endblock %}
+
 {% block content %}
 {%include "/category/_partials/base.html.twig"%}
 {% endblock %}
