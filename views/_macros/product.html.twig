@@ -163,7 +163,8 @@
 
 {% macro carousel(product) %}
 {% spaceless %}
-{# Begin image carousel #}
+{% set config = api.get('/config') %}
+{% if config.params['show-catcolorchips'] is not defined or config.params['show-catcolorchips'] == '1' %}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}
 		<div class="color-chips mb-3">
@@ -219,7 +220,7 @@
 {% else %}
 	{#<div class="empty-carousel d-xsm-none"></div>#}
 {% endif %}
-{# End image carousel #}
+{% endif %}
 {% endspaceless %}
 {% endmacro %}
 

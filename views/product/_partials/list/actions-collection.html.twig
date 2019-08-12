@@ -3,6 +3,8 @@
 {% else %}
 {% set added = true %}
 {% endif %}
+{% set config = api.get('/config') %}
+{% if config.params['show-wishlist'] == '1' %}
 {% if wishlists is empty %}
 
 <button type="submit" name="action" value="wishlist" class="btn btn-block btn-link">
@@ -24,13 +26,15 @@
 </div>
 
 {% endif %}
-
+{% endif %}
 
 {% if items_in_registry is empty %}
 {% set added = false %}
 {% else %}
 {% set added = true %}
 {% endif %}
+
+{% if config.params['show-registry'] == '1' %}
 {% if registries is empty %}
 
 <button type="submit" name="action" value="registry" class="btn btn-block btn-link">
@@ -50,4 +54,5 @@
 		{% endfor %}
 	</ul>
 </div>
+{% endif %}
 {% endif %}

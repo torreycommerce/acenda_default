@@ -1,69 +1,36 @@
-<div id="product-tabs" class="col-12 mb-4">	
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel-tabs">
-				<ul class="nav nav-tabs">
-					{% if product.description is not empty %}
-					<li class="active">
-						<a href="#description" data-toggle="tab">Description</a>
-					</li>
-					{% endif %}
-					{% if product.dynamic_attributes is not empty %}
-						<li {% if product.description is empty %} class="active"{% endif %}>
-							<a href="#features" data-toggle="tab">Features</a>
-						</li>
-					{% endif %}
-					<li {% if product.description is empty and product.dynamic_attributes is empty %} class="active"{% endif %}>
-						<a href="#reviews" data-toggle="tab">Reviews</a>
-					</li>
-				</ul>
-			</div>
-		</div>
+<nav class="nav nav-tabs" role="tablist">
+{% set yetActive = 1 %}
+{% if product.description is not empty %}
+	<a class="nav-item nav-link active" id="description" data-toggle="tab" href="#nav-description" role="tab" aria-controls="nav-description" aria-selected="true">Description</a>
+{% set yetActive = 0 %}
+{% endif %}
+{% if product.dynamic_attributes is not empty %}
+	<a class="nav-item nav-link{% if yetActive == 1 %} active{% endif %}" id="features" data-toggle="tab" href="#nav-features" role="tab" aria-controls="nav-features" aria-selected="{{ yetActive ? 'true' : 'false' }}">Features</a>
+{% set yetActive = 0 %}
+{% endif %}
+    <a class="nav-item nav-link{% if yetActive == 1 %} active{% endif %}" id="reviews" data-toggle="tab" href="#nav-reviews" role="tab" aria-controls="nav-reviews" aria-selected="{{ yetActive ? 'true' : 'false' }}">Reviews</a>
+</nav>
+
+<div class="tab-content">
+{% set yetActive = 1 %}
+{% if product.description is not empty %}
+	<div class="card-body tab-pane fade active show" id="nav-description" role="tabpanel" aria-labelledby="description">
+		{{product.description}}
 	</div>
-	{# End tabs nav #}
-	{# Begin tab pane #}
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="tab-content">
-				{# Begin product description #}
-				{% if product.description is not empty %}
-					{% set full_description = product.description %}
-					<div id="description" class="tab-pane fade in active">
-						<div class="card">
-							<div class="card-body">
-								<div class="g">{{full_description}}</div>
-								<div id="variant-description-{{product.id}}" ></div>
-							</div>
-						</div>
-					</div>
-				{% endif %}
-				{# Begin features #}
-				{% if product.dynamic_attributes is not empty %}
-					<div id="features" class="tab-pane fade {% if product.description is empty %}active in{% endif %}">
-						<div class="card">
-							<div class="card-body">
-								<ul>
-									{% for feature in product.dynamic_attributes %}
-									   <li>
-										   {{feature}}: {{product[feature]}}
-									   </li>
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
-					</div>
-				{% endif %}
-				{# Begin reviews #}
-				<div id="reviews" class="tab-pane fade {% if product.description is empty and product.dynamic_attributes is empty %}active in{% endif %}">
-					<div class="card">
-						<div class="card-body">
-							{% include "/product/_partials/reviews.html.twig" %}
-						</div>
-					</div>
-				</div>
-				{# End reviews #}
-				{# End product description #}
-			</div>
-		</div>
+{% set yetActive = 0 %}
+{% endif %}
+
+{% if product.dynamic_attributes is not empty %}
+	<div class="card-body tab-pane fade{% if yetActive == 1 %} active show{% endif %}" id="nav-features" role="tabpanel" aria-labelledby="features">
+		<ul>
+		{% for feature in product.dynamic_attributes %}
+            <li>{{feature}}: {{product[feature]}}</li>
+		{% endfor %}
+		</ul>
 	</div>
+{% set yetActive = 0 %}
+{% endif %}
+    <div class="card-body tab-pane fade{% if yetActive == 1 %} active show{% endif %}" id="nav-reviews" role="tabpanel" aria-labelledby="reviews">
+        {% include "/product/_partials/reviews.html.twig" %}
+    </div>
 </div>

@@ -221,12 +221,14 @@ function productSlick() {
 		asNavFor: '#slick-heroic-nav-'+who,
 		swipe: true
 	});
+	var navVert = true;
+    if ($('.prodpage.ppsl-bh').length) navVert = false
 	$('#slick-heroic-nav-'+who).slick({
         dots: false,
 		speed: 300,
 		slidesToShow: spslides,
 		slidesToScroll: 1,
-		vertical: true,
+		vertical: navVert,
 		asNavFor: '#slick-heroic-'+who,
 		focusOnSelect: true,
 		swipe: false

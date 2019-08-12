@@ -1,5 +1,7 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
-<div class="divide pb-4 mb-4 {% if product.videos is not empty %}has-video{% endif %} prodpage" id="singleProduct">
+{% set config = api.get('/config') %}
+
+<div class="divide pb-4 mb-4{% if product.videos is not empty %} has-video{% endif %}{% if config.params['prodpage_deet_loc'] is defined %} {{config.params['prodpage_swatch_loc']}}{% endif %} prodpage" id="singleProduct">
 <div class="row">
 
 {% set startColor = app.request.get.color %}
@@ -23,8 +25,6 @@
 {% else %}
 	{% set varimgs = variation.images %}
 {% endif %}
-
-
 
 	<div class="col-md-7 mb-4" id="product-images">
 		<div class="pos-r pi-contain">
@@ -196,15 +196,16 @@
 			{% endfor %}
 			</div>
 			{% spaceless %}
+			{% set voformat = config.params['prodpage_variant_opt'] %}
 			<div class="variation-selector-{{product.id}}">
 			{% for vo in product.variant_options %}
 				<div class="mb-3 selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
-					{% if vo.name == 'color' %}
+					{% if (vo.name == 'color' or voformat == "ppvo-ab" or voformat == "ppvo-ob") and voformat != "ppvo-as" %}
 					<div class="selected-option fsd1 mb-1"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></div>
-					<ul class="list-inline vopt vopt-{{vo.name}}">
+					<ul class="list-inline vopt vopt-btns vopt-{{vo.name}}{% if vo.name == "color" and voformat != "ppvo-ab" %} vopt-swatch{% endif %}">
 					{% for v in vo.values %}
 						<li class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" data-index="{{loop.index0}}" data-value="{{v|e('html')}}">
-						{% if vo.name == "color" %}
+						{% if vo.name == "color" and voformat != "ppvo-ab" %}
 							{% set vsimgsrc = "" %}
 							{% for prodimg in product.images %}
 								{% if prodimg.type == "swatch" and prodimg.name == v %}
@@ -230,8 +231,7 @@
 						</li>
 					{% endfor %}
 					</ul>
-					{% endif %}
-					{% if vo.name != 'color' %}
+					{% else %}
 					<label class="selected-option" for="{{vo.name}}"><span class="selected-name">{{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
 					<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}" title="{{vo.name}}">
 					{% for v in vo.values %}
@@ -311,10 +311,23 @@
 			   {% include "/product/_partials/list/actions-single.html.twig" %}
 			</form>
 		</div>
+		{% if config.params['prodpage_deet_loc'] == "ppdl-ra" %}
+		<div class="mt-3">
+            {% include "/product/_partials/single-item-details-accordion.html.twig" %}
+        </div>
+		{% endif %}
 	</div>
-
+	{% if config.params['prodpage_deet_loc'] is empty or config.params['prodpage_deet_loc'] != "ppdl-ra" %}
+	<div class="col-12 g">
+    {% if config.params['prodpage_deet_loc'] is empty or config.params['prodpage_deet_loc'] == "ppdl-default" %}
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
-
+	{% elseif config.params['prodpage_deet_loc'] == "ppdl-bt" %}
+	    {% include "/product/_partials/single-item-product-tabs.html.twig" %}
+	{% elseif config.params['prodpage_deet_loc'] == "ppdl-ba" %}
+	    {% include "/product/_partials/single-item-details-accordion.html.twig" %}
+	{% endif %}
+	</div>
+	{% endif %}
 </div>
 </div>
 

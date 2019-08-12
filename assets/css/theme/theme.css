@@ -269,9 +269,10 @@ div:focus, section:focus {outline:none;}
 
 
 
-#collapseFilters .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
-#collapseFilters .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
-#collapseFilters .list-group-item .fa {line-height:inherit;}
+.list-group-item .fa {line-height:inherit;}
+.list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
+.list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
+
 li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 #collapseFilters a.btn {display:inline-block; max-width:168px; text-align:left;}
 #collapseFilters li a:not(.btn) {position:relative; padding-right:2rem;}

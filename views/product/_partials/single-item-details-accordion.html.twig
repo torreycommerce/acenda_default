@@ -1,0 +1,33 @@
+<div class="product-accordion">
+{% set yetActive = 1 %}
+    <div class="accordion list-group" id="pdeet-accordion">
+    {% if product.description is not empty %}
+        <button class="list-group-item text-left" id="description" data-toggle="collapse" data-target="#pdeet-description" aria-expanded="true"><span>Description</span><i class="fa fa-angle-down float-right"></i></button>
+        <div id="pdeet-description" class="card collapse show" aria-labelledby="description" data-parent="#pdeet-accordion" style="">
+            <div class="card-body">
+                {{product.description}}
+            </div>
+        </div>
+    {% set yetActive = 0 %}
+    {% endif %}
+    {% if product.dynamic_attributes is not empty %}
+        <button class="list-group-item text-left" id="features" data-toggle="collapse" data-target="#pdeet-features" aria-expanded="{{ yetActive ? 'true' : 'false' }}"><span>Features</span><i class="fa fa-angle-down float-right"></i></button>
+        <div id="pdeet-features" class="card collapse{% if yetActive == 1 %} show{% endif %}" aria-labelledby="features" data-parent="#pdeet-accordion">
+            <div class="card-body">
+				<ul>
+    			{% for feature in product.dynamic_attributes %}
+                    <li>{{feature}}: {{product[feature]}}</li>
+    			{% endfor %}
+    			</ul>
+			</div>
+		</div>
+	{% set yetActive = 0 %}
+    {% endif %}
+        <button class="list-group-item text-left" id="reviews" data-toggle="collapse" data-target="#pdeet-reviews" aria-expanded="{{ yetActive ? 'true' : 'false' }}"><span>Reviews</span><i class="fa fa-angle-down float-right"></i></button>
+        <div id="pdeet-reviews" class="card collapse{% if yetActive == 1 %} show{% endif %}" aria-labelledby="reviews" data-parent="#pdeet-accordion">
+            <div class="card-body">
+				{% include "/product/_partials/reviews.html.twig" %}
+			</div>
+		</div>
+    </div>
+</div>
