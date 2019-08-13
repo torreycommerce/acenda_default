@@ -371,7 +371,7 @@
 						{% if needsku[0] is not empty %}
 						<div class="sku">Item: {{vind.sku}}</div>
 						{% endif %}
-						<div class="stock input-group-sm">
+						<div class="stock input-group-sm pos-r">
 							{% if vind.has_stock == false %}
     							{% if vind.enable_instockemail %}
     								<button class="btn btn-sm btn-danger" id="emailStock-{{vind.id}}" aria-expanded="false" data-toggle="dropdown">Email me when available</button>
@@ -437,6 +437,7 @@
 			<div class="col-md-5">
 			{% spaceless %}
 			    {% set voformat = config.params['prodpage_variant_opt'] %}
+			    {% set vosize = config.params['prodpage_variant_opt_size'] is defined ? config.params['prodpage_variant_opt_size'] : "lg" %}
 				<div class="variation-selector-{{product.id}}">
 				{% for vo in product.variant_options %}
 					<div class="mb-3 selector-details{% if vo.name == 'color' %} color-details{% endif %} variation-selector-{{product.id}}-{{vo.position}}" data-name="{{vo.name}}">
@@ -466,14 +467,14 @@
 								{% endif %}
 								<button class="btn blank image-space" type="button"><img class="img-fluid isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{ product.name }} {{v|e('html')}}"></button>
 							{% else %}
-								<button class="btn btn-default btn-lg">{{v}}</button>
+								<button class="btn btn-default btn-{{vosize}}">{{v}}</button>
 							{% endif %}
 							</li>
 						{% endfor %}
 						</ul>
 						{% else %}
 						<label class="selected-option" for="{{vo.name}}-{{product.id}}"><span class="selected-name"><span class="sr-only">{{ product.name }}</span> {{vo.name|title}}: </span><span class="selected-value" id="selected-{{loop.index0}}-{{product.id}}"></span></label>
-						<select class="form-control form-control-lg vopt vopt-{{vo.name}}" id="{{vo.name}}-{{product.id}}" title="{{vo.name}}">
+						<select class="form-control form-control-{{vosize}} vopt vopt-{{vo.name}}" id="{{vo.name}}-{{product.id}}" title="{{vo.name}}">
 						{% for v in vo.values %}
 							<option class="variation-selector-{{product.id}}-{{loop.parent.loop.index0}}-{{loop.index0}}" value="{{v|e('html')}}" data-index="{{loop.index0}}">{{v}}</option>
 						{% endfor %}
