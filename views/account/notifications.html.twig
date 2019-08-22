@@ -30,7 +30,7 @@ set in the array in /account/_macros/base.html.twig
 #}
 
 
-{{account.navigation('notifications')}}
+{{account.navigation(config,''notifications')}}
 
 {% set sort   = app.request.get.sort is defined ? app.request.get.sort : 'id:-1' %}
 {% set search = app.request.get.s is defined ? app.request.get.s : '' %}

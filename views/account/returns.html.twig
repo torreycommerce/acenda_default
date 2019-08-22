@@ -27,7 +27,7 @@
 
 {# Begin navigation #}
 
-{{account.navigation('returns')}}
+{{account.navigation(config,''returns')}}
 
 {% set search = app.request.get.q is defined ? app.request.get.q : '' %}
 {% set query = {} %}

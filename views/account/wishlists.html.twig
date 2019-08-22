@@ -41,7 +41,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% endif %}
 
 
-{{account.navigation('wishlists')}}
+{{account.navigation(config,''wishlists')}}
 
 {{ forms.begin('wishlist','','post',{ class:'' }) }}
 {% set wishlists = api.get('/wishlist',{query:{"customer_id":app.user.id}}) %}

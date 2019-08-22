@@ -1,4 +1,3 @@
-
 {% macro login() %}
 {% if not app.user.isLoggedIn() %}
 {% do app.redirect('/account/login/'~app.request.url) %}
@@ -8,7 +7,7 @@
 {# 'registries':'<i class="fa fa-gift"></i><span>Registries</span>', #}
 {% set payment_platform = api.get('order/platform') %}
 
-{% macro navigation(current_page = '') %}
+{% macro navigation(config,current_page = '') %}
 {% set tabs = {
 	'':'<i class="fa fa-user"></i><span>Account Center</span>',
 	'notifications':'<i class="fa fa-exclamation-circle"></i><span>Notifications</span>',
@@ -16,8 +15,6 @@
 	'payment-methods':'<i class="fa fa-credit-card"></i><span>Payment Methods</span>',	
 	'orders':'<i class="fa fa-shopping-bag"></i><span>Orders</span>',
 } %}
-
-{% set config = api.get('/config') %}
 
 {% set tabs2 = { 'wishlists':'<i class="fa fa-heart"></i><span>Wish Lists</span>', } %}
 {% if config.params['show-wishlist'] == '1' %}

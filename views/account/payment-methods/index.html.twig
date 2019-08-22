@@ -26,7 +26,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {# Load in the main content positioned in /_layouts/main/base.html.twig #}
 {% block content %}
-{{account.navigation('payment-methods')}}
+{{account.navigation(config,''payment-methods')}}
 
 {% if platform!="Braintree" and platform!="Stripe" %}
 	<div style="text-align: center">Editing of payment methods only works with the BrainTree or Stripe payment platforms activated. </div>

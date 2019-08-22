@@ -23,7 +23,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 
 {% block content %}
 
-{{account.navigation('account-settings')}}
+{{account.navigation(config,'account-settings')}}
 
 {% if app.request.post.change_password %}
 	{% if (api.post('/customer/'~ app.user.id ~'/validatepassword', {'password':app.request.post.change_password.current_password} )) %}

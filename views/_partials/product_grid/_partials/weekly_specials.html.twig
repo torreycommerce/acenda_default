@@ -15,7 +15,7 @@
         {% for row,product in products %}
         {# Begin product #}
         <div class="col-6 col-md-3 mb-5">
-            {{ prod.gridproduct(product, ['image','details']) }}
+            {{ prod.gridproduct(config,product, ['image','details']) }}
         </div>
         {# End product #}
         {% endfor %}

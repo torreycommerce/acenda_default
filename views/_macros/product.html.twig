@@ -1,4 +1,4 @@
-{% macro gridproduct(product, options=['carousel','image','details']) %}
+{% macro gridproduct(config, product, options=['carousel','image','details']) %}
 	{% spaceless %}
 	{% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
@@ -75,7 +75,6 @@
 				<span class="brand"><span>{{product.brand}} </span></span><span class="product-name"><span>{{product.name}}</span></span>
 			</h3>
 		</a>
-		{% set config = api.get('/config') %}
 		{% if config.params['show-quickview'] == '1' %}
 		<button class="btn btn-block btn-default btn-qv" id="btn-qv-{{product.id}}" data-slug="{{product.slug}}">Quick View <span class="sr-only">for {{product.name}}</span></button>
 		{% endif %}
@@ -139,7 +138,7 @@
 		{# There is no point in having a carousel without an image, so it is moved inside here #}
 		{% if 'carousel' in options %}
 			{# Begin image carousel insert #}
-			{{ this.carousel(product) }}
+			{{ this.carousel(config,product) }}
 			{# End image carousel insert #}
 		{% endif %}
 
@@ -161,9 +160,8 @@
 	{% endspaceless %}
 {% endmacro %}
 
-{% macro carousel(product) %}
+{% macro carousel(config,product) %}
 {% spaceless %}
-{% set config = api.get('/config') %}
 {% if config.params['show-catcolorchips'] is not defined or config.params['show-catcolorchips'] == '1' %}
 {% if product.attributes.color|length > 1 %}
 	{% if product.variant is not empty %}

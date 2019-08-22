@@ -3,8 +3,6 @@
 {% else %}
 {% set added = true %}
 {% endif %}
-{% set config = api.get('/config') %}
-
 {% if config.params['show-wishlist'] == '1' %}
 
 	{% if wishlists is empty %}

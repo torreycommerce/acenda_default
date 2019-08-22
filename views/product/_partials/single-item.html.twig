@@ -1,6 +1,4 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
-{% set config = api.get('/config') %}
-
 <div class="divide pb-4 mb-4{% if product.videos is not empty %} has-video{% endif %}{% if config.params['prodpage_deet_loc'] is defined %} {{config.params['prodpage_swatch_loc']}}{% endif %} prodpage" id="singleProduct">
 <div class="row">
 

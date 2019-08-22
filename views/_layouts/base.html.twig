@@ -1,5 +1,6 @@
 {%- import "/_macros/base.html.twig" as base -%}
 {%- import "/_macros/product.html.twig" as prod -%}
+{% set config = api.get('/config') %}
 {% spaceless %}
 
 {# Getting Seo from config.mode.json #}

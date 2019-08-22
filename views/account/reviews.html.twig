@@ -29,7 +29,7 @@ set in the array in /account/_macros/base.html.twig
 #}
 {% set reviews = api.get('/productreview',{'query': {'customer_id':app.user.id } }) %}
 
-{{account.navigation('reviews')}}
+{{account.navigation(config,''reviews')}}
 
 {{ lonelyform.begin()}}
 <h1>Reviews</h1>
