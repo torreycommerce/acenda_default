@@ -182,7 +182,15 @@
 			</ul>
 		</div>
 		{% endif %}
-			
+{% if config.params['catpage_filter_show'] == 'cfsc-as' %}
+    {% set cfsc_as = 1 %}
+{% elseif config.params['catpage_filter_show'] == 'cfsc-ssoc' %}
+    {% set cfsc_ssoc = 1 %}
+{% elseif config.params['catpage_filter_show'] == 'cfsc-ac' %}
+    {% set cfsc_ac = 1 %}
+{% else %}
+    {% set cfsc_default = 1 %}
+{% endif %}			
 	{% set hasFilters = 0 %}
 	{% for name,filter_set in filters %}
 		{% if filter_set|length > 1 %}

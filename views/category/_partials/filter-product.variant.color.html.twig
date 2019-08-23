@@ -1,7 +1,11 @@
-<button class="list-group-item text-left" data-toggle="collapse" data-target="#collapseC">
+{% set open_filter = app.request.get.f['product.variant.color'] %}
+{% if cfsc_default == 1 or cfsc_as == 1 or (open_filter is not empty and cfsc_ssoc == 1) %}
+    {% set fopen = 1 %}
+{% endif %}
+<button class="list-group-item text-left" data-template="product.variant.color" data-toggle="collapse" data-target="#collapseC" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
 	<span>Color</span><i class="fa fa-angle-down float-right"></i>
 </button>
-<div id="collapseC" class="collapse show">
+<div id="collapseC" class="collapse{% if fopen == 1 %} show{% endif %}">
 	<div class="card"><div class="card-body color-chips">
 		<div class="row row-thin">
 			{% for item,count in filter_set %}

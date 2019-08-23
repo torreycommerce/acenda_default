@@ -44,25 +44,28 @@
         {% else %}
         {% endif %}
     {% endfor %}
-
 {% endfor %}
 
-<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+{% if cfsc_as == 1 or (selected is not empty and cfsc_ac != 1) %}
+    {% set fopen = 1 %}
+{% endif %}
+
+{% set count_array = [count_5, count_4, count_3, count_2, count_1] %}
+
+{% if count_array|max > 0 %}
+<button class="list-group-item text-left" data-template="review_score" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
     <span>Customer Reviews</span><i class="fa fa-angle-down float-right"></i>
 </button>
 
-<div id="filter-{{ safename }}-items" class="collapse{% if selected is not empty and selected > 0 %} show{% endif %}">
+<div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
     <div class="card"><div class="card-body filter-stars">
 
     <ul class="list-unstyled">
-        {% set count_array = [count_5, count_4, count_3, count_2, count_1] %}
-        {% for linka in link_array %}
-            {% if count_array[loop.index0] > 0 %}
-                <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':linka}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( star_array[loop.index0] / 5 ) }}</span><span class="sr-only">{{star_array[loop.index0]}} Stars</span></div><span class="filter-count">({{count_array[loop.index0]}})</span></a></li>
-            {% else %}
-                {#<li>zero count</li>#}
-            {% endif %}
-        {% endfor %}
+    {% for linka in link_array %}
+    {% if count_array[loop.index0] > 0 %}
+        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':linka}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( star_array[loop.index0] / 5 ) }}</span><span class="sr-only">{{star_array[loop.index0]}} Stars</span></div><span class="filter-count">({{count_array[loop.index0]}})</span></a></li>
+    {% endif %}
+    {% endfor %} 
     </ul>
 
 {% if selected is not empty and selected > 0 %}
@@ -72,3 +75,4 @@
 {% endif %}
     </div></div>
 </div>
+{% endif %}

@@ -1,14 +1,16 @@
-{% set safename = name|replace({'.':'-'})  %}
-{% set prices = ['10','20','40','60','100','200','400','600','1000','2000','3000','4000','5000','8000','10000'] %}
-{% set deselect = '' %}
-
-<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
-	<span>Price</span><i class="fa fa-angle-down float-right"></i>
-</button>
 {% set last_price = 0 %}
 {% set selected_first = app.request.get.f['product.variant.price'].range|split(',')|first %}
 {% set selected_last = app.request.get.f['product.variant.price'].range|split(',')|last %}
-<div id="filter-{{ safename }}-items" class="collapse{% if selected_first is not empty %} show{% endif %}">
+{% set safename = name|replace({'.':'-'})  %}
+{% set prices = ['10','20','40','60','100','200','400','600','1000','2000','3000','4000','5000','8000','10000'] %}
+{% set deselect = '' %}
+{% if cfsc_as == 1 or ((selected_first is not empty and selected_last is not empty) and cfsc_ac != 1) %}
+    {% set fopen = 1 %}
+{% endif %}
+<button class="list-group-item text-left" data-template="product.variant.price" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
+	<span>Price</span><i class="fa fa-angle-down float-right"></i>
+</button>
+<div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
 	<div class="card"><div class="card-body price price-range">
 		<ul class="list-unstyled">
 			{% for price in prices %}

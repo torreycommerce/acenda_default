@@ -1,9 +1,12 @@
 {% set category = api.get('/category',{'query':{'id':{'$in':filter_set|keys}}})|group_by('id') %}
 {% set open_filter = app.request.get.f[safename] %}
-<button class="list-group-item text-left" data-toggle="collapse" data-target="#filter-{{ safename }}-items">
+{% if cfsc_as == 1 or (open_filter is not empty and cfsc_ac != 1) %}
+    {% set fopen = 1 %}
+{% endif %}
+<button class="list-group-item text-left" data-template="category_id" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
     <span>Category</span><i class="fa fa-angle-down float-right"></i>
 </button>
-<div id="filter-{{ safename }}-items" class="collapse{% if open_filter is not empty %} show{% endif %}">
+<div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
     <div class="card"><div class="card-body">
         <ul class="list-unstyled">                    
             {% for item,count in filter_set %}
