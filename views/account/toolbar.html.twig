@@ -15,7 +15,7 @@
                     {% set logo = logo_info.url %}
                 {% endif %}
                 {% if logo is not empty %}
-                <img class="img-fluid isd" src="{{ logo }}" alt="Return to {{app.params.site.title}} Homepage">
+                <img class="img-fluid isd" src="{{ logo }}"{% if config.params['logo-width'] is defined %} width="{{config.params['logo-width']}}"{% endif %}{% if config.params['logo-height'] is defined %} height="{{config.params['logo-height']}}"{% endif %} alt="Return to {{app.params.site.title}} Homepage">
                 {% else %}
                 <span class="isd">{{ app.params.site.title }}</span>
                 {% endif %}

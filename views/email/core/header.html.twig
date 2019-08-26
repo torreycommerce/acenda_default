@@ -1,4 +1,5 @@
 {%- import "email/core/macro.html.twig" as ema -%}
+{% set config = api.get('/config') %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,7 @@
 				<td align="center">
 					<a href="{{app.url}}">
                         {% if logo is not empty %}
-                            <img src="{{logo}}" {# width="134" height="85" #} border="0" alt="" style="display:block;">
+                            <img src="{{logo}}"{% if config.params['logo-width'] is defined %} width="{{config.params['logo-width']}}"{% endif %}{% if config.params['logo-height'] is defined %} height="{{config.params['logo-height']}}"{% endif %} border="0" alt="" style="display:block;">
                         {% else %}
                             <h1>{{ params['site']['title'] }}</h1>
                         {% endif %}
