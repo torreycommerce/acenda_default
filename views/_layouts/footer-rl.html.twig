@@ -1,0 +1,77 @@
+{% spaceless %}
+<footer class="" id="footer">
+	<section class="bg-dark frame newsletter py-5 text-white">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-8 col-lg-6">
+					<h2 class="text-white">Be the first to know about <span class="wsnw">new products and sales.</span></h2>
+					<p class="mb-4">Sign up to stay in the loop. Receive updates, access to <span class="wsnw">exclusive deals, and more.</span></p>
+					<form><fieldset><legend class="sr-only">{{ app.params.site.title }} Email List Signup</legend>
+						<label class="sr-only" for="SignupInput">Email Address</label>
+						<div class="input-group">
+							<input id="SignupInput" type="search" placeholder="Email Address" class="form-control form-control-lg input-gray" name="email" title="Email Address">
+							<div class="input-group-append">
+								<button id="SignupButton" class="btn btn-lg btn-primary" onclick="return false;" type="submit"><i class="fa fa-envelope"><span class="sr-only">Subscribe</span></i></button>
+							</div>
+						</div>
+						<div class="newsletter-response"></div>
+					</fieldset></form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="frame bgg py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-6 col-md-4 g mb-4 mb-md-0">
+					<div class="h3">{{ app.params.site.title }}</div>
+					<ul class="list-inline fsi1 social">
+						<li class="mr-1"><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-facebook"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
+						</li><li class="mr-1"><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-twitter"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
+						</li><li><a class="btn btn-link tight" href="#" target="_blank"><i class="fab fa-youtube"><i class="sr-only">Follow {{ app.params.site.title }} on Youtube</i></i></a>
+						</li>
+					</ul>
+					<address class="fsd1">1 First Ave<br>San Diego, CA 92101<br><a href="tel:+18005551234">555 1234</a></address>
+				</div>
+				<div class="col-6 col-md-4 g mb-4 mb-md-0">
+					<div class="h3">Shop</div>
+					<ul class="list-unstyled fsd1 g">
+					{% for main_category,items in category_all %}
+						<li class="mb-1"><a href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
+					{% endfor %}
+					</ul>
+				</div>
+				<div class="col-6 col-md-4 g">
+					<div class="h3">Help</div>
+					<ul class="list-unstyled fsd1">
+						<li class="mb-1"><a href="{{app.url}}/contact">Contact</a></li>
+						<li class="mb-1"><a href="{{app.url}}/content/faq">Help &amp; FAQs</a></li>
+						<li class="mb-1"><a href="{{app.url}}/content/privacy-policy">Privacy &amp; Security</a></li>
+						<li><a href="{{app.url}}/content/terms-and-conditions">Terms &amp; Conditions</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-12 col-lg-7 g mb-4 mb-lg-0">
+				<ul class="list-inline fsd1">
+					<li>&copy; {{"now"|date("Y")}} {{ app.params.site.title }}</li>
+					<li>All Rights Reserved.</li>
+					<li>Powered by <a target=_blank href="http://acenda.com/">Acenda</a>.</li>
+				</ul>
+			</div>
+			<div class="col-12 col-lg-5 g text-lg-right">
+				<ul class="list-inline fsd1">
+					<li><i class="fab fa-cc-visa"><span class="sr-only">We Accept Visa</span></i></li>
+					<li><i class="fab fa-cc-mastercard"><span class="sr-only">We Accept Mastercard</span></i></li>
+					<li><i class="fab fa-cc-discover"><span class="sr-only">We Accept Discover</span></i></li>
+					<li><i class="fab fa-cc-amex"><span class="sr-only">We Accept American Express</span></i></li>
+					<li><i class="fab fa-cc-paypal"><span class="sr-only">We Accept Paypal</span></i></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+{% endspaceless %}

@@ -1,11 +1,8 @@
-{% set categories = api.get('/category/sapling') %}
-{#{% set more_info = api.get(‘category’,{slug: item.slug}) %}#}
 {% spaceless %}
-
 <nav id="nav" class="bg-dark d-xsm-none">
     <div class="container navbar-dark navbar-expand">
 		<ul class="navbar-nav addAccess">
-		{% for main_category,items in categories %}
+		{% for main_category,items in category_all %}
 			{% if items.limb|length %}
 				<li class="navcat-{{items.id}} dropdown">
 					<a class="dropdown-toggle nav-link" href="{{app.url}}/category/{{items.slug}}" data-toggle="dropdown">

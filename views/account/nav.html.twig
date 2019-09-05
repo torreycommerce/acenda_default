@@ -1,5 +1,5 @@
 {%- import "/_macros/base.html.twig" as base -%}
-{% set categories = api.get('/category/sapling') %}
+{% set category_all = api.get('/category/sapling') %}
 
 <style>
 .mobile.yta-open, .mobile.yta-open body {height:100%; overflow:hidden;}
@@ -74,7 +74,7 @@
 	
 
 {% set id = 0 %}
-{% for main_category,items in categories %}
+{% for main_category,items in category_all %}
 	{% set id = id + 1 %}
 	<li class="bgw yta-shop">
 		<a{% if items.limb|length %} class="yta-hassub"{% endif %} href="{{app.url}}/category/{{ items.slug }}"><span>{{main_category}}</span></a>

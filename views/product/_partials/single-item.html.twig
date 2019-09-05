@@ -185,7 +185,7 @@
     					{% if (vind.compare_price - vind.price) > 1 %}
     						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
     					{% else %}
-    						<ul class="list-inline"><li class="price-compare" data-c='{{ prod.currency("0.00") }}'><br></li><li class="percent" data-c='{{ prod.saveprice("0.00") }}{{ prod.savepercent("0") }}'><br></li></ul>
+    						<ul class="list-inline"><li class="price-compare"><br></li><li class="percent"><br></li></ul>
     					{% endif %}
     				{% endif %}
     					</div>

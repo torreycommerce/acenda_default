@@ -1,6 +1,19 @@
 {%- import "/_macros/base.html.twig" as base -%}
 {%- import "/_macros/product.html.twig" as prod -%}
+
+{% set category_all = api.get('/category/sapling') %}
 {% set config = api.get('/config') %}
+{% set content_all = api.get('/content',{
+	'query':{
+		'publish':'1'
+			},
+        '$or':[
+            {'publish_date':{'$lte':'now'}, 'publish_date_end':'0000-00-00 00:00:00'},
+            {'publish_date':{'$lte':'now'}, 'publish_date_end':{'$gte':'now'}}
+        ]
+	})
+%}
+
 {% spaceless %}
 
 {# Getting Seo from config.mode.json #}
@@ -10,8 +23,6 @@
 	{% set seo = { img: "", description: "", keywords: "", title: "Home" } %}
 {% endif %}
 {# End Config Seo #}
-{# Scripts #}
-
 
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery-3.4.1.min.js') }}
 {% if app.request.url == "checkout" %}
@@ -26,7 +37,6 @@
 {% if app.params.seo.google_analytics is not empty and app.params.seo.google_tag_manager is empty %}
 {{ app.asset.js(app.url_asset ~ '/assets/js/acendaAnalytics.js') }}
 {% endif %}
-{# End Scripts #}
 {% endspaceless %}
 
 {% set url_based_class = app.request.url|split('/')|last %}
@@ -45,57 +55,54 @@
 <html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}" lang="en">
 <head>
 {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
-	<!-- Google Tag Manager DataLayer -->
-	<script>
-		var dataLayer = [];
-		{% block dataLayer %}
-			{% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
-		{% endblock %}
-	</script>
-	<!-- Google Tag Manager DataLayer End -->
+<!-- Google Tag Manager DataLayer -->
+<script>
+var dataLayer = [];
+{% block dataLayer %}
+	{% include '/_partials/analytics/tag-manager.html.twig' %} {# Google Tag Manager Snippet #}
+{% endblock %}
+</script>
+<!-- Google Tag Manager DataLayer End -->
 {% endif %}
 {% block head %}
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0{#, maximum-scale=1.0, user-scalable=no#}">
-	<meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
-	<meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
-	{% block meta_more %}{% endblock %}
-	<link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" type="image/x-icon" />
-	<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/bootcenda.css" />
-	<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/theme.css" />
-	<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0{#, maximum-scale=1.0, user-scalable=no#}">
+<meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
+{% block meta_more %}{% endblock %}
+<link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/bootcenda.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/theme.css" />
+<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/custom.css" />
 
+<link rel="sitemap" href="{{app.url}}/api/sitemap" />
+<link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url | replace({'\"':'',"\'":''})  }}"/>
 
-	<link rel="sitemap" href="{{app.url}}/api/sitemap" />
-	<link rel="canonical" href="{{ app.request.base ~ '/' ~ app.request.url | replace({'\"':'',"\'":''})  }}"/>
+{% block css %}{% endblock %}
 
-	{% block css %}
-	{% endblock %}
+<title>{% block title %}{% if app.params.site.page_title %}{{ app.params.site.page_title }}{% else %}{{ app.params.site.title}}{% endif %}{% endblock %}</title>
 
-	<title>{% block title %}{% if app.params.site.page_title %}{{ app.params.site.page_title }}{% else %}{{ app.params.site.title}}{% endif %}{% endblock %}</title>
+{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
+	{{ social.get_metatags(app.params.social_settings, seo) }}
+{% endif %}
 
-	{% if app.params.social_settings is defined and app.params.social_settings is not empty %}
-		{{ social.get_metatags(app.params.social_settings, seo) }}
-	{% endif %}
-
-	<script>
-		var acendaBaseName = '{{app.params.site.title}}';
-		var acendaBaseUrl = '{{app.url}}';
-		var acendaBaseThemeUrl = '{{app.url_asset}}';
-		var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;
-		var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
-	</script>
-	<script>
-	{% block acenda %}
-		{% include '/_partials/analytics/acenda.html.twig' %}
-	{% endblock %}
-	</script>
-
-	{% if api.get('/order/platform').platform == 'Stripe' %}
-	     <script src="https://js.stripe.com/v3/"></script>
-	{% endif %}
+<script>
+var acendaBaseName = '{{app.params.site.title}}';
+var acendaBaseUrl = '{{app.url}}';
+var acendaBaseThemeUrl = '{{app.url_asset}}';
+var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;
+var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
+</script>
+<script>
+{% block acenda %}
+	{% include '/_partials/analytics/acenda.html.twig' %}
 {% endblock %}
+</script>
 
+{% if api.get('/order/platform').platform == 'Stripe' %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endif %}
+{% endblock %}
 
 </head>
 <body>
@@ -111,23 +118,17 @@
 {% block body %}
 <header id="header">
 	{{ base.protected_site() }}
-	{# avoiding the display of the menu when we're in the store-protected template #}
+
 	{% if app.request.url != "store-protected" %}
-		{# Begin Toolbar #}
-		{% block header %}
-			{%include "/_layouts/toolbar.html.twig"%}
-		{% endblock %}
-		{# End Toolbar #}
-	{% endif %}
-	{# avoiding the display of the menu when we're in the store-protected template #}
-	{% if app.request.url != "store-protected" %}
-		{# Begin Navigation #}
-			{% include "/_layouts/nav.html.twig" %}
-		{# End Navigation #}
+	{% block header %}
+		{%include "/_layouts/toolbar.html.twig"%}
+	{% endblock %}
+	
+		{% include "/_layouts/nav.html.twig" %}
+	
 	{% endif %}
 </header>
-{# End Header #}
-{# Begin Content #}
+
 <section class="{% if url_based_class != 'store-home-page' %} {% endif %}pt-3 pb-4" id="content" tabindex="-1">
 	<div class="container">
 		{% block breadcrumb %}{% endblock %}
@@ -139,7 +140,15 @@
 </section>
 
 {% block footer %}
-{%include "/_layouts/footer.html.twig"%}
+{% if config.params['footer_layout'] == "fl-sl" %}
+    {% include "/_layouts/footer-sl.html.twig" %}
+{% elseif config.params['footer_layout'] == "fl-rl" %}
+    {% include "/_layouts/footer-rl.html.twig" %}
+{% elseif config.params['footer_layout'] == "fl-rc" %}
+    {% include "/_layouts/footer-rc.html.twig" %}
+{% else %}
+    {% include "/_layouts/footer.html.twig" %}
+{% endif %}
 {% endblock %}
 {% endblock %}
 {% block js %}{% endblock %}

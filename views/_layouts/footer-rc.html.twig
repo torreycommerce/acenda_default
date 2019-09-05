@@ -1,0 +1,76 @@
+{% spaceless %}
+<footer class="" id="footer">
+	<section class="bg-dark newsletter py-5 text-center">
+		<div class="container no-cart">
+			<div class="row">
+				<div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+					<h2 class="text-white">Let's Keep In Touch</h2>
+					<p class="fsd1 text-white">Sign up for coupons, sales & special deals.</p>
+					<form>
+						<label class="sr-only" for="SignupInput">Email Address</label>
+						<div class="input-group">
+							<input id="SignupInput" type="search" placeholder="Email Address" class="form-control form-control-lg form-control-white" name="email" title="Email Address">
+							<div class="input-group-append">
+								<button id="SignupButton" class="btn btn-lg btn-primary" onclick="return false;" type="submit"><i class="fas fa-envelope"><span class="sr-only">Subscribe</span></i></button>
+							</div>
+						</div>
+						<div class="newsletter-response"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="triple-help py-5 text-center"><div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6 col-lg-3 g mb-4 mb-lg-0">
+				<div class="h3 color-1">How can we help?</div>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+				<a href="tel:18005551234">
+					<i class="fa fa-phone"></i><span>1-800-555-1234</span>
+				</a>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-4 mb-md-0">
+				<a href="{{app.url}}/content/help">
+					<i class="fa fa-question-circle"></i><span>Help Center</span>
+				</a>
+			</div>
+			<div class="col-12 col-md-6 col-lg-3">
+				<a href="mailto:help@{{app.url}}?Subject={{ app.params.site.title }}%20Help">
+					<i class="fa fa-envelope"></i><span>help@acmestore.com</span>
+				</a>
+			</div>
+		</div>
+	</div></div>
+	<div class="bg-light py-5 text-center no-cart"><div class="container g">
+		<ul class="list-inline foot-links">
+			<li><a href="{{app.url}}/content/coupons">Coupons</a></li>
+			<li><a href="{{app.url}}/account">Account</a></li>
+			<li><a href="{{app.url}}/order">Track Order</a></li>
+			<li><a href="{{app.url}}/content/shipping">Shipping</a></li>
+			<li><a href="{{app.url}}/return">Returns</a></li>
+		</ul>
+	</div></div>
+	<div class="foot-copy py-5 text-center text-muted"><div class="container g">
+		<ul class="list-inline fsi1 mb-4">
+					<li><i class="fab fa-cc-visa"><span class="sr-only">We Accept Visa</span></i></li>
+					<li><i class="fab fa-cc-mastercard"><span class="sr-only">We Accept Mastercard</span></i></li>
+					<li><i class="fab fa-cc-discover"><span class="sr-only">We Accept Discover</span></i></li>
+					<li><i class="fab fa-cc-amex"><span class="sr-only">We Accept American Express</span></i></li>
+					<li><i class="fab fa-cc-paypal"><span class="sr-only">We Accept Paypal</span></i></li>
+				</ul>
+		<ul class="list-inline fsi1 social">
+			<li><a class="" href="#" target="_blank"><i class="fab fa-instagram"><i class="sr-only">Follow {{ app.params.site.title }} on Instagram</i></i></a>
+			</li><li><a class="" href="#" target="_blank"><i class="fab fa-twitter"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>
+			</li><li><a class="" href="#" target="_blank"><i class="fab fa-facebook-f"><i class="sr-only">Follow {{ app.params.site.title }} on Facebook</i></i></a>
+			</li>
+		</ul>
+		<ul class="list-inline fsd1">
+			<li><a href="{{app.url}}/content/privacy-policy">Privacy</a></li>
+			<li><a href="{{app.url}}/content/accessibility">Accessibility</a></li>
+			<li><a href="{{app.url}}/content/terms-and-conditions">Terms</a></li>
+			<li>&copy;{{"now"|date("Y")}} {{ app.params.site.title }}</li>
+		</ul>
+	</div></div>
+</footer>
+{% endspaceless %}

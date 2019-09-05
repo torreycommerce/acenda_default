@@ -27,20 +27,7 @@
 	</section>
 	<div class="bgg py-5"><div class="container">
 	{% if app.request.url != "store-protected" %}	
-	
-	{# get content available #}
-	{% set contents = api.get('/content',{
-		'query':{
-			'publish':'1'
-				}
-		})
-	%}
-	{# Build array with available content slugs #}
-	{% set contents_available = [] %}
-	{% for content in contents %}
-	{% set contents_available = contents_available|merge([content.slug]) %}
-	{% endfor %}
-		
+	{% set contents_available = content_all|values_in('slug') %}
 		<ul class="list-inline fsd1">
 			<li><a href="{{app.url}}/contact">Contact</a></li>
 			{% if "faq" in contents_available %}

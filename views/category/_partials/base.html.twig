@@ -309,9 +309,13 @@
 										<span>{{ sortByTitle }}</span><i class="fa fa-angle-down"></i>
 									</button>
 									<div class="dropdown-menu dropdown-menu-right text-left">
-										{% for name,sort in sort_options %}
-										<a class="dropdown-item" href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a>
-										{% endfor %}
+									{% for name,sort in sort_options %}
+										{% if sortByTitle == name %}
+											<div class="dropdown-item disabled">{{name}}</div>
+										{% else %}
+											<a class="dropdown-item" href="{{app.request.getUrl({'sort':name,'page':1})}}">{{name}}</a>
+										{% endif %}
+									{% endfor %}
 									</div>
 								</form>
 							</div>
