@@ -381,7 +381,7 @@
 										<div class="input-group">
 											<input type="email" placeholder="Email Address" class="form-control form-control-sm form-control-eis" id="fcemailStock-{{vind.id}}">
 											<div class="input-group-append">
-												<button class="btn btn-sm btn-danger btn-eis">Submit</button>
+												<button class="btn btn-sm btn-danger btn-eis" type="button"><i class="fas fa-envelope"><span class="sr-only">Email me about {{vind.name}}</span></i></button>
 											</div>
 										</div>
 									</div>
@@ -466,7 +466,7 @@
 								{% endif %}
 								<button class="btn blank image-space" type="button"><img class="img-fluid isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{ product.name }} {{v|e('html')}}"></button>
 							{% else %}
-								<button class="btn btn-default btn-{{vosize}}">{{v}}</button>
+								<button class="btn btn-default btn-{{vosize}}" type="button">{{v}}</button>
 							{% endif %}
 							</li>
 						{% endfor %}
