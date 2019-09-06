@@ -163,7 +163,7 @@
                     {% set priceclass = "" %}
                     {% if vind.regular_price is not empty %}
         		        {% set shownprice = vind.regular_price %}
-        		        {% if needprices|length > 0 %}
+        		        {% if needprices > 0 %}
         		            {% if (vind.compare_price - vind.price) > 1 %}
         		                {% set shownsaveprice = (vind.compare_price - shownprice)|number_format(0) %}
         		                {% set shownsavepercent = (1 - (shownprice / vind.compare_price)|number_format(2)) * 100 %}
@@ -181,7 +181,7 @@
     					<div class="pricing g">
     						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
 
-    				{% if needprices|length > 0 %}
+    				{% if needprices > 0 %}
     					{% if (vind.compare_price - vind.price) > 1 %}
     						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
     					{% else %}
