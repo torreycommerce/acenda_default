@@ -69,7 +69,6 @@ $(document).ready(function() {
 		});
 	}
 	//
-	//
 	if ($('form').length) {
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.min.js",function(){
 			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.extend.min.js",function(){
@@ -79,10 +78,8 @@ $(document).ready(function() {
 		});
 	}
 	//
-	//
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
 	});
-	//
 	//
 	$('[data-tooltip]').tooltip();
 	//
@@ -91,7 +88,6 @@ $(document).ready(function() {
 			window.location=($(this).attr('href'));
 		}
 	});
-	//
 	//
 	$('a.btn[data-toggle=dropdown]').click(function () {
         if ($(this).attr('href')){
@@ -205,8 +201,6 @@ if (useTypeAhead) {
 }
 
 
-
-
 var slickReady = 0;
 function productSlick() {
     var spslides = 6;
@@ -235,7 +229,6 @@ function productSlick() {
 	});
 	$('#slick-heroic-nav-'+who).slick('resize'); // why
 	//
-	//
 	$('.slick-heroic-go .d-none, .slick-heroic-nav-go .d-none').removeClass('d-none');
 	$('.slick-heroic-go').removeClass('slick-heroic-go');
 	$('.slick-heroic-nav-go').removeClass('slick-heroic-nav-go');
@@ -251,19 +244,22 @@ if ($('.slick').length || $('.btn-qv').length) {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick/slick-1.9.0.min.js",function(){
 		slickReady = 1;
 		$('.slick-1').each(function() {
-		    var togArrows = $(this).hasClass('use-arrows') ? true : false;
-		    var togDots = $(this).hasClass('use-dots') ? true : false;
+			var togArrows = $(this).hasClass('use-arrows') ? true : false;
+			var togDots = $(this).hasClass('use-dots') ? true : false;
+			var togAuto= $(this).hasClass('use-auto') ? true : false;
 			$(this).slick({
-			    arrows: togArrows,
-        		dots: togDots,
-        		//infinite: false,
-        		speed: 500,
-        		slidesToShow: 1,
-        		slidesToScroll: 1,
-        		fade: true,
-                cssEase: 'linear'
-        	});
-        	$(this).find('.d-none').removeClass('d-none');
+				arrows: togArrows,
+				dots: togDots,
+				//infinite: false,
+				speed: 500,
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				autoplay: togAuto,
+				autoplaySpeed: 5000,
+				fade: true,
+				cssEase: 'linear'
+			});
+			$(this).find('.d-none').removeClass('d-none');
 		});
 		if ($('.slick-heroic.slick-heroic-go').length) {
 			//console.log('pS call s')
@@ -275,31 +271,31 @@ if ($('.slick').length || $('.btn-qv').length) {
 
 
 if ($('.ztrig').length) {
-    $.get(acendaBaseUrl+'/product/insert-photoswipe', function(data2) {
-	    $('#product-images').append(data2);
-        IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-mod.min.js",function() {
-    		//console.log('ps 1 loaded');
-    		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-ui-default.min.js",function() {
-    			//console.log('ps 2 loaded');
-    			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-acenda.js",function() {
-                    //console.log('ps 3 loaded');
-                    if ($('.easyzoom').length) {
-                        var ezReady = setInterval(function(){
-                            if ($('html').hasClass('desktop')) {
-                                clearInterval(ezReady);
-                                $.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
-                                    $('#product-images').append(data3);
-                                    IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
-                                        $('#product-images .active .easyzoom').easyZoom();
-                                    });
-                                });
-                            }
-                        },1000);
-                    }
-    			});
-    		});
-    	});
-    });
+	$.get(acendaBaseUrl+'/product/insert-photoswipe', function(data2) {
+		$('#product-images').append(data2);
+		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-mod.min.js",function() {
+			//console.log('ps 1 loaded');
+			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-ui-default.min.js",function() {
+				//console.log('ps 2 loaded');
+				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-acenda.js",function() {
+					//console.log('ps 3 loaded');
+					if ($('.easyzoom').length) {
+						var ezReady = setInterval(function(){
+							if ($('html').hasClass('desktop')) {
+								clearInterval(ezReady);
+								$.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
+									$('#product-images').append(data3);
+									IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
+										$('#product-images .active .easyzoom').easyZoom();
+									});
+								});
+							}
+						},1000);
+					}
+				});
+			});
+		});
+	});
 }
 
 
@@ -308,7 +304,6 @@ if ($('.ztrig').length) {
 
 
 /* stores all */
-/* store locator */
 function ChangeUrl(title, url) {
 	if (typeof (history.pushState) != "undefined") {
 		var obj = { Title: title, Url: url };
@@ -322,7 +317,6 @@ function updateUrlParameter(param, value) {
 	const regExp = new RegExp(param + "(.+?)(&|$)", "g");
 	const newUrl = window.location.href.replace(regExp, param + "=" + value + "$2");
 	window.history.pushState("", "", newUrl);
-	//window.history.replaceState("", "", newUrl);
 }
 
 function getQueryParams(qs) {
@@ -342,43 +336,39 @@ function getQueryParams(qs) {
 
 var updateQueryStringParam = function (key, value) {
 //console.log('uQSP key: '+key+' , value: '+value)
-    var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
-        urlQueryString = document.location.search,
-        newParam = key + '=' + value,
-        params = '?' + newParam;
+	var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+		urlQueryString = document.location.search,
+		newParam = key + '=' + value,
+		params = '?' + newParam;
 
-    // If the "search" string exists, then build params from it
-    //if (urlQueryString) {
-    if (urlQueryString) {
+	// If the "search" string exists, then build params from it
+	if (urlQueryString) {
 
-        updateRegex = new RegExp('([\?&])' + key + '[^&]*');
-        removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
-        //console.log('has urlQS');
-        if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
-            //console.log('path 1');
-            if (urlQueryString.indexOf(key) !== -1) {
-                //console.log('path 1 actual MODDed');
-                params = urlQueryString.replace(removeRegex, "$1");
-                //params = urlQueryString.replace(updateRegex, "$1" + newParam); me
-                params = params.replace( /[&;]$/, "" );
-            }
+		updateRegex = new RegExp('([\?&])' + key + '[^&]*');
+		removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+		//console.log('has urlQS');
+		if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
+			if (urlQueryString.indexOf(key) !== -1) {
+				//console.log('path 1 actual MODDed');
+				params = urlQueryString.replace(removeRegex, "$1");
+				//params = urlQueryString.replace(updateRegex, "$1" + newParam); me
+				params = params.replace( /[&;]$/, "" );
+			}
 
-        } else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
-           // console.log('path 2');
-            params = urlQueryString.replace(updateRegex, "$1" + newParam);
+		} else if (urlQueryString.match(updateRegex) !== null) { // If param exists already, update it
+			params = urlQueryString.replace(updateRegex, "$1" + newParam);
 
-        } else { // Otherwise, add it to end of query string
-            //console.log('path 3');
-            params = urlQueryString + '&' + newParam;
+		} else { // Otherwise, add it to end of query string
+			params = urlQueryString + '&' + newParam;
 
-        }
+		}
 
-    } else {
-        //console.log('has NO urlQS');
-    }
-    params = params == '?' ? '' : params;
-    
-    window.history.pushState({}, "", baseUrl + params);
+	} else {
+		//console.log('has NO urlQS');
+	}
+	params = params == '?' ? '' : params;
+
+	window.history.pushState({}, "", baseUrl + params);
 };
 
 
