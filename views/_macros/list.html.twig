@@ -19,15 +19,15 @@
               <th class="shrink"><span class="sr-only">Actions</span></th>
             {% for column in columns %}
                 {% set direction = app.request.get[(sort_link)] == column ~ ':1' ? '-1' : '1' %}
-				{% set colclass = "" %}
+				{% set colclass = "wsnw" %}
                 {% set coltitle = column|replace({'_':'&nbsp;'})|title %}
 				{% if coltitle == "Unread" %}
                     {% set coltitle = "New" %}
-					{% set colclass = "shrink" %}
+					{% set colclass = "pl-0 shrink wsnw" %}
                 {% endif %}
                 {% if coltitle == "Date&nbsp;created" %}
                     {% set coltitle = "Date" %}
-					{% set colclass = "shrink text-right" %}
+					{% set colclass = "shrink text-right wsnw" %}
                 {% endif %}
                 <th {% if colclass != "" %}class="{{colclass}}"{% endif %}><a href="{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}"><span>{{coltitle}}</span><i class="fa fa-sort"><i class="sr-only">Sort by {{coltitle}}</i></i></a></th>
             {% endfor %}
@@ -51,7 +51,15 @@
                         {% endfor %}
                     {% endset %}
                 {% endif %}
-                <td {% if loop.last%}class="text-right"{% endif %}>{% if loop.first%}{% endif %}
+                {% set colclass = "" %}
+                {% set coltitle = column|replace({'_':'&nbsp;'})|title %}
+                {% if coltitle == "Unread" %}
+                    {% set colclass = colclass ~ 'pl-0' %}
+                {% endif %}
+                {% if loop.last %}
+                    {% set colclass = colclass ~ ' text-right' %}
+                {% endif %}
+                <td {% if colclass is not empty %}class="{{colclass}}"{% endif %}>
                     
                     {% if extras is not empty %}
                         {{list.format_field(row[column], column_format[column])}} <i class="fa fa-info-circle"></i>
@@ -91,7 +99,7 @@
         {{ value|date("m/d/Y") }}
     {% elseif type == 'boolean' %}
         {% if value %}
-            <i class="fa fa-check"><span class="sr-only">True</span></i>
+            <i class="fa fa-check text-success"><span class="sr-only">True</span></i>
         {% endif %}
     {% elseif type == 'contact-subject' %}
         {% set subjects = {
