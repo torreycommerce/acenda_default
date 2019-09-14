@@ -31,7 +31,7 @@
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
 
-{{account.navigation(config,''wishlists')}}
+{{account.navigation(config,'wishlists')}}
 
 {{ lonelyform.begin()}}
 <h1>Create Wish List</h1>

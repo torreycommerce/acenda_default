@@ -40,7 +40,7 @@
 {% endif %}
 {% set addresses = api.get('/customeraddress', {query:{deleted:{'$ne':1},verified:1,customer_id:app.user.id}}) %}
 
-{{account.navigation(config,''registries')}}
+{{account.navigation(config,'registries')}}
 
 {{ lonelyform.begin()}}
 <h1>Edit {{ registry.name }}</h1>
