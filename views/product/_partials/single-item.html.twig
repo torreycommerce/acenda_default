@@ -40,6 +40,7 @@
 						</div>
 					{% endfor %}
 					</div>
+					{% if varimgs|length > 1 %}
 					<div class="ss-contain">
 						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{variation.id}}">
 						{% for varimg in varimgs %}
@@ -51,7 +52,7 @@
 						{% endfor %}
 						</div>
 					</div>
-
+                    {% endif %}
 					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">

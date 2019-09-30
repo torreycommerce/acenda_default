@@ -39,6 +39,7 @@
 						{% endfor %}
 					{% endif %}
 					</div>
+					{% if product.images|length > 1 %}
 					<div class="ss-contain">
 						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{product.id}}">
 					{% for image in product.images %}
@@ -64,7 +65,7 @@
 					{% endif %}
 						</div>
 					</div>
-					
+					{% endif %}
 					<div class="silent-gal" id="silent-gal-{{product.id}}" data-pswp-uid="{{product.id}}"><div class="image-space">
 					{% for image in product.images %}
 						<div class="ztrig" id="ztrig-{{product.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{image.retina}}" data-med-size="600x600">
