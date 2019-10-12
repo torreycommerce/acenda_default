@@ -1,4 +1,4 @@
-{% macro gridproduct(config, product, options=['carousel','image','details']) %}
+{% macro gridproduct(config, product, options=['carousel','image','details'],pPage) %}
 	{% spaceless %}
 	{% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
@@ -75,7 +75,7 @@
 				<span class="brand"><span>{{product.brand}} </span></span><span class="product-name"><span>{{product.name}}</span></span>
 			</h3>
 		</a>
-		{% if config.params['show-quickview'] == '1' %}
+		{% if (config.params['show-quickview'] == '1') and (pPage == '0' or pPage == "") %}
 		<button class="btn btn-block btn-default btn-qv" id="btn-qv-{{product.id}}" data-slug="{{product.slug}}">Quick View <span class="sr-only">for {{product.name}}</span></button>
 		{% endif %}
 	{% if 'details' in options %}
