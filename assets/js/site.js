@@ -78,8 +78,7 @@ $(document).ready(function() {
 		});
 	}
 	//
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){
-	});
+	if ($('#SignupInput').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){});
 	//
 	$('[data-tooltip]').tooltip();
 	//
