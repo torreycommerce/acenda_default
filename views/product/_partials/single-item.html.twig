@@ -316,8 +316,13 @@
             {% include "/product/_partials/single-item-details-accordion.html.twig" %}
         </div>
 		{% endif %}
+		{% if config.params['prodpage_deet_loc'] == "ppdl-rt" %}
+		<div class="mt-3">
+	        {% include "/product/_partials/single-item-product-tabs.html.twig" %}
+        </div>
+	    {% endif %}
 	</div>
-	{% if config.params['prodpage_deet_loc'] is empty or config.params['prodpage_deet_loc'] != "ppdl-ra" %}
+	{% if config.params['prodpage_deet_loc'] is empty or (config.params['prodpage_deet_loc'] != "ppdl-ra" and config.params['prodpage_deet_loc'] != "ppdl-rt") %}
 	<div class="col-12 g">
     {% if config.params['prodpage_deet_loc'] is empty or config.params['prodpage_deet_loc'] == "ppdl-default" %}
 	{% include "/product/_partials/single-item-product-no-tabs.html.twig" %}
