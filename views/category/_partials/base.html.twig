@@ -324,11 +324,15 @@
 								<form class="form-inline">
 									<button class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span>{{ limit }}</span><i class="fa fa-angle-down"></i>
 									</button>
-									<div class="dropdown-menu dropdown-menu-right text-left">                                
-										<a class="dropdown-item" href="{{app.request.getUrl({'limit':24,'page':1})}}">24</a>
-										<a class="dropdown-item" href="{{app.request.getUrl({'limit':36,'page':1})}}">36</a>
-										<a class="dropdown-item" href="{{app.request.getUrl({'limit':48,'page':1})}}">48</a>
-										<a class="dropdown-item" href="{{app.request.getUrl({'limit':60,'page':1})}}">60</a>
+									<div class="dropdown-menu dropdown-menu-right text-left">
+									{% for i in 1..4 %}
+										{% set limitnum = (i * 12) + 12 %}
+										{% if limit == limitnum %}
+											<div class="dropdown-item disabled">{{limitnum}}</div>
+										{% else %}
+											<a class="dropdown-item" href="{{app.request.getUrl({'limit':limitnum,'page':1})}}">{{limitnum}}</a>
+										{% endif %}
+									{% endfor %}
 									</div>
 								</form>
 							</div>
