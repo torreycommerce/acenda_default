@@ -87,7 +87,7 @@ var dataLayer = [];
 {% endif %}
 
 <script>
-var acendaBaseName = '{{app.params.site.title}}';
+var acendaBaseName = '{{app.params.site.title|url_encode(true)}}';
 var acendaBaseUrl = '{{app.url}}';
 var acendaBaseThemeUrl = '{{app.url_asset}}';
 var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;

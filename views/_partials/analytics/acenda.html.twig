@@ -1,5 +1,5 @@
 var acenda = {};
-acenda.site = '{{app.params.site.title}}';
+acenda.site = '{{app.params.site.title|url_encode(true)}}';
 {% if app.params.seo.google_analytics is not empty %}
     acenda.google_analytics_id = '{{ app.params.seo.google_analytics }}';
 {% elseif app.params.seo.google_tag_manager is not empty %}
