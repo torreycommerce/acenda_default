@@ -107,7 +107,7 @@
 			{% endif %}
     		{% if product.brand is not empty %}
     		<div class="brand mb-1">
-    			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode}}">{{product.brand}}</a>
+    			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode|replace({'%20':'+'})}}">{{product.brand}}</a>
     		</div>
     		{% endif %}
     		<h1 class="product-name mb-2">{{product.name}}</h1>
