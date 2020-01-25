@@ -29,7 +29,7 @@
 				{% endif %}
 				{% if total > 0 %}
 					{% set current_count = filter_count[name][item] %}
-					<li class="{% if selected %}active{% endif %}">
+					<li{% if selected %} class="active"{% endif %}>
 						<a class="{% if selected %}active{% endif %}" href="{{ link }}">{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}} <span class="filter-count">({{total}})</span></a>
 					</li>
 				{% endif %}

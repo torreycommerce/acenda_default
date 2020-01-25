@@ -22,9 +22,9 @@
                 {% if current_count is null %}
                     {% set current_count = 0 %}
                 {% endif %}
-                <li class="{% if selected %}active{% endif %}">
+                <li{% if selected %} class="active"{% endif %}>
                     {% if item != '' %}
-                    <a class=" {% if current_count == 0 %}disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item}} <span class="filter-count">({{current_count}})</span></a>
+                    <a class="{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item}} <span class="filter-count">({{current_count}})</span></a>
                     {% endif %}
                 </li>
             {% endfor %}
