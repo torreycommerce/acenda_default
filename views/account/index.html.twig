@@ -42,6 +42,13 @@ set in the array in /account/_macros/base.html.twig
 	{% else %}
 	<div class="table-responsive g">
 		<table class="table fsd1 table-striped tablesorter">
+			<thead class="sr-only">
+				<tr>
+					<th style="width:1%;">Status</th>
+					<th>Subject</th>
+					<th class="shrink text-right">Date</th>
+				</tr>
+			</thead>
 			<tbody>
 				{% for notif in notifications %}
 					<tr>

@@ -4,13 +4,8 @@ body {font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;}
 
 a {}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
-h1,.h1 {}
-/* */
 
-
-/* acenda global */
 #toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
-#header {}
 
 #header .omm {position:absolute; top:0; left:0;}
 #header .logo {position:absolute; left:50%; margin-left:-80px; width:160px; font-size:120%;}
@@ -24,7 +19,7 @@ h1,.h1 {}
 #qc-btn .item-count {position:absolute; top:0; right:0; height:1.25em; padding-left:1px; font-size:.75rem; line-height:1.1em; background:#fff; border:1px solid rgba(0,0,0,.25); border-radius:100%; opacity:0; visibility:hidden; transition:all 300ms ease;}
 #qc-btn .item-count.ready {opacity:1; visibility:visible;}
 
-#nav .navbar-expand .navbar-nav .nav-link {padding:1rem;}
+#nav .navbar-expand .navbar-nav .nav-link {padding:.75rem 1rem;}
 #nav .navbar-nav li a {white-space:nowrap;}
 #nav .fa {display:none;}
 #nav .dropdown-menu {margin-top:0; padding:1.25rem;}
@@ -45,8 +40,9 @@ h3.brand-product {min-height:2.375em;}
 .totals-total {font-size:1.25rem;}
 .pricing .price-special, .pricing .price-compare, .pricing .regular, .price-discount {text-decoration:line-through;}
 .pricing .special {display:inline-block; margin:0 0 0 .375rem; padding:.125rem .375rem; color:#fff; font-size:.625rem; vertical-align:middle; background:#f55; border-radius:.25rem;}
-.pricing .percent {color:#f55;}
+.pricing .percent {color:#d00;}
 
+h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 
 @media (min-width:768px) {
 
@@ -57,7 +53,3 @@ h3.brand-product {min-height:2.375em;}
 #header .search {top:0; right:118px; left:50%;}
 #header .logo {left:0; width:200px; margin-left:0;}
 }
-
-@media (max-width:991px) {
-}
-/* */
