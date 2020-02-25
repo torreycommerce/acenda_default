@@ -4,7 +4,7 @@
     {% set fopen = 1 %}
 {% endif %}
 <button class="list-group-item text-left" data-template="default" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
-    <span>{{ title|replace({'_':' '})|title }}</span><i class="fa fa-angle-down float-right"></i>
+    <span>{{ title|replace({'_':' '})|replace({'product.variant.':' '})|title }}</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
     <div class="card"><div class="card-body">
@@ -22,24 +22,12 @@
                 {% if current_count is null %}
                     {% set current_count = 0 %}
                 {% endif %}
+				{% if item != '' %}
                 <li{% if selected %} class="active"{% endif %}>
-                    {% if item != '' %}
-                    <a class="{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{item}} <span class="filter-count">({{current_count}})</span></a>
-                    {% endif %}
+                    <a class="{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="{{ selected ? 'fas fa-check-square text-primary' : 'far fa-square' }}"></i><span>{{item}}</span> <span class="filter-count">({{current_count}})</span></a>
                 </li>
+				{% endif %}
             {% endfor %}
         </ul>
-{% for item,key in filter_request[(name)] if item in filter_set|keys %}
-    {% set link = [] %}
-    {% for key,i in app.request.get.f[(name)] if key != item %}
-        {% set link = link + {(key):i} %}
-    {% endfor %}
-    {% set link = filter_request|merge({(name):link}) %}
-    {% if item is not empty %}
-	<div class="filter-clear">
-		<a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>{{item}}</span></a>
-	</div>
-	{% endif %}
-{% endfor %}
     </div></div>
 </div>

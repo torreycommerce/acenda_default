@@ -4,42 +4,30 @@
     {% set fopen = 1 %}
 {% endif %}
 <button class="list-group-item text-left" data-template="category_id" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
-    <span>Category</span><i class="fa fa-angle-down float-right"></i>
+	<span>Category</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
-    <div class="card"><div class="card-body">
-        <ul class="list-unstyled">                    
-            {% for item,count in filter_set %}
-                {% set selected = item in filter_request[(name)]|keys ? 1 : 0 %}
-                {% set link = selected == true ? [] : {(item):''} %}
-                {% set selectedItem = selected == true ? item : '' %}
-                {% for key,i in app.request.get.f[(name)] if key != selectedItem %}
-                    {% set link = link + {(key):i} %}
-                {% endfor %}
-                {% set link = filter_request|merge({(name):link}) %}
+	<div class="card"><div class="card-body">
+		<ul class="list-unstyled">                    
+			{% for item,count in filter_set %}
+				{% set selected = item in filter_request[(name)]|keys ? 1 : 0 %}
+				{% set link = selected == true ? [] : {(item):''} %}
+				{% set selectedItem = selected == true ? item : '' %}
+				{% for key,i in app.request.get.f[(name)] if key != selectedItem %}
+					{% set link = link + {(key):i} %}
+				{% endfor %}
+				{% set link = filter_request|merge({(name):link}) %}
 
-                {% set current_count = filter_count[name][item] %}
-                {% if current_count is null %}
-                    {% set current_count = 0 %}
-                {% endif %}
-                <li{% if selected %} class="active"{% endif %}>
-                    {% if item != '' %}
-                    <a class="{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">{{category[item][0].name}} <span class="filter-count">({{current_count}})</span></a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-{% for item,key in filter_request[(name)] if item in filter_set|keys %}
-    {% set link = [] %}
-    {% for key,i in app.request.get.f[(name)] if key != item %}
-        {% set link = link + {(key):i} %}
-    {% endfor %}
-    {% set link = filter_request|merge({(name):link}) %}
-	{% if category[item][0] is not empty %}
-	<div class="filter-clear">
-		<a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="fa fa-times"><span class="sr-only">Clear</span></i><span>{{category[item][0].name}}</span></a>
-	</div>
-	{% endif %}
-{% endfor %}
-    </div></div>
+				{% set current_count = filter_count[name][item] %}
+				{% if current_count is null %}
+					{% set current_count = 0 %}
+				{% endif %}
+				<li{% if selected %} class="active"{% endif %}>
+					{% if item != '' %}
+					<a class="{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}"><i class="{{ selected ? 'fas fa-check-square text-primary' : 'far fa-square' }}"></i><span>{{category[item][0].name}}</span> <span class="filter-count">({{current_count}})</span></a>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</div></div>
 </div>

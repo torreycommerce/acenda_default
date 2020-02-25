@@ -261,7 +261,7 @@ div:focus, section:focus {outline:none;}
 
 
 
-.list-group-item .fa.float-right {line-height:inherit;}
+.list-group-item .fa {float:right; line-height:inherit;}
 .list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
 .list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
 

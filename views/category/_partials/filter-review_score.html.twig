@@ -54,7 +54,7 @@
 
 {% if count_array|max > 0 %}
 <button class="list-group-item text-left" data-template="review_score" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
-    <span>Customer Reviews</span><i class="fa fa-angle-down float-right"></i>
+    <span>Customer Reviews</span><i class="fa fa-angle-down"></i>
 </button>
 
 <div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
@@ -63,16 +63,10 @@
     <ul class="list-unstyled">
     {% for linka in link_array %}
     {% if count_array[loop.index0] > 0 %}
-        <li><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':linka}})})}}" class="{% if selected == 1 %}active{% endif %}"><div class="fsd1 rating"><span>{{ base.rating( star_array[loop.index0] / 5 ) }}</span><span class="sr-only">{{star_array[loop.index0]}} Stars</span></div><span class="filter-count">({{count_array[loop.index0]}})</span></a></li>
+        <li{% if selected == 1 %} class="active"{% endif %}><a href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':{'range':linka}})})}}"{% if selected == 1 %} class="active"{% endif %}><i class="{{ selected ? 'fas fa-check-square text-primary' : 'far fa-square' }}"></i><span class="fsd1 rating"><span>{{ base.rating( star_array[loop.index0] / 5 ) }}</span><span class="sr-only">{{star_array[loop.index0]}} Stars</span></span><span class="filter-count">({{count_array[loop.index0]}})</span></a></li>
     {% endif %}
     {% endfor %} 
     </ul>
-
-{% if selected is not empty and selected > 0 %}
-    <div class="filter-clear">
-        <a class="btn btn-default btn-sm" href="{{app.request.getUrl({'page':1,'f':filter_request|merge({'review_score':null})})}}"><i class="fa fa-times"></i><span>{{seleected}} Review Stars</span></a>
-    </div>
-{% endif %}
     </div></div>
 </div>
 {% endif %}

@@ -8,7 +8,7 @@
     {% set fopen = 1 %}
 {% endif %}
 <button class="list-group-item text-left" data-template="product.variant.price" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
-	<span>Price</span><i class="fa fa-angle-down float-right"></i>
+	<span>Price</span><i class="fa fa-angle-down"></i>
 </button>
 <div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
 	<div class="card"><div class="card-body price price-range">
@@ -23,23 +23,17 @@
 				{% if selected_first == last_price and selected_last == price %}
 					{% set selected = true %}
 					{% set link = app.request.getUrl({'page':1,'f':filter_request|merge({'product.variant.price':null})}) %}
-					{% set deselect %}
-							<a class="btn btn-default btn-sm" href="{{ link }}"><i class="fa fa-times"></i>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</a>
-					{% endset %}
+				{% else %}
+				    {% set selected = false %}
 				{% endif %}
 				{% if total > 0 %}
 					{% set current_count = filter_count[name][item] %}
 					<li{% if selected %} class="active"{% endif %}>
-						<a class="{% if selected %}active{% endif %}" href="{{ link }}">{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}} <span class="filter-count">({{total}})</span></a>
+						<a class="{% if selected %}active{% endif %}" href="{{ link }}"><i class="{{ selected ? 'fas fa-check-square text-primary' : 'far fa-square' }}"></i><span>{{ prod.currency(last_price|number_format(2))}} - {{ prod.currency(price|number_format(2))}}</span> <span class="filter-count">({{total}})</span></a>
 					</li>
 				{% endif %}
 				{% set last_price = price %}
 			{% endfor %}
 		</ul>
-		{% if deselect %}
-<div class="filter-clear">
-	{{ deselect }}
-</div>
-{% endif %}
 	</div></div>
 </div>
