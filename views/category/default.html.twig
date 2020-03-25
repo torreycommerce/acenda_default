@@ -39,6 +39,16 @@
             {% set category_crumbs = category_crumbs|merge({(propername):''})%}
         {% else %}
             {% set category_link = category_link ~ '/' ~ category %}
+            {% for main_c,items in category_all %}
+			    {% if items.slug == category_link|replace({'/':''}) %}
+			        {% set category_title = main_c %}
+			    {% endif %}
+			    {% for c,subitems in items.limb %}
+			        {% if subitems.slug == category_link|replace({'/':''}) %}
+    			        {% set category_title = c %}
+    			    {% endif %}
+			    {% endfor %}
+			{% endfor %}
             {% set category_crumbs = category_crumbs|merge({(category_title):('/category' ~ category_link)})%}
         {% endif %}
     {% endfor %}
