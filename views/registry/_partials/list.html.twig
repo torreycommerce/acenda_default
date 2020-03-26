@@ -111,8 +111,8 @@ when the API is fixed, restore this and get rid of the api workaround
                                                             <input class="form-control form-control-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="number" value="{{ item.quantity_purchased }}" max="99" placeholder="1" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
                                                         </div>
                                                         <div class="btn-group-vertical">
-                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Purchased Qty</span></i></button>
-                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Purchased Qty</span></i></button>
+                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase Purchased Qty</span></i></button>
+                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease Purchased Qty</span></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,8 +123,8 @@ when the API is fixed, restore this and get rid of the api workaround
                                                             <input class="form-control form-control-lg quantity-selector text-center" id="registryitem_quantity[{{ item.id }}]" type="number" value="{{ item.quantity }}" maxlength="2" placeholder="1" data-id="{{item.id}}" name="registryitem_quantity[{{ item.id }}]">
                                                         </div>
                                                         <div class="btn-group-vertical">
-                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Wanted Qty</span></i></button>
-                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Wanted Qty</span></i></button>
+                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase Wanted Qty</span></i></button>
+                                                            <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease Wanted Qty</span></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -178,8 +178,8 @@ when the API is fixed, restore this and get rid of the api workaround
                         <input type="number" value="1" maxlength="2" placeholder="1" class="form-control form-control-lg px-1 quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
                     </div>
                     <div class="btn-group-vertical mr-3">
-                        <button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up"></i></button>
-                        <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+                        <button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase Qty</span></i></button>
+                        <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease Qty</span></i></button>
                     </div>
                     <button class="btn btn-lg btn-primary btn-cart flex-fill" name="action" value="add/{{ item.id }}">Add to Cart</button>
                 </div>

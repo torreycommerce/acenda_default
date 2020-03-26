@@ -239,7 +239,7 @@
                         <div class="alert alert-warning fsd2 mb-2 p-2">This item may not be discountable.</div>
                     {% endif %}
                     <div class="error alert alert-danger fsd2 mb-2 p-2" style="display:none"></div>
-					<button class="btn btn-link btn-xs px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
+					<button class="btn btn-link btn-sm px-0 btn-remove-all" type="submit" name="cart[action]" value="remove/{{ id }}"><i class="fa fa-times"></i><span>Remove</span></button>
 
 				</div>
 			</div>
@@ -254,8 +254,8 @@
 							<input type="number" class="form-control form-control-lg quantity-selector px-1 text-center" id="quantity-selector-{{id}}" data-id="{{id}}" data-model="cart/item" name="cart[quantity][{{ id }}]" max="{{product.inventory_quantity - product.inventory_minimum_quantity}}" value="{{ item.quantity }}">
 						</div>
 						<div class="btn-group-vertical mr-3">
-						    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only">Increase Qty</span></i></button>
-						    <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only">Decrease Qty</span></i></button>
+						    <button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase Qty</span></i></button>
+						    <button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease Qty</span></i></button>
 						</div>
 						<div class="pricing">
 							<div class="price">

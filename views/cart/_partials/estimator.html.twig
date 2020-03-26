@@ -26,10 +26,18 @@
 {{ forms.end() }}
 </div>
 <script id="shipping-methods-template" type="text/template">
+<% if(methods) { %>
 <fieldset>
 	<legend class="sr-only">Select a Shipping Method</legend>
     <div class="table-responsive fsd1 mb-0">
 	<table class="table">
+		<thead class="sr-only">
+			<tr>
+				<th>Shipping Method</th>
+				<th>Speed Estimate</th>
+				<th>Price</th>
+			</tr>
+		</thead>
 	<tbody>
 		<% _.each(methods,function(method) { %>
 			<% if(method.status=='active') { %>
@@ -44,6 +52,7 @@
 	</table>
 	</div>
 </fieldset>
+<% } %>
 </script>
 {{ app.asset.js(app.url_asset ~ '/assets/js/jquery.cascadingdropdown.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/underscore-min.js') }}
