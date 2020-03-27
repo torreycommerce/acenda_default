@@ -330,8 +330,8 @@ li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow
 }
 
 @media (max-width:991.98px) {
-.product-grid .color-chips .row-thin {margin-right:-2px; margin-left:-2px;}
-.product-grid .color-chips .col-thin {padding-right:2px; padding-left:2px;}
+.product-grid .color-chips .row-thin {margin-right:-2px!important; margin-left:-2px!important}
+.product-grid .color-chips .col-thin {padding-right:2px!important; padding-left:2px!important}
 
 .btn-qv {display:none;}
 }
