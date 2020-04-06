@@ -266,7 +266,6 @@ div:focus, section:focus {outline:none;}
 
 
 
-.list-group-item .fa {float:right; line-height:inherit;}
 .list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
 .list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
 
@@ -274,6 +273,7 @@ li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow
 #collapseFilters a.btn {display:inline-block; max-width:168px; text-align:left;}
 #collapseFilters li a:not(.btn) {position:relative; padding-right:2rem;}
 .category-filters .card-body {font-size:.875rem;}
+.category-filters .list-group-item .fa {float:right; line-height:inherit}
 .filter-count {position:absolute; top:0; right:0;}
 .filter-clear + .filter-clear {margin-top:.5rem;}
 

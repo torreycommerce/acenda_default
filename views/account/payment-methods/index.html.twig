@@ -142,8 +142,7 @@ div#hosted-fields-form {
 <h1>Payment Methods</h1>
 {{ lonelyform.begincard('bg-light')}}
 <div class="row mb-3">
-	<div class="col-lg-6"></div>
-	<div class="col-lg-6 mb-3 mb-lg-0">
+	<div class="col-lg-6">
 		<button class="btn btn-default btn-block" id="button-add-creditcard">Add Credit Card</button>
 	</div>
 </div>
@@ -184,7 +183,7 @@ div#hosted-fields-form {
 	    </div>	    
 		 <input id="nonce" name="payment_method_nonce" type="hidden" />    
 	  </div>
-	   <div  style="margin-top: 10px; float: right;">
+	   <div class="mt-3 text-right">
 		    <input type="reset" id="card-cancel-btn" class="btn btn-default " value="Cancel"></input><input type="submit" id="card-submit-btn" class="btn btn-primary " style="margin-left: 5px;" value="Save Card" disabled></input>
 		</div>
 
