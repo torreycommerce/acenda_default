@@ -87,7 +87,7 @@ set in the array in /account/_macros/base.html.twig
 					<div class="zip">{{ address.city }}, {{ address.state }} {{ address.zip }}</div>
 					<div class="country">{{ address.country }}</div>
 					{% if address.default == 1 %}
-						<div class="fsd1 mt-3"><u>Default Address</u></div>
+						<div class="fsd1 mt-3"><em>Default Address</em></div>
 					{% endif %}
 					{% if address.verified == 0 %}
     				{#<span class="text-danger">Please verify this address by clicking the edit address link under options below and fill in any missing information.</span>#}

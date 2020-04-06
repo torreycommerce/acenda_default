@@ -1,4 +1,4 @@
-{% import "/_macros/lonely-form.html.twig" as lonelyform %}
+{% import "/_macros/lonely-form-lim.html.twig" as lonelyform %}
 {% set wishlist_items = api.get('/wishlist/' ~ wishlist.id ~ '/items') %}
 
 {% if (wishlist_items is empty) %}
@@ -41,8 +41,9 @@
 	{% endif %}
 	{% endfor %}
 		{% spaceless %}
+{{ lonelyform.begin()}}
 <h1>{{ wishlist.name }}</h1>
-<div class="card"><div class="card-body">
+{{ lonelyform.begincard()}}
 <h2 class="sr-only">Products</h2>
 {% for item in wishlist_items %}
     {% set priceclass = "" %}
@@ -85,7 +86,7 @@
 				<ul class="list-inline">
 				{% if wishlist.customer_id == app.user.id %}
 					<li class="qty-update">
-						<a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update <span class="sr-only">{{ variant.name }}</span> Qty</a>
+						<a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update <span class="sr-only">{{ variant.name }}</span> Qty</a>
 					{# Begin quantity modal #}
 					<div class="modal fade modal_list_quantity" id="modal_{{ variant.id }}">
 						<div class="modal-dialog modal-sm">
@@ -135,7 +136,7 @@
 				{# End quantity modal #}
 				{% if wishlist.customer_id == app.user.id %}
 					<li class="qty-remove">
-						<button class="btn btn-link btn-xs px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-times"></i><span>Remove <span class="sr-only">{{ variant.name }}</span></span></button>
+						<button class="btn btn-link btn-sm px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-times"></i><span>Remove <span class="sr-only">{{ variant.name }}</span></span></button>
 					{# Begin remove modal #}
 					<div class="modal fade" id="modal_remove_{{ variant.id }}" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog modal-sm">
@@ -185,7 +186,7 @@
 			</div>
 
 {% endfor %}
-</div></div>
+{{ lonelyform.endcard()}}
 
 {% if wishlist.privacy == 'public' or wishlist.privacy == 'unlisted' %}
 <div class="dropdown text-right">
@@ -193,7 +194,7 @@
 	<div class="dropdown-menu dropdown-menu-right col col-md-auto px-0" aria-labelledby="dropMana">
 		<div class="px-3 py-1">
 			<label for="shareregi">Share this Wish List:</label>
-			<input class="form-control" type="text" onclick="this.select()" value="{{ app.url}}/wishlist/{{wishlist.id}}" readonly="readonly">
+			<input class="form-control" id="shareregi" type="text" onclick="this.select()" value="{{ app.url}}/wishlist/{{wishlist.id}}" readonly="readonly">
 		</div>
 		<div class="dropdown-divider"></div>
 		{% if wishlist.customer_id == app.user.id %}
@@ -204,6 +205,8 @@
 	</div>
 </div>
 {% endif %}
+
+{{ lonelyform.end() }}
 
 {% endspaceless %}
 {{ forms.end() }}

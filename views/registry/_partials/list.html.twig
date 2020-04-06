@@ -92,7 +92,7 @@ when the API is fixed, restore this and get rid of the api workaround
                     <ul class="list-inline mb-0">
                         {% if registry.customer_id == app.user.id %}
                         <li class="qty-update">
-                            <a href="#" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
+                            <a href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal_{{ variant.id }}">Update Qty</a>
                             <div class="modal fade modal_list_quantity" id="modal_{{ variant.id }}">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
@@ -141,7 +141,7 @@ when the API is fixed, restore this and get rid of the api workaround
 
                         {% if registry.customer_id == app.user.id %}
                         <li class="qty-remove">
-                            <button class="btn btn-link btn-xs px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-times"></i><span>Remove</span></button>
+                            <button class="btn btn-link btn-sm px-0" data-toggle="modal" data-target="#modal_remove_{{ variant.id }}" type="button"><i class="fa fa-times"></i><span>Remove</span></button>
                             {# Begin remove modal #}
                             <div class="modal fade" id="modal_remove_{{ variant.id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
@@ -197,7 +197,7 @@ when the API is fixed, restore this and get rid of the api workaround
     <div class="dropdown-menu dropdown-menu-right col col-md-auto px-0" aria-labelledby="dropMana">
         <div class="px-3 py-1">
             <label for="shareregi">Share this Registry:</label>
-            <input class="form-control" type="text" onclick="this.select()" value="{{ app.url}}/registry/{{registry.id}}" readonly="readonly">
+            <input class="form-control" id="shareregi" type="text" onclick="this.select()" value="{{ app.url}}/registry/{{registry.id}}" readonly="readonly">
         </div>
         <div class="dropdown-divider"></div>
         {% if registry.customer_id == app.user.id %}
