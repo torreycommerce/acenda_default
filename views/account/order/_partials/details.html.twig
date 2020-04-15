@@ -24,7 +24,7 @@
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-		    <h2>Order #:{{ order.order_number }}</h2>
+		    <h2>Order: #{{ order.order_number }}</h2>
 			<div>{{ order.date_created }}</div>
 			<div class="mb-3">Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 
@@ -42,7 +42,7 @@
 
 			{% set method = api.get('/shippingmethod/' ~ order.shipping_method) %}
 			<h3>Shipping Method</h3>
-			<p>Shipping Method: ({{method.name}})</p>
+			<div class="mb-3">{{method.name}}</div>
 			{% if payment.address.first_name %}
             <h3>Billing Address</h3>
 
@@ -56,12 +56,12 @@
 			</address>
 			{% endif %}
 
-			<h3>Billing Method</h3>
+			<h3>Payment Method</h3>
 			<p>
 			{% if order.transaction_type == 'PayPal Express' %} {# Express order #}
 				PayPal Express
 			{% else %}
-				{{ order.card_type|capitalize }} x-{{ order.card_last4 }} Credit Card
+				{{ order.card_type|capitalize }} XXXX{{ order.card_last4 }} Card
 			{% endif %}
 			</p>
 

@@ -17,7 +17,7 @@
 			<tr>
 				<td {{ ema.comformA() }}>
 				Your <strong>{{ params['site']['title']|default("") }}</strong> Order has been confirmed!
-				<br><strong>Order #:</strong> {{ order.order_number }}
+				<br><strong>Order:</strong> #{{ order.order_number }}
 				</td>
 			</tr>
 	  </table>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td {{ ema.halfcomform() }}>
-					<strong>Order #:</strong> {{ order.order_number }}
+					<strong>Order:</strong> #{{ order.order_number }}
 					<br><strong>Date:</strong> {{ order.date_created }}
 					<br><br><strong>Subtotal:</strong> {{ mac.currency(order.item_subtotal|number_format(2)) }}
                     <br><strong>Shipping:</strong> {{ mac.currency(order.shipping_rate|number_format(2, '.')) }}
