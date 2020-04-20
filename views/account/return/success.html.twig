@@ -47,7 +47,7 @@
 {% for return in returns %}
 <ul class="list-unstyled">
 <li><strong>{{ items[return.item_id].0.name }}</strong></li>
-<li><strong>RMA #:</strong> {{ return.rma }}</li>
+<li><strong>RMA:</strong> #{{ return.rma }}</li>
 <li><strong>Qty:</strong>  {{ return.quantity }}</li>
 <li><strong>Reason:</strong>  {{ return.reason }}</li>
 </ul>

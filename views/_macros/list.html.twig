@@ -96,7 +96,7 @@
             No
         {% endif %}
     {% elseif type == 'date' %}
-        {{ value|date("m/d/Y") }}
+        {{ value|date("Y/m/d") }}
     {% elseif type == 'boolean' %}
         {% if value %}
             <i class="fa fa-check text-success"><span class="sr-only">True</span></i>

@@ -18,7 +18,7 @@
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
             <h2>Order: #{{ order.order_number }}</h2>
-            <div>{{ order.date_created }}</div>
+            <div>{{ order.date_created|date("d F, Y") }} at {{ order.date_created|date("H:i:s") }}</div>
 			<div class="mb-3">Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 
 			<h3>Shipping Address</h3>
@@ -147,7 +147,7 @@
 			<div class="divide mb-3">
 				{% for f in fulfillments %}
 					<p>
-						On {{ f.date_created|date("m/d/Y") }} at {{ f.date_created|date("H:i:s") }} a shipment left our warehouse
+						{{ f.date_created|date("d F, Y") }} at {{ f.date_created|date("H:i:s") }} a shipment left our warehouse
 						{% if f.tracking_numbers is not empty and f.tracking_numbers|length > 0 %}
 							with the following tracking number(s):</p>
 							<ul>
@@ -217,7 +217,7 @@
 		</div>
 		{# End actions #}
 		{% endif %}
-		<div><strong>RMA #:</strong> {{ return.rma }}</div>
+		<div><strong>RMA:</strong> #{{ return.rma }}</div>
 		<div class="product-name">{{ item.name }}</div>
 		<div><strong>Qty:</strong> {{ return.quantity }}, <strong>Status:</strong> {{ return.status }}</div>
 	</div>
