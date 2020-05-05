@@ -25,7 +25,6 @@ function updateCartTotals(qtyField, cartItemId) {
 			var dLID = $(v2Data).attr('data-id');
 		}
 		var oldQty = v2Data.find('.cart-total .price .val').text() / priceElement;
-		//console.log('oldQty: '+oldQty);
 		var changeQty = parseInt(dataQty - oldQty);
 		//console.log('changeQty: '+changeQty);
 		var absChangeQty = Math.abs(changeQty);
@@ -130,27 +129,16 @@ function adjustQuantity(qtyField, increment, postForm) {
 	var id = qtyField.data('id');
 	var model = qtyField.data('model');
 
-	// Don't let quantity go below 0 if we're submitting to the server
-	// After quickcart can fully access the API with customers authenticated through oauth we should be able to remove items dynamically under this condition
-	if (typeof id !== 'undefined') {
-		var compareValue = 1;
-		if (qtyField.val() == 0 && !$("#wishlist").length && !$("#registry").length) { // Change 0 to 1, we shouldn't be submitting 0s to the server || Edit: Unless it's registry or wishlist
-			qtyField.val(1);
-			previousValue = 1;
-		}
-	} else {
-		var compareValue = 0;
-	}
-
-	// Don't go below the compare value
-	// edit: Unless you're on wishlist or registry
-	if (!$("#wishlist").length && !$("#registry").length && previousValue <= compareValue && increment < 0) {
-		return;
-	}
-	if(previousValue + increment <= 0 ){
-		qtyField.val(0);
+	var min = qtyField.attr('min') ? qtyField.attr('min') : 1;
+	if(previousValue + increment <= min ){
+		qtyField.val(min);
 	} else {
 		qtyField.val(previousValue += increment);
+	}
+	if (qtyField.val() <= min) {
+		qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
+	} else {
+		qtyField.parents('.input-group').find('.btn-remove').attr('disabled',false);
 	}
 
 	//Set qty to limit if entered value is above
@@ -161,7 +149,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 		var formData = form.serialize(); // We must serialize our form data here because disabled fields are not submitted
 
 		// Dim quantity field while we update
-		qtyField.parents('.quantity').find('input,button').prop('disabled',true);
+		qtyField.parents('.input-group').find('input,button').prop('disabled',true);
 
 		if (typeof model === 'undefined') { // No model defined, so submit the entire form
 			$.ajax({
@@ -169,7 +157,8 @@ function adjustQuantity(qtyField, increment, postForm) {
 				url: form.attr('action'),
 				data: formData + '&action=update'
 			}).always(function(e) {
-				qtyField.parents('.quantity').find('input,button').prop('disabled',false);
+				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
+				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			});
 		} else {
 			qtyField.parents('.item').find('.error').hide();
@@ -180,7 +169,8 @@ function adjustQuantity(qtyField, increment, postForm) {
 				dataType: 'json',
 				data: JSON.stringify({ quantity: qtyField.val() })
 			}).always(function(e) {
-				qtyField.parents('.quantity').find('input,button').prop('disabled',false);
+				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
+				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			}).fail(function(e) {
 				console.log('errror')
 				data = $.parseJSON(e.responseText);
@@ -216,7 +206,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 			});
 		}
 	} else {
-		console.log('detect prod page')
+		console.log('detect not cart page')
 		if(qtyField.val() > limit) {
 			console.log('detect prod page val too high, adjust')
 			qtyField.val(limit);

@@ -1,6 +1,6 @@
 /* boots */
 .igq-mod {width:auto;}
-.igq-mod .form-control {width:52px;}
+.igq-mod .form-control {width:50px}
 .igq-mod .input-group-btn {width:100%;}
 
 input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {-webkit-appearance:none;}
