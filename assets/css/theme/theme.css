@@ -265,7 +265,7 @@ div:focus, section:focus {outline:none;}
 .product-grid .badges {position:absolute; top:0; left:0; padding:.5rem 0 0 .5rem;}
 
 
-
+.list-group-item .fa {min-width:1.125em}
 .list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
 .list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
 
