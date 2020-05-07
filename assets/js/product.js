@@ -366,7 +366,7 @@ function VariantsManager (product, img, isCollection) {
 		$(extCSS+' .btn-remove').attr('disabled',boolean);
 		$(extCSS+' .btn-add').attr('disabled',boolean);
 		$(extCSS+' .quantity-selector').attr('disabled',boolean);
-		if ($(extCSS+' .quantity-selector').val() <= $(extCSS+' .quantity-selector').attr('min') $(extCSS+' .btn-remove').attr('disabled',true);
+		if ($(extCSS+' .quantity-selector').val() <= $(extCSS+' .quantity-selector').attr('min')) $(extCSS+' .btn-remove').attr('disabled',true);
 	}
 	/*
 		
