@@ -76,34 +76,12 @@
 
 {% for return in returns %}
 {{ lonelyform.begincard()}}
+	<h2>RMA: #{{ return.rma }}</h2>
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-			<h2>RMA #: {{ return.rma }}</h2>
 			<div>Status: {{ return.status }}</div>
 			<div>{{ return.date_created }}</div>
-
-			{% if return.status == 'pending' %}
-			{# FIXME: This should be a post request and a modal #}
-			<button class="btn btn-default btn-xsm-block mt-3" data-toggle="modal" data-target="#cancel-modal">Cancel Return <span class="sr-only">{{ return.rma }}</span></button>
-			<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-                            <div class="h3 modal-title" id="cancel-modal-label">Cancel Return</div>
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body"><p>Are you sure you want to cancel this return?</p></div>
-						<div class="modal-footer"><div class="flex-fill">
-							{{ forms.begin('return',app.url ~ '/return/actions','post') }}
-							<a class="btn btn-default btn-block btn-lg" data-dismiss="modal">Back</a>
-							{{ forms.submit('action','cancel','Cancel Return', {class:'btn btn-danger btn-block btn-lg'}) }}
-							{{ forms.hidden('id',return.id) }}
-							{{ forms.end() }}
-						</div></div>
-					</div>
-				</div>
-			</div>
-			{% endif %}
+			<div class="mt-3">Order Number: #{{ return.order_number }}</div>
 		</div>
 
 		<div class="col-lg-7 g">
@@ -124,6 +102,28 @@
 			</div>
 		</div>
 	</div>
+	{% if return.status == 'pending' %}
+	{# FIXME: This should be a post request and a modal #}
+	<button class="btn btn-default btn-xsm-block mt-3" data-toggle="modal" data-target="#cancel-modal">Cancel Return <span class="sr-only">{{ return.rma }}</span></button>
+	<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-labelledby="cancel-modal-label" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="h3 modal-title" id="cancel-modal-label">Cancel Return <span class="sr-only">{{ return.rma }}</span></div>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body"><p>Are you sure you want to cancel this return?</p></div>
+				<div class="modal-footer"><div class="flex-fill">
+					{{ forms.begin('return',app.url ~ '/return/actions','post') }}
+					<a class="btn btn-default btn-block btn-lg" data-dismiss="modal">Back</a>
+					{{ forms.submit('action','cancel','Cancel Return', {class:'btn btn-danger btn-block btn-lg'}) }}
+					{{ forms.hidden('id',return.id) }}
+					{{ forms.end() }}
+				</div></div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 {{ lonelyform.endcard()}}
 
 {% endfor %}

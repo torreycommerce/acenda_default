@@ -73,10 +73,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% for order in orders %}
 
 {{ lonelyform.begincard()}}
+	<h2>Order: #{{ order.order_number }}</h2>
 	<div class="row">
-		<div class="col-lg-5 fsd1 mb-4 mb-lg-0">
-
-			<h2>Order: #{{ order.order_number }}</h2>
+		<div class="col-lg-5 fsd1 mb-3">
 			<div>Status: {{ order.status }}</div>
 			<div class="mb-3">{{ order.date_created }}</div>
 
@@ -92,12 +91,12 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				</address>
 			</div>
 			{% endif %}
-			<div class="totals-total mb-3">
+			<div class="totals-total divide pb-3">
 				Total: {{ prod.currency(order.total|number_format(2)) }}
 			</div>
-			<a class="btn btn-default btn-xsm-block" href="{{ app.url }}/account/order/{{ order.order_number }}">Order Details <span class="sr-only">for order #{{ order.order_number }}</span></a>
+			<div></div>
 		</div>
-		<div class="col-lg-7 fsd1 g">
+		<div class="col-lg-7 fsd1 g mb-3">
 			{% if order.fraud_check is not empty %}
 			<div class="alert alert-warning">
 				Please call customer service for faster processing on this order.
@@ -132,6 +131,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 			{% endfor %}
 		</div>
 	</div>
+	<a class="btn btn-default btn-xsm-block" href="{{ app.url }}/account/order/{{ order.order_number }}">Order Details <span class="sr-only">for order #{{ order.order_number }}</span></a>
 {{ lonelyform.endcard()}}
 {% endfor %}
 
