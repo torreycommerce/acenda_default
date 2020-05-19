@@ -117,7 +117,7 @@ var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
 {% include "/_layouts/stage_header.html.twig" %}
 
 {% block body %}
-<header id="header">
+<header class="header">
 	{{ base.protected_site() }}
 
 	{% if app.request.url != "store-protected" %}

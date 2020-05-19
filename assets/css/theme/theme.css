@@ -196,7 +196,7 @@ div:focus, section:focus {outline:none;}
 
 .al-btn-sm {margin-bottom:0; padding:.125rem 0; font-size:1.125rem; line-height:1.5;}
 
-#qc-drop {width:290px;}
+.dropdown-menu-qc {width:290px;}
 
 .ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
 
@@ -210,7 +210,7 @@ div:focus, section:focus {outline:none;}
 }
 
 @media (min-width:1200px) {
-#qc-drop {width:350px;}
+.dropdown-menu-qc {width:350px;}
 }
 /* */
 
@@ -269,9 +269,9 @@ div:focus, section:focus {outline:none;}
 .list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
 .list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
 
-li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-#collapseFilters a.btn {display:inline-block; max-width:168px; text-align:left;}
-#collapseFilters li a:not(.btn) {position:relative; padding-right:2rem;}
+li.sub-category, .collapse-filters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.collapse-filters a.btn {display:inline-block; max-width:168px; text-align:left;}
+.collapse-filters li a:not(.btn) {position:relative; padding-right:2rem;}
 .category-filters .card-body {font-size:.875rem;}
 .category-filters .list-group-item .fa {float:right; line-height:inherit}
 .filter-count {position:absolute; top:0; right:0;}
@@ -305,28 +305,28 @@ li.sub-category, #collapseFilters a {display:block; white-space:nowrap; overflow
 .product:hover .btn-qv, .btn-qv:focus {opacity:1;}
 
 @media (min-width:576px) {
-#modalQV .modal-dialog {max-width:540px;}
+.modal-qv .modal-dialog {max-width:540px;}
 }
 
 @media (min-width:992px) {
-#collapseFilters {height:auto!important;}
-#collapseFilters a.btn {max-width:213px;}
+.collapse-filters {height:auto!important;}
+.collapse-filters a.btn {max-width:213px;}
 .filter .color-chips {padding-bottom:10px;}
 .color-chip a {font-size:100%;}
 .color-chip .isd {font-size:.875rem;}
 }
 
 @media (min-width:768px){
-#modalQV .modal-dialog {max-width:720px;}
+.modal-qv .modal-dialog {max-width:720px;}
 }
 
 @media (min-width:992px){
-#modalQV .modal-dialog {max-width:960px;}
-#modalQV .modal-body {padding-right:1.5rem; padding-left:1.5rem;}
+.modal-qv .modal-dialog {max-width:960px;}
+.modal-qv .modal-body {padding-right:1.5rem; padding-left:1.5rem;}
 }
 
 @media (min-width:1200px){
-#modalQV .modal-dialog {max-width:1140px;}
+.modal-qv .modal-dialog {max-width:1140px;}
 }
 
 @media (max-width:991.98px) {
