@@ -37,7 +37,7 @@ $(document).ready(function() {
 	});	
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) { options.async = true; });
 	$.get(acendaBaseUrl+'/account/tools.html', function(data) {
-		$('#header .my-account').append(data);
+		$('.header .my-account').append(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
 		//

@@ -4,7 +4,7 @@ var qcrecalc = 1;
 var qcwearego = 0;
 
 // boots v4
-$('body').on('mouseenter focusin','#header .cart',function(e){
+$('body').on('mouseenter focusin','.header .cart',function(e){
     //console.log('e event only IN');
     if (qcwearego != 1) {
         if (!$('.dropdown-qc').hasClass('show')) {
@@ -16,7 +16,7 @@ $('body').on('mouseenter focusin','#header .cart',function(e){
     }
 });
 
-$('body').on('mouseleave focusout','#header .cart',function(e){
+$('body').on('mouseleave focusout','.header .cart',function(e){
     qcwearego = 0;
 });
 
@@ -254,7 +254,7 @@ function ajaxCart(data, r) {
             });
 
         }
-        $('#header .item-count').html(cart_item_count).addClass('ready');
+        $('.header .btn .item-count').html(cart_item_count).addClass('ready');
         $('.ajaxcart .subtotal .val').html(cart_subtotal);
 
         if (show_all) {
