@@ -5,8 +5,8 @@
 
 .variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; /*overflow:hidden;*/ visibility:hidden; transition:opacity 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}
-#product-details .variations {margin:-10px;}
-#product-details .variation.active {padding:10px;}
+.product-details .variations {margin:-10px;}
+.product-details .variation.active {padding:10px;}
 
 .selected-option {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 

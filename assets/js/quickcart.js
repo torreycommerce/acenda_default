@@ -49,7 +49,7 @@ $(function() {
 });
 
 var pData;
-var vData = $('#product-details .active');
+var vData = $('.product-details .active');
 
 $(document).on('click','button[value=cart]', function(event) {
     $('.dropdown-qc').removeClass('qc-ready');
@@ -57,7 +57,7 @@ $(document).on('click','button[value=cart]', function(event) {
     event.preventDefault();
     if ($('#singleProduct').length) {
         pData = $('#product-intro');
-        vData = $('#product-details .active');
+        vData = $('.product-details .active');
     } else {
         pData = $(this).parents('.piece');
         vData = $(this).parents('.piece').find('.active');
@@ -146,7 +146,7 @@ function ajaxCart(data, r) {
     if ($(vData).find('.sku').length) {
         var dLID = $(vData).find('.sku span').text();
     } else {
-        var dLID = $('#product-details .variations').attr('data-id');
+        var dLID = $('.product-details .variations').attr('data-id');
     }
     if (typeof dataLayer !== "undefined") {
         if (dataLayer !== null) {

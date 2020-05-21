@@ -21,11 +21,17 @@
 
 {% block title %}Store Info: {{location.title}}{% endblock %}
 
+{% block css %}
+{% include "/stores/css.html.twig" %}
+{% endblock %}
+
+{% block breadcrumb %}
+{{ base.breadcrumbs({'Store Locator':'/stores/map', (location.title):''}) }}
+{% endblock %}
+
 {% block content %}
 
 <h1>Store Info: {{location.title}}</h1>	
-
-{% include "/stores/css.html.twig" %}
 
 <div class="row">
 	<div class="col-lg-5 mb-3">

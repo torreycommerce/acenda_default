@@ -13,6 +13,9 @@
 
 {% block title %}Store Info: {{location.title}}{% endblock %}
 
+{% block breadcrumb %}
+{{ base.breadcrumbs({'View All Stores':'/stores', (location.title):''}) }}
+{% endblock %}
 
 {% block content %}
 

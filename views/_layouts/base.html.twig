@@ -130,8 +130,8 @@ var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
 	{% endif %}
 </header>
 
-<section class="{% if url_based_class != 'store-home-page' %} {% endif %}pt-3 pb-4" id="content" tabindex="-1">
-	<div class="container">
+<section class="{% if url_based_class != 'store-home-page' %} {% endif %}pt-4 pt-lg-3 pb-5" id="content" tabindex="-1">
+	<div class="container g">
 		{% block breadcrumb %}{% endblock %}
 		{% block stage %}
 			{% block content %}

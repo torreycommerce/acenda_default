@@ -127,7 +127,7 @@
     		{% endspaceless %}
 	    </div>
 
-		<div id="product-details">
+		<div class="product-details">
 			<div class="mb-3 variations" data-id="{{product.id}}">
 			{% for vind in product.variant %}
 				<div class="variation{% if vind.id == variation.id %} active{% endif %}{% if vind.has_stock == false %} variation-oos{% endif %}" data-vid="{{vind.id}}">
