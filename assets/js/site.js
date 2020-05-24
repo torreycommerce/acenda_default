@@ -133,10 +133,10 @@ $('.header .navbar-nav > li > ul').each(function() {
 
 
 $('body').on('mouseenter mouseleave','.addAccess > li',function(e){
-    //var _d=$(e.target).closest('.dropdown');
     var _d=$(this);
-    var _e=$(_d).find('.dropdown-menu:first');_e.addClass('show');
+    var _e=$(_d).find('.dropdown-menu:first');_d.addClass('show');_e.addClass('show');
     setTimeout(function(){
+		_d[_d.is(':hover')?'addClass':'removeClass']('show');
         _e[_d.is(':hover')?'addClass':'removeClass']('show');
         $('[data-toggle="dropdown"]', _d).attr('aria-expanded',_d.is(':hover'));
     },25);

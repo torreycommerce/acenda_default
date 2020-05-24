@@ -35,21 +35,22 @@ $.fn.setup_navigation = function(settings) {
 	});
 
 	$(top_level_links).focus(function(){
-	    //console.log('top level call')
 		$(this).closest('ul')
 			// Removed by Terrill 
 			// The following was adding aria-hidden="false" to root ul since menu is never hidden
 			// and seemed to be causing flakiness in JAWS (needs more testing) 
 			// .attr('aria-hidden', 'false') 
-			.find('.'+settings.menuHoverClass)
+			.find('ul.'+settings.menuHoverClass)
 				.attr('aria-hidden', 'true')
 				.removeClass(settings.menuHoverClass)
 				.find('a')
-					.attr('tabIndex',-1);
+					.attr('tabIndex',-1)
+					.parents('.show').removeClass('show');
 		$(this).next('ul')
 			.attr('aria-hidden', 'false')
 			.addClass(settings.menuHoverClass)
-			.find('a').attr('tabIndex',0);
+			.find('a').attr('tabIndex',0)
+			.parents('.dropdown').addClass('show');
 	});
 	
 	// Bind arrow keys for navigation
@@ -77,6 +78,8 @@ $.fn.setup_navigation = function(settings) {
 				$(this).parent('li').find('ul[aria-hidden=true]')
 				.attr('aria-hidden', 'false')
 				.addClass(settings.menuHoverClass)
+				.find('a').attr('tabIndex',0)
+				.parents('.dropdown').addClass('show')
 				/*.find('a').attr('tabIndex',0)
 				.first().focus();*/
 			} else {
@@ -90,7 +93,8 @@ $.fn.setup_navigation = function(settings) {
 				.attr('aria-hidden', 'true')
 				.removeClass(settings.menuHoverClass)
 				.find('a')
-					.attr('tabIndex',-1);
+					.attr('tabIndex',-1)
+					.parents('.show').removeClass('show');
 		} else {
 		       //console.log('when run last top')
 			$(this).parent('li').find('ul[aria-hidden=false] a').each(function(){
@@ -109,11 +113,12 @@ $.fn.setup_navigation = function(settings) {
 			$(this)
 				.parents('ul').first()
 					.prev('a').focus()
-					.parents('ul').first().find('.'+settings.menuHoverClass)
+					.parents('ul').first().find('ul.'+settings.menuHoverClass)
 						.attr('aria-hidden', 'true')
 						.removeClass(settings.menuHoverClass)
 						.find('a')
-							.attr('tabIndex',-1);
+							.attr('tabIndex',-1)
+							.parents('.dropdown').removeClass('show')
 		} else if(e.keyCode == 32) {
 			e.preventDefault();
 		} else {
@@ -142,16 +147,12 @@ $.fn.setup_navigation = function(settings) {
 	$(this).find('a').last().keydown(function(e){ 
 		if(e.keyCode == 9) {
 			// If the user tabs out of the navigation hide all menus
-			/*$('.'+settings.menuHoverClasss)
-				.attr('aria-hidden', 'true')
-				.removeClass(settings.menuHoverClass)
-				.find('a')
-					.attr('tabIndex',-1);*/
-			$('.addAccess').find('.show')
+			$('.addAccess').find('ul.show')
 				.attr('aria-hidden', 'true')
 				.removeClass('show')
 				.find('a')
-					.attr('tabIndex',-1);
+					.attr('tabIndex',-1)
+					.parents('.dropdown').removeClass('show')
 		}
 	});
 	
@@ -159,16 +160,12 @@ $.fn.setup_navigation = function(settings) {
 		if(e.shiftKey && e.keyCode == 9) {
 		    //console.log('happ off first')
 			// If the user tabs out of the navigation hide all menus
-			/*$('.addAccess').find('.'+settings.menuHoverClasss)
-				.attr('aria-hidden', 'true')
-				.removeClass(settings.menuHoverClass)
-				.find('a')
-					.attr('tabIndex',-1);*/
-			$('.addAccess').find('.show')
+			$('.addAccess').find('ul.show')
 				.attr('aria-hidden', 'true')
 				.removeClass('show')
 				.find('a')
-					.attr('tabIndex',-1);
+					.attr('tabIndex',-1)
+					.parents('.dropdown').removeClass('show')
 		}
 	});
 	//console.log('v41')
