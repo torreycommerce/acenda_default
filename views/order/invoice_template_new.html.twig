@@ -1,10 +1,10 @@
  <div class="invoice-container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-xs-6">
             <img ng-if="main.config.params.logoimages[0]" style="max-height: 50px; width: auto" ng-src="{{ '{{main.config.params.logoimages[0].url}}' }}"/>
             <p ng-if="!main.config.params.logoimages[0]">{{ '{{main.config.params.site.title}}' }}</p>
         </div>
-        <div class="col-6 text-right">
+        <div class="col-xs-6 text-right">
             <p class="size-h2"> Order #{{ '{{singleOrder.order_number}}' }}</p>
             <p>Return: {{ '{{returnAddress.street_line1}}' }} {{ '{{returnAddress.street_line2}}' }}, {{ '{{returnAddress.city}}' }}, {{ '{{returnAddress.state}}' }}{{ '{{returnAddress.zip}}' }}</p>
             <p><span class="icon fa fa-envelope"></span> {{ '{{main.config.params[\'contact-us\'][\'to\']}}' }}</p>
@@ -15,7 +15,7 @@
     <hr>
 
     <div class="row">
-        <div class="col-12 text-right">
+        <div class="col-xs-12 text-right">
             <p><strong>Order Details</strong></p>
             <strong>Date:</strong> {{ '{{singleOrder.date_modified}}' }} <br>
             <strong>ID:</strong> {{ '{{ID}}' }} <br>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-xs-6">
             <label>Shipping Address</label>
             <address>
                 <strong>{{ '{{singleOrder.shipping_first_name}}' }} {{ '{{singleOrder.shipping_last_name}}' }}</strong><br>
@@ -35,7 +35,7 @@
             </address>
         </div>
 
-        <div class="col-6">
+        <div class="col-xs-6">
             <label>Billing Address</label>
             <address>
                 <strong>{{ '{{singleOrder.billing_first_name}}' }} {{ '{{singleOrder.billing_last_name}}' }}</strong><br>
@@ -71,10 +71,10 @@
     </table>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-xs-12 col-md-8">
             <p class="size-h3">Thanks for your business</p>
         </div>
-        <div class="col-md-4 invoice-sum text-right">
+        <div class="col-xs-12 col-md-4 invoice-sum text-right">
             <ul class="list-unstyled">
                 <li>Sub Total : {{ '{{singleOrder.item_subtotal | currency}}' }}</li>
                 <li>Shipping : {{ '{{singleOrder.shipping_rate | currency }}' }}</li>
