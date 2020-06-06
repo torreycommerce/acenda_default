@@ -2,6 +2,7 @@
 
 var qcrecalc = 1;
 var qcwearego = 0;
+var pushdL = 0;
 
 // boots v4
 $('body').on('mouseenter focusin','.header .cart',function(e){
@@ -54,6 +55,7 @@ var vData = $('.product-details .active');
 $(document).on('click','button[value=cart]', function(event) {
     $('.dropdown-qc').removeClass('qc-ready');
     qcrecalc = 1;
+	pushdL = 1;
     event.preventDefault();
     if ($('#singleProduct').length) {
         pData = $('#product-intro');
@@ -110,11 +112,8 @@ $(document).on('click','button[value=cart]', function(event) {
     });
     if(personalization_failed) return false;
 
-
-
     // Disable submit button
     $('button[value=cart]').addClass('wait').attr('disabled',true);
-    //console.log("Add to cart");
     //console.log(form.serialize());
 
     $.post(acendaBaseUrl + '/product/route',
@@ -122,7 +121,6 @@ $(document).on('click','button[value=cart]', function(event) {
     .always(function(data) {
         // Make sure to reenable it, success or failure
         $('button[value=cart]').each(function() {
-            //if ($('button[value=cart]').hasClass('wait')) { console.log('too early 92')}
             $(this).removeClass('wait');
             // only enable the cart button if it wasn't disabled due to lack of Stock/Price
             if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
@@ -141,21 +139,19 @@ $(document).on('click','button[value=cart]', function(event) {
 });
 
 function ajaxCart(data, r) {
-    //console.log('f ajaxCart()');
-    //
     if ($(vData).find('.sku').length) {
         var dLID = $(vData).find('.sku span').text();
     } else {
         var dLID = $('.product-details .variations').attr('data-id');
     }
-    if (typeof dataLayer !== "undefined") {
+    if (typeof dataLayer !== "undefined" && pushdL == 1) {
         if (dataLayer !== null) {
             dataLayer.push({
                 'event': 'addToCart',
                 'ecommerce': {
                     'currencyCode': 'USD',
-                    'add': {                                // 'add' actionFieldObject measures.
-                        'products': [{                        //  adding a product to a shopping cart.
+                    'add': {
+                        'products': [{
                             'name': $(pData).find('.product-name').text(),
                             'id': dLID,
                             'price': $(vData).find('.price .val').text(),
@@ -269,6 +265,7 @@ function ajaxCart(data, r) {
         }
         //console.log('set qcrecalc to 0');
         qcrecalc = 0;
+		pushdL = 0;
         //
         //
         $('button[value=cart]').each(function() {
