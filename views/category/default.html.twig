@@ -63,6 +63,8 @@
 <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/product.css" />
 {% endblock %}
 
+{% block ogimage %}{% if category.thumbnail %}{{category.thumbnail}}{% else %}{{ parent() }}{% endif %}{% endblock %}
+
 {% block content %}
 {%include "/category/_partials/base.html.twig"%}
 {% endblock %}

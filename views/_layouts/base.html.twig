@@ -71,6 +71,7 @@ var dataLayer = [];
 <meta name="viewport" content="width=device-width, initial-scale=1.0{#, maximum-scale=1.0, user-scalable=no#}">
 <meta name="keywords" content="{% block meta_keywords %}{{ seo['keywords'] }}{% endblock %}">
 <meta name="description" content="{% block meta_description %}{{ seo['description'] }}{% endblock %}">
+<meta property="og:image" content="{% block ogimage %}{{ seo['img'][0].url }}{% endblock %}">
 {% block meta_more %}{% endblock %}
 <link rel="shortcut icon" href="{{ app.url ~ '/favicon.ico' ~ '?time=' ~ app.params.site.title }}" type="image/x-icon" />
 <link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/bootcenda.css" />

@@ -79,6 +79,8 @@
 {% set meta_description = item.meta_description|default(item.meta_description) %}
 {% block meta_description %}{{ meta_description|default(seo['description']) }}{% endblock %}
 
+{% block ogimage %}{% if item.images[0].large %}{{item.images[0].large}}{% else %}{{ parent() }}{% endif %}{% endblock %}
+
 {% block dynamicclasses %}
 	{% if item.product|length == 1%}
 		{% spaceless %}
