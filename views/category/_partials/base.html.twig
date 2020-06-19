@@ -98,6 +98,9 @@
 						"sort":sortBy
 				  }) %}
 
+{% if products.num_total == 1 and config.params['cat-redirect'] == '1' %}
+    {% do app.redirect('/product/' ~ products[0].slug ,{},'302') %}
+{% endif %}
 
 {#
 ##
