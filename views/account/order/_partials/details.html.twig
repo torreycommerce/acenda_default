@@ -95,7 +95,7 @@
 			<div class="divide pb-3 mb-3">
 			    <h3 class="sr-only">Ordered Items</h3>
 				{# Begin order items #}
-				{% set items = api.get('/orderitem?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number, {query:{order_id:order.id}}) %}
+				{% set items = api.get('/orderitem?email=' ~ order.email ~ '&order_number=' ~ order.order_number) %}
 				{% set product_ids = items|values_in('variant_id') %}
 				{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 				{% if items is not empty %}
