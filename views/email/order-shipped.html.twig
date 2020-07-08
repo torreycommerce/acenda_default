@@ -2,7 +2,7 @@
 {%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
-{% set items = api.get('/orderitem?email=' ~ email ~ '&order_number=' ~ order_number, {query:{order_id:order_id}}) %}
+{% set items = order.items %}
 {% set product_ids = items|values_in('variant_id') %}
 {% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
 {% set fulfillment = api.get('/order/' ~ order_id ~ '/fulfillments') %}
