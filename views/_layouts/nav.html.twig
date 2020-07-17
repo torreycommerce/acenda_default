@@ -8,7 +8,7 @@
 					<a class="dropdown-toggle nav-link" href="{{app.url}}/category/{{items.slug}}" data-toggle="dropdown">
 						<span>{{main_category}}</span><i class="fa fa-angle-down"></i>
 					</a>
-					<ul class="dropdown-menu{% if loop.last %} dropdown-menu-right{% endif %}">
+					<ul class="dropdown-menu{% if loop.last and not loop.first %} dropdown-menu-right{% endif %}">
 						{% for category,subitems in items.limb %}
 							{% if subitems.limb|length %}
 								  {{ base.subcategory(category,subitems) }}
