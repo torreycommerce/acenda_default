@@ -202,11 +202,11 @@
 				{% if image_url is empty %}
 				    {% set image_url = image_urlB %}
 			    {% endif %}
-			    {% if loop.index == maxBox %}
+			    {% if loop.index == maxBox and surBox != 0 %}
                     <div class="col-2 col-thin color-chip fsd1">
                         <div class="image-space bg-light"><div class="isd">+{{surBox}} <span class="sr-only">more colors</span></div></div>
                     </div>
-			    {% elseif loop.index < maxBox %}
+			    {% elseif loop.index <= maxBox %}
     				<div class="col-2 col-thin color-chip">
     					<button class="btn blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
     				</div>
