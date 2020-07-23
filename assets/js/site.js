@@ -304,9 +304,9 @@ if ($('.ztrig').length) {
 
 /* stores all */
 function ChangeUrl(title, url) {
-	if (typeof (history.pushState) != "undefined") {
+	if (typeof (history.replaceState) != "undefined") {
 		var obj = { Title: title, Url: url };
-		history.pushState(obj, obj.Title, obj.Url);
+		history.replaceState(obj, obj.Title, obj.Url);
 	} else {
 		//alert("Browser does not support HTML5.");
 	}
@@ -315,7 +315,7 @@ function ChangeUrl(title, url) {
 function updateUrlParameter(param, value) {
 	const regExp = new RegExp(param + "(.+?)(&|$)", "g");
 	const newUrl = window.location.href.replace(regExp, param + "=" + value + "$2");
-	window.history.pushState("", "", newUrl);
+	window.history.replaceState("", "", newUrl);
 }
 
 function getQueryParams(qs) {
@@ -367,7 +367,7 @@ var updateQueryStringParam = function (key, value) {
 	}
 	params = params == '?' ? '' : params;
 
-	window.history.pushState({}, "", baseUrl + params);
+	window.history.replaceState({}, "", baseUrl + params);
 };
 
 

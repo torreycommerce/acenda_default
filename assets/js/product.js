@@ -600,37 +600,6 @@ function VariantsManager (product, img, isCollection) {
 				});
 			});
 		}
-		//
-		//
-		window.onpopstate = function(event) {
-			if ($('#singleProduct').length) {
-				//console.log('popState v4.2');
-				newdesire = getQueryParams(document.location.search);
-				//console.log('onpopstate begin...');
-				//console.log(newdesire)
-				if (newdesire.variant && $('.url-1-product').length) {
-					//console.log('was newdesire.variant')
-					$.each(_this.variants, function(index,variant){
-						//console.log('var col: '+variant.color)
-						if( variant.id == newdesire.variant ){
-							//console.log('each loop found matching variant')
-							//console.log('desire this one, select it: '+variant.color);
-							selected_variant = variant;
-							return false;
-						}
-					});
-				} else {
-					selected_variant = _this.variants[0];
-				}
-				//
-				$.each(_this.selectsData, function(selectName,optionArray){
-					//console.log('each Data loop v3');
-					_this.selectedValues[selectName] = selected_variant[selectName];
-				});
-				//
-				_this.updateChips(1);
-			}
-    	};
 	}
 }
 
