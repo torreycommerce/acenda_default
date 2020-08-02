@@ -1,7 +1,7 @@
 {% macro subcategory(main_category, items) %}
-<li class="navcat-{{items.id}} dropdown dropdown-submenu">
-    <a href="{{app.url}}/category/{{items.slug}}" class="dropdown-toggle" data-toggle="dropdown"><span>{{main_category}}</span><i class="fa fa-angle-right"></i></a>
-    <ul class="dropdown-menu">
+<li class="navcat-{{items.id}} g">
+    <a href="{{app.url}}/category/{{items.slug}}" {#class="dropdown-toggle" data-toggle="dropdown"#}><span>{{main_category}}</span>{#<i class="fa fa-angle-down"></i>#}</a>
+    <ul class="dropdown-submenu list-unstyled">
         {% for category,subitems in items.limb %}
             {% if subitems.limb|length %}
                 {{ _self.subcategory(category, subitems) }}
@@ -16,9 +16,6 @@
 {% macro subcategory_mobile(main_category, items, id) %}
 {% set i = 0 %}
 <li class="bgw">
-    {#<a href="{% if items|length %}javascript: void(0);{% else %}{{app.url}}/category/{{ items.slug }}{% endif %}" class="sub_c" ref="{{ id }}">
-        {{main_category}}
-    </a>#}
     <a class="btn btn-lg btn-blank" href="{{app.url}}/category/{{ items.slug }}">{{main_category}}</a>
     {% if items.limb|length %}
     <button class="btn btn-lg btn-blank yta-getsub"><i class="fa fa-angle-right"><i class="sr-only">{{main_category}} Subcategories</i></i></button>

@@ -4,12 +4,10 @@ var useTypeAhead = 1; // use Twitter TypeAhead?
 /* */
 
 
-
 // Disable Console.log for browsers that dont support it or if debugging
 var debugging = true; // or true
 if (typeof console == "undefined") var console = { log: function() {} };
 else if (!debugging || typeof console.log == "undefined") console.log = function() {};
-
 
 
 
@@ -40,12 +38,6 @@ $(document).ready(function() {
 		$('.header .my-account').append(data);
 		//
 		$('.flashajax').load(acendaBaseUrl+'/account/flashes');
-		//
-		$('.yta-launch').parent().after('<div class="navajax"></div>');
-	    $('.navajax').load(acendaBaseUrl+'/account/nav.html', function() {
-			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/yta-menu.js",function(){
-			});
-		});
 		//
 		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/quickcart.js",function(){
 		});
@@ -82,22 +74,12 @@ $(document).ready(function() {
 	//
 	$('[data-tooltip]').tooltip();
 	//
-	$('.navbar .nav li a').click(function(){
-		if($(this).attr('target') == undefined){
-			window.location=($(this).attr('href'));
-		}
-	});
-	//
 	$('a.btn[data-toggle=dropdown]').click(function () {
         if ($(this).attr('href')){
             window.location = $(this).attr('href');
         }
     });
-	$(document).on('click','.addAccess a[data-toggle=dropdown]', function() {
-        if ($(this).attr('href')){
-            window.location = $(this).attr('href');
-        }
-    });
+	
 });
 
 
@@ -124,22 +106,130 @@ $(window).on("load", function (e) {
 
 
 
+
 $('.header .navbar-nav > li > ul').each(function() {
-    if ($(this).children('li').length > 10) {
-        $(this).parent('li').addClass('make-cols');
-    }
+	if ($(this).children('li').length > 10) {
+		$(this).parent('li').addClass('make-cols')
+	}
 });
 
+$('body').on('mouseenter','.add-access > .dropdown',function(e){
+	if (window.innerWidth > 991.98) {
+		addAccessShow($(this))
+		navWait($(this))
+	}
+})
 
+$('body').on('mouseleave','.add-access > .dropdown',function(e){
+	if (window.innerWidth > 991.98) {
+		addAccessHide($(this))
+	}
+})
 
-$('body').on('mouseenter mouseleave','.addAccess > li',function(e){
-    var _d=$(this);
-    var _e=$(_d).find('.dropdown-menu:first');_d.addClass('show');_e.addClass('show');
-    setTimeout(function(){
-		_d[_d.is(':hover')?'addClass':'removeClass']('show');
-        _e[_d.is(':hover')?'addClass':'removeClass']('show');
-        $('[data-toggle="dropdown"]', _d).attr('aria-expanded',_d.is(':hover'));
-    },25);
+$('body').on('focusin','.add-access a.nav-link',function(e){
+	if (window.innerWidth > 991.98) {
+		addAccessHide($(this).parents('.add-access').find('a.nav-link:not(:focus)').parents('.dropdown'))
+		if ($(this).parents('.dropdown.show').length == 0) {
+			addAccessShow($(this).parents('.dropdown'))
+		}
+	}
+})
+
+$('body').on('keydown','.add-access a.nav-link',function(e){
+	if (window.innerWidth > 991.98) {
+		if(e.shiftKey && e.keyCode == 9) {
+			if($(this).parents('li').prev('li').length == 0) {
+				addAccessHide($(this).parents('.dropdown'))
+			}
+		} else if(e.keyCode == 37) {
+			e.preventDefault();
+			if($(this).parents('li').prev('li').length == 0) {
+				$(this).parents('ul').find('> li').last().find('a').first().focus();
+			} else {
+				$(this).parents('li').prev('li').find('a').first().focus();
+			}
+		} else if(e.keyCode == 39) {
+			e.preventDefault();
+			if($(this).parents('li').next('li').length == 0) {
+				$(this).parents('ul').find('> li').first().find('a').first().focus();
+			} else {
+				$(this).parents('li').next('li').find('a').first().focus();
+			}
+		}
+	}
+})
+
+$('body').on('keydown','.add-access a:last',function(e){
+	if (window.innerWidth > 991.98) {
+		addAccessHide($(this).parents('.dropdown'))
+	}
+})
+
+$('.add-access .dropdown-menu').on('show.bs.collapse', function () {
+	$(this).parents('li').addClass('show')
+})
+
+$('.add-access .dropdown-menu').on('hide.bs.collapse', function () {
+	$(this).parents('li').removeClass('show')
+})
+
+function addAccessShow(l) {
+	$(l).find('.dropdown-menu:first').collapse('show')
+}
+
+function addAccessHide(l) {
+	$(l).find('.dropdown-menu:first').collapse('hide')
+}
+
+function navWait(l) {
+	setTimeout(function(){
+		l[l.is(':hover')?'addClass':'removeClass']('show')
+		l.find('.dropdown-menu:first').collapse([l.is(':hover')?'show':'hide'])
+	},25)
+}
+
+$('body').on('mouseenter','.ace-bs-access:not(.show) [data-toggle=dropdown]',function(e){
+	$(this).dropdown('toggle').addClass('ace-bs-accessed')
+});
+$('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
+	if ($(this).hasClass('show')) {
+		$(this).find('.ace-bs-accessed[data-toggle=dropdown]').dropdown('toggle').removeClass('ace-bs-accessed')
+	}
+});
+
+// https://github.com/twbs/bootstrap/issues/14040
+// TODO: Add any custom classes with 'position: fixed' to the selector below
+var fixedCls = '.navbar-fixed-top,.navbar-fixed-bottom,.mobile.yta-open';
+var oldSSB = $.fn.modal.Constructor.prototype.setScrollbar;
+$.fn.modal.Constructor.prototype.setScrollbar = function () {
+    oldSSB.apply(this);
+    if (this.bodyIsOverflowing && this.scrollbarWidth)
+        $(fixedCls).css('padding-right', this.scrollbarWidth);
+}
+
+var oldRSB = $.fn.modal.Constructor.prototype.resetScrollbar;
+$.fn.modal.Constructor.prototype.resetScrollbar = function () {
+	oldRSB.apply(this);
+	$(fixedCls).css('padding-right','');
+}
+
+$('html').on("click", ".ttc", function() {
+	if ($(this).attr('href')) {
+		var ttc = $(this).attr('href');
+		if ($(ttc).attr('role','tab')) $(ttc).click();
+		$('body,html').animate({
+			scrollTop: $(ttc).offset().top
+		}, 300);
+		return false;
+	}
+});
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() > 1) {
+        $('html').addClass('scrolled');
+    } else {
+        $('html').removeClass('scrolled');
+    }
 });
 
 
@@ -300,8 +390,6 @@ if ($('.ztrig').length) {
 
 
 
-
-
 /* stores all */
 function ChangeUrl(title, url) {
 	if (typeof (history.replaceState) != "undefined") {
@@ -334,7 +422,6 @@ function getQueryParams(qs) {
 
 
 var updateQueryStringParam = function (key, value) {
-//console.log('uQSP key: '+key+' , value: '+value)
 	var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
 		urlQueryString = document.location.search,
 		newParam = key + '=' + value,
@@ -345,12 +432,9 @@ var updateQueryStringParam = function (key, value) {
 
 		updateRegex = new RegExp('([\?&])' + key + '[^&]*');
 		removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
-		//console.log('has urlQS');
 		if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
 			if (urlQueryString.indexOf(key) !== -1) {
-				//console.log('path 1 actual MODDed');
 				params = urlQueryString.replace(removeRegex, "$1");
-				//params = urlQueryString.replace(updateRegex, "$1" + newParam); me
 				params = params.replace( /[&;]$/, "" );
 			}
 
@@ -362,8 +446,6 @@ var updateQueryStringParam = function (key, value) {
 
 		}
 
-	} else {
-		//console.log('has NO urlQS');
 	}
 	params = params == '?' ? '' : params;
 
@@ -384,6 +466,5 @@ var mapReady = setInterval(function(){
 	}
 },1000);
 
-// final
-IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/acended.js",function(){
+IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/device.min.js",function(){
 });
