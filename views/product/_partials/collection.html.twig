@@ -18,7 +18,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space">
 								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{image.retina}}" tabindex="-1">{% endif %}
-									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
 							</div>{% if not app.request.isAjaxRequest() %}</div>{% endif %}</div>
 						</div>
@@ -31,7 +31,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space">
 								<a target=_blank href="{{image.retina}}" tabindex="-1">
-									<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								</a>
 							</div></div></div>
 						</div>
@@ -66,17 +66,17 @@
 						</div>
 					</div>
 					{% endif %}
-					<div class="silent-gal" id="silent-gal-{{product.id}}" data-pswp-uid="{{product.id}}"><div class="image-space">
+					<div class="main-img-location silent-gal" id="silent-gal-{{product.id}}" data-pswp-uid="{{product.id}}"><div class="image-space">
 					{% for image in product.images %}
 						<div class="ztrig" id="ztrig-{{product.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{image.retina}}" data-med-size="600x600">
-							<img class="img-fluid isd" src="{{image.standard}}" width="600" height="600" alt="">
+							<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="">
 						</div>
 					{% endfor %}
 					</div></div>
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space">
-                            <img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
+                            <img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -91,11 +91,11 @@
 			</div></div>
 			{% endif %}
 			
-			<div id="image-main">
+			<div class="main-img-location main-img-img" id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
-						<img id="main-product-image" class="img-fluid d-none" src="{{app.image.getImageUrl("product","standard",main_image_id)|default(app.url_asset ~ '/assets/images/product/image-450x450.gif') }}" alt="">
+						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl("product","standard",main_image_id)|default(app.url_asset ~ '/assets/images/product/image-450x450.gif') }}" alt="">
 					</span>
 				</div>
 			</div>
@@ -224,11 +224,9 @@
 			<div class="row">
 				<div class="col-md-7">
 					<div class="media media-cart">
-						<div class="media-left">
-							<div class="variant-selected-image">
-								<div class="image-space">
-									<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" class="img-fluid isd" alt="">
-								</div>
+						<div class="media-left variant-selected-image">
+							<div class="image-space">
+								<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
 							</div>
 						</div>
 
@@ -347,11 +345,9 @@
 	<div class="row">
 		<div class="col-md-7">
 		<div class="media media-cart">
-			<div class="media-left">
-				<div class="variant-selected-image" id="variant-selected-image-{{product.id}}">
-					<div class="image-space">
-						<img data-src-old="{{ app.url_asset }}/assets/images/spacer.gif" src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" class="img-fluid isd" width="250" height="250" alt="">
-					</div>
+			<div class="media-left variant-selected-image" id="variant-selected-image-{{product.id}}">
+				<div class="image-space">
+					<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
 				</div>
 			</div>
 

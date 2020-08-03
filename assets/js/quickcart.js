@@ -1,5 +1,6 @@
 //console.log('qc v56');
 
+var cartIsReadyYet = 0;
 var qcrecalc = 1;
 var qcwearego = 0;
 var pushdL = 0;
@@ -277,6 +278,10 @@ function ajaxCart(data, r) {
                 if (!$(this).parents('.igq-mod').find('.quantity-selector').attr('disabled')) {
                     $(this).attr('disabled',false);
                 }
+				if (cartIsReadyYet == 0 && typeof cartIsReady === "function") {
+					cartIsReady()
+					cartIsReadyYet = 1
+				}
             }
         });
     });

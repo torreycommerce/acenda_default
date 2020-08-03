@@ -15,6 +15,7 @@ $(document).on('click','.btn-qv', function() {
 	if (QVrecalc) {
 		$.get(acendaBaseUrl + '/product/'+$(this).data('slug'), function(data) {
 			$('.quick-view').html(data);
+			cartIsReadyYet = 0;
 			$('.modal-qv').modal('show');
 			ajaxCart("{}", true);
 		});

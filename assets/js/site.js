@@ -358,32 +358,32 @@ if ($('.slick').length || $('.btn-qv').length) {
 }
 
 
-
-if ($('.ztrig').length) {
-	$.get(acendaBaseUrl+'/product/insert-photoswipe', function(data2) {
-		$('#product-images').append(data2);
-		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-mod.min.js",function() {
-			//console.log('ps 1 loaded');
-			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-ui-default.min.js",function() {
-				//console.log('ps 2 loaded');
-				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe-acenda.js",function() {
-					//console.log('ps 3 loaded');
-					if ($('.easyzoom').length) {
-						var ezReady = setInterval(function(){
-							if ($('html').hasClass('desktop')) {
-								clearInterval(ezReady);
-								$.get(acendaBaseUrl+'/product/insert-easyzoom', function(data3) {
-									$('#product-images').append(data3);
-									IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
-										$('#product-images .active .easyzoom').easyZoom();
-									});
-								});
-							}
-						},1000);
-					}
-				});
-			});
+function cartIsReady() {
+	//console.log('cartIsReady')
+	if (typeof lazyload == "undefined") {
+		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/lazyload.min.js",function(){
+			lazyload()
+			if ($('.url-1-product .ztrig').length) {
+				productZooms()
+			}
 		});
+	} else {
+		lazyload()
+	}
+}
+
+function producZooms() {
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe.js",function() {
+		if ($('.easyzoom').length) {
+			var ezReady = setInterval(function(){
+				if ($('html').hasClass('desktop')) {
+					clearInterval(ezReady)
+					IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/easyzoom.js",function() {
+						$('.active .easyzoom').easyZoom()
+					});
+				}
+			},1000);
+		}
 	});
 }
 

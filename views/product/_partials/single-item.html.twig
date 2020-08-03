@@ -34,7 +34,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space">
 								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{varimg.retina}}" tabindex="-1">{% endif %}
-									<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
 							</div>{% if not app.request.isAjaxRequest() %}</div>{% endif %}</div>
 						</div>
@@ -46,24 +46,24 @@
 						{% for varimg in varimgs %}
 							<div class="{% if loop.index > 5 %}d-none {% endif %}">
 								<div class="acaro"><div class="image-space">
-									<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="">
 								</div></div>
 							</div>
 						{% endfor %}
 						</div>
 					</div>
                     {% endif %}
-					<div class="silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
+					<div class="main-img-location silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
-							<img class="img-fluid isd" src="{{varimg.standard}}" width="600" height="600" alt="">
+							<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="">
 						</div>
 					{% endfor %}
 					</div></div>
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space">
-                            <img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
+                            <img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -78,12 +78,12 @@
 			</div></div>
 			{% endif %}
 
-			<div id="image-main">
+			<div class="main-img-location main-img-img" id="image-main">
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-fluid d-none" src="{{prodimg.standard|default(app.url_asset ~ '/assets/images/product/image-450x450.gif')}}" data-image-zoom="" width="450" height="450" alt="">
+						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{prodimg.standard|default(app.url_asset ~ '/assets/images/product/image-450x450.gif')}}" data-image-zoom="" width="450" height="450" alt="">
 					</span>
 				</div>
 			</div>
