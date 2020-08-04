@@ -368,7 +368,7 @@ function cartIsReady() {
 	}
 }
 
-function producZooms() {
+function productZooms() {
 	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/photoswipe.js",function() {
 		if ($('.easyzoom').length) {
 			var ezReady = setInterval(function(){
