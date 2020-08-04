@@ -165,6 +165,14 @@ $('body').on('keydown','.add-access a:last',function(e){
 	}
 })
 
+$(document).click(function(e) {
+	if (window.innerWidth > 991.98) {
+		if(!$(e.target).closest('.add-access').length) {
+			addAccessHide($('.add-access .dropdown'))
+		}
+	}
+})
+
 $('.add-access .dropdown-menu').on('show.bs.collapse', function () {
 	$(this).parents('li').addClass('show')
 })
@@ -197,22 +205,6 @@ $('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
 	}
 });
 
-// https://github.com/twbs/bootstrap/issues/14040
-// TODO: Add any custom classes with 'position: fixed' to the selector below
-var fixedCls = '.navbar-fixed-top,.navbar-fixed-bottom,.mobile.yta-open';
-var oldSSB = $.fn.modal.Constructor.prototype.setScrollbar;
-$.fn.modal.Constructor.prototype.setScrollbar = function () {
-    oldSSB.apply(this);
-    if (this.bodyIsOverflowing && this.scrollbarWidth)
-        $(fixedCls).css('padding-right', this.scrollbarWidth);
-}
-
-var oldRSB = $.fn.modal.Constructor.prototype.resetScrollbar;
-$.fn.modal.Constructor.prototype.resetScrollbar = function () {
-	oldRSB.apply(this);
-	$(fixedCls).css('padding-right','');
-}
-
 $('html').on("click", ".ttc", function() {
 	if ($(this).attr('href')) {
 		var ttc = $(this).attr('href');
@@ -224,12 +216,16 @@ $('html').on("click", ".ttc", function() {
 	}
 });
 
+function detectScroll() {
+	if ($(window).scrollTop() > 1) {
+		$('html').addClass('scrolled')
+	} else {
+		$('html').removeClass('scrolled')
+	}
+}
+detectScroll()
 $(window).scroll(function () {
-    if ($(window).scrollTop() > 1) {
-        $('html').addClass('scrolled');
-    } else {
-        $('html').removeClass('scrolled');
-    }
+	detectScroll()
 });
 
 
