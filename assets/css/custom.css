@@ -5,6 +5,7 @@ body {font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;}
 a {}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 
+.pad-fixed-top body {padding-top:114px}
 .toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
 
 .header .omm {position:absolute; top:0; left:0;}
@@ -49,8 +50,32 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 }
 
 @media (min-width:992px) {
+	.pad-fixed-top body {padding-top:156px}
 	.toolbar {height:108px; padding-top:30px; padding-bottom:30px}
 	.header .search {top:0; right:118px; left:50%}
 	.header .logo {top:-6px; left:0; width:240px; margin-left:0}
 	.header .logo .image-space {padding-top:60px}
+}
+
+@media (max-width: 991.98px) {
+	.header .navbar-nav .nav-link.flex-grow-1 {/*overflow:hidden; text-overflow:ellipsis; max-width:calc(100% - 74px)*/}
+	.offcanvas-collapse {
+		position: fixed;
+		z-index: 2;
+		top: 114px;
+		bottom: 0;
+		left: 100%;
+		width: 100%;
+		height:auto;
+		overflow-y: auto;
+		visibility: hidden;
+		transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+		transition: transform .3s ease-in-out, visibility .3s ease-in-out;
+		transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+	}
+	.offcanvas-collapse.show {
+		visibility: visible;
+		-webkit-transform: translateX(-100%);
+		transform: translateX(-100%);
+	}
 }

@@ -1,5 +1,3 @@
-//console.log('qc v56');
-
 var cartIsReadyYet = 0;
 var qcrecalc = 1;
 var qcwearego = 0;
@@ -35,8 +33,6 @@ $('.dropdown-qc').on('show.bs.dropdown', function () {
 
 
 $('.dropdown-qc').on('hidden.bs.dropdown', function () {
-    //console.log('qc hidden, but not remove ready');
-    //$('.dropdown-qc').removeClass('qc-ready');
     resetErrors();
 });
 
@@ -236,7 +232,6 @@ function ajaxCart(data, r) {
                 cloned.find('.product-quantity').html(items[i].quantity);
             }
 
-            //Error management
             resetErrors();
 
             Object.keys(result).forEach(function(id) {
@@ -268,10 +263,8 @@ function ajaxCart(data, r) {
         qcrecalc = 0;
 		pushdL = 0;
         //
-        //
         $('button[value=cart]').each(function() {
             if ($(this).hasClass('virg')) {
-                //console.log('virg check 268b')
                 $(this).removeClass('virg');
                 $(this).removeClass('wait');
                 // only enable the cart button if it wasn't disabled due to lack of Stock/Price

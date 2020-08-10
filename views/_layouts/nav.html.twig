@@ -1,8 +1,15 @@
 {% spaceless %}
+{% if config.params['mobile_menu_format'] == "mff-fo" %}
+<nav class="bg-dark offcanvas-collapse d-lg-block" id="navbar-category">
+	<div class="container">
+		<div class="navbar navbar-expand-lg p-0">
+			<div class="navbar-collapse">
+{% else %}
 <nav class="bg-dark">
 	<div class="container">
 		<div class="navbar navbar-expand-lg p-0">
 			<div class="collapse navbar-collapse" id="navbar-category">
+{% endif %}
 				<ul class="navbar-nav add-access py-2 py-md-3 py-lg-0">
 				{% for main_category,items in category_all %}
 					{% if items.limb|length %}
