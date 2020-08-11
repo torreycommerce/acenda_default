@@ -37,7 +37,23 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ base.breadcrumbs( { (content.title) : ''} ) }}
+	{% set contents = app.request.path|split('/') %}
+	{% set con_crumbs = [] %}
+	{% for c in contents %}
+		{% set con_title = c|replace('-',' ')|title %}
+		{% if loop.last %}
+			{% set con_crumbs = con_crumbs|merge({(content.title):''})%}
+		{% else %}
+			{% set con_link = con_link ~ '/' ~ c %}
+			{% for con in content_all %}
+				{% if con.slug == con_link|replace({'/':''}) %}
+					{% set con_title = con.title %}
+				{% endif %}
+			{% endfor %}
+			{% set con_crumbs = con_crumbs|merge({(con_title):('/content' ~ con_link)})%}
+		{% endif %}
+	{% endfor %}
+	{{ base.breadcrumbs(con_crumbs) }}
 {% endblock %}
 
 {% block page_title %}
