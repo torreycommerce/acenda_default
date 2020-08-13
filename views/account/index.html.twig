@@ -128,7 +128,7 @@ set in the array in /account/_macros/base.html.twig
 					{% spaceless %}
 					<div class="pricing mb-3">
 						<div class="price{{priceclass}}">
-							{{ prod.currency(shownprice|number_format(2)) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}
+							{{ prod.currency(shownprice|number_format(2)) }}{% if usespecial %}<span class="special bg-danger text-white">Lower Price in Cart</span>{% endif %}
 						</div>
 					</div>
 					{% endspaceless %}

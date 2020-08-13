@@ -37,8 +37,7 @@ h3.brand-product {min-height:2.375em;}
 .prodpage .price {font-size:1.5rem;}
 .totals-total {font-size:1.25rem;}
 .pricing .price-special, .pricing .price-compare, .pricing .regular, .price-discount {text-decoration:line-through;}
-.pricing .special {display:inline-block; margin:0 0 0 .375rem; padding:.125rem .375rem; color:#fff; font-size:.625rem; vertical-align:middle; background:#f55; border-radius:.25rem;}
-.pricing .percent {color:#d00;}
+.pricing .special {display:inline-block; margin:0 0 0 .375rem; padding:.125rem .375rem; font-size:.75rem; vertical-align:middle; border-radius:.25rem}
 
 h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 

@@ -276,7 +276,7 @@
 							{{ prod.currency(price|number_format(2)) }}
 						</div>
 						{% if product.compare_price is not empty and product.compare_price > product.price %}
-						<div class="fsd1 percent">
+						<div class="fsd1 percent text-danger">
 							{{ prod.saveprice((product.save_price * item.quantity)|number_format(2)) }}
 						</div>
 						{% endif %}

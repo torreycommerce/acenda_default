@@ -67,7 +67,7 @@
                     {% set shownprice = variant.price %}
                 {% endif %}
 				<div class="pricing mb-3">
-					<div class="price{{priceclass}}">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
+					<div class="price{{priceclass}}">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special bg-danger text-white">Lower Price in Cart</span>{% endif %}</div>
 				</div>
 				
 				<div class="fsd1 qty-wanted mb-3">

@@ -121,7 +121,7 @@
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/product.css" />
+{% if config.params['show-quickview'] !== '1' %}<link rel="stylesheet" type="text/css" href="{{app.url_asset}}/assets/css/theme/product.css" />{% endif %}
 {% endblock %}
 
 {% block acenda %}

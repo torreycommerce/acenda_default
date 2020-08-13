@@ -179,12 +179,12 @@
 		    {% endif %}
 			{% if prices.price|first > 0 %}
 			<div class="pricing g mb-4">
-				<div class="mb-2 price{{priceclass}} price-range">{{ prod.price(pricearray) }}{% if priceclass is not empty %}{#<span class="special">Lower Price in Cart</span>#}{% endif %}</div>
+				<div class="mb-2 price{{priceclass}} price-range">{{ prod.price(pricearray) }}{% if priceclass is not empty %}{#<span class="special bg-danger text-white">Lower Price in Cart</span>#}{% endif %}</div>
     			{% if bestComp > 0 %}
     			{% spaceless %}
     			<ul class="list-inline">
     				<li class="price-compare">{{ prod.cprice(bestComp) }}</li>
-    				<li class="percent">{{ prod.saveprice(bestSave) }}{{ prod.savepercent(bestSaveP) }}</li>
+    				<li class="percent text-danger">{{ prod.saveprice(bestSave) }}{{ prod.savepercent(bestSaveP) }}</li>
     			</ul>
     			{% endspaceless %}
     			{% endif %}
@@ -243,11 +243,11 @@
 								<ul class="list-inline">
 									<li class="price-compare">{{ prod.currency(bundle.raw_price|number_format(2)) }}</li>
 									{% if bundle.discount_type == 'dollar'%}
-									<li class="percent">{{ prod.saveprice(bundle.discount_value) }}</li>
+									<li class="percent text-danger">{{ prod.saveprice(bundle.discount_value) }}</li>
 									{% elseif bundle.discount_type == 'percentage' %}
-									<li class="percent">{{ prod.saveprice(bundle.discount_value) }}</li>
+									<li class="percent text-danger">{{ prod.saveprice(bundle.discount_value) }}</li>
 									{% elseif bundle.discount_type == 'fixed' %}
-									<li class="percent">{{ prod.saveprice(bundle.price - bundle.raw_price) }}</li>
+									<li class="percent text-danger">{{ prod.saveprice(bundle.price - bundle.raw_price) }}</li>
 									{% endif %}
 								</ul>
 								{% endspaceless %}
@@ -412,13 +412,13 @@
 						{% endif %}
 						{% spaceless %}
 							<div class="pricing g">
-								<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
+								<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special bg-danger text-white">Lower Price in Cart</span>{% endif %}</div>
 						
 						{% if needprices > 0 %}
 							{% if (vind.compare_price - vind.price) > 1 %}
-								<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
+								<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent text-danger">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
 							{% else %}
-								<ul class="list-inline"><li class="price-compare"><br></li><li class="percent"><br></li></ul>
+								<ul class="list-inline"><li class="price-compare"><br></li><li class="percent text-danger"><br></li></ul>
 							{% endif %}
 						{% endif %}
 							</div>

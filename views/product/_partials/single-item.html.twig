@@ -180,13 +180,13 @@
         		    {% endif %}
         		    {% spaceless %}
     					<div class="pricing g">
-    						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special">Lower Price in Cart</span>{% endif %}</div>
+    						<div class="price{{priceclass}} mb-2">{{ prod.currency(shownprice|number_format(2),1) }}{% if usespecial %}<span class="special bg-danger text-white">Lower Price in Cart</span>{% endif %}</div>
 
     				{% if needprices > 0 %}
     					{% if (vind.compare_price - vind.price) > 1 %}
-    						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
+    						<ul class="list-inline"><li class="price-compare">{{ prod.currency(vind.compare_price|number_format(2)) }}</li><li class="percent text-danger">{{ prod.saveprice(shownsaveprice|number_format(2)) }}{{ prod.savepercent(shownsavepercent) }}</li></ul>
     					{% else %}
-    						<ul class="list-inline"><li class="price-compare"><br></li><li class="percent"><br></li></ul>
+    						<ul class="list-inline"><li class="price-compare"><br></li><li class="percent text-danger"><br></li></ul>
     					{% endif %}
     				{% endif %}
     					</div>
