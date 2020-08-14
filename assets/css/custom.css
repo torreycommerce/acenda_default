@@ -20,10 +20,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 .header .item-count {position:absolute; top:0; right:0; height:1.25em; padding-left:1px; font-size:.75rem; line-height:1.1em; background:#fff; border:1px solid rgba(0,0,0,.25); border-radius:100%; opacity:0; visibility:hidden; transition:all 300ms ease;}
 .header .item-count.ready {opacity:1; visibility:visible;}
 
-.header .navbar-nav .nav-link {padding:.59375rem 1.1875rem}
-.header .navbar-nav li a {white-space:nowrap;}
+.header .navbar-collapse {width:100%}
+.header .navbar-nav li a {white-space:nowrap}
+.header .navbar-nav .nav-link {padding:.59375rem 1.1875rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .header .navbar-nav .nav-link:focus, .header .navbar-nav .nav-link:hover, .header .navbar-nav .show .nav-link {color:#fff; background:#17181a}
-.header .navbar-nav .dropdown-toggle-split {width:48px}
+.header .navbar-nav .dropdown-toggle-split {position:absolute; z-index:2; top:0; right:0; width:48px; height:100%}
 .header .navbar-nav .dropdown-menu {min-width:100%; margin-top:0; padding:1.25rem; border-top:none; border-top-right-radius:0; border-top-left-radius:0}
 .header .navbar-nav .dropdown-submenu {margin:.125rem 0 0 .75rem; font-size:.875rem}
 .header .navbar-nav .dropdown-menu.collapsing {transition:height 0s ease}
@@ -58,7 +59,6 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 }
 
 @media (max-width: 991.98px) {
-	.header .navbar-nav .nav-link-category {max-width:calc(100vw - 88px); overflow:hidden; text-overflow:ellipsis}
 	.offcanvas-collapse {
 		position: fixed;
 		z-index: 2;
@@ -68,14 +68,10 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 		width: 100%;
 		height:auto;
 		overflow-y: auto;
-		visibility: hidden;
-		transition: visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
-		transition: transform .3s ease-in-out, visibility .3s ease-in-out;
-		transition: transform .3s ease-in-out, visibility .3s ease-in-out, -webkit-transform .3s ease-in-out;
+		transition: transform .2s ease-in-out;
 	}
 	.offcanvas-collapse.show {
-		visibility: visible;
-		-webkit-transform: translateX(-100%);
 		transform: translateX(-100%);
 	}
+	.header .navbar-nav .nav-link-category {padding-right:60px}
 }

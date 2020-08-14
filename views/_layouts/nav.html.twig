@@ -14,8 +14,8 @@
 				{% for main_category,items in category_all %}
 					{% if items.limb|length %}
 						<li class="navcat-{{items.id}} dropdown js-dropdown">
-							<div class="btn-group w-100">
-								<a class="flex-grow-1 btn btn-lg js-nav-link nav-link nav-link-category nav-link-{{items.id}} text-left text-white" href="{{app.url}}/category/{{items.slug}}">
+							<div class="pos-r w-100">
+								<a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left text-white" href="{{app.url}}/category/{{items.slug}}">
 									<span>{{main_category}}</span>
 								</a>
 								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2 text-white" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
