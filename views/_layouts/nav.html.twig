@@ -13,14 +13,14 @@
 				<ul class="navbar-nav add-access py-2 py-md-3 py-lg-0">
 				{% for main_category,items in category_all %}
 					{% if items.limb|length %}
-						<li class="navcat-{{items.id}} dropdown">
+						<li class="navcat-{{items.id}} dropdown js-dropdown">
 							<div class="btn-group w-100">
-								<a class="flex-grow-1 btn btn-lg nav-link nav-link-{{items.id}} text-left text-white" href="{{app.url}}/category/{{items.slug}}">
+								<a class="flex-grow-1 btn btn-lg js-nav-link nav-link nav-link-category nav-link-{{items.id}} text-left text-white" href="{{app.url}}/category/{{items.slug}}">
 									<span>{{main_category}}</span>
 								</a>
-								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-3 text-white" id="dropdown-toggle-{{items.id}}" data-target=".dropdown-menu-navcat-{{items.id}}" data-toggle="collapse" aria-controls="dropdown-menu-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
+								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2 text-white" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
 							</div>
-							<ul class="collapse dropdown-menu{% if loop.last %} dropdown-menu-right{% endif %} dropdown-menu-navcat-{{items.id}}" aria-labelled-by="dropdown-menu-navcat-{{items.id}}" id="dropdown-menu-navcat-{{items.id}}">
+							<ul class="collapse dropdown-menu{% if loop.last %} access-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="access-navcat-{{items.id}}" id="access-navcat-{{items.id}}">
 								{% for category,subitems in items.limb %}
 									{% if subitems.limb|length %}
 										  {{ base.subcategory(category,subitems) }}
@@ -31,7 +31,7 @@
 							</ul>
 						</li>
 					{% else %}
-						<li class="navcat-{{items.id}}"><a class="btn btn-lg nav-link text-left text-white" href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
+						<li class="navcat-{{items.id}}"><a class="btn btn-lg js-nav-link nav-link text-left text-white" href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
 					{% endif %}
 				{% endfor %}
 				</ul>

@@ -23,6 +23,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 .header .navbar-nav .nav-link {padding:.59375rem 1.1875rem}
 .header .navbar-nav li a {white-space:nowrap;}
 .header .navbar-nav .nav-link:focus, .header .navbar-nav .nav-link:hover, .header .navbar-nav .show .nav-link {color:#fff; background:#17181a}
+.header .navbar-nav .dropdown-toggle-split {width:48px}
 .header .navbar-nav .dropdown-menu {min-width:100%; margin-top:0; padding:1.25rem; border-top:none; border-top-right-radius:0; border-top-left-radius:0}
 .header .navbar-nav .dropdown-submenu {margin:.125rem 0 0 .75rem; font-size:.875rem}
 .header .navbar-nav .dropdown-menu.collapsing {transition:height 0s ease}
@@ -57,7 +58,7 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 }
 
 @media (max-width: 991.98px) {
-	.header .navbar-nav .nav-link.flex-grow-1 {/*overflow:hidden; text-overflow:ellipsis; max-width:calc(100% - 74px)*/}
+	.header .navbar-nav .nav-link-category {max-width:calc(100vw - 88px); overflow:hidden; text-overflow:ellipsis}
 	.offcanvas-collapse {
 		position: fixed;
 		z-index: 2;

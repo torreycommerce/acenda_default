@@ -1,6 +1,6 @@
 {% macro subcategory(main_category, items) %}
-<li class="navcat-{{items.id}} g">
-    <a href="{{app.url}}/category/{{items.slug}}" {#class="dropdown-toggle" data-toggle="dropdown"#}><span>{{main_category}}</span>{#<i class="fa fa-angle-down"></i>#}</a>
+<li class="navcat-{{items.id}}">
+    <a href="{{app.url}}/category/{{items.slug}}"><span>{{main_category}}</span></a>
     <ul class="dropdown-submenu list-unstyled">
         {% for category,subitems in items.limb %}
             {% if subitems.limb|length %}
