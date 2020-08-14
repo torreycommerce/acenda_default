@@ -142,11 +142,11 @@
 								<div class="dropdown-menu" aria-labelledby="emailStock-{{vind.id}}">
 									<div class="px-3 py-1">
 										<p class="fsd1">Get notified via email when this product is back in stock.</p>
-										<label class="sr-only" for="fcemailStock-{{vind.id}}">Email Address</label>
+										<label class="sr-only" for="fcemailStock-{{vind.id}}">Email Address <span class="sr-only">for {{vind.name}} notifications</span></label>
 										<div class="input-group">
-											<input type="email" placeholder="Email Address" class="form-control form-control-sm form-control-eis" id="fcemailStock-{{vind.id}}">
+											<input type="email" placeholder="Email Address" class="form-control form-control-eis" id="fcemailStock-{{vind.id}}">
 											<div class="input-group-append">
-												<button class="btn btn-sm btn-danger btn-eis" type="button"><i class="fas fa-envelope"><span class="sr-only">Email me about {{vind.name}}</span></i></button>
+												<button class="btn btn-danger btn-eis" type="button"><i class="fas fa-envelope"><span class="sr-only">Email me about {{vind.name}}</span></i></button>
 											</div>
 										</div>
 									</div>
