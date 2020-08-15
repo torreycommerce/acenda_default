@@ -120,7 +120,7 @@ a.image-space:focus {outline:5px auto -webkit-focus-ring-color; box-shadow:0 0 0
 .image-space span.isd {width:100%; overflow:visible!important; /* override product js */}
 .image-space .isd .img-fluid {width:auto; margin:0 auto;}
 .image-space .img-fluid.isd {width:auto; max-width:100%; height:auto; max-height:100%;}
-.category-grid .image-space .img-fluid.isd, .product-grid .image-space .img-fluid.isd, .slick-heroic-nav .image-space .img-fluid.isd, .image-space .img-fluid.img-fit {top:0; left:0; width:100%; height:100%; -moz-transform:none; -ms-transform:none; -o-transform:none; -webkit-transform:none; transform:none;}
+.category-grid .image-space .img-fluid.isd, .product-grid .image-space .img-fluid.isd, .image-space .img-fluid.img-fit {top:0; left:0; width:100%; height:100%; -moz-transform:none; -ms-transform:none; -o-transform:none; -webkit-transform:none; transform:none;}
 
 div:focus, section:focus {outline:none;}
 
