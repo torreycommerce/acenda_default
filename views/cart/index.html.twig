@@ -194,7 +194,9 @@
 		<div class="col-md-6">
 			<div class="media mb-0 mb-3 mb-md-0">
 				<div class="media-left">
-					<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+					<div class="image-space image-space-product">
+						<img class="img-fluid isd" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+					</div>
 				</div>
 				<div class="media-body g">
 				{% if product.brand is not empty %}

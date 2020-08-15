@@ -40,7 +40,9 @@
 		<div class="divide g mb-3 pb-3">
 			<div class="media">
 				<div class="media-left">
-					<img class="media-object" src="{{ products[item.variant_id].0.thumbnail }}" width="250" height="250" alt="">
+					<div class="image-space image-space-product">
+						<img class="img-fluid isd" src="{{ products[item.variant_id].0.thumbnail }}" width="250" height="250" alt="">
+					</div>
 				</div>
 				<div class="media-body">
 					<div class="row">

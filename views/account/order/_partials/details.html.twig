@@ -106,7 +106,9 @@
 				<div class="divide g pb-3 mb-3">
 				<div class="media">
 					<div class="media-left">
-						<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+						<div class="image-space image-space-product">
+							<img class="img-fluid isd" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+						</div>
 					</div>
 					<div class="media-body">
 						<a href="{{ app.url ~ product.url }}" target="_blank"><span class="product-name">{{ product.name }}</span></a>

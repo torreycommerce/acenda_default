@@ -173,14 +173,14 @@ function VariantsManager (product, img, isCollection) {
 			}
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
 					if ($('.url-1-product').length) {
-						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space image-space-product"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
 					} else {
-						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>';
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>';
 					}
 					if (images.length > 1) {
-				        htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
+				        htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
 					}
 					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
 				}
@@ -190,7 +190,7 @@ function VariantsManager (product, img, isCollection) {
 		//
 		if(!this.isCollection) {
 			if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-				vHTML = '<div class="active variation" data-vid="'+obj_variant.id+'"><div class="slick slick-heroic slick-heroic-go" id="slick-heroic-'+obj_variant.id+'">' + htmlHeroic + '</div><div class="ss-contain"><div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-'+obj_variant.id+'">' + htmlHeroicNav + '</div></div><div class="silent-gal" id="silent-gal-'+obj_variant.id+'" data-pswp-uid="'+obj_variant.id+'"><div class="image-space">' + htmlSilentGal + '</div></div></div>';
+				vHTML = '<div class="active variation" data-vid="'+obj_variant.id+'"><div class="slick slick-heroic slick-heroic-go" id="slick-heroic-'+obj_variant.id+'">' + htmlHeroic + '</div><div class="ss-contain"><div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-'+obj_variant.id+'">' + htmlHeroicNav + '</div></div><div class="silent-gal" id="silent-gal-'+obj_variant.id+'" data-pswp-uid="'+obj_variant.id+'"><div class="image-space image-space-product">' + htmlSilentGal + '</div></div></div>';
 				$('#product-images .variations').append(vHTML);
 				$('#product-images .variation[data-vid='+obj_variant.id+']').siblings().removeClass('active');
 

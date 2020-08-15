@@ -114,7 +114,9 @@ set in the array in /account/_macros/base.html.twig
 			<div class="divide fsd1 g pb-3 mb-3">
 			<div class="media media-cart">
 				<div class="media-left">
-					<img class="media-object" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="250" height="250" alt="">
+					<div class="image-space image-space-product">
+						<img class="img-fluid isd" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="250" height="250" alt="">
+					</div>
 				</div>
 				<div class="media-body g">
 					<a href="{{app.url}}/product/{{ item.variant.product.slug }}?variant={{item.variant.id}}"><div class="product-name">{{ item.variant.name }}</div></a>

@@ -110,7 +110,9 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 				<div class="divide pb-3 g mb-3">
 					<div class="media">
 						<div class="media-left">
-							<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+							<div class="image-space image-space-product">
+								<img class="img-fluid isd" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+							</div>
 						</div>
 						<div class="media-body">
 							<a href="{{ app.url ~ product.url }}"><span class="product-name">{{ product.name }}</span></a>

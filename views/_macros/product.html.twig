@@ -53,7 +53,7 @@
 			{% endif %}
 
 			<div class="max-250 mb-3">
-				<div class="image-space">
+				<div class="image-space image-space-product">
 					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid isd" {% if dataRot %}data-rot="{{dataRot}}"{% endif %}width="250" height="250" alt="">
 					<div class="badges">
 					{% for tag in product.tags %}
@@ -204,11 +204,11 @@
 			    {% endif %}
 			    {% if loop.index == maxBox and surBox != 0 %}
                     <div class="col-2 col-thin color-chip fsd1">
-                        <div class="image-space bg-light"><div class="isd">+{{surBox}} <span class="sr-only">more colors</span></div></div>
+                        <div class="image-space image-space-product bg-light"><div class="isd">+{{surBox}} <span class="sr-only">more colors</span></div></div>
                     </div>
 			    {% elseif loop.index <= maxBox %}
     				<div class="col-2 col-thin color-chip">
-    					<button class="btn blank image-space" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
+    					<button class="btn blank image-space image-space-product" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
     				</div>
     			{% endif %}
 			{% endfor %}

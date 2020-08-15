@@ -32,7 +32,7 @@
 					<div class="slick slick-heroic slick-heroic-go" id="slick-heroic-{{variation.id}}">
 					{% for varimg in varimgs %}
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
-							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space">
+							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space image-space-product">
 								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{varimg.retina}}" tabindex="-1">{% endif %}
 									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
@@ -45,7 +45,7 @@
 						<div class="slick slick-heroic-nav slick-heroic-nav-go" id="slick-heroic-nav-{{variation.id}}">
 						{% for varimg in varimgs %}
 							<div class="{% if loop.index > 5 %}d-none {% endif %}">
-								<div class="acaro"><div class="image-space">
+								<div class="acaro"><div class="image-space image-space-product">
 									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="">
 								</div></div>
 							</div>
@@ -53,7 +53,7 @@
 						</div>
 					</div>
                     {% endif %}
-					<div class="main-img-location silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space">
+					<div class="main-img-location silent-gal" id="silent-gal-{{variation.id}}" data-pswp-uid="{{variation.id}}"><div class="image-space image-space-product">
 					{% for varimg in varimgs %}
 						<div class="ztrig" id="ztrig-{{variation.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{varimg.retina}}" data-med-size="600x600">
 							<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="600" height="600" alt="">
@@ -62,7 +62,7 @@
 					</div></div>
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
-    					<div class="image-space">
+    					<div class="image-space image-space-product">
                             <img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
     				    </div>
     				</div>
@@ -72,7 +72,7 @@
 
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
-				<button class="btn blank image-space video" data-video-src="{{ product.videos[0] }}">
+				<button class="btn blank image-space image-space-product video" data-video-src="{{ product.videos[0] }}">
 					<img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</button>
 			</div></div>
@@ -224,7 +224,7 @@
 							{% if vsimgsrc is empty %}
 								{% set vsimgsrc = varimgs[0].standard %}
 							{% endif %}
-							<button class="btn blank image-space" type="button"><img class="img-fluid isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{v|e('html')}}"></button>
+							<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{v|e('html')}}"></button>
 						{% else %}
 							<button class="btn btn-default btn-{{vosize}}" type="button">{{v}}</button>
 						{% endif %}
