@@ -18,7 +18,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space image-space-product">
 								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{image.retina}}" tabindex="-1">{% endif %}
-									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
 							</div>{% if not app.request.isAjaxRequest() %}</div>{% endif %}</div>
 						</div>
@@ -31,7 +31,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space image-space-product">
 								<a target=_blank href="{{image.retina}}" tabindex="-1">
-									<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="{{product.name}} alternate img #{{loop.index}}">
 								</a>
 							</div></div></div>
 						</div>
@@ -69,14 +69,14 @@
 					<div class="main-img-location silent-gal" id="silent-gal-{{product.id}}" data-pswp-uid="{{product.id}}"><div class="image-space image-space-product">
 					{% for image in product.images %}
 						<div class="ztrig" id="ztrig-{{product.id}}-{{loop.index}}" data-size="1500x1500" data-href="{{image.retina}}" data-med-size="600x600">
-							<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="">
+							<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{image.standard}}" width="600" height="600" alt="">
 						</div>
 					{% endfor %}
 					</div></div>
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space image-space-product">
-                            <img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
+                            <img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="450" height="450" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -86,7 +86,7 @@
 			{% if product.videos is not empty %}
 			<div class="vari-video-scase"><div class="acaro">
 				<button class="btn blank image-space image-space-product video" data-video-src="{{ product.videos[0] }}">
-					<img class="img-fluid isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
+					<img class="img-fluid img-product isd" src="{{ app.url_asset }}/assets/images/spacer.gif" width="250" height="250" alt="Play a video about this product"><span class="isd text-center"><i class="video-icon fa fa-play-circle"></i></span>
 				</button>
 			</div></div>
 			{% endif %}
@@ -226,7 +226,7 @@
 					<div class="media media-cart">
 						<div class="media-left variant-selected-image">
 							<div class="image-space image-space-product">
-								<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
+								<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
 							</div>
 						</div>
 
@@ -347,7 +347,7 @@
 		<div class="media media-cart">
 			<div class="media-left variant-selected-image" id="variant-selected-image-{{product.id}}">
 				<div class="image-space image-space-product">
-					<img class="img-fluid isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
+					<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="250" height="250" alt="">
 				</div>
 			</div>
 
@@ -461,7 +461,7 @@
 								{% if vsimgsrc is empty %}
 									{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
 								{% endif %}
-								<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{ product.name }} {{v|e('html')}}"></button>
+								<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid img-product isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="250" height="250" alt="{{ product.name }} {{v|e('html')}}"></button>
 							{% else %}
 								<button class="btn btn-default btn-{{vosize}}" type="button">{{v}}</button>
 							{% endif %}

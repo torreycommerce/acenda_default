@@ -219,14 +219,14 @@ function ajaxCart(data, r) {
             var product_id = items[i].variant.id;
 
             if (!first_product_added) {
-                $('.ajaxcart-product .product-image').attr('src', product_thumbnail);
+                $('.ajaxcart-product .img-product').attr('src', product_thumbnail);
                 $('.ajaxcart-product .product-name').html(product_name);
                 $('.ajaxcart-product .price .val').html(product_price);
                 $('.ajaxcart-product .product-quantity').html(items[i].quantity);
                 first_product_added = true;
             } else {
                 var cloned = $('.ajaxcart-product:last').clone().appendTo('.ajaxcart-products');
-                cloned.find('.product-image').attr('src', product_thumbnail);
+                cloned.find('.img-product').attr('src', product_thumbnail);
                 cloned.find('.product-name').html(product_name);
                 cloned.find('.price .val').html(product_price);
                 cloned.find('.product-quantity').html(items[i].quantity);
