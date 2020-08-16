@@ -14,7 +14,7 @@ var acendaCheckoutStep = '{{ step }}';
 		<div class="media">
 			{# Begin product image #}
 			<div class="media-left">
-				<img class="media-object" src="{{ product.thumbnail }}" width="250" height="250" alt="">
+				<img class="media-object" src="{{ product.thumbnail }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 			</div>
 			{# End product image #}
 			{% set subtotal = subtotal + product.price * item.quantity %}

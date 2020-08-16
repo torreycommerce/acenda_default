@@ -4,6 +4,12 @@
 {% set category_all = api.get('/category/sapling') %}
 {% set cfile = "https://cdn.acenda.com/swift/v1/" ~ app.site ~ "/images/bucket/files/" %}
 {% set config = api.get('/config') %}
+{% set imgThumbnailWidth = config.components.imageManager.types.thumbnail.width is not empty ? config.components.imageManager.types.thumbnail.width : config.components.imageManager.types.thumbnail.maxWidth is not empty ? config.components.imageManager.types.thumbnail.maxWidth : "250" %}
+{% set imgThumbnailHeight = config.components.imageManager.types.thumbnail.height is not empty ? config.components.imageManager.types.thumbnail.height : config.components.imageManager.types.thumbnail.maxHeight is not empty ? config.components.imageManager.types.thumbnail.maxHeight : "250" %}
+{% set imgStandardWidth = config.components.imageManager.types.standard.width is not empty ? config.components.imageManager.types.standard.width : config.components.imageManager.types.standard.maxWidth is not empty ? config.components.imageManager.types.standard.maxWidth : "450" %}
+{% set imgStandardHeight = config.components.imageManager.types.standard.height is not empty ? config.components.imageManager.types.standard.height : config.components.imageManager.types.standard.maxHeight is not empty ? config.components.imageManager.types.standard.maxHeight : "450" %}
+{% set imgRetinaWidth = config.components.imageManager.types.retina.width is not empty ? config.components.imageManager.types.retina.width : config.components.imageManager.types.retina.maxWidth is not empty ? config.components.imageManager.types.retina.maxWidth : "1500" %}
+{% set imgRetinaHeight = config.components.imageManager.types.retina.height is not empty ? config.components.imageManager.types.retina.height : config.components.imageManager.types.retina.maxHeight is not empty ? config.components.imageManager.types.retina.maxHeight : "1500" %}
 {% set content_all = api.get('/content',{
 	'query':{
 		'publish':'1'
@@ -96,6 +102,7 @@ var acendaBaseUrl = '{{app.url}}';
 var acendaBaseThemeUrl = '{{app.url_asset}}';
 var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;
 var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
+var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",sW:"{{imgStandardWidth}}",sH:"{{imgStandardHeight}}",rW:"{{imgRetinaWidth}}",rH:"{{imgRetinaHeight}}"};
 </script>
 <script>
 {% block acenda %}

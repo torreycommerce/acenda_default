@@ -54,7 +54,7 @@
 
 			<div class="max-250 mb-3">
 				<div class="image-space image-space-product">
-					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid img-product isd" {% if dataRot %}data-rot="{{dataRot}}"{% endif %}width="250" height="250" alt="">
+					<img id="product-image-{{product.id}}" src="{{ image_url }}" class="img-fluid img-product isd" {% if dataRot %}data-rot="{{dataRot}}"{% endif %}width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 					<div class="badges">
 					{% for tag in product.tags %}
                         {% set tagd = tag|title|replace({'-':' '}) %}
@@ -208,7 +208,7 @@
                     </div>
 			    {% elseif loop.index <= maxBox %}
     				<div class="col-2 col-thin color-chip">
-    					<button class="btn blank image-space image-space-product" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid img-product isd" width="250" height="250" alt="See {{product.name}} in {{child.color}}"></button>
+    					<button class="btn blank image-space image-space-product" data-image-swap="product-image-{{product.id}}" data-image-swap-src="{{ image_urlB }}"><img src="{{ image_url }}" class="img-fluid img-product isd" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="See {{product.name}} in {{child.color}}"></button>
     				</div>
     			{% endif %}
 			{% endfor %}

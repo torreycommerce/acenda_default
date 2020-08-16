@@ -106,7 +106,7 @@
 									{% spaceless %}
 									<div class="media">
 										<div class="media-left">
-											<img class="media-object" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif{#<%= variant.get('thumbnail') %>#}" width="250" height="250" alt="">
+											<img class="media-object" src="{{ app.url_asset }}/assets/images/product/image-250x250.gif{#<%= variant.get('thumbnail') %>#}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 										</div>
 										<div class="media-body">
 											<div class="name product-name">

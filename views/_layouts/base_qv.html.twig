@@ -1,9 +1,18 @@
 {%- import "/_macros/base.html.twig" as base -%}
 {%- import "/_macros/product.html.twig" as prod -%}
 {% set config = api.get('/config') %}
-
+{% set imgThumbnailWidth = config.components.imageManager.types.thumbnail.width is not empty ? config.components.imageManager.types.thumbnail.width : config.components.imageManager.types.thumbnail.maxWidth is not empty ? config.components.imageManager.types.thumbnail.maxWidth : "250" %}
+{% set imgThumbnailHeight = config.components.imageManager.types.thumbnail.height is not empty ? config.components.imageManager.types.thumbnail.height : config.components.imageManager.types.thumbnail.maxHeight is not empty ? config.components.imageManager.types.thumbnail.maxHeight : "250" %}
+{% set imgStandardWidth = config.components.imageManager.types.standard.width is not empty ? config.components.imageManager.types.standard.width : config.components.imageManager.types.standard.maxWidth is not empty ? config.components.imageManager.types.standard.maxWidth : "450" %}
+{% set imgStandardHeight = config.components.imageManager.types.standard.height is not empty ? config.components.imageManager.types.standard.height : config.components.imageManager.types.standard.maxHeight is not empty ? config.components.imageManager.types.standard.maxHeight : "450" %}
+{% set imgRetinaWidth = config.components.imageManager.types.retina.width is not empty ? config.components.imageManager.types.retina.width : config.components.imageManager.types.retina.maxWidth is not empty ? config.components.imageManager.types.retina.maxWidth : "1500" %}
+{% set imgRetinaHeight = config.components.imageManager.types.retina.height is not empty ? config.components.imageManager.types.retina.height : config.components.imageManager.types.retina.maxHeight is not empty ? config.components.imageManager.types.retina.maxHeight : "1500" %}
 {% block acenda %}{% endblock %}
 
 {% block content %}{% endblock %}
 
-{% block js %}{% endblock %}
+{% block js %}
+<script>
+var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",sW:"{{imgStandardWidth}}",sH:"{{imgStandardHeight}}",rW:"{{imgRetinaWidth}}",rH:"{{imgRetinaHeight}}"};
+</script>
+{% endblock %}

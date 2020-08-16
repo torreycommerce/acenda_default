@@ -173,16 +173,16 @@ function VariantsManager (product, img, isCollection) {
 			}
 			if(!this.isCollection) {
 				if (!$('#product-images .variation[data-vid='+obj_variant.id+']').length) {
-					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="450" height="450" alt=""></div></div></div>';
+					vHTML += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="'+acendaImgManager.sW+'" height="'+acendaImgManager.sH+'" alt=""></div></div></div>';
 					if ($('.url-1-product').length) {
-						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space image-space-product"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></a></div></div></div></div>';
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="easyzoom easyzoom--overlay"><div class="image-space image-space-product"><a target=_blank href="'+retina_img_url+'" tabindex="-1"><img class="img-fluid isd" src="'+standard_img_url+'" width="'+acendaImgManager.sW+'" height="'+acendaImgManager.sH+'" alt=""></a></div></div></div></div>';
 					} else {
-						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>';
+						htmlHeroic += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="'+acendaImgManager.sW+'" height="'+acendaImgManager.sH+'" alt=""></div></div></div>';
 					}
 					if (images.length > 1) {
-				        htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div></div></div>'
+				        htmlHeroicNav += '<div class="d-none"><div class="acaro"><div class="image-space image-space-product"><img class="img-fluid isd" src="'+standard_img_url+'" width="'+acendaImgManager.sW+'" height="'+acendaImgManager.sH+'" alt=""></div></div></div>'
 					}
-					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="1500x1500" data-href="'+retina_img_url+'" data-med-size="600x600"><img class="img-fluid isd" src="'+standard_img_url+'" width="600" height="600" alt=""></div>';
+					htmlSilentGal += '<div class="ztrig" id="ztrig-'+obj_variant.id+'-'+i+'" data-size="'+acendaImgManager.rW+'x'+acendaImgManager.rH+'" data-href="'+retina_img_url+'" data-size="'+acendaImgManager.sW+'x'+acendaImgManager.sH+'"><img class="img-fluid isd" src="'+standard_img_url+'" width="'+acendaImgManager.sW+'" height="'+acendaImgManager.sH+'" alt=""></div>';
 				}
 			}
 			i++;

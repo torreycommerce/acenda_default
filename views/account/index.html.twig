@@ -115,7 +115,7 @@ set in the array in /account/_macros/base.html.twig
 			<div class="media media-cart">
 				<div class="media-left">
 					<div class="image-space image-space-product">
-						<img class="img-fluid img-product isd" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="250" height="250" alt="">
+						<img class="img-fluid img-product isd" src="{{ item.variant.thumbnail}}" id="product-image-{{ item.variant.id }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 					</div>
 				</div>
 				<div class="media-body g">
