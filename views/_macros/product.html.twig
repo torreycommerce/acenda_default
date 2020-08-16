@@ -138,7 +138,7 @@
 		{# There is no point in having a carousel without an image, so it is moved inside here #}
 		{% if 'carousel' in options %}
 			{# Begin image carousel insert #}
-			{{ this.carousel(config,product) }}
+			{{ this.carousel(config,imgThumbnailWidth,imgThumbnailHeight,product) }}
 			{# End image carousel insert #}
 		{% endif %}
 
@@ -160,7 +160,7 @@
 	{% endspaceless %}
 {% endmacro %}
 
-{% macro carousel(config,product) %}
+{% macro carousel(config,imgThumbnailWidth,imgThumbnailHeight,product) %}
 {% spaceless %}
 {% if config.params['show-catcolorchips'] is not defined or config.params['show-catcolorchips'] == '1' %}
 {% if product.attributes.color|length > 1 %}
