@@ -1,4 +1,4 @@
-{% macro gridproduct(config, product, options=['carousel','image','details'],pPage) %}
+{% macro gridproduct(config,imgThumbnailWidth,imgThumbnailHeight, product, options=['carousel','image','details'],pPage) %}
 	{% spaceless %}
 	{% set product =  product|merge({'variant':product.product|values_in('variant')}) %}
 	{% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}

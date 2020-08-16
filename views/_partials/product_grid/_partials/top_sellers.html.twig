@@ -19,7 +19,7 @@
 			{% set dArray = app.request.url|split('/') %}
 			{# #}
 			<div class="col-6 col-md-3 mb-5">
-				{{ prod.gridproduct(config,product, ['image','details'],(dArray[0] == "product") ? '1' : '0') }}
+				{{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product, ['image','details'],(dArray[0] == "product") ? '1' : '0') }}
 			</div>
 		{% endfor %}
 	</div>
