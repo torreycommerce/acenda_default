@@ -26,7 +26,7 @@ function vimeoUrlToId (url) {
     }
 }
 
-function initVideoPlayer (){
+function initVideoPlayer(b){
     $("[data-video-src]").each(function() {
         var url = $(this).attr("data-video-src");
         var el = $(this);
@@ -34,25 +34,26 @@ function initVideoPlayer (){
         var thumbnail = '';
 
         if(id = youtubeUrlToId(url)) {
-
-            window.onYouTubePlayerAPIReady = function() {
-                player = new YT.Player('main-product-video', {
-                    width: '100%',
-                    height: '300',
-                    playerVars: { 'rel': 0, 'showinfo': 0 }
-                });
-            };
+			if(b) {
+				player = new YT.Player('main-product-video', {
+					width: '100%',
+					height: '300',
+					playerVars: { 'rel': 0, 'showinfo': 0 }
+				});
+			} else {
+				window.onYouTubePlayerAPIReady = function() {
+					player = new YT.Player('main-product-video', {
+						width: '100%',
+						height: '300',
+						playerVars: { 'rel': 0, 'showinfo': 0 }
+					});
+				};
+			}
             el.find('img').first().attr('src', '//img.youtube.com/vi/'+id+'/default.jpg');
             el.click(function() {
                     $('#image-main').addClass('active');
                     //
                     player.loadVideoById(id);
-                    $("[data-image-swap]").click(function() {
-                        $('#image-main').removeClass('active');
-                        //
-                        player.stopVideo();
-
-                    });
             });
         }
         else if (id = vimeoUrlToId(url)) {
@@ -64,11 +65,6 @@ function initVideoPlayer (){
                     $('#image-main').addClass('active');
                     //
                     $('#main-product-video').html('<iframe src="//player.vimeo.com/video/'+id+'?autoplay=true" width="100%" height="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen autoplay></iframe>');
-                    $("[data-image-swap]").click(function() {
-                        $('#image-main').removeClass('active');
-                        //
-                        $('.main-product-video').html('');
-                    });
             });
         }
     });
@@ -80,8 +76,6 @@ function stopVideo(){
     if(player){
         player.stopVideo();
     }else{
-        $('#image-main').removeClass('active');
-        //
         $('.main-product-video').html('');
     }     
 }

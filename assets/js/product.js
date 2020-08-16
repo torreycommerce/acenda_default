@@ -589,16 +589,16 @@ function VariantsManager (product, img, isCollection) {
 		}
 		//
 		if ($('.video').length) {
-			$('.video').attr("data-video-src", $('.video').attr("data-video-src"));
-			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/video-player.js",function(){
-				IncludeJavaScript("https://www.youtube.com/iframe_api",function(){
-					//Set stop video event when clicking on a image of the carousel
-					$("[data-image-swap]").click(function() {
-						stopVideo();
+			if (typeof stopVideo == "undefined") {
+				//$('.video').attr("data-video-src", $('.video').attr("data-video-src"));
+				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/video-player.js",function(){
+					IncludeJavaScript("https://www.youtube.com/iframe_api",function(){
+						initVideoPlayer();
 					});
-					initVideoPlayer();
 				});
-			});
+			} else {
+				initVideoPlayer(1);
+			}
 		}
 	}
 }
