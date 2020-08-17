@@ -1,6 +1,5 @@
 {%- import "/_macros/base.html.twig" as base -%}
 {%- import "/_macros/product.html.twig" as prod -%}
-
 {% set category_all = api.get('/category/sapling') %}
 {% set cfile = "https://cdn.acenda.com/swift/v1/" ~ app.site ~ "/images/bucket/files/" %}
 {% set config = api.get('/config') %}
