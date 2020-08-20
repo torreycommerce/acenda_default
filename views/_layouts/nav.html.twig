@@ -20,7 +20,7 @@
 								</a>
 								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2 text-white" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
 							</div>
-							<ul class="collapse dropdown-menu{% if loop.last %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="access-navcat-{{items.id}}" id="access-navcat-{{items.id}}">
+							<ul class="collapse dropdown-menu{% if loop.last or (category_all|length > 6 and loop.index > (category_all|length / 2) ) %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="access-navcat-{{items.id}}" id="access-navcat-{{items.id}}">
 								{% for category,subitems in items.limb %}
 									{% if subitems.limb|length %}
 										  {{ base.subcategory(category,subitems) }}
