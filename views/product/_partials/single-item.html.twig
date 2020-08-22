@@ -34,7 +34,7 @@
 						<div class="{% if loop.index > 1 %}d-none {% endif %}">
 							<div class="acaro">{% if not app.request.isAjaxRequest() %}<div class="easyzoom easyzoom--overlay">{% endif %}<div class="image-space image-space-product">
 								{% if not app.request.isAjaxRequest() %}<a target=_blank href="{{varimg.retina}}" tabindex="-1">{% endif %}
-									<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="{{product.name}} alternate img #{{loop.index}}">
+									<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{varimg.standard}}" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="{{product.name|e('html')}} alternate img #{{loop.index}}">
 								{% if not app.request.isAjaxRequest() %}</a>{% endif %}
 							</div>{% if not app.request.isAjaxRequest() %}</div>{% endif %}</div>
 						</div>

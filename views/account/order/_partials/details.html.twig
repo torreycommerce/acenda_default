@@ -3,7 +3,7 @@
 {% if (app.request.post and app.request.post.return) %}
 	{% if (api.put('/orderreturn/' ~ app.request.post.return ~ '/cancel')) %}
 		<div class="alert alert-dismissible alert-block alert-success flash-note-success">
-			<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"><i class="sr-only">Close</i></i></button>
+			<button type="button" class="close" data-dismiss="alert"><i class="fa fa-times"><i class="sr-only">Close return alert</i></i></button>
 			Return successfully cancelled
 		</div>
 	{% endif %}
