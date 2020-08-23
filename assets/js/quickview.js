@@ -1,7 +1,7 @@
 $(document).on('click','.btn-qv', function() {
 	var QVrecalc = 0;
 	if (!$('.modal-qv').length) {
-		$('#content').append('<div class="modal modal-qv fade" tabindex="-1" role="dialog" aria-labelledby="'+$(this).attr('id')+'"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><div class="h3 modal-title">'+$(this).text()+'</div><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></div><div class="modal-body quick-view"></div></div></div></div>');
+		$('#content').append('<div class="modal modal-qv fade" tabindex="-1" role="dialog" aria-labelledby="'+$(this).attr('id')+'"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><div class="h3 modal-title">'+$(this).text()+'</div><button type="button" class="close" data-dismiss="modal" aria-label="Dismiss Quick View modal"><span aria-hidden="true">×</span></button></div><div class="modal-body quick-view"></div></div></div></div>');
 		QVrecalc = 1;
 	}
 	//
