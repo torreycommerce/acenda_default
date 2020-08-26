@@ -152,6 +152,7 @@
 			{% if fulfillments is not empty and fulfillments|length > 0 %}
 			<div class="divide mb-3">
 				{% for f in fulfillments %}
+				    {% if f.order_id == order.id %}
 					<p>
 						{{ f.date_created|date("d F, Y") }} at {{ f.date_created|date("H:i:s") }} a shipment left our warehouse
 						{% if f.tracking_numbers is not empty and f.tracking_numbers|length > 0 %}
@@ -164,6 +165,7 @@
 						{% else %}
 							without a tracking number.</p>
 						{% endif %}
+				    {% endif %}
 				{% endfor %}
 			</div>
 			{% endif %}
