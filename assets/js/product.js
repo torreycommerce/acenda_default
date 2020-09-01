@@ -616,7 +616,7 @@ function prodExtras() {
 		var email = $(this).parents('.variation').find('.form-control-eis').val();
 		if (!email || !validateEmailAddress(email)) {
 			$(this).parents('.variation').find('.form-control-eis').addClass('is-invalid');
-			$('body').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Please enter a valid email address.</div>');
+			$('body').append('<div class="flash-note affix alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Stock Notification Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close stock notification error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">Please enter a valid email address.</div></div>');
 			return false;
 		}
 		$(this).prop('disabled', true).addClass('wait'); //setting disabled overrides the data-dismiss attribute, use js below.
@@ -633,7 +633,7 @@ function prodExtras() {
 			variant_id: variant_id
 		}).done(function(response) {
 			$('.btn-eis').prop('disabled', false).removeClass('wait');
-			$('body').append('<div class="flash-note affix alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>Thank you for submitting your email. You will be notified when the product variant is in stock.</div>');
+			$('body').append('<div class="flash-note affix alert alert-success"><div class="modal-header"><div class="h3 modal-title">Stock Notification</div><a href="#" class="close" data-dismiss="alert" aria-label="close stock notification alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">Thank you for submitting your email. You will be notified when the product variant is in stock.</div></div>');
 		}).fail(function(response) {
 			var error = 'undefined error';
 			$('.btn-eis').prop('disabled', false).removeClass('wait');
@@ -642,7 +642,7 @@ function prodExtras() {
 				error = response.responseJSON.error.email[0];
 			}
 			$('.variation[data-vid='+variant_id+']').find('.form-control-eis').addClass('is-invalid');
-			$('body').append('<div class="flash-note affix alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' + error + '</div>');
+			$('body').append('<div class="flash-note affix alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Stock Notification Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close stock notification error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">' + error + '</div></div>');
 		});
 	}
 

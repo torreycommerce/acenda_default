@@ -1,4 +1,3 @@
-
 jQuery(function(){
     $.getJSON(acendaBaseUrl+'/flashnotification/getjson', function(data) {
       if(data.length) {
@@ -22,9 +21,10 @@ setCustomerNotification = function(type,message,id) {
   var btn = $("<button />",{
     'type':'button',
     'class':'close',
-    'data-dismiss':'alert'
+    'data-dismiss':'alert',
+	'aria-label':'close alert'
   });
-  btn.html('&times;');
+  btn.html('<span aria-hidden="true">&times;</span>');
   if(type == 'confirm') {
     notifier.addClass('flash-note-confirm');
     btn.attr('data-flashid',id);
@@ -36,8 +36,8 @@ setCustomerNotification = function(type,message,id) {
     });
   }
 
-  notifier.append(btn);
-  notifier.append(message);
+  notifier.append('<div class="modal-header"><div class="h3 modal-title">Attention!</div>'+btn+'</div>');
+  notifier.append('<div class="modal-body">'+message+'</div>');
   notifier.append(confirmBtn);
   $('.flash-note').last().append(notifier);
 
