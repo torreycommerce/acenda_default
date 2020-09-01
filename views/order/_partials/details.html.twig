@@ -2,7 +2,7 @@
 
 {% if (app.request.post and app.request.post.return) %}
 	{% if (api.put('/orderreturn/' ~ app.request.post.return ~ '/cancel?email=' ~ app.request.post.order.email ~ '&order_number=' ~ app.request.post.order.number)) %}
-		<div class="alert alert-dismissible alert-block alert-success flash-note-success">
+		<div class="flash-note alert alert-success">
 			<div class="modal-header">
 				<div class="h3 modal-title">Return Success</div>
 				<button type="button" class="close" data-dismiss="alert" aria-label="close return alert"><span aria-hidden="true">&times;</span></button>

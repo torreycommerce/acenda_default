@@ -42,13 +42,13 @@ if ( $('#Nolook').val() == "" ) {
 		if (typeof errortype === 'string' ) {
 			$('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_fail_' + errortype, function() {
 				if ($('.newsletter-response').is(':empty')) {
-					$('html').append('<div class="flash-note affix alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
+					$('html').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
 				}
 			});
 		}
 		else
 		{
-			$('html').append('<div class="flash-note affix alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
+			$('html').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
 		}
 	});
 }
