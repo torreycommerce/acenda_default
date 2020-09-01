@@ -14,7 +14,7 @@ setCustomerNotification = function(type,message,id) {
   var bs_class = type;
   if($.inArray(type, css_alert_types) == -1) bs_class = 'info';
   var notifier = $("<div />",{
-    'class':'alert alert-block alert-'+bs_class+' flash-note flash-note-'+type,
+    'class':'alert alert-'+bs_class+' flash-note flash-note-'+type,
     'style':'display:none;',
     'id':'flash-note-' + id
   });
