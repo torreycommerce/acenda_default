@@ -72,7 +72,7 @@ $(document).ready(function() {
 	//
 	if ($('#SignupInput').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){});
 	//
-	$('[data-tooltip]').tooltip();
+	$('[data-toggle="tooltip"]').tooltip()
 	//
 	$('a.btn[data-toggle=dropdown]').click(function () {
         if ($(this).attr('href')){

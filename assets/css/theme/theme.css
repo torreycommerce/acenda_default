@@ -189,7 +189,7 @@ div:focus, section:focus {outline:none;}
 /* acenda global */
 *[data-image-swap],*[data-image-zoom] {cursor:pointer;}
 
-.al-btn-sm {margin-bottom:0; padding:.125rem 0; font-size:1.125rem; line-height:1.5;}
+.al-btn-sm {margin-bottom:0; padding:.3125rem 0; font-size:1.125rem}
 
 .dropdown-menu-qc {width:280px}
 

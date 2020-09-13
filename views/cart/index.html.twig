@@ -304,7 +304,7 @@
 		<div class="card"><div class="card-body">
 			<div class="divide fsd1 pb-3 mb-3">
 				<div class="row estimate-subtotal">
-					<div class="col-7">Subtotal:</div>
+					<div class="col-7">Subtotal</div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.item_subtotal|number_format(2)) }}
 					</div>
@@ -312,7 +312,7 @@
 
 				<div class="row rate-estimate-checkout" {%if cart.shipping_rate == null %}style="display:none"{% endif %}>
 					<div class="col-7">
-						Shipping<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated shipping rate.">*</span>:
+						Shipping<a class="tdn" href="#" data-toggle="tooltip" data-placement="top" title="Estimated shipping rate.">*</a>
 					</div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.shipping_rate|number_format(2)) }}
@@ -330,7 +330,7 @@
 				{% endfor %}
 
 				<div class="row estimate-coupons{% if coupon_discount <= 0 %} d-none{% endif %}">
-					<div class="col-7">Coupons:</div>
+					<div class="col-7">Coupons</div>
 					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(coupon_discount|number_format(2)) }}
 					</div>
@@ -338,7 +338,7 @@
 
 				{% if bundle_discount > 0 %}
 				<div class="row estimate-bundles" style="display:none">
-					<div class="col-7">Bundles:</div>
+					<div class="col-7">Bundles</div>
 					<div class="price-discount col-5 text-right">
 						-{{ prod.currency(bundle_discount|number_format(2)) }}
 					</div>
@@ -346,20 +346,20 @@
 				{% endif %}
 
 				<div class="row total-before-tax" {% if  cart.tax_rate == 0 or not cart.shipping_rate %}style="display:none"{% endif %}>
-					<div class="col-7">Total Before Tax:</div>
+					<div class="col-7">Total Before Tax</div>
 					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
 					</div>
 				</div>
 				<div class="row tax-estimate-checkout" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
-					<div class="col-7">Sales Tax<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated Sales Tax.">*</span>:</div>
+					<div class="col-7">Sales Tax<a class="tdn" href="#" data-toggle="tooltip" data-placement="top" title="Estimated Sales Tax.">*</a></div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.tax_rate|number_format(2)) }}
 					</div>
 				</div>
 			</div>
 			<div class="row mb-3 estimate-total totals-total">
-				<div class="col-7">Total<span data-tooltip data-toggle="tooltip" data-placement="top" data-original-title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</span>:</div>
+				<div class="col-7">Total<a class="tdn" href="#" data-toggle="tooltip" data-placement="top" title="Estimated order total. Exact total including shipping cost and sales tax will be calculated during checkout.">*</a></div>
 				<div class="col-5 text-right">
 					{{ prod.currency(cart.total|number_format(2)) }}
 				</div>
