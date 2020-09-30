@@ -76,7 +76,7 @@
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space image-space-product">
-                            <img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
+                            <img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image.svg" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -95,7 +95,7 @@
 				<div class="image-space no-of" id="variant-selected-image-{{product.id}}">
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
-						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl("product","standard",main_image_id)|default(app.url_asset ~ '/assets/images/product/image-450x450.gif') }}" alt="">
+						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl("product","standard",main_image_id)|default(app.url_asset ~ '/assets/images/product/image.svg') }}" alt="">
 					</span>
 				</div>
 			</div>
@@ -226,7 +226,7 @@
 					<div class="media media-cart">
 						<div class="media-left variant-selected-image">
 							<div class="image-space image-space-product">
-								<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
+								<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{app.image.getImageUrl('product','thumbnail',bundle.items[0].images[0].id)|default(app.url_asset ~ '/assets/images/product/image.svg') }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 							</div>
 						</div>
 
@@ -347,7 +347,7 @@
 		<div class="media media-cart">
 			<div class="media-left variant-selected-image" id="variant-selected-image-{{product.id}}">
 				<div class="image-space image-space-product">
-					<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
+					<img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.image.getImageUrl('product','thumbnail', product.images[0].id)|default(app.url_asset ~ '/assets/images/product/image.svg') }}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
 				</div>
 			</div>
 
@@ -459,9 +459,9 @@
 									{% endfor %}
 								{% endif %}
 								{% if vsimgsrc is empty %}
-									{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
+									{% set vsimgsrc = app.url_asset ~ '/assets/images/product/image.svg' %}
 								{% endif %}
-								<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid img-product isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="{{ product.name }} {{v|e('html')}}"></button>
+								<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid img-product isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image.svg')}}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="{{ product.name }} {{v|e('html')}}"></button>
 							{% else %}
 								<button class="btn btn-default btn-{{vosize}}" type="button">{{v}}</button>
 							{% endif %}

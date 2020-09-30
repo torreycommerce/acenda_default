@@ -63,7 +63,7 @@
 					{% else %}
 					<div class="slick-heroic" id="slick-heroic-{{variation.id}}">
     					<div class="image-space image-space-product">
-                            <img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image-450x450.gif" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
+                            <img class="img-fluid img-product isd lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{ app.url_asset }}/assets/images/product/image.svg" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
     				    </div>
     				</div>
 					{% endif %}
@@ -83,7 +83,7 @@
 					<div class="isd btn-block"><div class="btn-block" id="main-product-video"></div></div>
 					<span class="isd">
 						{% set prodimg = varimgs[0] %}
-						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{prodimg.standard|default(app.url_asset ~ '/assets/images/product/image-450x450.gif')}}" data-image-zoom="" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
+						<img id="main-product-image" class="img-fluid d-none lazyload" src="{{ app.url_asset }}/assets/images/spacer.gif" data-src="{{prodimg.standard|default(app.url_asset ~ '/assets/images/product/image.svg')}}" data-image-zoom="" width="{{imgStandardWidth}}" height="{{imgStandardHeight}}" alt="">
 					</span>
 				</div>
 			</div>
@@ -224,7 +224,7 @@
 							{% if vsimgsrc is empty %}
 								{% set vsimgsrc = varimgs[0].standard %}
 							{% endif %}
-							<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid img-product isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image-250x250.gif')}}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="{{v|e('html')}}"></button>
+							<button class="btn blank image-space image-space-product" type="button"><img class="img-fluid img-product isd" src="{{vsimgsrc|default(app.url_asset ~ '/assets/images/product/image.svg')}}" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="{{v|e('html')}}"></button>
 						{% else %}
 							<button class="btn btn-default btn-{{vosize}}" type="button">{{v}}</button>
 						{% endif %}

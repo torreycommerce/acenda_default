@@ -22,7 +22,7 @@
 				{% endif %}
 			{% endif %}
 			{% if image_url is empty %}
-				{% set fallback = app.url_asset ~ '/assets/images/product/image-250x250.gif' %}
+				{% set fallback = app.url_asset ~ '/assets/images/product/image.svg' %}
 				{% set image_url = "" %}
 				{# Look for first variant with images, price>0 and has_stock #}
 				{% for variant in product.variant %}

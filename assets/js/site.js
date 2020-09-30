@@ -83,23 +83,13 @@ $(document).ready(function() {
 });
 
 
-$('img').on( "error", function() {
-    if ($(this).attr('width') == "450") {
-        $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-450x450.gif');
-    } else {
-        $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
-    }
+$('img').on("error", function() {
+	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','bg-light img-fluid img-fit');
 });
-
-
 $(window).on("load", function (e) {
 	$('img').each(function() {
 		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-			if ($(this).attr('width') == "450") {
-                $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-450x450.gif');
-            } else {
-                $(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image-250x250.gif');
-            }
+			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','bg-light img-fluid img-fit');
 		}
 	});
 });

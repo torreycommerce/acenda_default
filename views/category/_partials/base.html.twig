@@ -265,7 +265,7 @@
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Categories</h2>
 			<div class="row{# ifcentercat #}">
 				{% for category in categories %}
-				{% set catthumb = category.thumbnail|default(app.url_asset ~ '/assets/images/product/image-250x250.gif') %}
+				{% set catthumb = category.thumbnail|default(app.url_asset ~ '/assets/images/product/image.svg') %}
 				<div class="col-6 col-md-4 mb-4">
 					<div class="category">
 					    <a class="g" href="{{app.url}}/category/{{category.slug}}">

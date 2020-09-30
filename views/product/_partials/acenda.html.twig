@@ -33,7 +33,7 @@ acenda.products = [];
 	          'standard' : app.image.getImageUrl("product","standard",img_id)
 	       } }) %}
 	{% endfor %}
-	{% set default_img = app.url_asset ~ "/assets/images/product/image-250x250.gif" %}
+	{% set default_img = app.url_asset ~ "/assets/images/product/image.svg" %}
 	{% spaceless %}
 		acenda.products.push( {
 							"id": {{product.id}},
