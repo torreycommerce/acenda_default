@@ -174,7 +174,7 @@
 	<div class="category-filters col-lg-3">
 {% endif %}
 		{% if categories is not empty %}
-		<div class="list-sub-categories fsd1 d-xsm-none">
+		{#<div class="list-sub-categories fsd1 d-xsm-none">
 			<ul class="list-unstyled fa-fa-gentle">
 				<li><span class="sr-only">Other</span> {{ name|default(category.name) }}</li>
 				{% for category in categories %}
@@ -183,7 +183,7 @@
 				</li>
 				{% endfor %}
 			</ul>
-		</div>
+		</div>#}
 		{% endif %}
 {% if config.params['catpage_filter_show'] == 'cfsc-as' %}
     {% set cfsc_as = 1 %}

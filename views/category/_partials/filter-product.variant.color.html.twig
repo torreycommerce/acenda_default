@@ -5,8 +5,11 @@
 <button class="list-group-item text-left" data-template="product.variant.color" data-toggle="collapse" data-target="#collapseC" aria-controls="collapseC" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
 	<span>Color</span><i class="fa fa-angle-down"></i>
 </button>
+{% if config.params['catpage_filter_color_format'] == 'cfcf-hc' %}
+	{% set type = "card" %}
+{% endif %}
 <div id="collapseC" class="collapse{% if fopen == 1 %} show{% endif %}">
-	<div class="card"><div class="card-body color-chips">
+	<div class="card"><div class="card-body color-chips pb-thin">
 		<div class="row row-thin">
 			{% for item,count in filter_set %}
 				{% set current_count = filter_count[name][item] %}
@@ -17,15 +20,23 @@
 				{% else %}
 					{% set link = filter_request|merge({(name):link}) %}
 				{% endif %}
-				<div class="col-thin col-2 col-md-1 col-lg-2 p-thin color-chip">
-				   <a data-count="{{current_count}}" class="{{ item|replace({' ':'-'})|lower }}{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}"data-toggle="tooltip" title="{{item}}">
-						<span class="image-space">
+				
+				{% if type == "card" %}
+				<div class="col-thin col-6 col-md-3 col-lg-6 mb-thin">
+				   <a data-count="{{current_count}}" class="btn btn-block btn-link btn-round btn-sm border text-left{% if selected %} active bg-light border-dark{%else %} border-default{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}">
+						<i class="fas fa-circle text-{{ item|replace({' ':'-'})|lower }} "></i>
+						<span>{{ item|lower }}</span>
+					</a>
+				</div>
+				{% else %}
+				<div class="col-thin col-2 col-md-1 col-lg-2 mb-thin color-chip">
+				   <a data-count="{{current_count}}" class="btn blank image-space bg-{{ item|replace({' ':'-'})|lower }}{% if selected %} active{% endif %}{% if current_count == 0 %} disabled{% endif %}" href="{{app.request.getUrl({'page':1,'f':link})}}" data-toggle="tooltip" title="{{item}}">
 						{% if current_count == 0 %}<i class="isd fa fa-times"><i class="sr-only">{{ item|replace({' ':'-'}) }}</i></i>{% elseif selected %}
 						<i class="isd fa fa-check"><i class="sr-only">{{ item|replace({' ':'-'}) }}</i></i>{% else %}<i class="sr-only">{{ item|replace({' ':'-'}) }}</i>
 						{% endif %}
-						</span>
 					</a>
 				</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</div></div>
