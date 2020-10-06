@@ -11,7 +11,7 @@
 			<tr>
 				<td {{ ema.comformA() }}>
 				Please verify your account by following the link below:
-				<a href="{{app.url}}/account/verify?token={{ verification_token }}">{{app.url}}/account/verify?token={{ verification_token }}</a>
+				<a href="{{ params['url']['current']}}/account/verify?token={{ verification_token }}">{{ params['url']['current']}}/account/verify?token={{ verification_token }}</a>
 				</td>
 			</tr>
 		</table>
