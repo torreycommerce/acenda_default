@@ -43,6 +43,7 @@ input[type=number] {-moz-appearance:textfield;}
 .btn-default:not(:disabled):not(.disabled).active:focus,.btn-default:not(:disabled):not(.disabled):active:focus,.show>.btn-default.dropdown-toggle:focus{
     box-shadow:0 0 0 0.2rem rgba(0,123,255,.25)
 }
+.btn-paypal {text-shadow:0 0 2px rgba(255,255,255,1); background-color:#ffd54c!important; border-color:#ffd54c!important}
 .btn-round {border-radius:48px}
 
 .dropdown-toggle::after {content:none;}

@@ -375,9 +375,8 @@
 				{% endif %}
 				{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
 
-					<div class="text-center mt-3" id="paypal">
-						<a href="{{ app.url }}/checkout/paypal"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Paypal Check out" width="145" height="42"></a>
-					</div>
+					<a class="btn btn-block btn-lg btn-default btn-paypal mt-2" href="{{ app.url }}/checkout/paypal"><img class="img-fluid" src="{{app.url_asset}}/assets/images/paypal.svg" width="90" height="24"><span class="dib fsd1">Checkout</span></a>
+					
 				{% endif %}
 			{% else %}
 				<div class="alert alert-warning" role="alert">

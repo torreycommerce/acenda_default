@@ -74,6 +74,10 @@
                             </div>
                             <a href="{{ app.url }}/cart?qc" class="btn btn-block btn-lg btn-default">View Cart</a>
 							<a href="{{ app.url }}/checkout" class="btn btn-block btn-lg btn-primary btn-cart mt-2">Checkout</a>
+							{% set site_payments = api.get('/site/payments') %}
+							{% if site_payments.has_express_checkout == true and site_payments.express_payment_method == "paypal express" %}
+							<a class="btn btn-block btn-lg btn-default btn-paypal mt-2" href="{{ app.url }}/checkout/paypal"><img class="img-fluid" src="{{app.url_asset}}/assets/images/paypal.svg" width="90" height="24"><span class="dib fsd1">Checkout</span></a>
+        					{% endif %}
                         </div>
                     </div>
                 </div>
