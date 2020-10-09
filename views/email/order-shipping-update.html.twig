@@ -90,7 +90,7 @@
 				                <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
         				    </td>
         				    <td style="padding:0 0 0 20px;" valign="top">
-            					<a href="{{ params['url']['current']}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
+            					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
             					<br><strong>SKU:</strong> {{item.sku}}
             					<br><strong>Price:</strong> {{ mac.currency(item.price|number_format(2)) }}
             					<br><strong>Qty:</strong> {{ item.quantity }}

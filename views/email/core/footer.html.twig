@@ -15,8 +15,8 @@
 		<table {{ ema.tform() }}>
 			<tr>
 				<td {{ ema.comformD() }}>
-					<a href="{{ params['url']['current']}}/account/login" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">My Account</a> <a href="{{ params['url']['current']}}/account/orders" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">Order Status</a> <a href="{{ params['url']['current']}}/contact" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">Contact</a>
-				    <br><br>&copy;{{"now"|date("Y")}} <a href="{{ params['url']['current']}}" style="color:#000; text-decoration:none;">{{ app.params.site.title }}</a>. <span style="white-space:nowrap;">Powered by <a style="color:#000; text-decoration:none;" href="https://www.acenda.com/">Acenda</a>.</span>
+					<a href="{{app.url}}/account/login" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">My Account</a> <a href="{{app.url}}/account/orders" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">Order Status</a> <a href="{{app.url}}/contact" style="margin:0 10px; color:#000; text-decoration:none; white-space:nowrap;">Contact</a>
+				    <br><br>&copy;{{"now"|date("Y")}} <a href="{{app.url}}" style="color:#000; text-decoration:none;">{{ app.params.site.title }}</a>. <span style="white-space:nowrap;">Powered by <a style="color:#000; text-decoration:none;" href="https://www.acenda.com/">Acenda</a>.</span>
 				</td>  
 			</tr>
 		</table>
