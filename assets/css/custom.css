@@ -32,7 +32,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 
 h3.category-name, h3.brand-product, h3.product-name, .prodpage h4 {margin-top:0!important; font-size:1rem;}
 h3.brand-product {min-height:2.375em;}
-.product-grid .pricing {min-height:3.8em;}
+.product-grid .pricing {min-height:4.25em}
 .pricing ul {margin-bottom:0; font-size:.875rem;}
 .pricing .price, .totals-total {color:#000; font-weight:bold;}
 .piece .brand {font-size:.875rem;}
