@@ -263,7 +263,7 @@ function ajaxCart(data, r) {
         qcrecalc = 0;
 		pushdL = 0;
         //
-        $('button[value=cart]').each(function() {
+        $('.productForm [value=cart]').each(function() {
             if ($(this).hasClass('virg')) {
                 $(this).removeClass('virg');
                 $(this).removeClass('wait');
