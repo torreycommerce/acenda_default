@@ -2,7 +2,7 @@
 
 	<h2>Top Sellers</h2>
 
-	<div class="products row{# ifcentercat #}">
+	<div class="row">
 		{% set collection_ids = [] %}
 		{% set product_count = 1 %}
 		{% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:20}) %}

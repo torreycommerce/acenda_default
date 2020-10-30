@@ -300,7 +300,6 @@ li.sub-category, .collapse-filters a {display:block; white-space:nowrap; overflo
 .text-multi {background:-webkit-linear-gradient(135deg, #88bfe8 0%, #96ffc2 27%, #b996ff 53%, #ff9698 75%, #f1ff96 100%, #70b0e0 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
 
 .category-grid .category, .product-grid .product {max-width:250px; margin-right:auto; margin-left:auto;}
-.category-grid .category a, .product-grid .product a {display:block;}
 
 .btn-qv {position:absolute; top:-40px; margin-top:100%; opacity:0; transition:opacity .3s ease;}
 .product:hover .btn-qv, .btn-qv:focus {opacity:1;}

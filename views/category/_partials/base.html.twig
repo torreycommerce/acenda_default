@@ -263,17 +263,15 @@
 		{% if categories is not empty %}
 		<div class="category-grid {% if products.num_total > 0 %} divide mb-4 pb-3{% endif %}">
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Categories</h2>
-			<div class="row{# ifcentercat #}">
+			<div class="row">
 				{% for category in categories %}
 				{% set catthumb = category.thumbnail|default(app.url_asset ~ '/assets/images/product/image.svg') %}
 				<div class="col-6 col-md-4 mb-4">
 					<div class="category">
-					    <a class="g" href="{{app.url}}/category/{{category.slug}}">
-						    <div class="max-250 mb-3">
-								<span class="image-space image-space-product">
-								    <img src="{{catthumb}}" class="img-fluid img-product isd" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
-								</span>
-						    </div>
+					    <a class="d-block g" href="{{app.url}}/category/{{category.slug}}">
+							<div class="image-space image-space-product mb-3">
+								<img src="{{catthumb}}" class="img-fluid img-product isd" width="{{imgThumbnailWidth}}" height="{{imgThumbnailHeight}}" alt="">
+							</div>
 							<h3 class="category-name">{{ category.name }}</h3>
 						</a>
 					</div>
@@ -361,7 +359,7 @@
 		{% if products.num_total > 0 %}
 		<div class="product-grid">
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Products</h2>
-			<div class="products row{# ifcentercat #}">
+			<div class="row">
 				{% set collection_ids = [] %}
 				{% for row,product in products %}
 				{# if product.id not in collection_ids #}
@@ -394,7 +392,7 @@
 			<h2>Results for <strong><i>{{search_suggestion}}</i></strong></h2>
 			
 			{% endif %}
-			<div class="products row{# ifcentercat #}">
+			<div class="row">
 				{% set collection_ids = [] %}
 				{% for row,product in product_suggest if product.id not in collection_ids %}
 					{% if product.group == 'product' %}
