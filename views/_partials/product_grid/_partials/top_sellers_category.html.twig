@@ -1,0 +1,30 @@
+{% set iso_category = item.category|first %}
+{% if iso_category is not empty %}
+    {% set iso_category = api.get('/category',{"query":{"slug":iso_category}})|first %}
+    {% set products = api.get('/catalog', {"query":{'category_id':iso_category.id},sort:"product.popularity:-1",limit:10}) %}
+{% else %}
+    {% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:10}) %}
+{% endif %}
+<section class="product-grid top-sellers">
+	<h2>Top Sellers</h2>
+	<div class="row">
+		{% set collection_ids = [] %}
+		{% set product_count = 1 %}
+		{% for row,product in products if  product.id not in collection_ids and product_count < 5 %}
+			{% if product.group == 'product' %}
+				{% for id in product.product[0].collection_id %}
+					{% set collection_ids = collection_ids|merge([id]) %}
+				{% endfor %}
+			{% else %}
+				{% set collection_ids = collection_ids|merge([product.id]) %}
+			{% endif %}
+			{% set product_count = product_count + 1 %}
+			{# no QV on prd page #}
+			{% set dArray = app.request.url|split('/') %}
+			{# #}
+			<div class="col-6 col-md-3 mb-5">
+				{{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product, ['image','details'],(dArray[0] == "product") ? '1' : '0') }}
+			</div>
+		{% endfor %}
+	</div>
+</section>
