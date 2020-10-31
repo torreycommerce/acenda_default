@@ -85,7 +85,6 @@ input[type=number] {-moz-appearance:textfield;}
 .sr-only-focusable:active,.sr-only-focusable:focus {position:absolute; width:auto; height:auto; margin:0; overflow:visible; clip:auto;}
 .btn.sr-only-focusable:active,.btn.sr-only-focusable:focus {padding:.375rem .75rem;}
 
-.ac-help {font-size:.875rem; text-align:right;}
 .parsley-error-list {color:#dc3545!important; font-size:.875rem;}
 
 blockquote>*:last-child, form>*:last-child {margin-bottom:0;}
