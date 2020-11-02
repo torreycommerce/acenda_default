@@ -55,8 +55,7 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 	.pad-fixed-top body {padding-top:156px}
 	.toolbar {height:108px; padding-top:30px; padding-bottom:30px}
 	.header .search {top:0; right:118px; left:50%}
-	.header .logo {top:-6px; left:0; width:240px; margin-left:0}
-	.header .logo .image-space {padding-top:60px}
+	.header .logo {left:0; width:200px; margin-left:0}
 	.header .navbar-nav > li.make-cols li {width:200px}
 	.header .navbar-nav > li:not(.make-cols) li a {white-space:nowrap}
 }
