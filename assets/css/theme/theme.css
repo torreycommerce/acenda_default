@@ -80,7 +80,6 @@ input[type=number] {-moz-appearance:textfield;}
 
 
 
-
 /* ani boots */
 .sr-only-focusable:active,.sr-only-focusable:focus {position:absolute; width:auto; height:auto; margin:0; overflow:visible; clip:auto;}
 .btn.sr-only-focusable:active,.btn.sr-only-focusable:focus {padding:.375rem .75rem;}
@@ -226,7 +225,6 @@ div:focus, section:focus {outline:none;}
 
 
 
-
 .twitter-typeahead .hint-small {height: 30px;padding: 5px 10px;font-size: 12px;border-radius: 3px;line-height: 1.5;}/*  Tt Auto Search Style*/
 .twitter-typeahead .hint-large {height: 45px;padding: 10px 16px;font-size: 18px;border-radius: 6px;line-height: 1.33;}
 .twitter-typeahead {-ms-flex: 1 1 auto; flex:1 1 auto; width:1%;}
@@ -239,7 +237,6 @@ div:focus, section:focus {outline:none;}
 .tt-suggestion {padding:.25rem 1.1875rem; font-size:.875rem; cursor:pointer; text-align:left;}
 .tt-suggestion:hover, .tt-suggestion:focus {background:#f0f0f0;}
 .tt-suggestion.tt-cursor {color:#fff;background-color:#007bff;}
-
 
 
 
@@ -390,8 +387,6 @@ li.sub-category, .collapse-filters a {display:block; white-space:nowrap; overflo
 
 
 
-
-
 /* product */
 .variation {position:relative; z-index:1; height:0; margin:0; padding:0; opacity:0; /*overflow:hidden;*/ visibility:hidden; transition:opacity 300ms;}
 .variation.active {z-index:2; height:auto; opacity:1; visibility:visible;}
@@ -481,4 +476,19 @@ li.sub-category, .collapse-filters a {display:block; white-space:nowrap; overflo
 
 .has-video .vari-video-scase {display:none;}
 }
+/* */
+
+
+
+/* checkout */
+.checkoutapp .card-header h2 {margin:0;}
+.checkoutapp .card-header .step-data {display:none; margin:1rem 0 0; font-size:.875rem;}
+.checkoutapp .card-header .step-data:empty {margin:0;}
+.checkoutapp .checkoutapp .btn-edit {display:none;}
+.checkoutapp .jumbotron {margin: auto; padding: 20px; background-color: #eee; color: black; border: 1px solid #ddd; text-align: center; width: 75%;}
+.checkoutapp .checkout-card {padding-top:40px;}
+.StripeElement {background-color: white; height: 40px; padding: 10px 12px; border-radius: 4px; border: 1px solid transparent; box-shadow: 0 1px 3px 0 #e6ebf1; -webkit-transition: box-shadow 150ms ease; transition: box-shadow 150ms ease;}
+.StripeElement--focus {box-shadow: 0 1px 3px 0 #cfd7df;}
+.StripeElement--invalid {border-color: #fa755a;}
+.StripeElement--webkit-autofill {background-color: #fefde5 !important;}
 /* */

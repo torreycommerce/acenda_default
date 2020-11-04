@@ -13,19 +13,19 @@ $(function() {
             $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
             return false;
         } else if(($('select#state_select').length) && !$('select#state_select').prop('disabled') && !$('select#state_select').val()) {
-            $('select#state_select').parent().addClass('has-error');
+            $('select#state_select').parent().addClass('is-invalid');
             return false;
         } else{
             if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
             {
                 $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
-                $('select#exp-y').parent().addClass('has-error');
-                $('select#exp-m').parent().addClass('has-error');                
+                $('select#exp-y').parent().addClass('is-invalid');
+                $('select#exp-m').parent().addClass('is-invalid');                
                 console.log('card expired');
                 return false;            
             } else {
-                 $('select#exp-y').parent().removeClass('has-error'); 
-                 $('select#exp-m').parent().removeClass('has-error');    
+                 $('select#exp-y').parent().removeClass('is-invalid'); 
+                 $('select#exp-m').parent().removeClass('is-invalid');    
                  console.log('card not expired');                                         
             }
 
@@ -41,7 +41,7 @@ $(function() {
         }
     });
     $('select#state_select').change(function() {
-        $('select#state_select').parent().removeClass('has-error');
+        $('select#state_select').parent().removeClass('is-invalid');
     });
     $('select#exp-m,select#exp-y ').change(function() {
         var currentTime = new Date()
@@ -50,13 +50,13 @@ $(function() {
         if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
         {
             $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
-            $('select#exp-y').parent().addClass('has-error');
-            $('select#exp-m').parent().addClass('has-error');                
+            $('select#exp-y').parent().addClass('is-invalid');
+            $('select#exp-m').parent().addClass('is-invalid');                
             console.log('card expired');
             return false;            
         } else {
-             $('select#exp-y').parent().removeClass('has-error'); 
-             $('select#exp-m').parent().removeClass('has-error');                            
+             $('select#exp-y').parent().removeClass('is-invalid'); 
+             $('select#exp-m').parent().removeClass('is-invalid');                            
         }
     });
 

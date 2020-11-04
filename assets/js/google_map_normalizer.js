@@ -128,7 +128,7 @@ jQuery.fn.attachGoogleNormalizer = function(callback) {
             error += "<li style='cursor: pointer;' id='google_map_wrapper_manual'><u>Edit your address manually</u></li>";
             error += "</ul></div>";
 
-        $("#search_place").parent().removeClass('has-success').addClass('has-error');
+        $("#search_place").parent().removeClass('has-success').addClass('is-invalid');
         $("#search_place").parent().append(error);
     }
 

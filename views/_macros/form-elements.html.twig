@@ -21,7 +21,7 @@
     {% set field = app.form.getField(type,name,value,attributes) %}
 
     {% if attributes.input_only != true %}
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         <label for="{{field.id}}" class="col-xl-4 control-label">{{field.label}}&nbsp;{% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
 
         <div class="col-xl-8">
@@ -56,7 +56,7 @@
 
     {% set field = app.form.getField('textarea',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         <label for="{{ field.id }}" class="col-lg-4 control-label">{{field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
         <div class="col-lg-8">
             <textarea id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>{{ field.value }}</textarea>
@@ -73,7 +73,7 @@
     {% set field = app.form.getField('select',name,value,attributes) %}
     
     {% if attributes.input_only != true %}
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         <label for="{{ field.id }}" class="col-lg-4 control-label">{{ field.label}} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
         <div class="col-lg-8">
     {% endif %}
@@ -99,7 +99,7 @@
 
     {% set field = app.form.getField('select',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         <label for="{{ field.id }}" class="col-lg-4 control-label">{{ field.label }} {% if field.required %}<span class="text-danger">*</span>{% endif %}</label>
         <div class="col-lg-8">
             <select multiple id="{{ field.id }}" name="{{ field.name }}" class="form-control {{ field.class }}" {{ field.attributes }}>
@@ -120,7 +120,7 @@
 
     {% set field = app.form.getField('radio',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         {% for key,item in selection %}
         {% set elm_counter = elm_counter + 1 %}
 
@@ -143,7 +143,7 @@
 
     {% set field = app.form.getField('checkbox',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         <div class="col-lg-offset-4 col-lg-8">
             <div class="checkbox">
                 <label>
@@ -163,7 +163,7 @@
 
     {% set field = app.form.getField('checkbox',name,value,attributes) %}
 
-    <div class="form-group{% if field.error %} has-error{% endif %}">
+    <div class="form-group{% if field.error %} is-invalid{% endif %}">
         {% for key,item in selection %}
         {% set elm_counter = elm_counter + 1 %}
 

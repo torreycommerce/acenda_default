@@ -1128,12 +1128,12 @@ var checkout = checkout || {};
 	            if($('select#exp-y').val() == year && parseInt($('select#exp-m').val()) < month)
 	            {
 	                $(this).find('button[type="submit"]').attr('disabled', false).removeClass('wait');
-	                $('select#exp-y').parent().addClass('has-error');
-	                $('select#exp-m').parent().addClass('has-error');
+	                $('select#exp-y').parent().addClass('is-invalid');
+	                $('select#exp-m').parent().addClass('is-invalid');
 	                return false;
 	            } else {
-	                 $('select#exp-y').parent().removeClass('has-error');
-	                 $('select#exp-m').parent().removeClass('has-error');
+	                 $('select#exp-y').parent().removeClass('is-invalid');
+	                 $('select#exp-m').parent().removeClass('is-invalid');
 	            }
 		     	that.setStepCompleted('payment',true);
                 if($('input[name=copy_shipping_to_billing]').is(":checked")) {

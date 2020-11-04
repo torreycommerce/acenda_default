@@ -122,7 +122,7 @@ if ($('.form-region').length) {
 				$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control')
 				$('#state-label').prop('for','state_input');
 				$("#state_select").addClass('hidden-x').prop( "disabled", true )
-                $('select#state_select').parent().removeClass('has-error');
+                $('select#state_select').parent().removeClass('is-invalid');
 				$.getJSON(acendaBaseUrl + '/api/shippingmethod/country', request, function(data) {
 					var country = (typeof countrySelect !== 'undefined')?countrySelect:$('[name$=\\[country_select\\]]').val();
 					if ((country == undefined || country == '') && data.result.length > 0) {
@@ -212,12 +212,12 @@ if ($('.form-region').length) {
 							$("#state_input").removeClass('d-none').prop( "disabled", false ).addClass('form-control')
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('d-none').prop( "disabled", true )
-                            $('select#state_select').parent().removeClass('has-error');							
+                            $('select#state_select').parent().removeClass('is-invalid');							
 						} else {
 							$("#state_input").addClass('d-none').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
 							$("#state_select").removeClass('d-none').prop( "disabled", false ).addClass('form-control')
-                            $('select#state_select').parent().removeClass('has-error');
+                            $('select#state_select').parent().removeClass('is-invalid');
 						}
 
 						response($.map(data.result, function(item, index) {
@@ -328,7 +328,7 @@ if ($('.form-billing-region').length) {
 							$("#state_input").removeClass('hidden-x').prop( "disabled", false ).addClass('form-control').show();
 							$('#state-label').prop('for','state_input');
 							$("#state_select").addClass('hidden-x').prop( "disabled", true );
-                            $('select#state_select').parent().removeClass('has-error');							
+                            $('select#state_select').parent().removeClass('is-invalid');							
 						} else {
 							$("#state_input").addClass('hidden-x').prop( "disabled", true );
 							$('#state-label').prop('for','state_select');
