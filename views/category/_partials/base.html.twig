@@ -157,9 +157,30 @@
 ##
 #}
 
+{% set catintro %}
+<div class="category-intro">
+	<h1>{% if app.request.get.s is not empty %}
+		Search results for: <i>{{app.request.get.s | e}}</i>
+	{% elseif category.display_name is empty %}
+		{{ name|default(category.name) }}
+	{% else %}
+		{{ category.display_name }}
+	{% endif %}</h1>
+	{% if category.description %}
+	<div class="category-description mb-4 g d-none d-md-block">
+		{{ description|default(category.description) }}
+	</div>
+	{% endif %}
+</div>
+{% endset %}
+
+{% if config.params['catpage_intro_loc'] != "cil-rc" %}
+{{catintro}}
+{% endif %}
+
 {% set needFilterCol = 0 %}
 
-{% if categories is not empty %}
+{% if categories is not empty and (config.params['catpage_subcat_format'] == "csf-fl" or config.params['catpage_subcat_format'] == "csf-all") %}
 	{% set needFilterCol = 1 %}
 {% endif %}
 
@@ -173,8 +194,8 @@
 <div class="row">
 	<div class="category-filters col-lg-3">
 {% endif %}
-		{% if categories is not empty %}
-		{#<div class="list-sub-categories fsd1 d-xsm-none">
+		{% if categories is not empty and (config.params['catpage_subcat_format'] == "csf-fl" or config.params['catpage_subcat_format'] == "csf-all") %}
+		<div class="list-sub-categories fsd1 d-xsm-none">
 			<ul class="list-unstyled fa-fa-gentle">
 				<li><span class="sr-only">Other</span> {{ name|default(category.name) }}</li>
 				{% for category in categories %}
@@ -183,7 +204,7 @@
 				</li>
 				{% endfor %}
 			</ul>
-		</div>#}
+		</div>
 		{% endif %}
 {% if config.params['catpage_filter_show'] == 'cfsc-as' %}
     {% set cfsc_as = 1 %}
@@ -244,23 +265,12 @@
 
 	<div class="col-lg-9">
 {% endif %}
-	    <div class="category-intro">
-    		<h1>{% if app.request.get.s is not empty %}
-    			Search results for: <i>{{app.request.get.s | e}}</i>
-    		{% elseif category.display_name is empty %}
-    		    {{ name|default(category.name) }}
-    		{% else %}
-    		    {{ category.display_name }}
-    		{% endif %}</h1>
-    		{% if category.description %}
-    		<div class="category-description mb-4 g d-none d-md-block">
-    			{{ description|default(category.description) }}
-    		</div>
-    		{% endif %}
-    	</div>
+		{% if config.params['catpage_intro_loc'] == "cil-rc" %}
+		{{catintro}}
+		{% endif %}
 
 		{# Sub Category grid #}
-		{% if categories is not empty %}
+		{% if categories is not empty and config.params['catpage_subcat_format'] != "csf-fl" %}
 		<div class="category-grid {% if products.num_total > 0 %} divide mb-4 pb-3{% endif %}">
 			<h2 class="sr-only">{% if category.display_name is empty %}{{ name|default(category.name) }} {% else %}{{ category.display_name }} {% endif %}Categories</h2>
 			<div class="row">
