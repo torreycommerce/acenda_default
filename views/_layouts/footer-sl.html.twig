@@ -1,5 +1,5 @@
 {% spaceless %}
-<footer class="footer bg-light frame py-5">
+<footer class="footer bg-light frame py-5" id="footer">
     <div class="container">
         <div class="row">
             <div class="col-6 col-md-4 col-lg-2 g mb-4 mb-lg-0">
@@ -30,12 +30,12 @@
                 </ul>
             </div>
             <div class="col-md-8 col-lg-5 g offset-lg-1">
-    			<form class="newsletter mb-3"><fieldset><legend class="h3">Email <span class="sr-only">List Signup</span></legend>
+    			<form class="js-signup newsletter mb-3"><fieldset><legend class="h3">Email <span class="sr-only">List Signup</span></legend>
                     <label class="sr-only" for="SignupInput">Email Address</label>
     				<div class="input-group">
-    					<input id="SignupInput" type="email" placeholder="Email Address" class="form-control form-control-lg" name="email" title="Email Address">
+    					<input type="email" class="form-control form-control-lg js-signup-email" id="SignupInput" type="email" placeholder="Email Address" name="email">
     					<div class="input-group-append">
-    						<button id="SignupButton" class="btn btn-lg btn-primary" onclick="return false;" type="submit"><i class="fa fa-envelope"><span class="sr-only">Subscribe</span></i></button>
+    						<button type="submit" class="btn btn-lg btn-primary js-signup-btn">Subscribe</button>
     					</div>
     				</div>
     				<div class="newsletter-response"></div>

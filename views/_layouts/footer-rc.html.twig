@@ -1,20 +1,22 @@
 {% spaceless %}
 <footer class="footer">
-	<section class="bg-dark newsletter py-5 text-center">
+	<section class="bg-dark newsletter py-5 text-center" id="footer">
 		<div class="container no-cart">
 			<div class="row">
 				<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
 					<h2 class="text-white">Let's Keep In Touch</h2>
 					<p class="fsd1 text-white">Sign up for coupons, sales & special deals.</p>
-					<form>
-						<label class="sr-only text-white" for="SignupInput">Email Address</label>
-						<div class="input-group">
-							<input id="SignupInput" type="email" placeholder="Email Address" class="form-control form-control-lg form-control-white" name="email" title="Email Address">
-							<div class="input-group-append">
-								<button id="SignupButton" class="btn btn-lg btn-primary" onclick="return false;" type="submit"><i class="fas fa-envelope"><span class="sr-only">Subscribe</span></i></button>
+					<form class="js-signup">
+						<fieldset><legend class="sr-only">{{ app.params.site.title }} Email List Signup</legend>
+							<label class="sr-only text-white" for="SignupInput">Email Address</label>
+							<div class="input-group">
+								<input type="email" class="form-control form-control-lg js-signup-email" id="SignupInput" type="email" placeholder="Email Address" name="email">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-lg btn-primary js-signup-btn"><i class="fas fa-envelope"><span class="sr-only">Subscribe</span></i></button>
+								</div>
 							</div>
-						</div>
-						<div class="newsletter-response"></div>
+							<div class="newsletter-response"></div>
+						</fieldset>
 					</form>
 				</div>
 			</div>
@@ -53,12 +55,12 @@
 	</div></div>
 	<div class="foot-copy py-5 text-center text-muted"><div class="container g">
 		<ul class="list-inline fsi1 mb-4">
-					<li><i class="fab fa-cc-visa"><span class="sr-only">We Accept Visa</span></i></li>
-					<li><i class="fab fa-cc-mastercard"><span class="sr-only">We Accept Mastercard</span></i></li>
-					<li><i class="fab fa-cc-discover"><span class="sr-only">We Accept Discover</span></i></li>
-					<li><i class="fab fa-cc-amex"><span class="sr-only">We Accept American Express</span></i></li>
-					<li><i class="fab fa-cc-paypal"><span class="sr-only">We Accept Paypal</span></i></li>
-				</ul>
+			<li><i class="fab fa-cc-visa"><span class="sr-only">We Accept Visa</span></i></li>
+			<li><i class="fab fa-cc-mastercard"><span class="sr-only">We Accept Mastercard</span></i></li>
+			<li><i class="fab fa-cc-discover"><span class="sr-only">We Accept Discover</span></i></li>
+			<li><i class="fab fa-cc-amex"><span class="sr-only">We Accept American Express</span></i></li>
+			<li><i class="fab fa-cc-paypal"><span class="sr-only">We Accept Paypal</span></i></li>
+		</ul>
 		<ul class="list-inline fsi1 social">
 			<li><a class="" href="#" target="_blank"><i class="fab fa-instagram"><i class="sr-only">Follow {{ app.params.site.title }} on Instagram</i></i></a>
 			</li><li><a class="" href="#" target="_blank"><i class="fab fa-twitter"><i class="sr-only">Follow {{ app.params.site.title }} on Twitter</i></i></a>

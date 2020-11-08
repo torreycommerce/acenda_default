@@ -1,16 +1,16 @@
 {% spaceless %}
-<footer class="footer text-center">
+<footer class="footer text-center" id="footer">
     <section class="frame newsletter py-5">
         <div class="container">
             <div class="max-400 divide mb-3 pb-3">
     			<h2>Be the first to know about <span class="wsnw">new products and sales.</span></h2>
     			<p>Sign up to stay in the loop. Receive updates, access to <span class="wsnw">exclusive deals, and more.</span></p>
-    			<form><fieldset><legend class="sr-only">{{ app.params.site.title }} Email List Signup</legend>
+    			<form class="js-signup"><fieldset><legend class="sr-only">{{ app.params.site.title }} Email List Signup</legend>
                     <label class="sr-only" for="SignupInput">Email Address</label>
     				<div class="input-group">
-    					<input id="SignupInput" type="email" placeholder="Email Address" class="form-control form-control-lg" name="email" title="Email Address">
+    					<input type="email" class="form-control form-control-lg js-signup-email" id="SignupInput" type="email" placeholder="Email Address" name="email">
     					<div class="input-group-append">
-    						<button id="SignupButton" class="btn btn-lg btn-primary" onclick="return false;" type="submit">Subscribe</button>
+    						<button type="submit" class="btn btn-lg btn-primary js-signup-btn">Subscribe</button>
     					</div>
     				</div>
     				<div class="newsletter-response"></div>

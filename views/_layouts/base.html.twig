@@ -125,7 +125,7 @@ var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",s
 {% include "/_layouts/stage_header.html.twig" %}
 
 {% block body %}
-<header class="header{% if config.params['mobile_menu_format'] == "mff-fo" %} bg-white fixed-top{% endif %}">
+<header class="header{% if config.params['mobile_menu_format'] == "mff-fo" %} bg-white fixed-top{% endif %}" id="header">
 	{{ base.protected_site() }}
 
 	{% if app.request.url != "store-protected" %}
