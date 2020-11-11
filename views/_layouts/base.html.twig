@@ -125,15 +125,17 @@ var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",s
 {% include "/_layouts/stage_header.html.twig" %}
 
 {% block body %}
-<header class="header{% if config.params['mobile_menu_format'] == "mff-fo" %} bg-white fixed-top{% endif %}" id="header">
+<header class="header{% if config.params['mobile_menu_format'] == "mff-fo" %} bg-white fixed-top mm-offcanvas{% else %} mm-default{% endif %}{% if config.params['header_layout'] == "hl-one" %} nav-in-toolbar{% else %} nav-default{% endif %}" id="header">
 	{{ base.protected_site() }}
 
 	{% if app.request.url != "store-protected" %}
 	{% block header %}
 		{%include "/_layouts/toolbar.html.twig"%}
 	{% endblock %}
-	
+
+	{% if config.params['header_layout'] != "hl-one" %}
 		{% include "/_layouts/nav.html.twig" %}
+	{% endif %}
 	
 	{% endif %}
 </header>

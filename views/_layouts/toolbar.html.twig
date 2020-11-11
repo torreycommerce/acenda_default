@@ -20,6 +20,9 @@
                 <span class="isd">{{ app.params.site.title }}</span>
                 {% endif %}
             </a></div>
+			{% if config.params['header_layout'] == "hl-one" %}
+				{% include "/_layouts/nav.html.twig" %}
+			{% endif %}
             <div class="search">
                 <form class="search-form" method="get" action="{{app.url}}/search">
                     <label class="sr-only" for="search" id="search-label">Search products</label>

@@ -1,12 +1,12 @@
 {% spaceless %}
 {% if config.params['mobile_menu_format'] == "mff-fo" %}
-<nav class="bg-dark offcanvas-collapse d-lg-block" id="navbar-category">
-	<div class="container">
+<nav class="nav offcanvas-collapse d-lg-block{% if config.params['header_layout'] != "hl-one" %} bg-dark{% else %} bg-white{% endif %}" id="navbar-category">
+	<div class="container{% if config.params['header_layout'] == "hl-one" %} container-lg-none{% endif %}">
 		<div class="navbar navbar-expand-lg p-0">
 			<div class="navbar-collapse">
 {% else %}
-<nav class="bg-dark">
-	<div class="container">
+<nav class="nav{% if config.params['header_layout'] != "hl-one" %} bg-dark{% else %} bg-white{% endif %}">
+	<div class="container{% if config.params['header_layout'] == "hl-one" %} container-lg-none{% endif %}">
 		<div class="navbar navbar-expand-lg p-0">
 			<div class="collapse navbar-collapse" id="navbar-category">
 {% endif %}
@@ -15,10 +15,10 @@
 					{% if items.limb|length %}
 						<li class="navcat-{{items.id}} dropdown js-dropdown">
 							<div class="pos-r w-100">
-								<a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left text-white" href="{{app.url}}/category/{{items.slug}}">
+								<a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" href="{{app.url}}/category/{{items.slug}}">
 									<span>{{main_category}}</span>
 								</a>
-								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2 text-white" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
+								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
 							</div>
 							<ul class="collapse dropdown-menu{% if loop.last or (category_all|length > 6 and loop.index > (category_all|length / 2) ) %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="access-navcat-{{items.id}}" id="access-navcat-{{items.id}}">
 								{% for category,subitems in items.limb %}
@@ -31,7 +31,7 @@
 							</ul>
 						</li>
 					{% else %}
-						<li class="navcat-{{items.id}}"><a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left text-white" href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
+						<li class="navcat-{{items.id}}"><a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
 					{% endif %}
 				{% endfor %}
 				</ul>

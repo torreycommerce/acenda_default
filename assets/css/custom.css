@@ -6,7 +6,7 @@ a {}
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 
 .pad-fixed-top body {padding-top:114px}
-.toolbar {height:114px; padding-top:6px; padding-bottom:6px;}
+.toolbar {min-height:114px; padding-top:6px; padding-bottom:6px;}
 
 .header .omm {position:absolute; top:0; left:0;}
 .header .logo {position:absolute; left:50%; margin-left:-60px; width:120px}
@@ -22,9 +22,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
 
 .header .navbar-collapse {width:100%}
 .header .navbar-nav .nav-link {padding:.59375rem 1.1875rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.header .navbar-nav .nav-link:focus, .header .navbar-nav .nav-link:hover, .header .navbar-nav .show .nav-link {color:#fff; background:#17181a}
+.header .navbar-nav .nav-link:focus, .header .navbar-nav .nav-link:hover, .header .navbar-nav .show .nav-link {background:#fcfcfc}
+.header .navbar-nav .nav-link.text-white:focus, .header .navbar-nav .nav-link.text-white:hover, .header .navbar-nav .show .nav-link.text-white {color:#fff; background:#17181a}
 .header .navbar-nav .dropdown-toggle-split {position:absolute; z-index:2; top:0; right:0; width:48px; height:100%}
-.header .navbar-nav .dropdown-menu {min-width:100%; margin-top:0; padding:1rem 1.25rem; border-top:none; border-top-right-radius:0; border-top-left-radius:0}
+.header .navbar-nav .dropdown-menu {min-width:100%; margin-top:0; padding:1rem 1.25rem}
+.header.nav-default .navbar-nav .dropdown-menu {border-top:none; border-top-right-radius:0; border-top-left-radius:0}
 .header .navbar-nav .dropdown-menu li {margin-bottom:.375em}
 .header .navbar-nav .dropdown-menu li li {margin-bottom:.25em}
 .header .navbar-nav .dropdown-submenu {margin:.125rem 0 0 .75rem; font-size:.875rem}
@@ -53,14 +55,17 @@ h2:not(:first-child),h3:not(:first-child) {margin-top:2.5rem;}
 
 @media (min-width:992px) {
 	.pad-fixed-top body {padding-top:156px}
-	.toolbar {height:108px; padding-top:30px; padding-bottom:30px}
-	.header .search {top:0; right:118px; left:50%}
+	.toolbar {min-height:108px; padding-top:30px; padding-bottom:30px}
 	.header .logo {left:0; width:200px; margin-left:0}
+	.toolbar .nav {padding-left:230px}
+	.header .search {top:0; right:118px; left:50%}
+	.header.nav-in-toolbar .search {left:62.5%}
 	.header .navbar-nav > li.make-cols li {width:200px}
 	.header .navbar-nav > li:not(.make-cols) li a {white-space:nowrap}
 }
 
 @media (max-width: 991.98px) {
+	.nav-in-toolbar.mm-default .nav {padding-top:102px}
 	.offcanvas-collapse {
 		position: fixed;
 		z-index: 2;
