@@ -54,6 +54,9 @@
 	{% if location.hours is not empty %}
 		<div><i class="fa fa-calendar"></i><span>{{location.hours}}</span></div>
 	{% endif %}
+	{% if location.description is not empty %}
+		<div class="g mt-2">{{location.description}}</div>
+	{% endif %}
 	</div>
 
 	<div class="col-lg-7">
@@ -128,6 +131,9 @@ var locDefaultPos = {lat: {{location.lat}}, lng: {{location.lon}}};
 	iWContent += '<div>'+location.street_line2+'</div>';
 {% endif %}
 	iWContent += '<div>'+location.city+', '+location.state+' '+location.zip+'</div></address>'
+{% if location.description is not empty %}
+	iWContent += '<div class="g mt-2">'+location.description+'</div>';
+{% endif %}
 	iWContent += '</div>'
 
 	var infowindow = new google.maps.InfoWindow({

@@ -43,5 +43,8 @@
 {% if location.hours is not empty %}
 <div><i class="fa fa-calendar"></i><span>{{location.hours}}</span></div>
 {% endif %}
+{% if location.description is not empty %}
+	<div class="g mt-2">{{location.description}}</div>
+{% endif %}
 
 {% endblock %}

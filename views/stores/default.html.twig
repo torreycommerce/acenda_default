@@ -32,6 +32,9 @@
 			{% endif %}
 				<div>{{location.city}}, {{location.state}} {{location.zip}}</div>
 			</address>
+			{% if location.description is not empty %}
+				<div class="g mt-2">{{location.description}}</div>
+			{% endif %}
 		</div>
 	{% endfor %}
 	</div>
