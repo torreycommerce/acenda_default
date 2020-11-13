@@ -84,26 +84,26 @@ function updateCartTotals(qtyField, cartItemId) {
 		$('.estimate-subtotal .val').text(data.result.item_subtotal);
 		$('.rate-estimate-checkout .val').text(data.result.shipping_rate);
 		$('.estimate-coupons .val').text(data.result.discount_price);
-		if (data.result.discount_price > 0 ) { $('.estimate-coupons').removeClass('d-none'); }
+		if (data.result.discount_price > 0 ) { $('.estimate-coupons').collapse('show'); }
 		$('.estimate-bundles .val').text(data.result.bundle_discount);
 		if(typeof data.result.shipping_rate == 'undefined' ||  !data.result.shipping_rate  ) {
 			data.result.shipping_rate = 0.00;
 		}
 		if(data.result.shipping_rate!='') {
-			$('.rate-estimate-checkout').show();
+			$('.rate-estimate-checkout').collapse('show');
 		} else {
-			$('.rate-estimate-checkout').hide();
+			$('.rate-estimate-checkout').collapse('hide');
 		}
 		if(data.result.tax_rate!=0 && data.result.shipping_rate!='') {
-			$('.total-before-tax').show();
+			$('.total-before-tax').collapse('show');
 		} else {
-			$('.total-before-tax').hide();		
+			$('.total-before-tax').collapse('hide');
 		}
 		if(data.result.tax_rate != 0) {
-			$('.tax-estimate-checkout').show();			
+			$('.tax-estimate-checkout').collapse('show');
 		} else {
 
-			$('.tax-estimate-checkout').hide();				
+			$('.tax-estimate-checkout').collapse('hide');
 		}
 
 		$('.total-before-tax .val').text((parseFloat(data.result.item_subtotal) + parseFloat(data.result.shipping_rate)).toFixed(2));
@@ -112,7 +112,7 @@ function updateCartTotals(qtyField, cartItemId) {
 	});
 }
 
-$('form#wishlist-form .modal_list_quantity, section#registry .modal_list_quantity').on('hidden.bs.modal', function () {
+$('#wishlist-form .modal_list_quantity, #registry .modal_list_quantity').on('hidden.bs.modal', function () {
 	document.location.reload();
 })
 

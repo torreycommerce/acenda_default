@@ -200,6 +200,8 @@ div:focus, section:focus {outline:none;}
 
 .media-left {width:80px}
 
+.collapse-filters, .pricing {line-height:1.6}
+
 @media (min-width:375px) {
 .dropdown-menu-qc {width:300px}
 }

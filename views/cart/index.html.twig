@@ -310,7 +310,7 @@
 					</div>
 				</div>
 
-				<div class="row rate-estimate-checkout" {%if cart.shipping_rate == null %}style="display:none"{% endif %}>
+				<div class="row rate-estimate-checkout collapse{% if cart.shipping_rate != null %} show{% endif %}">
 					<div class="col-7">
 						Shipping<a class="tdn" href="#" data-toggle="tooltip" data-placement="top" title="Estimated shipping rate.">*</a>
 					</div>
@@ -329,9 +329,9 @@
 					{% endif %}
 				{% endfor %}
 
-				<div class="row estimate-coupons{% if coupon_discount <= 0 %} d-none{% endif %}">
+				<div class="row estimate-coupons collapse{% if coupon_discount > 0 %} show{% endif %}">
 					<div class="col-7">Coupons</div>
-					<div class="price-discount col-5 text-right">
+					<div class="price-discount col-5 text-danger text-right">
 						-{{ prod.currency(coupon_discount|number_format(2)) }}
 					</div>
 				</div>
@@ -345,13 +345,13 @@
 				</div>
 				{% endif %}
 
-				<div class="row total-before-tax" {% if  cart.tax_rate == 0 or not cart.shipping_rate %}style="display:none"{% endif %}>
+				<div class="row total-before-tax collapse{% if cart.tax_rate != 0 and cart.shipping_rate %} show{% endif %}">
 					<div class="col-7">Total Before Tax</div>
 					<div class="col-5 text-right">
 						{{ prod.currency((cart.adjusted_subtotal+cart.shipping_rate)|number_format(2)) }}
 					</div>
 				</div>
-				<div class="row tax-estimate-checkout" {% if  cart.tax_rate == 0 %}style="display:none"{% endif %}>
+				<div class="row tax-estimate-checkout collapse{% if cart.tax_rate != 0 %} show{% endif %}">
 					<div class="col-7">Sales Tax<a class="tdn" href="#" data-toggle="tooltip" data-placement="top" title="Estimated Sales Tax.">*</a></div>
 					<div class="col-5 text-right">
 						{{ prod.currency(cart.tax_rate|number_format(2)) }}
