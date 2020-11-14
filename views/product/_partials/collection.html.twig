@@ -205,7 +205,7 @@
 
 {% if product.description is not empty %}
 <div class="col-12" id="details">	
-	<h2>Description</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Description</h2>
 	<div class="g">{{product.description}}</div>
 </div>	
 {% endif %}
@@ -218,7 +218,7 @@
 {% set bundles = api.get('/bundle', {query:{collection_id:item.id}}) %}
 {% if bundles| length >= 1 %}
 <div class="divide mb-4 pb-4" id="bundles">
-	<h2>Bundles</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Bundles</h2>
 		{% for bundle in bundles %}
 		<div class="divide mb-4 pb-4 piece piece-{{bundle.id}}">
 			<div class="row">
@@ -288,7 +288,7 @@
 
 
 <div class="divide" id="children">
-	<h2>Products</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Products</h2>
 	{# Begin pane actions / registry / wishlist / add to cart #}
 	{% if app.user.id is not empty %}
 		{% set children_ids = [] %}
@@ -329,7 +329,7 @@
 			{# Begin collection group header #}
 			{% if layout.name != '' %}
 	<div class="group-header">
-		<h4>{{layout.name}}</h4>
+		<h3 class="h4"><span class="sr-only">{{product.name}}</span> {{layout.name}}</h3>
 	</div>
 	{% endif %}
 	

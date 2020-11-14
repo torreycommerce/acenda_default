@@ -1,13 +1,13 @@
 {% if product.description is not empty %}
 <div class="divide mb-4 pb-4" id="description">
-	<h2>Description</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Description</h2>
 	{% set full_description = product.description %}
 	<div class="g">{{full_description}}</div>
 </div>
 {% endif %}
 {% if product.dynamic_attributes is not empty %}
 <div class="divide g mb-4 pb-4" id="features">
-	<h2>Features</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Features</h2>
 	<ul>
 	{% for feature in product.dynamic_attributes %}
 	   <li>
@@ -18,6 +18,6 @@
 </div>
 {% endif %}
 <div class="divide g mb-4 pb-4" id="reviews">
-	<h2>Reviews</h2>
+	<h2><span class="sr-only">{{product.name}}</span> Reviews</h2>
 	{% include "/product/_partials/reviews.html.twig" %}
 </div>
