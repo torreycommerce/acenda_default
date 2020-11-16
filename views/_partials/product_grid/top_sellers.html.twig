@@ -1,0 +1,69 @@
+<p>v6</p>
+{% if config.params['prodpage_top_sellers'] == 'ppts-default' %}
+
+	{% set near_cat = item.category|first %}
+	{% if near_cat is not empty %}
+		{% set near_cat = api.get('/category',{"query":{"slug":near_cat}})|first %}
+		{% set products = api.get('/catalog', {"query":{'category_id':near_cat.id},sort:"product.popularity:-1",limit:5}) %}
+		{% if products|length < 4 %}
+			{% set far_cat = item.category[0]|split('/') %}
+			{% if far_cat[0] != near_cat.id %}
+				{% set far_cat = api.get('/category',{"query":{"slug":far_cat[0]}})|first %}
+				{% set products = products|merge(api.get('/catalog', {"query":{'category_id':far_cat.id},sort:"product.popularity:-1",limit:5})) %}
+			{% endif %}
+			{% if products|length < 4 %}
+				{% set products = products|merge(api.get('/catalog', {sort:"product.variant.popularity:-1",limit:5})) %}
+			{% endif %}
+		{% endif %}
+	{% else %}
+		{% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:10}) %}
+	{% endif %}
+
+{% elseif config.params['prodpage_top_sellers'] == 'ppts-same' %}
+
+	{% set near_cat = item.category|first %}
+	{% if near_cat is not empty %}
+		{% set near_cat = api.get('/category',{"query":{"slug":near_cat}})|first %}
+		{% set products = api.get('/catalog', {"query":{'category_id':near_cat.id},sort:"product.popularity:-1",limit:10}) %}
+	{% else %}
+		{% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:10}) %}
+	{% endif %}
+
+{% else%}
+
+	{% set products = api.get('/catalog', {sort:"product.variant.popularity:-1",limit:10}) %}
+
+{% endif %}
+
+
+{% if products|length > 0 %}
+
+	<section class="product-grid top-sellers">
+		<h2>Top Sellers</h2>
+		<div class="row">
+			{% set collection_ids = [] %}
+			{% set product_count = 1 %}
+			{% for row,product in products if product.id != item.id and product.id not in collection_ids and product_count < 5 %}
+				{% if product.group == 'product' %}
+					{% for id in product.product[0].collection_id %}
+						{% set collection_ids = collection_ids|merge([id]) %}
+					{% endfor %}
+				{% else %}
+					{% set collection_ids = collection_ids|merge([product.id]) %}
+				{% endif %}
+				{% set product_count = product_count + 1 %}
+				{# no QV on prd page #}
+				{% set dArray = app.request.url|split('/') %}
+				{# #}
+				<div class="col-6 col-md-3 mb-5">
+					{{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product, ['image','details'],(dArray[0] == "product") ? '1' : '0') }}
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+
+{% else %}
+
+	<!-- Top Sellers: 0 -->
+
+{% endif %}

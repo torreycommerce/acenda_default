@@ -190,7 +190,7 @@
 	{% endif %}
 {% endfor %}
 
-{% if needFilterCol %}
+{% if needFilterCol == 1 %}
 <div class="row">
 	<div class="category-filters col-lg-3">
 {% endif %}
@@ -259,7 +259,7 @@
 			{% endif %}
 		{% endif %}
 	{% endfor %}
-{% if needFilterCol %}
+{% if needFilterCol == 1 %}
 	</div>
 	{# End category filters #}
 
@@ -276,7 +276,7 @@
 			<div class="row">
 				{% for category in categories %}
 				{% set catthumb = category.thumbnail|default(app.url_asset ~ '/assets/images/product/image.svg') %}
-				<div class="col-6 col-md-4 mb-4">
+				<div class="{% if needFilterCol == 1 %}col-6 col-md-4 mb-5{% else %}col-6 col-md-4 col-lg-3 mb-5{% endif %}">
 					<div class="category">
 					    <a class="d-block g" href="{{app.url}}/category/{{category.slug}}">
 							<div class="image-space image-space-product mb-3">
@@ -381,7 +381,7 @@
 						{% set collection_ids = collection_ids|merge([product.id]) %}
 					{% endif %}
 					{# Begin product #}
-					<div class="{% if needFilterCol %}col-6 col-md-4 mb-5{% else %}col-6 col-md-4 col-lg-3 mb-5{% endif %}">
+					<div class="{% if needFilterCol == 1 %}col-6 col-md-4 mb-5{% else %}col-6 col-md-4 col-lg-3 mb-5{% endif %}">
 						{{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product) }}
 					</div>
 					{# End product #}
@@ -413,7 +413,7 @@
 						{% set collection_ids = collection_ids|merge([product.id]) %}
 					{% endif %}
 					{# Begin product #}
-					<div class="{% if needFilterCol %}col-6 col-md-4 mb-5{% else %}col-6 col-md-4 col-lg-3 mb-5{% endif %}">
+					<div class="{% if needFilterCol == 1 %}col-6 col-md-4 mb-5{% else %}col-6 col-md-4 col-lg-3 mb-5{% endif %}">
 						{{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product) }}
 					</div>
 					{# End product #}
@@ -427,7 +427,7 @@
 			{% endif %}
 		</div>
 		{% endif %}
-{% if needFilterCol %}
+{% if needFilterCol == 1 %}
 	</div>
 </div>
 {% endif %}
