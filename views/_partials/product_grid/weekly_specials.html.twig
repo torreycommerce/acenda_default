@@ -1,4 +1,4 @@
-<section class="product-grid">
+<section class="product-grid top-sellers">
     {# Category Header (Page #, Items / page, Sort by, Search) #}
     {# Begin category header #}
 
@@ -13,9 +13,11 @@
         {% set product_ids = [1528, 34767, 34790, 21032] %}
         {% set products = api.get('/catalog', {query:{id:{'$in':product_ids}}}) %}
         {% for row,product in products %}
+		{# no QV on prd page #}
+		{% set dArray = app.request.url|split('/') %}
         {# Begin product #}
         <div class="col-6 col-md-3 mb-5">
-            {{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product, ['image','details']) }}
+            {{ prod.gridproduct(config,imgThumbnailWidth,imgThumbnailHeight,product, ['image','details'],(dArray[0] == "product") ? '1' : '0') }}
         </div>
         {# End product #}
         {% endfor %}

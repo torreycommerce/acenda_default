@@ -337,9 +337,9 @@
 </div>
 
 {% if product.cross_sellers is not empty %}
-{% include "/product/_partials/cross-sellers.html.twig" %}
-{% else %}
-{% include "/_partials/product_grid/top_sellers.html.twig" %}
+	{% include "/product/_partials/cross-sellers.html.twig" %}
+{% elseif config.params['prodpage_top_sellers'] != 'ppts-off' %}
+	{% include "/_partials/product_grid/top_sellers.html.twig" %}
 {% endif %}
 
 {% if not app.request.isAjaxRequest() %}
@@ -410,6 +410,8 @@
             'aggregateRating': schemaAggregateRating,
             'review': schemaReviews
     }) %}
+
+</div><div> {# make sure .divide was last div #}
 
 <script type="application/ld+json">
 {{schemaJsonLD|json_encode}}

@@ -513,4 +513,8 @@
 </div>
 </div>
 
-{% include "/_partials/product_grid/top_sellers.html.twig" %}
+{% if product.cross_sellers is not empty %}
+	{% include "/product/_partials/cross-sellers.html.twig" %}
+{% elseif config.params['prodpage_top_sellers'] != 'ppts-off' %}
+	{% include "/_partials/product_grid/top_sellers.html.twig" %}
+{% endif %}
