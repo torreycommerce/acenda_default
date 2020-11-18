@@ -36,8 +36,7 @@
 {{ app.asset.js(app.url_asset ~ '/assets/js/backbone-min.js') }}
 {{ app.asset.js(app.url_asset ~ '/assets/js/normalizer.js') }}
 {% endif %}
-{{ app.asset.js(app.url_asset ~ '/assets/js/popper-1.14.3.min.js') }}
-{{ app.asset.js(app.url_asset ~ '/assets/js/bootstrap-4.3.1.min.js') }}
+{{ app.asset.js(app.url_asset ~ '/assets/js/bootcenda-4.3.1.min.js') }} {# removed carousel, scrollspy, toast #}
 {{ app.asset.js(app.url_asset ~ '/assets/js/site.js') }}
 
 {% if app.params.seo.google_analytics is not empty and app.params.seo.google_tag_manager is empty %}
