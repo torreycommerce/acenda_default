@@ -152,7 +152,7 @@ div:focus, section:focus {outline:none;}
 .tdn, a.tdn {text-decoration:none;}
 .uc {text-transform:uppercase;}
 .wsnw {white-space:nowrap;}
-
+.z-2 {z-index:2}
 
 @media (min-width:1px){
 .image-space .isd {top:50%; left:50%; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
