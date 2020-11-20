@@ -75,21 +75,20 @@ $(document).ready(function() {
 	$('[data-toggle="tooltip"]').tooltip()
 	//
 	$('a.btn[data-toggle=dropdown]').click(function () {
-        if ($(this).attr('href')){
-            window.location = $(this).attr('href');
-        }
-    });
-	
+		if ($(this).attr('href')) window.location = $(this).attr('href')
+	});
+	//
+	$('.img-product[src*="product/image.svg"]').parents('.image-space').addClass('bg-light')
 });
 
 
 $('img').on("error", function() {
-	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','bg-light img-fluid img-fit');
+	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
 });
 $(window).on("load", function (e) {
 	$('img').each(function() {
 		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','bg-light img-fluid img-fit');
+			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
 		}
 	});
 });
