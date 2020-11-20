@@ -40,3 +40,43 @@ new m(b,g,"parsleyField");break;case "parsleyFieldMultiple":e=new p(b,g,"parsley
 typeof this[0])return{};for(var g in this[0].attributes)if(b=this[0].attributes[g],"undefined"!==typeof b&&null!==b&&b.specified&&f.test(b.name)){var e=c,k=r(b.name.replace(a,"")),l;b=b.value;var h=void 0;try{l=b?"true"==b||("false"==b?!1:"null"==b?null:!isNaN(h=Number(b))?h:/^[\[\{]/.test(b)?d.parseJSON(b):b):b}catch(m){l=b}e[k]=l}return c};var r=function(a){return a.replace(/-+(.)?/g,function(a,c){return c?c.toUpperCase():""})};d.fn.parsley.defaults={namespace:"parsley-",inputs:"input, textarea, select",
 excluded:"input[type=hidden], input[type=file], :disabled",priorityEnabled:!0,trigger:!1,animate:!0,animateDuration:300,scrollDuration:500,focus:"first",validationMinlength:3,successClass:"parsley-success",errorClass:"parsley-error",errorMessage:!1,validators:{},showErrors:!0,useHtml5Constraints:!0,messages:{},validateIfUnchanged:!1,errors:{classHandler:function(a,b){},container:function(a,b){},errorsWrapper:"<ul></ul>",errorElem:"<li></li>"},listeners:{onFieldValidate:function(a,b){return!1},onFormValidate:function(a,
 b,c){},onFieldError:function(a,b,c){},onFieldSuccess:function(a,b,c){}}}}(window.jQuery||window.Zepto);
+
+/* Parsley parsley.extend.min.js build version 1.2.4 http://parsleyjs.org */
+window.ParsleyConfig=window.ParsleyConfig||{};
+(function(d){window.ParsleyConfig=d.extend(!0,{},window.ParsleyConfig,{validators:{minwords:function(){return{validate:function(a,b){a=a.replace(/(^\s*)|(\s*$)/gi,"");a=a.replace(/[ ]{2,}/gi," ");a=a.replace(/\n /,"\n");a=a.split(" ").length;return a>=b},priority:32}},maxwords:function(){return{validate:function(a,b){a=a.replace(/(^\s*)|(\s*$)/gi,"");a=a.replace(/[ ]{2,}/gi," ");a=a.replace(/\n /,"\n");a=a.split(" ").length;return a<=b},priority:32}},rangewords:function(){var a=this;return{validate:function(b,
+c){return a.minwords().validate(b,c[0])&&a.maxwords().validate(b,c[1])},priority:32}},greaterthan:function(){return{validate:function(a,b,c){c.options.validateIfUnchanged=!0;return new Number(a)>new Number(d(b).val())},priority:32}},lessthan:function(){return{validate:function(a,b,c){c.options.validateIfUnchanged=!0;return new Number(a)<new Number(d(b).val())},priority:32}},beforedate:function(){return{validate:function(a,b,c){return Date.parse(a)<Date.parse(d(b).val())},priority:32}},onorbeforedate:function(){return{validate:function(a,
+b){return Date.parse(a)<=Date.parse(d(b).val())},priority:32}},afterdate:function(){return{validate:function(a,b){return Date.parse(d(b).val())<Date.parse(a)},priority:32}},onorafterdate:function(){return{validate:function(a,b){return Date.parse(d(b).val())<=Date.parse(a)},priority:32}},inlist:function(){return{validate:function(a,b,c){b=(b+"").split(RegExp("\\s*\\"+(c.options.inlistDelimiter||",")+"\\s*"));return-1!==d.inArray(d.trim(a),b)},priority:32}},luhn:function(){return{validate:function(a,
+b,c){a=a.replace(/[ -]/g,"");var d,f,e;b=0;e=a.split("").reverse();c=d=0;for(f=e.length;d<f;c=++d)a=e[c],a=+a,c%2?(a*=2,b=10>a?b+a:b+(a-9)):b+=a;return 0===b%10},priority:32}},americandate:function(){return{validate:function(a,b,c){if(!/^([01]?[0-9])[\.\/-]([0-3]?[0-9])[\.\/-]([0-9]{4}|[0-9]{2})$/.test(a))return!1;c=a.split(/[.\/-]+/);a=parseInt(c[1],10);b=parseInt(c[0],10);c=parseInt(c[2],10);if(0==c||0==b||12<b)return!1;var d=[31,28,31,30,31,30,31,31,30,31,30,31];if(0==c%400||0!=c%100&&0==c%4)d[1]=
+29;return 0<a&&a<=d[b-1]},priority:32}}},messages:{minwords:"This value should have %s words at least.",maxwords:"This value should have %s words maximum.",rangewords:"This value should have between %s and %s words.",greaterthan:"This value should be greater than %s.",lessthan:"This value should be less than %s.",beforedate:"This date should be before %s.",onorbeforedate:"This date should be on or before %s.",afterdate:"This date should be after %s.",onorafterdate:"This date should be on or after %s.",
+luhn:"This value should pass the luhn test.",americandate:"This value should be a valid date (MM/DD/YYYY)."}})})(window.jQuery||window.Zepto);
+
+/* site-parsley.js */
+var limit_feed = ["text", "tel", "email", "password", "url", "datetime", "time", "number"];
+
+$('form').each(function() {
+	$(this).parsley({
+		successClass: 'is-valid',
+		errorClass: 'is-invalid',
+		errors: {
+			classHandler: function(el) {
+				return el;
+			},
+			errorsWrapper: '',
+			errorElem: ''
+		},
+		listeners: {
+			onFieldError: function ( elem, constraints, ParsleyField ) {
+				if (!elem.parents('form').hasClass('was-validated'))
+					elem.parents('form').addClass('was-validated');
+
+				elem.attr("data-original-title", elem[0].validationMessage);
+				elem.tooltip("show");
+			},
+			onFieldSuccess: function ( elem, constraints, ParsleyField ) {
+				if (!elem.parents('form').hasClass('was-validated'))
+					elem.parents('form').addClass('was-validated');
+				elem.tooltip("dispose");
+			}
+		}
+	});
+});

@@ -61,16 +61,9 @@ $(document).ready(function() {
 		});
 	}
 	//
-	if ($('form').length) {
-		IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.min.js",function(){
-			IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.extend.min.js",function(){
-				IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/site-parsley.js",function(){
-				});
-			});
-		});
-	}
+	if ($('form').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.acenda.js",function(){})
 	//
-	if ($('#SignupInput').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){});
+	if ($('#SignupInput').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){})
 	//
 	$('[data-toggle="tooltip"]').tooltip()
 	//
