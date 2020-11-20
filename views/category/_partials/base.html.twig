@@ -174,7 +174,7 @@
 </div>
 {% endset %}
 
-{% if config.params['catpage_intro_loc'] != "cil-rc" %}
+{% if config.params['catpage_intro_loc'] == "cil-top" %}
 {{catintro}}
 {% endif %}
 
@@ -265,7 +265,7 @@
 
 	<div class="col-lg-9">
 {% endif %}
-		{% if config.params['catpage_intro_loc'] == "cil-rc" %}
+		{% if config.params['catpage_intro_loc'] != "cil-top" %}
 		{{catintro}}
 		{% endif %}
 
