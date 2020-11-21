@@ -216,42 +216,44 @@
     {% set cfsc_default = 1 %}
 {% endif %}			
 	{% set hasFilters = 0 %}
-	{% for name,filter_set in filters %}
-		{% if filter_set|length > 1 %}
-			{% if hasFilters == 0 %}
-			<button class="btn btn-block btn-lg btn-default mb-3 d-lg-none" data-toggle="collapse" data-target=".collapse-filters"><i class="fas fa-sliders-h"></i><span>Refine</span></button>
-			<div class="collapse collapse-filters d-lg-block fa-fa-balance"><div class="list-group mb-3">
-			{% set hasFilters = 1 %}
-			{% endif %}
-			
-			{% set filter_count = filters %}
-			{% if filter_set|length %}
-				{% if filters|length %}
-				{% if attribute(filter_query,name) is defined %}
-					{% set current_filter_set = {} %}
-					{% for key,value in filter_query %}
-						{% if key != name %}
-							{% set current_filter_set = current_filter_set|merge({(key):value}) %}
-						{% endif %}
-					{% endfor %}
-				{% else %}
-					{% set current_filter_set = filter_query %}
+	{% for da in default_attributes %}
+		{% for name,filter_set in filters %}
+			{% if filter_set|length > 1 and da == name %}
+				{% if hasFilters == 0 %}
+				<button class="btn btn-block btn-lg btn-default mb-3 d-lg-none" data-toggle="collapse" data-target=".collapse-filters"><i class="fas fa-sliders-h"></i><span>Refine</span></button>
+				<div class="collapse collapse-filters d-lg-block fa-fa-balance"><div class="list-group mb-3">
+				{% set hasFilters = 1 %}
 				{% endif %}
-				{% if current_filter_set is not empty %}
-				{% set filter_count = api.get('/catalog', {
-							"query":current_filter_set|merge(default_query),
-							"search":app.request.get.s,
-							"attributes":name,
-							"format":"attributes",
-					  }) %}
+				
+				{% set filter_count = filters %}
+				{% if filter_set|length %}
+					{% if filters|length %}
+					{% if attribute(filter_query,name) is defined %}
+						{% set current_filter_set = {} %}
+						{% for key,value in filter_query %}
+							{% if key != name %}
+								{% set current_filter_set = current_filter_set|merge({(key):value}) %}
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						{% set current_filter_set = filter_query %}
+					{% endif %}
+					{% if current_filter_set is not empty %}
+					{% set filter_count = api.get('/catalog', {
+								"query":current_filter_set|merge(default_query),
+								"search":app.request.get.s,
+								"attributes":name,
+								"format":"attributes",
+						  }) %}
+					{% endif %}
 				{% endif %}
-			{% endif %}
 
-            {% set safename = name|replace({'.':'-'})  %}
-			{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
-			{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
+				{% set safename = name|replace({'.':'-'})  %}
+				{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
+				{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
+				{% endif %}
 			{% endif %}
-		{% endif %}
+		{% endfor %}
 		{% if loop.last %}
 			{% if hasFilters == 1 %}
 				</div></div>
