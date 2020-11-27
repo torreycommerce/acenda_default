@@ -78,7 +78,7 @@
         				    </td>
         				    <td style="padding:0 0 0 20px;" valign="top">
             					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
-            					<br><strong>SKU:</strong> {{item.sku}}
+            					{% if item.sku is not empty %}<br><strong>SKU:</strong> {{item.sku}}{% endif %}
             					<br><strong>Price:</strong> {{ mac.currency(item.price|number_format(2)) }}
             					<br><strong>Qty:</strong> {{ item.quantity }}
             				</td>

@@ -93,10 +93,13 @@
 				                <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
         				    </td>
         				    <td style="padding:0 0 0 20px;" valign="top">
-            					<a href="{{app.url}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
-            					<br><strong>SKU:</strong> {{item.sku}}
-            					<br><strong>Price:</strong> {{ mac.currency(item.price|number_format(2)) }}
-            					<br><strong>Qty:</strong> {{ item.quantity }}
+            					<a href="{{ params['url']['current']}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
+								{% if item.sku is not empty %}<br><strong>SKU:</strong> {{item.sku}}{% endif %}
+								{% if item.personalization is not empty %}{% for personalization in item.personalization %}
+								<br>{{personalization.name}}: {{personalization.value}}
+								{% endfor %}{% endif %}
+								<br><strong>Price:</strong> {{ mac.currency(item.price|number_format(2)) }}
+								<br><strong>Qty:</strong> {{ item.quantity }}
             				</td>
             			</tr>
             		</table>
