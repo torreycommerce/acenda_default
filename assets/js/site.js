@@ -63,7 +63,7 @@ $(document).ready(function() {
 	//
 	if ($('form').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/parsley.acenda.js",function(){})
 	//
-	if ($('#SignupInput').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){})
+	if ($('.js-signup-email').length) IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/signup.js",function(){})
 	//
 	$('[data-toggle="tooltip"]').tooltip()
 	//
