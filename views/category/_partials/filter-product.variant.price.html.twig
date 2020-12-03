@@ -7,10 +7,10 @@
 {% if cfsc_as == 1 or ((selected_first is not empty and selected_last is not empty) and cfsc_ac != 1) %}
     {% set fopen = 1 %}
 {% endif %}
-<button class="list-group-item text-left" data-template="product.variant.price" data-toggle="collapse" data-target="#filter-{{ safename }}-items" aria-controls="filter-{{ safename }}-items" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
+<button class="list-group-item text-left" data-template="product.variant.price" data-toggle="collapse" data-target="#filter-{{ safename }}" aria-controls="filter-{{ safename }}" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
 	<span>Price</span><i class="fa fa-angle-down"></i>
 </button>
-<div id="filter-{{ safename }}-items" class="collapse{% if fopen == 1 %} show{% endif %}">
+<div class="filter-collapse filter-{{ safename }}" id="filter-{{ safename }}" class="collapse{% if fopen == 1 %} show{% endif %}">
 	<div class="card"><div class="card-body price price-range">
 		<ul class="list-unstyled">
 			{% for price in prices %}
