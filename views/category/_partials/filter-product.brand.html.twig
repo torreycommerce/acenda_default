@@ -6,7 +6,7 @@
 	{% set title = name[:6] == 'group_' ? name[6:] : name %}
 	<span>Brand</span><i class="fa fa-angle-down"></i>
 </button>
-<div class="filter-collapse filter-{{ safename }}" id="filter-{{ safename }}" class="collapse{% if fopen == 1 %} show{% endif %}">
+<div class="filter-collapse filter-{{ safename }} collapse{% if fopen == 1 %} show{% endif %}" id="filter-{{ safename }}">
 	<div class="card"><div class="card-body">
 		<ul class="list-unstyled">                    
 			{% for item,count in filter_set %}

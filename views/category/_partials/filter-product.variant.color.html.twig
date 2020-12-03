@@ -2,13 +2,13 @@
 {% if cfsc_default == 1 or cfsc_as == 1 or (open_filter is not empty and cfsc_ssoc == 1) %}
     {% set fopen = 1 %}
 {% endif %}
-<button class="list-group-item text-left" data-template="product.variant.color" data-toggle="collapse" data-target="#collapseC" aria-controls="collapseC" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
+<button class="list-group-item text-left" data-template="product.variant.color" data-toggle="collapse" data-target="#filter-color" aria-controls="filter-color" aria-expanded="{{ fopen == 1 ? 'true' : 'false' }}">
 	<span>Color</span><i class="fa fa-angle-down"></i>
 </button>
 {% if config.params['catpage_filter_color_format'] == 'cfcf-hc' %}
 	{% set type = "card" %}
 {% endif %}
-<div id="collapseC" class="collapse{% if fopen == 1 %} show{% endif %}">
+<div class="filter-collapse filter-color collapse{% if fopen == 1 %} show{% endif %}" id="filter-color">
 	<div class="card"><div class="card-body color-chips pb-thin">
 		<div class="row row-thin">
 			{% for item,count in filter_set %}
