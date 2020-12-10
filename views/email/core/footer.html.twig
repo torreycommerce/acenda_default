@@ -1,10 +1,15 @@
 {%- import "email/core/macro.html.twig" as ema -%}
+{% set config = api.get('/config') %}
 <tr>
 	<td {{ ema.divform() }}>
 		<table {{ ema.tform() }}>
 			<tr>
 				<td {{ ema.comformC() }}>
+				{% if config.params['email-footer-text'] is defined %}
+					{{ config.params['email-footer-text'] }}
+				{% else %}
 					Thank you from your friends at {{ app.params.site.title }}.<br>Please add us to your email address book to make sure you receive important emails from us.
+				{% endif %}
 				</td>
 			</tr>
 		</table>

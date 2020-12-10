@@ -1,6 +1,7 @@
 {%- import "/_macros/product.html.twig" as mac -%}
 {%- import "email/core/macro.html.twig" as ema -%}
 {% include 'email/core/header.html.twig' %}
+{% set config = api.get('/config') %}
 {% set order = api.get('/order/' ~ order_id ~ '?email=' ~ email ~ '&order_number=' ~ order_number) %}
 {% set items = order.items %}
 {% set product_ids = items|values_in('variant_id') %}
@@ -109,5 +110,7 @@
 		</table>
 	</td>
 </tr>
-{% include 'email/core/top-seller.html.twig' %}
+{% if config.params['email-show-ts'] == '1' %}
+	{% include 'email/core/top-seller.html.twig' %}
+{% endif %}
 {% include 'email/core/footer.html.twig' %}
