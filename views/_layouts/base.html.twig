@@ -161,5 +161,8 @@ var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",s
 {% endblock %}
 {% endblock %}
 {% block js %}{% endblock %}
+{% if config.params['global-eop-insert'] is not empty %}
+{{ config.params['global-eop-insert'] }}
+{% endif %}
 </body>
 </html>

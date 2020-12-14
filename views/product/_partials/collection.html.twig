@@ -1,8 +1,51 @@
 <div class="divide mb-4 pb-4 prodpage{% if product.videos is not empty %} has-video{% endif %}{% if config.params['prodpage_deet_loc'] is defined %} {{config.params['prodpage_swatch_loc']}}{% endif %}" id="collection">
 <div class="divide mb-4 pb-4">
+
+{% set prodintro %}
+<div class="mb-3" id="product-intro">
+	{% if product.tags is not empty %}
+	<div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
+		{% set tagd = tag|title|replace({'-':' '}) %}
+		{% if tag == 'new' %}
+			<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
+		{% elseif tag == 'sale' %}
+			<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
+		{% else %}
+			<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
+		{% endif %}
+	{% endspaceless %}{% endfor %}</div>
+	{% endif %}
+	{% if product.brand is not empty %}
+	<div class="brand mb-1">
+		<a href="{{app.url}}/brand/{{product.brand|lower|url_encode|replace({'%20':'+'})}}">{{product.brand}}</a>
+	</div>
+	{% endif %}
+	<h1 class="product-name">{{product.name}}</h1>
+	{# Begin review stars #}
+	{% spaceless %}
+	{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
+	{% if review_score > 0 %}
+	<div class="fsd1 py-1 rating">
+		{{ base.rating( review_score ) }}
+		<span class="dib">
+			<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span>{{ reviews.num_total }}</span>){% endif %}
+		</span>
+	</div>
+	{% endif %}
+	{% endspaceless %}
+</div>
+{% endset %}
+
+{% if config.params['prodpage-name-loc'] == "ppnl-t" %}
+{{ prodintro }}
+{% endif %}
+
 <div class="row">
 
 	<div class="col-md-7 mb-4" id="product-images">
+		{% if config.params['prodpage-name-loc'] == "ppnl-l" %}
+		{{ prodintro }}
+		{% endif %}
 		<div class="pos-r pi-contain">
 		{% set main_image_id = product.images.0.id is not empty ? product.images.0.id : product.product|values_in('images')[0]['id'] %}
 		{% set main_image_id = main_image_id is empty ? 'default' : main_image_id %}
@@ -104,38 +147,9 @@
 	</div>
 	
 	<div class="col-md-5 mb-4">
-		<div class="mb-3" id="product-intro">
-            {% if product.tags is not empty %}
-	        <div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
-				{% set tagd = tag|title|replace({'-':' '}) %}
-				{% if tag == 'new' %}
-					<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
-				{% elseif tag == 'sale' %}
-					<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
-				{% else %}
-					<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
-				{% endif %}
-			{% endspaceless %}{% endfor %}</div>
-			{% endif %}
-			{% if product.brand is not empty %}
-			<div class="brand mb-1">
-				<a href="{{app.url}}/brand/{{product.brand|lower|url_encode|replace({'%20':'+'})}}">{{product.brand}}</a>
-			</div>
-			{% endif %}
-			<h1 class="product-name">{{product.name}}</h1>
-			{# Begin review stars #}
-			{% spaceless %}
-			{% set review_score = product.product|values_in('review_score')|merge( product.review_score ? [product.review_score] : [])|average() %}
-			{% if review_score > 0 %}
-			<div class="fsd1 py-1 rating">
-				{{ base.rating( review_score ) }}
-				<span class="dib">
-					<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %}(<span>{{ reviews.num_total }}</span>){% endif %}
-				</span>
-			</div>
-			{% endif %}
-			{% endspaceless %}
-		</div>
+		{% if config.params['prodpage-name-loc'] != "ppnl-l" and config.params['prodpage-name-loc'] != "ppnl-t" %}
+		{{ prodintro }}
+		{% endif %}
 
 		<div class="product-details">
 		    {% set pricearray = [] %}
@@ -199,6 +213,9 @@
 			</div>
 			{% endif %}
 
+			{% if config.params['prodpage-after-form'] is not empty %}
+			{{ config.params['prodpage-after-form'] }}
+			{% endif %}
 		</div>
 	</div>
 

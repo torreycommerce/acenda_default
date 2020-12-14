@@ -1,5 +1,47 @@
 {% set product =  product|merge({'attributes':product.variant|values_in(['price','compare_price','save_price','save_percent','regular_price','color'])}) %}
 <div class="divide pb-4 mb-4{% if product.videos is not empty %} has-video{% endif %}{% if config.params['prodpage_deet_loc'] is defined %} {{config.params['prodpage_swatch_loc']}}{% endif %} prodpage" id="singleProduct">
+
+{% set prodintro %}
+<div class="mb-3" id="product-intro">
+	{% if product.tags is not empty %}
+	<div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
+		{% set tagd = tag|title|replace({'-':' '}) %}
+		{% if tag == 'new' %}
+			<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
+		{% elseif tag == 'sale' %}
+			<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
+		{% else %}
+			<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
+		{% endif %}
+	{% endspaceless %}{% endfor %}</div>
+	{% endif %}
+	{% if product.brand is not empty %}
+	<div class="brand mb-1">
+		<a href="{{app.url}}/brand/{{product.brand|lower|url_encode|replace({'%20':'+'})}}">{{product.brand}}</a>
+	</div>
+	{% endif %}
+	<h1 class="product-name mb-2">{{product.name}}</h1>
+	{% spaceless %}
+	{% set review_score = reviews|average('score') %}
+	{% if review_score > 0 %}
+	<div class="fsd1 rating">
+		<a class="btn btn-link btn-sm p-0 ttc" href="#reviews">{{ base.rating( review_score ) }}
+		<span class="dib">
+			<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
+		</span>
+		</a>
+	</div>
+	{% else %}
+	{#<a class="btn btn-link btn-sm p-0" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>#}
+	{% endif %}
+	{% endspaceless %}
+</div>
+{% endset %}
+
+{% if config.params['prodpage-name-loc'] == "ppnl-t" %}
+{{ prodintro }}
+{% endif %}
+
 <div class="row">
 
 {% set startColor = app.request.get.color %}
@@ -25,6 +67,9 @@
 {% endif %}
 
 	<div class="col-md-7 mb-4" id="product-images">
+		{% if config.params['prodpage-name-loc'] == "ppnl-l" %}
+		{{ prodintro }}
+		{% endif %}
 		<div class="pos-r pi-contain">
 			<div class="variations" data-id="{{product.id}}">
 				<div class="active variation" data-vid="{{variation.id}}">
@@ -92,40 +137,9 @@
 	</div>
 
 	<div class="col-md-5 mb-4">
-	    <div class="mb-3" id="product-intro">
-	        {% if product.tags is not empty %}
-	        <div class="badges mb-2">{% for tag in product.tags %}{% spaceless %}
-				{% set tagd = tag|title|replace({'-':' '}) %}
-				{% if tag == 'new' %}
-					<span class="badge badge-success badge-{{tag}}">{{ tagd }}</span>
-				{% elseif tag == 'sale' %}
-					<span class="badge badge-danger badge-{{tag}}">{{ tagd }}</span>
-				{% else %}
-					<span class="badge badge-primary badge-{{tag}}">{{ tagd }}</span>
-				{% endif %}
-			{% endspaceless %}{% endfor %}</div>
-			{% endif %}
-    		{% if product.brand is not empty %}
-    		<div class="brand mb-1">
-    			<a href="{{app.url}}/brand/{{product.brand|lower|url_encode|replace({'%20':'+'})}}">{{product.brand}}</a>
-    		</div>
-    		{% endif %}
-    		<h1 class="product-name mb-2">{{product.name}}</h1>
-    		{% spaceless %}
-    		{% set review_score = reviews|average('score') %}
-    		{% if review_score > 0 %}
-    		<div class="fsd1 rating">
-    			<a class="btn btn-link btn-sm p-0 ttc" href="#reviews">{{ base.rating( review_score ) }}
-    			<span class="dib">
-    				<span>{{ (review_score * 5)|number_format(1) }}</span>{% if reviews.num_total %} (<span>{{ reviews.num_total }}</span>){% endif %}
-    			</span>
-    			</a>
-    		</div>
-    		{% else %}
-    		{#<a class="btn btn-link btn-sm p-0" href="{{ app.url }}/review/id/{{product.id}}"><u>Write a Review</u></a>#}
-    		{% endif %}
-    		{% endspaceless %}
-	    </div>
+	    {% if config.params['prodpage-name-loc'] != "ppnl-l" and config.params['prodpage-name-loc'] != "ppnl-t" %}
+		{{ prodintro }}
+		{% endif %}
 
 		<div class="product-details">
 			<div class="mb-3 variations" data-id="{{product.id}}">
@@ -310,6 +324,9 @@
 				</div>
 			   {% include "/product/_partials/list/actions-single.html.twig" %}
 			</form>
+			{% if config.params['prodpage-after-form'] is not empty %}
+			{{ config.params['prodpage-after-form'] }}
+			{% endif %}
 		</div>
 		{% if config.params['prodpage_deet_loc'] == "ppdl-ra" %}
 		<div class="mt-3">
