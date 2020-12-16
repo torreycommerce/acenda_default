@@ -57,7 +57,7 @@
 {% endif %}
 
 <!doctype html>
-<html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}{% if config.params['mobile_menu_format'] == "mff-fo" %} pad-fixed-top{% endif %}" lang="en">
+<html class="{% spaceless %}{{ url_based_class }}{% endspaceless %} {% spaceless %}{% block dynamicclasses %}{% endblock %}{% endspaceless %}{% if config.params['mobile_menu_format'] == "mff-fo" %} pad-fixed-top{% endif %}{% if config.params['global-delay-nav'] == "1" %} nav-delay{% endif %}" lang="en">
 <head>
 {% if app.params.seo.google_tag_manager is not empty and app.params.seo.google_analytics is empty %}
 <!-- Google Tag Manager DataLayer -->

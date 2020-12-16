@@ -72,23 +72,32 @@ $(document).ready(function() {
 	});
 	//
 	$('.img-product[src*="product/image.svg"]').parents('.image-space').addClass('bg-light')
+	//
+	if ($('.nav-delay').length) {
+		$('html').on('mouseenter focusin','body',function(e){
+			if ($('.nav-delay').length) {
+				lazyNav()
+			}
+		});
+		if ($('.nav-delay:hover').length) lazyNav()
+	} else {
+		accessNav()
+	}
+	//
+	function lazyNav() {
+		$('html').removeClass('nav-delay')
+		//
+		var navd = new DOMParser().parseFromString(navDelay, 'text/html')
+		$(navd).find('.dropdown-menu').each(function() {
+			var dC = $(this).attr('aria-labelled-by').replace('dropdown-toggle-','')
+			$(this).appendTo('.navcat-'+dC)
+		});
+		//
+		accessNav()
+	}
 });
 
-
-$('img').on("error", function() {
-	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
-});
-$(window).on("load", function (e) {
-	$('img').each(function() {
-		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
-		}
-	});
-});
-
-
-
-
+function accessNav() {
 $('.header .navbar-nav > li > ul').each(function() {
 	if ($(this).children('li').length > 10) {
 		$(this).parent('li').addClass('make-cols')
@@ -186,6 +195,24 @@ $('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
 		$(this).find('.ace-bs-accessed[data-toggle=dropdown]').dropdown('toggle').removeClass('ace-bs-accessed')
 	}
 });
+}
+
+
+$('img').on("error", function() {
+	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
+});
+$(window).on("load", function (e) {
+	$('img').each(function() {
+		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
+		}
+	});
+});
+
+
+
+
+
 
 $('html').on("click", ".ttc", function() {
 	if ($(this).attr('href')) {

@@ -1,4 +1,4 @@
-{% spaceless %}
+
 {% if config.params['mobile_menu_format'] == "mff-fo" %}
 <nav class="nav offcanvas-collapse d-lg-block{% if config.params['header_layout'] != "hl-one" %} bg-dark{% else %} bg-white{% endif %}" id="navbar-category">
 	<div class="container{% if config.params['header_layout'] == "hl-one" %} container-lg-none{% endif %}">
@@ -10,6 +10,8 @@
 		<div class="navbar navbar-expand-lg p-0">
 			<div class="collapse navbar-collapse" id="navbar-category">
 {% endif %}
+{% set navDelay = "" %}
+{% set navItem = "" %}
 				<ul class="navbar-nav add-access py-2 py-md-3 py-lg-0">
 				{% for main_category,items in category_all %}
 					{% if items.limb|length %}
@@ -20,15 +22,22 @@
 								</a>
 								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
 							</div>
-							<ul class="collapse dropdown-menu{% if category_all|length > 5 and loop.index > (category_all|length / 2) %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="dropdown-toggle-{{items.id}}" id="access-navcat-{{items.id}}">
-								{% for category,subitems in items.limb %}
-									{% if subitems.limb|length %}
-										  {{ base.subcategory(category,subitems) }}
-									{% else %}
-										<li class="navcat-{{subitems.id}}"><a href="{{app.url}}/category/{{subitems.slug}}">{{category}}</a></li>
-									{% endif %}
-								{% endfor %}
-							</ul>
+                            {% set navItem %}{% spaceless %}
+                            <ul class="collapse dropdown-menu{% if category_all|length > 5 and loop.index > (category_all|length / 2) %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="dropdown-toggle-{{items.id}}" id="access-navcat-{{items.id}}">
+                            	{% for category,subitems in items.limb %}
+                            		{% if subitems.limb|length %}
+                            			  {{ base.subcategory(category,subitems) }}
+                            		{% else %}
+                            			<li class="navcat-{{subitems.id}}"><a href="{{app.url}}/category/{{subitems.slug}}">{{category}}</a></li>
+                            		{% endif %}
+                            	{% endfor %}
+                            </ul>
+                            {% endspaceless %}{% endset %}
+							{% if config.params['global-delay-nav'] == "1" %}
+								{% set navDelay = navDelay ~ navItem %}
+							{% else %}
+							{{ navItem }}
+							{% endif %}
 						</li>
 					{% else %}
 						<li class="navcat-{{items.id}}"><a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" href="{{app.url}}/category/{{items.slug}}">{{main_category}}</a></li>
@@ -39,4 +48,9 @@
 		</div>
 	</div>
 </nav>
-{% endspaceless %}
+
+{% if config.params['global-delay-nav'] == "1" %}
+<script>
+var navDelay = '{{ navDelay|replace({"'":"\\'"}) }}';
+</script>
+{% endif %}
