@@ -1,8 +1,0 @@
-{% set step = (app.request.get.step ? app.request.get.step:'shipping') %}
-{% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
-{% set cart = api.get('/sessioncart') %}
-{% if cart.items is not empty %} {# Set cart products for acenda object #}
-	{% set product_ids = cart.items|values_in('product_id') %}
-	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
-{% endif %}
-{% include "/checkout/_partials/summary.html.twig" %}
