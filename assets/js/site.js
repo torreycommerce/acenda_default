@@ -335,7 +335,7 @@ function productSlick() {
 
 
 if ($('.slick').length || $('.btn-qv').length) {
-	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick/slick-1.9.0.min.js",function(){
+	IncludeJavaScript(acendaBaseThemeUrl+"/assets/js/slick-1.9.0.min.js",function(){
 		slickReady = 1;
 		$('.slick-1').each(function() {
 			var togArrows = $(this).hasClass('use-arrows') ? true : false;
