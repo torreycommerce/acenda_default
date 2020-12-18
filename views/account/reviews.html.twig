@@ -56,7 +56,7 @@ set in the array in /account/_macros/base.html.twig
 			<tr>
 				<td>{{ product.name }}</td>
 				<td><a href="{{ app.url }}/account/review/{{review.id}}/edit">{{ review.title }}</a></td>
-				<td class="text-right">{{ review.date|strtotime|date("Y/m/d") }}</td>
+				<td class="text-right">{{ review.date_created|strtotime|date("Y/m/d") }}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
