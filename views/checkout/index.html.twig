@@ -1,0 +1,59 @@
+{% extends "/_layouts/base.html.twig" %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}
+{% import "/_macros/form-extras.html.twig" as extras %}
+{% import "/_macros/normalizer.html.twig" as normalizer %}
+{% block title %}Secure Checkout{% endblock %}
+{% set step = 'shipping' %}
+{% set methods = api.get('/shippingmethod', {query:{status:'active'}}) %}
+
+
+{% set assets_url = app.url  %}
+{% set add = app.request.get.add %}
+{% set cou = app.request.get.coupon %}
+{% if add|length > 0 or cou|length > 0 %}
+    {% if add|length > 0 %}
+        {% set new = add|split(',') %}
+        {% for n in new %}
+            {% set new2 = n|split(':') %}
+            {% do api.post('/sessioncartitem', {"product_id":new2[0], "quantity":new2[1]}) %}
+        {% endfor %}
+    {% endif %}
+    {% if cou|length > 0 %}
+        {% do api.post('/cart/discount', {"type":"coupon", "code":cou}) %}
+        {% if api.error %}
+    		{% set error="The coupon code you entered is invalid." %}
+    	{% endif %}
+    {% endif %}
+    {% do app.redirect('/' ~ app.url ~ '/checkout',{}) %}
+{% endif %}
+
+
+{% set cart = api.get('/sessioncart') %}
+{% set permissions = api.get('/customer/permissions') %}
+{% set config = api.get('/config') %}
+    {% if cart.items is empty or permissions.browse_catalog == false or permissions.show_prices == false or permissions.place_order == false %} {# Set cart products for acenda object #}
+	{% do app.redirect('/cart') %}
+{% endif %}
+
+
+{% if cart.items is not empty %} {# Set cart products for acenda object #}
+	{% set product_ids = cart.items|values_in('product_id') %}
+	{% set products = api.get('/variant',{query:{id:{'$in':product_ids}}})|group_by('id') %}
+{% endif %}
+
+{% block content %}
+{% if app.request.get.new == 0 %}
+    {% include "/checkout/_partials/single-page-index.html.twig" %}
+{% else %} 
+    {% include "/checkout/_partials/double-page-index.html.twig" %}
+{% endif %}
+{% endblock %}
+
+{% block acenda %}
+	{{ parent() }}
+	{% include "/checkout/_partials/acenda.html.twig" %}
+{% endblock %}
+{% block dataLayer %}
+	{% include "/checkout/_partials/dataLayer.html.twig" %}
+	{{ parent() }}
+{% endblock %}

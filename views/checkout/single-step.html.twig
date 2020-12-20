@@ -1,0 +1,3 @@
+{% set step = app.request.get.step %}
+{% import "/_macros/form-elements-bootstrap.html.twig" as forms %}	
+{% include "/checkout/_partials/single-page-steps/" ~ step ~ ".html.twig" %}

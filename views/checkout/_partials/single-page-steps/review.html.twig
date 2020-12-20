@@ -1,0 +1,24 @@
+<p id='review-text'>Please review the information above.</p>
+{% if app.params.checkout_age_verify %}
+			<div class="form-group">
+			    <div class="custom-control custom-checkbox">
+				{% set checked = '' %}
+				<input type="checkbox" class="custom-control-input" id="ageverify" name="ageverify" {{ checked }} value="0">	
+				<label class="custom-control-label" for="ageverify">I verify that I am at least {{ app.params.checkout_age }} years old. </label>
+    			</div>				  
+    		</div>
+{% endif %}
+{% if app.params.checkout_custom_verify %}
+			<div class="form-group">
+			    <div class="custom-control custom-checkbox">
+				{% set checkedterms = '' %}
+				<input type="checkbox" class="custom-control-input" id="customverify" name="customverify" {{ checkedterms }} value="0">	
+				<label class="custom-control-label" for="customverify">{{ app.params.checkout_custom_verify_text | raw }}</label>
+    			</div>				  
+    		</div>
+{% endif %}
+
+<div class="text-danger" id='error-text'></div>
+<div class="text-center">		
+	<button id="btn-place-order" class="btn btn-lg btn-primary btn-cart btn-xs-block">Place Order</button>
+</div>
