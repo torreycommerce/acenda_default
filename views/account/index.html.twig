@@ -74,7 +74,7 @@ set in the array in /account/_macros/base.html.twig
 	{% else %}
 	{% for order in orders %}
 	<div class="fsd1 divide pb-3 mb-3">
-		<h3>Order: #{{ order.order_number }}</h3>
+		<h3>Order #{{ order.order_number }}</h3>
 		<div class="row">
 			<div class="col-lg-5 mb-3">
 				<div>Status: {{order.status}}</div>

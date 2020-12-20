@@ -255,15 +255,14 @@ div:focus, section:focus {outline:none;}
 .badges .badge {margin:0 .5rem 0 0; vertical-align:top;}
 .product-grid .badges {position:absolute; top:0; left:0; padding:.5rem 0 0 .5rem;}
 
-
-.list-group-item .fa {min-width:1.125em; line-height:inherit}
+.list-group-item .fa {min-width:1.125em}
 .list-group .card {margin-bottom:0; border-top-right-radius:0; border-top-left-radius:0;}
 .list-group .collapse:not(:last-child) .card {border-bottom:none; border-bottom-right-radius:0; border-bottom-left-radius:0;}
 
 li.sub-category, .collapse-filters a {display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .collapse-filters li a:not(.btn) {position:relative; padding-right:2rem;}
 .category-filters .card-body {font-size:.875rem;}
-.category-filters .list-group-item .fa {float:right; line-height:inherit}
+.category-filters .list-group-item .fa, .list-group-item .fa.float-right {float:right; line-height:inherit}
 .filter-count {position:absolute; top:0; right:0;}
 
 .color-chip a {color:#fff; font-size:140%; text-shadow:0 1px 1px rgba(0,0,0,.5); opacity:.9;}

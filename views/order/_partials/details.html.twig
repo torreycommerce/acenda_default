@@ -22,7 +22,7 @@
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-            <h2>Order: #{{ order.order_number }}</h2>
+            <h2>Order #{{ order.order_number }}</h2>
             <div>{{ order.date_created|date("d F, Y") }} at {{ order.date_created|date("H:i:s") }}</div>
 			<div class="mb-3">Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 

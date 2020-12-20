@@ -29,11 +29,11 @@
 {{ lonelyform.begincard()}}
 	<div class="row fsd1">
 		<div class="col-lg-5 g mb-3 mb-lg-0">
-		    <h2>Order: #{{ order.order_number }}</h2>
+		    <h2>Order #{{ order.order_number }}</h2>
 			<div>{{ order.date_created|date("d F, Y") }} at {{ order.date_created|date("H:i:s") }}</div>
-			<div class="mb-3">Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
+			<div>Order Total: {{ prod.currency(order.total|number_format(2, '.')) }}</div>
 
-			<h3>Shipping Address</h3>
+			<h3 class="mt-4">Shipping Address</h3>
 			<address>
 				<div>{{ order.shipping_first_name}} {{ order.shipping_last_name}}</div>
 				{% if order.giftlist_present is empty %}
@@ -46,10 +46,10 @@
 			</address>
 
 			{% set method = api.get('/shippingmethod/' ~ order.shipping_method) %}
-			<h3>Shipping Method</h3>
-			<div class="mb-3">{{method.name}}</div>
+			<h3 class="mt-4">Shipping Method</h3>
+			<div>{{method.name}}</div>
 			{% if payment.address.first_name %}
-            <h3>Billing Address</h3>
+            <h3 class="mt-4">Billing Address</h3>
 
 			<address>
 				<div>{{ payment.address.first_name}} {{ payment.address.last_name}}</div>
@@ -61,7 +61,7 @@
 			</address>
 			{% endif %}
 
-			<h3>Payment Method</h3>
+			<h3 class="mt-4">Payment Method</h3>
 			<p>
 			{% if order.transaction_type == 'PayPal Express' %} {# Express order #}
 				PayPal Express

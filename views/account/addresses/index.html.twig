@@ -100,12 +100,12 @@ set in the array in /account/_macros/base.html.twig
 						<span>Options</span><i class="fa fa-angle-down"><span class="sr-only">for {{ address.street_line1 }}</span></i>
 					</button>
 					<div class="dropdown-menu fsd1 w-100" role="menu">
-						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item" name="edit_address">
+						<a href="{{ app.url }}/account/addresses/{{ row + 1 }}/edit" class="dropdown-item" name="edit_address" role="menuitem">
 							Edit Address <span class="sr-only">for {{ address.street_line1 }}</span>
 						</a>
-						{{ forms.submit('address[action]', 'primary/' ~  (row + 1), 'Use <span class="sr-only">' ~ (address.street_line1) ~ '</span> as Default Address', {class:'dropdown-item'})}}
+						{{ forms.submit('address[action]', 'primary/' ~  (row + 1), 'Use <span class="sr-only">' ~ (address.street_line1) ~ '</span> as Default Address', {class:'dropdown-item',role:'menuitem'})}}
 						<div class="dropdown-divider"></div>
-						{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), 'Delete Address <span class="sr-only">for ' ~ (address.street_line1) ~ '</span>', {class:'dropdown-item'})}}
+						{{ forms.submit('address[action]', 'delete/'  ~  (row + 1), 'Delete Address <span class="sr-only">for ' ~ (address.street_line1) ~ '</span>', {class:'dropdown-item',role:'menuitem'})}}
 					</div>
 				</div>
 			</div>

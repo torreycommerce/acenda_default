@@ -73,7 +73,7 @@ Passed into the macro is a array of key:value pairs as (title):(relative url)
 {% for order in orders %}
 
 {{ lonelyform.begincard()}}
-	<h2>Order: #{{ order.order_number }}</h2>
+	<h2>Order #{{ order.order_number }}</h2>
 	<div class="row">
 		<div class="col-lg-5 fsd1 mb-3">
 			<div>Status: {{ order.status }}</div>
