@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('body').on('mouseenter focusin','.star-rating-star',function(e){
+    $('body').on('mouseenter focusin','.star-rating-star',function(){
         var r = $(this).attr('data-i');
         $('.star-rating-star').each(function(){
             if ($(this).attr('data-i') <= r) {
@@ -10,11 +10,11 @@ $(document).ready(function() {
         });
     });
     //
-    $('body').on('mouseleave focusout','.star-rating-star',function(e){
+    $('body').on('mouseleave focusout','.star-rating-star',function(){
         $('.star-rating-star').removeClass('choosing');
     });
     //
-    $('.star-rating-star').click(function(e) {
+    $('.star-rating-star').click(function() {
         var r = $(this).attr('data-i');
         $('.star-rating-star').each(function(){
             if ($(this).attr('data-i') <= r) {

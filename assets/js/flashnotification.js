@@ -1,7 +1,6 @@
 jQuery(function(){
     $.getJSON(acendaBaseUrl+'/flashnotification/getjson', function(data) {
       if(data.length) {
-        var css_alert_types = ['success','error','info'];
         $.each(data, function(key, item) {
           setCustomerNotification(item.type,item.message,item.id);
         });

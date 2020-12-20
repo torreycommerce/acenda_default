@@ -33,7 +33,7 @@ $(document).ready(function() {
    	 // Disable caching of AJAX responses
 	    cache: false
 	});	
-	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) { options.async = true; });
+	$.ajaxPrefilter(function( options ) { options.async = true; });
 	$.get(acendaBaseUrl+'/account/tools.html', function(data) {
 		$('.header .my-account').append(data);
 		//
@@ -104,20 +104,20 @@ $('.header .navbar-nav > li > ul').each(function() {
 	}
 });
 
-$('body').on('mouseenter','.add-access > .js-dropdown',function(e){
+$('body').on('mouseenter','.add-access > .js-dropdown',function(){
 	if (window.innerWidth > 991.98) {
 		addAccessShow($(this))
 		navWait($(this))
 	}
 })
 
-$('body').on('mouseleave','.add-access > .js-dropdown',function(e){
+$('body').on('mouseleave','.add-access > .js-dropdown',function(){
 	if (window.innerWidth > 991.98) {
 		addAccessHide($(this))
 	}
 })
 
-$('body').on('focusin','.add-access .js-nav-link',function(e){
+$('body').on('focusin','.add-access .js-nav-link',function(){
 	if (window.innerWidth > 991.98) {
 		addAccessHide($(this).parents('.add-access').find('.js-nav-link:not(:focus)').parents('.js-dropdown'))
 		if ($(this).parents('.js-dropdown.show').length == 0) {
@@ -150,7 +150,7 @@ $('body').on('keydown','.add-access .js-nav-link',function(e){
 	}
 })
 
-$('body').on('keydown','.add-access a:last',function(e){
+$('body').on('keydown','.add-access a:last',function(){
 	if (window.innerWidth > 991.98) {
 		addAccessHide($(this).parents('.js-dropdown'))
 	}
@@ -187,10 +187,10 @@ function navWait(l) {
 	},25)
 }
 
-$('body').on('mouseenter','.ace-bs-access:not(.show) [data-toggle=dropdown]',function(e){
+$('body').on('mouseenter','.ace-bs-access:not(.show) [data-toggle=dropdown]',function(){
 	$(this).dropdown('toggle').addClass('ace-bs-accessed')
 });
-$('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
+$('body').on('mouseleave','.ace-bs-access.dropdown',function(){
 	if ($(this).hasClass('show')) {
 		$(this).find('.ace-bs-accessed[data-toggle=dropdown]').dropdown('toggle').removeClass('ace-bs-accessed')
 	}
@@ -201,7 +201,7 @@ $('body').on('mouseleave','.ace-bs-access.dropdown',function(e){
 $('img').on("error", function() {
 	$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
 });
-$(window).on("load", function (e) {
+$(window).on("load", function () {
 	$('img').each(function() {
 		if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
 			$(this).attr('src',acendaBaseThemeUrl+'/assets/images/product/image.svg').attr('class','img-fluid img-fit').parents('.image-space').addClass('bg-light')
@@ -435,8 +435,8 @@ var updateQueryStringParam = function (key, value) {
 	// If the "search" string exists, then build params from it
 	if (urlQueryString) {
 
-		updateRegex = new RegExp('([\?&])' + key + '[^&]*');
-		removeRegex = new RegExp('([\?&])' + key + '=[^&;]+[&;]?');
+		updateRegex = new RegExp('([?&])' + key + '[^&]*');
+		removeRegex = new RegExp('([?&])' + key + '=[^&;]+[&;]?');
 		if( typeof value == 'undefined' || value == null || value == '' ) { // Remove param if value is empty
 			if (urlQueryString.indexOf(key) !== -1) {
 				params = urlQueryString.replace(removeRegex, "$1");

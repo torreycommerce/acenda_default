@@ -11,7 +11,7 @@ $('#generate').click(function() {
         }
         var random = Math.random();
         var code = ('0000'+random.toString(36).replace('.', '')).substr(-12).toUpperCase();
-        code += code.split('').reduce(function(previousValue, currentValue, index, array) {
+        code += code.split('').reduce(function(previousValue, currentValue, index) {
             return (previousValue + parseInt(currentValue,36)*index) % 10; // Checksum digit at the end
         },0);
         text += code;

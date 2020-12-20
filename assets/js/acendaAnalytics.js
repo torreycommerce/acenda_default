@@ -99,21 +99,21 @@ function AcendaAnalytics(trackingID){
 
 
 	this.checkoutProcess = function(route){
-		self = this;
+		_this = this;
 
-		var checkout_step = self.getCheckoutStep(route)
+		var checkout_step = _this.getCheckoutStep(route)
 
 		if(checkout_step == 1){
-			self.checkoutStep1();
+			_this.checkoutStep1();
 		}	
 		if(checkout_step == 2){
-			self.checkoutStep2(route);
+			_this.checkoutStep2(route);
 		}
 		if(checkout_step == 3){
-			self.checkoutStep3();
+			_this.checkoutStep3();
 		}
 		if(checkout_step == 4){
-			self.checkoutStep4();
+			_this.checkoutStep4();
 		}
 	}
 
@@ -126,7 +126,7 @@ function AcendaAnalytics(trackingID){
 		$('a[href*=checkout]').click(function(event) {
 			event.stopPropagation();
 			var link = $(event.currentTarget);
-			var checkout_method = self.getCheckoutMethod(link.attr("href"));
+			var checkout_method = _this.getCheckoutMethod(link.attr("href"));
 			ga('ec:setAction', 'checkout_option', {'step': 1, 'option': checkout_method});
 			ga("send", "event", "EnhancedEcommerce", "Started Checkout",
 				{
@@ -175,7 +175,7 @@ function AcendaAnalytics(trackingID){
 		$(button).click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
-			var shipping_method = self.getShippingMethod();
+			var shipping_method = _this.getShippingMethod();
 			ga('ec:setAction', 'checkout_option', {'step': 2, 'option': shipping_method});
 			ga("send", "event", "EnhancedEcommerce", "Completed Checkout - Shipping Info",
 				{
@@ -218,7 +218,7 @@ function AcendaAnalytics(trackingID){
 		$('button[name=place_order]').click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
-			var payment_method = self.getPaymentMethod();
+			var payment_method = _this.getPaymentMethod();
 			ga('ec:setAction', 'checkout_option', {'step': 3, 'option': payment_method});
 			ga("send", "event", "EnhancedEcommerce", "Completed Checkout - Billing Info",
 				{
@@ -276,7 +276,7 @@ function AcendaAnalytics(trackingID){
 	}
 
 	this.removeToCartTracking = function(){
-		var self = this;
+		var _this = this;
 		$('button[value*=remove\\/]').click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
@@ -285,7 +285,7 @@ function AcendaAnalytics(trackingID){
 			if(Number.isInteger(item_index)){
 				var variant = acenda.cart.items[item_index];
 			}
-			ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: variant.quantity, price: variant.price, brand: variant.brand, currency: self.currency});
+			ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: variant.quantity, price: variant.price, brand: variant.brand, currency: _this.currency});
 			ga("ec:setAction", "remove");
 			ga("send", "event", "EnhancedEcommerce", "Removed Product", 
 				{
@@ -300,7 +300,7 @@ function AcendaAnalytics(trackingID){
 	}
 
 	this.addToCartTracking = function(){
-		var self = this;
+		var _this = this;
 		$('button[value=cart]').click(function(event) {
     		var addedProducts = false;
 		    event.preventDefault();
@@ -314,9 +314,9 @@ function AcendaAnalytics(trackingID){
 		        if (!isNaN($(this).val())) {
 		        	var qty = parseInt($(this).val());
 		            var variant_id = $(this).attr("name").replace('items[','').replace(']','');
-		            var variant = self.getVariant(variant_id);
+		            var variant = _this.getVariant(variant_id);
 		            if(variant && qty > 0){
-		            	ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: qty, price: variant.price, brand: variant.brand, currency: self.currency});
+		            	ga("ec:addProduct", {id: variant.id, name: variant.name, quantity: qty, price: variant.price, brand: variant.brand, currency: _this.currency});
 		            	addedProducts = true;
 		            }
 		        }
@@ -485,21 +485,21 @@ function AcendaTagManager(){
 
 
 	this.checkoutProcess = function(route){
-		self = this;
+		_this = this;
 
-		var checkout_step = self.getCheckoutStep(route)
+		var checkout_step = _this.getCheckoutStep(route)
 
 		if(checkout_step == 1){
-			self.checkoutStep1();
+			_this.checkoutStep1();
 		}	
 		if(checkout_step == 2){
-			self.checkoutStep2(route);
+			_this.checkoutStep2(route);
 		}
 		if(checkout_step == 3){
-			self.checkoutStep3();
+			_this.checkoutStep3();
 		}
 		if(checkout_step == 4){
-			self.checkoutStep4();
+			_this.checkoutStep4();
 		}
 	}
 
@@ -512,7 +512,7 @@ function AcendaTagManager(){
 		$('a[href*=checkout]').click(function(event) {
 			event.stopPropagation();
 			var link = $(event.currentTarget);
-			var checkout_method = self.getCheckoutMethod(link.attr("href"));
+			var checkout_method = _this.getCheckoutMethod(link.attr("href"));
 			dataLayer.push({
 			    'event': 'checkoutOption',
 			    'ecommerce': {
@@ -541,7 +541,7 @@ function AcendaTagManager(){
 		$(button).click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
-			var shipping_method = self.getShippingMethod();
+			var shipping_method = _this.getShippingMethod();
 			dataLayer.push({
 			    'event': 'checkoutOption',
 			    'ecommerce': {
@@ -564,7 +564,7 @@ function AcendaTagManager(){
 		$('button[name=place_order]').click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
-			var payment_method = self.getPaymentMethod();
+			var payment_method = _this.getPaymentMethod();
 			dataLayer.push({
 			    'event': 'checkoutOption',
 			    'ecommerce': {
@@ -599,7 +599,7 @@ function AcendaTagManager(){
 	}
 
 	this.removeToCartTracking = function(){
-		var self = this;
+		var _this = this;
 		$('button[value*=remove\\/]').click(function(event) {
 			event.stopPropagation();
 			var button = $(event.currentTarget);
@@ -613,7 +613,7 @@ function AcendaTagManager(){
 			dataLayer.push({
 			  	'event': 'removeFromCart',
 			  	'ecommerce': {
-			  		'currencyCode': self.currency,
+			  		'currencyCode': _this.currency,
 			    	'remove': {                               // 'remove' actionFieldObject measures.
 			      		'products': [product]
 			    	}
@@ -625,7 +625,7 @@ function AcendaTagManager(){
 	}
 
 	this.addToCartTracking = function(){
-		var self = this;
+		var _this = this;
 		$('button[value=cart]').click(function(event) {
     		var addedProducts = [];
 		    event.preventDefault();
@@ -639,7 +639,7 @@ function AcendaTagManager(){
 		        if (!isNaN($(this).val())) {
 		        	var qty = parseInt($(this).val());
 		            var variant_id = $(this).attr("name").replace('items[','').replace(']','');
-		            var variant = self.getVariant(variant_id);
+		            var variant = _this.getVariant(variant_id);
 		            if(variant && qty > 0){
 		            	addedProducts.push({id: variant.id, name: variant.name, quantity: qty, price: variant.price, brand: variant.brand});
 		            }
@@ -649,7 +649,7 @@ function AcendaTagManager(){
 		    	dataLayer.push({
 					'event': 'addToCart',
 				  	'ecommerce': {
-				    	'currencyCode': self.currency,
+				    	'currencyCode': _this.currency,
 				    	'add': {                                // 'add' actionFieldObject measures.
 				      		'products': addedProducts
 				    	}

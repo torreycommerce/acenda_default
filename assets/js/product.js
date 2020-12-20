@@ -106,7 +106,7 @@ function VariantsManager (product, img, isCollection) {
 	/*
 		Sets the image for the selected variant
 	*/
-	this.setSelectImage = function(standard_img_url,large_img_url,img_alt) { // 208 + 232
+	this.setSelectImage = function(standard_img_url) { // 208 + 232
 		//console.log('setSelIma')
 
 		if(standard_img_url){
@@ -167,7 +167,7 @@ function VariantsManager (product, img, isCollection) {
 			if (i == 0){
 				if(this.currentImage != id){
 					if(!this.isCollection && $.fn.stopVideo) stopVideo();
-					this.setSelectImage(standard_img_url,large_img_url,img_alt);
+					this.setSelectImage(standard_img_url);
 					this.currentImage = id;
 				}
 			}
@@ -202,8 +202,6 @@ function VariantsManager (product, img, isCollection) {
 				}
 			}
 		}
-		//
-		var _this = this;
 
 	}
 	/*
@@ -242,7 +240,7 @@ function VariantsManager (product, img, isCollection) {
 			//Builds a new object representing the currenlty selected variant options: { size: "M", color: "blue", material: "leather"}
 			//but exluding the current option we are currently at in the loop: selectedValues2 = { size: "M", material: "leather"}
 			var selectedValues2 = {}; 
-			$.each(_this.selectsData, function(name2, optionArray2){
+			$.each(_this.selectsData, function(name2){
 				if(name2 != name){
 					if(_this.selectedValues[name2]){
 						selectedValues2[name2] = _this.selectedValues[name2];
@@ -250,7 +248,7 @@ function VariantsManager (product, img, isCollection) {
 				}
 			});
 			//Gets variant that match the selected values in selectedValues2 { size: "M", material: "leather"}
-			var filteredVariants = _this.getFilteredVariants(selectedValues2, false);
+			//var filteredVariants = _this.getFilteredVariants(selectedValues2, false);
 			var filteredVariantStock = _this.getFilteredVariants(selectedValues2, true);
 			//Gets representation of the variant options available in the variant list filteredVariants
 			//generatedSelectsData = { size:["M"], color: ["blue", "grey", "black"], material: ["leather"], }
@@ -386,7 +384,7 @@ function VariantsManager (product, img, isCollection) {
 				//Default selected variant with the new selected value
 				if(filteredVariants.length != 0){
 					//console.log('inner fV length is not 0')
-					$.each(this.selectsData, function(selectName, optionArray){
+					$.each(this.selectsData, function(selectName){
 						_this.selectedValues[selectName] = filteredVariants[0][selectName];
 					});
 				}
@@ -403,7 +401,7 @@ function VariantsManager (product, img, isCollection) {
 	this.generateSelectsData = function(filteredVariants){
 		var selects = {};
 		//initialize the object with every existing options
-		$.each( this.selectsData, function(optionName, values){
+		$.each( this.selectsData, function(optionName){
 			selects[optionName] = [];
 		});
 		//Fill every option array with availble values in filteredVariants
@@ -452,7 +450,6 @@ function VariantsManager (product, img, isCollection) {
 	this.getNonFilteredVariants = function(selectedValues){
 		//console.log('gFV, product_id: '+this.product_id)
 		var filteredVariants = [];
-		var _this = this;
 		$.each( this.variants, function(index, variant){
 			var passfilter = true;
 			$.each( selectedValues, function(selectName, selectValue){
@@ -572,7 +569,7 @@ function VariantsManager (product, img, isCollection) {
 		//
 		//
 		//Sets selected values for variant option on page load according to the selected variant selected_variant (see above)
-		$.each(this.selectsData, function(selectName,optionArray){
+		$.each(this.selectsData, function(selectName){
 			_this.selectedValues[selectName] = selected_variant[selectName];
 		});
 
@@ -605,7 +602,7 @@ function VariantsManager (product, img, isCollection) {
 
 
 
-function prodExtras() {
+var prodExtras = function () {
 	var iseVariant;
 
 	$(document).on('keyup','.stock .form-control-eis', function() {
@@ -631,7 +628,7 @@ function prodExtras() {
 		$.post(acendaBaseUrl + '/api/instockemail', {
 			email: email,
 			variant_id: variant_id
-		}).done(function(response) {
+		}).done(function() {
 			$('.btn-eis').prop('disabled', false).removeClass('wait');
 			$('body').append('<div class="flash-note alert alert-success"><div class="modal-header"><div class="h3 modal-title">Stock Notification</div><a href="#" class="close" data-dismiss="alert" aria-label="close stock notification alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">Thank you for submitting your email. You will be notified when the product variant is in stock.</div></div>');
 		}).fail(function(response) {

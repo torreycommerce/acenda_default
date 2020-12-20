@@ -4,7 +4,7 @@ var qcwearego = 0;
 var pushdL = 0;
 
 // boots v4
-$('body').on('mouseenter focusin','.header .cart',function(e){
+$('body').on('mouseenter focusin','.header .cart',function(){
     //console.log('e event only IN');
     if (qcwearego != 1) {
         if (!$('.dropdown-qc').hasClass('show')) {
@@ -16,7 +16,7 @@ $('body').on('mouseenter focusin','.header .cart',function(e){
     }
 });
 
-$('body').on('mouseleave focusout','.header .cart',function(e){
+$('body').on('mouseleave focusout','.header .cart',function(){
     qcwearego = 0;
 });
 
@@ -115,7 +115,7 @@ $(document).on('click','button[value=cart]', function(event) {
 
     $.post(acendaBaseUrl + '/product/route',
         form.serialize())
-    .always(function(data) {
+    .always(function() {
         // Make sure to reenable it, success or failure
         $('button[value=cart]').each(function() {
             $(this).removeClass('wait');
@@ -135,7 +135,7 @@ $(document).on('click','button[value=cart]', function(event) {
     //.done(ajaxCart);
 });
 
-function ajaxCart(data, r) {
+function ajaxCart(data) {
     if ($(vData).find('.sku').length) {
         var dLID = $(vData).find('.sku span').text();
     } else {
@@ -181,13 +181,9 @@ function ajaxCart(data, r) {
         cart_item_count = data.result.item_count;
         cart_subtotal = data.result.subtotal;
     })
-    .then(function(data) {
-        var requests = []; // Deferred request array
-        var response = []; // Deferred request response array
+    .then(function() {
         var first_product_added = false; // Whether it's the first product to be added to cart (determines whether to clone)
-        var product_attr = []; // Product attribute array
         var items = []; // Items array
-        var product_cart_id = []; // product_id -> cart_id array
 
         if (show_all) {
             items = cart_items;
@@ -216,7 +212,6 @@ function ajaxCart(data, r) {
             }
             var product_price = parseFloat(items[i].variant.price).toFixed(2);
             var product_thumbnail = items[i].variant.thumbnail;
-            var product_id = items[i].variant.id;
 
             if (!first_product_added) {
                 $('.ajaxcart-product .img-product').attr('src', product_thumbnail);

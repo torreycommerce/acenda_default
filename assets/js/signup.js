@@ -5,10 +5,10 @@ function validateEmailAddress(email) {
 $('.js-signup').each(function(i) {
 	$(this).prepend('<div class="input-group d-none"><label for="Nolook'+i+'">Nolook Optional</label><input id="Nolook'+i+'" type="email" class="form-control form-control-nolook" name="Nolook'+i+'"></div>');
 });
-$('body').on('keydown','.js-signup-email',function(e){
+$('body').on('keydown','.js-signup-email',function(){
 	$(this).removeClass('is-invalid');
 });
-$('body').on('submit','.js-signup',function(e){
+$('body').on('submit','.js-signup',function(){
 	event.preventDefault();
 	var btn = $(this).find('.js-signup-btn');
 	if ( $(this).find('.form-control-nolook').val() == "" ) {
@@ -23,7 +23,7 @@ $('body').on('submit','.js-signup',function(e){
 		}
 		$.post(acendaBaseUrl + '/api/email', {
 			email: $(this).find('.js-signup-email').val()
-		}).done(function(response) {
+		}).done(function() {
 			$(this).find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_success', function() {
 				//console.log('got success a');
 			});
@@ -51,7 +51,7 @@ $('body').on('submit','.js-signup',function(e){
 			{
 				$('body').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
 			}
-		}).always(function(response) {
+		}).always(function() {
 			btn.prop('disabled', false).removeClass('wait');
 		});
 	}

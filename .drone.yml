@@ -12,7 +12,7 @@ steps:
         from_secret: slackurl
       channel: builds
       username: drone
-      icon_url: https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/153/rocket_1f680.png 
+      icon_url: https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/microsoft/153/rocket_1f680.png
       template: >
         {{#success build.status}}
           {{uppercasefirst repo.name}} build {{build.number}} started:  {{build.link}}

@@ -18,7 +18,7 @@ aceDRimg2.onload = function() {
 	}
 }
 
-$('body').on('mouseenter focusin','.product a',function(e){
+$('body').on('mouseenter focusin','.product a',function(){
 	if ($('html').hasClass('desktop') && $(this).find('[data-rot]').length && !aceDRtog) {
 		aceDRhov = 1;
 		aceDRimgI = $(this).find('[data-rot]');
@@ -33,7 +33,7 @@ $('body').on('mouseenter focusin','.product a',function(e){
 	}
 });
 
-$('body').on('mouseleave focusout','.product a',function(e){
+$('body').on('mouseleave focusout','.product a',function(){
 	if ($('html').hasClass('desktop') && $(this).find('[data-rot]').length) {
 		aceDRhov = 0;
 		//console.log('mouseout focusout ran')

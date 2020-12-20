@@ -2,8 +2,8 @@
 
 body {font-family:Open Sans, Lucida Grande, Helvetica, Arial, sans-serif;}
 
-a {}
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {}
+a {color:#000}
+h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000}
 
 .pad-fixed-top body {padding-top:114px}
 .toolbar {min-height:114px; padding-top:6px; padding-bottom:6px;}

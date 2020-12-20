@@ -2,7 +2,7 @@
 var cartData = null;
 function updateCartTotals(qtyField, cartItemId) {
 	$.getJSON(acendaBaseUrl + '/api/sessioncart')
-	.always(function(e) {
+	.always(function() {
 	})
 	.done(function(data) {	
 		var dataQty = 0.0;		
@@ -12,7 +12,6 @@ function updateCartTotals(qtyField, cartItemId) {
 
 		var v2Data = qtyField.parents('.item');
 		var priceElement = v2Data.find('.cart-indiv .price .val').html();
-		var priceElementTotal = v2Data.find('.cart-total .price .val').html();
 
 		cartData = data.result;
 
@@ -119,7 +118,7 @@ $('#wishlist-form .modal_list_quantity, #registry .modal_list_quantity').on('hid
 
 
 // Adjusts the quantity of the +/- fields
-function adjustQuantity(qtyField, increment, postForm) {
+function adjustQuantity(qtyField, increment) {
 	console.log('aQ started')
 	if (isNaN(qtyField.val())) {
 		qtyField.val(0);
@@ -156,7 +155,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 				type: form.attr('method'),
 				url: form.attr('action'),
 				data: formData + '&action=update'
-			}).always(function(e) {
+			}).always(function() {
 				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
 				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			});
@@ -168,7 +167,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 				url: acendaBaseUrl + '/api/' + model + '/' + id,
 				dataType: 'json',
 				data: JSON.stringify({ quantity: qtyField.val() })
-			}).always(function(e) {
+			}).always(function() {
 				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
 				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			}).fail(function(e) {
@@ -199,7 +198,7 @@ function adjustQuantity(qtyField, increment, postForm) {
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
 				}
-			}).done(function(e) {
+			}).done(function() {
 				if (model === 'cart/item') { // Check if we're at the cart, and if so, update the cart subtotal/individual item totals
 					updateCartTotals(qtyField, id);
 				}
@@ -228,12 +227,12 @@ $(document).on('click','.btn-remove', function(e) {
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), -1);
 });
 
-$(document).on('focusin','.quantity-selector', function(e) {
+$(document).on('focusin','.quantity-selector', function() {
     console.log("Saving value " + $(this).val());
     $(this).data('cur', $(this).val());
 });
 // Hitting the enter key on the add quantity fields
-$(document).on('change','.quantity-selector', function(e) {
+$(document).on('change','.quantity-selector', function() {
     console.log('ran 3')
 	adjustQuantity($(this), 0); // Quantity was adjusted externally
 });
@@ -287,8 +286,6 @@ $('.btn-remove-all').click(function(e) {
 		//
 		sendDLFirst = 0;
 		$(this).click();
-	} else {
-		
 	}
 });
 
