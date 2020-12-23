@@ -75,11 +75,11 @@
 				<td {{ ema.comformB() }}>
 				    <table {{ ema.tform() }}>
 				        <tr>
-				            <td style="width:80px;" valign="top">
-        				        <img style="display:block; margin:0;" src="{{product.thumbnail}}" width="80" height="80" alt="">
+				            <td {{ ema.prodImgA() }}>
+        				        <img {{ ema.prodImgB() }} src="{{product.thumbnail}}" {{ ema.prodImgC() }}>
         				    </td>
-        				    <td style="padding:0 0 0 20px;" valign="top">
-								<a href="{{ params['url']['current']}}{{product.url}}" style="color:#000; text-decoration:none;"><strong>{{ item.name }}</strong></a>
+        				    <td {{ ema.prodImgD() }}>
+								<a href="{{ params['url']['current']}}{{product.url}}" {{ ema.linkForm() }}><strong>{{ item.name }}</strong></a>
 								{% if item.sku is not empty %}<br><strong>SKU:</strong> {{item.sku}}{% endif %}
 								{% if item.personalization is not empty %}{% for personalization in item.personalization %}
 								<br>{{personalization.name}}: {{personalization.value}}
