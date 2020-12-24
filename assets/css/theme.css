@@ -99,8 +99,8 @@ blockquote>*:last-child, form>*:last-child {margin-bottom:0;}
 .btn-blank {background-color:transparent;}
 .blank {background:none; border-width:0;}
 .blank.image-space {width:100%; padding-right:0; padding-bottom:0; padding-left:0;}
-.btn.tight {padding-right:.375rem; padding-left:.375rem;}
-.btn-lg.tight {padding-right:.75rem; padding-left:.75rem;}
+.btn.btn-sq {min-width:40px; padding-right:0; padding-left:0}
+.btn-lg.btn-sq {min-width:48px}
 .fgq label .text-danger {margin-left:.25em;}
 
 .card-height .card {height:100%;}
@@ -131,8 +131,6 @@ a.image-space:focus {outline:5px auto -webkit-focus-ring-color; box-shadow:0 0 0
 div:focus, section:focus {outline:none;}
 
 .frame {position:relative; box-shadow:0 0 2px rgba(0,0,0,.2);}
-.pos-a {position:absolute;}
-.pos-r {position:relative;}
 .shrink {width:1%;}
 
 .max-250,.max-400,.max-450,.max-lonely {max-width:250px; margin-right:auto; margin-left:auto;}
@@ -148,6 +146,7 @@ div:focus, section:focus {outline:none;}
 .divide:last-child {margin-bottom:0!important; padding-bottom:0!important; border-bottom:none}
 .no-of {overflow:hidden;}
 .tdn, a.tdn {text-decoration:none;}
+.tdul {text-decoration:underline}
 .uc {text-transform:uppercase;}
 .wsnw {white-space:nowrap;}
 .z-2 {z-index:2}
@@ -162,6 +161,8 @@ div:focus, section:focus {outline:none;}
 
 @media (max-width:991.98px){
 .btn-xsm-block {display:block; width:100%;}
+.btn.btn-sq {min-width:40px; padding-right:0; padding-left:0}
+.btn-lg.btn-xsm-sq {min-width:48px}
 }
 
 @media (max-width:767px){
