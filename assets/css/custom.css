@@ -13,7 +13,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {color:#000}
 .header .logo .image-space {padding-top:48px}
 .header .search {position:absolute; top:54px; right:0; left:0;}
 .header .search .btn {position:absolute; top:0; right:0;}
-.header .mya {position:absolute; top:0; right:44px}
+.header .mya {position:absolute; top:0; right:50px}
 .header .cart {position:absolute; top:0; right:0;}
 .header .cart .dropdown-menu {opacity:0; visibility:hidden; transition:opacity 300ms ease;}
 .header .cart .qc-ready .dropdown-menu {opacity:1; visibility:visible;}

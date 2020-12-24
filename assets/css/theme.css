@@ -119,7 +119,6 @@ a.image-space:focus {outline:5px auto -webkit-focus-ring-color; box-shadow:0 0 0
 .is60 {padding-top:60%;}
 .is50 {padding-top:50%;}
 .is40 {padding-top:40%;}
-.is30 {padding-top:30%;}
 .is25 {padding-top:25%;}
 .is20 {padding-top:20%;}
 .image-space .isd {position:absolute; top:0;}
@@ -151,17 +150,32 @@ div:focus, section:focus {outline:none;}
 .wsnw {white-space:nowrap;}
 .z-2 {z-index:2}
 
+
+*[data-image-swap],*[data-image-zoom] {cursor:pointer;}
+.al-btn-sm {margin-bottom:0; padding:.3125rem 0; font-size:1.125rem}
+.dropdown-menu-qc {width:280px}
+.ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
+.collapse-filters,.l-h,.pricing {line-height:1.625}
+
+
 @media (min-width:1px){
 .image-space .isd {top:50%; left:50%; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%, -50%);}
 }
 
+@media (min-width:375px) {
+.dropdown-menu-qc {width:300px}
+}
+
 @media (min-width:992px) {
+.ajaxcart-products {max-height:320px}
+.dropdown-menu-qc {width:350px}
+.media-cart .media-left {width:120px}
 .lonely-form-lim .max-lonely {max-width:none;}
 }
 
 @media (max-width:991.98px){
 .btn-xsm-block {display:block; width:100%;}
-.btn.btn-sq {min-width:40px; padding-right:0; padding-left:0}
+.btn.btn-xsm-sq {min-width:40px; padding-right:0; padding-left:0}
 .btn-lg.btn-xsm-sq {min-width:48px}
 }
 
@@ -187,31 +201,7 @@ div:focus, section:focus {outline:none;}
 
 
 
-/* acenda global */
-*[data-image-swap],*[data-image-zoom] {cursor:pointer;}
 
-.al-btn-sm {margin-bottom:0; padding:.3125rem 0; font-size:1.125rem}
-
-.dropdown-menu-qc {width:280px}
-
-.ajaxcart-products {max-height:280px; overflow:hidden; overflow-y:auto;}
-
-.collapse-filters,.l-h,.pricing {line-height:1.625}
-
-@media (min-width:375px) {
-.dropdown-menu-qc {width:300px}
-}
-
-@media (min-width:992px) {
-.ajaxcart-products {max-height:320px}
-.dropdown-menu-qc {width:350px}
-
-.media-cart .media-left {width:120px}
-}
-
-
-
-/* coolguy */
 @media (min-width:1px){
 .flash-note {position:fixed; z-index:1071; top:50%; left:50%; width:75%; max-width:540px; text-align:left; -moz-transform:translate(-50%, -50%); -ms-transform:translate(-50%, -50%); -o-transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); transform:translate(-50%,-50%);}
 .flash-note .alert {display:block; padding:12px 35px 12px 15px; box-shadow:0 1px 5px rgba(0,0,0,.5);}
