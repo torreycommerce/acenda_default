@@ -300,12 +300,12 @@
 				{# Begin search bar #}
 				<div class="col-md-4 mb-3">
 					<form method="get" onsubmit="document.location.href='{{app.request.getUrl({'page':1,'s':''})}}'+''+$('#category-search').val();return false;">
-						<label class="sr-only" for="category-search" id="category-search-label">Search within</label>
+						<label class="sr-only" for="category-search" id="category-search-label">Search within this category</label>
 						<div class="input-group">
 							<input class="form-control typeahead search-autocomplete" id="category-search" aria-labelledby="category-search-label" data-provide="typeahead" autocomplete="off" type="text" name="fs" value="{{app.request.get.s|e}}" placeholder="Search within">
 							<span class="input-group-append">
 								<button class="btn btn-default" type="submit">
-									<i class="fa fa-search"><i class="sr-only">Search within</i></i>
+									<i class="fa fa-search mr-0"></i><span class="sr-only">Search within</span>
 								</button>
 							</span>
 						</div>

@@ -105,8 +105,8 @@
                                                     <input class="form-control form-control-lg quantity-selector text-center" id="quantity_purchased[{{ item.id }}]" type="number" value="{{ item.quantity_purchased }}" min="0" max="99" placeholder="{{ item.quantity_purchased }}" data-id="{{item.id}}" name="quantity_purchased[{{ item.id }}]">
                                                 </div>
                                                 <div class="btn-group-vertical">
-													<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase {{ variant.name }} Purchased Qty</span></i></button>
-													<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"{{ item.quantity_purchased == 0 ? ' disabled' : '' }}><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease {{ variant.name }} Purchased Qty</span></i></button>
+													<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up mr-0"></i><span class="sr-only fsd1">Increase {{ variant.name }} Purchased Qty</span></button>
+													<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"{{ item.quantity_purchased == 0 ? ' disabled' : '' }}><i class="fa fa-chevron-down mr-0"></i><span class="sr-only fsd1">Decrease {{ variant.name }} Purchased Qty</span></button>
 												</div>
     										</div>
 										</div>
@@ -117,8 +117,8 @@
 													<input class="form-control form-control-lg quantity-selector text-center" id="wishlistitem_quantity[{{ item.id }}]" type="number" value="{{ item.quantity }}" min="1" maxlength="2" placeholder="{{ item.quantity }}" data-id="{{item.id}}" name="wishlistitem_quantity[{{ item.id }}]">
 												</div>
 												<div class="btn-group-vertical">
-													<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase {{ variant.name }} Wanted Qty</span></i></button>
-													<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"{{ item.quantity <= 1 ? ' disabled' : '' }}><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease {{ variant.name }} Wanted Qty</span></i></button>
+													<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up mr-0"></i><span class="sr-only fsd1">Increase {{ variant.name }} Wanted Qty</span></button>
+													<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button"{{ item.quantity <= 1 ? ' disabled' : '' }}><i class="fa fa-chevron-down mr-0"></i><span class="sr-only fsd1">Decrease {{ variant.name }} Wanted Qty</span></button>
 												</div>
 											</div>
 										</div>
@@ -174,8 +174,8 @@
 							<input type="number" value="1" min="1" maxlength="2" placeholder="1" class="form-control form-control-lg px-1 quantity-selector text-center" id="quantity-selector-{{ item.id }}" name="add_to_cart[{{ item.id }}]">
 						</div>
 						<div class="btn-group-vertical mr-3">
-                            <button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase {{ variant.name }} Qty</span></i></button>
-							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease {{ variant.name }} Qty</span></i></button>
+                            <button type="button" class="btn btn-default btn-xs btn-sq-xs btn-add"><i class="fa fa-chevron-up mr-0"></i><span class="sr-only fsd1">Increase {{ variant.name }} Qty</span></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down mr-0"></i><span class="sr-only fsd1">Decrease {{ variant.name }} Qty</span></button>
 						</div>
 						<button class="btn btn-lg btn-primary btn-cart flex-fill" name="action" value="add/{{ item.id }}">Add <span class="sr-only">{{ variant.name }}</span> to Cart</button>
 					</div>

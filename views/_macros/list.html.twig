@@ -29,7 +29,7 @@
                     {% set coltitle = "Date" %}
 					{% set colclass = "shrink text-right wsnw" %}
                 {% endif %}
-                <th {% if colclass != "" %}class="{{colclass}}"{% endif %}><a href="{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}"><span>{{coltitle}}</span><i class="fa fa-sort"><i class="sr-only">Sort by {{coltitle}}</i></i></a></th>
+                <th {% if colclass != "" %}class="{{colclass}}"{% endif %}><a href="{{ app.request.url({(sort_link):column ~ ':' ~ direction,'page':1}) }}"><span>{{coltitle}}</span><i class="fa fa-sort mr-0"></i><span class="sr-only">Sort by {{coltitle}}</span></a></th>
             {% endfor %}
           </tr>
         </thead>
@@ -99,7 +99,7 @@
         {{ value|date("Y/m/d") }}
     {% elseif type == 'boolean' %}
         {% if value %}
-            <i class="fa fa-check text-success"><span class="sr-only">True</span></i>
+            <i class="fa fa-check text-success mr-0"></i><span class="sr-only">True</span>
         {% endif %}
     {% elseif type == 'contact-subject' %}
         {% set subjects = {

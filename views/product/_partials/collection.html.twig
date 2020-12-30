@@ -287,8 +287,8 @@
 								<input id="variant-input-{{bundle.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="number" value="0" min="0" placeholder="0" name="bundles[{{ bundle.id }}]">
 							</div>
 							<div class="btn-group-vertical mr-3">
-								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase {{bundle.name}} Qty</span></i></button>
-								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease {{bundle.name}} Qty</span></i></button>
+								<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up mr-0"></i><span class="sr-only fsd1">Increase {{bundle.name}} Qty</span></button>
+								<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down mr-0"></i><span class="sr-only fsd1">Decrease {{bundle.name}} Qty</span></button>
 							</div>
 							<button type="submit" class="btn btn-lg btn-primary btn-cart flex-fill virg wait" name="action" value="cart">
 							   <span>Add <span class="sr-only">{{ bundle.name }}</span> to Cart</span>
@@ -395,7 +395,7 @@
 										<div class="input-group">
 											<input type="email" placeholder="Email Address" class="form-control form-control-eis" id="fcemailStock-{{vind.id}}">
 											<div class="input-group-append">
-												<button class="btn btn-danger btn-eis" type="button"><i class="fas fa-envelope"><span class="sr-only">Email me about {{vind.name}}</span></i></button>
+												<button class="btn btn-danger btn-eis" type="button"><i class="fas fa-envelope mr-0"></i><span class="sr-only">Email me about {{vind.name}}</span></button>
 											</div>
 										</div>
 									</div>
@@ -505,8 +505,8 @@
 							<input id="variant-input-{{product.id}}" data-limit="" class="form-control form-control-lg quantity-selector text-center" type="number" value="0" max="99" min="0" placeholder="0" name="items[{{variation.id}}]">
 						</div>
 						<div class="btn-group-vertical mr-3">
-							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up"><span class="sr-only fsd1">Increase {{ product.name }} Qty</span></i></button>
-							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down"><span class="sr-only fsd1">Decrease {{ product.name }} Qty</span></i></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-add" type="button"><i class="fa fa-chevron-up mr-0"></i><span class="sr-only fsd1">Increase {{ product.name }} Qty</span></button>
+							<button class="btn btn-default btn-xs btn-sq-xs btn-remove" type="button" disabled><i class="fa fa-chevron-down mr-0"></i><span class="sr-only fsd1">Decrease {{ product.name }} Qty</span></button>
 						</div>
 						<button id="variant-atc-{{product.id}}" type="submit" class="btn btn-lg btn-primary btn-cart flex-fill virg wait" name="action" value="cart">
 							<span>Add <span class="sr-only">{{ product.name }}</span> to Cart</span>

@@ -20,7 +20,7 @@
 								<a class="btn btn-block btn-lg js-nav-link nav-link nav-link-category text-left{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" href="{{app.url}}/category/{{items.slug}}">
 									<span>{{main_category}}</span>
 								</a>
-								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down"><span class="sr-only">Toggle {{main_category}} subcategories</span></i></button>
+								<button class="btn btn-link d-lg-none nav-link dropdown-toggle dropdown-toggle-{{items.id}} dropdown-toggle-split px-2{% if config.params['header_layout'] != "hl-one" %} text-white{% endif %}" id="dropdown-toggle-{{items.id}}" data-target=".access-navcat-{{items.id}}" data-toggle="collapse" aria-controls="access-navcat-{{items.id}}" aria-expanded="false"><i class="fa fa-angle-down mr-0"></i><span class="sr-only">Toggle {{main_category}} subcategories</span></button>
 							</div>
                             {% set navItem %}{% spaceless %}
                             <ul class="collapse dropdown-menu{% if category_all|length > 5 and loop.index > (category_all|length / 2) %} dropdown-menu-right{% endif %} access-navcat-{{items.id}}" aria-labelled-by="dropdown-toggle-{{items.id}}" id="access-navcat-{{items.id}}">

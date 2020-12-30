@@ -239,7 +239,7 @@
                 {% else %}
                     {% set class = ''%}
                 {% endif %}
-                <button class="btn btn-lg btn-blank star-rating-star {{ class }}" id="rating-star-{{ loop.index }}" type="button" data-i="{{ loop.index }}"><i class="fa fa-star"><span class="sr-only">Give {{ loop.index }} Stars</span></i></button>
+                <button class="btn btn-lg btn-blank star-rating-star {{ class }}" id="rating-star-{{ loop.index }}" type="button" data-i="{{ loop.index }}"><i class="fa fa-star mr-0"></i><span class="sr-only">Give {{ loop.index }} Stars</span></button>
             {% endfor %}
         </div>
     </div>
