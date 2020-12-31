@@ -1,0 +1,14 @@
+{
+    "name": "acenda/mia",
+    "description": "Mia Acenda theme",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Web Developers",
+            "email": "web@acenda.com"
+        }
+    ],
+    "require-dev":{
+        "deployer/deployer": "^6.8"
+    }
+}

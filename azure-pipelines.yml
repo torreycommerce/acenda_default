@@ -1,0 +1,53 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+- master
+
+pool: zcolo
+
+variables:
+  phpVersion: 7.3
+
+steps:
+- script: |
+    set -e
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get update
+    sudo apt-get install -y php7.4 php7.3 php-bcmath php-curl php-mbstring php-xml php7.3-bcmath php7.3-curl php7.3-mbstring php7.3-xml
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    sudo curl -o /usr/local/bin/composer https://getcomposer.org/composer-stable.phar
+    sudo chmod +x /usr/local/bin/composer
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+- script: composer install --no-interaction --prefer-dist
+  displayName: 'composer install'
+
+- task: DownloadSecureFile@1
+  name: id_rsa
+  displayName: 'SSH Deploy Key'
+  inputs:
+    secureFile: id_rsa
+
+- script: |
+    set -e
+    #    cp $(id_rsa.secureFilePath) $(Agent.TempDirectory)/id_rsa
+    rm -rf ~/.ssh
+    ln -s $AGENT_TEMPDIRECTORY ~/.ssh
+    chmod 600 ~/.ssh/id_rsa
+    ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.pub
+  displayName: 'Setup SSH Key'
+  condition: succeeded()
+  failOnStderr: true
+
+- script: |
+    set -xe
+    vendors/bin/dep deploy production --roles app,jobserver
+  displayName: 'Deploy Acenda Production'
+  failOnStderr: false
+  condition: succeeded()
