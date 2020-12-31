@@ -47,7 +47,7 @@ steps:
 
 - script: |
     set -xe
-    vendors/bin/dep deploy production --roles app,jobserver
-  displayName: 'Deploy Acenda Production'
+    vendor/bin/dep deploy production --roles app
+  displayName: 'Deploy Mia Production'
   failOnStderr: false
   condition: succeeded()
