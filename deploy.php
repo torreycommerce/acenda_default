@@ -36,7 +36,7 @@ task('update:cleanup', function () {
 
 desc('Create live site symlink');
 task('update:symlink', function () {
-  run('sudo ln -nsf {{release_path}} /var/www/mia');
+  run('sudo ln -nsf {{release_path}} /var/www/themes/mia');
 })->desc('Updating live site symlink');
 
 desc('Deploy your project');
