@@ -10,7 +10,7 @@ set('application', 'mia');
 set('repository', 'git@github.com:torreycommerce/mia.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true); 
+set('git_tty', false); 
 
 // Set HTTP user
 set('http_user', 'www-data');
