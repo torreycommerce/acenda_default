@@ -299,7 +299,7 @@ var slickReady = 0;
 function productSlick() {
     var spslides = 6;
     if ($('.vari-video-scase').length) spslides = 5
-    var who = $('#product-images .active').attr('data-vid');
+    var who = $('#product-images .active.variation').attr('data-vid');
     $('#slick-heroic-'+who).slick({
 		dots: false,
 		fade: true,
