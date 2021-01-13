@@ -3,32 +3,35 @@ function validateEmailAddress(email) {
 	return re.test(email);
 }
 $('.js-signup').each(function(i) {
-	$(this).prepend('<div class="input-group d-none"><label for="Nolook'+i+'">Nolook Optional</label><input id="Nolook'+i+'" type="email" class="form-control form-control-nolook" name="Nolook'+i+'"></div>');
+	$(this).prepend('<div class="input-group d-none"><label for="notSee'+i+'">notSee Optional</label><input id="notSee'+i+'" type="email" class="form-control form-control-notSee" name="notSee'+i+'"></div>');
 });
 $('body').on('keydown','.js-signup-email',function(){
 	$(this).removeClass('is-invalid');
 });
+
+function signupEmptyFail(error) {
+	$('body').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
+}
+
 $('body').on('submit','.js-signup',function(){
 	event.preventDefault();
-	var btn = $(this).find('.js-signup-btn');
-	if ( $(this).find('.form-control-nolook').val() == "" ) {
+	var thisSub = $(this);
+	var btn = thisSub.find('.js-signup-btn');
+	if ( thisSub.find('.form-control-notSee').val() == "" ) {
 		btn.prop('disabled', true).addClass('wait');
-		var email = $(this).find('.js-signup-email').val();
+		var email = thisSub.find('.js-signup-email').val();
 		if (!email || !validateEmailAddress(email)) {
-			$(this).find('.js-signup-email').addClass('is-invalid');
-			$(this).find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_fail1', function() {
-				//console.log('got fail1');
-			});
+			thisSub.find('.js-signup-email').addClass('is-invalid');
 			return false;
 		}
 		$.post(acendaBaseUrl + '/api/email', {
-			email: $(this).find('.js-signup-email').val()
-		}).done(function() {
-			$(this).find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_success', function() {
-				//console.log('got success a');
+			email: thisSub.find('.js-signup-email').val()
+		})
+		.done(function(response) {
+			thisSub.find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_success', function() {
 			});
-			//console.log(response);
-		}).fail(function(response) {
+		})
+		.fail(function(response) {
 			var error = 'undefined error';
 			
 			//console.log(response.responseJSON.error.email[0]);
@@ -38,20 +41,21 @@ $('body').on('submit','.js-signup',function(){
 				error = response.responseJSON.error.email[0];
 			}
 			
-			$(this).find('.js-signup-email').addClass('is-invalid');
+			thisSub.find('.js-signup-email').addClass('is-invalid');
 			
 			if (typeof errortype === 'string' ) {
-				$(this).find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_fail_' + errortype, function() {
-					if ($(this).find('.newsletter-response').is(':empty')) {
-						$('body').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
+				thisSub.find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_fail_' + errortype, function() {
+					if (thisSub.find('.newsletter-response').is(':empty')) {
+						signupEmptyFail(error)
 					}
 				});
 			}
 			else
 			{
-				$('body').append('<div class="flash-note alert alert-danger"><div class="modal-header"><div class="h3 modal-title">Subscription Error</div><a href="#" class="close" data-dismiss="alert" aria-label="close suscription error alert"><span aria-hidden="true">&times;</span></a></div><div class="modal-body">'+ error +'</div></div>');
+				signupEmptyFail(error)
 			}
-		}).always(function() {
+		})
+		.always(function() {
 			btn.prop('disabled', false).removeClass('wait');
 		});
 	}
