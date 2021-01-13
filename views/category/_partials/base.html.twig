@@ -25,6 +25,8 @@
 		{% set tmpfacets = tmpfacets | merge([facet | lower]) %}
     {% endfor %}
 	{% set default_attributes = tmpfacets %}
+{% else %}
+	{% set default_attributes = default_attributes|split(',') %}
 {% endif %}
 {% set limit = app.request.get.limit|default(24) %}
 
