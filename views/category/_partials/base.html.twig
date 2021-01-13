@@ -18,7 +18,7 @@
 ##
 #}
 
-{% set default_attributes = default_attributes is not defined ? "acolor,color,category_id,brand,type,gender,size,price,review_score": default_attributes %}
+{% set default_attributes = default_attributes is not defined ? "color,category_id,brand,type,gender,size,price,review_score": default_attributes %}
 {% if category.facets is not empty %}
 	{% set tmpfacets = [] %}
 	{% for facet in category.facets %}
@@ -252,7 +252,7 @@
 
 				{% set safename = name|replace({'.':'-'})  %}
 				{# Seperating each custom left nav into it's own include, ie: color chips for colors, or stars for customer reviews #}
-				{% include  '/category/_partials/filter-' ~ (name in ['acolor','product.variant.acolor','color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
+				{% include  '/category/_partials/filter-' ~ (name in ['color','product.variant.color','product.brand','price','product.variant.price','review_score','category_id'] ? name : 'default') ~ '.html.twig' %}
 				{% endif %}
 			{% endif %}
 		{% endfor %}
