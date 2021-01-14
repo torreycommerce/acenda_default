@@ -25,7 +25,6 @@ function updateCartTotals(qtyField, cartItemId) {
 		}
 		var oldQty = v2Data.find('.cart-total .price .val').text() / priceElement;
 		var changeQty = parseInt(dataQty - oldQty);
-		//console.log('changeQty: '+changeQty);
 		var absChangeQty = Math.abs(changeQty);
 		//
 		//
@@ -119,7 +118,6 @@ $('#wishlist-form .modal_list_quantity, #registry .modal_list_quantity').on('hid
 
 // Adjusts the quantity of the +/- fields
 function adjustQuantity(qtyField, increment) {
-	console.log('aQ started')
 	if (isNaN(qtyField.val())) {
 		qtyField.val(0);
 	}
@@ -134,7 +132,7 @@ function adjustQuantity(qtyField, increment) {
 	} else {
 		qtyField.val(previousValue += increment);
 	}
-	if (qtyField.val() <= min) {
+	if (qtyField.val() <= min || qtyField.val() < 1) {
 		qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 	} else {
 		qtyField.parents('.input-group').find('.btn-remove').attr('disabled',false);
@@ -157,7 +155,7 @@ function adjustQuantity(qtyField, increment) {
 				data: formData + '&action=update'
 			}).always(function() {
 				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
-				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
+				if (qtyField.val() <= qtyField.attr('min') || qtyField.val() < 1) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			});
 		} else {
 			qtyField.parents('.item').find('.error').hide();
@@ -169,9 +167,8 @@ function adjustQuantity(qtyField, increment) {
 				data: JSON.stringify({ quantity: qtyField.val() })
 			}).always(function() {
 				qtyField.parents('.input-group').find('input,button').prop('disabled',false);
-				if (qtyField.val() <= qtyField.attr('min')) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
+				if (qtyField.val() <= qtyField.attr('min') || qtyField.val() < 1) qtyField.parents('.input-group').find('.btn-remove').attr('disabled',true);
 			}).fail(function(e) {
-				console.log('errror')
 				data = $.parseJSON(e.responseText);
 				//console.log(data)
 				qtyField.val(previousValue -= increment);
@@ -185,11 +182,10 @@ function adjustQuantity(qtyField, increment) {
 				} else { // Probably a connection failure
 					qtyField.parents('.item').find('.error').html('Unknown error: could not update quantity.');
 				}
-				console.log('it reached here')
 				if(limit){
 				  if(!isNaN(limit)){
 					if(previousValue > limit){
-						console.log('was too big, qualified, set to limit: '+limit);
+						//console.log('was too big, qualified, set to limit: '+limit);
 					  qtyField.val(limit);
 					}
 				  }
@@ -205,9 +201,9 @@ function adjustQuantity(qtyField, increment) {
 			});
 		}
 	} else {
-		console.log('detect not cart page')
+		//console.log('detect not cart page')
 		if(qtyField.val() > limit) {
-			console.log('detect prod page val too high, adjust')
+			//console.log('detect prod page val too high, adjust')
 			qtyField.val(limit);
 		}
 	}
@@ -217,30 +213,30 @@ function adjustQuantity(qtyField, increment) {
 
 // +/- buttons on single page and collections
 $(document).on('click','.btn-add', function(e) {
-    console.log('ran 1')
+    //console.log('ran 1')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), 1);
 });
 $(document).on('click','.btn-remove', function(e) {
-    console.log('ran 2')
+    //console.log('ran 2')
 	e.preventDefault();
 	adjustQuantity($(this).parent().parent().find('.quantity-selector'), -1);
 });
 
 $(document).on('focusin','.quantity-selector', function() {
-    console.log("Saving value " + $(this).val());
+    //console.log("Saving value " + $(this).val());
     $(this).data('cur', $(this).val());
 });
 // Hitting the enter key on the add quantity fields
 $(document).on('change','.quantity-selector', function() {
-    console.log('ran 3')
+    //console.log('ran 3')
 	adjustQuantity($(this), 0); // Quantity was adjusted externally
 });
 $(document).on('keypress','.quantity-selector', function(e) {
 	// Run adjust quantity action when numbers are entered in field
 	if (e.which == 13)
 	{
-	       console.log('ran 4')
+	    //console.log('ran 4')
 		e.preventDefault();
 		adjustQuantity($(this), 0); // Quantity was adjusted externally
 	}
@@ -292,4 +288,3 @@ $('.btn-remove-all').click(function(e) {
 $(document).ready(function() {
    updateCartTotals($(''),0);
 })
-
