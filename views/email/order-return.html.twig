@@ -40,7 +40,7 @@
         				        <img {{ ema.prodImgB() }} src="{{product.thumbnail}}" {{ ema.prodImgC() }}>
         				    </td>
         				    <td {{ ema.prodImgD() }}>
-            				    <a href="{{app.url}}{{product.url}}" {{ ema.linkForm() }}><strong>{{item.name}}</strong></a>
+            				    <a href="{{app.params.url.current}}{{product.url}}" {{ ema.linkForm() }}><strong>{{item.name}}</strong></a>
             				    <br><strong>RMA:</strong> #{{return.rma}}
             				    {% if item.sku is not empty %}<br><strong>SKU:</strong> {{item.sku}}{% endif %}
             					<br><strong>Qty:</strong> {{return.quantity}}

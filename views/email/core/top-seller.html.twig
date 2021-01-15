@@ -56,7 +56,7 @@
 					<table {{ ema.tform() }}>
 						<tr>
 							<td {{ ema.comformA() }}>
-								<a href="{{app.url}}/product/{{product.slug}}" {{ ema.linkForm() }}><img src="{{ img_url }}" width="120" height="120" border="0" alt="" style="display:block;">
+								<a href="{{app.params.url.current}}/product/{{product.slug}}" {{ ema.linkForm() }}><img src="{{ img_url }}" width="120" height="120" border="0" alt="" style="display:block;">
 								<br><strong>{{ product.title|striptags|slice(0, 50) }}</strong></a>
 								<br>{{ prod.price(product.attributes.price) }}
 							</td>

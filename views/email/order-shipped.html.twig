@@ -94,7 +94,7 @@
 				                <img {{ ema.prodImgB() }} src="{{product.thumbnail}}" {{ ema.prodImgC() }}>
         				    </td>
         				    <td {{ ema.prodImgD() }}>
-            					<a href="{{ params['url']['current']}}{{product.url}}" {{ ema.linkForm() }}><strong>{{ item.name }}</strong></a>
+            					<a href="{{app.params.url.current}}{{product.url}}" {{ ema.linkForm() }}><strong>{{ item.name }}</strong></a>
 								{% if item.sku is not empty %}<br><strong>SKU:</strong> {{item.sku}}{% endif %}
 								{% if item.personalization is not empty %}{% for personalization in item.personalization %}
 								<br>{{personalization.name}}: {{personalization.value}}

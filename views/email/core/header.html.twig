@@ -22,7 +22,7 @@
 		<table {{ ema.tform() }}>
 			<tr>
 				<td align="center">
-					<a href="{{app.url}}">
+					<a href="{{app.params.url.current}}">
                         {% if logo is not empty %}
                             <img src="{{logo}}"{% if config.params['logo-width'] is defined %} width="{{config.params['logo-width']}}"{% endif %}{% if config.params['logo-height'] is defined %} height="{{config.params['logo-height']}}"{% endif %} border="0" alt="" style="display:block;">
                         {% else %}
