@@ -1,5 +1,5 @@
 function validateEmailAddress(email) {
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return re.test(email);
 }
 $('.js-signup').each(function(i) {
@@ -27,7 +27,7 @@ $('body').on('submit','.js-signup',function(){
 		$.post(acendaBaseUrl + '/api/email', {
 			email: thisSub.find('.js-signup-email').val()
 		})
-		.done(function(response) {
+		.done(function() {
 			thisSub.find('.newsletter-response').load(acendaBaseUrl+'/account/alerts #sub_success', function() {
 			});
 		})

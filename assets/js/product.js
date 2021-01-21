@@ -110,9 +110,7 @@ function VariantsManager (product, img, isCollection) {
 		//console.log('setSelIma')
 
 		if(standard_img_url){
-			if(!this.isCollection) {
-				//$('#main-product-image').attr('src', standard_img_url).attr('data-image-zoom', large_img_url).attr('alt', img_alt);
-			} else {
+			if(this.isCollection) {
 				$('#variant-selected-image-'+this.product_id+' img').attr('src', standard_img_url);
 			}
 
@@ -156,13 +154,8 @@ function VariantsManager (product, img, isCollection) {
 		for (key in images) {
 			var id = images[key].id;
 			var standard_img_url = this.getImageUrl(id,'standard');
-			var large_img_url = this.getImageUrl(id,'large');
 			var retina_img_url = this.getImageUrl(id,'retina');
 
-			if (typeof images[key].alt !== 'undefined')
-				var img_alt = images[key].alt;
-			else
-				var img_alt = '';
 			//on first iteration set main image
 			if (i == 0){
 				if(this.currentImage != id){

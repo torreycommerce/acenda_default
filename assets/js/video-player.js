@@ -1,9 +1,9 @@
-(function($){
+(function(){
     initVideoPlayer();
 }( window.jQuery ));
 
 function youtubeUrlToId (url) {
-    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     var match = url.match(regExp);
     if (match&&match[7].length==11){
         return match[7];
@@ -13,7 +13,7 @@ function youtubeUrlToId (url) {
 }
 
 function vimeoUrlToId (url) {
-    var regExp = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+    var regExp = /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
     var match = url.match(regExp);
     if (match){
         if (match[3]){
@@ -38,8 +38,6 @@ function initVideoPlayer(b){
     $("[data-video-src]").each(function() {
         var url = $(this).attr("data-video-src");
         var el = $(this);
-        var title = 'Video Title';
-        var thumbnail = '';
 
         if(id = youtubeUrlToId(url)) {
 			if(b) {

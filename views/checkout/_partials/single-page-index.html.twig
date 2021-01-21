@@ -293,10 +293,8 @@
 	{% if api.get('/order/platform').platform == 'Stripe' %}
 	    {{ app.asset.js('https://js.stripe.com/v3/') }}
 	{% endif %}
-{#     {{ app.asset.js(assets_url ~ '/assets/js/jquery-3.3.1.min.js',0) }} #}
     {{ app.asset.js(assets_url ~ '/assets/js/underscore-min.js',0) }}
     {{ app.asset.js(assets_url ~ '/assets/js/backbone-min.js',0) }}
-    {{ app.asset.js(assets_url ~ '/assets/js/sticky-kit.min.js') }}
     {{ app.asset.js(assets_url ~ '/assets/js/popper-1.14.3.min.js') }}
 	{{ app.asset.js(assets_url ~ '/assets/js/moment-with-locales.min.js') }}
     {{ app.asset.js(assets_url ~ '/assets/js/checkoutbb/models/customer.js') }}
