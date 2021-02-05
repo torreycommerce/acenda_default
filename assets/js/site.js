@@ -114,6 +114,7 @@ $('body').on('mouseenter','.add-access > .js-dropdown',function(){
 $('body').on('mouseleave','.add-access > .js-dropdown',function(){
 	if (window.innerWidth > 991.98) {
 		addAccessHide($(this))
+		navWait($(this))
 	}
 })
 
