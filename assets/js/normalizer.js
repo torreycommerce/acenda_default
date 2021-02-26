@@ -68,7 +68,7 @@ jQuery.fn.attachNormalizer = function(options) {
                 data: form.processed,
                 dataType: 'json'
             })
-            .fail(function(data) {
+            .fail(function() {
                 $(options.addressFoundSelector).hide();
                 $(options.addressNotFoundSelector).show();
             })
@@ -93,7 +93,7 @@ jQuery.fn.attachNormalizer = function(options) {
                         $(options.addressNotFoundSelector).hide();
                     }
             })
-            .always(function(data) {
+            .always(function() {
                 $(options.normalizerLoader).hide();
                 form.normalized = true;
             });

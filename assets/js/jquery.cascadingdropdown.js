@@ -9,7 +9,7 @@
  *   http://www.opensource.org/licenses/MIT
  */
 
-(function ($, undefined) {
+(function ($, u) {
     'use strict';
 
     var defaultOptions = {
@@ -45,7 +45,7 @@
             }
 
             if(self.requiredDropdowns) {
-                self.requiredDropdowns.change(function(event) {
+                self.requiredDropdowns.change(function() {
                     self.update();
                 });
             }
@@ -175,7 +175,7 @@
             return self.el;
         },
 
-        _response: function(items) {
+        _response: function() {
             var self = this;
 
             return function(items) {
@@ -303,7 +303,7 @@
             }
 
             // Init dropdowns
-            $.each(self.options.selectBoxes, function(index, item) {
+            $.each(self.options.selectBoxes, function() {
                 // Create the instance
                 var instance = new Dropdown(this, self);
 

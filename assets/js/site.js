@@ -74,7 +74,7 @@ $(document).ready(function() {
 	$('.img-product[src*="product/image.svg"]').parents('.image-space').addClass('bg-light')
 	//
 	if ($('.nav-delay').length) {
-		$('html').on('mouseenter focusin','body',function(e){
+		$('html').on('mouseenter focusin','body',function(){
 			if ($('.nav-delay').length) {
 				lazyNav()
 			}

@@ -1,5 +1,4 @@
 function initCountryOpts() {
-	var saveValue = $('#country').attr('data-value');
 
 	if (newCountry) {
 		$('#country').prepend('<option disabled selected value>Select a Country</option>')
