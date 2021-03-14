@@ -1,7 +1,7 @@
 $('[id^=couponrule_values]').parents('.form-group').hide();
 $('#couponrule_operation').parents('.form-group').hide();
 $('.form-coupon').cascadingDropdown({
-    onReady: function(event, allValues) {
+    onReady: function() {
         var rule_id = $('[name=couponrule\\[id\\]').val();
         if (rule_id == '') {
             return;
@@ -31,7 +31,7 @@ $('.form-coupon').cascadingDropdown({
             selector: '#couponrule_name',
             source: function(request, response) {
                 $.getJSON(acendaBaseUrl + '/api/couponrule/name', request, function(data) {
-                    response($.map(data.result, function(item, index) {
+                    response($.map(data.result, function(item) {
                         return {
                             label: item.label,
                             value: item.value,
@@ -43,7 +43,7 @@ $('.form-coupon').cascadingDropdown({
         {
             selector: '#couponrule_operation',
             requires: ['#couponrule_name'],
-            source: function(request, response) {
+            source: function(request) {
                 $.getJSON(acendaBaseUrl + '/api/couponrule/rule', request, function(data) {
                     if (data.result.operations) {
                         $('#couponrule_operation').parents('.form-group').show();

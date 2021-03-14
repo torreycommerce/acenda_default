@@ -9,7 +9,7 @@
  *   http://www.opensource.org/licenses/MIT
  */
 
-(function ($, u) {
+(function ($) {
     'use strict';
 
     var defaultOptions = {

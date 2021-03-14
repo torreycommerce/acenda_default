@@ -51,8 +51,6 @@ b,c){a=a.replace(/[ -]/g,"");var d,f,e;b=0;e=a.split("").reverse();c=d=0;for(f=e
 luhn:"This value should pass the luhn test.",americandate:"This value should be a valid date (MM/DD/YYYY)."}})})(window.jQuery||window.Zepto);
 
 /* site-parsley.js */
-var limit_feed = ["text", "tel", "email", "password", "url", "datetime", "time", "number"];
-
 $('form').each(function() {
 	$(this).parsley({
 		successClass: 'is-valid',
@@ -65,14 +63,14 @@ $('form').each(function() {
 			errorElem: ''
 		},
 		listeners: {
-			onFieldError: function ( elem, constraints, ParsleyField ) {
+			onFieldError: function ( elem ) {
 				if (!elem.parents('form').hasClass('was-validated'))
 					elem.parents('form').addClass('was-validated');
 
 				elem.attr("data-original-title", elem[0].validationMessage);
 				elem.tooltip("show");
 			},
-			onFieldSuccess: function ( elem, constraints, ParsleyField ) {
+			onFieldSuccess: function ( elem ) {
 				if (!elem.parents('form').hasClass('was-validated'))
 					elem.parents('form').addClass('was-validated');
 				elem.tooltip("dispose");

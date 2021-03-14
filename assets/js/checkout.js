@@ -1,6 +1,5 @@
 $(function() {
     var form = $('form[name=checkout],form[name=express],form[name=shipping]');
-    var formName = form.attr('name');
     var stepName = $('input[name=step]').val(); // Gets the form prefix
     form.attachNormalizer({formPrefix:stepName});
 
@@ -69,7 +68,7 @@ $(function() {
         ($('#express_shipping_address_id').val() != '' &&
         $('#express_shipping_address_id').val() != undefined)) {
         $('#custom-address').hide();
-        $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function(index, elm) {
+        $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function() {
             $(this).parsley('removeConstraint','required');
         });
     }
@@ -78,7 +77,7 @@ $(function() {
     $('#checkout_shipping_address_id, #checkout_billing_address_id, #express_shipping_address_id').change(function() {
         if ($(this).val() != '') {
             $('#custom-address').slideUp();
-            $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function(index, elm) {
+            $('#custom-address input[type="text"], #custom-address input[type="tel"]').each(function() {
                 $(this).parsley('removeConstraint','required');
             });
         } else {
@@ -125,7 +124,7 @@ $(function() {
     var setupCouponButtons = function () {
         $('button.remove-coupon').on('click',function() {
             var remId = $(this).attr('id').split('-')[2];
-            $.post(acendaBaseUrl + '/cart/ajax.json', {cart: { action: 'removecoupon/' + remId}},function(data) {            
+            $.post(acendaBaseUrl + '/cart/ajax.json', {cart: { action: 'removecoupon/' + remId}},function() {            
                 $('div#summary-well').load(acendaBaseUrl + '/checkout/summary-ajax?step='+acendaCheckoutStep,function() {
                     updateEstimates();
                 });      

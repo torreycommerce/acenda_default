@@ -54,7 +54,7 @@ function getDeliveryEstimates(shipping_methods) {
             $('tr[data-method="' +  method.id + '"] .spinner').hide();
         })
     });
-} 
+}
 function refreshShippingMethods() {
     if(typeof cartData === 'undefined' || cartData == null) {
         setTimeout(refreshShippingMethods,200);
