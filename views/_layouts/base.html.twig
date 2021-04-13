@@ -99,6 +99,7 @@ var acendaBaseThemeUrl = '{{app.url_asset}}';
 var acendaIsLoggedIn = {% if app.user.email %}true{% else %}false{% endif %} ;
 var acendaPaymentPlatform = '{{ api.get('/order/platform').platform }}';
 var acendaImgManager = {tW:"{{imgThumbnailWidth}}",tH:"{{imgThumbnailHeight}}",sW:"{{imgStandardWidth}}",sH:"{{imgStandardHeight}}",rW:"{{imgRetinaWidth}}",rH:"{{imgRetinaHeight}}"};
+var shippingByWeight ='{{app.params.use_shipping_rates_by_weight}}';
 </script>
 <script>
 {% block acenda %}
