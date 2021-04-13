@@ -31,49 +31,49 @@ function getTaxEstimates() {
 }
 function getDeliveryEstimates(shipping_methods) {
     if (!$('[name="cart[shipping_zip]"]').val()) return;
-    shipping_methods.forEach(function (method) {
-        console.log('getting estimate for ' + method.id);
-        $('tr[data-method="' + method.id + '"] .spinner').show();
-        $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier=' + method.carrier_name).done(function (data) {
-            var estimates = data.result;
-            $.each(estimates, function (ek, estimate) {
-                if (typeof estimate.estimate == 'undefined') return;
-                var estimate_string = moment(estimate.estimate).calendar(null, {
-                    sameDay: 'By [Today]',
-                    nextDay: 'By [Tomorrow], MM/DD',
-                    nextWeek: 'By dddd, MM/DD',
-                    lastDay: '[Yesterday], MM/DD',
-                    lastWeek: '[Last] dddd, MM/DD',
-                    sameElse: 'By MM/DD/YYYY'
+    if(shippingByWeight){
+        if(!$('[name="cart[shipping_zip]"]').val()) return;
+        console.log(shipping_methods);
+        shipping_methods.forEach(function(method) {
+            console.log('getting estimate for ' + method.id);
+            $('tr[data-method="' +  method.id + '"] .spinner').show(); 
+                var estimates = method.date_range;
+                $.each(estimates,function(ek,estimate){
+                    if(typeof estimate == 'undefined') return;
+                    var estimate_string = moment(estimate).calendar(null, {
+                        sameDay: 'By [Today]',
+                        nextDay: 'By [Tomorrow], MM/DD',
+                        nextWeek: 'By dddd, MM/DD',
+                        lastDay: '[Yesterday], MM/DD',
+                        lastWeek: '[Last] dddd, MM/DD',
+                        sameElse: 'By MM/DD/YYYY'
+                    });
                 });
-            });
-        }).always(function () {
-            $('tr[data-method="' + method.id + '"] .spinner').hide();
-        })
-    });
+         $('tr[data-method="' +  method.id + '"] .spinner').hide();
+        });
+    }else{
+        shipping_methods.forEach(function (method) {
+            console.log('getting estimate for ' + method.id);
+            $('tr[data-method="' + method.id + '"] .spinner').show();
+            $.get(acendaBaseUrl + '/api/shippingtools/deliveryestimates/?carrier=' + method.carrier_name).done(function (data) {
+                var estimates = data.result;
+                $.each(estimates, function (ek, estimate) {
+                    if (typeof estimate.estimate == 'undefined') return;
+                    var estimate_string = moment(estimate.estimate).calendar(null, {
+                        sameDay: 'By [Today]',
+                        nextDay: 'By [Tomorrow], MM/DD',
+                        nextWeek: 'By dddd, MM/DD',
+                        lastDay: '[Yesterday], MM/DD',
+                        lastWeek: '[Last] dddd, MM/DD',
+                        sameElse: 'By MM/DD/YYYY'
+                    });
+                });
+            }).always(function () {
+                $('tr[data-method="' + method.id + '"] .spinner').hide();
+            })
+        });
+    }
 }
-
-function getDeliveryEstimates(shipping_methods) {
-    if(!$('[name="cart[shipping_zip]"]').val()) return;
-    console.log(shipping_methods);
-    shipping_methods.forEach(function(method) {
-        console.log('getting estimate for ' + method.id);
-        $('tr[data-method="' +  method.id + '"] .spinner').show(); 
-            var estimates = method.date_range;
-            $.each(estimates,function(ek,estimate){
-                if(typeof estimate == 'undefined') return;
-                var estimate_string = moment(estimate).calendar(null, {
-                    sameDay: 'By [Today]',
-                    nextDay: 'By [Tomorrow], MM/DD',
-                    nextWeek: 'By dddd, MM/DD',
-                    lastDay: '[Yesterday], MM/DD',
-                    lastWeek: '[Last] dddd, MM/DD',
-                    sameElse: 'By MM/DD/YYYY'
-                });
-            });
-     $('tr[data-method="' +  method.id + '"] .spinner').hide();
-    });
-} 
 
 function refreshShippingMethods() {
     if (typeof cartData === 'undefined' || cartData == null) {
