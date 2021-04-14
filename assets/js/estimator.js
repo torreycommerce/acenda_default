@@ -30,10 +30,10 @@ function getTaxEstimates() {
     return false;
 }
 function getDeliveryEstimates(shipping_methods) {
+    
     if (!$('[name="cart[shipping_zip]"]').val()) return;
     if(shippingByWeight){
         if(!$('[name="cart[shipping_zip]"]').val()) return;
-        console.log(shipping_methods);
         shipping_methods.forEach(function(method) {
             console.log('getting estimate for ' + method.id);
             $('tr[data-method="' +  method.id + '"] .spinner').show(); 
@@ -83,8 +83,15 @@ function refreshShippingMethods() {
     var shipping_method_tpl = _.template($('#shipping-methods-template').html());
     var defer_methods = [];
     if (shippingByWeight) {
-        shipping_methods = cartData.shipping_methods;
+    
+        
+    $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function(data) {
+        shipping_methods = data.result;
+         if(cartData.shipping_methods){
+            shipping_methods = cartData.shipping_methods;
+         }
         shipping_methods.forEach(function (method, k) {
+            console.log(method.shipping_rate);
             shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
             shipping_methods[k].carrier_method = "Carrier Method";
             shipping_methods[k].carrier_name = "Carrier Method";
@@ -113,6 +120,7 @@ function refreshShippingMethods() {
     
             });            
         });
+    });
     } else {
         $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function(data) {
             shipping_methods = data.result;   
