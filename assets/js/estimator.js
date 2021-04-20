@@ -91,12 +91,16 @@ function refreshShippingMethods() {
                 shipping_methods = cartData.shipping_methods;
             }
             shipping_methods.forEach(function (method, k) {
-                shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
+                if(method.bottom_days_range){
+                    shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
+                }
+                if(method.top_days_range){
+                    shipping_methods[k].top_days_range = method.top_days_range.toString();
+                }
                 shipping_methods[k].carrier_method = "Carrier Method";
                 shipping_methods[k].carrier_name = "Carrier Method";
                 shipping_methods[k].delivery_estimates = "manual";
                 shipping_methods[k].status = 'active';
-                shipping_methods[k].top_days_range = method.top_days_range.toString();
                 shipping_methods[k].rule_by = 'bottom_price';
                 defer_methods.push(k);
                 if (method.shipping_rate) {
