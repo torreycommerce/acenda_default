@@ -30,28 +30,28 @@ function getTaxEstimates() {
     return false;
 }
 function getDeliveryEstimates(shipping_methods) {
-    
+
     if (!$('[name="cart[shipping_zip]"]').val()) return;
-    if(shippingByWeight){
-        if(!$('[name="cart[shipping_zip]"]').val()) return;
-        shipping_methods.forEach(function(method) {
+    if (shippingByWeight) {
+        if (!$('[name="cart[shipping_zip]"]').val()) return;
+        shipping_methods.forEach(function (method) {
             console.log('getting estimate for ' + method.id);
-            $('tr[data-method="' +  method.id + '"] .spinner').show(); 
-                var estimates = method.date_range;
-                $.each(estimates,function(ek,estimate){
-                    if(typeof estimate == 'undefined') return;
-                    var estimate_string = moment(estimate).calendar(null, {
-                        sameDay: 'By [Today]',
-                        nextDay: 'By [Tomorrow], MM/DD',
-                        nextWeek: 'By dddd, MM/DD',
-                        lastDay: '[Yesterday], MM/DD',
-                        lastWeek: '[Last] dddd, MM/DD',
-                        sameElse: 'By MM/DD/YYYY'
-                    });
+            $('tr[data-method="' + method.id + '"] .spinner').show();
+            var estimates = method.date_range;
+            $.each(estimates, function (ek, estimate) {
+                if (typeof estimate == 'undefined') return;
+                var estimate_string = moment(estimate).calendar(null, {
+                    sameDay: 'By [Today]',
+                    nextDay: 'By [Tomorrow], MM/DD',
+                    nextWeek: 'By dddd, MM/DD',
+                    lastDay: '[Yesterday], MM/DD',
+                    lastWeek: '[Last] dddd, MM/DD',
+                    sameElse: 'By MM/DD/YYYY'
                 });
-         $('tr[data-method="' +  method.id + '"] .spinner').hide();
+            });
+            $('tr[data-method="' + method.id + '"] .spinner').hide();
         });
-    }else{
+    } else {
         shipping_methods.forEach(function (method) {
             console.log('getting estimate for ' + method.id);
             $('tr[data-method="' + method.id + '"] .spinner').show();
@@ -83,68 +83,69 @@ function refreshShippingMethods() {
     var shipping_method_tpl = _.template($('#shipping-methods-template').html());
     var defer_methods = [];
     if (shippingByWeight) {
-    
-        
-    $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function(data) {
-        shipping_methods = data.result;
-         if(cartData.shipping_methods){
-            shipping_methods = cartData.shipping_methods;
-         }
-        shipping_methods.forEach(function (method, k) {
-            console.log(method.shipping_rate);
-            shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
-            shipping_methods[k].carrier_method = "Carrier Method";
-            shipping_methods[k].carrier_name = "Carrier Method";
-            shipping_methods[k].delivery_estimates = "manual";
-            shipping_methods[k].price = method.shipping_rate;
-            shipping_methods[k].status = 'active';
-            shipping_methods[k].top_days_range = method.top_days_range.toString();
-            shipping_methods[k].rule_by = 'bottom_price';
-            defer_methods.push(k);
-            defer_methods[k].rate = method.shipping_rate;
-            defer_methods[k].date_range = [method.shipping_estimate_start, method.shipping_estimate_end];
-        });
-         $.when.apply($,defer_methods).then(function() {
-            $('#shipping-method-selection').html(shipping_method_tpl({methods: shipping_methods, current_method: cartData.shipping_method}));
-            getDeliveryEstimates(shipping_methods);               
-            $('[name="shipping_method"]').change(function() {
-                var shipping_method = $('[name="shipping_method"]:checked').val();
-                $.post(acendaBaseUrl + '/api/cart',{
-                    'shipping_method':shipping_method
-                }, 'json')
-                .done(function() {
-                    if(typeof updateCartTotals !== 'undefined') {
-                        updateCartTotals($(''),0);                        
-                    }    
+
+
+        $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function (data) {
+            shipping_methods = data.result;
+            if (cartData.shipping_methods) {
+                shipping_methods = cartData.shipping_methods;
+            }
+            shipping_methods.forEach(function (method, k) {
+                shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
+                shipping_methods[k].carrier_method = "Carrier Method";
+                shipping_methods[k].carrier_name = "Carrier Method";
+                shipping_methods[k].delivery_estimates = "manual";
+                shipping_methods[k].status = 'active';
+                shipping_methods[k].top_days_range = method.top_days_range.toString();
+                shipping_methods[k].rule_by = 'bottom_price';
+                defer_methods.push(k);
+                if (method.shipping_rate) {
+                    shipping_methods[k].price = method.shipping_rate;
+                    defer_methods[k].rate = method.shipping_rate;
+                }
+                defer_methods[k].date_range = [method.shipping_estimate_start, method.shipping_estimate_end];
+            });
+            $.when.apply($, defer_methods).then(function () {
+                $('#shipping-method-selection').html(shipping_method_tpl({ methods: shipping_methods, current_method: cartData.shipping_method }));
+                getDeliveryEstimates(shipping_methods);
+                $('[name="shipping_method"]').change(function () {
+                    var shipping_method = $('[name="shipping_method"]:checked').val();
+                    $.post(acendaBaseUrl + '/api/cart', {
+                        'shipping_method': shipping_method
+                    }, 'json')
+                        .done(function () {
+                            if (typeof updateCartTotals !== 'undefined') {
+                                updateCartTotals($(''), 0);
+                            }
+                        });
+
                 });
-    
-            });            
+            });
         });
-    });
     } else {
-        $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function(data) {
-            shipping_methods = data.result;   
-            shipping_methods.forEach(function(method,k) {
-                defer_methods[k]=$.post(acendaBaseUrl + '/api/shippingmethod/' + method.id +  '/rate',{total: cartData.subtotal,quantity: cartData.item_count}, function(response) {
+        $.get(acendaBaseUrl + '/api/shippingmethod/byregion?country=US', function (data) {
+            shipping_methods = data.result;
+            shipping_methods.forEach(function (method, k) {
+                defer_methods[k] = $.post(acendaBaseUrl + '/api/shippingmethod/' + method.id + '/rate', { total: cartData.subtotal, quantity: cartData.item_count }, function (response) {
                     shipping_methods[k].price = response.result.rate;
                 })
             });
-    
-            $.when.apply($,defer_methods).then(function() {
-                $('#shipping-method-selection').html(shipping_method_tpl({methods: shipping_methods, current_method: cartData.shipping_method}));
-                getDeliveryEstimates(shipping_methods);               
-                $('[name="shipping_method"]').change(function() {
+
+            $.when.apply($, defer_methods).then(function () {
+                $('#shipping-method-selection').html(shipping_method_tpl({ methods: shipping_methods, current_method: cartData.shipping_method }));
+                getDeliveryEstimates(shipping_methods);
+                $('[name="shipping_method"]').change(function () {
                     var shipping_method = $('[name="shipping_method"]:checked').val();
-                    $.post(acendaBaseUrl + '/api/cart',{
-                        'shipping_method':shipping_method
+                    $.post(acendaBaseUrl + '/api/cart', {
+                        'shipping_method': shipping_method
                     }, 'json')
-                    .done(function() {
-                        if(typeof updateCartTotals !== 'undefined') {
-                            updateCartTotals($(''),0);                        
-                        }    
-                    });
-        
-                });            
+                        .done(function () {
+                            if (typeof updateCartTotals !== 'undefined') {
+                                updateCartTotals($(''), 0);
+                            }
+                        });
+
+                });
             });
         });
     }

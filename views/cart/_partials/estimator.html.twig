@@ -44,7 +44,7 @@
 			    <tr data-method="<%= method.id %>">
 			        <td><div class="custom-control custom-radio"><input <%= (method.id == current_method)?'checked':''  %> type="radio" class="custom-control-input" id="method_<%= method.id %>_input" name="shipping_method" value="<%= method.id %>" data-carrier="<%= method.carrier_name %>" ><label class="custom-control-label" for="method_<%= method.id %>_input"><%= method.name %></label></div></td>
 			        <td class="estimate-column text-right"><i class="fa fa-circle-notch fa-spin spinner" style="display:none;"></i><span class="wsnw" data-carrier-method="<%= method.carrier_method %>"><% if(method.bottom_days_range && method.top_days_range) { %><%= method.bottom_days_range %> - <%= method.top_days_range %> days <% } %></span></td>
-			        <td class="shrink text-right">$<%= method.price %></td>
+			        <td class="shrink text-right"><% if(method.price) { %>$<%= method.price %><% } %></td>
 			    </tr>
 			    <% } %>
 	    <% }) %>
