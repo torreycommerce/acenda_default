@@ -94,7 +94,7 @@ function refreshShippingMethods() {
                 if(method.bottom_days_range){
                     shipping_methods[k].bottom_days_range = method.bottom_days_range.toString();
                 }
-                if(method.bottom_days_range){
+                if(method.top_days_range){
                     shipping_methods[k].top_days_range = method.top_days_range.toString();
                 }
                 shipping_methods[k].carrier_method = "Carrier Method";
