@@ -73,7 +73,7 @@
             {% for stars in 0..4 %}
                 <span class="fa fa-star"></span>
             {% endfor %}
-            <div class="active" style="width: {{ (score*100)|number_format }}%">
+			<div class="active" style="width: {{ min(100, (score*100)|number_format) }}%">
                 {% for stars in 0..4 %}
                     <span class="fa fa-star"></span>
                 {% endfor %}
